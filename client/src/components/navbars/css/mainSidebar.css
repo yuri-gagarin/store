@@ -1,0 +1,26 @@
+#mainNavSidebar {
+  height: 100vh;
+  background-color: white;
+}
+
+#mainSidebarClose {
+  background-color: #AFD275;
+  color: white;
+  font-weight: bold;
+  font-size: 1.25em;
+}
+#mainSidebarClose > i {
+  color: white;
+}
+.item.mainSidebarItem {
+  border: 1px solid #AFD275;
+}
+.item.mainSidebarItem:hover {
+  background-color: #AFD275 !important;
+}
+.item.mainSidebarItem > i {
+  color:rgba(151, 43, 54, 0.836);
+}
+.item.mainSidebarItem > span {
+  color:rgba(151, 43, 54, 0.904);
+}

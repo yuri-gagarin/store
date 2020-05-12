@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Icon, Menu, Segment, Sidebar } from 'semantic-ui-react';
-
-import TopNavbar from "../navbars/TopNav"
+// styling and overrides //
+import "./css/mainSidebar.css";
+// additional components //
+import TopNavbar from "../navbars/TopNav";
 import HomeScreenComponent from "../home_screen/HomeScreenComponent";
 
 const MainNavSideBar: React.FC<{}> = (props): JSX.Element => {
-  const [ menuOpen, setMenuOpen ] = useState(false);
+  const [ menuOpen, setMenuOpen ] = useState(true);
 
   const handleSidebarClose = (e: React.MouseEvent): void => {
     setMenuOpen(false);
@@ -16,31 +18,46 @@ const MainNavSideBar: React.FC<{}> = (props): JSX.Element => {
   };
 
   return (
-    <Sidebar.Pushable as={Segment} style={{ height: "100vh" }}>
+    <Sidebar.Pushable 
+      as={Segment} 
+      style={{ height: "100vh" }}
+    >
       <Sidebar
         as={Menu}
+        id="mainNavSidebar"
         animation='overlay'
         icon='labeled'
-        inverted
         vertical
         visible={menuOpen}
         width='wide'
       >
-        <Menu.Item as='a' onClick={handleSidebarClose}>
+        <Menu.Item 
+          as='a' 
+          id="mainSidebarClose"
+          onClick={handleSidebarClose}
+        >
           <Icon name='close'/>
-          Close
+          <span>Close</span>
         </Menu.Item>
-        <Menu.Item as='a'>
+        <Menu.Item as='a' className="mainSidebarItem">
           <Icon name='home'/>
-          Home
+          <span>Home</span>
         </Menu.Item>
-        <Menu.Item as='a'>
-          <Icon name='gamepad' />
-          Games
+        <Menu.Item as='a' className="mainSidebarItem">
+          <Icon name='shopping cart' />
+          <span>Browse Store</span>
         </Menu.Item>
-        <Menu.Item as='a'>
+        <Menu.Item as='a' className="mainSidebarItem">
+          <Icon name='star' />
+          <span>Browse Specials</span>
+        </Menu.Item>
+        <Menu.Item as='a' className="mainSidebarItem">
           <Icon name='camera' />
-          Channels
+          <span>Browse Additional</span>
+        </Menu.Item>
+        <Menu.Item as='a' className="mainSidebarItem">
+          <Icon name='phone' />
+          <span>Contact</span>
         </Menu.Item>
       </Sidebar>
 
