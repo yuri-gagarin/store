@@ -1,3 +1,8 @@
+/* desktop top navbar custom styling and overrides */
+#mainMenuBtn > i {
+  padding-left: 15px;
+  font-size: 2em;
+}
 .ui.menu.desktopMenu {
   background: white;
 }
@@ -7,11 +12,43 @@ a.item.menuItem {
 }
 .item.menuItem > i {
   font-size: 1.5em;
-  padding-left: 12px;
   color: rgb(152, 190, 89);
 }
 .item.menuItem.active {
   font-style: italic;
   background-color: #AFD275 !important;
   color: white !important;
+}
+
+/* mobile navbar custom styling */
+
+#mobileNavbar {
+  margin-bottom: 0px;
+}
+#mobileTopMenuOpen {
+  border: 1px solid rgb(152, 190, 89); 
+  border-radius: 4px;
+  font-size: 1.5em;
+}
+#mobileTopMenuOpen > i {
+  padding-left: 25%;
+}
+#mobileTopMenuClose {
+  border: 1px solid rgb(152, 190, 89); 
+  font-size: 1.5em;
+  background-color: #AFD275;
+}
+#mobileTopMenuClose > i {
+  color: white;
+}
+.ui.menu.topInvisible {
+  display: none;
+}
+.item.mobileMenuItem {
+  border: 1px solid rgb(152, 190, 89); 
+  font-size: 1.75em;
+}
+.item.mobileMenuItem > i {
+  font-weight: bold;
+  color: rgb(152, 190, 89);
 }

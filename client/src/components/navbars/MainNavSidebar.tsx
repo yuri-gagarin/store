@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { Icon, Menu, Segment, Sidebar } from 'semantic-ui-react';
 
+import TopNavbar from "../navbars/TopNav"
+import HomeScreenComponent from "../home_screen/HomeScreenComponent";
 
 const MainNavSideBar: React.FC<{}> = (props): JSX.Element => {
   const [ menuOpen, setMenuOpen ] = useState(false);
 
-  const handleMenuClose = (e: React.MouseEvent): void => {
+  const handleSidebarClose = (e: React.MouseEvent): void => {
     setMenuOpen(false);
+  };
+
+  const handleSidebarOpen = (e: React.MouseEvent): void => {
+    setMenuOpen(true);
   };
 
   return (
@@ -20,7 +26,7 @@ const MainNavSideBar: React.FC<{}> = (props): JSX.Element => {
         visible={menuOpen}
         width='wide'
       >
-        <Menu.Item as='a' onClick={handleMenuClose}>
+        <Menu.Item as='a' onClick={handleSidebarClose}>
           <Icon name='close'/>
           Close
         </Menu.Item>
@@ -39,7 +45,9 @@ const MainNavSideBar: React.FC<{}> = (props): JSX.Element => {
       </Sidebar>
 
       <Sidebar.Pusher>
-        {props.children}
+        <TopNavbar handleSidebarOpen={handleSidebarOpen}>
+          <HomeScreenComponent title={"Home Screen"} />
+        </TopNavbar>
       </Sidebar.Pusher>
     </Sidebar.Pushable>
   );
