@@ -1,0 +1,17 @@
+.ui.menu.desktopMenu {
+  background: white;
+}
+a.item.menuItem {
+  font-weight: bold;
+  text-align: center;
+}
+.item.menuItem > i {
+  font-size: 1.5em;
+  padding-left: 12px;
+  color: rgb(152, 190, 89);
+}
+.item.menuItem.active {
+  font-style: italic;
+  background-color: #AFD275 !important;
+  color: white !important;
+}

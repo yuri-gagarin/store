@@ -1,12 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+// component imports //
+import TopNavbar from "./components/navbars/TopNav"
+import HomeScreenComponent from "./components/home_screen/HomeScreenComponent";
+import MainNavSidebar from './components/navbars/MainNavSidebar';
 
 const App: React.FC<{}> = (): JSX.Element => {
   return (
-    <div>
-      <p>In React</p>
-    </div>
+    <MainNavSidebar>
+      <TopNavbar>
+
+      </TopNavbar>
+      <HomeScreenComponent title={"Home Screen"} />
+    </MainNavSidebar>
   );
 }
 
