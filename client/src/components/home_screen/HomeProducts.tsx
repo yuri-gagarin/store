@@ -1,26 +1,30 @@
 import React from "react";
-import { Grid, Segment } from "semantic-ui-react";
+import { Grid, Segment, Image } from "semantic-ui-react";
+// css imports //
+import "./css/homeProducts.css";
 
-const HomeStore: React.FC<{}> = (props): JSX.Element => {
+const HomeProducts: React.FC<{}> = (props): JSX.Element => {
   return (
-    <Grid stackable container columns={3}>
-      <Grid.Column>
-        <Segment style={{ border: "2px solid red", height: "300px" }}>
-
-        </Segment>
-      </Grid.Column>
-      <Grid.Column>
-        <Segment style={{ border: "2px solid red", height: "300px" }}>
-
-        </Segment>
-      </Grid.Column>
-      <Grid.Column>
-        <Segment style={{ border: "2px solid red", height: "300px" }}>
-
-        </Segment>
-      </Grid.Column>
-    </Grid>
-  )
+    <div className="homeProductsScreenComp">
+      <Grid stackable container columns={3}>
+        <Grid.Column>
+          <Segment style={{ border: "2px solid red", height: "300px" }}>
+            <Image src="/images/home_page/stock_store1.jpeg"></Image>
+          </Segment>
+        </Grid.Column>
+        <Grid.Column>
+          <Segment style={{ border: "2px solid red", height: "300px" }}>
+            <Image src="/images/home_page/stock_store1.jpeg"></Image>
+          </Segment>
+        </Grid.Column>
+        <Grid.Column>
+          <Segment style={{ border: "2px solid red", height: "300px" }}>
+            <Image src="/images/home_page/stock_store1.jpeg"></Image>
+          </Segment>
+        </Grid.Column>
+      </Grid>
+    </div>
+  );
 };
 
-export default HomeStore;
+export default HomeProducts;

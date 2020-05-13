@@ -20,6 +20,7 @@ const TopNavbar: React.FC<Props> = ({ handleSidebarOpen, children }): JSX.Elemen
   const handleMenuClose = (e: React.MouseEvent, data: MenuItemProps): void => {
     setTopMenuVisible(false);
   };
+  
 
   return (
     <Segment style={{ width: "100%", padding: 0 }}>
