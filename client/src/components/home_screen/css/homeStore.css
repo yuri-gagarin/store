@@ -1,0 +1,28 @@
+.homeScreenStoreComp {
+  border: 5px solid green;
+  margin-top: 5%;
+  opacity: 0;
+  position: relative;
+  left: 100%;
+}
+.storeShow {
+  opacity: 1;
+  left: 0%;
+  transition: opacity 3s ease-in;
+  -moz-transition: opacity 3s ease-in;
+  -webkit-transition: opacity 3s ease-in;
+  transition: left 0.5s ease-in-out;
+  -moz-transition: left 0.5s ease-in-out;
+  -webkit-transition: left 0.5s ease-in-out;
+}
+.homeScreenStoreTitle {
+  text-align: center;
+  font-family: 'Roboto Slab', serif;
+  letter-spacing: 2px;
+  font-size: 2em;
+  color:  rgb(152, 190, 89);
+}
+.homeStoreDefaultPhoto {
+  border: 2px solid red;
+  text-align: center;
+}

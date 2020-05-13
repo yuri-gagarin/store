@@ -7,7 +7,7 @@ import TopNavbar from "../navbars/TopNav";
 import HomeScreenComponent from "../home_screen/HomeScreenComponent";
 
 const MainNavSideBar: React.FC<{}> = (props): JSX.Element => {
-  const [ menuOpen, setMenuOpen ] = useState(true);
+  const [ menuOpen, setMenuOpen ] = useState(false);
 
   const handleSidebarClose = (e: React.MouseEvent): void => {
     setMenuOpen(false);
