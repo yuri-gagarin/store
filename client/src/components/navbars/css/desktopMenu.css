@@ -1,3 +1,4 @@
+
 /* desktop top navbar custom styling and overrides */
 #mainMenuBtn > i {
   padding-left: 15px;
@@ -5,6 +6,17 @@
 }
 .ui.menu.desktopMenu {
   background: white;
+  transition: height 0.5s ease-out, background-color 0.5s ease-in;
+}
+.ui.menu.desktopMenu.ui.menu.desktopMenu.navLocked {
+  position: fixed !important;
+  height: 75px !important;
+  background-color: #FBEEC1;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  transition: height 0.5s ease-out, background-color 0.5s ease-in;
 }
 a.item.menuItem {
   font-weight: bold;

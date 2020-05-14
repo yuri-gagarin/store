@@ -43,7 +43,7 @@ const HomeHeader: React.FC<Props> = (props): JSX.Element => {
           elmVisible: true
         }
       })
-    }, 1000);
+    }, 100);
     setTimeout(() => {
       setDisplaySettings((state) => {
         return {
@@ -67,13 +67,13 @@ const HomeHeader: React.FC<Props> = (props): JSX.Element => {
   return (
     <div ref={homeHeaderRef}>
       <Grid>
-        <Grid.Column>
+        <Grid.Column style={{ paddingTop: 0 }}>
           <h3 id="homeHeaderTitle"> - Our Store -</h3>
           <div id="homeScreenParallax">
           </div> 
           <Container id="homeHeaderDesc">
             <Grid stackable columns={2}>
-              <Grid.Row>
+              <Grid.Row style={{ padding: 0 }}>
                 <Grid.Column style={{ position: "relative", paddingRight: "0px" }}>
                   <Reveal 
                     animated='move' 
@@ -81,22 +81,31 @@ const HomeHeader: React.FC<Props> = (props): JSX.Element => {
                     active={displaySettings.picVisible}
                   >
                     <Reveal.Content visible>
-                      <Image src="/images/home_page/stock_Store3.jpeg" size='large' />
+                      <Image src="/images/home_page/stock_store3.jpeg" size='huge' />
                     </Reveal.Content>
                     <Reveal.Content hidden>
-                      <Image src='https://react.semantic-ui.com/images/avatar/large/jenny.jpg' size='large' />
+                      <Image src='images/home_page/stock_store5.jpeg' size='huge' />
                     </Reveal.Content>
                   </Reveal>                  
                 </Grid.Column>
                 <Grid.Column style={{ position: "relative", paddingLeft: "0px" }}>
                   <Segment className={ displaySettings.elmVisible ? "homeHeaderDescText descTextMoved" : "homeHeaderDescText" }>
-                    <p>
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <Button basic color="green" onClick={handleButtonClick}>
-                      See More..
-                    </Button>
+                    <Image 
+                      id="homeHeaderLogoImg"
+                      src="/images/logos/go_ed_logo.jpg" 
+                      circular 
+                      size="tiny"
+                    />
+                      
+                    <div>
+                      <p>
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                      </p>
+                      <Button basic color="green" onClick={handleButtonClick}>
+                        See More..
+                      </Button>
+                    </div> 
                   </Segment>
                 </Grid.Column>
               </Grid.Row>  

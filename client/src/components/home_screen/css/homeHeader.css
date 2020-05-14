@@ -9,8 +9,8 @@
   color: yellow;
 }
 #homeScreenParallax {
-  background-image: url("/images/home_page/stock_nature.jpeg");
-  min-height: 275px; 
+  background-image: url("/images/backgrounds/stock_nature.jpeg");
+  min-height: 45vh; 
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -20,6 +20,12 @@
   width: 100%;
   padding-bottom: 0.75em;
   padding-top: 0.75em;
+  background-image: url("/images/backgrounds/stock_nature.jpeg") !important;
+  background-size: cover; /* or contain depending on what you want */
+  background-position: center center;
+  background-repeat: no-repeat;
+  text-align:center;
+  margin:auto;
 }
 
 .homeHeaderDescImg {
@@ -35,11 +41,33 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: flex-end;
+  background-image: url("/images/backgrounds/stock_bg1.jpeg") !important;
+  background-size: contain; /* or contain depending on what you want */
+  background-position: center;
+  background-repeat: no-repeat;
   right: -100%;
-  width: 450px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
   border-radius: 0% !important;
+}
+#homeHeaderLogoImg {
+  position: absolute;
+  right: 5%;
+  top: 5%;
+  border: 2px solid #AFD275;
+}
+.homeHeaderDescText > div {
+  border: 1.5px solid #AFD275;
+  border-radius: 3px;
+  padding: 1em;
+  padding-bottom: 1em;
+  background-color: white;
+  opacity: 0.80;
+  color: rgb(83, 100, 55);
+  -webkit-box-shadow: 0px 0px 1px 1px  #ebe4cd;
+  -moz-box-shadow: 0px 0px 1px 1px  #fbeec1;
+  box-shadow: 0px 0px 1px 1px  #fbeec1;
 }
 .descTextMoved {
   right: 0%;

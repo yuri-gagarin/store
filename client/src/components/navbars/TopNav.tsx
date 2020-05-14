@@ -1,15 +1,30 @@
-import React, { useState } from "react";
-import { Responsive, Menu, MenuItemProps, Segment, Icon, Sidebar } from "semantic-ui-react";
+import React, { useState, useRef, useEffect } from "react";
+import { Responsive, Menu, MenuItemProps, Icon, Sidebar } from "semantic-ui-react";
 // css imports //
 import "./css/desktopMenu.css";
 
 interface Props {
-  handleSidebarOpen(e: React.MouseEvent): void
+  handleSidebarOpen(e: React.MouseEvent): void;
 };
+interface Coordinates {
+  posY: number;
+  posX: number;
+}
 
 const TopNavbar: React.FC<Props> = ({ handleSidebarOpen, children }): JSX.Element => {
   const [ activeItem, setActiveItem ] = useState<string>("home");
+  const [ coordinates, setCoordinates ] = useState<Coordinates>({ posX: 0, posY: 0 });
+  const [ navLocked, setNavLocked ] = useState<boolean>(false);
   const [ topMenuVisible, setTopMenuVisible ] = useState(false);
+  const desktopNavRef = useRef<HTMLDivElement>(document.createElement("div"));
+
+  const listenToScroll = (e: Event): void => {
+    const compCoordinates: DOMRect = desktopNavRef.current.getBoundingClientRect();
+    setCoordinates({
+      posX: compCoordinates.x,
+      posY: compCoordinates.y
+    });
+  };
 
   const handleItemClick = (e: React.MouseEvent, data: MenuItemProps): void => {
     setActiveItem(String(data.name));
@@ -20,55 +35,69 @@ const TopNavbar: React.FC<Props> = ({ handleSidebarOpen, children }): JSX.Elemen
   const handleMenuClose = (e: React.MouseEvent, data: MenuItemProps): void => {
     setTopMenuVisible(false);
   };
-  
+
+  useEffect(() => {
+    window.addEventListener("scroll", listenToScroll, true);
+    return () => window.removeEventListener("scroll", listenToScroll);
+  }, [desktopNavRef]);
+
+  useEffect(() => {
+    if (coordinates.posY < -15) {
+      setNavLocked(true);
+    } else if (coordinates.posY === 0 || coordinates.posY > -15) {
+      setNavLocked(false);
+    }
+  }, [coordinates]);
 
   return (
-    <Segment style={{ width: "100%", padding: 0 }}>
+    <div style={{ width: "100%", padding: 0 }}>
       <Responsive minWidth={568}>
-        <Menu style={{ height: "50px", width: "100%" }} className="desktopMenu">
-          <Menu.Item
-            name='menu'
-            className="menuItem"
-            id="mainMenuBtn"
-            active={false}
-            onClick={handleSidebarOpen}
-          >
-           <Icon name="align justify" />
-          </Menu.Item>
-          <Menu.Item
-            name='home'
-            className="menuItem"
-            active={activeItem === 'home'}
-            onClick={handleItemClick}
-          >
-            Home
-          </Menu.Item>
-          <Menu.Item
-            name='products'
-            className="menuItem"
-            active={activeItem === 'products'}
-            onClick={handleItemClick}
-          >
-            Products
-          </Menu.Item>
-          <Menu.Item
-            name='store'
-            className="menuItem"
-            active={activeItem === 'store'}
-            onClick={handleItemClick}
-          >
-            Store
-          </Menu.Item>
-          <Menu.Item
-            name='about us'
-            className="menuItem"
-            active={activeItem === 'about us'}
-            onClick={handleItemClick}
-          >
-            About Us
-          </Menu.Item>
-        </Menu>
-        {children}
+        <div ref={desktopNavRef}>
+          <Menu style={{ height: "50px", width: "100%" }} className={ navLocked ? "desktopMenu navLocked" : "desktopMenu"}>
+            <Menu.Item
+              name='menu'
+              className="menuItem"
+              id="mainMenuBtn"
+              active={false}
+              onClick={handleSidebarOpen}
+            >
+            <Icon name="align justify" />
+            </Menu.Item>
+            <Menu.Item
+              name='home'
+              className="menuItem"
+              active={activeItem === 'home'}
+              onClick={handleItemClick}
+            >
+              Home
+            </Menu.Item>
+            <Menu.Item
+              name='products'
+              className="menuItem"
+              active={activeItem === 'products'}
+              onClick={handleItemClick}
+            >
+              Products
+            </Menu.Item>
+            <Menu.Item
+              name='store'
+              className="menuItem"
+              active={activeItem === 'store'}
+              onClick={handleItemClick}
+            >
+              Store
+            </Menu.Item>
+            <Menu.Item
+              name='about us'
+              className="menuItem"
+              active={activeItem === 'about us'}
+              onClick={handleItemClick}
+            >
+              About Us
+            </Menu.Item>
+          </Menu>
+          {children}
+        </div>
       </Responsive>
       <Responsive maxWidth={567}>
         <Menu id="mobileNavbar" className={ topMenuVisible ? "topInvisible" : "" }>
@@ -120,8 +149,8 @@ const TopNavbar: React.FC<Props> = ({ handleSidebarOpen, children }): JSX.Elemen
             {children}
           </Sidebar.Pusher>
         </Sidebar.Pushable>
-\      </Responsive>
-    </Segment>
+      </Responsive>
+    </div>
   );
 };
 

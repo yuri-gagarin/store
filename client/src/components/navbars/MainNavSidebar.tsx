@@ -20,7 +20,7 @@ const MainNavSideBar: React.FC<{}> = (props): JSX.Element => {
   return (
     <Sidebar.Pushable 
       as={Segment} 
-      style={{ height: "100vh" }}
+      style={{ height: "100vh", transform: "none" }}
     >
       <Sidebar
         as={Menu}
