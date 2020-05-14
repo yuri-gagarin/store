@@ -16,14 +16,17 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+.column.headerBottomColumn {
+  padding: 0 !important;
+}
 #homeHeaderDesc {
   width: 100%;
   padding-bottom: 0.75em;
   padding-top: 0.75em;
-  background-image: url("/images/backgrounds/stock_nature.jpeg") !important;
+  background-image: url("/images/backgrounds/stock_nature.jpeg");
   background-size: cover; /* or contain depending on what you want */
-  background-position: center center;
-  background-repeat: no-repeat;
+  background-position: center;
+  background-repeat: repeat;
   text-align:center;
   margin:auto;
 }
@@ -49,6 +52,7 @@
   right: -100%;
   width: 100%;
   height: 100%;
+  min-height: 300px;
   border-radius: 0% !important;
 }
 #homeHeaderLogoImg {
@@ -75,7 +79,22 @@
 }
 
 @media (max-width: 450px) {
+  #homeScreenParallax {
+    min-height: 30vh;
+  }
   .homeHeaderDescText {
     width: 100%;
+  }
+  #homeHeaderDesc {
+    background-image: none !important;
+  }
+  #homeHeaderLogoImg {
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    transform: translateX(-50%);
+  }
+  .homeProductsHolder {
+    margin-top: 5%;
   }
 }

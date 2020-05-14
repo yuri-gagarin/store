@@ -18,9 +18,11 @@ const HomeProducts: React.FC<{}> = (props): JSX.Element => {
 
   // scroll spy to watch if component is in view //
   const scrollSpy = (e: Event): void => {
-    const compRect: DOMRect = homeProductsRef.current.getBoundingClientRect();
-    if (compRect.y + 100 < window.innerHeight) {
-      setShowComp(true);
+    if (homeProductsRef.current) {
+      const compRect: DOMRect = homeProductsRef.current.getBoundingClientRect();
+      if (compRect.y + 100 < window.innerHeight) {
+        setShowComp(true);
+      }
     }
   }
   useEffect(() => {
@@ -50,7 +52,9 @@ const HomeProducts: React.FC<{}> = (props): JSX.Element => {
             <h3 className="homeProductsHeader">Products Showcase</h3>
         </Grid.Row>
         <Grid.Row>
-          <Grid.Column className={ elementStatus.firstVisible ? "homeProdSegHolder showHomeProd" : "homeProdSegHolder" }>
+          <Grid.Column 
+            className={ elementStatus.firstVisible ? "homeProdSegHolder showHomeProd" : "homeProdSegHolder" }
+          >
             <Segment className="homeProductSegment">
               <Image src="/images/home_page/stock_store1.jpeg"></Image>
               <div className="homeProductImgCover">

@@ -74,7 +74,7 @@ const HomeHeader: React.FC<Props> = (props): JSX.Element => {
           <Container id="homeHeaderDesc">
             <Grid stackable columns={2}>
               <Grid.Row style={{ padding: 0 }}>
-                <Grid.Column style={{ position: "relative", paddingRight: "0px" }}>
+                <Grid.Column className="headerBottomColumn">
                   <Reveal 
                     animated='move' 
                     className={ displaySettings.elmVisible ? "homeHeaderDescImg descImgMoved" : "homeHeaderDescImg" }
@@ -88,7 +88,7 @@ const HomeHeader: React.FC<Props> = (props): JSX.Element => {
                     </Reveal.Content>
                   </Reveal>                  
                 </Grid.Column>
-                <Grid.Column style={{ position: "relative", paddingLeft: "0px" }}>
+                <Grid.Column className="headerBottomColumn">
                   <Segment className={ displaySettings.elmVisible ? "homeHeaderDescText descTextMoved" : "homeHeaderDescText" }>
                     <Image 
                       id="homeHeaderLogoImg"

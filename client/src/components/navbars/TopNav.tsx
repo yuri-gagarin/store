@@ -19,11 +19,13 @@ const TopNavbar: React.FC<Props> = ({ handleSidebarOpen, children }): JSX.Elemen
   const desktopNavRef = useRef<HTMLDivElement>(document.createElement("div"));
 
   const listenToScroll = (e: Event): void => {
-    const compCoordinates: DOMRect = desktopNavRef.current.getBoundingClientRect();
-    setCoordinates({
-      posX: compCoordinates.x,
-      posY: compCoordinates.y
-    });
+    if (desktopNavRef.current) {
+      const compCoordinates: DOMRect = desktopNavRef.current.getBoundingClientRect();
+      setCoordinates({
+        posX: compCoordinates.x,
+        posY: compCoordinates.y
+      });
+    }
   };
 
   const handleItemClick = (e: React.MouseEvent, data: MenuItemProps): void => {
