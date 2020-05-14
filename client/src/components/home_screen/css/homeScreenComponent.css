@@ -1,0 +1,8 @@
+.homeScreenParallax1 {
+  background-image: url("/images/home_page/stock_nature.jpeg");
+  min-height: 125px; 
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

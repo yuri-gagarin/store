@@ -1,12 +1,42 @@
-.homeProductsScreenComp {
-  border: 5px solid green;
-  margin-top: 5%;
-  opacity: 1;
+.homeProductsHolder {
   position: relative;
 }
-.productsShow {
-
+.homeProductsHeader {
+  text-align: center;
+  width: 100%;
+  font-family: "Lobster", cursive;
+  letter-spacing: 2px;
 }
-.homeProductsScreenTitle {
-
+.homeProdSegHolder {
+  position: relative;
+  opacity: 0;
+}
+.showHomeProd {
+  opacity: 1;
+  transition: opacity 1s ease-in;
+}
+.homeProductSegment {
+  position: relative;
+  cursor: pointer;
+}
+.homeProductImgCover {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(70, 71, 3);
+  opacity: 0.5;
+}
+.homeProductImgCover:hover {
+  opacity: 0;
+  transition: opacity 0.5s linear;
+}
+.icon.homeProductMoreIcon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3.5em;
+  color: rgb(184, 184, 18);
 }
