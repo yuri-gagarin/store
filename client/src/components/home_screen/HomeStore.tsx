@@ -14,7 +14,6 @@ const HomeStore: React.FC<{}> = (props): JSX.Element => {
   const homeStoreRef = useRef<HTMLDivElement>(null);
 
   const listenToScroll = (ev: Event): void => {
-    console.log("firing")
     if (homeStoreRef.current) {
       const componentCoord: DOMRect = homeStoreRef.current.getBoundingClientRect();
       const windowY: number = window.innerHeight;

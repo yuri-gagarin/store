@@ -4,6 +4,7 @@ import "./HomeHeader";
 import HomeHeader from "./HomeHeader";
 import HomeProducts from "./HomeProducts";
 import HomeStore from "./HomeStore";
+// css imports //
 
 interface Props {
   title: string
@@ -11,10 +12,10 @@ interface Props {
 const HomeScreenComponent: React.FC<Props> = (props): JSX.Element => {
   return (
     <React.Fragment>
-      <HomeHeader />
-      <HomeProducts />
-      <HomeStore />
-    </React.Fragment> 
+        <HomeHeader />
+        <HomeProducts />
+        <HomeStore />
+    </React.Fragment>
   );
 };
 
