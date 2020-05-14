@@ -35,6 +35,17 @@
   position: relative;
   float: right;
   left: -100%;
+  border-top: 3px solid rgb(219, 219, 48);
+  border-bottom: 3px solid rgb(219, 219, 48);
+}
+#homeHeaderImgCover {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(26, 29, 13);
+  opacity: 0.45;
 }
 .descImgMoved {
   left: 0%;
@@ -43,6 +54,8 @@
 .homeHeaderDescText {
   position: relative;
   display: flex;
+  border-top: 3px solid rgb(219, 219, 48) !important;
+  border-bottom: 3px solid rgb(219, 219, 48) !important;
   flex-direction: column;
   justify-content: flex-end;
   background-image: url("/images/backgrounds/stock_bg1.jpeg") !important;
@@ -61,17 +74,13 @@
   top: 5%;
   border: 2px solid #AFD275;
 }
-.homeHeaderDescText > div {
-  border: 1.5px solid #AFD275;
-  border-radius: 3px;
+.homeHeaderText {
   padding: 1em;
   padding-bottom: 1em;
-  background-color: white;
   opacity: 0.80;
-  color: rgb(83, 100, 55);
-  -webkit-box-shadow: 0px 0px 1px 1px  #ebe4cd;
-  -moz-box-shadow: 0px 0px 1px 1px  #fbeec1;
-  box-shadow: 0px 0px 1px 1px  #fbeec1;
+  color: rgb(219, 219, 48);
+  font-size: 1.5em;
+  font-family:  'Pacifico', cursive;
 }
 .descTextMoved {
   right: 0%;

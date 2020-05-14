@@ -96,16 +96,20 @@ const HomeHeader: React.FC<Props> = (props): JSX.Element => {
                       circular 
                       size="tiny"
                     />
+                    <div id="homeHeaderImgCover">
+
+                    </div>
                       
-                    <div>
+                    <div className={"homeHeaderText"}>
                       <p>
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        sed do eiusmod tempor
                       </p>
-                      <Button basic color="green" onClick={handleButtonClick}>
+                      <Button inverted color="yellow" onClick={handleButtonClick}>
                         See More..
                       </Button>
                     </div> 
+                    
                   </Segment>
                 </Grid.Column>
               </Grid.Row>  

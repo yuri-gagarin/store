@@ -1,5 +1,4 @@
 .homeScreenStoreComp {
-  border: 5px solid green;
   margin-top: 5%;
   opacity: 0;
   position: relative;
@@ -22,4 +21,17 @@
 .homeStoreDefaultPhoto {
   border: 2px solid red;
   text-align: center;
+}
+.homeStoreAddPhoto {
+  display: inline-block;
+  opacity: 0;
+}
+.showAddPhoto {
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+}
+#goToStoreBtn {
+  position: absolute;
+  right: 5%;
+  bottom: 5%;
 }
