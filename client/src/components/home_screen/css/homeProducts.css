@@ -1,11 +1,14 @@
 .homeProductsHolder {
   position: relative;
+  padding-top: 0.5em;
+  padding-bottom: 1em;
 }
 .homeProductsHeader {
   text-align: center;
   width: 100%;
   font-family: "Lobster", cursive;
   letter-spacing: 2px;
+  color: rgb(57, 184, 18);
 }
 .homeProdSegHolder {
   position: relative;

@@ -4,6 +4,8 @@ import "./HomeHeader";
 import HomeHeader from "./HomeHeader";
 import HomeProducts from "./HomeProducts";
 import HomeStore from "./HomeStore";
+import FooterBar from "../navbars/FooterBar";
+import Spacer from "./../misc_components/Spacer";
 // css imports //
 import "./css/homeScreenComponent.css";
 
@@ -14,9 +16,11 @@ const HomeScreenComponent: React.FC<Props> = (props): JSX.Element => {
   return (
     <React.Fragment>
         <HomeHeader />
-        <div className="homeScreenParallax1"></div>
         <HomeProducts />
+        <div className="homeScreenParallax1"></div>
         <HomeStore />
+        <Spacer height="50px" width="100%"/>
+        <FooterBar />
     </React.Fragment>
   );
 };
