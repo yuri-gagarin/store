@@ -1,4 +1,52 @@
 .storeHolderDiv {
-  border: 3px solid red;
-  height: 3000px;
+  background-image: url("/images/backgrounds/paper_bg.jpeg");
+  height: 100%; 
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+}
+#storeTitle {
+  font-family: "Lobster", cursive;
+  font-size: 5em;
+  color: white;
+  position: absolute;
+  left: 50%;
+  top: 2%;
+  transform: translateX(-50%);
+}
+#storeTitle > p {
+  margin-bottom: -20%;
+}
+.storeHeader {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background-color: white;
+  z-index: 10;
+  margin-top: 25%;
+}
+.storeGallery {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  height: auto;
+  width: 100%;
+  background-color: white;
+  z-index: 10;
+
+}
+.storeDetails {
+  position: relative;
+  height: 200px;
+  width: 100%;
+  background-color: white;
+  z-index: 10;
+  margin-top: 15%;
 }
