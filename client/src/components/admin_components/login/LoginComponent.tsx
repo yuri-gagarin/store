@@ -119,7 +119,14 @@ const LoginComponent: React.FC<{}> = (props): JSX.Element => {
     <div className="loginCompHolder">
       <Grid columns={1} centered>
         <Grid.Row>
-          <Grid.Column mobile={16} tablet={10} computer={8}>
+          <Grid.Column mobile={14} tablet={8} computer={6}>
+            <div className="loginTitle">
+              Login
+            </div>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column mobile={14} tablet={8} computer={6}>
             <Form>
               <Form.Input
                 error={ loginError.error ? loginError.details : null }
