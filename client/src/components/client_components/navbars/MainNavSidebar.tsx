@@ -3,7 +3,7 @@ import { Icon, Menu, Segment, Sidebar } from 'semantic-ui-react';
 // styling and overrides //
 import "./css/mainSidebar.css";
 // additional components //
-import TopNavbar from "../navbars/TopNav";
+import TopNavbar from "./TopNav";
 import HomeScreenComponent from "../home_screen/HomeScreenComponent";
 
 const MainNavSideBar: React.FC<{}> = (props): JSX.Element => {
