@@ -5,6 +5,8 @@ import "./css/mainSidebar.css";
 // additional components //
 import TopNavbar from "./TopNav";
 import HomeScreenComponent from "../home_screen/HomeScreenComponent";
+import StoreHolder from "../store_screen/StoreHolder";
+import { Switch, Route } from "react-router-dom";
 
 const MainNavSideBar: React.FC<{}> = (props): JSX.Element => {
   const [ menuOpen, setMenuOpen ] = useState(false);
@@ -60,11 +62,17 @@ const MainNavSideBar: React.FC<{}> = (props): JSX.Element => {
           <span>Contact</span>
         </Menu.Item>
       </Sidebar>
-
       <Sidebar.Pusher>
-        <TopNavbar handleSidebarOpen={handleSidebarOpen}>
-          <HomeScreenComponent title={"Home Screen"} />
-        </TopNavbar>
+          <TopNavbar handleSidebarOpen={handleSidebarOpen}>
+              <Switch>
+                <Route path="/store">
+                  <StoreHolder />
+                </Route>
+                <Route path="/">
+                  <HomeScreenComponent title=""/>
+                </Route>
+              </Switch>
+          </TopNavbar>
       </Sidebar.Pusher>
     </Sidebar.Pushable>
   );

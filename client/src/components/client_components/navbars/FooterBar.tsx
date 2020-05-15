@@ -5,7 +5,6 @@ import "./css/footerBar.css";
 
 const FooterBar: React.FC<{}> = (props): JSX.Element => {
   const handleItemClick = (e: React.MouseEvent, data: MenuItemProps): void => {
-    const { name } = data;
 
   }
   return (

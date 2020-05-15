@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Responsive, Menu, MenuItemProps, Icon, Sidebar } from "semantic-ui-react";
+
 // css imports //
 import "./css/desktopMenu.css";
 

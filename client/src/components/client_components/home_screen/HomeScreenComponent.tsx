@@ -8,7 +8,6 @@ import FooterBar from "../navbars/FooterBar";
 import Spacer from "../misc_components/Spacer";
 // css imports //
 import "./css/homeScreenComponent.css";
-import LoginComponent from "../../admin_components/login/LoginComponent";
 
 interface Props {
   title: string
@@ -20,7 +19,6 @@ const HomeScreenComponent: React.FC<Props> = (props): JSX.Element => {
         <HomeProducts />
         <div className="homeScreenParallax1"></div>
         <HomeStore />
-        <LoginComponent />
         <Spacer height="50px" width="100%"/>
         <FooterBar />
     </React.Fragment>

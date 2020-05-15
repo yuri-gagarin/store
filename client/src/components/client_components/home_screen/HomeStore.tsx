@@ -1,10 +1,10 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Grid , Image, Button } from "semantic-ui-react";
 // additional components //
-import AdditionalStoreImg from "./AdditionalStoreImg";
+import AddStoreImgs from "./AdditionalStoreImg";
 // css imports //
 import "./css/homeStore.css";
-import AddStoreImgs from "./AdditionalStoreImg";
+
 interface Coordinates {
   elemY: number;
   windowY: number;
@@ -71,11 +71,9 @@ const HomeStore: React.FC<{}> = (props): JSX.Element => {
         }
       }
     }
-  }, [coordinates]);
+  }, [coordinates, showElement]);
   useEffect(() => {
-    let divRef: HTMLDivElement;
     if (homeStoreRef.current) {
-      divRef = homeStoreRef.current;
       window.addEventListener("scroll", listenToScroll, true);
     }
   }, [homeStoreRef]);

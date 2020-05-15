@@ -16,7 +16,7 @@ interface Props {
 };
 
 const HomeHeader: React.FC<Props> = (props): JSX.Element => {
-  const [ coordinates, setCoordinates ] = useState<Coordinates>({ elemY: 0, windowY: 0 });
+  // const [ coordinates, setCoordinates ] = useState<Coordinates>({ elemY: 0, windowY: 0 });
   const [ displaySettings, setDisplaySettings ] = useState<DisplaySettings>({
     elmVisible: false,
     picVisible: false
