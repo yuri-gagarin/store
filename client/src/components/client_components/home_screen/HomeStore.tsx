@@ -49,6 +49,14 @@ const HomeStore: React.FC<{}> = (props): JSX.Element => {
       setLargeScreen(false);
     }
   };
+
+  const handleGoToStore = () => {
+    console.log("clicked")
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
   // lifecycle hooks //
   // listen for a window resize to show more images on larger screen //
   useEffect(() => {
@@ -107,7 +115,7 @@ const HomeStore: React.FC<{}> = (props): JSX.Element => {
             {
               largeScreen ? <AddStoreImgs showElement={showElement} /> : null
             }
-            <Button id="goToStoreBtn">Go to Store</Button>
+            <Button id="goToStoreBtn" onClick={handleGoToStore}>Go to Store</Button>
           </Grid.Column>
         </Grid.Row>
       </Grid>
