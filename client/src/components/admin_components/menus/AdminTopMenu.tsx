@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Menu, Dropdown, Icon, MenuItemProps } from "semantic-ui-react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
+// css imports //
+import "./css/adminTopMenu.css";
 
 interface Props extends RouteComponentProps {
 
@@ -22,11 +24,13 @@ const AdminTopMenu: React.FC<Props> = ({ history }): JSX.Element => {
       default: history.push("/admin/home");
     }
   };
+  const handleLogOut = () => {
 
+  };
   return (
     <div style={{ position: "relative", width: "100%", zIndex: 999}}>
-      <Menu attached='top'>
-      <Dropdown item simple icon="file" text="File">
+      <Menu attached='top' id="adminTopMenu">
+      <Dropdown item simple icon="file" text="File" id="adminTopFileBtn">
         <Dropdown.Menu>
           <Dropdown.Item>
             <Icon name='dropdown' />
@@ -47,6 +51,7 @@ const AdminTopMenu: React.FC<Props> = ({ history }): JSX.Element => {
        
       </Dropdown>
       <Menu.Item
+        className="adminTopMenuItem"
         name="store"
         content="My store"
         active={activeMenuItem === "store"}
@@ -54,6 +59,7 @@ const AdminTopMenu: React.FC<Props> = ({ history }): JSX.Element => {
       >
       </Menu.Item>
       <Menu.Item
+        className="adminTopMenuItem"
         name="services"
         content="My Services"
         active={activeMenuItem === "services"}
@@ -61,6 +67,7 @@ const AdminTopMenu: React.FC<Props> = ({ history }): JSX.Element => {
       >
       </Menu.Item>
       <Menu.Item
+        className="adminTopMenuItem"
         name="products"
         content="My Products"
         active={activeMenuItem === "products"}
@@ -68,6 +75,7 @@ const AdminTopMenu: React.FC<Props> = ({ history }): JSX.Element => {
       > 
       </Menu.Item>
       <Menu.Item
+        className="adminTopMenuItem"
         name="videos"
         content="My Videos"
         active={activeMenuItem === "videos"}
@@ -81,12 +89,19 @@ const AdminTopMenu: React.FC<Props> = ({ history }): JSX.Element => {
             <input
               className='prompt'
               type='text'
-              placeholder='Search animals...'
+              placeholder='Search...'
             />
             <i className='search link icon' />
           </div>
           <div className='results' />
         </div>
+        <Menu.Item
+          as="a"
+          name="logout"
+          content="Log Out"
+          onClick={handleLogOut}
+        >
+        </Menu.Item>
       </Menu.Menu>
     </Menu>
     </div>

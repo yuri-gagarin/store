@@ -1,0 +1,22 @@
+#adminTopFileBtn {
+  background-color: rgb(41, 145, 145);
+  color: wheat;
+}
+#adminTopFileBtn:hover {
+  background-color: teal;
+}
+#adminTopFileBtn > i {
+  color: wheat;
+  padding-left: 0.5em;
+}
+.item.adminTopMenuItem {
+  font-size: 1em;
+  font-weight: bold !important;
+}
+.item.adminTopMenuItem.active {
+  background-color: rgb(79, 130, 224) !important;
+  color: white !important;
+}
+.item.adminTopMenuItem:hover {
+  background-color: rgb(178, 202, 247) !important;
+}
