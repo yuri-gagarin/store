@@ -34,5 +34,5 @@ const StoreSchema: Schema = new Schema({
     type: Date
   }
 });
-
-export default mongoose.model<IStore>('Store', StoreSchema);
+const Store = mongoose.model<IStore>('Store', StoreSchema);
+export default Store;
