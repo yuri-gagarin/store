@@ -15,7 +15,6 @@ html, body {
   position: relative;
   margin: 0;
   padding: 0;
-  background-color: #FBEEC1;
 }
 
 html { height: 100%; overflow: auto; }
