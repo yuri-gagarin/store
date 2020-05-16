@@ -1,7 +1,7 @@
 import express from "express";
 import http from "http";
 import path from "path";
-import combinedRoutes from "./routes/combinedRoutes";
+import CombineRoutes from "./routes/CombineRoutes";
 // app declarations and constants //
 const app: express.Application = express();
 const PORT: number = process.env.PORT ? Number(process.env.PORT) : 8080;
@@ -23,7 +23,7 @@ if (process.env.NODE_ENV && process.env.NODE_ENV === "production") {
 app.use(express.static(path.join(__dirname, "/../public")));
 
 // setup routes and initialize router //
-combinedRoutes(Router);
+new CombineRoutes(Router);
 app.use(Router);
 // end routes setup //
 
