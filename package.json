@@ -8,6 +8,7 @@
   "private": false,
   "devDependencies": {
     "@types/express": "^4.17.6",
+    "@types/mongoose": "^5.7.20",
     "@types/node": "^13.13.5",
     "@typescript-eslint/eslint-plugin": "2.31.0",
     "@typescript-eslint/parser": "2.31.0",
@@ -19,7 +20,8 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.9.14"
   },
   "scripts": {
     "start": "node --inspect=5858 -r ts-node/register ./app/server.ts",
