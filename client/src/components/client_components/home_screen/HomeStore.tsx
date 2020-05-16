@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Grid , Image, Button } from "semantic-ui-react";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 // additional components //
 import AddStoreImgs from "./AdditionalStoreImg";
 // css imports //
@@ -13,6 +14,9 @@ interface ScreenDimensions {
   innerWidth: number;
   innerHeight: number;
 };
+interface Props extends RouteComponentProps {
+
+}
 
 const getWindowDimensions = (): ScreenDimensions => {
   const { innerWidth, innerHeight } = window;
@@ -23,7 +27,7 @@ const getWindowDimensions = (): ScreenDimensions => {
 };
 
 
-const HomeStore: React.FC<{}> = (props): JSX.Element => {
+const HomeStore: React.FC<Props> = ({ history }): JSX.Element => {
   const [ screenDimensions, setScreenDimensions ] = useState<ScreenDimensions>({ innerWidth: 0, innerHeight: 0});
   const [ coordinates, setCoordinates ] = useState<Coordinates>({ elemY: 0, windowY: 0});
   const [ showElement, setShowElement ] = useState<boolean>(false);
@@ -51,18 +55,17 @@ const HomeStore: React.FC<{}> = (props): JSX.Element => {
   };
 
   const handleGoToStore = () => {
-    console.log("clicked")
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+    history.push("/store");
   }
   // lifecycle hooks //
   // listen for a window resize to show more images on larger screen //
   useEffect(() => {
     setScreenDimensions((getWindowDimensions()));
     window.addEventListener("resize", handleWinResize);
-    return () => window.removeEventListener("resize", handleWinResize);
+    return () => {
+      console.log("unmounted")
+      window.removeEventListener("resize", handleWinResize);
+    }
   }, []);
   // show more images if larger screen opened //
   useEffect(() => {
@@ -123,4 +126,4 @@ const HomeStore: React.FC<{}> = (props): JSX.Element => {
   );
 };
 
-export default HomeStore;
+export default withRouter(HomeStore);

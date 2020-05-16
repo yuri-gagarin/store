@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Responsive, Menu, MenuItemProps, Icon, Sidebar } from "semantic-ui-react";
+import { Responsive, Menu, MenuItemProps, Icon, Sidebar, Flag } from "semantic-ui-react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
 // css imports //
@@ -19,6 +19,7 @@ interface HomeElements {
 
 const TopNavbar: React.FC<Props> = ({ handleSidebarOpen, children, history }): JSX.Element => {
   const [ activeItem, setActiveItem ] = useState<string>("home");
+  const [ activeLangItem, setActiveLangItem ] = useState<string>("en");
   const [ coordinates, setCoordinates ] = useState<Coordinates>({ posX: 0, posY: 0 });
   const [ pageElements, setPageElements ] = useState<Partial<HomeElements>>({});
   const [ navLocked, setNavLocked ] = useState<boolean>(false);
@@ -41,12 +42,15 @@ const TopNavbar: React.FC<Props> = ({ handleSidebarOpen, children, history }): J
   const handleItemClick = (e: React.MouseEvent, data: MenuItemProps): void => {
     setActiveItem(String(data.name));
     if (data.name === "products") {
-      const elemY = pageElements.productsComp?.getBoundingClientRect().y;
-      if (elemY) window.scroll({ top: elemY - 135, behavior: "smooth" });
+      const elemY = pageElements.productsComp?.getBoundingClientRect().top;
+      if (elemY) window.scrollTo({ top: elemY + window.scrollY  - 75, behavior: "smooth" });
     } else if (data.name === "store") {
-      const elemY = pageElements.storeComp?.getBoundingClientRect().y;
-      if (elemY) window.scroll({ top: elemY, behavior: "smooth" });
+      const elemY = pageElements.storeComp?.getBoundingClientRect().top;
+      if (elemY) window.scroll({ top: elemY + window.scrollY, behavior: "smooth" });
     }
+  };
+  const setLang = (e: React.MouseEvent, data: MenuItemProps): void => {
+    setActiveLangItem(String(data?.name));
   };
   const handleMenuOpen = (e: React.MouseEvent, data: MenuItemProps): void => {
     setTopMenuVisible(true);
@@ -54,6 +58,7 @@ const TopNavbar: React.FC<Props> = ({ handleSidebarOpen, children, history }): J
   const handleMenuClose = (e: React.MouseEvent, data: MenuItemProps): void => {
     setTopMenuVisible(false);
   };
+  
   useEffect(() => {
     const products: Element | null = document.getElementsByClassName("homeProductsHolder")[0];
     const store: Element | null = document.getElementsByClassName("homeScreenStoreComp")[0];
@@ -62,8 +67,14 @@ const TopNavbar: React.FC<Props> = ({ handleSidebarOpen, children, history }): J
         productsComp: products,
         storeComp: store
       });
+    } else {
+      setPageElements({
+        productsComp: undefined,
+        storeComp: undefined
+      });
     }
-  }, [])
+  }, [history.location]);
+
   useEffect(() => {
     window.addEventListener("scroll", listenToScroll, true);
     return () => window.removeEventListener("scroll", listenToScroll);
@@ -123,14 +134,45 @@ const TopNavbar: React.FC<Props> = ({ handleSidebarOpen, children, history }): J
               </Menu.Item>
               : null
             }
-            <Menu.Item
-              name='about us'
-              className="menuItem"
-              active={activeItem === 'about us'}
-              onClick={handleItemClick}
-            >
-              About Us
-            </Menu.Item>
+            <Menu.Menu position="right">
+              <Menu.Item 
+                name="ua"
+                className="flagMenu"
+                active={activeLangItem ==="ua"}
+                onClick={setLang}
+              >
+                <Flag name="ua"/>
+                UA
+              </Menu.Item>
+              <Menu.Item 
+                name="en"
+                className="flagMenu"
+                active={activeLangItem ==="en"}
+                onClick={setLang}
+              >
+                <Flag name="gb"/>
+                EN
+              </Menu.Item>
+               <Menu.Item 
+                name="pl"
+                className="flagMenu"
+                active={activeLangItem ==="pl"}
+                onClick={setLang}
+              >
+                <Flag name="pl"/>
+                PL
+              </Menu.Item>
+              <Menu.Item
+                name='about us'
+                className="menuItem"
+                active={activeItem === 'about us'}
+                onClick={handleItemClick}
+              >
+                About Us
+              </Menu.Item>
+
+            </Menu.Menu>
+            
           </Menu>
           {children}
         </div>

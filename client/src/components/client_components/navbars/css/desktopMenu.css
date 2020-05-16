@@ -8,19 +8,26 @@
   background: white;
   transition: height 0.5s ease-out, background-color 0.5s ease-in;
 }
-.ui.menu.desktopMenu.ui.menu.desktopMenu.navLocked {
+.ui.menu.desktopMenu a {
+  font-size: 1em;
+  font-family: "Play", sans-serif;
+}
+.ui.menu.desktopMenu.navLocked {
   position: fixed !important;
-  height: 75px !important;
-  background-color: #FBEEC1;
+  height: 65px !important;
+  background-color: rgb(51, 50, 45);
+  color: white !important;
   top: 0;
   left: 0;
   right: 0;
   z-index: 999;
   transition: height 0.5s ease-out, background-color 0.5s ease-in;
 }
-a.item.menuItem {
-  font-weight: bold;
-  text-align: center;
+.ui.menu.desktopMenu.navLocked a {
+  color: white;
+  border-left: 0.5px solid white;
+  border-right: 0.5px solid white;
+
 }
 .item.menuItem > i {
   font-size: 1.5em;
@@ -30,6 +37,18 @@ a.item.menuItem {
   font-style: italic;
   background-color: #AFD275 !important;
   color: white !important;
+}
+.item.flagMenu {
+  cursor: pointer;
+}
+.item.flagMenu a {
+  border: 0.5px solid white;
+}
+.item.flagMenu.active {
+  background-color: #AFD275 !important;
+}
+.item.flagMenu:hover {
+  background-color: #AFD275 !important;
 }
 
 /* mobile navbar custom styling */

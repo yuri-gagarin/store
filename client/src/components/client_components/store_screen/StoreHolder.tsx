@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid } from "semantic-ui-react";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 // additional components //
 import ServiceComponent from "./services/ServiceComponent";
 import FooterBar from "../navbars/FooterBar";
@@ -25,7 +26,16 @@ const services = [
   }
 ];
 
-const StoreHolder: React.FC<{}> = (props): JSX.Element => {
+interface Props extends RouteComponentProps {
+
+};
+
+const StoreHolder: React.FC<Props> = ({ history }): JSX.Element => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [history]);
+
   return (
     <div className="storeHolderDiv">
       <div id="storeTitle">
@@ -40,7 +50,7 @@ const StoreHolder: React.FC<{}> = (props): JSX.Element => {
             <div className="storeHeader">
               <div className="storeGallery">
                 {
-                  services.map((service) => <ServiceComponent description={service.description}/>)
+                  services.map((service, i) => <ServiceComponent key={i} description={service.description}/>)
                 }
               </div>
             </div>
@@ -63,4 +73,4 @@ const StoreHolder: React.FC<{}> = (props): JSX.Element => {
   );
 };
 
-export default StoreHolder;
+export default withRouter(StoreHolder);
