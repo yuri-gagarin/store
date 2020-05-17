@@ -1,15 +1,19 @@
 import { Router } from "express";
-import TestController from "../controllers/TestController";
+import { RouteConstructor } from "./helpers/routeInterfaces";
+import { IGenericController } from "../controllers/helpers/controllerInterfaces";
 
-class TestRoutes {
+class TestRoutes extends RouteConstructor {
   private testPath = "/api/test";
-  private Router: Router;
-  constructor(Router: Router) {
-    this.Router = Router;
-    this.initializeRoutes()
+  constructor(router: Router, controller: IGenericController) {
+    super(router, controller);
+    this.initializeRoutes();
   }
-  private initializeRoutes = () => {
-    this.Router.get(this.testPath, new TestController().test)
+  protected initializeRoutes = (): void => {
+    console.log("initialized test routes");
+    this.testRoute();
+  }
+  private testRoute (): void {
+    this.Router.route(this.testPath).get(this.controller.get);
   }
 }
 

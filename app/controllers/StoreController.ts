@@ -1,17 +1,37 @@
-import { Request, Response, response } from "express";
+import { Request, Response } from "express";
 import Store from "../models/Store";
 import StorePicture from "../models/StorePicture";
+import { IGenericController } from "./helpers/controllerInterfaces";
 
 type StoreParams = {
   title?: string;
   description?: string;
   storeImages?: [string];
 }
-class StoreController {
+class StoreController implements IGenericController {
   constructor () {
     console.info("Store controller initialized");
   }
-  createStore = (req: Request, res: Response): Promise<Response> => {
+
+  get (req: Request, res: Response): Promise<Response>  {
+    const id: string | undefined = req.params.id;
+    if (!id) return this.respondWithInputError(res, "Can't find store");
+    return Store.findOne({ _id: id })
+      .then((store) => {
+        if (store) {
+          return res.status(200).json({
+            responseMsg: "Store found",
+            store: store
+          });
+        } else {
+          return this.respondWithInputError(res, "Could not find store", 404);
+        }
+      })
+      .catch((error) => {
+        return this.respondWithDBError(res, error);
+      });
+  }
+  create (req: Request, res: Response): Promise<Response> {
     const { title, description, storeImages }: StoreParams = req.body;
 
     return Store.create({
@@ -34,7 +54,7 @@ class StoreController {
       });
     });
   } 
-  editStore = (req: Request, res: Response): Promise<Response> => {
+  edit (req: Request, res: Response): Promise<Response> {
     const { id } = req.body;
     return Store.findOne({ _id: id})
       .then((store) => {
@@ -49,7 +69,8 @@ class StoreController {
   
   }
   */
- deleteStore = (req: Request, res: Response): Promise<Response> => {
+
+ delete (req: Request, res: Response): Promise<Response> {
    const _id: string | undefined = req.params.id;
    let deletedImages: number;
 
@@ -80,9 +101,9 @@ class StoreController {
       
     });
   }
-  private respondWithInputError = (res: Response, msg?: string): Promise<Response> => {
+  private respondWithInputError = (res: Response, msg?: string, status?: number): Promise<Response> => {
     return new Promise((resolve) =>{
-      return resolve(res.status(400).json({
+      return resolve(res.status(status ? status : 400).json({
         responseMsg: msg ? msg : "Seems like an error occured"
       }));
     });
