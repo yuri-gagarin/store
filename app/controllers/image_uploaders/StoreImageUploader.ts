@@ -2,7 +2,7 @@ import multer, { MulterError } from "multer";
 import path from "path";
 import { Request, Response, NextFunction } from "express";
 
-type IImageUploadDetails = {
+export type IImageUploadDetails = {
   responseMsg: string;
   success: boolean;
   imagePath: string;

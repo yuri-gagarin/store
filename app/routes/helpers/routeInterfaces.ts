@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { IGenericController } from "../../controllers/helpers/controllerInterfaces";
+import { IController} from "../../controllers/helpers/controllerInterfaces";
 
 export abstract class RouteConstructor {
   protected Router: Router;
-  protected controller: IGenericController;
-  constructor(Router: Router, controller: IGenericController) {
+  protected controller: IController;
+  constructor(Router: Router, controller: IController) {
     this.Router = Router;
     this. controller = controller;
   }

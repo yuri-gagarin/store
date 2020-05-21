@@ -1,11 +1,11 @@
 import { Router} from "express";
 import { RouteConstructor } from "./helpers/routeInterfaces";
-import { IGenericController } from "../controllers/helpers/controllerInterfaces";
+import { IController } from "../controllers/helpers/controllerInterfaces";
 
 class StoreRoutes extends RouteConstructor {
   private viewStoreRoute = "/api/store/";
   // private createStoreRoute: string = "/api/store";
-  constructor (router: Router, controller: IGenericController) {
+  constructor (router: Router, controller: IController) {
     super(router, controller);
     this.initializeRoutes();
   }

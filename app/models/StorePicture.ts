@@ -3,6 +3,7 @@ import mongoose, { Schema, Document } from "mongoose";
 interface IStorePicture extends Document {
   description?: string;
   url: string;
+  uploadPath: string;
   createdAt: Date;
   editedAt?: Date;
 }
@@ -13,6 +14,10 @@ const StorePictureSchema: Schema = new Schema({
     required: false
   },
   url: {
+    type: String,
+    required: true
+  },
+  uploadPath: {
     type: String,
     required: true
   },
