@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "node --inspect=5858 -r ts-node/register ./app/server.ts",
-    "start:watch": "nodemon",
+    "start:watch": "env NODE_ENV=development nodemon",
     "build": "rimraf ./build && tsc",
     "lint": "eslint . --ext .ts"
   },

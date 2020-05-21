@@ -2,6 +2,7 @@ import express from "express";
 import http from "http";
 import path from "path";
 import CombineRoutes from "./routes/CombineRoutes";
+import config from "./config/config";
 // app declarations and constants //
 const app: express.Application = express();
 const PORT: number = process.env.PORT ? Number(process.env.PORT) : 8080;
@@ -29,4 +30,5 @@ app.use(Router);
 
 server.listen(PORT, () => {
   console.info(`Listening at PORT: ${PORT}`);
+  console.log(config)
 });

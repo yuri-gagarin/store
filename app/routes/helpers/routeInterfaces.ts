@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { IController} from "../../controllers/helpers/controllerInterfaces";
+import { IGenericImgUploadCtrl, IGenericController} from "../../controllers/helpers/controllerInterfaces";
 
-export abstract class RouteConstructor {
+export abstract class RouteConstructor<T> {
   protected Router: Router;
-  protected controller: IController;
-  constructor(Router: Router, controller: IController) {
+  protected controller: T;
+  constructor(Router: Router, controller: T) {
     this.Router = Router;
-    this. controller = controller;
+    this.controller = controller;
   }
   protected abstract initializeRoutes (): void;
 }

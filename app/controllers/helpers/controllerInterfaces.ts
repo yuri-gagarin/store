@@ -10,5 +10,3 @@ export interface  IGenericImgUploadCtrl {
   createImage(req: Request, res: Response): Promise<Response>;
   deleteImage(req: Request, res: Response): Promise<Response>;
 };
-
-export interface IController extends IGenericController, IGenericImgUploadCtrl {};
