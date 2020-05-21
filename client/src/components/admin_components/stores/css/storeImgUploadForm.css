@@ -1,0 +1,35 @@
+#storeImgInputControlls {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+#storeImgInputControlls > label {
+  background-color: rgb(69, 143, 40);
+  color: white;
+}
+#storeImgInputControlls > label:hover {
+  background-color: green;
+}
+#storeImgInputControlls > span {
+  border: 2px solid blue;
+}
+
+#storeImgUploadControlls {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+#storeImgCancelBtn {
+  background: rgb(182, 46, 46);
+  color: white;
+}
+#storeImgCancelBtn:hover {
+  background: red;
+}
+#storeImgUploadBtn {
+  background: rgb(69, 143, 40);
+  color: white;
+}
+#storeImgUploadBtn:hover {
+  background: green;
+}
