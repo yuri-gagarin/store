@@ -13,7 +13,7 @@ class StoreImageUploader {
   private maxFileSize = 10000000;
   private fileName: string = "";
   private imagePath: string = "";
-  private uploader = multer({
+  public uploader = multer({
     limits: {
       fileSize: this.maxFileSize
     },
@@ -23,6 +23,8 @@ class StoreImageUploader {
 
   constructor() {
     this.uploadDetails = { responseMsg: "", success: false, imagePath: "" };
+    this.upload = this.upload.bind(this);
+    console.log(this.uploader)
   }
 
   private fileFilter (req: Request, file: any, done: any): void {
@@ -50,7 +52,7 @@ class StoreImageUploader {
       }
     })
   }
-  upload (req: Request, res: Response, next: NextFunction) :void {
+  public upload (req: Request, res: Response, next: NextFunction) :void {
     this.uploader(req, res, (err: any) => {
       if (err) {
         const error: MulterError = err;
