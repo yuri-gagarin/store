@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { IGenericImgUploadCtrl } from './helpers/controllerInterfaces';
 import { IImageUploadDetails } from "./image_uploaders/types/types";
-import StorePicture from "../models/StorePicture";
+import ProductPicture from "../models/ProductPicture";
 // helpers //
 import { respondWithInputError, respondWithDBError, normalizeImgUrl, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
 
-class StoreImageUploadController implements IGenericImgUploadCtrl {
+class ProductImageUploadController implements IGenericImgUploadCtrl {
   createImage (req: Request, res: Response): Promise<Response> {
     const uploadDetails: IImageUploadDetails = res.locals.uploadDetails as IImageUploadDetails;
     console.info(uploadDetails)
@@ -13,16 +13,16 @@ class StoreImageUploadController implements IGenericImgUploadCtrl {
     if (success && imagePath && absolutePath) {
       return normalizeImgUrl(absolutePath)
         .then((imgUrl) => {
-          return StorePicture.create({
+          return ProductPicture.create({
             url: imgUrl,
             fileName: fileName,
             imagePath: imagePath,
             absolutePath: absolutePath
           })
-        .then((storeImg) => {
+        .then((productPic) => {
           return res.status(200).json({
             responseMsg: "Store image uploaded",
-            image: storeImg
+            image: productPic
           });
         })
         .catch((err) => {
@@ -38,13 +38,13 @@ class StoreImageUploadController implements IGenericImgUploadCtrl {
     if (!_id) {
       return respondWithInputError(res, "Can't resolve image to delete", 400);
     }
-    return StorePicture.findOne({ _id: _id})
-      .then((storePic) => {
-        if (storePic) {
-          return deleteFile(storePic.absolutePath)
+    return ProductPicture.findOne({ _id: _id})
+      .then((productPic) => {
+        if (productPic) {
+          return deleteFile(productPic.absolutePath)
             .then((success) => {
               if (success) {
-                return StorePicture.findOneAndDelete({ _id: _id})
+                return ProductPicture.findOneAndDelete({ _id: _id})
                 .then((response) => {
                   return res.status(200).json({
                     responseMsg: "Image deleted"
@@ -68,4 +68,4 @@ class StoreImageUploadController implements IGenericImgUploadCtrl {
   }
 }
 
-export default StoreImageUploadController;
+export default ProductImageUploadController;

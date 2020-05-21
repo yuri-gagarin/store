@@ -1,9 +1,10 @@
 import multer, { MulterError } from "multer";
 import path from "path";
-import { Request, Response, NextFunction } from "express";
 import { IImageUploadDetails } from "./types/types";
+import { Request, Response, NextFunction } from "express";
 
-class StoreImageUploader {
+
+class ProductImageUploader {
   private uploadDetails: IImageUploadDetails;
   private maxFileSize = 10000000;
   private fileName: string = "";
@@ -14,7 +15,7 @@ class StoreImageUploader {
     },
     storage: this.storage(),
     fileFilter: this.fileFilter
-  }).single("storeImage");
+  }).single("productImage");
 
   constructor() {
     this.uploadDetails = { responseMsg: "", success: false, imagePath: "", fileName: "", absolutePath: "" };
@@ -36,7 +37,7 @@ class StoreImageUploader {
   private storage (): multer.StorageEngine {
     return multer.diskStorage({
       destination: (req, file, done) => {
-        this.imagePath = path.join("public", "uploads", "store_images");
+        this.imagePath = path.join("public", "uploads", "product_images");
         done(null, this.imagePath);
       },
       filename: (req, file, done) => {
@@ -99,4 +100,4 @@ class StoreImageUploader {
   }
 }
 
-export default StoreImageUploader;
+export default ProductImageUploader;
