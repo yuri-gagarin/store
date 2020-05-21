@@ -17,11 +17,20 @@ export const respondWithDBError = (res: Response, err: Error): Promise<Response>
   });
 };
 
+export const respondWithGeneralError = (res: Response, msg: string, status?: number): Promise<Response> => {
+  return new Promise((resolve) => {
+    return resolve(res.status(status ? status : 500).json({
+      responseMsg: "Error",
+      error: new Error(msg ? msg: "General error occured")
+    }));
+  });
+};
+
 export const deleteFile = (filePath: string): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     fs.unlink(filePath, (err) => {
       if (err) {
-        reject(false);
+        reject(err);
       }
       resolve(true);
     });

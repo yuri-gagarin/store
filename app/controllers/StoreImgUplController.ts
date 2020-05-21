@@ -3,24 +3,26 @@ import { IGenericImgUploadCtrl } from './helpers/controllerInterfaces';
 import { IImageUploadDetails } from "./image_uploaders/StoreImageUploader";
 import StorePicture from "../models/StorePicture";
 // helpers //
-import { respondWithInputError, respondWithDBError, normalizeImgUrl } from "./helpers/controllerHelpers";
+import { respondWithInputError, respondWithDBError, normalizeImgUrl, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
 
 class StoreImageUploadController implements IGenericImgUploadCtrl {
   createImage (req: Request, res: Response): Promise<Response> {
-    const uploadDetails: IImageUploadDetails = res.locals.uploadDetails;
-    const { imagePath, success } = uploadDetails;
-    if (success && imagePath) {
-      return normalizeImgUrl(uploadDetails.imagePath)
+    const uploadDetails: IImageUploadDetails = res.locals.uploadDetails as IImageUploadDetails;
+    console.info(uploadDetails)
+    const { success, imagePath, fileName, absolutePath } = uploadDetails;
+    if (success && imagePath && absolutePath) {
+      return normalizeImgUrl(absolutePath)
         .then((imgUrl) => {
           return StorePicture.create({
             url: imgUrl,
-            uploadPAth: imagePath
+            fileName: fileName,
+            imagePath: imagePath,
+            absolutePath: absolutePath
           })
         .then((storeImg) => {
           return res.status(200).json({
-            responseMsg: "Image uploaded",
-            imgUrl: storeImg.url,
-            uploadPath: storeImg.uploadPath
+            responseMsg: "Store image uploaded",
+            image: storeImg
           });
         })
         .catch((err) => {
@@ -38,16 +40,31 @@ class StoreImageUploadController implements IGenericImgUploadCtrl {
     }
     return StorePicture.findOne({ _id: _id})
       .then((storePic) => {
-        return StorePicture.deleteOne({ _id: storePic?._id})
-      })
-      .then((result) => {
-        return res.status(200).json({
-          responeMsg: "Deleted " + result.deletedCount + " image(s)"
-        });
-      })
-      .catch((err) => {
-        return respondWithDBError(res, err);
-      });
+        if (storePic) {
+          return deleteFile(storePic.absolutePath)
+            .then((success) => {
+              if (success) {
+                return StorePicture.findOneAndDelete({ _id: _id})
+                .then((response) => {
+                  return res.status(200).json({
+                    responseMsg: "Image deleted"
+                  });
+                })
+                .catch((err) => {
+                  console.error(err);
+                  return respondWithDBError(res, err);
+                });
+              } else {
+                return respondWithGeneralError(res, "Can't delete file", 500);
+              }
+            })
+            .catch((err) => {
+              return respondWithDBError(res, err);
+            })
+        } else {
+          return respondWithInputError(res, "Image not found", 404);
+        }
+      });  
   }
 }
 

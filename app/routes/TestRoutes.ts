@@ -9,7 +9,6 @@ class TestRoutes extends RouteConstructor<IGenericController> {
     this.initializeRoutes();
   }
   protected initializeRoutes = (): void => {
-    console.log("initialized test routes");
     this.testRoute();
   }
   private testRoute (): void {

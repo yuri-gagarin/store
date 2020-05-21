@@ -10,7 +10,6 @@ type StoreParams = {
 }
 class StoreController implements IGenericController {
   constructor () {
-    console.info("Store controller initialized");
   }
 
   get (req: Request, res: Response): Promise<Response>  {

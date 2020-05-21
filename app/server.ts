@@ -47,6 +47,5 @@ app.use(Router);
 app.on("dbReady", () => {
   server.listen(PORT, () => {
     console.info(`Listening at PORT: ${PORT}`);
-    console.log(config)
   });
 });
