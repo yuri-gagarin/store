@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-interface IStorePicture extends Document {
+export interface IStorePicture extends Document {
   description?: string;
   url: string;
   fileName: string;
@@ -40,5 +40,11 @@ const StorePictureSchema: Schema = new Schema({
     required: false
   }
 });
-
+/*
+StorePictureSchema.virtual("images", {
+  ref: "StoreImage",
+  localField: "_id",
+  foreignField: "StorePicture"
+});
+*/
 export default mongoose.model<IStorePicture>("StorePicture", StorePictureSchema);

@@ -1,21 +1,32 @@
 import { Request, Response } from "express";
+import { Types, model } from "mongoose";
 import Store from "../models/Store";
-import StorePicture from "../models/StorePicture";
+import StorePicture, {IStorePicture} from "../models/StorePicture";
 import { IGenericController } from "./helpers/controllerInterfaces";
-
+// helpers //
+import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
+type StoreImg = {
+  _id: string;
+  url: string;
+}
+type PopulatedImage = {
+  _id: Types.ObjectId;
+  absolutePath: string;
+}
 type StoreParams = {
   title?: string;
-  description?: string;
-  storeImages?: [string];
+  description: string;
+  storeImages: [StoreImg];
 }
 class StoreController implements IGenericController {
   constructor () {
   }
 
   get (req: Request, res: Response): Promise<Response>  {
-    const id: string | undefined = req.params.id;
-    if (!id) return this.respondWithInputError(res, "Can't find store");
-    return Store.findOne({ _id: id })
+    const _id: string | undefined = req.params._id;
+    if (!_id) return respondWithInputError(res, "Can't find store");
+    return Store.findOne({ _id: _id })
+      .populate("images", [ "_id"])
       .then((store) => {
         if (store) {
           return res.status(200).json({
@@ -23,96 +34,118 @@ class StoreController implements IGenericController {
             store: store
           });
         } else {
-          return this.respondWithInputError(res, "Could not find store", 404);
+          return respondWithInputError(res, "Could not find store", 404);
         }
       })
       .catch((error) => {
-        return this.respondWithDBError(res, error);
+        return respondWithDBError(res, error);
       });
   }
   create (req: Request, res: Response): Promise<Response> {
     const { title, description, storeImages }: StoreParams = req.body;
+    let imgIds: Types.ObjectId[] = [];
 
-    return Store.create({
+    if (storeImages.length > 1) {
+      // let imgPromises: [Promise<Query<StoreImg>>];
+      for (const newImg of storeImages) {
+        imgIds.push(Types.ObjectId(newImg.url));
+      }
+    }
+    const newStore = new Store({
       title: title,
       description: description,
-      images: storeImages ? [ ...storeImages ] : []
-    })
-    .then((store) => {
-      return res.status(200).json({
-        responseMsg: "New Store created",
-        newStore: {
-          ...store
-        }
-      });
-    })
-    .catch((error) => {
-      return res.status(500).json({
-        responseMsg: "Seems like we have a server error",
-        error: error
-      });
+      images: [ ...imgIds ]
     });
-  } 
+
+    return newStore.save()
+      .then((newStore) => {
+        return res.status(200).json({
+          responseMsg: "New store created",
+          newStore: newStore
+        });
+      })
+      .catch((err) => {
+        return respondWithDBError(res, err);
+      });
+  }
   edit (req: Request, res: Response): Promise<Response> {
-    const { id } = req.body;
-    return Store.findOne({ _id: id})
+    const { _id } = req.params;
+    const { title, description, storeImages }: StoreParams = req.body;
+    const updatesStoreImgs = storeImages.map((img) => Types.ObjectId(img._id))
+    if (!_id) {
+      return respondWithInputError(res, "Can't resolve store", 400);
+    }
+    return Store.findOneAndUpdate(
+      { _id: _id },
+      { 
+        $set: {
+          title: title,
+          description: description,
+          images: [ ...updatesStoreImgs ],
+          editedAt: new Date()
+        },
+      },
+      { new: true }
+    ).then((updatedStore) => {
+        return Store.populate(updatedStore, { path: "images", model: "StorePicture" })
+      })
       .then((store) => {
-        return res.status(200).json(store);
+        return res.status(200).json({
+          reponseMsg: "Store Updates",
+          updatedStore: store
+        });
       })
       .catch((error) => {
-        return this.respondWithDBError(res, error);
-      });
+        console.error(error);
+        return respondWithDBError(res, error);
+      })
+       
   }
-  /*
-  saveStore = (req: Request, res: Response): Promise<Response> => {
-  
-  }
-  */
 
- delete (req: Request, res: Response): Promise<Response> {
-   const _id: string | undefined = req.params.id;
+  delete (req: Request, res: Response): Promise<Response> {
+   const { _id } = req.params;
    let deletedImages: number;
-
    if (!_id) {
-     return this.respondWithInputError(res, "Can't find store");
+     return respondWithInputError(res, "Can't find store");
    }
    return Store.findOne({ _id: _id})
+    .populate("images")
     .then((store) => {
       // first delete all store images //
       if (store) {
-        return StorePicture.deleteMany({ _id: { $in: [ ...store.images ] } })
-          .then(({ n }) => {
-            n ? deletedImages = n : 0;
-            return Store.deleteOne({ _id: _id });
-          })
+        const storeImgPaths = store.images.map((image) => {
+          return (<IStorePicture>image).absolutePath
+        })
+        const storeImgIds: Types.ObjectId[] = store.images.map((image) => {
+          return (<IStorePicture>image)._id;
+        })
+        const deletePromises: Promise<boolean>[] = [];
+        for (const path of storeImgPaths) {
+          deletePromises.push(deleteFile(path));
+        }
+        return Promise.all(deletePromises)
           .then((response) => {
-            return res.status(200).json({
-              responseMsg: "Deleted the store and " + deletedImages,
-              response: response
-            });
+            return StorePicture.deleteMany({ _id: { $in: [ ...storeImgIds ] } })
+              .then(({ n }) => {
+                n ? deletedImages = n : 0;
+                return Store.deleteOne({ _id: _id });
+              })
+              .then((response) => {
+                return res.status(200).json({
+                  responseMsg: "Deleted the store and " + deletedImages,
+                  response: response
+                });
+              })
+              .catch((error) => {
+                return respondWithDBError(res, error);
+              });
           })
-          .catch((error) => {
-            return this.respondWithDBError(res, error);
+          .catch((err) => {
+            return respondWithGeneralError(res, "Coudln't complete the operation", 400);
           });
       } else {
-        return this.respondWithInputError(res, "Can't find store to delete");
+        return respondWithInputError(res, "Can't find store to delete");
       }
-      
-    });
-  }
-  private respondWithInputError = (res: Response, msg?: string, status?: number): Promise<Response> => {
-    return new Promise((resolve) =>{
-      return resolve(res.status(status ? status : 400).json({
-        responseMsg: msg ? msg : "Seems like an error occured"
-      }));
-    });
-  }
-  private respondWithDBError = (res: Response, err: Error): Promise<Response> => {
-    return new Promise((resolve) => {
-      return resolve(res.status(500).json({
-        responseMsg: "An Error occured",
-        error: err
-      }));
     });
   }
 }

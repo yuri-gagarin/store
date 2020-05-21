@@ -6,7 +6,7 @@ interface IPRoduct extends Document {
   title: string;
   description: string;
   price: string;
-  images: [StorePictureRef];
+  images: StorePictureRef[];
   createdAt: Date;
   editedAt?: Date;
 }
