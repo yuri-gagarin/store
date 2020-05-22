@@ -23,8 +23,8 @@ const StoreImageUplForm: React.FC<{}> = (props): JSX.Element => {
   };
 
   return (
-    <div style={{ width: "75%" }}>
-      <Form>
+    <div id="storeImgUplFormHolder">
+      <Form id="storeImgUploadForm">
         {
           !file ?
           <div id="storeImgInputControlls"> 

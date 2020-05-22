@@ -1,3 +1,10 @@
+#storeImgUplFormHolder {
+  width: 75%;
+  margin-top: 0.5em;
+}
+#storeImgUploadForm {
+  padding-left: 7%;
+}
 #storeImgInputControlls {
   display: inline-flex;
   flex-direction: row;
@@ -10,10 +17,6 @@
 #storeImgInputControlls > label:hover {
   background-color: green;
 }
-#storeImgInputControlls > span {
-  border: 2px solid blue;
-}
-
 #storeImgUploadControlls {
   display: inline-flex;
   flex-direction: row;

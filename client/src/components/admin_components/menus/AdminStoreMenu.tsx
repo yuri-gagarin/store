@@ -1,12 +1,28 @@
 import React, { useState } from "react";
 import { Menu, MenuItemProps } from "semantic-ui-react";
+// routing //
+import { withRouter, RouteComponentProps } from "react-router-dom"
+interface Props extends RouteComponentProps {
 
-
-const AdminStoreMenu: React.FC<{}> = (props): JSX.Element => {
+}
+const AdminStoreMenu: React.FC<Props> = ({ history }): JSX.Element => {
   const [ activeItem, setActiveItem ] = useState<string>("view_all");
 
   const handleItemClick = (e: React.MouseEvent, { name }: MenuItemProps): void => {
     setActiveItem(String(name));
+    const baseUrl: string = "/admin/home/my_store";
+    switch (name) {
+      case "view_all": 
+        history.push(baseUrl + "/all");
+        break;
+      case "create":
+        history.push(baseUrl + "/create");
+        break;
+      case "manage":
+        history.push(baseUrl + "/manage");
+        break;
+      default: history.push(baseUrl);
+    }
   }
 
   return (
@@ -35,4 +51,4 @@ const AdminStoreMenu: React.FC<{}> = (props): JSX.Element => {
   )
 };
 
-export default AdminStoreMenu;
+export default withRouter(AdminStoreMenu);

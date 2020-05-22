@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { Button, Checkbox, Form, TextArea } from "semantic-ui-react";
 // css imports //
 import "./css/createStoreForm.css";
+import StoreImgPreviewHolder from "./StoreImgPreviewThumbs";
 
 const CreateStoreForm: React.FC<{}> = (props): JSX.Element => {
   return (
     <div id="createStoreFormHolder">
-      <Form>
+      <Form id="createStoreForm">
         <Form.Field>
           <label>Store title</label>
           <input placeholder="Store title here ..." />
@@ -22,6 +23,7 @@ const CreateStoreForm: React.FC<{}> = (props): JSX.Element => {
         </Form.Field>
         <Button type='submit'>Save Store</Button>
       </Form>
+      <StoreImgPreviewHolder />
     </div>
   );
 };

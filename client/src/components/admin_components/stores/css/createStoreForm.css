@@ -1,5 +1,11 @@
 #createStoreFormHolder {
-  border: 3px solid green;
-  padding-left: 25%;
-  padding-right: 25%;
+  border: 2px solid rgb(186, 219, 186);
+  border-radius: 4px;
+}
+#createStoreForm {
+  width: 75%;
+  padding-left: 5%;
+  padding-top: 5%;
+  padding-right: 10%;
+  padding-bottom: 5%;
 }
