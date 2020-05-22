@@ -5,9 +5,13 @@ import LoginComponent from "../admin_components/login/LoginComponent";
 
 const AdminRoutes: React.FC<{}> = (props): JSX.Element =>  {
   return (
-    <Route exact path="/admin/login">
-      <LoginComponent />
-    </Route>
+    <React.Fragment>
+      <Route exact path="/admin/login">
+        <LoginComponent />
+      </Route>
+      
+    </React.Fragment>
+    
   );
 };
 
