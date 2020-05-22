@@ -5,8 +5,8 @@ export interface IGenericController {
   create?(req: Request, res: Response): Promise<Response>;
   edit?(req: Request, res: Response): Promise<Response>;
   delete?(req: Request, res: Response): Promise<Response>;
-};
+}
 export interface  IGenericImgUploadCtrl {
   createImage(req: Request, res: Response): Promise<Response>;
   deleteImage(req: Request, res: Response): Promise<Response>;
-};
+}

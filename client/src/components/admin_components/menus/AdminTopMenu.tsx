@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Menu, Dropdown, Icon, MenuItemProps } from "semantic-ui-react";
+import { Menu, Dropdown, Icon, MenuItemProps, DropdownItemProps } from "semantic-ui-react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 // css imports //
 import "./css/adminTopMenu.css";
@@ -10,6 +10,7 @@ interface Props extends RouteComponentProps {
 
 const AdminTopMenu: React.FC<Props> = ({ history }): JSX.Element => {
   const [ activeMenuItem, setActiveMenuItem ] = useState<string>("");
+
   const handleMenuClick = (e: React.MouseEvent, { name }: MenuItemProps): void => {
     setActiveMenuItem(String(name));
     switch (name) {
@@ -24,6 +25,22 @@ const AdminTopMenu: React.FC<Props> = ({ history }): JSX.Element => {
       default: history.push("/admin/home");
     }
   };
+
+  const handleFileClick = (e: React.MouseEvent, { name }: DropdownItemProps): void => {
+    const baseUrl = "/admin/home/";
+    switch (name) {
+      case "store": history.push(baseUrl + "my_store/create");
+        break;
+      case "service": history.push(baseUrl + "my_services/create");
+        break;
+      case "product": history.push(baseUrl + "my_products/create");
+        break;
+      case "video": history.push(baseUrl + "my_videos/create");
+        break;
+      default: history.push(baseUrl);
+
+    }
+  }
   const handleLogOut = () => {
 
   };
@@ -37,8 +54,30 @@ const AdminTopMenu: React.FC<Props> = ({ history }): JSX.Element => {
             <span className='text'>New</span>
 
             <Dropdown.Menu>
-              <Dropdown.Item>Document</Dropdown.Item>
-              <Dropdown.Item>Image</Dropdown.Item>
+              <Dropdown.Item 
+                onClick={handleFileClick} 
+                name="store"
+              >
+                Store
+              </Dropdown.Item>
+              <Dropdown.Item 
+                onClick={handleFileClick}
+                name="service"
+              >
+                Service
+              </Dropdown.Item>
+              <Dropdown.Item 
+                onClick={handleFileClick}
+                name="product"
+              >
+                Product
+              </Dropdown.Item>
+              <Dropdown.Item 
+                onClick={handleFileClick}
+                name="video"
+              >
+                Video
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown.Item>
           <Dropdown.Item>Open</Dropdown.Item>

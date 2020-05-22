@@ -8,7 +8,6 @@ import { respondWithInputError, respondWithDBError, normalizeImgUrl, deleteFile,
 class StoreImageUploadController implements IGenericImgUploadCtrl {
   createImage (req: Request, res: Response): Promise<Response> {
     const uploadDetails: IImageUploadDetails = res.locals.uploadDetails as IImageUploadDetails;
-    console.info(uploadDetails)
     const { success, imagePath, fileName, absolutePath } = uploadDetails;
     if (success && imagePath && absolutePath) {
       return normalizeImgUrl(absolutePath)
@@ -45,7 +44,7 @@ class StoreImageUploadController implements IGenericImgUploadCtrl {
             .then((success) => {
               if (success) {
                 return StorePicture.findOneAndDelete({ _id: _id})
-                .then((response) => {
+                .then(() => {
                   return res.status(200).json({
                     responseMsg: "Image deleted"
                   });
@@ -60,7 +59,7 @@ class StoreImageUploadController implements IGenericImgUploadCtrl {
             })
             .catch((err) => {
               return respondWithDBError(res, err);
-            })
+            });
         } else {
           return respondWithInputError(res, "Image not found", 404);
         }

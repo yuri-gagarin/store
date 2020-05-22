@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { IGenericImgUploadCtrl, IGenericController} from "../../controllers/helpers/controllerInterfaces";
 
 export abstract class RouteConstructor<T> {
   protected Router: Router;

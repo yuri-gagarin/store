@@ -6,8 +6,8 @@ import { IImageUploadDetails } from "./types/types";
 class StoreImageUploader {
   private uploadDetails: IImageUploadDetails;
   private maxFileSize = 10000000;
-  private fileName: string = "";
-  private imagePath: string = "";
+  private fileName = "";
+  private imagePath = "";
   public uploader = multer({
     limits: {
       fileSize: this.maxFileSize
@@ -21,7 +21,7 @@ class StoreImageUploader {
     this.upload = this.upload.bind(this);
   }
 
-  private fileFilter (req: Request, file: any, done: any): void {
+  private fileFilter (req: Request, file: Express.Multer.File, done: any): void {
     const validTypes = [ ".jpeg", ".jpg", ".gif", ".png" ];
     const fileTypes = /jpeg|jpg|gif|png/;
     const mimeType = fileTypes.test(file.mimetype);
@@ -44,10 +44,9 @@ class StoreImageUploader {
         this.fileName = file.originalname.split(".")[0] + "_" + Date.now() + extName;
         done(null, this.fileName);
       }
-    })
+    });
   }
-  public upload (req: Request, res: Response, next: NextFunction) :void {
-    console.info(55);
+  public upload (req: Request, res: Response, next: NextFunction): void {
     this.uploader(req, res, (err: any) => {
       if (err) {
         const error: MulterError = err;

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Types, model } from "mongoose";
+import { Types } from "mongoose";
 import Store from "../models/Store";
 import StorePicture, {IStorePicture} from "../models/StorePicture";
 import { IGenericController } from "./helpers/controllerInterfaces";
@@ -19,9 +19,6 @@ type StoreParams = {
   storeImages: [StoreImg];
 }
 class StoreController implements IGenericController {
-  constructor () {
-  }
-
   get (req: Request, res: Response): Promise<Response>  {
     const _id: string | undefined = req.params._id;
     if (!_id) return respondWithInputError(res, "Can't find store");
@@ -43,7 +40,7 @@ class StoreController implements IGenericController {
   }
   create (req: Request, res: Response): Promise<Response> {
     const { title, description, storeImages }: StoreParams = req.body;
-    let imgIds: Types.ObjectId[] = [];
+    const imgIds: Types.ObjectId[] = [];
 
     if (storeImages.length > 1) {
       // let imgPromises: [Promise<Query<StoreImg>>];
@@ -71,7 +68,7 @@ class StoreController implements IGenericController {
   edit (req: Request, res: Response): Promise<Response> {
     const { _id } = req.params;
     const { title, description, storeImages }: StoreParams = req.body;
-    const updatesStoreImgs = storeImages.map((img) => Types.ObjectId(img._id))
+    const updatesStoreImgs = storeImages.map((img) => Types.ObjectId(img._id));
     if (!_id) {
       return respondWithInputError(res, "Can't resolve store", 400);
     }
@@ -87,7 +84,7 @@ class StoreController implements IGenericController {
       },
       { new: true }
     ).then((updatedStore) => {
-        return Store.populate(updatedStore, { path: "images", model: "StorePicture" })
+        return Store.populate(updatedStore, { path: "images", model: "StorePicture" });
       })
       .then((store) => {
         return res.status(200).json({
@@ -98,7 +95,7 @@ class StoreController implements IGenericController {
       .catch((error) => {
         console.error(error);
         return respondWithDBError(res, error);
-      })
+      });
        
   }
 
@@ -114,17 +111,17 @@ class StoreController implements IGenericController {
       // first delete all store images //
       if (store) {
         const storeImgPaths = store.images.map((image) => {
-          return (<IStorePicture>image).absolutePath
-        })
+          return (image as IStorePicture).absolutePath;
+        });
         const storeImgIds: Types.ObjectId[] = store.images.map((image) => {
-          return (<IStorePicture>image)._id;
-        })
+          return (image as IStorePicture)._id;
+        });
         const deletePromises: Promise<boolean>[] = [];
         for (const path of storeImgPaths) {
           deletePromises.push(deleteFile(path));
         }
         return Promise.all(deletePromises)
-          .then((response) => {
+          .then(() => {
             return StorePicture.deleteMany({ _id: { $in: [ ...storeImgIds ] } })
               .then(({ n }) => {
                 n ? deletedImages = n : 0;
@@ -140,8 +137,8 @@ class StoreController implements IGenericController {
                 return respondWithDBError(res, error);
               });
           })
-          .catch((err) => {
-            return respondWithGeneralError(res, "Coudln't complete the operation", 400);
+          .catch((err: Error) => {
+            return respondWithGeneralError(res, err.message, 400);
           });
       } else {
         return respondWithInputError(res, "Can't find store to delete");

@@ -6,8 +6,7 @@ import StoreController from "../controllers/StoreController";
 import StoreRoutes from "./StoreRoutes";
 import StoreImageRoutes from "./StoreImageRoutes";
 import StoreImageUploadController from "../controllers/StoreImgUplController";
-import ProductImageRoutes from "./ProductImageRoutes"
-import ProductImageController from "../controllers/ProductImgUplController"
+import ProductImageRoutes from "./ProductImageRoutes";
 import ProductImageUploadController from "../controllers/ProductImgUplController";
 
 class CombineRoutes {
