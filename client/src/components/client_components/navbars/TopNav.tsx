@@ -40,9 +40,12 @@ const TopNavbar: React.FC<Props> = ({ handleSidebarOpen, children, history }): J
   }
 
   const handleItemClick = (e: React.MouseEvent, data: MenuItemProps): void => {
+    console.log("clicked")
     setActiveItem(String(data.name));
     if (data.name === "products") {
       const elemY = pageElements.productsComp?.getBoundingClientRect().top;
+      console.log(pageElements.productsComp?.getBoundingClientRect().top);
+      console.log(window.pageYOffset);
       if (elemY) window.scrollTo({ top: elemY + window.scrollY  - 75, behavior: "smooth" });
     } else if (data.name === "store") {
       const elemY = pageElements.storeComp?.getBoundingClientRect().top;

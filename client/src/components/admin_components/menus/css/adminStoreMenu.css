@@ -1,0 +1,7 @@
+.ui.tabular.menu.adminStoreMenu {
+  transform: translateY(-100px);
+}
+.ui.tabular.menu.adminStoreMenu.storeMenuOpen {
+  transform: translateY(0px);
+  transition: transform 200ms linear;
+}

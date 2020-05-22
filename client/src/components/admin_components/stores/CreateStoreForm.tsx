@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Checkbox, Form, TextArea } from "semantic-ui-react";
 // css imports //
 import "./css/createStoreForm.css";

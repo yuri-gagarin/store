@@ -63,7 +63,6 @@ const HomeStore: React.FC<Props> = ({ history }): JSX.Element => {
     setScreenDimensions((getWindowDimensions()));
     window.addEventListener("resize", handleWinResize);
     return () => {
-      console.log("unmounted")
       window.removeEventListener("resize", handleWinResize);
     }
   }, []);
