@@ -4,11 +4,15 @@ import path from "path";
 import mongoose from "mongoose";
 import CombineRoutes from "./routes/CombineRoutes";
 import config from "./config/config";
+import bodyParser from "body-parser";
+
 // app declarations and constants //
 const app: express.Application = express();
 const PORT: number = process.env.PORT ? Number(process.env.PORT) : 8080;
 const server: http.Server = http.createServer(app);
 const Router: express.Router = express.Router();
+const jsonParser = bodyParser.json();
+const urlEncodedParser = bodyParser.urlencoded({ extended: false });
 
 const mongoOptions = {
   useNewUrlParser: true,
@@ -25,6 +29,9 @@ mongoose.connection.once("open", () => {
   console.info("DB Connected");
   app.emit("dbReady");
 });
+
+app.use(jsonParser);
+app.use(urlEncodedParser);
 
 if (process.env.NODE_ENV && process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, '/../client/build')));

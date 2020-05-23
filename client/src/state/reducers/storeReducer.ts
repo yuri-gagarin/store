@@ -4,7 +4,7 @@ type GetStore = {
   readonly payload: {
     loading: boolean;
     responseMsg: string;
-    storeData: StoreData | {};
+    storeData: IStoreData | {};
     error: null | Error;
   };
 }
@@ -13,7 +13,7 @@ type CreateStore = {
   readonly payload: {
     loading: boolean;
     responseMsg: string;
-    storeData: StoreData;
+    storeData: IStoreData;
     error: null | Error;
   };
 } 
@@ -25,7 +25,16 @@ type DeleteStore = {
   readonly type: "DELETE_STORE";
   readonly payload: {}
 }
-interface StoreImgData {
+type SetStoreError = {
+  readonly type: "SET_STORE_ERROR";
+  readonly payload: {
+    loading: boolean;
+    responseMsg: string;
+    storeData: {};
+    error: Error;
+  }
+}
+export interface IStoreImgData {
   description?: string;
   url: string;
   fileName: string;
@@ -34,11 +43,11 @@ interface StoreImgData {
   createdAt: string;
   editedAt?: string;
 }
-interface StoreData {
+export interface IStoreData {
   _id: string;
   title: string;
   description: string;
-  images: StoreImgData[];
+  images: IStoreImgData[];
   createdAt: string;
   editedAt?: string;
 }
@@ -46,7 +55,7 @@ interface StoreData {
 export interface IStoreState {
   loading: boolean;
   responseMsg: string;
-  storeData: StoreData | {};
+  storeData: IStoreData | {};
   error: null | Error;
 }
 
@@ -56,7 +65,7 @@ export const initialStoreState: IStoreState = {
   storeData: {},
   error: null
 };
-export type StoreAction = GetStore | CreateStore | EditStore | DeleteStore;
+export type StoreAction = GetStore | CreateStore | EditStore | DeleteStore | SetStoreError;
 
 const storeReducer = (state: IStoreState = initialStoreState, action: StoreAction): IStoreState => {
   switch (action.type) {

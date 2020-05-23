@@ -56,6 +56,7 @@ class StoreController implements IGenericController {
 
     return newStore.save()
       .then((newStore) => {
+        console.log(newStore);
         return res.status(200).json({
           responseMsg: "New store created",
           newStore: newStore

@@ -20,7 +20,7 @@ const initialContext: IGlobalAppContext = {
   },
   dispatch: (value: AppAction): void => {}
 } 
-const Store = createContext<IGlobalAppContext>(initialContext);
+export const Store = createContext<IGlobalAppContext>(initialContext);
 
 export const StateProvider: React.FC<{}> = ({ children }): JSX.Element => {
   const [ globalState, dispatch ] = useReducer<CombinedReducer>(indexReducer, rootState as IGlobalAppState);
