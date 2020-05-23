@@ -40,6 +40,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-combine-reducers": "^1.0.0",
     "@types/react-router-dom": "^5.1.5",
     "react-combine-reducers": "^1.0.3"
   },

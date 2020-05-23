@@ -43,15 +43,22 @@ interface StoreData {
   editedAt?: string;
 }
 
-interface StoreState {
+export interface IStoreState {
   loading: boolean;
   responseMsg: string;
   storeData: StoreData | {};
   error: null | Error;
 }
 
+export const initialStoreState: IStoreState = {
+  loading: false,
+  responseMsg: "",
+  storeData: {},
+  error: null
+};
 export type StoreAction = GetStore | CreateStore | EditStore | DeleteStore;
-const storeReducer = (state: StoreState, action: StoreAction): StoreState => {
+
+const storeReducer = (state: IStoreState = initialStoreState, action: StoreAction): IStoreState => {
   switch (action.type) {
     case "GET_STORE": 
       return {
