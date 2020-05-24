@@ -81,7 +81,7 @@
   declare interface IStoreState {
     loading: boolean;
     responseMsg: string;
-    currentStoreData: IStoreData | {};
+    currentStoreData: IStoreData;
     loadedStores: IStoreData[]
     error: null | Error;
   }

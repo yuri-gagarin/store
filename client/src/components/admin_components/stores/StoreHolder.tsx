@@ -1,44 +1,53 @@
-import React from "react";
-import { Button, Card, Image } from "semantic-ui-react";
+import React, { useContext } from "react";
+import { Button, Grid } from "semantic-ui-react";
+import { Store } from "../../../state/Store";
+import { deleteStore } from "./api_handlers/storeActions";
 
 type Props = {
+  _id: string;
   imgUrl?: string;
-  title?: string;
-  description?: string;
+  title: string;
+  description: string;
   createdAt: string;
-  editedAt: string;
+  editedAt?: string;
 }
 
-const StoreCard: React.FC<Props> = ({ imgUrl, title, description, createdAt, editedAt }): JSX.Element => {
+const StoreCard: React.FC<Props> = ({  _id, imgUrl, title, description, createdAt, editedAt }): JSX.Element => {
+  const { dispatch, state } = useContext(Store);
   const setStoreImg = (imgUrl: string | undefined): string => {
     return imgUrl ? imgUrl : "/images/logos/go_ed_log.jpg";
   }
+
+  const handleStoreOpen = (e: React.MouseEvent<HTMLButtonElement>): void => {
+
+  }
+  const handleStoreEdit = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    
+  }
+  const handleStoreDelete = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    deleteStore( _id, dispatch, state)
+      .then((success) => {
+        
+      })
+  }
   return (
-    <Card>
-      <Card.Content>
-        <Image
-          floated='right'
-          size='mini'
-          src={setStoreImg(imgUrl)}
-        />
-        <Card.Header>{title}</Card.Header>
-        <Card.Meta>Created: {createdAt}</Card.Meta>
-        <Card.Meta>Edited: {editedAt}</Card.Meta>
-        <Card.Description>
-          {description}
-        </Card.Description>
-      </Card.Content>
-      <Card.Content extra>
-        <div className='ui two buttons'>
-          <Button basic color='green'>
-            Open
-          </Button>
-          <Button basic color='red'>
-            Delete
-          </Button>
-        </div>
-      </Card.Content>
-    </Card>
+    <React.Fragment>
+      <Grid.Row>
+        <Grid.Column computer={12} mobile={16} style={{ border: '2px solid red'}}>
+          <h3>{title}</h3>
+          <h5>{description}</h5>
+          <p>{createdAt}</p>
+        </Grid.Column> 
+        <Grid.Column computer={4} mobile={16} style={{ border: '2px solid blue'}}>
+          <Button content="Open" onClick={handleStoreOpen}></Button>
+          <Button content="Edit" onClick={handleStoreEdit}></Button>
+          <Button content="Delete" onClick={handleStoreDelete}></Button>
+
+
+        </Grid.Column> 
+      </Grid.Row>
+    </React.Fragment>
+    
   );
 };
 

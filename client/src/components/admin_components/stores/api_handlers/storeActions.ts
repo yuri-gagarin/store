@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
 import { Dispatch } from "react";
-import { Store, IGlobalAppState } from "../../../../state/Store";
+import { IGlobalAppState } from "../../../../state/Store";
 import { AppAction } from "../../../../state/Store";
 
 
@@ -19,17 +19,16 @@ interface IStoreServerResData {
 type NewStoreData = {
   title: string;
   description: string;
-  images: []
+  images: string[]
 }
 type EditedStoreData = NewStoreData;
 
 export const getAllStores = (dispatch: Dispatch<AppAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
-    url: "/api/store",
-    transformResponse: (r: IStoreServerResponse) => r.data
+    url: "/api/store"
   };
-  return axios.request<IStoreServerResData>(requestOptions)
+  return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
       const { data } = response;
       const stores = data.stores!;
@@ -55,9 +54,8 @@ export const getStore = (_id: string, dispatch: Dispatch<AppAction>): Promise<bo
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/store/" + _id,
-    transformResponse: (r: IStoreServerResponse) => r.data
   };
-  return axios.request<IStoreServerResData>(requestOptions)
+  return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
       const { data } = response;
       const  store  = data.store!;
@@ -87,12 +85,12 @@ export const createStore = ({ title, description, images }: NewStoreData, dispat
       title: title,
       description: description,
       storeImages: images,
-    },
-    transformResponse: (r: IStoreServerResponse) => r.data
+    }
   };
 
-  return axios.request<IStoreServerResData>(requestOptions)
+  return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
+      console.log(response)
       const { data } = response;
       const newStore = data.newStore!
       dispatch({ type: "CREATE_STORE", payload: {
@@ -104,6 +102,7 @@ export const createStore = ({ title, description, images }: NewStoreData, dispat
       return true;
     })
     .catch((error: AxiosError) => {
+      console.error(error)
       dispatch({ type: "SET_STORE_ERROR", payload: {
         loading: false,
         responseMsg: "An Error occured",
@@ -120,10 +119,9 @@ export const editStore = (_id: string, data: EditedStoreData, dispatch: Dispatch
     url: "/api/store/update/" + _id,
     data: {
       ...data,
-    },
-    transformResponse: (r: IStoreServerResponse) => r.data
+    }
   };
-  return axios.request<IStoreServerResData>(requestOptions)
+  return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
       const { data } = response;
       const editedStore = data.editedStore!;
@@ -157,9 +155,8 @@ export const deleteStore = (_id: string, dispatch: Dispatch<AppAction>, state: I
   const requestOptions: AxiosRequestConfig = {
     method: "delete",
     url: "/api/store/delete/" + _id,
-    transformRequest: (r: IStoreServerResponse) => r.data
   };
-  return axios.request<IStoreServerResData>(requestOptions)
+  return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
       const { data } = response;
       const deletedStore = data.deletedStore!;

@@ -1,9 +1,9 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useEffect } from "react";
 import { indexReducer, rootState } from "./reducers/indexReducer";
 import { initialStoreState } from "./reducers/storeReducer";
 // global app state //
 export type IGlobalAppState = {
-  storeState: IStoreState;
+  [storeState : string]: IStoreState;
 }
 // app actions //
 export type AppAction = StoreAction;
@@ -12,7 +12,6 @@ export interface IGlobalAppContext {
   state: IGlobalAppState;
   dispatch: React.Dispatch<AppAction>;
 }
-export type CombinedReducer = (state: IGlobalAppState, action: AppAction) => IGlobalAppState;
 // context initialization //
 const initialContext: IGlobalAppContext = {
   state: {
@@ -22,8 +21,17 @@ const initialContext: IGlobalAppContext = {
 } 
 export const Store = createContext<IGlobalAppContext>(initialContext);
 
+const logStateChanges = (state: IGlobalAppState): void => {
+  console.log("state changed");
+  for (const key in state) {
+    console.log(state[key]);
+  }
+}
 export const StateProvider: React.FC<{}> = ({ children }): JSX.Element => {
-  const [ globalState, dispatch ] = useReducer<CombinedReducer>(indexReducer, rootState as IGlobalAppState);
+  const [ globalState, dispatch ] = useReducer(indexReducer, rootState);
+  useEffect(() => {
+    logStateChanges(globalState);
+  }, [globalState])
   return  (
     <Store.Provider value={{ state: globalState, dispatch: dispatch }}>
       {children}

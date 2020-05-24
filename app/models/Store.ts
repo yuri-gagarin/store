@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 import { IStorePicture } from "./StorePicture";
 type IStorePictureRef = mongoose.Types.ObjectId | IStorePicture;
 
-interface IStore extends Document {
+export interface IStore extends Document {
   title: string;
   description: string;
   images: IStorePictureRef[];

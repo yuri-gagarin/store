@@ -1,8 +1,18 @@
 // types //
+const emptyStoreData = (): IStoreData => {
+  return {
+    _id: "",
+    title: "",
+    description: "",
+    images: [],
+    createdAt: "",
+  }
+};
+
 export const initialStoreState: IStoreState = {
   loading: false,
   responseMsg: "",
-  currentStoreData: {},
+  currentStoreData: emptyStoreData(),
   loadedStores: [],
   error: null
 };
@@ -48,7 +58,7 @@ const storeReducer = (state: IStoreState = initialStoreState, action: StoreActio
         ...state,
         loading: action.payload.loading,
         responseMsg: action.payload.responseMsg,
-        currentStoreData: {},
+        currentStoreData: emptyStoreData(),
         loadedStores: [ ...action.payload.loadedStores ],
         error:action.payload.error
       };

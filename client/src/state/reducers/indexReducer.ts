@@ -1,6 +1,9 @@
 import combineReducers from "react-combine-reducers";
 import storeReducer, { initialStoreState } from "./storeReducer";
+import { IGlobalAppState, AppAction } from "../Store";
 
-export const [indexReducer, rootState] = combineReducers({
+type CombinedReducer = (state: IGlobalAppState, action: AppAction) => IGlobalAppState;
+
+export const [indexReducer, rootState ] = combineReducers<CombinedReducer>({
   storeState: [storeReducer, initialStoreState]
 });

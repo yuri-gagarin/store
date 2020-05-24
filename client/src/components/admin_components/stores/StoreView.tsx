@@ -1,10 +1,11 @@
 import React from "react";
-import CreateStoreForm from "./CreateStoreForm";
-import StoreImageUplForm from "./StoreImageUplForm";
+import StoreManageHolder from "./CreateStoreForm";
 // css imports //
 import "./css/adminStoreView.css";
 import AdminStoreMenu from "../menus/AdminStoreMenu";
 import { Route, Switch } from "react-router-dom";
+// additional components //
+import StoreViewHolder from "./StoreViewHolder";
 
 const StoreView: React.FC<{}> = (props): JSX.Element => {
   return (
@@ -13,10 +14,10 @@ const StoreView: React.FC<{}> = (props): JSX.Element => {
       <Switch>
         <Route path="/admin/home/my_store/all">
           <h3>Store view</h3>
+          <StoreViewHolder />
         </Route>
         <Route path="/admin/home/my_store/create">
-          <CreateStoreForm />
-          <StoreImageUplForm />
+          <StoreManageHolder />
         </Route>
         <Route path="/admin/home/my_store/manage">
           <h3>Manage Stores</h3>

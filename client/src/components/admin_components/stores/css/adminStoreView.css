@@ -1,5 +1,5 @@
 #adminStoreViewHolder {
   height: 100vh;
-  display: block;
-  width: 100%;
+  padding-left: 2em;
+  padding-right: 2em;
 }
