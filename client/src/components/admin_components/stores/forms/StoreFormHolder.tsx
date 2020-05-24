@@ -1,31 +1,31 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Button, Grid, Form, TextArea } from "semantic-ui-react";
 // css imports //
-import "./css/createStoreForm.css";
-import StoreImgPreviewHolder from "./StoreImgPreviewThumbs";
-import StoreImageUplForm from "./StoreImageUplForm";
+import "./css/storeFormHolder.css";
+import StoreImgPreviewHolder from "../StoreImgPreviewThumbs";
+import StoreImageUplForm from "../StoreImageUplForm";
 // state //
-import { Store } from "../../../state/Store";
+import { Store } from "../../../../state/Store";
 // api actions //
-import { createStore } from "./api_handlers/storeActions";
+import { createStore, editStore } from "../actions/APIstoreActions";
+import { setCurrentStore } from "../actions/uiStoreActions";
 
 type FormState = {
   title: string;
   description: string;
 }
 
-const StoreManageHolder: React.FC<{}> = (props): JSX.Element => {
+const StoreFormHolder: React.FC<{}> = (props): JSX.Element => {
   const [ formOpen, setFormOpen ] = useState(false);
-  const { storeState } = useContext(Store).state;
-  const { currentStoreData } = storeState;
-  const { title, description } = storeState.currentStoreData;
-  const { dispatch } = useContext(Store);
+  const { dispatch, state } = useContext(Store);
+  const { currentStoreData } = state.storeState;
+  const { title, description } = currentStoreData;
 
   const handleCreateStore = (title: string, description: string): void => {
     const storePams = {
       title,
       description,
-      images: [""]
+      storeImages: [""]
     };
     createStore(storePams, dispatch)
       .then((success) => {
@@ -38,12 +38,24 @@ const StoreManageHolder: React.FC<{}> = (props): JSX.Element => {
       });
   };
 
+  const handleUpdateStore = (title: string, description: string): void => {
+    const storeParams = {
+      title, description, storeImages: [""]
+    }
+    editStore(currentStoreData._id, storeParams, dispatch, state)
+      .then((success) => {
+        if (success) {
+          setFormOpen(false);
+        }
+      })
+  }
+
   const handleFormOpen = () => {
     setFormOpen(!formOpen);
   };
 
   return (
-    <div>
+    <div id="storeFormHolder">
       <Grid centered>
         <Grid.Row>
           <Grid.Column mobile={16} tablet={14} computer={14}>
@@ -54,9 +66,15 @@ const StoreManageHolder: React.FC<{}> = (props): JSX.Element => {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column mobile={16} tablet={15} computer={14}>
-            <Button onClick={handleFormOpen} content={ !formOpen ? "Open Form" : "Cancel"}></Button>
+            <Button onClick={handleFormOpen} content={ !formOpen ? "Open Form" : "Close Form"}></Button>
             {
-              formOpen ? <CreateStoreForm title={title} description={description} handleCreateStore={handleCreateStore}/> : null
+              formOpen ? <StoreForm 
+                          title={title} 
+                          description={description} 
+                          handleCreateStore={handleCreateStore}
+                          handleUpdateStore={handleUpdateStore}
+                        /> 
+                        : null
             }
             {
               formOpen ? <StoreImageUplForm /> : null
@@ -73,8 +91,11 @@ type StoreFormProps = {
   title: string;
   description: string;
   handleCreateStore(title: string, description: string): void;
+  handleUpdateStore(title: string, description: string): void;
 }
-const CreateStoreForm: React.FC<StoreFormProps> = ({ title, description, handleCreateStore }): JSX.Element => {
+const StoreForm: React.FC<StoreFormProps> = ({ title, description, handleCreateStore, handleUpdateStore }): JSX.Element => {
+
+  const [ newForm, setNewForm ] = useState<boolean>(true)
   const [ formState, setFormState ] = useState<FormState>({ title, description });
   
 
@@ -92,8 +113,21 @@ const CreateStoreForm: React.FC<StoreFormProps> = ({ title, description, handleC
   };
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    handleCreateStore(formState.title, formState.description);
-  }
+    if (newForm) {
+      handleCreateStore(formState.title, formState.description);
+    } else {
+      handleUpdateStore(formState.title, formState.description);
+    }
+  };
+
+  useEffect(() => {
+    if (title && description) {
+      setNewForm(false);
+    } else {
+      setNewForm(true);
+    }
+  },  [title, description]);
+  
   return (
     <div id="createStoreFormHolder">
       <Form id="createStoreForm">
@@ -113,12 +147,18 @@ const CreateStoreForm: React.FC<StoreFormProps> = ({ title, description, handleC
           placeholder='Store description here...'
           value={formState.description}
          />
-        <Button type='submit' onClick={handleSubmit}>Create Store</Button>
+         {
+           newForm 
+            ? <Button type='submit' onClick={handleSubmit} content= "Create Store" />
+            : <Button type='submit' onClick={handleSubmit} content= "Update Store" />
+
+         }  
+
       </Form>
       <StoreImgPreviewHolder />
     </div>
   );
 };
 
-export default StoreManageHolder;
+export default StoreFormHolder;
 

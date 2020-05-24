@@ -5,7 +5,6 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import "./css/adminTopMenu.css";
 
 interface Props extends RouteComponentProps {
-
 };
 
 const AdminTopMenu: React.FC<Props> = ({ history }): JSX.Element => {
@@ -29,8 +28,10 @@ const AdminTopMenu: React.FC<Props> = ({ history }): JSX.Element => {
   const handleFileClick = (e: React.MouseEvent, { name }: DropdownItemProps): void => {
     const baseUrl = "/admin/home/";
     switch (name) {
-      case "store": history.push(baseUrl + "my_store/create");
+      case "store": {
+        history.push(baseUrl + "my_store/create");
         break;
+      }
       case "service": history.push(baseUrl + "my_services/create");
         break;
       case "product": history.push(baseUrl + "my_products/create");

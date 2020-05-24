@@ -7,6 +7,16 @@
       error: null | Error;
     };
   }
+  type SetCurrentStore = {
+    readonly type: "SET_CURRENT_STORE";
+    payload: {
+      currentStoreData: IStoreData;
+    }
+  }
+  type ClearCurrentStore = {
+    readonly type: "CLEAR_CURRENT_STORE";
+    payload: null;
+  }
   type GetStore = {
     readonly type: "GET_STORE";
     readonly payload: {
@@ -85,5 +95,5 @@
     loadedStores: IStoreData[]
     error: null | Error;
   }
-  declare type StoreAction = GetAllStores | GetStore | CreateStore | EditStore | 
+  declare type StoreAction = GetAllStores | GetStore | SetCurrentStore | ClearCurrentStore | CreateStore | EditStore | 
                             DeleteStore | SetStoreError | ClearStoreError;

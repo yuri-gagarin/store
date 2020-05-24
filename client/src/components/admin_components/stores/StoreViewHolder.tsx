@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Grid } from "semantic-ui-react";
 // additional components //
-import StoreHolder from "./StoreHolder";
+import StoreHolder from "./StoreCard";
 import { Store } from "../../../state/Store";
-import { getAllStores } from "./api_handlers/storeActions";
+import { getAllStores } from "./actions/APIstoreActions";
 
 const StoreViewHolder: React.FC<{}> = (props): JSX.Element => {
   const [ loaded, setLoaded ] = useState<boolean>(false);
@@ -17,7 +17,7 @@ const StoreViewHolder: React.FC<{}> = (props): JSX.Element => {
           setLoaded(true);
         }
       })
-  }, []);
+  }, [dispatch]);
 
   return (
     <Grid celled padded>

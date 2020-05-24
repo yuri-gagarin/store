@@ -1,3 +1,7 @@
+#storeFormHolder {
+  height: 100%;
+}
+
 #createStoreFormHolder {
   border-radius: 4px;
 }

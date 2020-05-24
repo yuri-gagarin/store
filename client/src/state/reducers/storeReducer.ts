@@ -35,6 +35,17 @@ const storeReducer = (state: IStoreState = initialStoreState, action: StoreActio
         currentStoreData: { ...action.payload.currentStoreData },
         error: action.payload.error
       };
+    case "SET_CURRENT_STORE": 
+      return {
+        ...state,
+        currentStoreData: { ...action.payload.currentStoreData }
+      };
+    case "CLEAR_CURRENT_STORE": {
+      return{
+        ...state,
+        currentStoreData: { ...emptyStoreData() }
+      }
+    }
     case "CREATE_STORE":
       return {
         ...state,
@@ -58,7 +69,7 @@ const storeReducer = (state: IStoreState = initialStoreState, action: StoreActio
         ...state,
         loading: action.payload.loading,
         responseMsg: action.payload.responseMsg,
-        currentStoreData: emptyStoreData(),
+        currentStoreData: { ...emptyStoreData() },
         loadedStores: [ ...action.payload.loadedStores ],
         error:action.payload.error
       };

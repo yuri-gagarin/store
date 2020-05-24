@@ -4,11 +4,12 @@ import { Menu, MenuItemProps } from "semantic-ui-react";
 import { withRouter, RouteComponentProps } from "react-router-dom"
 // css imports //
 import "./css/adminStoreMenu.css";
+import { AppAction } from "../../../state/Store";
 
 interface Props extends RouteComponentProps {
-
+  dispatch: React.Dispatch<AppAction>
 }
-const AdminStoreMenu: React.FC<Props> = ({ history }): JSX.Element => {
+const AdminStoreMenu: React.FC<Props> = ({ history, dispatch }): JSX.Element => {
   const [ activeItem, setActiveItem ] = useState<string>("view_all");
   const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
 
@@ -21,6 +22,7 @@ const AdminStoreMenu: React.FC<Props> = ({ history }): JSX.Element => {
         break;
       case "create":
         history.push(baseUrl + "/create");
+        dispatch({ type: "CLEAR_CURRENT_STORE", payload: null });
         break;
       case "manage":
         history.push(baseUrl + "/manage");

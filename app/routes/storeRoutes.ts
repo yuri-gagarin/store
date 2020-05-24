@@ -6,6 +6,7 @@ class StoreRoutes extends RouteConstructor<IGenericController> {
   private viewAllStoreRoute = "/api/store";
   private viewStoreRoute = "/api/store/:_id";
   private createStoreRoute = "/api/store/create";
+  private editStoreRoute = "/api/store/update/:_id";
   private deleteStoreRoute = "/api/store/delete/:_id";
   
   constructor (router: Router, controller: IGenericController) {
@@ -16,6 +17,7 @@ class StoreRoutes extends RouteConstructor<IGenericController> {
     this.getAllStores();
     this.getStore();
     this.createStore();
+    this.editStore();
     this.deleteStore();
   }
   private getAllStores (): void {
@@ -26,6 +28,9 @@ class StoreRoutes extends RouteConstructor<IGenericController> {
   }
   private createStore (): void {
     this.Router.route(this.createStoreRoute).post(this.controller.create);
+  }
+  private editStore (): void {
+    this.Router.route(this.editStoreRoute).patch(this.controller.edit);
   }
   private deleteStore (): void {
     this.Router.route(this.deleteStoreRoute).delete(this.controller.delete);

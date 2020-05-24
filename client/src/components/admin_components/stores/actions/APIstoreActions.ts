@@ -19,7 +19,7 @@ interface IStoreServerResData {
 type NewStoreData = {
   title: string;
   description: string;
-  images: string[]
+  storeImages: string[]
 }
 type EditedStoreData = NewStoreData;
 
@@ -77,14 +77,14 @@ export const getStore = (_id: string, dispatch: Dispatch<AppAction>): Promise<bo
     });
 };
 
-export const createStore = ({ title, description, images }: NewStoreData, dispatch: Dispatch<AppAction>): Promise<boolean> => {
+export const createStore = ({ title, description, storeImages }: NewStoreData, dispatch: Dispatch<AppAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/store/create",
     data: {
       title: title,
       description: description,
-      storeImages: images,
+      storeImages: storeImages,
     }
   };
 
