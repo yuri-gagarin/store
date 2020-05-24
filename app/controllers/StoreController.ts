@@ -56,7 +56,6 @@ class StoreController implements IGenericController {
 
     return newStore.save()
       .then((newStore) => {
-        console.log(newStore);
         return res.status(200).json({
           responseMsg: "New store created",
           newStore: newStore
@@ -128,10 +127,9 @@ class StoreController implements IGenericController {
                 n ? deletedImages = n : 0;
                 return Store.deleteOne({ _id: _id });
               })
-              .then((response) => {
+              .then(() => {
                 return res.status(200).json({
                   responseMsg: "Deleted the store and " + deletedImages,
-                  response: response
                 });
               })
               .catch((error) => {

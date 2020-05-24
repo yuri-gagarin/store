@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from "react";
 import { indexReducer, rootState } from "./reducers/indexReducer";
-import { initialStoreState, StoreAction, IStoreState } from "./reducers/storeReducer";
+import { initialStoreState } from "./reducers/storeReducer";
 // global app state //
 export type IGlobalAppState = {
   storeState: IStoreState;
