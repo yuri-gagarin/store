@@ -45,6 +45,38 @@
       error: null | Error;
     };
   }
+  type UploadNewStoreImg = {
+    readonly type: "UPLOAD_NEW_STORE_IMG";
+    readonly payload: {
+      loading: boolean;
+      responseMsg: string;
+      editedStore: IStoreData;
+      loadedStores: IStoreData[];
+      error: null;
+    }
+  }
+  type DeleteStoreImg = {
+    readonly type: "DELETE_STORE_IMG";
+    readonly payload: {
+      loading: boolean;
+      responseMsg: string;
+      editedStore: IStoreData;
+      loadedStores: IStoreData[];
+      error: null;
+    }
+  }
+  type UpdateStoreImgs = {
+    readonly type: "UPDATE_STORE_IMGS";
+    readonly payload: {
+      editedStore: IStoreData
+    }
+  }
+  type UpdateLoadedStores = {
+    readonly type: "UPDATE_LOADED_STORES";
+    readonly payload: {
+      loadedStores: IStoreData[];
+    }
+  }
   type DeleteStore = {
     readonly type: "DELETE_STORE";
     readonly payload: {
@@ -72,6 +104,7 @@
   }
   
   declare interface IStoreImgData {
+    _id: string;
     description?: string;
     url: string;
     fileName: string;
@@ -96,4 +129,4 @@
     error: null | Error;
   }
   declare type StoreAction = GetAllStores | GetStore | SetCurrentStore | ClearCurrentStore | CreateStore | EditStore | 
-                            DeleteStore | SetStoreError | ClearStoreError;
+                            DeleteStore | SetStoreError | ClearStoreError | UploadNewStoreImg | UpdateStoreImgs | DeleteStoreImg;

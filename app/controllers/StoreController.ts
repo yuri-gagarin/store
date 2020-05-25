@@ -9,10 +9,6 @@ type StoreImg = {
   _id: string;
   url: string;
 }
-type PopulatedImage = {
-  _id: Types.ObjectId;
-  absolutePath: string;
-}
 interface IGenericStoreResponse {
   responseMsg: string;
   newStore?: IStore;
@@ -42,7 +38,7 @@ class StoreController implements IGenericController {
       });
   }
   get (req: Request, res: Response<IGenericStoreResponse>): Promise<Response>  {
-    const _id: string | undefined = req.params._id;
+    const _id: string = req.params._id;
     if (!_id) return respondWithInputError(res, "Can't find store");
     return Store.findOne({ _id: _id })
       .populate("images", [ "_id"])
@@ -105,13 +101,11 @@ class StoreController implements IGenericController {
         },
       },
       { new: true }
-    ).then((updatedStore) => {
-        return Store.populate<IStore>(updatedStore, { path: "images", model: "StorePicture" });
-      })
-      .then((store: IStore) => {
+     ).populate("images").exec()
+      .then((store) => {
         return res.status(200).json({
           responseMsg: "Store Updates",
-          editedStore: store
+          editedStore: store!
         });
       })
       .catch((error) => {

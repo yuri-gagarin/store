@@ -5,8 +5,8 @@ import StoreImageUploadController from "../controllers/StoreImgUplController";
 
 class StoreImageRoutes extends RouteConstructor<StoreImageUploadController> {
   private middle = new StoreImageUploader;
-  private uploadStoreImg = "/api/uploads/store_images";
-  private deleteStoreImg = "/api/uploads/store_images/:_id";
+  private uploadStoreImg = "/api/uploads/store_images/:_store_id";
+  private deleteStoreImg = "/api/uploads/store_images/:_id/:_store_id";
 
   constructor(router: Router, controller: StoreImageUploadController) {
     super(router, controller);

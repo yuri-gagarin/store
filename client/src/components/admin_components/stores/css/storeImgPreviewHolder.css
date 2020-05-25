@@ -2,6 +2,8 @@
   display: inline-flex;
   flex-direction: row;
   flex-wrap: wrap;
+  border: 3px solid red;
+  width: 100%;
 }
 .storeImgPreviewThumb {
   position: relative;

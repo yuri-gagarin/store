@@ -40,12 +40,33 @@ const storeReducer = (state: IStoreState = initialStoreState, action: StoreActio
         ...state,
         currentStoreData: { ...action.payload.currentStoreData }
       };
-    case "CLEAR_CURRENT_STORE": {
-      return{
+    case "CLEAR_CURRENT_STORE": 
+      return {
         ...state,
         currentStoreData: { ...emptyStoreData() }
+      };
+    case "UPLOAD_NEW_STORE_IMG": 
+      return {
+        loading: action.payload.loading,
+        responseMsg: action.payload.responseMsg,
+        currentStoreData: { ...action.payload.editedStore },
+        loadedStores: [ ...action.payload.loadedStores ],
+        error: action.payload.error
+      };
+    case "DELETE_STORE_IMG": {
+      return {
+        loading: action.payload.loading,
+        responseMsg: action.payload.responseMsg,
+        currentStoreData: { ...action.payload.editedStore },
+        loadedStores: [ ...action.payload.loadedStores ],
+        error: action.payload.error
       }
     }
+    case "UPDATE_STORE_IMGS": 
+      return {
+        ...state,
+        currentStoreData: { ...action.payload.editedStore }
+      };
     case "CREATE_STORE":
       return {
         ...state,

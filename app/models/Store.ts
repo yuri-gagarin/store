@@ -1,11 +1,11 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { IStorePicture } from "./StorePicture";
-type IStorePictureRef = mongoose.Types.ObjectId | IStorePicture;
+type IStorePictureRef = Schema.Types.ObjectId 
 
 export interface IStore extends Document {
   title: string;
   description: string;
-  images: IStorePictureRef[];
+  images: (IStorePicture | mongoose.Types.ObjectId)[];
   createdAt: Date;
   editedAt?: Date;
 }

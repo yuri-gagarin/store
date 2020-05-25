@@ -3,7 +3,15 @@ import { Dispatch } from "react";
 import { IGlobalAppState } from "../../../../state/Store";
 import { AppAction } from "../../../../state/Store";
 
-
+interface IStoreImgServerRes {
+  data: IStoreImgServerResData;
+}
+interface IStoreImgServerResData {
+  responseMsg: string;
+  newStoreImage?: IStoreImgData;
+  deletedStoreImage?: IStoreImgData;
+  updatedStore: IStoreData;
+}
 interface IStoreServerResponse {
   data: IStoreServerResData
 }
@@ -180,6 +188,88 @@ export const deleteStore = (_id: string, dispatch: Dispatch<AppAction>, state: I
       }});
       return false;
     });
+};
+
+export const uploadStoreImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<AppAction>): Promise<boolean> => {
+  console.log(imageFile)
+  const { currentStoreData, loadedStores } = state.storeState;
+  const requestOptions: AxiosRequestConfig = {
+    method: "post",
+    url: "/api/uploads/store_images/" + _id,
+    data: imageFile
+  };
+
+  return axios.request<IStoreImgServerResData, IStoreImgServerRes>(requestOptions)
+    .then((response) => {
+      const { data } = response;
+      const { responseMsg, newStoreImage, updatedStore } = data;
+
+      const updatedStores = loadedStores.map((store) => {
+        if (store._id === updatedStore._id) {
+          return updatedStore;
+        } else {
+          return store;
+        }
+      });
+      dispatch({ type: "UPLOAD_NEW_STORE_IMG", payload: {
+        loading: false,
+        responseMsg: responseMsg,
+        editedStore: updatedStore,
+        loadedStores: updatedStores,
+        error: null
+      }});
+      return true;
+    })
+    .catch((error: AxiosError) => {
+      console.error(error);
+      dispatch({ type: "SET_STORE_ERROR", payload: {
+        loading: false,
+        responseMsg: error.message,
+        error: error
+      }});
+      return false;
+    });
+};
+
+export const deleteStoreImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<AppAction>): Promise<boolean> => {
+  const { loadedStores, currentStoreData } = state.storeState; 
+  const { _id: storeId } = state.storeState.currentStoreData;
+
+  const requestOptions: AxiosRequestConfig = {
+    method: "delete",
+    url: "/api/uploads/store_images/" + imgId + "/"
+  };
+
+  return axios.request<IStoreImgServerResData, IStoreImgServerRes>(requestOptions)
+    .then((response) => {
+      const { data } = response;
+      const { responseMsg, deletedStoreImage, updatedStore } = data;
+      
+     
+      const updatedStores = loadedStores.map((store) => {
+        if (store._id === updatedStore._id) {
+          return updatedStore;
+        } else {
+          return store;
+        }
+      });
+      dispatch({ type: "DELETE_STORE_IMG", payload: {
+        loading: false,
+        responseMsg: responseMsg,
+        editedStore: updatedStore,
+        loadedStores: updatedStores,
+        error: null
+      }});
+      return true;
+    })
+    .catch((error: AxiosError) => {
+      dispatch({ type: "SET_STORE_ERROR", payload: {
+        loading: false,
+        responseMsg: error.message,
+        error: error
+      }});
+      return false;
+    })
 };
 
 

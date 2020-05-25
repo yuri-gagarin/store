@@ -1,7 +1,9 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IStorePicture extends Document {
+  //_id: Schema.Types.ObjectId;
   description?: string;
+  storeId: mongoose.Types.ObjectId;
   url: string;
   fileName: string;
   imagePath: string;
@@ -14,6 +16,11 @@ const StorePictureSchema: Schema = new Schema({
   description: {
     type: String,
     required: false
+  },
+  storeId: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: "Store"
   },
   url: {
     type: String,

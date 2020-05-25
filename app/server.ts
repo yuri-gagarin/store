@@ -1,10 +1,11 @@
-import express from "express";
+import express, { NextFunction } from "express";
 import http from "http";
 import path from "path";
 import mongoose from "mongoose";
 import CombineRoutes from "./routes/CombineRoutes";
 import config from "./config/config";
 import bodyParser from "body-parser";
+import { MulterError } from "multer";
 
 // app declarations and constants //
 const app: express.Application = express();
@@ -51,6 +52,10 @@ app.use(express.static(path.join(__dirname, "/../public")));
 new CombineRoutes(Router);
 app.use(Router);
 // end routes setup //
+app.use(function (err: MulterError, req: Express.Request, res: Express.Response, next: NextFunction ) {
+  console.log('This is the invalid field ->', err.field)
+  next(err)
+})
 
 app.on("dbReady", () => {
   server.listen(PORT, () => {

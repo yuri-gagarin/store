@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Form } from "semantic-ui-react";
 // css imports //
 import "./css/storeImgUploadForm.css";
+// actions //
+import { uploadStoreImage } from "./actions/APIstoreActions";
+import { Store } from "../../../state/Store";
 
 const StoreImageUplForm: React.FC<{}> = (props): JSX.Element => {
+  const { state, dispatch } = useContext(Store);
   const [ file, setFile ] = useState<File>();
-
+  const { currentStoreData } = state.storeState;
   const handleButtonClick = () => {
 
   };
   const uploadFile = () => {
-
+    if (file) {
+      const formData = new FormData();
+      const { _id } = currentStoreData;
+      formData.append("storeImage", file);
+      uploadStoreImage(_id, formData, state, dispatch);
+    }
   }
   const cancelFile = () => {
     setFile(undefined);

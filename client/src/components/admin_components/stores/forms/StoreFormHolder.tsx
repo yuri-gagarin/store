@@ -16,7 +16,8 @@ type FormState = {
 }
 
 const StoreFormHolder: React.FC<{}> = (props): JSX.Element => {
-  const [ formOpen, setFormOpen ] = useState(false);
+  const [ formOpen, setFormOpen ] = useState<boolean>(false);
+  const [ imgUpload, setImgUpload ] = useState<boolean>(false);
   const { dispatch, state } = useContext(Store);
   const { currentStoreData } = state.storeState;
   const { title, description } = currentStoreData;
@@ -31,7 +32,7 @@ const StoreFormHolder: React.FC<{}> = (props): JSX.Element => {
       .then((success) => {
         if (success) {
           // store created //
-          setFormOpen(false);
+          setImgUpload(true);
         } else {
           console.error("error");
         }
@@ -54,6 +55,12 @@ const StoreFormHolder: React.FC<{}> = (props): JSX.Element => {
     setFormOpen(!formOpen);
   };
 
+  useEffect(() => {
+    if (title && description && formOpen) {
+      setImgUpload(true);
+    }
+  }, [title, description, formOpen])
+
   return (
     <div id="storeFormHolder">
       <Grid centered>
@@ -62,6 +69,11 @@ const StoreFormHolder: React.FC<{}> = (props): JSX.Element => {
             <h1>Store Details</h1>
             <h3>{currentStoreData.title}</h3>
             <h3>{currentStoreData.description}</h3>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column mobile={16} tablet={14} computer={14}>
+            <StoreImgPreviewHolder />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
@@ -77,8 +89,7 @@ const StoreFormHolder: React.FC<{}> = (props): JSX.Element => {
                         : null
             }
             {
-              formOpen ? <StoreImageUplForm /> : null
-
+              imgUpload ? <StoreImageUplForm /> : null
             }
           </Grid.Column>
         </Grid.Row>
@@ -155,7 +166,6 @@ const StoreForm: React.FC<StoreFormProps> = ({ title, description, handleCreateS
          }  
 
       </Form>
-      <StoreImgPreviewHolder />
     </div>
   );
 };
