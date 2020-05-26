@@ -237,7 +237,7 @@ export const deleteStoreImage = (imgId: string, state: IGlobalAppState, dispatch
 
   const requestOptions: AxiosRequestConfig = {
     method: "delete",
-    url: "/api/uploads/store_images/" + imgId + "/"
+    url: "/api/uploads/store_images/" + imgId + "/" + storeId
   };
 
   return axios.request<IStoreImgServerResData, IStoreImgServerRes>(requestOptions)

@@ -63,7 +63,7 @@ const StoreFormHolder: React.FC<{}> = (props): JSX.Element => {
 
   return (
     <div id="storeFormHolder">
-      <Grid centered>
+      <Grid>
         <Grid.Row>
           <Grid.Column mobile={16} tablet={14} computer={14}>
             <h1>Store Details</h1>
@@ -73,7 +73,7 @@ const StoreFormHolder: React.FC<{}> = (props): JSX.Element => {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column mobile={16} tablet={14} computer={14}>
-            <StoreImgPreviewHolder />
+            <StoreImgPreviewHolder state={state} dispatch={dispatch} />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>

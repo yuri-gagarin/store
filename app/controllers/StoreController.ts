@@ -25,6 +25,7 @@ type StoreParams = {
 class StoreController implements IGenericController {
   index (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
     return Store.find({})
+      .populate("images").exec()
       .then((stores) => {
         console.log(34)
         console.log(stores);
@@ -41,7 +42,7 @@ class StoreController implements IGenericController {
     const _id: string = req.params._id;
     if (!_id) return respondWithInputError(res, "Can't find store");
     return Store.findOne({ _id: _id })
-      .populate("images", [ "_id"])
+      .populate("images").exec()
       .then((store) => {
         if (store) {
           return res.status(200).json({

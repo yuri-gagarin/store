@@ -3,7 +3,7 @@ import { Button, Grid } from "semantic-ui-react";
 import { Store } from "../../../state/Store";
 import { deleteStore } from "./actions/APIstoreActions";
 import StoreFormHolder from "./forms/StoreFormHolder";
-import { setCurrentStore } from "./actions/uiStoreActions";
+import { setCurrentStore, clearCurrentStore } from "./actions/uiStoreActions";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 // css imports //
 import "./css/storeCard.css";
@@ -15,6 +15,18 @@ interface Props extends RouteComponentProps {
   description: string;
   createdAt: string;
   editedAt?: string;
+}
+type EditControlsProps = {
+  handleStoreEdit(e:  React.MouseEvent<HTMLButtonElement>): void;
+}
+const CancelEditControls: React.FC<EditControlsProps> = ({ handleStoreEdit }): JSX.Element => {
+  return (
+    <Grid.Row>
+      <Grid.Column>
+         <Button content="Cancel Edit" onClick={handleStoreEdit}></Button>
+      </Grid.Column>
+    </Grid.Row>
+  )
 }
 
 const StoreCard: React.FC<Props> = ({  _id, imgUrl, title, description, createdAt, editedAt, history }): JSX.Element => {
@@ -35,6 +47,7 @@ const StoreCard: React.FC<Props> = ({  _id, imgUrl, title, description, createdA
       history.push(baseUrl + "/edit");
       setEditing(true);
     } else {
+      clearCurrentStore(dispatch);
       history.push(baseUrl);
       setEditing(false);
     }
@@ -80,7 +93,7 @@ const StoreCard: React.FC<Props> = ({  _id, imgUrl, title, description, createdA
       </Grid.Row>
       : null
       }
-      {  editing ? <Button content="Cancel Edit" onClick={handleStoreEdit}></Button> : null }
+      {  editing ?  <CancelEditControls handleStoreEdit={handleStoreEdit}/>: null }
       {  editing ? <StoreFormHolder /> : null }
     </React.Fragment>
     

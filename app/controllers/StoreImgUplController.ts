@@ -58,7 +58,7 @@ class StoreImageUploadController implements IGenericImgUploadCtrl {
   deleteImage (req: Request, res: Response<StoreImageResponse>): Promise<Response> {
     const { _id: imgId, _store_id: storeId } = req.params;
     let deletedImage: IStorePicture;
-
+    console.log(61)
     if (!imgId) {
       return respondWithInputError(res, "Can't resolve image to delete", 400);
     }

@@ -1,28 +1,67 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Icon, Image } from "semantic-ui-react";
 // css  imports //
 import "./css/storeImgPreviewHolder.css";
+import { deleteStoreImage } from "./actions/APIstoreActions";
+import { IGlobalAppState, AppAction } from "../../../state/Store";
 
-export const StoreImgPreviewThumb: React.FC<{}> = (props): JSX.Element => {
+// image preview thumbnail //
+type ImgPreviewProps = {
+  _id: string;
+  url: string;
+  handleDelete(_id: string):void;
+}
+export const StoreImgPreviewThumb: React.FC<ImgPreviewProps> = ({ _id, url, handleDelete }): JSX.Element => {
   return (
     <div className="storeImgPreviewThumb">
-      <Image size="small" src="/images/home_page/stock_store1.jpeg">
+      <Image size="small" src={url}>
 
       </Image>
-      <Icon name="trash alternate" className="storeImgPreviewThumbDelete"></Icon>
+      <Icon 
+        name="trash alternate" 
+        className="storeImgPreviewThumbDelete" 
+        onClick={() => handleDelete(_id)}>
+      </Icon>
     </div>
   );
 };
 
-const StoreImgPreviewHolder: React.FC<{}> = (props): JSX.Element => {
-  return (
-    <div id="storeImgPreviewHolder">
-      <StoreImgPreviewThumb />
-      <StoreImgPreviewThumb />
-      <StoreImgPreviewThumb />
-      <StoreImgPreviewThumb />
-    </div>
-  );
+// holder for image preview thumbnails //
+type ImgHolderProps = {
+  state: IGlobalAppState;
+  dispatch: React.Dispatch<AppAction>
+}
+const StoreImgPreviewHolder: React.FC<ImgHolderProps> = ({ state, dispatch }): JSX.Element => {
+  const { images } = state.storeState.currentStoreData;
+
+  const handleDelete = (_id: string) => {
+    deleteStoreImage(_id, state, dispatch);
+  };
+
+  if (images.length > 0) {
+    return (
+      <div id="storeImgPreviewHolder">
+        {
+          images.map((image) => {
+            return (
+              <StoreImgPreviewThumb 
+                key={image._id} 
+                _id={image._id} 
+                url={image.url} 
+                handleDelete={handleDelete}
+              />
+            );
+          })
+        }
+      </div>
+    );
+  } else {
+    return (
+      <div id="storeImgPreviewNone">
+        <h3>No images uploaded... you should upload some... </h3>
+      </div>
+    );
+  }
 };
 
 export default StoreImgPreviewHolder;
