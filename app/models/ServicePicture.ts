@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-interface IServicePicture extends Document {
+export interface IServicePicture extends Document {
   description?: string;
   url: string;
   fileName: string;

@@ -1,12 +1,13 @@
 import mongoose, { Document, Schema } from "mongoose";
+import { IServicePicture } from "./ServicePicture";
 
-type ServicePictureRef = Schema.Types.ObjectId;
+type ServicePictureRef = mongoose.Types.ObjectId;
 
-interface IService extends Document {
+export interface IService extends Document {
   name: string;
   description: string;
   price: string;
-  images: ServicePictureRef[];
+  images: (ServicePictureRef | IServicePicture)[];
   createdAt: Date;
   editedAt?: Date;
 }
