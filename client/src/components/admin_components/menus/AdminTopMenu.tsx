@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Menu, Dropdown, Icon, MenuItemProps, DropdownItemProps } from "semantic-ui-react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 // css imports //
@@ -9,6 +9,9 @@ interface Props extends RouteComponentProps {
 
 const AdminTopMenu: React.FC<Props> = ({ history }): JSX.Element => {
   const [ activeMenuItem, setActiveMenuItem ] = useState<string>("");
+  const [ menuFixed, setMenuFixed ] = useState<boolean>(false);
+
+  const adminTopMenuRef = useRef<HTMLDivElement>(document.createElement("div"));
 
   const handleMenuClick = (e: React.MouseEvent, { name }: MenuItemProps): void => {
     setActiveMenuItem(String(name));
@@ -45,8 +48,20 @@ const AdminTopMenu: React.FC<Props> = ({ history }): JSX.Element => {
   const handleLogOut = () => {
 
   };
+
+  const listenToMenuScroll = () => {
+    if (window.scrollY > 1) {
+      setMenuFixed(true);
+    } else if (window.scrollY === 0) {
+      setMenuFixed(false);
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("scroll", listenToMenuScroll, true);
+  }, [adminTopMenuRef]);
   return (
-    <div style={{ position: "relative", width: "100%", zIndex: 999}}>
+    <div className={ menuFixed ? "adminTopAttached fixed" : ""} ref={adminTopMenuRef}>
       <Menu attached='top' id="adminTopMenu">
       <Dropdown item simple icon="file" text="File" id="adminTopFileBtn">
         <Dropdown.Menu>

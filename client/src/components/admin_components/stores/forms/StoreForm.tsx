@@ -48,7 +48,6 @@ const StoreForm: React.FC<Props> = ({ title, description, handleCreateStore, han
   },  [title, description]);
 
   useEffect(() => {
-    console.log(storeFormRef.current)
     if (storeFormRef.current) {
       const elem = storeFormRef.current.getBoundingClientRect();
       window.scrollTo({

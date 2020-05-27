@@ -9,6 +9,14 @@
   color: wheat;
   padding-left: 0.5em;
 }
+.adminTopAttached.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  z-index: 998;
+}
 .item.adminTopMenuItem {
   font-size: 1em;
   font-weight: bold !important;

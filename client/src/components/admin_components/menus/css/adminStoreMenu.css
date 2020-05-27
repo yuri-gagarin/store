@@ -1,7 +1,17 @@
 .ui.tabular.menu.adminStoreMenu {
   transform: translateY(-100px);
+  width: 100%;
 }
 .ui.tabular.menu.adminStoreMenu.storeMenuOpen {
   transform: translateY(0px);
   transition: transform 200ms linear;
+}
+
+.adminStoreMenuFixed { 
+  position: fixed;
+  top: 42px;
+  left: 0px;
+  right: 0px;
+  z-index: 999;
+  background-color: white;
 }
