@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 // additional components //
 import AdminTopMenu from "../menus/AdminTopMenu";
 import StoreView from "../stores/StoreView";
+import ServiceView from "../services/ServiceView";
 // css imports //
 import "./css/adminHomeScreen.css"
 
@@ -19,7 +20,7 @@ const AdminHomeScreen: React.FC<{}> = (props): JSX.Element => {
               <StoreView />
             </Route>
             <Route path="/admin/home/my_services">
-              <h1>My Services</h1>
+              <ServiceView />
             </Route>
             <Route path="/admin/home/my_products">
               <h1>My Products</h1>

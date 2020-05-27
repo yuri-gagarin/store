@@ -1,22 +1,16 @@
-
-.ui.tabular.menu.adminStoreMenu {
+.ui.tabular.adminServiceMenu {
   transform: translateY(-100px);
   width: 100%;
 }
-.ui.tabular.menu.adminStoreMenu.storeMenuOpen {
+.ui.tabular.adminServiceMenu.serviceMenuOpen {
   transform: translateY(0px);
   transition: transform 200ms linear;
 }
-
-.adminStoreMenuFixed { 
+.adminServiceMenuFixed { 
   position: fixed;
   top: 42px;
   left: 0px;
   right: 0px;
   z-index: 999;
   background-color: white;
-}
-.adminStoreMenuFixed.menuScrolled {
-  transform: scaleY(0.8);
-  transition: transform 0.5s;
 }

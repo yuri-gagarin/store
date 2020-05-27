@@ -1,0 +1,7 @@
+#adminServiceViewHolder {
+  border: 3px solid blue;
+  position: relative;
+  width: 100%;
+  min-height: 1200px;
+  z-index: 1;
+}

@@ -9,13 +9,17 @@
   color: wheat;
   padding-left: 0.5em;
 }
-.adminTopAttached.fixed {
+.adminTopAttached {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   background-color: white;
   z-index: 998;
+}
+.adminTopAttached.fixed {
+  transform: scaleY(1.2);
+  transition: all 0.5s linear;
 }
 .item.adminTopMenuItem {
   font-size: 1em;

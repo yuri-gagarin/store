@@ -61,7 +61,7 @@ const AdminTopMenu: React.FC<Props> = ({ history }): JSX.Element => {
     window.addEventListener("scroll", listenToMenuScroll, true);
   }, [adminTopMenuRef]);
   return (
-    <div className={ menuFixed ? "adminTopAttached fixed" : ""} ref={adminTopMenuRef}>
+    <div className={ menuFixed ? "adminTopAttached fixed" : "adminTopAttached"} ref={adminTopMenuRef}>
       <Menu attached='top' id="adminTopMenu">
       <Dropdown item simple icon="file" text="File" id="adminTopFileBtn">
         <Dropdown.Menu>
