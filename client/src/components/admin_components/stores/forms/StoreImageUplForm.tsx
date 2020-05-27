@@ -3,8 +3,8 @@ import { Button, Form } from "semantic-ui-react";
 // css imports //
 import "./css/storeImgUploadForm.css";
 // actions //
-import { uploadStoreImage } from "./actions/APIstoreActions";
-import { Store } from "../../../state/Store";
+import { uploadStoreImage } from "../actions/APIstoreActions";
+import { Store } from "../../../../state/Store";
 
 const StoreImageUplForm: React.FC<{}> = (props): JSX.Element => {
   const { state, dispatch } = useContext(Store);
@@ -18,7 +18,12 @@ const StoreImageUplForm: React.FC<{}> = (props): JSX.Element => {
       const formData = new FormData();
       const { _id } = currentStoreData;
       formData.append("storeImage", file);
-      uploadStoreImage(_id, formData, state, dispatch);
+      uploadStoreImage(_id, formData, state, dispatch)
+        .then((success) => {
+          if (success) {
+            setFile(undefined)
+          }
+        })
     }
   }
   const cancelFile = () => {
@@ -33,6 +38,7 @@ const StoreImageUplForm: React.FC<{}> = (props): JSX.Element => {
 
   return (
     <div id="storeImgUplFormHolder">
+      <div><p>Image Uploader</p></div>
       <Form id="storeImgUploadForm">
         {
           !file ?

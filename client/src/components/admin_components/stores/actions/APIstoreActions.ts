@@ -27,7 +27,7 @@ interface IStoreServerResData {
 type NewStoreData = {
   title: string;
   description: string;
-  storeImages: string[]
+  storeImages: IStoreImgData[]
 }
 type EditedStoreData = NewStoreData;
 
@@ -121,6 +121,7 @@ export const createStore = ({ title, description, storeImages }: NewStoreData, d
 };
 
 export const editStore = (_id: string, data: EditedStoreData, dispatch: Dispatch<AppAction>, state: IGlobalAppState) => {
+  console.log(data)
   const { loadedStores } = state.storeState;
   const requestOptions: AxiosRequestConfig = {
     method: "patch",

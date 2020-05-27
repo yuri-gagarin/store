@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Grid } from "semantic-ui-react";
 // additional components //
-import StoreHolder from "./StoreCard";
+import StoreCard from "./StoreCard";
 import { Store } from "../../../state/Store";
 import { getAllStores } from "./actions/APIstoreActions";
 
@@ -24,12 +24,16 @@ const StoreViewHolder: React.FC<{}> = (props): JSX.Element => {
       {
         loadedStores.map((store) => {
           return (
-            <StoreHolder 
+            <StoreCard 
               key={store._id} 
               _id={store._id}
               title={store.title} 
               description={store.description} 
               createdAt={store.createdAt}
+              imageCount={store.images.length}
+              state={state}
+              dispatch={dispatch}
+              
             />
           );
         })

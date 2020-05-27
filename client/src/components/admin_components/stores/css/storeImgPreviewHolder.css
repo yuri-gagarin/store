@@ -2,8 +2,18 @@
   display: inline-flex;
   flex-direction: row;
   flex-wrap: wrap;
-  border: 3px solid red;
+  border: 0.5px solid grey;
+  padding-bottom: 1.5em;
+  margin-bottom: 1em;
+  -webkit-box-shadow: 0px 0px 2px 1px rgba(1,28,107,1);
+  -moz-box-shadow: 0px 0px 2px 1px rgba(1,28,107,1);
+  box-shadow: 0px 0px 2px 1px rgba(1,28,107,1);
   width: 100%;
+}
+.storeImgHolderTitle {
+  width: 100%;
+  text-align: center;
+  height: 1.5em;
 }
 .storeImgPreviewThumb {
   position: relative;

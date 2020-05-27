@@ -1,7 +1,13 @@
 #storeImgUplFormHolder {
-  width: 75%;
+  width: 100%;
   margin-top: 0.5em;
 }
+#storeImgUplFormHolder > div {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.5em;
+}
+
 #storeImgUploadForm {
   border: 1px solid grey;
   border-radius: 7px;

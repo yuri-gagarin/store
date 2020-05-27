@@ -1,47 +1,49 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Button, Grid } from "semantic-ui-react";
-import { Store } from "../../../state/Store";
+import { IGlobalAppState, AppAction } from "../../../state/Store";
 import { deleteStore } from "./actions/APIstoreActions";
-import StoreFormHolder from "./forms/StoreFormHolder";
 import { setCurrentStore, clearCurrentStore } from "./actions/uiStoreActions";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { withRouter, RouteComponentProps, useRouteMatch } from "react-router-dom";
 // css imports //
 import "./css/storeCard.css";
+import { ConvertDate } from "../../helpers/displayHelpers";
 
-interface Props extends RouteComponentProps {
+interface StoreCardProps extends RouteComponentProps {
   _id: string;
   imgUrl?: string;
   title: string;
   description: string;
+  imageCount: number;
   createdAt: string;
   editedAt?: string;
+  state: IGlobalAppState;
+  dispatch: React.Dispatch<AppAction>;
 }
 type EditControlsProps = {
   handleStoreEdit(e:  React.MouseEvent<HTMLButtonElement>): void;
 }
+
 const CancelEditControls: React.FC<EditControlsProps> = ({ handleStoreEdit }): JSX.Element => {
   return (
     <Grid.Row>
       <Grid.Column>
-         <Button content="Cancel Edit" onClick={handleStoreEdit}></Button>
+         <Button content="Close Edit" onClick={handleStoreEdit}></Button>
       </Grid.Column>
     </Grid.Row>
   )
 }
 
-const StoreCard: React.FC<Props> = ({  _id, imgUrl, title, description, createdAt, editedAt, history }): JSX.Element => {
-  const { dispatch, state } = useContext(Store);
+const StoreCard: React.FC<StoreCardProps> = ({ 
+   _id, title, description, imageCount, createdAt, editedAt, history,
+   state, dispatch
+  }): JSX.Element => {
   const [ editing, setEditing ] = useState<boolean>(false);
-  /*
-  const setStoreImg = (imgUrl: string | undefined): string => {
-    return imgUrl ? imgUrl : "/images/logos/go_ed_log.jpg";
-  }
-  */
+  const baseUrl = "/admin/home/my_store/manage"
+ 
   const handleStoreOpen = (e: React.MouseEvent<HTMLButtonElement>): void => {
-
+    history.push(baseUrl + "/view");
   }
   const handleStoreEdit = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    const baseUrl = "/admin/home/my_store/manage"
     if (!editing) {
       setCurrentStore(_id, dispatch, state);
       history.push(baseUrl + "/edit");
@@ -58,14 +60,16 @@ const StoreCard: React.FC<Props> = ({  _id, imgUrl, title, description, createdA
         
       })
   }
+
+  console.log(useRouteMatch().url);
   return (
     <React.Fragment>
-      { !editing ? 
       <Grid.Row style={{ border: "3px solid green", padding: "0.5em", marginTop: "2em" }}>
         <Grid.Column computer={12} mobile={16} style={{ border: '2px solid red'}}>
-          <h3>{title}</h3>
-          <h5>{description}</h5>
-          <p>{createdAt}</p>
+          <h3>Title: {title}</h3>
+          <h5>Description: {description}</h5>
+          <h5>Number of Images: {imageCount}</h5>
+          <p><span>Created At: </span>{ConvertDate.international(createdAt)}</p>
         </Grid.Column> 
         <Grid.Column computer={4} mobile={16} style={{ border: '2px solid blue'}}>
           <Button 
@@ -91,10 +95,7 @@ const StoreCard: React.FC<Props> = ({  _id, imgUrl, title, description, createdA
           />
         </Grid.Column> 
       </Grid.Row>
-      : null
-      }
       {  editing ?  <CancelEditControls handleStoreEdit={handleStoreEdit}/>: null }
-      {  editing ? <StoreFormHolder /> : null }
     </React.Fragment>
     
   );

@@ -1,16 +1,17 @@
 import React, { useContext } from "react";
-import StoreManageHolder from "./forms/StoreFormHolder";
+import StoreFormHolder from "./forms/StoreFormHolder";
 // css imports //
 import "./css/adminStoreView.css";
 import AdminStoreMenu from "../menus/AdminStoreMenu";
 import { Route, Switch } from "react-router-dom";
 // additional components //
-import StoreViewHolder from "./StoreViewHolder";
+import StoreManageView from "./StoreManageView";
+
 // state //
 import { Store } from "../../../state/Store";
 
 const StoreView: React.FC<{}> = (props): JSX.Element => {
-  const { dispatch } = useContext(Store);
+  const { state, dispatch } = useContext(Store);
   return (
     <div id="adminStoreViewHolder">
       <AdminStoreMenu  dispatch={dispatch} />
@@ -19,10 +20,10 @@ const StoreView: React.FC<{}> = (props): JSX.Element => {
           <h3>Store view</h3>
         </Route>
         <Route path="/admin/home/my_store/create">
-          <StoreManageHolder />
+          <StoreFormHolder state={state} dispatch={dispatch} />
         </Route>
         <Route path="/admin/home/my_store/manage">
-          <StoreViewHolder />
+          <StoreManageView />
         </Route>
       </Switch>
      

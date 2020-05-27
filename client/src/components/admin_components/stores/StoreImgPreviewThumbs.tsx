@@ -41,6 +41,7 @@ const StoreImgPreviewHolder: React.FC<ImgHolderProps> = ({ state, dispatch }): J
   if (images.length > 0) {
     return (
       <div id="storeImgPreviewHolder">
+        <div className="storeImgHolderTitle">Uploaded Images</div>
         {
           images.map((image) => {
             return (
