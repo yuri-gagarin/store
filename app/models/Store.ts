@@ -1,6 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { IStorePicture } from "./StorePicture";
-type IStorePictureRef = Schema.Types.ObjectId 
 
 export interface IStore extends Document {
   title: string;
