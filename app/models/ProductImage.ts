@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-interface IProductPicture extends Document {
+export interface IProductImage extends Document {
   description?: string;
   url: string;
   fileName: string;
@@ -10,7 +10,7 @@ interface IProductPicture extends Document {
   editedAt?: Date;
 }
 
-const ProductPictureSchema: Schema = new Schema({
+const ProductImageSchema: Schema = new Schema({
   description: {
     type: String,
     required: false
@@ -41,4 +41,4 @@ const ProductPictureSchema: Schema = new Schema({
   }
 });
 
-export default mongoose.model<IProductPicture>("ProductPicture", ProductPictureSchema);
+export default mongoose.model<IProductImage>("ProductImage", ProductImageSchema);

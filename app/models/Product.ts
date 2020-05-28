@@ -1,18 +1,23 @@
 import mongoose, { Document, Schema } from "mongoose";
+import { IProductImage } from "./ProductImage";
+type ProductImgRef = mongoose.Types.ObjectId;
 
-type StorePictureRef = Schema.Types.ObjectId;
-
-interface IPRoduct extends Document {
-  title: string;
+export interface IProduct extends Document {
+  name: string;
   description: string;
+  details: string;
   price: string;
-  images: StorePictureRef[];
+  images: (ProductImgRef | IProductImage )[];
   createdAt: Date;
   editedAt?: Date;
 }
 
 const ProductSchema: Schema = new Schema({
-  title: {
+  name: {
+    type: String,
+    required: true
+  },
+  details: {
     type: String,
     required: true
   },
@@ -21,7 +26,8 @@ const ProductSchema: Schema = new Schema({
     required: true
   },
   price: {
-    type: String
+    type: String,
+    required: true
   },
   images: [
     { type: Schema.Types.ObjectId, ref: "ProductImage" }
@@ -35,4 +41,4 @@ const ProductSchema: Schema = new Schema({
   }
 });
 
-export default mongoose.model<IPRoduct>("Product", ProductSchema);
+export default mongoose.model<IProduct>("Product", ProductSchema);
