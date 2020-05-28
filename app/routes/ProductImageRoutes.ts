@@ -17,7 +17,7 @@ class ProductImageRoutes extends RouteConstructor<IGenericImgUploadCtrl> {
     this.deleteStoreImgRoute();
   }
   private uploadStoreImgRoute (): void {
-    this.Router.route(this.uploadProductImg).post(this.imageUploader.upload, this.controller.createImage);
+    this.Router.route(this.uploadProductImg).post(this.imageUploader.runUpload, this.controller.createImage);
   }
   private deleteStoreImgRoute (): void {
     this.Router.route(this.deleteProducteImg).delete(this.controller.deleteImage);

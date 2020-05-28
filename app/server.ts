@@ -13,7 +13,7 @@ const PORT: number = process.env.PORT ? Number(process.env.PORT) : 8080;
 const server: http.Server = http.createServer(app);
 const Router: express.Router = express.Router();
 const jsonParser = bodyParser.json();
-const urlEncodedParser = bodyParser.urlencoded({ extended: false });
+const urlEncodedParser = bodyParser.urlencoded({ extended: true });
 
 const mongoOptions = {
   useNewUrlParser: true,
@@ -56,6 +56,7 @@ app.use(function (err: MulterError, req: Express.Request, res: Express.Response,
   console.log('This is the invalid field ->', err.field)
   next(err)
 })
+
 
 app.on("dbReady", () => {
   server.listen(PORT, () => {

@@ -66,8 +66,8 @@ class ServicesController implements IGenericController {
   create (req: Request, res: Response<GenericServiceResponse>): Promise<Response> {
     const { name, description, price, serviceImages }: ServiceParams = req.body;
     const imgIds: Types.ObjectId[] = [];
-
-    if (serviceImages.length > 1) {
+    console.log()
+    if ((serviceImages.length) > 1 && (Array.isArray(serviceImages))) {
       for (const newImg of serviceImages) {
         imgIds.push(Types.ObjectId(newImg.url));
       }
