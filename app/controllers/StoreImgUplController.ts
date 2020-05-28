@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { IGenericImgUploadCtrl } from './helpers/controllerInterfaces';
 import { IImageUploadDetails } from "./image_uploaders/types/types";
-import StorePicture, { IStorePicture } from "../models/StorePicture";
+import StoreImage, { IStoreImage } from "../models/StoreImage";
 // helpers //
 import { respondWithInputError, respondWithDBError, normalizeImgUrl, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
 import Store, { IStore } from "../models/Store";
@@ -11,8 +11,8 @@ type ImageReqestObj = {
 }
 type StoreImageResponse = {
   responseMsg: string;
-  newStoreImage?: IStorePicture;
-  deletedStoreImage?: IStorePicture;
+  newStoreImage?: IStoreImage;
+  deletedStoreImage?: IStoreImage;
   updatedStore: IStore;
 }
 class StoreImageUploadController implements IGenericImgUploadCtrl {
@@ -20,12 +20,12 @@ class StoreImageUploadController implements IGenericImgUploadCtrl {
     const { _store_id: storeId } = req.params;
     const uploadDetails: IImageUploadDetails = res.locals.uploadDetails as IImageUploadDetails;
     const { success, imagePath, fileName, absolutePath } = uploadDetails;
-    let newImage: IStorePicture;
+    let newImage: IStoreImage;
 
     if (success && imagePath && absolutePath) {
       return normalizeImgUrl(absolutePath)
         .then((imgUrl) => {
-          return StorePicture.create({
+          return StoreImage.create({
             storeId: storeId,
             url: imgUrl,
             fileName: fileName,
@@ -57,17 +57,17 @@ class StoreImageUploadController implements IGenericImgUploadCtrl {
   }
   deleteImage (req: Request, res: Response<StoreImageResponse>): Promise<Response> {
     const { _id: imgId, _store_id: storeId } = req.params;
-    let deletedImage: IStorePicture;
+    let deletedImage: IStoreImage;
     console.log(61)
     if (!imgId) {
       return respondWithInputError(res, "Can't resolve image to delete", 400);
     }
-    return StorePicture.findById(imgId)
-      .then((storePic) => {
-        if (storePic) {
-          return deleteFile(storePic.absolutePath)
+    return StoreImage.findById(imgId)
+      .then((storeImage) => {
+        if (storeImage) {
+          return deleteFile(storeImage.absolutePath)
             .then(() => {
-              return StorePicture.findOneAndDelete({ id: imgId })
+              return StoreImage.findOneAndDelete({ id: imgId })
             })
             .then((image) => {
               deletedImage = image!;

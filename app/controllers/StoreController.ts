@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Types } from "mongoose";
 import Store, { IStore } from "../models/Store";
-import StorePicture, {IStorePicture} from "../models/StorePicture";
+import StorePicture, { IStoreImage } from "../models/StoreImage";
 import { IGenericController } from "./helpers/controllerInterfaces";
 // helpers //
 import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
@@ -20,9 +20,9 @@ interface IGenericStoreResponse {
 type StoreParams = {
   title?: string;
   description: string;
-  storeImages: [StoreImg];
+  storeImages: IStoreImage[];
 }
-class StoreController implements IGenericController {
+class StoresController implements IGenericController {
   index (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
     return Store.find({})
       .populate("images").exec()
@@ -128,10 +128,10 @@ class StoreController implements IGenericController {
       // first delete all store images //
       if (store) {
         const storeImgPaths = store.images.map((image) => {
-          return (image as IStorePicture).absolutePath;
+          return (image as IStoreImage).absolutePath;
         });
         const storeImgIds: Types.ObjectId[] = store.images.map((image) => {
-          return (image as IStorePicture)._id;
+          return (image as IStoreImage)._id;
         });
         const deletePromises: Promise<boolean>[] = [];
         for (const path of storeImgPaths) {
@@ -170,4 +170,4 @@ class StoreController implements IGenericController {
   }
 }
 
-export default StoreController;
+export default StoresController;

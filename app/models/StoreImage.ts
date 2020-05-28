@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-export interface IStorePicture extends Document {
+export interface IStoreImage extends Document {
   //_id: Schema.Types.ObjectId;
   description?: string;
   storeId: mongoose.Types.ObjectId;
@@ -12,7 +12,7 @@ export interface IStorePicture extends Document {
   editedAt?: Date;
 }
 
-const StorePictureSchema: Schema = new Schema({
+const StoreImageSchema: Schema = new Schema({
   description: {
     type: String,
     required: false
@@ -54,4 +54,4 @@ StorePictureSchema.virtual("images", {
   foreignField: "StorePicture"
 });
 */
-export default mongoose.model<IStorePicture>("StorePicture", StorePictureSchema);
+export default mongoose.model<IStoreImage>("StoreImage", StoreImageSchema);

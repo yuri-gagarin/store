@@ -1,10 +1,10 @@
 import mongoose, { Schema, Document } from "mongoose";
-import { IStorePicture } from "./StorePicture";
+import { IStoreImage } from "./StoreImage";
 
 export interface IStore extends Document {
   title: string;
   description: string;
-  images: (IStorePicture | mongoose.Types.ObjectId)[];
+  images: (IStoreImage | mongoose.Types.ObjectId)[];
   createdAt: Date;
   editedAt?: Date;
 }
@@ -21,7 +21,7 @@ const StoreSchema: Schema = new Schema({
   images: [
     {
       type: Schema.Types.ObjectId,
-      ref: "StorePicture"
+      ref: "StoreImage"
     }
   ],
   createdAt: {
