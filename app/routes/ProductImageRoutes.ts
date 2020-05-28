@@ -4,8 +4,8 @@ import { IGenericImgUploadCtrl } from "../controllers/helpers/controllerInterfac
 import ImageUploader from "../controllers/image_uploaders/ImageUploader";
 
 class ProductImageRoutes extends RouteConstructor<IGenericImgUploadCtrl, ImageUploader> {
-  private uploadProductImg = "/api/uploads/product_images";
-  private deleteProducteImg = "/api/uploads/product_images/:_id";
+  private uploadProductImg = "/api/uploads/product_images/:_product_id";
+  private deleteProducteImg = "/api/uploads/product_images/:_id/:_product_id";
 
   constructor(router: Router, controller: IGenericImgUploadCtrl, uploader: ImageUploader) {
     super(router, controller, uploader);
