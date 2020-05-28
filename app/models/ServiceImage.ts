@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-export interface IServicePicture extends Document {
+export interface IServiceImage extends Document {
   description?: string;
   url: string;
   fileName: string;
@@ -10,7 +10,7 @@ export interface IServicePicture extends Document {
   editedAt?: Date;
 }
 
-const ServicePictureSchema: Schema = new Schema({
+const ServiceImageSchema: Schema = new Schema({
   description: {
     type: String,
     required: false
@@ -46,4 +46,4 @@ const ServicePictureSchema: Schema = new Schema({
   }
 });
 
-export default mongoose.model<IServicePicture>("ServicePicture", ServicePictureSchema);
+export default mongoose.model<IServiceImage>("ServiceImage", ServiceImageSchema);

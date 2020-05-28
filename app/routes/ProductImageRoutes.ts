@@ -1,14 +1,14 @@
 import { Router } from "express";
 import { RouteConstructor } from "./helpers/routeInterfaces"; 
-import ProductImageUploader from "../controllers/image_uploaders/ProductImageUploader";
-import ProductImageUploadController from "../controllers/ProductImgUplController";
+import { IGenericImgUploadCtrl } from "../controllers/helpers/controllerInterfaces";
+import ImageUploader from "../controllers/image_uploaders/ImageUploader";
 
-class ProductImageRoutes extends RouteConstructor<ProductImageUploadController> {
-  private middle = new ProductImageUploader;
-  private uploadStoreImg = "/api/uploads/store_images";
-  private deleteStoreImg = "/api/uploads/store_images/:_id";
+class ProductImageRoutes extends RouteConstructor<IGenericImgUploadCtrl> {
+  private imageUploader = new ImageUploader("productImage", 10);
+  private uploadProductImg = "/api/uploads/product_images";
+  private deleteProducteImg = "/api/uploads/product_images/:_id";
 
-  constructor(router: Router, controller: ProductImageUploadController) {
+  constructor(router: Router, controller: IGenericImgUploadCtrl) {
     super(router, controller);
     this.initializeRoutes();
   }
@@ -17,10 +17,10 @@ class ProductImageRoutes extends RouteConstructor<ProductImageUploadController> 
     this.deleteStoreImgRoute();
   }
   private uploadStoreImgRoute (): void {
-    this.Router.route(this.uploadStoreImg).post(this.middle.upload, this.controller.createImage);
+    this.Router.route(this.uploadProductImg).post(this.imageUploader.upload, this.controller.createImage);
   }
   private deleteStoreImgRoute (): void {
-    this.Router.route(this.deleteStoreImg).delete(this.controller.deleteImage);
+    this.Router.route(this.deleteProducteImg).delete(this.controller.deleteImage);
   }
 }
 

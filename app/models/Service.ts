@@ -1,13 +1,13 @@
 import mongoose, { Document, Schema } from "mongoose";
-import { IServicePicture } from "./ServicePicture";
+import { IServiceImage } from "./ServiceImage";
 
-type ServicePictureRef = mongoose.Types.ObjectId;
+type ServiceImgRef = mongoose.Types.ObjectId;
 
 export interface IService extends Document {
   name: string;
   description: string;
   price: string;
-  images: (ServicePictureRef | IServicePicture)[];
+  images: (ServiceImgRef | IServiceImage)[];
   createdAt: Date;
   editedAt?: Date;
 }
@@ -25,7 +25,7 @@ const ServiceSchema: Schema = new Schema({
     type: String
   },
   images: [
-    { type: Schema.Types.ObjectId, ref: "ProductImage" }
+    { type: Schema.Types.ObjectId, ref: "ServiceImage" }
   ],
   createdAt: {
     type: Date,

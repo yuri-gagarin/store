@@ -8,6 +8,8 @@ import StoreImageRoutes from "./StoreImageRoutes";
 import StoreImageUploadController from "../controllers/StoreImgUplController";
 import ProductImageRoutes from "./ProductImageRoutes";
 import ProductImageUploadController from "../controllers/ProductImgUplController";
+import ServicesController from "../controllers/ServicesController";
+import ServicesRoutes from "./ServicesRoutes";
 
 class CombineRoutes {
   constructor(router: Router) {
@@ -18,6 +20,7 @@ class CombineRoutes {
     new StoreRoutes(Router, new StoreController());
     new StoreImageRoutes(Router, new StoreImageUploadController());
     new ProductImageRoutes(Router, new ProductImageUploadController());
+    new ServicesRoutes(Router, new ServicesController());
   }
 }
 

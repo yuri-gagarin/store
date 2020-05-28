@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Types } from "mongoose";
 // models, types, interfaces //
 import Service, { IService } from "../models/Service";
-import ServicePicture, { IServicePicture } from "../models/ServicePicture";
+import ServiceImage, { IServiceImage } from "../models/ServiceImage";
 import { IGenericController } from "./helpers/controllerInterfaces";
 // helpers //
 import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
@@ -141,10 +141,10 @@ class ServicesController implements IGenericController {
       // first delete all service images //
       if (service) {
         const serviceImgPaths = service.images.map((image) => {
-          return (image as IServicePicture).absolutePath;
+          return (image as IServiceImage).absolutePath;
         });
         const serviceImgIds: Types.ObjectId[] = service.images.map((image) => {
-          return (image as IServicePicture)._id;
+          return (image as IServiceImage)._id;
         });
         const deletePromises: Promise<boolean>[] = [];
 
@@ -154,7 +154,7 @@ class ServicesController implements IGenericController {
 
         return Promise.all(deletePromises)
           .then(() => {
-            return ServicePicture.deleteMany({ _id: { $in: [ ...serviceImgIds ] } })
+            return ServiceImage.deleteMany({ _id: { $in: [ ...serviceImgIds ] } })
               .then(({ n }) => {
                 n ? deletedImages = n : 0;
                 return Service.findOneAndDelete({ _id: _id });

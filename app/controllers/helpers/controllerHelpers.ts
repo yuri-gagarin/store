@@ -43,3 +43,18 @@ export const normalizeImgUrl = (uploadPath: string): Promise<string> => {
     resolve(normaLizedUrl);
   });
 };
+
+export const camelToSnake = (string: string): string => {
+  return string.split(/(?=[A-Z])/).map((item) => item.toLocaleLowerCase()).join("_");
+};
+
+export const snakeToCamel = (string: string): string => {
+  const arr = string.split("_").map((item, index) => {
+    if (index === 0) {
+      return item;
+    } else {
+      return item.charAt(0).toUpperCase() + item.slice(1);
+    }
+  })
+  return arr.join("");
+}

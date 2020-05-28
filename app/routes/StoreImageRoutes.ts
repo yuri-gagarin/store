@@ -1,14 +1,14 @@
 import { Router } from "express";
 import { RouteConstructor } from "./helpers/routeInterfaces"; 
 import StoreImageUploader from "../controllers/image_uploaders/StoreImageUploader";
-import StoreImageUploadController from "../controllers/StoreImgUplController";
+import { IGenericImgUploadCtrl } from "../controllers/helpers/controllerInterfaces";
 
-class StoreImageRoutes extends RouteConstructor<StoreImageUploadController> {
-  private middle = new StoreImageUploader;
+class StoreImageRoutes extends RouteConstructor<IGenericImgUploadCtrl> {
+  private middle = new StoreImageUploader();
   private uploadStoreImg = "/api/uploads/store_images/:_store_id";
   private deleteStoreImg = "/api/uploads/store_images/:_id/:_store_id";
 
-  constructor(router: Router, controller: StoreImageUploadController) {
+  constructor(router: Router, controller: IGenericImgUploadCtrl) {
     super(router, controller);
     this.initializeRoutes();
   }
