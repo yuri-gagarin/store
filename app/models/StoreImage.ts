@@ -28,7 +28,7 @@ const StoreImageSchema: Schema = new Schema({
   },
   fileName: {
     type: String,
-    retquired: true
+    required: true
   },
   imagePath: {
     type: String,

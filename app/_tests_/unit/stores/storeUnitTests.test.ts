@@ -1,40 +1,64 @@
-import assert from "assert";
+import faker from "faker";
+import { expect, should } from "chai";
 import Store, { IStore } from "../../../models/Store";
-import mongoose, { Error } from "mongoose";
-import config from "../../../config/config";
+// helpers //
+import { setupDB, clearDB } from "../../helpers/dbHelpers";
 
 describe("Store Unit Tests", () => {
   before((done) => {
-    mongoose.connect(config.dbSettings.mongoURI, { useFindAndModify: true, useUnifiedTopology: true, useNewUrlParser: true})
-    const db = mongoose.connection;
-    db.on("error", () => {
-      console.error("Connection error");
-    });
-    db.once("open", () => {
-      console.log("connected to test DB");
-      done();
-    })
+    setupDB().then(() => done()).catch((err) => done(err));
   });
   describe("Create Store Test", () => {
     describe("Invalid Store Data", () => {
-
+      const invalidStore = {
+        title: "",
+        description: "",
+        images: [],
+        createdAt: new Date(),
+      }
+      it("Should NOT create a new {Store} without a title", (done) => {
+        Store.create(invalidStore)
+          .catch((err) => {
+            expect(err).to.not.be.undefined;
+            done();
+          })
+      });
+      it("Should NOT create a new {Store} without a description", (done) => {
+        Store.create(invalidStore)
+          .catch((err) => {
+            expect(err).to.be.an("object");
+            done();
+          })
+      });
     })
     describe("Valid Store Data", () => {
+      const validStore = {
+        title: faker.lorem.words(2),
+        description: faker.lorem.paragraph(4)
+      };
+      let createdStore: IStore;
 
-    })
-    it("Shoud be true", () => {
-      assert.equal(2, 2);
-    })
-  })
-  after((done) => {
-    mongoose.connection.db.dropDatabase()
-      .then(() => {
-        console.log("Database dropped");
-        mongoose.connection.close(done);
-      })
-      .catch((err: Error) => {
-        console.error("error");
+      it("Should create a Store", (done) => {
+        Store.create(validStore)
+          .then((store) => {
+            createdStore = store;
+            expect(store instanceof Store).to.eq(true);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
       });
+      it("Should have valid properties", (done) => {
+        expect(typeof createdStore.title).to.eq("string");
+        expect(typeof createdStore.description).to.eq("string");
+        expect(typeof createdStore.images).to.eq("object");
+        done();
+      });
+    });
+  });
+  after((done) => {
+    clearDB().then(() => done()).catch((err) => done(err));
   });
 });
 

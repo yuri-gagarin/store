@@ -1,7 +1,9 @@
 import mongoose, { Schema, Document } from "mongoose";
+import { IService } from "./Service";
 
 export interface IServiceImage extends Document {
   description?: string;
+  serviceId: (mongoose.Types.ObjectId | IService);
   url: string;
   fileName: string;
   imagePath: string;
@@ -26,7 +28,7 @@ const ServiceImageSchema: Schema = new Schema({
   },
   fileName: {
     type: String,
-    retquired: true
+    required: true
   },
   imagePath: {
     type: String,
