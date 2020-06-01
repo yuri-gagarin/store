@@ -63,3 +63,5 @@ app.on("dbReady", () => {
     console.info(`Listening at PORT: ${PORT}`);
   });
 });
+
+export default app;
