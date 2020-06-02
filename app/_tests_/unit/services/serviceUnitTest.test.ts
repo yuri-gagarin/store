@@ -15,6 +15,9 @@ describe("Service Unit Tests", () => {
     price: 100,
     images: []
   };
+  after((done) => {
+    clearDB().then(() => done()).catch((err) => done(err));
+  });
   describe("Valid Service Data", () => {
    
     let createdService: IService;
@@ -67,9 +70,6 @@ describe("Service Unit Tests", () => {
       });
     });
 
-  });
-  after((done) => {
-    clearDB().then(() => done()).catch((err) => done(err));
   });
 });
 

@@ -7,15 +7,15 @@ import { IGenericController } from "./helpers/controllerInterfaces";
 // helpers //
 import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
 
-type ServiceImg = {
-  _id: string;
-  url: string;
-}
-type ServiceParams = {
+export type ServiceParams = {
   name: string;
   description: string;
   price: string;
   serviceImages: ServiceImg[];
+}
+type ServiceImg = {
+  _id: string;
+  url: string;
 }
 type GenericServiceResponse = {
   responseMsg: string;
@@ -66,7 +66,7 @@ class ServicesController implements IGenericController {
   create (req: Request, res: Response<GenericServiceResponse>): Promise<Response> {
     const { name, description, price, serviceImages }: ServiceParams = req.body;
     const imgIds: Types.ObjectId[] = [];
-    console.log()
+    
     if ((serviceImages.length) > 1 && (Array.isArray(serviceImages))) {
       for (const newImg of serviceImages) {
         imgIds.push(Types.ObjectId(newImg.url));
@@ -91,6 +91,7 @@ class ServicesController implements IGenericController {
         return respondWithDBError(res, err);
       });
   }
+
   edit (req: Request, res: Response<GenericServiceResponse>): Promise<Response> {
     const { _id } = req.params;
     

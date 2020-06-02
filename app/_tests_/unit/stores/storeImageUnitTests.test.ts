@@ -17,6 +17,10 @@ describe("StoreImage Unit Tests", () => {
     imagePath: faker.image.imageUrl(),
     absolutePath: faker.random.word()
   }
+  after((done) => {
+    clearDB().then(() => done()).catch((err) => done(err));
+  });
+  
   describe("Create StoreImage Test", () => {
     describe("Valid StoreImage Data", () => {
       let createdStoreImage: IStoreImage;
@@ -84,8 +88,6 @@ describe("StoreImage Unit Tests", () => {
       });
     });
   });
-  after((done) => {
-    clearDB().then(() => done()).catch((err) => done(err));
-  });
+  
 });
 

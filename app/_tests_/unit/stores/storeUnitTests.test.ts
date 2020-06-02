@@ -8,6 +8,9 @@ describe("Store Unit Tests", () => {
   before((done) => {
     setupDB().then(() => done()).catch((err) => done(err));
   });
+  after((done) => {
+    clearDB().then(() => done()).catch((err) => done(err));
+  });
   describe("Create Store Test", () => {
     describe("Invalid Store Data", () => {
       const invalidStore = {
@@ -57,8 +60,6 @@ describe("Store Unit Tests", () => {
       });
     });
   });
-  after((done) => {
-    clearDB().then(() => done()).catch((err) => done(err));
-  });
+  
 });
 

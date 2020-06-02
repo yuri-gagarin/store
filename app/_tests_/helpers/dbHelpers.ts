@@ -4,7 +4,7 @@ import config from "../../config/config";
 
 export const setupDB = (): Promise<boolean> => {
   return new Promise((resolve, reject) => {
-    mongoose.connect(config.dbSettings.mongoURI, { useFindAndModify: true, useUnifiedTopology: true, useNewUrlParser: true})
+    mongoose.connect(config.dbSettings.mongoURI, { useFindAndModify: false, useUnifiedTopology: true, useNewUrlParser: true})
     const db = mongoose.connection;
     db.on("error", () => {
       reject(new Error("Couldnt establish database connection"));
