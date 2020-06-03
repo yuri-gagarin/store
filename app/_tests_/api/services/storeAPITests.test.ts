@@ -73,7 +73,7 @@ describe ("Store API tests", () => {
     it("Should return the correct {Service}", (done) => {
       expect(String(requestedStore._id)).to.equal(String(store._id));
       expect(requestedStore.title).to.equal(store.title);
-      expect(requestedStore.description).to.equal(requestedStore.description);
+      expect(requestedStore.description).to.equal(store.description);
       done();
     });
   })

@@ -4,10 +4,10 @@ import { IGenericController } from "../controllers/helpers/controllerInterfaces"
 
 class ProductRoutes extends RouteConstructor<IGenericController> {
   private viewAllProductsRoute = "/api/products";
-  private viewProductRoute = "/api/product/:_id";
-  private createProductRoute = "/api/product/create";
-  private editProductRoute = "/api/product/update/:_id";
-  private deleteProductRoute = "/api/product/delete/:_id";
+  private viewProductRoute = "/api/products/:_id";
+  private createProductRoute = "/api/products/create";
+  private editProductRoute = "/api/products/update/:_id";
+  private deleteProductRoute = "/api/products/delete/:_id";
   
   constructor (router: Router, controller: IGenericController) {
     super(router, controller);

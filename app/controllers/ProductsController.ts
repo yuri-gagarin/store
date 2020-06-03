@@ -14,10 +14,10 @@ interface IGenericProdRes {
   product?: IProduct;
   products?: IProduct[];
 }
-type ProductParams = {
+export type ProductParams = {
   name: string;
   description: string;
-  details?: string;
+  details: string;
   price: string;
   productImages: IProductImage[];
 }
@@ -70,7 +70,7 @@ class ProductsController implements IGenericController {
       }
     }
 
-    const newProdut = new Product({
+    const newProduct = new Product({
       name: name,
       description: description,
       details: details,
@@ -78,7 +78,7 @@ class ProductsController implements IGenericController {
       images: [ ...imgIds ]
     });
 
-    return newProdut.save()
+    return newProduct.save()
       .then((newProduct) => {
         return res.status(200).json({
           responseMsg: "New Product created",
@@ -110,6 +110,8 @@ class ProductsController implements IGenericController {
         $set: {
           name: name,
           description: description,
+          details: details,
+          price: price,
           images: [ ...updatedProductImgs ],
           editedAt: new Date()
         },

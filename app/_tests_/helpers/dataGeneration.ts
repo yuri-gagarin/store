@@ -1,6 +1,7 @@
 import faker from "faker";
 import Service, { IService } from "../../models/Service";
 import Store, { IStore } from "../../models/Store";
+import Product, { IProduct } from "../../models/Product";
 
 /**
  * Creates a set number of mock {Store} objects.
@@ -35,5 +36,24 @@ export const createServices = (numOfServices: number): Promise<IService[]> => {
     }));
   }
   return Promise.all(createdServices);
+};
+
+/**
+ * Creates a set number of mock {Product} objects.
+ * @param numOfProducts 
+ */
+export const createProducts = (numOfProducts: number): Promise<IProduct[]> => {
+  const createdProducts: Promise<IProduct>[] = [];
+
+  for (let i = 0; i < numOfProducts; i++) {
+    createdProducts.push(Product.create({
+      name: faker.lorem.word(),
+      description: faker.lorem.paragraph(),
+      details: faker.lorem.paragraphs(3),
+      price: faker.commerce.price(1, 100),
+      images: []
+    }));
+  }
+  return Promise.all(createdProducts);
 };
 

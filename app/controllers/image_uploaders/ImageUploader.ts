@@ -34,9 +34,9 @@ class ImageUploader {
     }).single(this.name);
 
     this.runUpload = this.runUpload.bind(this);
-    console.log("initialized");
-    console.log("path is" + this.path)
-    console.log("image path is " + this.imagePath)
+    // console.log("initialized");
+    // console.log("path is" + this.path)
+    // console.log("image path is " + this.imagePath)
   }
   private setPath (...path: string[]): string {
     return PATH.join(...path)
