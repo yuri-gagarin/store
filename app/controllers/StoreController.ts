@@ -17,8 +17,8 @@ interface IGenericStoreResponse {
   store?: IStore;
   stores?: IStore[];
 }
-type StoreParams = {
-  title?: string;
+export type StoreParams = {
+  title: string;
   description: string;
   storeImages: IStoreImage[];
 }
@@ -27,8 +27,6 @@ class StoresController implements IGenericController {
     return Store.find({})
       .populate("images").exec()
       .then((stores) => {
-        console.log(34)
-        console.log(stores);
         return res.status(200).json({
           responseMsg: "Loaded all stores",
           stores: stores

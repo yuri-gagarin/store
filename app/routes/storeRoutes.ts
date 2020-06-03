@@ -3,11 +3,11 @@ import { RouteConstructor } from "./helpers/routeInterfaces";
 import { IGenericController } from "../controllers/helpers/controllerInterfaces";
 
 class StoreRoutes extends RouteConstructor<IGenericController> {
-  private viewAllStoreRoute = "/api/store";
-  private viewStoreRoute = "/api/store/:_id";
-  private createStoreRoute = "/api/store/create";
-  private editStoreRoute = "/api/store/update/:_id";
-  private deleteStoreRoute = "/api/store/delete/:_id";
+  private viewAllStoreRoute = "/api/stores";
+  private viewStoreRoute = "/api/stores/:_id";
+  private createStoreRoute = "/api/stores/create";
+  private editStoreRoute = "/api/stores/update/:_id";
+  private deleteStoreRoute = "/api/stores/delete/:_id";
   
   constructor (router: Router, controller: IGenericController) {
     super(router, controller);

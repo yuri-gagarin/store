@@ -29,6 +29,7 @@ describe ("Service API tests", () => {
   after((done) => {
     clearDB().then(() => done()).catch((err) => done(err))
   })
+  
   describe("GET { '/api/services' }", () => {
     let services: IService[], responseMsg: string;
     it("Should GET all services", (done) => {
@@ -145,6 +146,7 @@ describe ("Service API tests", () => {
       done();
     });
   });
+  
   describe("DELETE { '/api/services/delete/:_id' }", () => {
     let service: IService, deletedService: IService;
     before((done) => {
@@ -173,9 +175,6 @@ describe ("Service API tests", () => {
     });
     it("Should return the deleted {Service} and its data", (done) => {
       expect(String(deletedService._id)).to.equal(String(service._id));
-      console.log(service);
-      console.log(deletedService);
-      console.log(service == deletedService)
       done();
     });
   })

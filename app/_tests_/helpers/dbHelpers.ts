@@ -19,7 +19,8 @@ export const clearDB = (): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     mongoose.connection.db.dropDatabase()
       .then(() => {
-        mongoose.connection.close(() => {
+        mongoose.connection.close((err) => {
+          if (err) console.log(err);
           resolve(true)
         });
       })
