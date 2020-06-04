@@ -1,37 +1,33 @@
-import { setupDB, clearDB } from "../../helpers/dbHelpers";
-import { createServices } from "../../helpers/dataGeneration";
-import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
+import chai, { expect } from "chai";
+import faker from "faker";
+// server, models //
 import server from "../../../server";
 import Service, { IService } from "../../../models/Service";
-import faker from "faker"
-
 import { ServiceParams } from "../../../controllers/ServicesController";
-interface IServerResponse {
-  status: number;
-  responseMsg: string;
-  data: any
-}
+// helpers //
+import { setupDB, clearDB } from "../../helpers/dbHelpers";
+import { createServices } from "../../helpers/dataGeneration";
+
 chai.use(chaiHttp);
 
 describe ("Service API tests", () => {
+  let totalServices: number;
+
   before((done) => {
     setupDB()
-      .then(() => {
-        return createServices(10);
-      })
-      .then((stores) => {
-        // ///
-        done();
-      })
-      .catch((error) => done(error))
+      .then(() =>  createServices(10))
+      .then(() => Service.countDocuments())
+      .then((number) => { totalServices = number; done() })
+      .catch((error) => { done(error) });
   });
   after((done) => {
     clearDB().then(() => done()).catch((err) => done(err))
-  })
+  });
   
   describe("GET { '/api/services' }", () => {
     let services: IService[], responseMsg: string;
+
     it("Should GET all services", (done) => {
       chai.request(server)
         .get("/api/services")
@@ -49,36 +45,44 @@ describe ("Service API tests", () => {
       expect(services).to.be.an("array");
     });
   });
+
   describe("GET { '/api/services/:_id }", () => {
     let service: IService, requestedService: IService; 
     let responseMsg: string;
-    it("Should GET a specific services", (done) => {
+
+    before((done) => {
       Service.find().limit(1)
         .then((foundServices) => {
-          service = foundServices[0]
+          service = foundServices[0];
+          done();
         })
-        .then(() => {
-          chai.request(server)
-            .get("/api/services/" + service._id)
-            .end((error, response) => {
-              if (error) done(error);
-              expect(response.status).to.equal(200);
-              expect(response.body).to.be.an("object");
-              responseMsg = response.body.responseMsg;
-              requestedService = response.body.service;
-              done();
-            });
-        })
-        .catch((err) => done(err));
+        .catch((error) => { done(error) });
+    });
+
+    it("Should GET a specific service", (done) => {
+      chai.request(server)
+        .get("/api/services/" + service._id)
+        .end((error, response) => {
+          if (error) done(error);
+          expect(response.status).to.equal(200);
+          expect(response.body).to.be.an("object");
+          responseMsg = response.body.responseMsg;
+          requestedService = response.body.service;
+          done();
+        });
     });
     it("Should return the correct {Service}", (done) => {
-      expect(String(service._id)).to.equal(String(requestedService._id));
-      expect(service.name).to.equal(requestedService.name);
-      expect(service.description).to.equal(requestedService.description);
+      expect(String(service._id)).to.equal(String(service._id));
+      expect(requestedService.name).to.equal(service.name);
+      expect(requestedService.description).to.equal(service.description);
+      expect(requestedService.price).to.equal(service.price);
       done();
     });
-  })
+
+  });
+
   describe("POST { '/api/services/create' }", ()=> {
+
     const newService: ServiceParams = {
       name: faker.lorem.word(),
       description: faker.lorem.paragraphs(2),
@@ -101,14 +105,25 @@ describe ("Service API tests", () => {
         })
     });
     it("Should return the created {Service} and correct data", (done) => {
-      expect(newService.name).to.equal(createdService.name);
-      expect(newService.description).to.equal(createdService.description);
-      expect(newService.price).to.equal(createdService.price);
+      expect(createdService.name).to.equal(newService.name);
+      expect(createdService.description).to.equal(newService.description);
+      expect(createdService.price).to.equal(newService.price);
       done();
     });
+    it("Should INCREASE the number of {Service(s)} by 1", (done) => {
+      Service.countDocuments()
+        .then((number) => {
+          expect(number).to.equal(totalServices + 1);
+          totalServices = number;
+          done();
+        })
+        .catch((err) => { done(err) });
+    });
+
   });
 
   describe("PATCH { '/api/services/update/:_id' }", () => {
+
     let service: IService, editedService: IService;
     const updateData: ServiceParams = {
       name: faker.lorem.word(),
@@ -116,6 +131,7 @@ describe ("Service API tests", () => {
       price: "200",
       serviceImages: []
     }
+
     before((done) => {
       Service.find().limit(1)
         .then((services) => {
@@ -124,6 +140,7 @@ describe ("Service API tests", () => {
         })
         .catch((error) => done(error));
     })
+
     it("Should update an existing {Service}", (done) => {
       chai.request(server)
         .patch("/api/services/update/" + service._id)
@@ -145,10 +162,20 @@ describe ("Service API tests", () => {
       expect(editedService.price).to.equal(updateData.price);
       done();
     });
+    it("Should NOT INCREASE the number of {Service(s)}", (done) => {
+      Service.countDocuments()
+        .then((number) => {
+          expect(number).to.equal(totalServices);
+          done();
+        })
+        .catch((err) => { done(err) });
+    });
+
   });
   
   describe("DELETE { '/api/services/delete/:_id' }", () => {
     let service: IService, deletedService: IService;
+
     before((done) => {
       Service.find().limit(1)
         .then((services) => {
@@ -177,6 +204,15 @@ describe ("Service API tests", () => {
       expect(String(deletedService._id)).to.equal(String(service._id));
       done();
     });
-  })
+    it("Should DECREASE the number of {Service(s)} by 1", (done) => {
+      Service.countDocuments()
+        .then((number) => {
+          expect(number).to.equal(totalServices - 1);
+          totalServices = number;
+          done();
+        })
+        .catch((err) => { done(err) });
+    });
+  });
   
-})
+});

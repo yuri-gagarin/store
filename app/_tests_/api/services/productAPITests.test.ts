@@ -19,11 +19,11 @@ describe ("Product API tests", () => {
       .then(() => createProducts(10))
       .then(() => Product.countDocuments())
       .then((number) => { totalProducts = number; done() })
-      .catch((error) => done(error))
+      .catch((error) => { done(error) });
   });
   after((done) => {
     clearDB().then(() => done()).catch((err) => done(err))
-  })
+  });
   
   describe("GET { '/api/products' }", () => {
     let products: IProduct[], responseMsg: string;
@@ -45,6 +45,7 @@ describe ("Product API tests", () => {
       expect(products).to.be.an("array");
     });
   });
+
   describe("GET { '/api/products/:_id }", () => {
     let product: IProduct, requestedProduct: IProduct; 
     let responseMsg: string;
@@ -78,8 +79,11 @@ describe ("Product API tests", () => {
       expect(requestedProduct.description).to.equal(product.description);
       done();
     });
-  })
+
+  });
+
   describe("POST { '/api/products/create' }", ()=> {
+
     const newData: ProductParams = {
       name: faker.lorem.word(),
       description: faker.lorem.paragraphs(1),
@@ -115,7 +119,7 @@ describe ("Product API tests", () => {
       expect(createdProduct.price).to.equal(newData.price)
       done();
     });
-    it("Should INCREASE number of {Product(s)} by 1", (done) => {
+    it("Should INCREASE the number of {Product(s)} by 1", (done) => {
       Product.countDocuments()
         .then((number) => {
           expect(number).to.equal(totalProducts + 1);
@@ -124,6 +128,7 @@ describe ("Product API tests", () => {
         })
         .catch((err) => { done(err) });
     });
+
   });
 
   describe("PATCH { '/api/products/update/:_id' }", () => {
@@ -175,6 +180,7 @@ describe ("Product API tests", () => {
         })
         .catch((err) => { done(err) });
     });
+
   });
   
   describe("DELETE { '/api/products/delete/:_id' }", () => {
@@ -206,7 +212,7 @@ describe ("Product API tests", () => {
       expect(String(deletedProduct._id)).to.equal(String(product._id));
       done();
     });
-    it("Should DECREASE the number of  {Product(s)} by 1", (done) => {
+    it("Should DECREASE the number of {Product(s)} by 1", (done) => {
       Product.countDocuments()
         .then((number) => {
           expect(number).to.equal(totalProducts - 1);
@@ -214,6 +220,6 @@ describe ("Product API tests", () => {
         })
         .catch((err) => { done(err) });
     });
-  })
+  });
   
-})
+});
