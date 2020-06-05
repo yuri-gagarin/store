@@ -1,27 +1,29 @@
-import { setupDB, clearDB } from "../../helpers/dbHelpers";
-import { createStores } from "../../helpers/dataGeneration";
-import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
+import chai, { expect } from "chai";
+import faker from "faker";
+// server, models //
 import server from "../../../server";
 import Store, { IStore } from "../../../models/Store";
-import faker from "faker";
 import { StoreParams } from "../../../controllers/StoreController";
+// helpers
+import { setupDB, clearDB } from "../../helpers/dbHelpers";
+import { createStores } from "../../helpers/dataGeneration";
 
 chai.use(chaiHttp);
 
 describe ("Store API tests", () => {
+  let totalStores: number;
 
   before((done) => {
     setupDB()
-      .then(() => {
-        return createStores(10);
-      })
-      .then(() => { done() })
-      .catch((error) => done(error))
+      .then(() => createStores(10))
+      .then(() => Store.countDocuments())
+      .then((number) => { totalStores = number; done() })
+      .catch((error) => { done(error) });
   });
   after((done) => {
     clearDB().then(() => done()).catch((err) => done(err))
-  })
+  });
   
   describe("GET { '/api/stores' }", () => {
     let stores: IStore[], responseMsg: string;
@@ -43,6 +45,7 @@ describe ("Store API tests", () => {
       expect(stores).to.be.an("array");
     });
   });
+
   describe("GET { '/api/stores/:_id }", () => {
     let store: IStore, requestedStore: IStore; 
     let responseMsg: string;
@@ -76,7 +79,9 @@ describe ("Store API tests", () => {
       expect(requestedStore.description).to.equal(store.description);
       done();
     });
-  })
+
+  });
+
   describe("POST { '/api/stores/create' }", ()=> {
     const newStore: StoreParams = {
       title: faker.lorem.word(),
@@ -96,17 +101,27 @@ describe ("Store API tests", () => {
           expect(response.body.responseMsg).to.be.a("string");
           expect(response.body.newStore).to.be.an("object");
           createdStore = response.body.newStore;
-          done()
-        })
+          done();
+        });
     });
     it("Should return the created {Store} and correct data", (done) => {
       expect(createdStore.title).to.equal(newStore.title);
       expect(createdStore.description).to.equal(newStore.description);
       done();
     });
+    it("Should INCREASE the number of {Store(s)} by 1", (done) => {
+      Store.countDocuments()
+        .then((number) => {
+          expect(number).to.equal(totalStores + 1);
+          totalStores = number;
+          done();
+        })
+        .catch((error) => { done(error) });
+    });
   });
 
   describe("PATCH { '/api/stores/update/:_id' }", () => {
+
     let store: IStore, editedStore: IStore;
     const updateData: StoreParams = {
       title: faker.lorem.word(),
@@ -135,7 +150,7 @@ describe ("Store API tests", () => {
           expect(res.body.editedStore).to.be.an("object");
           editedStore = res.body.editedStore;
           done();
-        })
+        });
     });
     it("Should return the updated {Store} and the updated data", (done) => {
       expect(String(editedStore._id)).to.equal(String(store._id));
@@ -143,6 +158,15 @@ describe ("Store API tests", () => {
       expect(editedStore.description).to.equal(updateData.description);
       done();
     });
+    it("Should NOT INCREASE the number of {Store(s)}", (done) => {
+      Store.countDocuments()
+        .then((number) => {
+          expect(number).to.equal(totalStores);
+          done();
+        })
+        .catch((err) => { done(err) });
+    });
+
   });
   
   describe("DELETE { '/api/stores/delete/:_id' }", () => {
@@ -174,6 +198,15 @@ describe ("Store API tests", () => {
       expect(String(deletedStore._id)).to.equal(String(store._id));
       done();
     });
-  })
+    it("Should DECREASE the number of {Store(s)} by 1", (done) => {
+      Store.countDocuments()
+        .then((number) => {
+          expect(number).to.equal(totalStores - 1);
+          totalStores = number;
+          done();
+        })
+        .catch((err) => { done(err) });
+    });
+  });
   
-})
+});

@@ -93,12 +93,6 @@ describe ("Product API tests", () => {
     };
     let createdProduct: IProduct;
 
-    before("Count Documents", (done) => {
-      Product.countDocuments()
-        .then((num) => { totalProducts = num; done() })
-        .catch((err) => { done(err) });
-    });
-
     it("Should create a new {Product}", (done) => {
       chai.request(server)
         .post("/api/products/create")
@@ -110,8 +104,8 @@ describe ("Product API tests", () => {
           expect(response.body.responseMsg).to.be.a("string");
           expect(response.body.newProduct).to.be.an("object");
           createdProduct = response.body.newProduct;
-          done()
-        })
+          done();
+        });
     });
     it("Should return the created {Product} and correct data", (done) => {
       expect(createdProduct.name).to.equal(newData.name);
@@ -163,7 +157,7 @@ describe ("Product API tests", () => {
           expect(res.body.editedProduct).to.be.an("object");
           editedProduct = res.body.editedProduct;
           done();
-        })
+        });
     });
     it("Should return the updated {Product} and the updated data", (done) => {
       expect(String(editedProduct._id)).to.equal(String(product._id));
