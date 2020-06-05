@@ -2,12 +2,12 @@ import chaiHttp from "chai-http";
 import chai, { expect } from "chai";
 import faker from "faker";
 // server, models //
-import server from "../../../server";
-import Store, { IStore } from "../../../models/Store";
-import { StoreParams } from "../../../controllers/StoreController";
+import server from "../../server";
+import Store, { IStore } from "../../models/Store";
+import { StoreParams } from "../../controllers/StoreController";
 // helpers
-import { setupDB, clearDB } from "../../helpers/dbHelpers";
-import { createStores } from "../../helpers/dataGeneration";
+import { setupDB, clearDB } from "../helpers/dbHelpers";
+import { createStores } from "../helpers/dataGeneration";
 
 chai.use(chaiHttp);
 

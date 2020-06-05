@@ -18,7 +18,7 @@ const urlEncodedParser = bodyParser.urlencoded({ extended: true });
 const mongoOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useFindAndModify: true,
+  useFindAndModify: false,
   user: config.dbSettings.username,
   pass: config.dbSettings.password
 };
@@ -27,7 +27,6 @@ mongoose.connect(config.dbSettings.mongoURI, mongoOptions, (err) => {
   if (err) { console.error(err); }
 });
 mongoose.connection.once("open", () => {
-  console.info("DB Connected");
   app.emit("dbReady");
 });
 
