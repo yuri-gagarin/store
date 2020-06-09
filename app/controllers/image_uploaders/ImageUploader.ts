@@ -56,7 +56,6 @@ class ImageUploader {
   }
   
   public runUpload (req: Request, res: Response, next: NextFunction): void {
-    console.log(59)
     fs.access(this.path, (err) => {
       if (err && err.code === "ENOENT") {
         console.error(err);
@@ -85,7 +84,6 @@ class ImageUploader {
     });
   }
   private handleMulter (req: Request, res: Response, next: NextFunction): void {
-    console.log(88)
     return this.uploader(req, res, (err: any) => {
       if (err) {
         const error: MulterError = err;

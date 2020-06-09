@@ -15,7 +15,7 @@ chai.use(chaiHTTP);
 
 describe("StoreImage API tests", () => {
   let createdStore: IStore; let createdImage: IStoreImage;
-  let storeImageModelCount: number; let storeImages: number;
+  let storeImageModelCount: number; let storeImagesCount: number;
 
   before((done) => { 
     Store.create({
@@ -27,12 +27,15 @@ describe("StoreImage API tests", () => {
       createdStore = store;
     })
     .then(() => StoreImage.countDocuments())
-    .then((number) => { storeImageModelCount = number; done() })
+    .then((number) => { 
+      storeImageModelCount = number; 
+      storeImagesCount = createdStore.images.length;
+      done() 
+    })
     .catch((error) => { done(error) });
   });
   after((done) => {
     const filePath = path.join(__dirname,  "/../../../", createdImage.absolutePath);
-    console.log(filePath)
     fs.access(path.join(__dirname,  "/../../../", createdImage.absolutePath), (err) => {
       if (err)  {
         console.error(err);
@@ -61,6 +64,10 @@ describe("StoreImage API tests", () => {
           done();
         });
     });
+    it("Should set the correct storeId property on {StoreImage} model", (done) => {
+      expect(createdImage.storeId).to.equal(updatedStore._id);
+      done();
+    });
     it("Should place the image into the correct directory", (done) => {
       fs.access(createdImage.absolutePath, (err) => {
         expect(err).to.equal(null);
@@ -82,8 +89,8 @@ describe("StoreImage API tests", () => {
       done();
     });
     it("Should INCREASE the number of images in updated {Store} by 1", (done) => {
-      expect(updatedStore.images.length).to.equal(storeImages + 1);
-      storeImages = updatedStore.images.length;
+      expect(updatedStore.images.length).to.equal(storeImagesCount + 1);
+      storeImagesCount = updatedStore.images.length;
       done();
     });
 
@@ -99,6 +106,7 @@ describe("StoreImage API tests", () => {
           if (err) { done(err) };
           expect(response.status).to.equal(200);
           expect(response.body).to.be.an("object");
+          console.log(response.body);
           expect(response.body.deletedStoreImage).to.be.an("object");
           expect(response.body.updatedStore).to.be.an("object");
           deletedImage = response.body.deletedStoreImage;
@@ -127,8 +135,8 @@ describe("StoreImage API tests", () => {
       done();
     });
     it("Should DECREASE the number of images in the updated {Store} by 1", (done) => {
-      expect(updatedStore.images.length).to.equal(storeImages - 1);
-      storeImages = updatedStore.images.length;
+      expect(updatedStore.images.length).to.equal(storeImagesCount - 1);
+      storeImagesCount = updatedStore.images.length;
       done();
     });
 
