@@ -106,7 +106,7 @@ describe("StoreImage API tests", () => {
         });
     });
     it("Should delete the image from its directory", (done) => {
-      const imagePath = path.join(__dirname, "/../../../", deletedImage.absolutePath)
+      const imagePath = path.join(__dirname, "/../../../", deletedImage.absolutePath);
       fs.access(imagePath, fs.constants.F_OK, (err) => {
         expect(err!.code).to.equal("ENOENT");
         done();

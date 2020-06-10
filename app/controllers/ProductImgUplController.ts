@@ -44,7 +44,7 @@ class ProductImageUploadController implements IGenericImgUploadCtrl {
             responseMsg: "Product image uploaded",
             newProductImage: newImage,
             updatedProduct: updatedProduct
-          })  
+          });
         })
         .catch((err) => {
           return respondWithDBError(res, err);

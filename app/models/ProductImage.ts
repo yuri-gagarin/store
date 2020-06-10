@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IProductImage extends Document {
+  productId: mongoose.Types.ObjectId;
   description?: string;
   url: string;
   fileName: string;
@@ -11,6 +12,10 @@ export interface IProductImage extends Document {
 }
 
 const ProductImageSchema: Schema = new Schema({
+  productId: {
+    type: Schema.Types.ObjectId,
+    required: true
+  },
   description: {
     type: String,
     required: false
