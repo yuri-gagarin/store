@@ -8,7 +8,7 @@ import server from "../../server";
 import { IProduct } from "../../models/Product";
 import ProductImage, { IProductImage } from "../../models/ProductImage";
 // helpers //
-import { clearDB } from "../helpers/dbHelpers";
+import { setupDB, clearDB } from "../helpers/dbHelpers";
 import { createProducts } from "../helpers/dataGeneration";
 
 chai.use(chaiHTTP);
@@ -18,11 +18,12 @@ describe("ProductImage API tests", () => {
   let productImageModelCount: number; let productImagesCount: number;
 
   before((done) => {
-      createProducts(1)
+    setupDB()
+      .then(() => createProducts(1))
       .then((products) => {
         createdProduct = products[0];
+        return ProductImage.countDocuments();
       })
-      .then(() => ProductImage.countDocuments())
       .then((number) => {
         productImageModelCount = number;
         productImagesCount = createdProduct.images.length;

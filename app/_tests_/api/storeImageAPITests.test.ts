@@ -6,10 +6,11 @@ import faker from "faker";
 import path from "path";
 // server, models //
 import server from "../../server";
-import Store, { IStore } from "../../models/Store";
+import { IStore } from "../../models/Store";
 import StoreImage, { IStoreImage } from "../../models/StoreImage";
 // helpers //
-import { clearDB } from "../helpers/dbHelpers";
+import { setupDB, clearDB } from "../helpers/dbHelpers";
+import { createStores } from "../helpers/dataGeneration";
 
 chai.use(chaiHTTP);
 
@@ -18,21 +19,18 @@ describe("StoreImage API tests", () => {
   let storeImageModelCount: number; let storeImagesCount: number;
 
   before((done) => { 
-    Store.create({
-      title: faker.lorem.word(),
-      description: faker.lorem.paragraphs(2),
-      images: []
-    })
-    .then((store) => {
-      createdStore = store;
-    })
-    .then(() => StoreImage.countDocuments())
-    .then((number) => { 
-      storeImageModelCount = number; 
-      storeImagesCount = createdStore.images.length;
-      done() 
-    })
-    .catch((error) => { done(error) });
+    setupDB()
+      .then(() => createStores(1))
+      .then((stores) => {
+        createdStore = stores[0];
+        return StoreImage.countDocuments();
+      })
+      .then((number) => { 
+        storeImageModelCount = number; 
+        storeImagesCount = createdStore.images.length;
+        done() 
+      })
+      .catch((error) => { done(error) });
   });
   after((done) => {
     clearDB().then(() => { done() }).catch((err) => { done(err) });

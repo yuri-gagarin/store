@@ -68,7 +68,7 @@ class ServiceImgUploadController implements IGenericImgUploadCtrl {
         if (serviceImg) {
           return deleteFile(serviceImg.absolutePath)
             .then(() => {
-              return ServiceImage.findOneAndDelete({ id: imgId })
+              return ServiceImage.findOneAndDelete({ _id: imgId })
             })
             .then((image) => {
               deletedImage = image!;
