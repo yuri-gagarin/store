@@ -35,15 +35,7 @@ describe("StoreImage API tests", () => {
     .catch((error) => { done(error) });
   });
   after((done) => {
-    const filePath = path.join(__dirname,  "/../../../", createdImage.absolutePath);
-    fs.access(path.join(__dirname,  "/../../../", createdImage.absolutePath), (err) => {
-      if (err)  {
-        console.error(err);
-        done(err);
-      } else {
-        done();
-      }
-    });
+    clearDB().then(() => { done() }).catch((err) => { done(err) });
 
   });
 
@@ -106,10 +98,10 @@ describe("StoreImage API tests", () => {
           if (err) { done(err) };
           expect(response.status).to.equal(200);
           expect(response.body).to.be.an("object");
-          console.log(response.body);
           expect(response.body.deletedStoreImage).to.be.an("object");
           expect(response.body.updatedStore).to.be.an("object");
           deletedImage = response.body.deletedStoreImage;
+          updatedStore = response.body.updatedStore;
           done();
         });
     });

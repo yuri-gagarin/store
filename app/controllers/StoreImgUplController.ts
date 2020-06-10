@@ -68,7 +68,7 @@ class StoreImageUploadController implements IGenericImgUploadCtrl {
         if (storeImage) {
           return deleteFile(storeImage.absolutePath)
             .then(() => {
-              return StoreImage.findOneAndDelete({ id: imgId })
+              return StoreImage.findOneAndDelete({ _id: imgId })
             })
             .then((image) => {
               deletedImage = image!;
