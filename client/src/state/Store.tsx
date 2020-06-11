@@ -6,7 +6,7 @@ export type IGlobalAppState = {
   [storeState : string]: IStoreState;
 }
 // app actions //
-export type AppAction = StoreAction;
+export type AppAction = StoreAction | ServiceAction;
 // global app context //
 export interface IGlobalAppContext {
   state: IGlobalAppState;
