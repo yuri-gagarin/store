@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { IGlobalAppState, AppAction } from "../../../../state/Store";
 // additional components //
 import StorePreview from "./StorePreview";
 import LoadingScreen from "../../miscelaneous/LoadingScreen";
+import { getAllStores } from "../actions/APIstoreActions";
 
 interface Props {
   state: IGlobalAppState;
@@ -11,6 +12,11 @@ interface Props {
 
 const StorePreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   const { loadedStores, loading } = state.storeState;
+
+  useEffect(() => {
+    getAllStores(dispatch);
+  }, []);
+
   if (loading) {
     return (
       <LoadingScreen />
@@ -21,8 +27,14 @@ const StorePreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =
         {
           loadedStores.map((store) => {
             return (
-              <StorePreview />
-            )
+              <StorePreview 
+                key={store._id}
+                _id={store._id}
+                title={store.title}
+                description={store.description}
+                images={store.images}
+              />
+            );
           })
         }
       </div>

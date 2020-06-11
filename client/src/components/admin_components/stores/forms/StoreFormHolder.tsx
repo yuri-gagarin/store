@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Button, Grid, Form, TextArea } from "semantic-ui-react";
+import React, { useState, useEffect } from "react";
+import { Button, Grid } from "semantic-ui-react";
 // css imports //
 import "./css/storeFormHolder.css";
 // additional components //
