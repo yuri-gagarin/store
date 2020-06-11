@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import { Icon, Image } from "semantic-ui-react";
 // css  imports //
 import "./css/storeImgPreviewHolder.css";
-import { deleteStoreImage } from "./actions/APIstoreActions";
-import { IGlobalAppState, AppAction } from "../../../state/Store";
+import { deleteStoreImage } from "../actions/APIstoreActions";
+import { IGlobalAppState, AppAction } from "../../../../state/Store";
 
 // image preview thumbnail //
 type ImgPreviewProps = {

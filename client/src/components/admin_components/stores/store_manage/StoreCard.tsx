@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Button, Grid } from "semantic-ui-react";
-import { IGlobalAppState, AppAction } from "../../../state/Store";
-import { deleteStore } from "./actions/APIstoreActions";
-import { setCurrentStore, clearCurrentStore } from "./actions/uiStoreActions";
+import { IGlobalAppState, AppAction } from "../../../../state/Store";
+import { deleteStore } from "../actions/APIstoreActions";
+import { setCurrentStore, clearCurrentStore } from "../actions/uiStoreActions";
 import { withRouter, RouteComponentProps, useRouteMatch } from "react-router-dom";
 // css imports //
 import "./css/storeCard.css";
-import { ConvertDate } from "../../helpers/displayHelpers";
+import { ConvertDate } from "../../../helpers/displayHelpers";
 
 interface StoreCardProps extends RouteComponentProps {
   _id: string;

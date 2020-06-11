@@ -1,14 +1,14 @@
 import React, { useContext, useEffect } from "react";
 import { Button, Grid } from "semantic-ui-react";
-import StoreFormHolder from "./forms/StoreFormHolder";
+import StoreFormHolder from "../forms/StoreFormHolder";
 import StoreCard from "./StoreCard";
 import { withRouter, RouteComponentProps, useRouteMatch, Route } from "react-router-dom";
-import { Store } from "../../../state/Store";
-import { getAllStores } from "./actions/APIstoreActions";
+import { Store } from "../../../../state/Store";
+import { getAllStores } from "../actions/APIstoreActions";
 
 interface Props extends RouteComponentProps {};
 
-const StoreManageView: React.FC<Props> = ({ history }): JSX.Element => {
+const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const { state, dispatch } = useContext(Store);
   const { loadedStores } = state.storeState;
   const match = useRouteMatch("/admin/home/my_store/manage");
@@ -56,4 +56,4 @@ const StoreManageView: React.FC<Props> = ({ history }): JSX.Element => {
   );
 };
 
-export default withRouter(StoreManageView);
+export default withRouter(StoreManageHolder);

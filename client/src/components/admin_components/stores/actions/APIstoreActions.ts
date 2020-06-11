@@ -34,7 +34,7 @@ type EditedStoreData = NewStoreData;
 export const getAllStores = (dispatch: Dispatch<AppAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
-    url: "/api/store"
+    url: "/api/stores"
   };
   return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
@@ -61,7 +61,7 @@ export const getAllStores = (dispatch: Dispatch<AppAction>): Promise<boolean> =>
 export const getStore = (_id: string, dispatch: Dispatch<AppAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
-    url: "/api/store/" + _id,
+    url: "/api/stores/" + _id,
   };
   return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
@@ -88,7 +88,7 @@ export const getStore = (_id: string, dispatch: Dispatch<AppAction>): Promise<bo
 export const createStore = ({ title, description, storeImages }: NewStoreData, dispatch: Dispatch<AppAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "post",
-    url: "/api/store/create",
+    url: "/api/stores/create",
     data: {
       title: title,
       description: description,
@@ -125,7 +125,7 @@ export const editStore = (_id: string, data: EditedStoreData, dispatch: Dispatch
   const { loadedStores } = state.storeState;
   const requestOptions: AxiosRequestConfig = {
     method: "patch",
-    url: "/api/store/update/" + _id,
+    url: "/api/stores/update/" + _id,
     data: {
       ...data,
     }
@@ -163,7 +163,7 @@ export const deleteStore = (_id: string, dispatch: Dispatch<AppAction>, state: I
   const { loadedStores } = state.storeState;
   const requestOptions: AxiosRequestConfig = {
     method: "delete",
-    url: "/api/store/delete/" + _id,
+    url: "/api/stores/delete/" + _id,
   };
   return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
