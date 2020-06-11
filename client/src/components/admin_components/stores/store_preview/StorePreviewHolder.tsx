@@ -33,6 +33,8 @@ const StorePreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =
                 title={store.title}
                 description={store.description}
                 images={store.images}
+                createdAt={store.createdAt}
+                editedAt={store.editedAt}
               />
             );
           })
