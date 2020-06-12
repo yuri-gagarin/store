@@ -121,7 +121,7 @@ export const createService = ({ name, description, serviceImages }: NewServiceDa
 };
 
 export const editService = (_id: string, data: EditedServiceData, dispatch: Dispatch<AppAction>, state: IGlobalAppState) => {
-  const { loadedServices } = state.loadedServices;
+  const { loadedServices } = state.serviceState;
   const requestOptions: AxiosRequestConfig = {
     method: "patch",
     url: "/api/services/update/" + _id,
@@ -159,7 +159,7 @@ export const editService = (_id: string, data: EditedServiceData, dispatch: Disp
 };
 
 export const deleteService = (_id: string, dispatch: Dispatch<AppAction>, state: IGlobalAppState): Promise<boolean> => {
-  const { loadedService } = state.serviceState;
+  const { loadedServices } = state.serviceState;
   const requestOptions: AxiosRequestConfig = {
     method: "delete",
     url: "/api/services/delete/" + _id,
@@ -214,7 +214,7 @@ export const uploadServiceImage = (_id: string, imageFile: FormData, state: IGlo
         loading: false,
         responseMsg: responseMsg,
         editedService: updatedService,
-        loadedServices: updatedService,
+        loadedServices: updatedServices,
         error: null
       }});
       return true;
@@ -239,7 +239,7 @@ export const deleteServiceImage = (imgId: string, state: IGlobalAppState, dispat
     url: "/api/uploads/service_images/" + imgId + "/" + serviceId
   };
 
-  return axios.request<IserviceImgServerResData, IServiceImgServerRes>(requestOptions)
+  return axios.request<IServiceImgServerResData, IServiceImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
       const { responseMsg, deletedServiceImage, updatedService } = data;

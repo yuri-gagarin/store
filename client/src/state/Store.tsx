@@ -1,9 +1,11 @@
 import React, { createContext, useReducer, useEffect, useRef } from "react";
 import { indexReducer, rootState } from "./reducers/indexReducer";
 import { initialStoreState } from "./reducers/storeReducer";
+import { initialServiceState } from "./reducers/serviceReducer";
 // global app state //
-export type IGlobalAppState = {
-  [storeState : string]: IStoreState;
+export interface IGlobalAppState {
+  storeState: IStoreState;
+  serviceState: IServiceState;
 }
 // app actions //
 export type AppAction = StoreAction | ServiceAction;
@@ -15,19 +17,23 @@ export interface IGlobalAppContext {
 // context initialization //
 const initialContext: IGlobalAppContext = {
   state: {
-    storeState: { ...initialStoreState }
+    storeState: { ...initialStoreState },
+    serviceState: { ...initialServiceState }
   },
   dispatch: (value: AppAction): void => {}
 } 
 export const Store = createContext<IGlobalAppContext>(initialContext);
 
+/*
 const logStateChanges = (state: IGlobalAppState): void => {
   console.log("state changed");
-  for (const key in state) {
-    console.log(key);
-    console.log(state[key]);
+  for (const key of Object.keys(state)) {
+    const val = state[key];
+    
   }
 }
+*/
+
 export const StateProvider: React.FC<{}> = ({ children }): JSX.Element => {
   const [ globalState, dispatch ] = useReducer(indexReducer, rootState);
 
