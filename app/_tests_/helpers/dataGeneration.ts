@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs, { writeFileSync } from "fs";
 import path from "path";
 import faker from "faker";
 import Service, { IService } from "../../models/Service";
@@ -65,9 +65,9 @@ export const createProducts = (numOfProducts: number): Promise<IProduct[]> => {
 };
 
 export const createStoreImage = (imgData: AnyImage): Promise<IStoreImage> => {
-  return StoreImage.create({
-    ...imgData
-  });
+  console.log(68)
+  console.log(imgData)
+  return StoreImage.create(imgData);
 };
 export const createProductImage = (imgData: AnyImage): Promise<IProductImage> => {
   return ProductImage.create({
@@ -80,10 +80,41 @@ export const createServiceImage = (imgData: AnyImage): Promise<IServiceImage> =>
   });
 };
  
+export const createStoreImages = (stores: IStore[], numberOfImages?: number) => {
+  const imagePromises: Promise<IStoreImage>[] = [];
+  const imagesToCreate = numberOfImages ? numberOfImages : Math.ceil(Math.random() * 10);
+  const imagePath = path.join("uploads", "store_images");
+  const writePath = path.join(path.resolve(), "public", imagePath);
+  const sampleImagePath = path.join(path.resolve(), "public", "images", "services", "service1.jpeg");
+  
+  for (let i = 0; i < stores.length; i++) {
+    for (let j = 0; j < imagesToCreate; j++) {
+      const imageName = `${i}_${j}_${stores[i].title}_test.jpeg`;
+      const image = path.join(writePath, imageName);
+      try {
+        fs.writeFileSync(image, fs.readFileSync(sampleImagePath));
+        const newImage = new StoreImage({
+          storeId: stores[0]._id,
+          imagePath: imagePath,
+          absolutePath: image,
+          fileName: imageName,
+          url: imagePath + "/" + imageName
+        });
+        imagePromises.push(createStoreImage(newImage));
+  
+      } catch (error) {
+        console.error(error);
+        return;
+      }
+    }
+  }
+  return Promise.all(imagePromises);
+}
 /** 
  * Creates a set number of images and uploads them
  * @param models
  */
+/*
 export const createImages = (modelName: string, models?: AnyModel[], numberOfImages?: number) => {
     const imagePromises: Promise<AnyImage>[] = []
     const imagesToCreate = numberOfImages ? numberOfImages : Math.ceil(Math.random() * 10);
@@ -119,5 +150,5 @@ export const createImages = (modelName: string, models?: AnyModel[], numberOfIma
       }
       
     }
-    
   }
+  */

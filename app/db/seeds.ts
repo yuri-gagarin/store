@@ -1,15 +1,21 @@
-import mongoose,  { ConnectionOptions } from "mongoose";
+import mongoose,  { ConnectionOptions, modelNames } from "mongoose";
 import readline from "readline";
 import config from "../config/config";
-// types //
+// types and models //
 import { IService } from "../models/Service";
 import { IStore } from "../models/Store";
 import { IProduct } from "../models/Product";
+import { IStoreImage } from "../models/StoreImage";
+import { IProductImage } from "../models/ProductImage";
+import { IServiceImage } from "../models/ServiceImage";
 
 // helpers for seeding //
-import { createStores, createProducts, createServices } from "../_tests_/helpers/dataGeneration";
+import { createStores, createProducts, createServices, createStoreImages } from "../_tests_/helpers/dataGeneration";
+
 
 type ModelArr = IStore[] | IProduct[] | IService[];
+type ImageModelArr = IStoreImage[] | IProductImage[] | IServiceImage[];
+
 const { dbSettings } = config;
 const dbOptions: ConnectionOptions = {
   user: dbSettings.username,
@@ -47,18 +53,35 @@ const askForModelCreation = (modelName: string) => {
           resolve(createServices(number));
         default: reject(new Error("Can't tesolve model"));
       }
-    })
-  })
-  
-}
+    });
+  });
+};
+
+const askForImageCreation = (modelName: string, models: IStore[]) => {
+  return new Promise<ImageModelArr>((resolve, reject) => {
+    rl.question(`How many ${modelName} PER Store would you like to create: `, (val) => {
+      let number = parseInt(val, 10);
+      if (isNaN(number)) return [];
+      
+      switch (modelName) {
+        case "StoreImage": {
+          resolve(createStoreImages(models, number));
+        }
+        default: reject(new Error("Can't resolve Image model"));
+      }
+    });
+  });
+};
 
 mongoose.connection.once("open", () => {
+  let createdStores: IStore[]; let storeImages: IStoreImage[];
   mongoose.connection.db.dropDatabase()
     .then(() => {
       return askForModelCreation("Store")
     })
     .then((stores) => {
       console.log(`Created ${stores.length} Stores`);
+      createdStores = stores as IStore[];
       return askForModelCreation("Product");
     })
     .then((products) => {
@@ -67,6 +90,13 @@ mongoose.connection.once("open", () => {
     })
     .then((services) => {
       console.log(`Created ${services.length} Services`);
+      return true;
+    })
+    .then(() => {
+      return askForImageCreation("StoreImage", createdStores);
+    })
+    .then((createdImages) => {
+      storeImages = createdImages as IStoreImage[]
       return true;
     })
     .then(() => {

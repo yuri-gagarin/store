@@ -6,7 +6,6 @@ import CombineRoutes from "./routes/CombineRoutes";
 import config from "./config/config";
 import bodyParser from "body-parser";
 import { MulterError } from "multer";
-import { createImages } from "./_tests_/helpers/dataGeneration";
 
 // app declarations and constants //
 const app: express.Application = express();
@@ -61,7 +60,7 @@ app.use(function (err: MulterError, req: Express.Request, res: Express.Response,
 app.on("dbReady", () => {
   server.listen(PORT, () => {
     // console.info(`Listening at PORT: ${PORT}`);
-    createImages("Product")
+    //createImages("Product")
   });
 });
 
