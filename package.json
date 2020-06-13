@@ -39,7 +39,8 @@
     "start:watch": "env NODE_ENV=development nodemon",
     "build": "rimraf ./build && tsc",
     "lint": "eslint . --ext .ts",
-    "test": "env NODE_ENV=test mocha -r ts-node/register ./app/_tests_/**/*.test.ts --exit"
+    "test": "env NODE_ENV=test mocha -r ts-node/register ./app/_tests_/**/*.test.ts --exit",
+    "seedDB": "env NODE_ENV=development node -r ts-node/register ./app/db/seeds.ts"
   },
   "nodemonConfig": {
     "ignore": [
