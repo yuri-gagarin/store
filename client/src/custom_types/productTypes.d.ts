@@ -51,7 +51,7 @@ type UploadNewProductImg = {
     loading: boolean;
     responseMsg: string;
     editedProduct: IProductData;
-    loadedPRoducts: IProductData[];
+    loadedProducts: IProductData[];
     error: null;
   }
 }
@@ -60,7 +60,7 @@ type DeleteProductImg = {
   readonly payload: {
     loading: boolean;
     responseMsg: string;
-    editedPRoduct: IProductData;
+    editedProduct: IProductData;
     loadedProducts: IProductData[];
     error: null;
   }
@@ -115,8 +115,10 @@ declare interface IProductImgData {
 }
 declare interface IProductData {
   _id: string;
-  title: string;
+  name: string;
+  details: string;
   description: string;
+  price: string;
   images: IProductImgData[];
   createdAt: string;
   editedAt?: string;

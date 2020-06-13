@@ -2,7 +2,8 @@
 const emptyServiceData = (): IServiceData => {
   return {
     _id: "",
-    title: "",
+    name: "",
+    price: "",
     description: "",
     images: [],
     createdAt: "",

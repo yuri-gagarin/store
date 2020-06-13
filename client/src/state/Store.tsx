@@ -1,9 +1,11 @@
 import React, { createContext, useReducer, useEffect, useRef } from "react";
 import { indexReducer, rootState } from "./reducers/indexReducer";
+import { initialProductState } from "./reducers/productReducer";
 import { initialStoreState } from "./reducers/storeReducer";
 import { initialServiceState } from "./reducers/serviceReducer";
 // global app state //
 export interface IGlobalAppState {
+  productState: IProductState;
   storeState: IStoreState;
   serviceState: IServiceState;
 }
@@ -17,6 +19,7 @@ export interface IGlobalAppContext {
 // context initialization //
 const initialContext: IGlobalAppContext = {
   state: {
+    productState: { ...initialProductState },
     storeState: { ...initialStoreState },
     serviceState: { ...initialServiceState }
   },

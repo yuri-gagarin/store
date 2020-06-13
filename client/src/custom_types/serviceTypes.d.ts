@@ -115,8 +115,9 @@ declare interface IServiceImgData {
 }
 declare interface IServiceData {
   _id: string;
-  title: string;
+  name: string;
   description: string;
+  price: string;
   images: IServiceImgData[];
   createdAt: string;
   editedAt?: string;
