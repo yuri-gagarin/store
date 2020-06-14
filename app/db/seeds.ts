@@ -1,4 +1,4 @@
-import mongoose,  { ConnectionOptions, modelNames } from "mongoose";
+import mongoose,  { ConnectionOptions } from "mongoose";
 import readline from "readline";
 import config from "../config/config";
 // types and models //

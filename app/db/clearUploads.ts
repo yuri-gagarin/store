@@ -1,5 +1,5 @@
 import fs from "fs";
-import path, { resolve } from "path"
+import path from "path"
 import readLine from "readline";
 
 interface ImagePaths {[index: string]: string};

@@ -41,6 +41,7 @@
     "lint": "eslint . --ext .ts",
     "test": "env NODE_ENV=test mocha -r ts-node/register ./app/_tests_/**/*.test.ts --exit",
     "seedDB": "env NODE_ENV=development node -r ts-node/register ./app/db/seeds.ts",
+    "dropDB": "env NODE_ENV=development node -r ts-node/register ./app/db/dropDB.ts",
     "clearUploads": "env NODE_ENV=development node -r ts-node/register ./app/db/clearUploads.ts"
   },
   "nodemonConfig": {

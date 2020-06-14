@@ -1,4 +1,4 @@
-import fs, { writeFileSync } from "fs";
+import fs from "fs";
 import path from "path";
 import faker from "faker";
 import Service, { IService } from "../../models/Service";
