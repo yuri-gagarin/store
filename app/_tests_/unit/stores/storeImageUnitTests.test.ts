@@ -16,7 +16,7 @@ describe("StoreImage Unit Tests", () => {
     fileName: faker.image.imageUrl(),
     imagePath: faker.image.imageUrl(),
     absolutePath: faker.random.word()
-  }
+  };
   after((done) => {
     clearDB().then(() => done()).catch((err) => done(err));
   });

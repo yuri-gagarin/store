@@ -35,6 +35,6 @@ class ServicesRoutes extends RouteConstructor<IGenericController> {
   private deleteService (): void {
     this.Router.route(this.deleteServiceRoute).delete(this.controller.delete);
   }
-};
+}
 
 export default ServicesRoutes;

@@ -18,11 +18,11 @@ describe ("Store API tests", () => {
     setupDB()
       .then(() => createStores(10))
       .then(() => Store.countDocuments())
-      .then((number) => { totalStores = number; done() })
-      .catch((error) => { done(error) });
+      .then((number) => { totalStores = number; done(); })
+      .catch((error) => { done(error); });
   });
   after((done) => {
-    clearDB().then(() => done()).catch((err) => done(err))
+    clearDB().then(() => done()).catch((err) => done(err));
   });
   
   describe("GET { '/api/stores' }", () => {
@@ -56,7 +56,7 @@ describe ("Store API tests", () => {
           store = foundStores[0];
           done();
         })
-        .catch((error) => { done(error) });
+        .catch((error) => { done(error); });
     });
 
     it("Should GET a specific store", (done) => {
@@ -116,7 +116,7 @@ describe ("Store API tests", () => {
           totalStores = number;
           done();
         })
-        .catch((error) => { done(error) });
+        .catch((error) => { done(error); });
     });
   });
 
@@ -127,15 +127,15 @@ describe ("Store API tests", () => {
       title: faker.lorem.word(),
       description: faker.lorem.paragraphs(1),
       storeImages: []
-    }
+    };
 
     before((done) => {
       Store.find().limit(1)
         .then((stores) => {
           store = stores[0];
-          done()
+          done();
         })
-        .catch((error) => { done(error) });
+        .catch((error) => { done(error); });
     });
 
     it("Should update an existing {Store}", (done) => {
@@ -164,7 +164,7 @@ describe ("Store API tests", () => {
           expect(number).to.equal(totalStores);
           done();
         })
-        .catch((err) => { done(err) });
+        .catch((err) => { done(err); });
     });
 
   });
@@ -178,7 +178,7 @@ describe ("Store API tests", () => {
           store = stores[0];
           done();
         })
-        .catch((err) => { done(err) });
+        .catch((err) => { done(err); });
     });
 
     it("Should successfully delete a {Store}", (done) => {
@@ -205,7 +205,7 @@ describe ("Store API tests", () => {
           totalStores = number;
           done();
         })
-        .catch((err) => { done(err) });
+        .catch((err) => { done(err); });
     });
   });
   

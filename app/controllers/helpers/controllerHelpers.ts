@@ -55,6 +55,6 @@ export const snakeToCamel = (string: string): string => {
     } else {
       return item.charAt(0).toUpperCase() + item.slice(1);
     }
-  })
+  });
   return arr.join("");
-}
+};

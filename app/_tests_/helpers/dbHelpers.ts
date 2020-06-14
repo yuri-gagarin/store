@@ -3,7 +3,7 @@ import config from "../../config/config";
 
 export const setupDB = (): Promise<boolean> => {
   return new Promise((resolve, reject) => {
-    mongoose.connect(config.dbSettings.mongoURI, { useFindAndModify: false, useUnifiedTopology: true, useNewUrlParser: true})
+    mongoose.connect(config.dbSettings.mongoURI, { useFindAndModify: false, useUnifiedTopology: true, useNewUrlParser: true});
     const db = mongoose.connection;
     db.on("error", () => {
       reject(new Error("Couldnt establish database connection"));
@@ -20,7 +20,7 @@ export const clearDB = (): Promise<boolean> => {
       .then(() => {
         mongoose.connection.close((err) => {
           if (err) console.log(err);
-          resolve(true)
+          resolve(true);
         });
       })
     .catch((err: Error) => {

@@ -20,7 +20,7 @@ class ImageUploader {
    * @param maxFileSize - Max file size allowed in megabytes
    */
   constructor(name: string, maxFileSize: number, path?: string) {
-    this.name = name
+    this.name = name;
     this.maxFileSize = maxFileSize * 1024 * 1024;
     this.uploadDetails = { responseMsg: "", success: false, imagePath: "", fileName: "", absolutePath: "" };
     this.imagePath = camelToSnake(this.name) + "s";
@@ -39,7 +39,7 @@ class ImageUploader {
     // console.log("image path is " + this.imagePath)
   }
   private setPath (...path: string[]): string {
-    return PATH.join(...path)
+    return PATH.join(...path);
   }
 
   private fileFilter (req: Request, file: Express.Multer.File, done: any): void {
@@ -62,14 +62,14 @@ class ImageUploader {
         fs.mkdir(this.path, { recursive : true }, (err) => {
           if (err) {
             console.error(err);
-            next(err)
+            next(err);
           }
           this.handleMulter(req, res, next);
         });
       } else {
         this.handleMulter(req, res, next);
       }
-    })
+    });
   }
   private storage (): multer.StorageEngine {
     return multer.diskStorage({

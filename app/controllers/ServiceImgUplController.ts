@@ -59,7 +59,7 @@ class ServiceImgUploadController implements IGenericImgUploadCtrl {
   deleteImage (req: Request, res: Response<ServiceImgResponse>): Promise<Response> {
     const { _id: imgId, _service_id: serviceId } = req.params;
     let deletedImage: IServiceImage;
-    console.log(61)
+    console.log(61);
     if (!imgId) {
       return respondWithInputError(res, "Can't resolve image to delete", 400);
     }
@@ -68,7 +68,7 @@ class ServiceImgUploadController implements IGenericImgUploadCtrl {
         if (serviceImg) {
           return deleteFile(serviceImg.absolutePath)
             .then(() => {
-              return ServiceImage.findOneAndDelete({ _id: imgId })
+              return ServiceImage.findOneAndDelete({ _id: imgId });
             })
             .then((image) => {
               deletedImage = image!;
@@ -76,7 +76,7 @@ class ServiceImgUploadController implements IGenericImgUploadCtrl {
                 { _id: serviceId },
                 { $pull: { images: imgId } },
                 { new: true }
-              ).populate("images").exec()
+              ).populate("images").exec();
             })
             .then((updatedService) => {
               return res.status(200).json({
@@ -90,12 +90,12 @@ class ServiceImgUploadController implements IGenericImgUploadCtrl {
               return respondWithDBError(res, err);
             });
           } else {
-            return respondWithGeneralError(res, "Message", 400)
+            return respondWithGeneralError(res, "Message", 400);
           }
         })
         .catch((err) => {
           return respondWithDBError(res, err);
-        })
+        });
   }
   /*
   private parallelQuery (): Promise<boolean> {

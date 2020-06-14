@@ -29,11 +29,11 @@ describe("ProductImage API tests", () => {
         productImagesCount = createdProduct.images.length;
         done();
       })
-      .catch((error) => { done(error) });
+      .catch((error) => { done(error); });
   });
 
   after((done) => { 
-    clearDB().then(() => { done() }).catch((err) => { done(err) });
+    clearDB().then(() => { done(); }).catch((err) => { done(err); });
   });
 
   // BEGIN POST tests //
@@ -45,7 +45,7 @@ describe("ProductImage API tests", () => {
         .post("/api/uploads/product_images" + "/" + createdProduct._id)
         .attach("productImage", fs.readFileSync(`${__dirname}/test_images/test.jpg`), "test.jpg")
         .end((err, response) => {
-          if (err) { console.error(err); done(err)};
+          if (err) { console.error(err); done(err);}
           expect(response.status).to.equal(200);
           expect(response.body).to.be.an("object");
           expect(response.body.responseMsg).to.be.a("string");
@@ -73,13 +73,13 @@ describe("ProductImage API tests", () => {
           productImageModelCount = number;
           done();
         })
-        .catch((err) => { done(err) });
+        .catch((err) => { done(err); });
     });
     it("Should return the updated {Product} object with image data in it", (done) => {
       const newImages = updatedProduct.images.filter((image) => (image as IProductImage)._id === createdImage._id);
       expect(newImages.length).to.equal(1);
       done();
-    })
+    });
     it("Should INCREASE the number of images in updated {Product} by 1", (done) => {
       expect(updatedProduct.images.length).to.equal(productImagesCount + 1);
       productImagesCount = updatedProduct.images.length;
@@ -95,7 +95,7 @@ describe("ProductImage API tests", () => {
       chai.request(server)
         .delete("/api/uploads/product_images/" + createdImage._id + "/" + createdImage.productId)
         .end((err, response) => {
-          if (err) { console.error(err); done(err) };
+          if (err) { console.error(err); done(err); }
           expect(response.status).to.equal(200);
           expect(response.body).to.be.an("object");
           expect(response.body.responseMsg).to.be.a("string");
@@ -120,7 +120,7 @@ describe("ProductImage API tests", () => {
           productImageModelCount = number;
           done();
         })
-        .catch((err) => { done(err) });
+        .catch((err) => { done(err); });
     });
     it("Should return the updated {Product} object with image date in it", (done) => {
       const img = updatedProduct.images.filter((image) => (image as IProductImage)._id === deletedImage._id);

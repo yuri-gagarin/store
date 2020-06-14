@@ -18,11 +18,11 @@ describe ("Service API tests", () => {
     setupDB()
       .then(() =>  createServices(10))
       .then(() => Service.countDocuments())
-      .then((number) => { totalServices = number; done() })
-      .catch((error) => { done(error) });
+      .then((number) => { totalServices = number; done(); })
+      .catch((error) => { done(error); });
   });
   after((done) => {
-    clearDB().then(() => done()).catch((err) => done(err))
+    clearDB().then(() => done()).catch((err) => done(err));
   });
   
   describe("GET { '/api/services' }", () => {
@@ -56,7 +56,7 @@ describe ("Service API tests", () => {
           service = foundServices[0];
           done();
         })
-        .catch((error) => { done(error) });
+        .catch((error) => { done(error); });
     });
 
     it("Should GET a specific service", (done) => {
@@ -101,8 +101,8 @@ describe ("Service API tests", () => {
           expect(response.body).to.be.an("object");
           expect(response.body.newService).to.be.an("object");
           createdService = response.body.newService;
-          done()
-        })
+          done();
+        });
     });
     it("Should return the created {Service} and correct data", (done) => {
       expect(createdService.name).to.equal(newService.name);
@@ -117,7 +117,7 @@ describe ("Service API tests", () => {
           totalServices = number;
           done();
         })
-        .catch((err) => { done(err) });
+        .catch((err) => { done(err); });
     });
 
   });
@@ -130,16 +130,16 @@ describe ("Service API tests", () => {
       description: faker.lorem.paragraphs(1),
       price: "200",
       serviceImages: []
-    }
+    };
 
     before((done) => {
       Service.find().limit(1)
         .then((services) => {
           service = services[0];
-          done()
+          done();
         })
         .catch((error) => done(error));
-    })
+    });
 
     it("Should update an existing {Service}", (done) => {
       chai.request(server)
@@ -153,7 +153,7 @@ describe ("Service API tests", () => {
           expect(res.body.editedService).to.be.an("object");
           editedService = res.body.editedService;
           done();
-        })
+        });
     });
     it("Should return the updated {Service} and the updated data", (done) => {
       expect(String(editedService._id)).to.equal(String(service._id));
@@ -168,7 +168,7 @@ describe ("Service API tests", () => {
           expect(number).to.equal(totalServices);
           done();
         })
-        .catch((err) => { done(err) });
+        .catch((err) => { done(err); });
     });
 
   });
@@ -211,7 +211,7 @@ describe ("Service API tests", () => {
           totalServices = number;
           done();
         })
-        .catch((err) => { done(err) });
+        .catch((err) => { done(err); });
     });
   });
   

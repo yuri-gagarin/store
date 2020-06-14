@@ -31,10 +31,10 @@ const dropDB = () => {
           mongoose.connection.close((err) => {
             if (err) throw(err);
             process.exit(0);
-          })
-        })
+          });
+        });
           
-      })
+      });
     } else {
       console.log("Cancelled");
       process.exit(0);

@@ -1,8 +1,8 @@
 import fs from "fs";
-import path from "path"
+import path from "path";
 import readLine from "readline";
 
-interface ImagePaths {[index: string]: string};
+interface ImagePaths {[index: string]: string}
 
 export const clearFiles = (directory: string): Promise<boolean[]> => {
   const promises: Promise<boolean>[]= [];
@@ -10,7 +10,7 @@ export const clearFiles = (directory: string): Promise<boolean[]> => {
   let files: string[];
   try {
     files = fs.readdirSync(path.join(startPath, directory));
-    console.log("Files " + files.length)
+    console.log("Files " + files.length);
   }
   catch (err) {
     throw(err);
@@ -24,12 +24,12 @@ export const clearFiles = (directory: string): Promise<boolean[]> => {
         }
         resolve(true);
       });
-    })
-    promises.push(deletePromise)
+    });
+    promises.push(deletePromise);
   }
   
   return Promise.all(promises);
-}
+};
 
 
 const rl = readLine.createInterface({
@@ -55,7 +55,7 @@ const recursiveQuestion = (question: string) => {
       "1": "/public/uploads/product_images/",
       "2": "/public/uploads/service_images/",
       "3": "/public/uploads/store_images"
-    }
+    };
     if (option === 4) {
       try {
         // delete all images from all directories //
@@ -63,7 +63,7 @@ const recursiveQuestion = (question: string) => {
         for (const key in imagePaths) {
           console.log(`\nDeleting images in ${imagePaths[key]}`);
           const result = await clearFiles(imagePaths[key]);
-          console.log("Result " + result.length)
+          console.log("Result " + result.length);
           total += result.length;
         }
         console.log(`Deleted ${total} images\n`);
@@ -82,13 +82,13 @@ const recursiveQuestion = (question: string) => {
         throw(err);
       }
     }
-  }
+  };
 
-  let userInput :number;
+  let userInput: number;
   rl.question(question, (input) => {
     userInput = parseInt(input.trim());
     if (userInput === 0) {
-      rl.close()
+      rl.close();
       console.log("exiting");
       process.exit(0);
     }
@@ -119,10 +119,10 @@ const recursiveQuestion = (question: string) => {
       }
     }
     recursiveQuestion(question);
-  })
-}
+  });
+};
 
 const launch = () => {
   recursiveQuestion(startQuestion);
-}
+};
 launch();

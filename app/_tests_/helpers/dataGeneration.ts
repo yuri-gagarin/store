@@ -65,19 +65,13 @@ export const createProducts = (numOfProducts: number): Promise<IProduct[]> => {
 };
 
 export const createStoreImage = (imgData: AnyImage): Promise<IStoreImage> => {
-  console.log(68)
-  console.log(imgData)
   return StoreImage.create(imgData);
 };
 export const createProductImage = (imgData: AnyImage): Promise<IProductImage> => {
-  return ProductImage.create({
-    ...imgData
-  });
+  return ProductImage.create(imgData);
 };
 export const createServiceImage = (imgData: AnyImage): Promise<IServiceImage> => {
-  return ServiceImage.create({
-    ...imgData
-  });
+  return ServiceImage.create(imgData);
 };
 
 export const createProductImages = (products: IProduct[], numberOfImages?: number): Promise<IProductImage[]> => {
@@ -125,7 +119,7 @@ export const createServiceImages = (services: IService[], numberOfImages?: numbe
       try {
         fs.writeFileSync(image, fs.readFileSync(sampleImagePath));
         const newImage = new ServiceImage({
-          storeId: services[0]._id,
+          serviceId: services[0]._id,
           imagePath: imagePath,
           absolutePath: image,
           fileName: imageName,

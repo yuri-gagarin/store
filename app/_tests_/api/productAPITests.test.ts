@@ -18,11 +18,11 @@ describe ("Product API tests", () => {
     setupDB()
       .then(() => createProducts(10))
       .then(() => Product.countDocuments())
-      .then((number) => { totalProducts = number; done() })
-      .catch((error) => { done(error) });
+      .then((number) => { totalProducts = number; done(); })
+      .catch((error) => { done(error); });
   });
   after((done) => {
-    clearDB().then(() => done()).catch((err) => done(err))
+    clearDB().then(() => done()).catch((err) => done(err));
   });
   
   describe("GET { '/api/products' }", () => {
@@ -48,7 +48,6 @@ describe ("Product API tests", () => {
 
   describe("GET { '/api/products/:_id }", () => {
     let product: IProduct, requestedProduct: IProduct; 
-    let responseMsg: string;
 
     before((done) => {
       Product.find().limit(1)
@@ -56,7 +55,7 @@ describe ("Product API tests", () => {
           product = foundProducts[0];
           done();
         })
-        .catch((error) => { done(error) });
+        .catch((error) => { done(error); });
     });
 
     it("Should GET a specific product", (done) => {
@@ -68,7 +67,6 @@ describe ("Product API tests", () => {
           expect(response.body).to.be.an("object");
           expect(response.body.responseMsg).to.be.a("string");
           expect(response.body.product).to.be.an("object");
-          responseMsg = response.body.responseMsg;
           requestedProduct = response.body.product;
           done();
         });
@@ -110,7 +108,7 @@ describe ("Product API tests", () => {
     it("Should return the created {Product} and correct data", (done) => {
       expect(createdProduct.name).to.equal(newData.name);
       expect(createdProduct.description).to.equal(newData.description);
-      expect(createdProduct.price).to.equal(newData.price)
+      expect(createdProduct.price).to.equal(newData.price);
       done();
     });
     it("Should INCREASE the number of {Product(s)} by 1", (done) => {
@@ -120,7 +118,7 @@ describe ("Product API tests", () => {
           totalProducts = number;
           done();
         })
-        .catch((err) => { done(err) });
+        .catch((err) => { done(err); });
     });
 
   });
@@ -140,9 +138,9 @@ describe ("Product API tests", () => {
       Product.find().limit(1)
         .then((products) => {
           product = products[0];
-          done()
+          done();
         })
-        .catch((error) => { done(error) });
+        .catch((error) => { done(error); });
     });
 
     it("Should update an existing {Product}", (done) => {
@@ -172,7 +170,7 @@ describe ("Product API tests", () => {
           expect(number).to.equal(totalProducts);
           done();
         })
-        .catch((err) => { done(err) });
+        .catch((err) => { done(err); });
     });
 
   });
@@ -186,7 +184,7 @@ describe ("Product API tests", () => {
           product = products[0];
           done();
         })
-        .catch((err) => { done(err) });
+        .catch((err) => { done(err); });
     });
 
     it("Should successfully delete a {Product}", (done) => {
@@ -212,7 +210,7 @@ describe ("Product API tests", () => {
           expect(number).to.equal(totalProducts - 1);
           done();
         })
-        .catch((err) => { done(err) });
+        .catch((err) => { done(err); });
     });
   });
   

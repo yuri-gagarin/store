@@ -29,11 +29,11 @@ describe("ServiceImage API tests", () => {
         serviceImagesCount = createdService.images.length;
         done();
       })
-      .catch((error) => { done(error) });
+      .catch((error) => { done(error); });
   });
 
   after((done) => { 
-    clearDB().then(() => { done() }).catch((err) => { done(err) });
+    clearDB().then(() => { done(); }).catch((err) => { done(err); });
   });
 
   // BEGIN POST tests //
@@ -45,7 +45,7 @@ describe("ServiceImage API tests", () => {
         .post("/api/uploads/service_images" + "/" + createdService._id)
         .attach("serviceImage", fs.readFileSync(`${__dirname}/test_images/test.jpg`), "test.jpg")
         .end((err, response) => {
-          if (err) { console.error(err); done(err)};
+          if (err) { console.error(err); done(err);}
           expect(response.status).to.equal(200);
           expect(response.body).to.be.an("object");
           expect(response.body.responseMsg).to.be.a("string");
@@ -73,13 +73,13 @@ describe("ServiceImage API tests", () => {
           serviceImageModelCount = number;
           done();
         })
-        .catch((err) => { done(err) });
+        .catch((err) => { done(err); });
     });
     it("Should return the updated {Service} object with image data in it", (done) => {
       const newImages = updatedService.images.filter((image) => (image as IServiceImage)._id === createdImage._id);
       expect(newImages.length).to.equal(1);
       done();
-    })
+    });
     it("Should INCREASE the number of images in updated {Service} by 1", (done) => {
       expect(updatedService.images.length).to.equal(serviceImagesCount + 1);
       serviceImagesCount = updatedService.images.length;
@@ -95,7 +95,7 @@ describe("ServiceImage API tests", () => {
       chai.request(server)
         .delete("/api/uploads/service_images/" + createdImage._id + "/" + createdImage.serviceId)
         .end((err, response) => {
-          if (err) { console.error(err); done(err) };
+          if (err) { console.error(err); done(err); }
           expect(response.status).to.equal(200);
           expect(response.body).to.be.an("object");
           expect(response.body.responseMsg).to.be.a("string");
@@ -120,7 +120,7 @@ describe("ServiceImage API tests", () => {
           serviceImageModelCount = number;
           done();
         })
-        .catch((err) => { done(err) });
+        .catch((err) => { done(err); });
     });
     it("Should return the updated {Service} object with image date in it", (done) => {
       const img = updatedService.images.filter((image) => (image as IServiceImage)._id === deletedImage._id);
