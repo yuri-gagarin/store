@@ -79,8 +79,69 @@ export const createServiceImage = (imgData: AnyImage): Promise<IServiceImage> =>
     ...imgData
   });
 };
- 
-export const createStoreImages = (stores: IStore[], numberOfImages?: number) => {
+
+export const createProductImages = (products: IProduct[], numberOfImages?: number): Promise<IProductImage[]> => {
+  const imagePromises: Promise<IProductImage>[] = [];
+  const imagesToCreate = numberOfImages ? numberOfImages : Math.ceil(Math.random() * 10);
+  const imagePath = path.join("uploads", "product_images");
+  const writePath = path.join(path.resolve(), "public", imagePath);
+  const sampleImagePath = path.join(path.resolve(), "public", "images", "services", "service1.jpeg");
+
+  for (let i = 0; i < products.length; i++) {
+    for (let j = 0; j < imagesToCreate; j++) {
+      const imageName = `${i}_${j}_${products[i].name}_test.jpeg`;
+      const image = path.join(writePath, imageName);
+      try {
+        fs.writeFileSync(image, fs.readFileSync(sampleImagePath));
+        const newImage = new ProductImage({
+          productId: products[0]._id,
+          imagePath: imagePath,
+          absolutePath: image,
+          fileName: imageName,
+          url: imagePath + "/" + imageName
+        });
+        imagePromises.push(createProductImage(newImage));
+  
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
+  return Promise.all(imagePromises);
+};
+
+
+export const createServiceImages = (services: IService[], numberOfImages?: number): Promise<IServiceImage[]> => {
+  const imagePromises: Promise<IServiceImage>[] = [];
+  const imagesToCreate = numberOfImages ? numberOfImages : Math.ceil(Math.random() * 10);
+  const imagePath = path.join("uploads", "service_images");
+  const writePath = path.join(path.resolve(), "public", imagePath);
+  const sampleImagePath = path.join(path.resolve(), "public", "images", "services", "service1.jpeg");
+
+  for (let i = 0; i < services.length; i++) {
+    for (let j = 0; j < imagesToCreate; j++) {
+      const imageName = `${i}_${j}_${services[i].name}_test.jpeg`;
+      const image = path.join(writePath, imageName);
+      try {
+        fs.writeFileSync(image, fs.readFileSync(sampleImagePath));
+        const newImage = new ServiceImage({
+          storeId: services[0]._id,
+          imagePath: imagePath,
+          absolutePath: image,
+          fileName: imageName,
+          url: imagePath + "/" + imageName
+        });
+        imagePromises.push(createServiceImage(newImage));
+  
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
+  return Promise.all(imagePromises);
+};
+
+export const createStoreImages = (stores: IStore[], numberOfImages?: number): Promise<IStoreImage[]> => {
   const imagePromises: Promise<IStoreImage>[] = [];
   const imagesToCreate = numberOfImages ? numberOfImages : Math.ceil(Math.random() * 10);
   const imagePath = path.join("uploads", "store_images");
@@ -104,51 +165,8 @@ export const createStoreImages = (stores: IStore[], numberOfImages?: number) => 
   
       } catch (error) {
         console.error(error);
-        return;
       }
     }
   }
   return Promise.all(imagePromises);
-}
-/** 
- * Creates a set number of images and uploads them
- * @param models
- */
-/*
-export const createImages = (modelName: string, models?: AnyModel[], numberOfImages?: number) => {
-    const imagePromises: Promise<AnyImage>[] = []
-    const imagesToCreate = numberOfImages ? numberOfImages : Math.ceil(Math.random() * 10);
-    const imageDirectory = modelName.toLowerCase() + "_" + "images";
-    const imagePath = path.join(path.resolve(), "public", "uploads", imageDirectory)
-    const sampleImagePath = path.join(path.resolve(), "public", "images", "services", "service1.jpeg");
-    for (let i = 0; i < models.length; i++) {
-      const image = imagePath + "/" + i.toString() + "_" + "test.jpeg"
-      try {
-        const buffer = fs.readFileSync(sampleImagePath);
-        fs.writeFileSync(image, buffer);
-        const imageData: AnyImage = {
-          url: "",
-          absolutePath: image,
-          imagePath: imagePath
-        }
-        switch (modelName.toLowerCase()) {
-          case "store": {
-            imagePromises.push(createStoreImage(imageData));
-            break;
-          }
-          case "product": {
-            imagePromises.push(createProductImage(imageData));
-            break;
-          }
-          case "service": {
-            imagePromises.push(createServiceImage(imageData));
-          }
-        }
-      } catch (err) {
-        console.error(err);
-        return;
-      }
-      
-    }
-  }
-  */
+};

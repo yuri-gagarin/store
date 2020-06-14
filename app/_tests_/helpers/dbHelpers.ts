@@ -1,7 +1,6 @@
 import mongoose, { Error } from "mongoose";
 import config from "../../config/config";
 
-
 export const setupDB = (): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     mongoose.connect(config.dbSettings.mongoURI, { useFindAndModify: false, useUnifiedTopology: true, useNewUrlParser: true})
@@ -29,3 +28,5 @@ export const clearDB = (): Promise<boolean> => {
     });
   });
 };
+
+
