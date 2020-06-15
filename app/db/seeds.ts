@@ -44,7 +44,16 @@ const askForModelCreation = (modelName: string) => {
   const models = ["store", "product", "service"];
 
   return new Promise<ModelArr>((resolve, reject) => {
-    rl.question(`How many ${modelName} would you like to create: `, (val) => {
+    const question = chalk.bgWhiteBright(chalk.black.bold(
+      "Seeding database, type: " + chalk.bgRed.bold.white("exit") + " anytime to exit\n" +
+      "How many " + chalk.bgBlue(chalk.bold.white(modelName)) + " would you like to create?:"
+    ));
+
+    rl.question(question, (val) => {
+      if (val.toLowerCase() === "exit") {
+        console.log(chalk.bgYellow(chalk.black("Exiting, Good Bye!")));
+        process.exit(0);
+      }
       const number = parseInt(val, 10);
       if (isNaN(number)) throw new Error("Not a number");
       
@@ -96,36 +105,34 @@ mongoose.connection.once("open", () => {
 
   mongoose.connection.db.dropDatabase()
     .then(() => {
+      const dbName = mongoose.connection.db.databaseName;
+      console.log(chalk.bgGreen.bold.yellow(`Seeding Database: ${chalk.bgYellow.bold.blue(dbName)}.`));
       return askForModelCreation("Store");
     })
     .then((stores) => {
       console.log(chalk.bold.blue(`Created ${chalk.whiteBright(stores.length)} Stores`));
       createdStores = stores as IStore[];
-      return askForModelCreation("Product");
-    })
-    .then((products) => {
-      console.log(chalk.bold.blue(`Created ${chalk.whiteBright(products.length)} Products`));
-      createdProducts = products as IProduct[];
-      return askForModelCreation("Service");
-    })
-    .then((services) => {
-      console.log(chalk.bold.blue(`Created ${chalk.whiteBright(services.length)} Services`));
-      createdServices = services as IService[];
+      // return askForModelCreation("Product");
       return askForImageCreation("StoreImage", createdStores);
     })
     .then((createdImages) => {
       console.log(chalk.bold.blue(`Created ${chalk.whiteBright(createdImages.length)} StoreImages`));
-      storeImages = createdImages as IStoreImage[];
-      return askForImageCreation("ProductImage", createdProducts);
+      return askForModelCreation("Service");
     })
-    .then((createdImages) => {
-      console.log(chalk.bold.blue(`Created ${chalk.whiteBright(createdImages.length)} ProductImages`));
-      productImages = createdImages as IProductImage[];
-      return askForImageCreation("ServiceImage", createdServices);
+    .then((services) => {
+      console.log(chalk.bold.blue(`Created ${chalk.whiteBright(services.length)} Services`));
+      return askForImageCreation("ServiceImage", services);
     })
     .then((createdImages) => {
       console.log(chalk.bold.blue(`Created ${chalk.whiteBright(createdImages.length)} ServiceImages`));
-      serviceImages = createdImages as IServiceImage[];
+      return askForModelCreation("Product");
+    })
+    .then((products) => {
+      console.log(chalk.bold.blue(`Created ${chalk.whiteBright(products.length)} Products`));
+      return askForImageCreation("ProductImage", products);
+    })
+    .then((createdImages) => {
+      console.log(chalk.bold.blue(`Created ${chalk.whiteBright(createdImages.length)} ProductImages`));
       return true;
     })
     .then(() => {

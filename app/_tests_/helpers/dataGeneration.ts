@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import faker from "faker";
+import faker, { image } from "faker";
 import Service, { IService } from "../../models/Service";
 import Store, { IStore } from "../../models/Store";
 import Product, { IProduct } from "../../models/Product";
@@ -8,8 +8,6 @@ import StoreImage, { IStoreImage } from "../../models/StoreImage";
 import ServiceImage, { IServiceImage } from "../../models/ServiceImage";
 import ProductImage, { IProductImage } from "../../models/ProductImage";
 
-type AnyModel = IService | IStore | IProduct;
-type AnyImage = IStoreImage | IServiceImage | IProductImage;
 /**
  * Creates a set number of mock {Store} objects.
  * @param numberOfStores - number of mock {Store} models to create.
@@ -64,14 +62,59 @@ export const createProducts = (numOfProducts: number): Promise<IProduct[]> => {
   return Promise.all(createdProducts);
 };
 
-export const createStoreImage = (imgData: AnyImage): Promise<IStoreImage> => {
-  return StoreImage.create(imgData);
+export const createStoreImage = (imgData: IStoreImage): Promise<IStoreImage>=> {
+  let image: IStoreImage;
+  return StoreImage.create(imgData)
+    .then((img) => {
+      image = img;
+      return Store.findOneAndUpdate(
+        { _id: img.storeId}, 
+        { $push: { images: img._id} },
+        );
+    })
+    .then(() => {
+      return image;
+    })
+    .catch((err) => {
+      console.error(err);
+      throw err;
+    })
 };
-export const createProductImage = (imgData: AnyImage): Promise<IProductImage> => {
-  return ProductImage.create(imgData);
+export const createProductImage = (imgData: IProductImage): Promise<IProductImage> => {
+  let image: IProductImage;
+  return ProductImage.create(imgData)
+    .then((img) => {
+      image = img;
+      return Product.findOneAndUpdate(
+        { _id: img.productId },
+        { $push: { images: img._id } }
+      );
+    })
+    .then(() => {
+      return image;
+    })
+    .catch((err) => {
+      console.error(err);
+      throw err;
+    })
 };
-export const createServiceImage = (imgData: AnyImage): Promise<IServiceImage> => {
-  return ServiceImage.create(imgData);
+export const createServiceImage = (imgData: IServiceImage): Promise<IServiceImage> => {
+  let image: IServiceImage;
+  return ServiceImage.create(imgData)
+    .then((img) => {
+      image = img;
+      return Service.findOneAndUpdate(
+        { _id: img.serviceId },
+        { $push: { images: img._id } }
+      );
+    })
+    .then(() => {
+      return image;
+    })
+    .catch((err) => {
+      console.error(err);
+      throw err;
+    })
 };
 
 export const createProductImages = (products: IProduct[], numberOfImages?: number): Promise<IProductImage[]> => {
@@ -88,11 +131,11 @@ export const createProductImages = (products: IProduct[], numberOfImages?: numbe
       try {
         fs.writeFileSync(image, fs.readFileSync(sampleImagePath));
         const newImage = new ProductImage({
-          productId: products[0]._id,
+          productId: products[i]._id,
           imagePath: imagePath,
           absolutePath: image,
           fileName: imageName,
-          url: imagePath + "/" + imageName
+          url: "/" + imagePath + "/" + imageName
         });
         imagePromises.push(createProductImage(newImage));
   
@@ -119,11 +162,11 @@ export const createServiceImages = (services: IService[], numberOfImages?: numbe
       try {
         fs.writeFileSync(image, fs.readFileSync(sampleImagePath));
         const newImage = new ServiceImage({
-          serviceId: services[0]._id,
+          serviceId: services[i]._id,
           imagePath: imagePath,
           absolutePath: image,
           fileName: imageName,
-          url: imagePath + "/" + imageName
+          url: "/" + imagePath + "/" + imageName
         });
         imagePromises.push(createServiceImage(newImage));
   
@@ -149,11 +192,11 @@ export const createStoreImages = (stores: IStore[], numberOfImages?: number): Pr
       try {
         fs.writeFileSync(image, fs.readFileSync(sampleImagePath));
         const newImage = new StoreImage({
-          storeId: stores[0]._id,
+          storeId: stores[i]._id,
           imagePath: imagePath,
           absolutePath: image,
           fileName: imageName,
-          url: imagePath + "/" + imageName
+          url: "/" + imagePath + "/" + imageName
         });
         imagePromises.push(createStoreImage(newImage));
   

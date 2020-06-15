@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Button, Grid } from "semantic-ui-react";
 import { IGlobalAppState, AppAction } from "../../../../state/Store";
-import { deleteStore } from "../actions/APIstoreActions";
+import { deleteStore, getStore } from "../actions/APIstoreActions";
 import { setCurrentStore, clearCurrentStore } from "../actions/uiStoreActions";
-import { withRouter, RouteComponentProps, useRouteMatch } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 // css imports //
 import "./css/storeCard.css";
 import { ConvertDate } from "../../../helpers/displayHelpers";
@@ -45,9 +45,21 @@ const StoreCard: React.FC<StoreCardProps> = ({
   }
   const handleStoreEdit = (e: React.MouseEvent<HTMLButtonElement>): void => {
     if (!editing) {
-      setCurrentStore(_id, dispatch, state);
-      history.push(baseUrl + "/edit");
-      setEditing(true);
+      //setCurrentStore(_id, dispatch, state);
+      //history.push(baseUrl + "/edit");
+      //setEditing(true);
+
+      
+      getStore(_id, dispatch)
+        .then((success) => {
+          if (success) {
+            history.push(baseUrl + "/edit");
+            setEditing(true);
+          }
+        
+        });
+      
+     
     } else {
       clearCurrentStore(dispatch);
       history.push(baseUrl);
@@ -61,7 +73,6 @@ const StoreCard: React.FC<StoreCardProps> = ({
       })
   }
 
-  console.log(useRouteMatch().url);
   return (
     <React.Fragment>
       <Grid.Row style={{ border: "3px solid green", padding: "0.5em", marginTop: "2em" }}>
