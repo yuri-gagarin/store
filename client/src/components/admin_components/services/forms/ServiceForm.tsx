@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef }  from "react";
 import { Button, Form, TextArea } from "semantic-ui-react";
 
-type FormState = {
+export type FormState = {
   name: string;
   description: string;
   price: string;
 }
 
-type Props = {
+interface Props {
   name: string;
   description: string;
   price: string;

@@ -6,6 +6,7 @@ import { Route, Switch } from "react-router-dom";
 // additional components //
 import Spacer from "../miscelaneous/Spacer";
 import ServicePreviewHolder from "./service_preview/ServicePreviewHolder";
+import ServiceFormHolder from "./forms/ServiceFormHolder";
 // state //
 import { Store } from "../../../state/Store";
 
@@ -29,7 +30,8 @@ const ServiceView: React.FC<{}> = (props): JSX.Element => {
           <ServicePreviewHolder state={state} dispatch={dispatch} />
         </Route>
         <Route path="/admin/home/my_services/create">
-          <h3>Service Create</h3>
+          <Spacer width="100%" height="100px" />
+          <ServiceFormHolder />
         </Route>
         <Route path="/admin/home/my_services/manage">
         </Route>
