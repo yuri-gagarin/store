@@ -15,7 +15,6 @@ const AdminServiceMenu: React.FC<Props> = ({ history, dispatch }): JSX.Element =
   const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
 
   const match = useRouteMatch("/admin/home/my_services");
-  console.log(match);
   const adminServiceMenuRef = useRef<HTMLDivElement>(document.createElement("div"));
 
   const handleItemClick = (e: React.MouseEvent, { name }: MenuItemProps): void => {

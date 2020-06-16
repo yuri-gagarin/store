@@ -1,0 +1,34 @@
+
+.adminServiceDetailsHolder {
+  border: 1px solid var(--grey-border-color);
+  border-radius: 4px;
+  display: flex;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  flex-direction: column;
+  align-items: center;
+}
+.adminServiceDetailsTitle {
+  border: 1px solid var(--grey-border-color);
+  border-radius: 4px;
+  padding: 0.5em;
+}
+.adminServiceDetails {
+  width: 150px;
+  height: 150px;
+  background-color: var(--light-blue-counter-background);
+  border-radius: 75px;
+  margin-top: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.adminServiceCounter:nth-child(1) {
+  color: white;
+}
+.adminServicesCount {
+  font-weight: 900;
+  color: white;
+  font-size: 2em;
+  text-align: center;
+}

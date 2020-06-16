@@ -1,5 +1,6 @@
 import readLine from "readline";
 import mongoose from "mongoose";
+import chalk from "chalk";
 import config from "../config/config";
 
 const rl = readLine.createInterface({
@@ -17,7 +18,8 @@ const mongoOptions = {
 };
 
 const dropDB = () => {
-  rl.question("Drop whole development database? Y/N : ", (input) => {
+  const greeting = chalk.bgRed.bold.white("Drop the whoe dvelopment database? Y/N: ")
+  rl.question(greeting, (input) => {
     const reply = input.toLowerCase();
     if (reply === "y") {
       mongoose.connect(dbSettings.mongoURI, mongoOptions, (err) => {
@@ -26,8 +28,7 @@ const dropDB = () => {
       mongoose.connection.once("open", () => {
         mongoose.connection.db.dropDatabase((err, result) => {
           if (err) throw(err);
-          console.log(result);
-          console.log("Database droppped");
+          console.log(chalk.bgGreen.bold.black("Database droppped"));
           mongoose.connection.close((err) => {
             if (err) throw(err);
             process.exit(0);
@@ -36,7 +37,7 @@ const dropDB = () => {
           
       });
     } else {
-      console.log("Cancelled");
+      console.log(chalk.bgRed.bold.white("Cancelled"));
       process.exit(0);
     }
   });

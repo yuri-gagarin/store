@@ -1,5 +1,9 @@
 @import "~react-image-gallery/styles/css/image-gallery.css";
 
+:root {
+  --grey-border-color: rgb(209, 209, 214);
+  --light-blue-counter-background:  rgb(113, 113, 216);
+}
 .App {
   text-align: center;
 }

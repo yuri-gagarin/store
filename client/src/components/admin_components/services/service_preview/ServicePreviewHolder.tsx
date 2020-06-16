@@ -7,6 +7,7 @@ import ServicesDetails from "./ServicesDetails"
 import { AppAction, IGlobalAppState } from "../../../../state/Store";
 // api actions //
 import { getAllServices } from "../actions/APIServiceActions";
+import PopularServiceHolder from "./popular_services/PopularServiceHolder";
 
 interface Props {
   state: IGlobalAppState;
@@ -15,7 +16,7 @@ interface Props {
 
 const ServicePreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   const { loadedServices } = state.serviceState;
-
+  console.log(loadedServices);
   useEffect(() => {
     getAllServices(dispatch);
   }, []);
@@ -38,11 +39,14 @@ const ServicePreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element
         </Item.Group>
       </Grid.Column>
       <Grid.Column computer={6} mobile={16}>
-        <ServicesDetails />
+        <ServicesDetails totalServices={loadedServices.length} />
+        <PopularServiceHolder popularServices={loadedServices}/>
       </Grid.Column>
 
       </Grid.Row>
       
     </Grid>
   )
-}
+};
+
+export default ServicePreviewHolder;

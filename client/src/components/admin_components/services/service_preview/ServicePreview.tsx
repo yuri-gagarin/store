@@ -1,5 +1,7 @@
 import React from "react";
-import { Image, Item } from "semantic-ui-react";
+import { Item } from "semantic-ui-react";
+// helpers //
+import { ConvertDate } from "../../../helpers/displayHelpers";
 
 interface Props {
   service: IServiceData;
@@ -18,8 +20,8 @@ const ServicePreview: React.FC<Props> = ({ service }): JSX.Element => {
       <Item.Content>
         <Item.Header>{name}</Item.Header>
         <Item.Meta>
-          <span className='servicePrice'>{price}</span>
-          <span className='serviceCreated'>{createdAt}</span>
+          <span className='servicePrice'>Displayed Price: {price}</span>
+          <span className='serviceCreated'>Created At: {ConvertDate.international(createdAt)}</span>
         </Item.Meta>
         <Item.Description>{description}</Item.Description>
       </Item.Content>

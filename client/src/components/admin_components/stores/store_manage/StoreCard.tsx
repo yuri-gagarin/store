@@ -45,21 +45,9 @@ const StoreCard: React.FC<StoreCardProps> = ({
   }
   const handleStoreEdit = (e: React.MouseEvent<HTMLButtonElement>): void => {
     if (!editing) {
-      //setCurrentStore(_id, dispatch, state);
-      //history.push(baseUrl + "/edit");
-      //setEditing(true);
-
-      
-      getStore(_id, dispatch)
-        .then((success) => {
-          if (success) {
-            history.push(baseUrl + "/edit");
-            setEditing(true);
-          }
-        
-        });
-      
-     
+      setCurrentStore(_id, dispatch, state);
+      history.push(baseUrl + "/edit");
+      setEditing(true);
     } else {
       clearCurrentStore(dispatch);
       history.push(baseUrl);
