@@ -1,7 +1,9 @@
 import React from "react";
-import { Item } from "semantic-ui-react";
+import { Button, Item } from "semantic-ui-react";
+// css //
+import "./css/servicePreview.css";
 // helpers //
-import { ConvertDate } from "../../../helpers/displayHelpers";
+import { ConvertDate, setDefaultImage, trimString } from "../../../helpers/displayHelpers";
 
 interface Props {
   service: IServiceData;
@@ -9,24 +11,23 @@ interface Props {
 
 const ServicePreview: React.FC<Props> = ({ service }): JSX.Element => {
   const { name, description, price, images, createdAt } = service;
-  const setDefaultImage = (): string => {
-    const defaultImage = "https://react.semantic-ui.com/images/wireframe/image.png";
-    return  (images[0] && images[0].url)  ? images[0].url : defaultImage;
-  };
 
   return (
-    <Item>
-      <Item.Image  size="tiny" src={ setDefaultImage() }/>
+    <Item className="servicePreviewItem">
+      <Item.Image size="small" src={setDefaultImage(images)}/>
       <Item.Content>
-        <Item.Header>{name}</Item.Header>
         <Item.Meta>
-          <span className='servicePrice'>Displayed Price: {price}</span>
-          <span className='serviceCreated'>Created At: {ConvertDate.international(createdAt)}</span>
+          Displayed name: <strong>{name}</strong>
         </Item.Meta>
-        <Item.Description>{description}</Item.Description>
+        <Item.Meta>
+          <span className='servicePrice'>Displayed Price: <strong>{price}</strong></span>
+          <span className='serviceCreated'>Created At: <strong>{ConvertDate.international(createdAt)}</strong></span>
+        </Item.Meta>
+        <Item.Description>{trimString(description, 200)}</Item.Description>
+        <Button basic color="green" content="View"></Button>
       </Item.Content>
     </Item>
-  )
+  );
 };
 
 export default ServicePreview;

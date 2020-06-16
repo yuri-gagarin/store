@@ -22,9 +22,9 @@ const ServicePreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element
   }, []);
 
   return (
-    <Grid stackable columns={2}>
+    <Grid stackable padded columns={2}>
       <Grid.Row>
-      <Grid.Column computer={10} mobile={16}>
+      <Grid.Column computer={10} tablet={8} mobile={16}>
         <Item.Group>
           {
             loadedServices.map((service) => {
@@ -38,7 +38,7 @@ const ServicePreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element
           }
         </Item.Group>
       </Grid.Column>
-      <Grid.Column computer={6} mobile={16}>
+      <Grid.Column computer={6} tablet={8} mobile={16}>
         <ServicesDetails totalServices={loadedServices.length} />
         <PopularServiceHolder popularServices={loadedServices}/>
       </Grid.Column>
