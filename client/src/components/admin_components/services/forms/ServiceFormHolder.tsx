@@ -5,7 +5,7 @@ import "./css/serviceFormHolder.css";
 // additional components //
 import ServiceForm from "./ServiceForm";
 import ServiceImgPreviewHolder from "../image_preview/ServiceImgPreviewHolder";
-import ServiceImageUplForm from "./ServiceImageUplForm";
+import ServiceImgUplForm from "./ServiceImgUplForm";
 // state //
 import { IGlobalAppState, AppAction } from "../../../../state/Store";
 // api actions //
@@ -113,7 +113,7 @@ const ServiceFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
                 <ServiceImgPreviewHolder state={state} dispatch={dispatch} />
               </Grid.Column>
             </Grid.Row>
-            <ServiceImageUplForm />
+            <ServiceImgUplForm />
           </React.Fragment>
           : null
       }
