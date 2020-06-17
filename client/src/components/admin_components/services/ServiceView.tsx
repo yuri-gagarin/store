@@ -7,6 +7,8 @@ import { Route, Switch } from "react-router-dom";
 import Spacer from "../miscelaneous/Spacer";
 import ServicePreviewHolder from "./service_preview/ServicePreviewHolder";
 import ServiceFormHolder from "./forms/ServiceFormHolder";
+// css imports //
+import "./css/serviceView.css";
 // state //
 import { Store } from "../../../state/Store";
 
