@@ -4,12 +4,13 @@ import { Button, Grid } from "semantic-ui-react";
 import EditControls from "./EditControls"
 // css imports //
 import "./css/serviceCard.css";
-// actions and dependencies //
+// actions and state /
 import { deleteService } from "../actions/APIServiceActions";
 import { setCurrentService, clearCurrentService} from "../actions/UIServiceActions";
-import { withRouter, RouteComponentProps } from "react-router-dom";
-// state /
 import { IGlobalAppState, AppAction } from "../../../../state/Store";
+// additional dependencies //
+import { withRouter, RouteComponentProps } from "react-router-dom";
+// helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
 
 interface Props extends RouteComponentProps {

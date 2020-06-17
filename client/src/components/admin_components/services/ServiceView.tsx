@@ -11,6 +11,7 @@ import ServiceFormHolder from "./forms/ServiceFormHolder";
 import "./css/serviceView.css";
 // state //
 import { Store } from "../../../state/Store";
+import ServiceManageHolder from "./service_manage/ServiceManageHolder";
 
 const ServiceView: React.FC<{}> = (props): JSX.Element => {
   const { state, dispatch } = useContext(Store);
@@ -36,6 +37,8 @@ const ServiceView: React.FC<{}> = (props): JSX.Element => {
           <ServiceFormHolder state={state} dispatch={dispatch} />
         </Route>
         <Route path="/admin/home/my_services/manage">
+          <Spacer width="100%" height="100px"></Spacer>
+          <ServiceManageHolder state={state} dispatch={dispatch} />
         </Route>
       </Switch>
     </div>
