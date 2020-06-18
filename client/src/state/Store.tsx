@@ -10,7 +10,7 @@ export interface IGlobalAppState {
   serviceState: IServiceState;
 }
 // app actions //
-export type AppAction = StoreAction | ServiceAction;
+export type AppAction = StoreAction | ServiceAction | ProductAction;
 // global app context //
 export interface IGlobalAppContext {
   state: IGlobalAppState;
