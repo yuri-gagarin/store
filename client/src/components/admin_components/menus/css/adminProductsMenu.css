@@ -1,0 +1,16 @@
+.ui.tabular.adminProductsMenu {
+  transform: translateY(-100px);
+  width: 100%;
+}
+.ui.tabular.adminProductsMenu.productsMenuOpen {
+  transform: translateY(0px);
+  transition: transform 200ms linear;
+}
+.adminProductsMenuFixed { 
+  position: fixed;
+  top: 42px;
+  left: 0px;
+  right: 0px;
+  z-index: 100;
+  background-color: white;
+}
