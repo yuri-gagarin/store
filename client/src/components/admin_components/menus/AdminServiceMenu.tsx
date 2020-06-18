@@ -27,6 +27,7 @@ const AdminServiceMenu: React.FC<Props> = ({ history, dispatch }): JSX.Element =
         break;
       case "create":
         history.push(match?.path + "/create");
+        dispatch({ type: "CLEAR_CURRENT_SERVICE", payload: null });
         break;
       case "manage":
         history.push(match?.path + "/manage");

@@ -1,28 +1,29 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Menu, Dropdown, Icon, MenuItemProps, DropdownItemProps } from "semantic-ui-react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
 // css imports //
 import "./css/adminTopMenu.css";
+// routing //
+import { withRouter, RouteComponentProps } from "react-router-dom";
+
 
 interface Props extends RouteComponentProps {
 };
 
-const AdminTopMenu: React.FC<Props> = ({ history }): JSX.Element => {
+const AdminTopMenu: React.FC<Props> = ({ history, location }): JSX.Element => {
   const [ activeMenuItem, setActiveMenuItem ] = useState<string>("");
   const [ menuFixed, setMenuFixed ] = useState<boolean>(false);
-
   const adminTopMenuRef = useRef<HTMLDivElement>(document.createElement("div"));
 
   const handleMenuClick = (e: React.MouseEvent, { name }: MenuItemProps): void => {
     setActiveMenuItem(String(name));
     switch (name) {
-      case "store": history.push("/admin/home/my_store"); 
+      case "store": history.push("/admin/home/my_stores/all"); 
         break;
-      case "services": history.push("/admin/home/my_services");
+      case "services": history.push("/admin/home/my_services/all");
         break;
-      case "products": history.push("/admin/home/my_products");
+      case "products": history.push("/admin/home/my_products/all");
         break;
-      case "videos": history.push("/admin/home/my_videos");
+      case "videos": history.push("/admin/home/my_videos/all");
         break;
       default: history.push("/admin/home");
     }
@@ -32,15 +33,21 @@ const AdminTopMenu: React.FC<Props> = ({ history }): JSX.Element => {
     const baseUrl = "/admin/home/";
     switch (name) {
       case "store": {
-        history.push(baseUrl + "my_store/create");
+        history.push(baseUrl + "my_stores/create");
         break;
       }
-      case "service": history.push(baseUrl + "my_services/create");
+      case "service": {
+        history.push(baseUrl + "my_services/create");
         break;
-      case "product": history.push(baseUrl + "my_products/create");
+      }
+      case "product": {
+        history.push(baseUrl + "/my_products/create");
         break;
-      case "video": history.push(baseUrl + "my_videos/create");
+      }
+      case "video": {
+        history.push(baseUrl + "my_videos/create");
         break;
+      }
       default: history.push(baseUrl);
 
     }
@@ -58,8 +65,22 @@ const AdminTopMenu: React.FC<Props> = ({ history }): JSX.Element => {
   }
 
   useEffect(() => {
+    const currentUrl = location.pathname;
+    if (currentUrl.match(/my_stores/)) {
+      setActiveMenuItem("stores");
+    } else if (currentUrl.match(/my_services/)) {
+      setActiveMenuItem("services");
+    } else if (currentUrl.match(/my_products/)) {
+      setActiveMenuItem("products");
+    } else if (currentUrl.match(/my_videos/)){
+      setActiveMenuItem("videos");
+    }
+  }, [location])
+
+  useEffect(() => {
     window.addEventListener("scroll", listenToMenuScroll, true);
   }, [adminTopMenuRef]);
+
   return (
     <div className={ menuFixed ? "adminTopAttached fixed" : "adminTopAttached"} ref={adminTopMenuRef}>
       <Menu attached='top' id="adminTopMenu">
@@ -108,8 +129,8 @@ const AdminTopMenu: React.FC<Props> = ({ history }): JSX.Element => {
       <Menu.Item
         className="adminTopMenuItem"
         name="store"
-        content="My store"
-        active={activeMenuItem === "store"}
+        content="My Stores"
+        active={activeMenuItem === "stores"}
         onClick={handleMenuClick}
       >
       </Menu.Item>

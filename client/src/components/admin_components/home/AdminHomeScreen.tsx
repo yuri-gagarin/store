@@ -16,7 +16,7 @@ const AdminHomeScreen: React.FC<{}> = (props): JSX.Element => {
       <Grid>
         <Grid.Row>
           <Switch>
-            <Route path="/admin/home/my_store">
+            <Route path="/admin/home/my_stores">
               <StoreView />
             </Route>
             <Route path="/admin/home/my_services">

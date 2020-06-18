@@ -17,16 +17,16 @@ const StoreGeneralView: React.FC<{}> = (props): JSX.Element => {
     <div id="adminStoreViewHolder">
       <AdminStoreMenu  dispatch={dispatch} />
       <Switch>
-        <Route path="/admin/home/my_store/all">
+        <Route path="/admin/home/my_stores/all">
           <Spacer width="100%" height="100px" />
           <StorePreviewHolder state={state} dispatch={dispatch} />
           <h3>Store view</h3>
         </Route>
-        <Route path="/admin/home/my_store/create">
+        <Route path="/admin/home/my_stores/create">
           <Spacer width="100%" height="100px"/>
           <StoreFormHolder state={state} dispatch={dispatch} />
         </Route>
-        <Route path="/admin/home/my_store/manage">
+        <Route path="/admin/home/my_stores/manage">
           <Spacer width="100%" height="100px" />
           <StoreManageHolder />
         </Route>

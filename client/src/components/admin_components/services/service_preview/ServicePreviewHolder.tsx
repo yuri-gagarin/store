@@ -16,7 +16,6 @@ interface Props {
 
 const ServicePreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   const { loadedServices } = state.serviceState;
-  console.log(loadedServices);
   useEffect(() => {
     getAllServices(dispatch);
   }, []);

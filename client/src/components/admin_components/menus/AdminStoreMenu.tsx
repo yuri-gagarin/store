@@ -18,17 +18,20 @@ const AdminStoreMenu: React.FC<Props> = ({ history, dispatch }): JSX.Element => 
 
   const handleItemClick = (e: React.MouseEvent, { name }: MenuItemProps): void => {
     setActiveItem(String(name));
-    const baseUrl: string = "/admin/home/my_store";
+    const baseUrl: string = "/admin/home/my_stores";
     switch (name) {
       case "view_all": 
         history.push(baseUrl + "/all");
+        window.scrollTo({ top: 0, behavior: "smooth" });
         break;
       case "create":
         history.push(baseUrl + "/create");
         dispatch({ type: "CLEAR_CURRENT_STORE", payload: null });
+        window.scrollTo({ top: 0, behavior: "smooth" });
         break;
       case "manage":
         history.push(baseUrl + "/manage");
+        window.scrollTo({ top: 0, behavior: "smooth" });
         break;
       default: history.push(baseUrl);
     }

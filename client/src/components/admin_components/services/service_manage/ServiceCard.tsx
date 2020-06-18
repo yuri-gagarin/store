@@ -48,14 +48,14 @@ const ServiceCard: React.FC<Props> = ({ service, imageCount, state, dispatch, hi
 
   return (
     <React.Fragment>
-      <Grid.Row style={{ border: "3px solid green", padding: "0.5em", marginTop: "2em" }}>
-        <Grid.Column computer={12} mobile={16} style={{ border: '2px solid red'}}>
+      <Grid.Row style={{ padding: "0.5em", marginTop: "1em" }}>
+        <div className="serviceManageDesc">
           <h3>Name: {name}</h3>
-          <h5>Description: {description}</h5>
-          <h5>Number of Images: {imageCount}</h5>
+          <p><strong>Description:</strong> {description}</p>
+          <span>Number of Images: <strong>{imageCount}</strong></span>
           <p><span>Created At: </span>{ConvertDate.international(createdAt)}</p>
-        </Grid.Column> 
-        <Grid.Column computer={4} mobile={16} style={{ border: '2px solid blue'}}>
+        </div> 
+        <div className="serviceManageCtrls">
           <Button 
             inverted
             color="green"
@@ -77,7 +77,7 @@ const ServiceCard: React.FC<Props> = ({ service, imageCount, state, dispatch, hi
             content="Delete" 
             onClick={handleServiceDelete}
           />
-        </Grid.Column> 
+        </div> 
       </Grid.Row>
       {  editing ?  <EditControls handleServiceEdit={handleServiceEdit}/>: null }
     </React.Fragment>
