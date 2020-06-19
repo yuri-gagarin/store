@@ -25,19 +25,16 @@ const ProductsView: React.FC<{}> = (props): JSX.Element => {
 
   return (
     <div id="adminProductsViewHolder">
-      <AdminProductsMenu  dispatch={dispatch} />
+      <AdminProductsMenu dispatch={dispatch} />
       <Switch>
         <Route path="/admin/home/my_products/all">
           <Spacer width="100%" height="100px"/>
-          <ProductsPreviewHolder state={state} dispatch={dispatch} />
         </Route>
         <Route path="/admin/home/my_products/create">
           <Spacer width="100%" height="100px" />
-          <PRoductFormHolder state={state} dispatch={dispatch} />
         </Route>
         <Route path="/admin/home/my_products/manage">
           <Spacer width="100%" height="100px"></Spacer>
-          <ProductsManageHolder state={state} dispatch={dispatch} />
         </Route>
       </Switch>
     </div>

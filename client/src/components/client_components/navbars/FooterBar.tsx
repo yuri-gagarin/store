@@ -2,11 +2,20 @@ import React from "react";
 import { Menu, Icon, MenuItemProps } from "semantic-ui-react";
 // css imports //
 import "./css/footerBar.css";
+// routing //
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
-const FooterBar: React.FC<{}> = (props): JSX.Element => {
+interface Props extends RouteComponentProps {
+
+}
+const FooterBar: React.FC<Props> = ({ history }): JSX.Element => {
   const handleItemClick = (e: React.MouseEvent, data: MenuItemProps): void => {
 
   }
+  const handleAdmin = (e: React.MouseEvent, data: MenuItemProps): void => {
+    history.push("/admin/home");
+  };
+
   return (
     <Menu icon id="footerMenu">
         <Menu.Item
@@ -29,8 +38,16 @@ const FooterBar: React.FC<{}> = (props): JSX.Element => {
         >
           <Icon name='instagram' />
         </Menu.Item>
+        <Menu.Item
+          position="right"
+          name="admin"
+          onClick={handleAdmin}
+        >
+          <Icon name="lock"/>
+          Admin
+        </Menu.Item>
       </Menu>
   )
 };
 
-export default FooterBar;
+export default withRouter(FooterBar);

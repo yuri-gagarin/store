@@ -17,14 +17,26 @@ const AdminTopMenu: React.FC<Props> = ({ history, location }): JSX.Element => {
   const handleMenuClick = (e: React.MouseEvent, { name }: MenuItemProps): void => {
     setActiveMenuItem(String(name));
     switch (name) {
-      case "store": history.push("/admin/home/my_stores/all"); 
+      case "dash": {
+        history.push("/admin/home/dash");
         break;
-      case "services": history.push("/admin/home/my_services/all");
+      }
+      case "store": {
+        history.push("/admin/home/my_stores/all"); 
         break;
-      case "products": history.push("/admin/home/my_products/all");
+      }
+      case "services": {
+        history.push("/admin/home/my_services/all");
         break;
-      case "videos": history.push("/admin/home/my_videos/all");
+      }
+      case "products": {
+        history.push("/admin/home/my_products/all");
         break;
+      }
+      case "videos": {
+        history.push("/admin/home/my_videos/all");
+        break;
+      }
       default: history.push("/admin/home");
     }
   };
@@ -66,7 +78,9 @@ const AdminTopMenu: React.FC<Props> = ({ history, location }): JSX.Element => {
 
   useEffect(() => {
     const currentUrl = location.pathname;
-    if (currentUrl.match(/my_stores/)) {
+    if (currentUrl.match(/dash/)) {
+      setActiveMenuItem("dash");
+    } else if (currentUrl.match(/my_stores/)) {
       setActiveMenuItem("stores");
     } else if (currentUrl.match(/my_services/)) {
       setActiveMenuItem("services");
@@ -126,6 +140,14 @@ const AdminTopMenu: React.FC<Props> = ({ history, location }): JSX.Element => {
         </Dropdown.Menu>
        
       </Dropdown>
+      <Menu.Item
+        className="adminTopMenuItem"
+        name="dash"
+        content="Dashboard"
+        active={activeMenuItem === "dash"}
+        onClick={handleMenuClick}
+      >
+      </Menu.Item>
       <Menu.Item
         className="adminTopMenuItem"
         name="store"

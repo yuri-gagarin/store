@@ -33,6 +33,9 @@ const AdminProductsMenu: React.FC<Props> = ({ history, dispatch }): JSX.Element 
       case "manage":
         history.push(match?.path + "/manage");
         break;
+      case 'sorted': {
+        history.push(match?.path + "/view_sorted");
+      }
       default: history.push("/admin/home");
     }
   }
@@ -49,6 +52,7 @@ const AdminProductsMenu: React.FC<Props> = ({ history, dispatch }): JSX.Element 
     setTimeout(() => {
       setMenuOpen(true);
     }, 200);
+    console.log("loaded")
   }, []);
 
   useEffect(() => {
