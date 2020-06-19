@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { Grid, Item } from "semantic-ui-react";
+// css imports //
+import "./css/productsPreviewHolder.css";
 // additional components //
 import ProductPreview from "./ProductPreview";
-import  ProductsControls from "./ProductsControls"'';
+import ProductsControls from "./ProductsControls";
 import PopularProductsHolder from "./popular_products/PopularProductsHolder";
 // types and interfaces //
 import { AppAction, IGlobalAppState } from "../../../../state/Store";
@@ -39,7 +41,7 @@ const ProductsPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
       </Grid.Column>
       <Grid.Column computer={6} tablet={8} mobile={16}>
         <ProductsControls totalProducts={loadedProducts.length} />
-        <PopularProductsHolder popularProducts={popularProducts}/>
+        <PopularProductsHolder popularProducts={loadedProducts}/>
       </Grid.Column>
 
       </Grid.Row>
