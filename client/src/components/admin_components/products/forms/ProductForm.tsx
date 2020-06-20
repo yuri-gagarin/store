@@ -11,16 +11,16 @@ interface Props {
   name: string;
   description: string;
   price: string;
-  handleCreateService(data: FormState): void;
-  handleUpdateService(data: FormState): void;
+  handleCreateProduct(data: FormState): void;
+  handleUpdateProduct(data: FormState): void;
 }
 
 
-const ServiceForm: React.FC<Props> = ({ name, description, price, handleCreateService, handleUpdateService }): JSX.Element => {
+const ProductForm: React.FC<Props> = ({ name, description, price, handleCreateProduct, handleUpdateProduct }): JSX.Element => {
   
   const [ newForm, setNewForm ] = useState<boolean>(true)
   const [ formState, setFormState ] = useState<FormState>({ name, description, price });
-  const serviceFormRef = useRef<HTMLDivElement>(document.createElement("div"));
+  const productFormRef = useRef<HTMLDivElement>(document.createElement("div"));
   
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
     setFormState({
@@ -44,9 +44,9 @@ const ServiceForm: React.FC<Props> = ({ name, description, price, handleCreateSe
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (newForm) {
-      handleCreateService(formState);
+      handleCreateProduct(formState);
     } else {
-      handleUpdateService(formState);
+      handleUpdateProduct(formState);
     }
   };
 
@@ -59,31 +59,31 @@ const ServiceForm: React.FC<Props> = ({ name, description, price, handleCreateSe
   },  [name, description, price]);
 
   useEffect(() => {
-    if (serviceFormRef.current) {
-      const elem = serviceFormRef.current.getBoundingClientRect();
+    if (productFormRef.current) {
+      const elem = productFormRef.current.getBoundingClientRect();
       window.scrollTo({
         top: elem.bottom,
         behavior: "smooth"
       })
     }
-  }, [serviceFormRef]);
+  }, [productFormRef]);
   
   return (
-    <div className="createServiceFormHolder" ref={serviceFormRef}>
-      <Form id="createServiceForm">
+    <div className="createProductFormHolder" ref={productFormRef}>
+      <Form id="createProductForm">
         <Form.Field>
-          <label>Service name</label>
+          <label>Product name</label>
           <input 
             onChange={handleTitleChange} 
-            placeholder="Service name here ..." 
+            placeholder="Product name here ..." 
             value={formState.name}
           />
         </Form.Field>
         <Form.Field>
-          <label>Service price</label>
+          <label>Product price</label>
           <input 
             onChange={handlePriceChange} 
-            placeholder="Service price here..." 
+            placeholder="Product price here..." 
             value={formState.price}
           />
         </Form.Field>
@@ -92,17 +92,17 @@ const ServiceForm: React.FC<Props> = ({ name, description, price, handleCreateSe
           control={TextArea}
           label='Store Description'
           onChange={hadnleDescriptionChange}
-          placeholder='Service description here...'
+          placeholder='Product description here...'
           value={formState.description}
          />
          {
            newForm 
-            ? <Button type='submit' onClick={handleSubmit} content= "Create  New Service" />
-            : <Button type='submit' onClick={handleSubmit} content= "Update Service" />
+            ? <Button type='submit' onClick={handleSubmit} content= "Create  New Product" />
+            : <Button type='submit' onClick={handleSubmit} content= "Update Product" />
          }  
       </Form>
     </div>
   );
 };
 
-export default ServiceForm;
+export default ProductForm;
