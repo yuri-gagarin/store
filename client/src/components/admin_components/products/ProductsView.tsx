@@ -4,7 +4,7 @@ import AdminProductsMenu from "../menus/AdminProductsMenu";
 import Spacer from "../miscelaneous/Spacer";
 // import ProductsManageHolder from "./product_manage/ProductsManageHolder";
 // import ProductsPreviewHolder from "./product_preview/ProductsPreviewHolder";
-// import ProductFormHolder from "./forms/ProductFormHolder";
+import ProductFormHolder from "./forms/ProductFormHolder";
 // css imports //
 import "./css/productsView.css";
 // routing //
@@ -34,6 +34,7 @@ const ProductsView: React.FC<{}> = (props): JSX.Element => {
         </Route>
         <Route path="/admin/home/my_products/create">
           <Spacer width="100%" height="100px" />
+          <ProductFormHolder state={state} dispatch={dispatch} />
         </Route>
         <Route path="/admin/home/my_products/manage">
           <Spacer width="100%" height="100px"></Spacer>

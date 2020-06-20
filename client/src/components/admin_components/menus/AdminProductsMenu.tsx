@@ -10,7 +10,7 @@ import { AppAction } from "../../../state/Store";
 interface Props extends RouteComponentProps {
   dispatch: React.Dispatch<AppAction>
 }
-const AdminProductsMenu: React.FC<Props> = ({ history, dispatch }): JSX.Element => {
+const AdminProductsMenu: React.FC<Props> = ({ history, location, dispatch }): JSX.Element => {
   const [ scrolled, setScrolled ] = useState<boolean>(false);
   const [ activeItem, setActiveItem ] = useState<string>("view_all");
   const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
@@ -47,12 +47,23 @@ const AdminProductsMenu: React.FC<Props> = ({ history, dispatch }): JSX.Element 
       setScrolled(false)
     } 
   };
-
+  // lifecycle hooks //
   useEffect(() => {
+    const currentURL = location.pathname;
     setTimeout(() => {
       setMenuOpen(true);
     }, 200);
-    console.log("loaded")
+    if (currentURL.match(/all/)) {
+      setActiveItem("view_all");
+    } else if (currentURL.match(/create/)) {
+      setActiveItem("create");
+    } else if (currentURL.match(/manage/)) {
+      setActiveItem("manage");
+    }
+    // menu animation timeout //
+    setTimeout(() => {
+      setMenuOpen(true);
+    }, 200);
   }, []);
 
   useEffect(() => {

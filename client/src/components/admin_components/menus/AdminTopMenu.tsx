@@ -53,7 +53,7 @@ const AdminTopMenu: React.FC<Props> = ({ history, location }): JSX.Element => {
         break;
       }
       case "product": {
-        history.push(baseUrl + "/my_products/create");
+        history.push(baseUrl + "my_products/create");
         break;
       }
       case "video": {
