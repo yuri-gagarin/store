@@ -23,18 +23,22 @@ const AdminProductsMenu: React.FC<Props> = ({ history, location, dispatch }): JS
 
 
     switch (name) {
-      case "view_all": 
+      case "view_all": {
         history.push(match?.path + "/all");
         break;
-      case "create":
+      }
+      case "create": {
         history.push(match?.path + "/create");
         dispatch({ type: "CLEAR_CURRENT_PRODUCT", payload: null });
         break;
-      case "manage":
+      }
+      case "manage": {
         history.push(match?.path + "/manage");
         break;
+      }
       case 'sorted': {
         history.push(match?.path + "/view_sorted");
+        break;
       }
       default: history.push("/admin/home");
     }
@@ -59,6 +63,8 @@ const AdminProductsMenu: React.FC<Props> = ({ history, location, dispatch }): JS
       setActiveItem("create");
     } else if (currentURL.match(/manage/)) {
       setActiveItem("manage");
+    } else if (currentURL.match(/sorted/)) {
+      setActiveItem("sorted");
     }
     // menu animation timeout //
     setTimeout(() => {
