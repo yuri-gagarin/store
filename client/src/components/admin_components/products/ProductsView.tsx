@@ -11,6 +11,7 @@ import "./css/productsView.css";
 import { Route, Switch } from "react-router-dom";
 // state //
 import { Store } from "../../../state/Store";
+import ProductsPreviewHolder from "./product_preview/ProductsPreviewHolder";
 
 const ProductsView: React.FC<{}> = (props): JSX.Element => {
   const { state, dispatch } = useContext(Store);
@@ -29,6 +30,7 @@ const ProductsView: React.FC<{}> = (props): JSX.Element => {
       <Switch>
         <Route path="/admin/home/my_products/all">
           <Spacer width="100%" height="100px"/>
+          <ProductsPreviewHolder state={state} dispatch={dispatch} />
         </Route>
         <Route path="/admin/home/my_products/create">
           <Spacer width="100%" height="100px" />
