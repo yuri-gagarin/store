@@ -11,8 +11,8 @@ interface Props {
 
 const PopularProductHolder: React.FC<Props> = ({ popularProducts }): JSX.Element => {
   return (
-    <div className="popularServiceHolder">
-      <div className="popServiceHolTitle">Popular Services</div>
+    <div className="popProductsHolder">
+      <div className="popProductsHolTitle">Popular Products</div>
       <Item.Group divided>
         {
           popularProducts.map((product) => {

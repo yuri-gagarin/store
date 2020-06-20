@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Item } from "semantic-ui-react";
 // css //
-import "./css/sproductPreview.css";
+import "./css/productPreview.css";
 // helpers //
 import { ConvertDate, setDefaultImage, trimString } from "../../../helpers/displayHelpers";
 

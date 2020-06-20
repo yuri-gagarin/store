@@ -1,0 +1,18 @@
+.popProductsHolder {
+  border: 1px solid var(--grey-border-color);
+  border-radius: 4px;
+  padding-bottom: 1em;
+  height: 500px;
+  overflow-y: scroll;
+}
+
+.popProductsHolTitle {
+  width: 100%;
+  background-color: var(--admin-prod-background);
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  text-align: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 1.5em;
+  color: white;
+}

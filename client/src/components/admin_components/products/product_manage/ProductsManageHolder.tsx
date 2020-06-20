@@ -44,7 +44,7 @@ const ProductsManageHolder: React.FC<Props> = ({ state, dispatch, history }): JS
               return (
                 <ProductCard 
                   key={product._id}
-                  service={product}
+                  product={product}
                   imageCount={product.images.length}
                   state={state}
                   dispatch={dispatch}
