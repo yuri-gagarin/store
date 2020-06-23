@@ -1,11 +1,11 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-declare interface IBonusVideo extends Document {
+export interface IBonusVideo extends Document {
   description?: string;
   youTubeURL?: string;
   vimeoURL?: string;
   createdAt: Date;
-  editedAt?: DataView;
+  editedAt?: Date;
 }
 
 const BonusVideoSchema: Schema = new Schema({
