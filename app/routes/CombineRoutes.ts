@@ -17,6 +17,9 @@ import ServicesController from "../controllers/ServicesController";
 import ServicesRoutes from "./ServicesRoutes";
 import ServiceImagesRoutes from "./ServiceImageRoutes";
 import ServiceImgUploadController from "../controllers/ServiceImgUplController";
+// videos //
+import BonusVideosController from "../controllers/BonusVideosController";
+import BonnusVideosRoutes from "../routes/BonusVideoRoutes";
 
 class CombineRoutes {
   constructor(router: Router) {
@@ -32,6 +35,8 @@ class CombineRoutes {
     // services and images //
     new ServicesRoutes(Router, new ServicesController());
     new ServiceImagesRoutes(Router, new ServiceImgUploadController(), new ImageUploader("serviceImage", 10));
+    // videos //
+    new BonnusVideosRoutes(Router, new BonusVideosController());
   }
 }
 

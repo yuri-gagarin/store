@@ -20,7 +20,7 @@ export type BonusVideoParams = {
   editedAt?: Date;
 }
 
-class ProductsController implements IGenericController {
+class BonusVideosController implements IGenericController {
 
   index (req: Request, res: Response<IGenericVideoRes>): Promise<Response> {
     return BonusVideo.find({})
@@ -134,4 +134,4 @@ class ProductsController implements IGenericController {
   }
 };
 
-export default ProductsController;
+export default BonusVideosController;
