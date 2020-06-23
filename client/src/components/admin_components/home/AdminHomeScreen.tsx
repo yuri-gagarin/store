@@ -31,7 +31,7 @@ const AdminHomeScreen: React.FC<{}> = (props): JSX.Element => {
             <h1>My Videos</h1>
           </Route>
           <Route path="/admin/home/dash">
-            <Spacer width="100%" height="50px"></Spacer>
+            <Spacer width="100%" height="75px"></Spacer>
             <MainAdminDash />
           </Route>
         </Switch>

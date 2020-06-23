@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
-import { Grid  } from "semantic-ui-react";
+import { Grid, GridRow  } from "semantic-ui-react";
 // additional components //
+import DashHeader from "./header/DashHeader";
 import StoresInfoHolder from "./stores_info/StoresInfoHolder";
 import ProductsInfoHolder from "./products_info/ProductsInfoHolder";
 import ServicesInfoHolder from "./services_info/ServicesInfoHolder";
@@ -29,6 +30,11 @@ const MainAdminDash: React.FC<Props> = (props): JSX.Element => {
   }, []);
   return (
     <Grid stackable style={{ width: "100%", padding: 0 }}>
+      <Grid.Row style={{ padding: 0 }}>
+        <Grid.Column style={{ padding: 0 }}>
+          <DashHeader />
+        </Grid.Column>
+      </Grid.Row>
       <Grid.Row>
         <Grid.Column computer={4} tablet={8} mobile={16} style={{ padding: 0 }}>
           <StoresInfoHolder state={state} dispatch={dispatch} />
@@ -47,7 +53,14 @@ const MainAdminDash: React.FC<Props> = (props): JSX.Element => {
         </Grid.Column>
       </Grid.Row>
       
+      <Grid.Row>
+        <Grid.Column computer={8} tablet={8} mobile={16}>
+          
+        </Grid.Column>
+        <Grid.Column computer={8} tablet={8} mobile={16}>
 
+        </Grid.Column>
+      </Grid.Row>
     </Grid>
   );
 };
