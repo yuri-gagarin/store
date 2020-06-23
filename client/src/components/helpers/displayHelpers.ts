@@ -27,3 +27,12 @@ export class ConvertDate {
     return this.monthArr[month];
   }
 }
+
+export const trimString = (text: string, toIndex: number): string  => {
+  return text.slice(0, toIndex) + "...";
+};
+
+export const setDefaultImage = (images: IStoreImgData[] | IStoreImgData[] | IProductImgData[]): string => {
+  const defaultImage = "https://react.semantic-ui.com/images/wireframe/image.png";
+  return  (images[0] && images[0].url)  ? images[0].url : defaultImage;
+};

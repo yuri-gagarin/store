@@ -1,0 +1,4 @@
+.item.productPreviewItem {
+  border: 1px solid var(--grey-border-color) !important;
+  padding: 1em !important;
+}

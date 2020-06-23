@@ -3,7 +3,7 @@ import { IService } from "./Service";
 
 export interface IServiceImage extends Document {
   description?: string;
-  serviceId: (mongoose.Types.ObjectId | IService);
+  serviceId: mongoose.Types.ObjectId;
   url: string;
   fileName: string;
   imagePath: string;

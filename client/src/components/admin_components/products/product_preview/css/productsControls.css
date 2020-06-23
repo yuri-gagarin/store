@@ -1,0 +1,38 @@
+.adminProductControlsHolder {
+  border: 1px solid var(--grey-border-color);
+  border-radius: 4px;
+  display: flex;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1em;
+}
+.adminProductControlsTitle {
+  border: 1px solid var(--grey-border-color);
+  background-color: var(--admin-prod-background);
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 0.5em;
+}
+.adminProductControls {
+  width: 150px;
+  height: 150px;
+  background-color: var(--admin-prod-background);
+  border-radius: 75px;
+  margin-top: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.adminProductCounter:nth-child(1) {
+  color: white;
+  font-weight: bold;
+}
+.adminProductsCount {
+  font-weight: 900;
+  color: white;
+  font-size: 2em;
+  text-align: center;
+}

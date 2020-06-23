@@ -1,10 +1,10 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Button, Grid, Form, TextArea } from "semantic-ui-react";
+import React, { useState, useEffect } from "react";
+import { Button, Grid } from "semantic-ui-react";
 // css imports //
 import "./css/storeFormHolder.css";
 // additional components //
 import StoreForm from "./StoreForm";
-import StoreImgPreviewHolder from "../StoreImgPreviewThumbs";
+import StoreImgPreviewHolder from "../image_preview/StoreImgPreviewThumbs";
 import StoreImageUplForm from "./StoreImageUplForm";
 // state //
 import { IGlobalAppState, AppAction } from "../../../../state/Store";
@@ -17,6 +17,7 @@ interface Props {
   state: IGlobalAppState;
   dispatch: React.Dispatch<AppAction>;
 }
+
 const StoreFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   const [ formOpen, setFormOpen ] = useState<boolean>(false);
   const [ imgUpload, setImgUpload ] = useState<boolean>(false);
@@ -57,6 +58,10 @@ const StoreFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   const handleFormOpen = () => {
     setFormOpen(!formOpen);
   };
+  useEffect(() => {
+    console.log("form loaded")
+  }, []);
+
   useEffect(() => {
     if (!formOpen) {
       window.scrollTo({ top: 0, behavior: "smooth" });

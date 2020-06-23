@@ -18,22 +18,22 @@ describe("Store Unit Tests", () => {
         description: "",
         images: [],
         createdAt: new Date(),
-      }
+      };
       it("Should NOT create a new {Store} without a title", (done) => {
         Store.create(invalidStore)
           .catch((err) => {
             expect(err).to.not.be.undefined;
             done();
-          })
+          });
       });
       it("Should NOT create a new {Store} without a description", (done) => {
         Store.create(invalidStore)
           .catch((err) => {
             expect(err).to.be.an("object");
             done();
-          })
+          });
       });
-    })
+    });
     describe("Valid Store Data", () => {
       const validStore = {
         title: faker.lorem.words(2),

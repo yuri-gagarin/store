@@ -1,0 +1,10 @@
+.productManageDesc {
+  border: 1px solid var(--grey-border-color);
+  border-radius: 4px;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+}
+.productManageCtrls {
+  border: 1px solid var(--grey-border-color);
+  border-radius: 4px;
+}

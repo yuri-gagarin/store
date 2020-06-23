@@ -4,6 +4,9 @@
 # config files 
 /app/config/*
 
+#images 
+/public/uploads/*
+
 # production
 /build
 

@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef }  from "react";
 import { Button, Form, TextArea } from "semantic-ui-react";
 
-type FormState = {
+export type FormState = {
   name: string;
   description: string;
   price: string;
 }
 
-type Props = {
+interface Props {
   name: string;
   description: string;
   price: string;
@@ -70,7 +70,7 @@ const ServiceForm: React.FC<Props> = ({ name, description, price, handleCreateSe
   
   return (
     <div className="createServiceFormHolder" ref={serviceFormRef}>
-      <Form id="createStoreForm">
+      <Form id="createServiceForm">
         <Form.Field>
           <label>Service name</label>
           <input 

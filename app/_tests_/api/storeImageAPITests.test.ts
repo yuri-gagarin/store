@@ -28,12 +28,12 @@ describe("StoreImage API tests", () => {
       .then((number) => { 
         storeImageModelCount = number; 
         storeImagesCount = createdStore.images.length;
-        done() 
+        done(); 
       })
-      .catch((error) => { done(error) });
+      .catch((error) => { done(error); });
   });
   after((done) => {
-    clearDB().then(() => { done() }).catch((err) => { done(err) });
+    clearDB().then(() => { done(); }).catch((err) => { done(err); });
 
   });
 
@@ -44,7 +44,7 @@ describe("StoreImage API tests", () => {
         .post("/api/uploads/store_images/" + createdStore._id)
         .attach("storeImage", fs.readFileSync(`${__dirname}/test_images/test.jpg`), "test.jpg")
         .end((err, response) => {
-          if (err) { console.error(err); done(err) };
+          if (err) { console.error(err); done(err); }
           expect(response.status).to.equal(200);
           expect(response.body).to.be.an("object");
           expect(response.body.newStoreImage).to.be.an("object");
@@ -71,7 +71,7 @@ describe("StoreImage API tests", () => {
           storeImageModelCount = number;
           done();
         })
-        .catch((err) => { done(err) });
+        .catch((err) => { done(err); });
     });
     it("Should return the updated {Store} object with image data in it", (done) => {
       const newImages = updatedStore.images!.filter((image) => (image as IStoreImage)._id === createdImage._id);
@@ -93,7 +93,7 @@ describe("StoreImage API tests", () => {
       chai.request(server)
         .delete("/api/uploads/store_images/" + createdImage._id + "/" + createdImage.storeId)
         .end((err, response) => {
-          if (err) { done(err) };
+          if (err) { done(err); }
           expect(response.status).to.equal(200);
           expect(response.body).to.be.an("object");
           expect(response.body.deletedStoreImage).to.be.an("object");
@@ -117,7 +117,7 @@ describe("StoreImage API tests", () => {
           storeImageModelCount = number;
           done();
         })
-        .catch((err) => { done(err) });
+        .catch((err) => { done(err); });
     });
     it("Should return the updated {Store} object without image data in it", (done) => {
       const img = updatedStore.images.filter((image) => (image as IStoreImage)._id === deletedImage._id);

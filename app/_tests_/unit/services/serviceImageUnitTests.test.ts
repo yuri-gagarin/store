@@ -16,7 +16,7 @@ describe("ServiceImage Unit Tests", () => {
     fileName: faker.image.imageUrl(),
     imagePath: faker.image.imageUrl(),
     absolutePath: faker.random.word()
-  }
+  };
   describe("Create ServiceImage Test", () => {
     describe("Valid ServiceImage Data", () => {
       let createdServiceImage: IServiceImage;

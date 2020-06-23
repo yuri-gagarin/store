@@ -1,0 +1,45 @@
+#productImgUplFormHolder {
+  width: 100%;
+  margin-top: 0.5em;
+}
+#productImgUplFormHolder > div {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.5em;
+}
+
+#productImgUploadForm {
+  border: 1px solid grey;
+  border-radius: 7px;
+}
+#productImgInputControlls {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+#productImgInputControlls > label {
+  background-color: rgb(69, 143, 40);
+  color: white;
+}
+#productImgInputControlls > label:hover {
+  background-color: green;
+}
+#productImgUploadControlls {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+#productImgCancelBtn {
+  background: rgb(182, 46, 46);
+  color: white;
+}
+#productImgCancelBtn:hover {
+  background: red;
+}
+#productImgUploadBtn {
+  background: rgb(69, 143, 40);
+  color: white;
+}
+#productImgUploadBtn:hover {
+  background: green;
+}

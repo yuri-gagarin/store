@@ -52,14 +52,15 @@ new CombineRoutes(Router);
 app.use(Router);
 // end routes setup //
 app.use(function (err: MulterError, req: Express.Request, res: Express.Response, next: NextFunction ) {
-  console.log('This is the invalid field ->', err.field)
-  next(err)
-})
+  console.log('This is the invalid field ->', err.field);
+  next(err);
+});
 
 
 app.on("dbReady", () => {
   server.listen(PORT, () => {
     // console.info(`Listening at PORT: ${PORT}`);
+    //createImages("Product")
   });
 });
 

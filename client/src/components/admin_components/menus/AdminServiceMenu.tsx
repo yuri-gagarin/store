@@ -9,13 +9,12 @@ import { AppAction } from "../../../state/Store";
 interface Props extends RouteComponentProps {
   dispatch: React.Dispatch<AppAction>
 }
-const AdminServiceMenu: React.FC<Props> = ({ history, dispatch }): JSX.Element => {
+const AdminServiceMenu: React.FC<Props> = ({ history, location, dispatch }): JSX.Element => {
   const [ scrolled, setScrolled ] = useState<boolean>(false);
   const [ activeItem, setActiveItem ] = useState<string>("view_all");
   const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
 
   const match = useRouteMatch("/admin/home/my_services");
-  console.log(match);
   const adminServiceMenuRef = useRef<HTMLDivElement>(document.createElement("div"));
 
   const handleItemClick = (e: React.MouseEvent, { name }: MenuItemProps): void => {
@@ -28,6 +27,7 @@ const AdminServiceMenu: React.FC<Props> = ({ history, dispatch }): JSX.Element =
         break;
       case "create":
         history.push(match?.path + "/create");
+        dispatch({ type: "CLEAR_CURRENT_SERVICE", payload: null });
         break;
       case "manage":
         history.push(match?.path + "/manage");
@@ -43,8 +43,20 @@ const AdminServiceMenu: React.FC<Props> = ({ history, dispatch }): JSX.Element =
       setScrolled(false)
     } 
   };
-
+  // lifecycle hooks //
   useEffect(() => {
+    const currentURL = location.pathname;
+    setTimeout(() => {
+      setMenuOpen(true);
+    }, 200);
+    if (currentURL.match(/all/)) {
+      setActiveItem("view_all");
+    } else if (currentURL.match(/create/)) {
+      setActiveItem("create");
+    } else if (currentURL.match(/manage/)) {
+      setActiveItem("manage");
+    }
+    // menu animation timeout //
     setTimeout(() => {
       setMenuOpen(true);
     }, 200);

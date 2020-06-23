@@ -68,7 +68,7 @@ class StoreImageUploadController implements IGenericImgUploadCtrl {
         if (storeImage) {
           return deleteFile(storeImage.absolutePath)
             .then(() => {
-              return StoreImage.findOneAndDelete({ _id: imgId })
+              return StoreImage.findOneAndDelete({ _id: imgId });
             })
             .then((image) => {
               deletedImage = image!;
@@ -76,7 +76,7 @@ class StoreImageUploadController implements IGenericImgUploadCtrl {
                 { _id: storeId },
                 { $pull: { images: imgId }},
                 { new: true }
-              ).populate("images").exec()
+              ).populate("images").exec();
             })
             .then((updatedStore) => {
               return res.status(200).json({
@@ -90,12 +90,12 @@ class StoreImageUploadController implements IGenericImgUploadCtrl {
               return respondWithDBError(res, err);
             });
           } else {
-            return respondWithGeneralError(res, "Message", 400)
+            return respondWithGeneralError(res, "Message", 400);
           }
         })
         .catch((err) => {
           return respondWithDBError(res, err);
-        })
+        });
   }
   /*
   private parallelQuery (): Promise<boolean> {
