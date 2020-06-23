@@ -1,0 +1,11 @@
+#productsInfoHolder {
+  border: 1px solid var(--grey-border-color);
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.productsCounter {
+  border: 1px solid var(--grey-border-color);
+}

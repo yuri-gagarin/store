@@ -1,0 +1,11 @@
+#servicesInfoHolder {
+  border: 1px solid var(--grey-border-color);
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.servicesCounter {
+  border: 1px solid var(--grey-border-color);
+}
