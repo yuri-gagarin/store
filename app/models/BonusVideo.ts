@@ -31,4 +31,12 @@ const BonusVideoSchema: Schema = new Schema({
   }
 });
 
+const urls = ["youTubeURL", "vimeoURL"];
+
+BonusVideoSchema.pre("validate", function(next) {
+  let hasUrl = false;
+  hasUrl = urls.some((val) => this.hasOwnProperty(val));
+  return hasUrl ? next() : next(new Error("No valid video URL provided"));
+})
+
 export default mongoose.model<IBonusVideo>("BonusVideo", BonusVideoSchema);
