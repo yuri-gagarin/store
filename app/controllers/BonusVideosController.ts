@@ -16,7 +16,7 @@ export type BonusVideoParams = {
   description?: string;
   youTubeURL?: string;
   vimeoURL?: string;
-  createdAt: Date;
+  createdAt?: Date;
   editedAt?: Date;
 }
 
