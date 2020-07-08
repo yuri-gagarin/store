@@ -122,9 +122,9 @@ export const editBonusVideo = (_id: string, data: EditedBonusVideoData, dispatch
   return axios.request<IBonusVideoServerResData, IBonusVideoServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const editedBonusVideo = data.editedBonusVideo;
+      const editedBonusVideo = data.editedBonusVideo!;
       const updatedBonusVideos = loadedBonusVideos.map((video) => {
-        if (vide._id === editedBonusVideo._id) {
+        if (video._id === editedBonusVideo._id) {
           return editedBonusVideo;
         } else {
           return video;
@@ -156,7 +156,7 @@ export const deleteBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoActio
   return axios.request<IBonusVideoServerResData, IBonusVideoServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const deletedBonusVideo = data.deletedBonusVideo;
+      const deletedBonusVideo = data.deletedBonusVideo!;
       const updatedBonusVideos = loadedBonusVideos.filter((video) => {
         return video._id !== deletedBonusVideo._id;
       })
