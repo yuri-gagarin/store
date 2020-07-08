@@ -1,12 +1,30 @@
 import fs from "fs";
 import path from "path";
-import faker, { image } from "faker";
+import faker from "faker";
 import Service, { IService } from "../../models/Service";
 import Store, { IStore } from "../../models/Store";
 import Product, { IProduct } from "../../models/Product";
 import StoreImage, { IStoreImage } from "../../models/StoreImage";
 import ServiceImage, { IServiceImage } from "../../models/ServiceImage";
 import ProductImage, { IProductImage } from "../../models/ProductImage";
+import BonusVideo, { IBonusVideo } from "../../models/BonusVideo";
+
+/**
+ * Creates a set number of mock {BonusVideo} objects.
+ * @param numOfVideos - number of mock {BonusVideo} models to create.
+ */
+export const createBonusVideos = (numOfVideos: number): Promise<IBonusVideo[]> => {
+  const createdVideos: Promise<IBonusVideo>[] = [];
+
+  for (let i = 0; i < numOfVideos; i++) {
+    createdVideos.push(BonusVideo.create({
+      description: faker.lorem.paragraph(),
+      youTubeURL: faker.internet.url(),
+      vimeoURL: ""
+    }));
+  }
+  return Promise.all(createdVideos);
+};
 
 /**
  * Creates a set number of mock {Store} objects.
@@ -16,7 +34,7 @@ export const createStores = (numberOfStores: number): Promise<IStore[]> => {
   const createdStores: Promise<IStore>[] = [];
 
   for (let i = 0; i < numberOfStores; i++) {
-    createdStores. push(Store.create({
+    createdStores.push(Store.create({
       title: faker.lorem.word(),
       description: faker.lorem.paragraphs(3),
       images: []

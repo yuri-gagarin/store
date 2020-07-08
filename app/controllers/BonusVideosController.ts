@@ -6,11 +6,11 @@ import { respondWithDBError, respondWithInputError,  respondWithGeneralError } f
 
 interface IGenericVideoRes {
   responseMsg: string;
-  newVideo?: IBonusVideo;
-  editedVideo?: IBonusVideo;
-  deletedVideo?: IBonusVideo;
-  video?: IBonusVideo;
-  videos?: IBonusVideo[];
+  newBonusVideo?: IBonusVideo;
+  editedBonusVideo?: IBonusVideo;
+  deletedBonusVideo?: IBonusVideo;
+  bonusVideo?: IBonusVideo;
+  bonusVideos?: IBonusVideo[];
 }
 export type BonusVideoParams = {
   description?: string;
@@ -27,7 +27,7 @@ class BonusVideosController implements IGenericController {
       .then((videos) => {
         return res.status(200).json({
           responseMsg: "Loaded all videos",
-          videos: videos
+          bonusVideos: videos
         });
       })
       .catch((error) => {
@@ -45,7 +45,7 @@ class BonusVideosController implements IGenericController {
         if (video) {
           return res.status(200).json({
             responseMsg: "Returned video",
-            video: video
+            bonusVideo: video
           });
         } else {
           return respondWithInputError(res, "Could not find Video", 404);
@@ -69,7 +69,7 @@ class BonusVideosController implements IGenericController {
       .then((newVideo) => {
         return res.status(200).json({
           responseMsg: "New Video created",
-          newVideo: newVideo
+          newBonusVideo: newVideo
         });
       })
       .catch((err) => {
@@ -100,7 +100,7 @@ class BonusVideosController implements IGenericController {
       .then((editedVideo) => {
         return res.status(200).json({
           responseMsg: "Video updated",
-          editedVideo: editedVideo!
+          editedBonusVideo: editedVideo!
         });
       })
       .catch((error) => {
@@ -122,7 +122,7 @@ class BonusVideosController implements IGenericController {
       if (deletedVideo) {
         return res.status(200).json({
           responseMsg: "Deleted Video",
-          deletedVideo: deletedVideo
+          deletedBonusVideo: deletedVideo
         });
       } else {
         return respondWithInputError(res, "Can't find Product to delete");

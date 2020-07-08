@@ -7,6 +7,7 @@ import BonusVideo, { IBonusVideo } from "../../models/BonusVideo";
 import { BonusVideoParams } from "../../controllers/BonusVideosController";
 // helpers //
 import { setupDB, clearDB } from "../helpers/dbHelpers";
+import { createBonusVideos } from "../helpers/dataGeneration";
 
 chai.use(chaiHttp);
 
@@ -126,7 +127,8 @@ describe ("BonusVideo API tests", () => {
     let bonusVideo: IBonusVideo, editedBonusVideo: IBonusVideo;
     const updateData: BonusVideoParams = {
       description: faker.lorem.paragraphs(1),
-      youTubeURL: faker.internet.url()
+      youTubeURL: faker.internet.url(),
+      vimeoURL: ""
     };
 
     before((done) => {
