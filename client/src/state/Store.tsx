@@ -1,16 +1,18 @@
 import React, { createContext, useReducer, useEffect, useRef } from "react";
 import { indexReducer, rootState } from "./reducers/indexReducer";
+import { initialBonusVideoState } from "./reducers/bonusVideoReducer";
 import { initialProductState } from "./reducers/productReducer";
 import { initialStoreState } from "./reducers/storeReducer";
 import { initialServiceState } from "./reducers/serviceReducer";
 // global app state //
 export interface IGlobalAppState {
+  bonusVideoState: IBonusVideoState;
   productState: IProductState;
   storeState: IStoreState;
   serviceState: IServiceState;
 }
 // app actions //
-export type AppAction = StoreAction | ServiceAction | ProductAction;
+export type AppAction = StoreAction | ServiceAction | ProductAction | BonusVideoAction;
 // global app context //
 export interface IGlobalAppContext {
   state: IGlobalAppState;
@@ -19,6 +21,7 @@ export interface IGlobalAppContext {
 // context initialization //
 const initialContext: IGlobalAppContext = {
   state: {
+    bonusVideoState: { ...initialBonusVideoState },
     productState: { ...initialProductState },
     storeState: { ...initialStoreState },
     serviceState: { ...initialServiceState }
