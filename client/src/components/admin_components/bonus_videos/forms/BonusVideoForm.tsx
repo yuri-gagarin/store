@@ -11,12 +11,12 @@ interface Props {
   description: string;
   youTubeURL: string;
   vimeoURL: string;
-  handleCreateProduct(data: FormState): void;
-  handleUpdateProduct(data: FormState): void;
+  handleCreateBonusVideo(data: FormState): void;
+  handleUpdateBonusVideo(data: FormState): void;
 }
 
 
-const ProductForm: React.FC<Props> = ({ description, youTubeURL, vimeoURL, handleCreateProduct, handleUpdateProduct }): JSX.Element => {
+const ProductForm: React.FC<Props> = ({ description, youTubeURL, vimeoURL, handleCreateBonusVideo, handleUpdateBonusVideo }): JSX.Element => {
   
   const [ newForm, setNewForm ] = useState<boolean>(true)
   const [ formState, setFormState ] = useState<FormState>({ description, youTubeURL, vimeoURL });
@@ -44,9 +44,9 @@ const ProductForm: React.FC<Props> = ({ description, youTubeURL, vimeoURL, handl
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (newForm) {
-      handleCreateProduct(formState);
+      handleCreateBonusVideo(formState);
     } else {
-      handleUpdateProduct(formState);
+      handleUpdateBonusVideo(formState);
     }
   };
 
