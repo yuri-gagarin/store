@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import BonusVideoFormHolder from "./forms/BonusVideoFormHolder";
+import BonusVideosFormHolder from "./forms/BonusVideosFormHolder"
 // css imports //
 import "./css/adminBonusVideoView.css";
 import AdminBonusVideoMenu from "../menus/AdminBonusVideoMenu";
@@ -24,7 +24,7 @@ const BonusVideosGeneralView: React.FC<{}> = (props): JSX.Element => {
         </Route>
         <Route path="/admin/home/my_bonus_videos/create">
           <Spacer width="100%" height="100px"/>
-          <BonusVideoFormHolder state={state} dispatch={dispatch} />
+          <BonusVideosFormHolder state={state} dispatch={dispatch} />
         </Route>
         <Route path="/admin/home/my_stores/manage">
           <Spacer width="100%" height="100px" />
