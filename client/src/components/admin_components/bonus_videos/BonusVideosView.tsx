@@ -5,7 +5,7 @@ import "./css/adminBonusVideoView.css";
 import AdminBonusVideoMenu from "../menus/AdminBonusVideoMenu";
 import { Route, Switch } from "react-router-dom";
 // additional components //
-import BonusVideosPreviewHolder from "./bonus_video_preview/BonusVideosPreviewHolder";
+import BonusVideosPreviewHolder from "./bonus_videos_preview/BonusVideosPreviewHolder";
 import BonusVideosManageHolder from "./bonus_video_manage/BonusVideoManageHolder";
 import Spacer from "../miscelaneous/Spacer";
 // state //
