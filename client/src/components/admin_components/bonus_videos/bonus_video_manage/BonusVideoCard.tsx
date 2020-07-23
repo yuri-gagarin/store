@@ -15,15 +15,14 @@ import { ConvertDate } from "../../../helpers/displayHelpers";
 
 interface Props extends RouteComponentProps {
   bonusVideo: IBonusVideoData;
-  imageCount: number;
   state: IGlobalAppState;
   dispatch: React.Dispatch<AppAction>;
 }
 
-const BonusVideoCard: React.FC<Props> = ({ bonusVideo, imageCount, state, dispatch, history }): JSX.Element => {
+const BonusVideoCard: React.FC<Props> = ({ bonusVideo, state, dispatch, history }): JSX.Element => {
   const [ editing, setEditing ] = useState<boolean>(false);
   const baseUrl = "/admin/home/my_bonus_videos/manage"
-  const { description,youTubeURL, vimeoURL, createdAt, editedAt } = bonusVideo;
+  const { _id, description, youTubeURL, vimeoURL, createdAt, editedAt } = bonusVideo;
 
   const handleBonusVideoOpen = (e: React.MouseEvent<HTMLButtonElement>): void => {
     history.push(baseUrl + "/view");
@@ -50,10 +49,10 @@ const BonusVideoCard: React.FC<Props> = ({ bonusVideo, imageCount, state, dispat
     <React.Fragment>
       <Grid.Row style={{ padding: "0.5em", marginTop: "1em" }}>
         <div className="bonusVideoManageDesc">
-          <h3>Name: {name}</h3>
-          <p><strong>Description:</strong> {description}</p>
-          <span>Number of Images: <strong>{imageCount}</strong></span>
-          <p><span>Created At: </span>{ConvertDate.international(createdAt)}</p>
+          <p><strong>Description:</strong> {description} </p>
+          <p><strong>YouTube URL:</strong> {youTubeURL} </p>
+          <p><strong>Vimeo URL:</strong> {vimeoURL} </p>
+          <p><span>Uploaded At: </span>{ConvertDate.international(createdAt)}</p>
         </div> 
         <div className="bonusVideoManageCtrls">
           <Button 
