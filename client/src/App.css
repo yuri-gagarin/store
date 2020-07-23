@@ -2,8 +2,10 @@
 
 :root {
   --grey-border-color: rgb(209, 209, 214);
-  --light-blue-counter-background:  rgb(113, 113, 216);
+  --blue-border-color: rgb(175, 175, 241);
+  --light-blue-counter-background: rgb(113, 113, 216);
   --admin-prod-background: rgb(48, 133, 15);
+  --admin-bonusVideo-background: rgb(212, 95, 27);
 }
 .App {
   text-align: center;

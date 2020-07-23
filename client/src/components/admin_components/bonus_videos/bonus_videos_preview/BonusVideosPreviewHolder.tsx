@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Grid, Item } from "semantic-ui-react";
 // css imports //
-import "./css/productsPreviewHolder.css";
+import "./css/bonusVideosPreviewHolder.css";
 // additional components //
 import BonusVideoPreview from "./BonusVideoPreview";
 import BonusVideosControls from "./BonusVideoControls";

@@ -28,8 +28,8 @@ const AdminBonusVideosMenu: React.FC<Props> = ({ history, location, dispatch }):
         break;
       }
       case "create": {
-        history.push(match?.path + "/create");
         dispatch({ type: "CLEAR_CURRENT_BONUS_VIDEO", payload: null });
+        history.push(match?.path + "/create");
         break;
       }
       case "manage": {

@@ -14,9 +14,8 @@ const BonusVideossControls: React.FC<Props> = ({ totalBonusVideos }): JSX.Elemen
       <div className="adminBonusVideosControlsTitle">BonusVideos Controls</div>
       <div className="adminBonusVideosControls">
         <div className="adminBonusVideosCounter">
-          <div>Total BonusVideoss:</div>
-
-          <div className="adminBonusVideossCount">{totalBonusVideos}</div>
+          <div>Total BonusVideos:</div>
+          <div className="adminBonusVideosCount">{totalBonusVideos}</div>
         </div>
       </div>
     </div>

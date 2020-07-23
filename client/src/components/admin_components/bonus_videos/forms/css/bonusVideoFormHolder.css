@@ -1,0 +1,19 @@
+#bonusVideoFormHolder {
+  height: 100%;
+  width: 100%;
+  padding: 1em;
+}
+#bonusVideoFormToggleBtn {
+  background-color: green;
+  color: white;
+  width: 100%;
+}
+#bonusVideoFormToggleBtn:hover {
+  background-color: rgb(11, 83, 11);
+}
+
+#createBonusVideoForm {
+  width: 75%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
