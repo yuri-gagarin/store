@@ -7,6 +7,11 @@ import StoreController from "../controllers/StoreController";
 import StoreRoutes from "./StoreRoutes";
 import StoreImageRoutes from "./StoreImageRoutes";
 import StoreImageUploadController from "../controllers/StoreImgUplController";
+// store items //
+import StoreItemsController from "../controllers/StoreItemsController";
+import StoreItemRoutes from "../routes/StoreItemRoutes";
+import StoreItemImageRoutes from "./StoreItemImageRoutes";
+import StoreItemImgUploadController from "../controllers/StoreItemImgUplController";
 // products //
 import ProductsController from "../controllers/ProductsController";
 import ProductRoutes from "./ProductRoutes";
@@ -29,6 +34,9 @@ class CombineRoutes {
     // stores and images //
     new StoreRoutes(Router, new StoreController());
     new StoreImageRoutes(Router, new StoreImageUploadController(), new ImageUploader("storeImage", 10));
+    // store items and images //
+    new StoreItemRoutes(Router, new StoreItemsController());
+    new StoreItemImageRoutes(Router, new StoreItemImgUploadController(), new ImageUploader("storeItemImage", 10));
     // products and images //
     new ProductRoutes(Router, new ProductsController());
     new ProductImageRoutes(Router, new ProductImageUploadController(), new ImageUploader("productImage", 10));
