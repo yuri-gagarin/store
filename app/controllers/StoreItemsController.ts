@@ -6,7 +6,7 @@ import { IGenericController } from "./helpers/controllerInterfaces";
 // helpers //
 import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
 
-interface IGenericProdRes {
+interface IGenericStoreImgRes {
   responseMsg: string;
   newStoreItem?: IStoreItem;
   editedStoreItem?: IStoreItem;
@@ -26,7 +26,7 @@ export type StoreItemParams = {
 
 class StoreItemsController implements IGenericController {
 
-  index (req: Request, res: Response<IGenericProdRes>): Promise<Response> {
+  index (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
     return StoreItem.find({})
       .populate("images").exec()
       .then((storeItems) => {
@@ -40,7 +40,7 @@ class StoreItemsController implements IGenericController {
       });
   }
 
-  get (req: Request, res: Response<IGenericProdRes>): Promise<Response>  {
+  get (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response>  {
     const _id: string = req.params._id;
   
     if (!_id) return respondWithInputError(res, "Can't find Store Item");
@@ -62,7 +62,7 @@ class StoreItemsController implements IGenericController {
       });
   }
 
-  create (req: Request, res: Response<IGenericProdRes>): Promise<Response> {
+  create (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
     const { name, description, details, price, storeItemImages }: StoreItemParams = req.body;
     const imgIds: Types.ObjectId[] = [];
 
@@ -92,7 +92,7 @@ class StoreItemsController implements IGenericController {
       });
   }
 
-  edit (req: Request, res: Response<IGenericProdRes>): Promise<Response> {
+  edit (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
     const { _id } = req.params;
     const { name, description, details, price, storeItemImages }: StoreItemParams = req.body;
     const updatedStoreItemImgs: Types.ObjectId[] = [];
@@ -133,13 +133,13 @@ class StoreItemsController implements IGenericController {
        
   }
 
-  delete (req: Request, res: Response<IGenericProdRes>): Promise<Response> {
+  delete (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
    const { _id } = req.params;
 
    let deletedImages: number;
    const storeItemImagePaths: string[] = [];
    const storeItemImageIds: string[] = [];
-   const deletePromises: Promise<boolean>[] = [];
+   const deleteStoreImgPromises: Promise<boolean>[] = [];
 
    if (!_id) {
      return respondWithInputError(res, "Can't resolve Store Item");
@@ -156,9 +156,9 @@ class StoreItemsController implements IGenericController {
           storeItemImageIds.push(img._id);
         }
         for (const path of storeItemImagePaths) {
-          deletePromises.push(deleteFile(path));
+          deleteStoreImgPromises.push(deleteFile(path));
         }
-        return Promise.all(deletePromises)
+        return Promise.all(deleteStoreImgPromises)
           .then(() => {
             return StoreItemImage.deleteMany({ _id: { $in: [ ...storeItemImageIds ] } })
               .then(({ n }) => {
