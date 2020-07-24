@@ -16,7 +16,7 @@ const StoreItemImageSchema: Schema = new Schema({
     type: String,
     required: false
   },
-  serviceId: {
+  storeItemId: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: "StoreItem"
