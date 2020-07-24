@@ -15,7 +15,8 @@ export interface IStoreItem extends Document {
 }
 
 const StoreItemSchema: Schema = new Schema({
-  stroreId: {
+  storeId: {
+    required: true,
     type: Schema.Types.ObjectId,
     ref: "Store"
   },
@@ -29,7 +30,7 @@ const StoreItemSchema: Schema = new Schema({
   },
   description: {
     type: String,
-    required: true
+    required: false
   },
   price: {
     type: String,
@@ -37,6 +38,7 @@ const StoreItemSchema: Schema = new Schema({
   },
   categories: {
     type: Array,
+    required: true
   },
   images: [
     { type: Schema.Types.ObjectId, ref: "StoreItemImage" }
