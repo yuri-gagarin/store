@@ -1,0 +1,16 @@
+.ui.tabular.adminBonusVideosMenu {
+  transform: translateY(-100px);
+  width: 100%;
+}
+.ui.tabular.adminBonusVideosMenu.bonusVideosMenuOpen {
+  transform: translateY(0px);
+  transition: transform 200ms linear;
+}
+.adminBonusVideosMenuFixed { 
+  position: fixed;
+  top: 42px;
+  left: 0px;
+  right: 0px;
+  z-index: 100;
+  background-color: white;
+}

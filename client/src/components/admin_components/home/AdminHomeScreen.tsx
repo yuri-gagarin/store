@@ -7,6 +7,7 @@ import AdminTopMenu from "../menus/AdminTopMenu";
 import StoreView from "../stores/StoreView";
 import ProductsView from "../products/ProductsView";
 import ServiceView from "../services/ServiceView";
+import BonusVideosView from "../bonus_videos/BonusVideosView";
 import Spacer from "../../client_components/misc_components/Spacer";
 // css imports //
 import "./css/adminHomeScreen.css"
@@ -28,7 +29,7 @@ const AdminHomeScreen: React.FC<{}> = (props): JSX.Element => {
             <ProductsView />
           </Route>
           <Route path="/admin/home/my_videos">
-            <h1>My Videos</h1>
+             <BonusVideosView /> 
           </Route>
           <Route path="/admin/home/dash">
             <Spacer width="100%" height="75px"></Spacer>

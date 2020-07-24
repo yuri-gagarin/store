@@ -11,10 +11,10 @@ const BonusVideossControls: React.FC<Props> = ({ totalBonusVideos }): JSX.Elemen
 
   return (
     <div className="adminBonusVideosControlsHolder">
-      <div className="adminBonusVideosControlsTitle">BonusVideos Controls</div>
+      <div className="adminBonusVideosControlsTitle">My Videos Controls</div>
       <div className="adminBonusVideosControls">
         <div className="adminBonusVideosCounter">
-          <div>Total BonusVideos:</div>
+          <div>Total Linked Videos:</div>
           <div className="adminBonusVideosCount">{totalBonusVideos}</div>
         </div>
       </div>

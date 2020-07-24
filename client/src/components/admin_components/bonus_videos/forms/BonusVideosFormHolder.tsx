@@ -4,6 +4,7 @@ import { Button, Grid } from "semantic-ui-react";
 import "./css/bonusVideoFormHolder.css";
 // additional components //
 import BonusVideoForm from "./BonusVideoForm";
+import BonusVideoPreview from "../bonus_videos_preview/BonusVideoPreview";
 // state //
 import { IGlobalAppState, AppAction } from "../../../../state/Store";
 // api actions //
@@ -98,6 +99,9 @@ const BonusVideoFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element
                 <div className="bonusVideoFormHolderTimestamps">
                   <span>Created At: <strong>{ConvertDate.international(createdAt)}</strong></span>
                   <span>Edited At: <strong>{ConvertDate.international(editedAt)}</strong></span>
+                </div>
+                <div className="bonusVideoFormPreview">
+                  <BonusVideoPreview bonusVideo={currentBonusVideoData} />
                 </div>
               </Grid.Column>
             </Grid.Row>

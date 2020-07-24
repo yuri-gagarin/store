@@ -15,7 +15,7 @@ const AdminBonusVideosMenu: React.FC<Props> = ({ history, location, dispatch }):
   const [ activeItem, setActiveItem ] = useState<string>("view_all");
   const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
 
-  const match = useRouteMatch("/admin/home/my_bonus_videos");
+  const match = useRouteMatch("/admin/home/my_videos");
   const adminBonusVideosMenuRef = useRef<HTMLDivElement>(document.createElement("div"));
 
   const handleItemClick = (e: React.MouseEvent, { name }: MenuItemProps): void => {
@@ -54,6 +54,7 @@ const AdminBonusVideosMenu: React.FC<Props> = ({ history, location, dispatch }):
   // lifecycle hooks //
   useEffect(() => {
     const currentURL = location.pathname;
+    console.log("menu open")
     setTimeout(() => {
       setMenuOpen(true);
     }, 200);
@@ -67,9 +68,6 @@ const AdminBonusVideosMenu: React.FC<Props> = ({ history, location, dispatch }):
       setActiveItem("sorted");
     }
     // menu animation timeout //
-    setTimeout(() => {
-      setMenuOpen(true);
-    }, 200);
   }, []);
 
   useEffect(() => {
@@ -81,28 +79,28 @@ const AdminBonusVideosMenu: React.FC<Props> = ({ history, location, dispatch }):
 
   return (
     <div className={ scrolled ? "adminBonusVideosMenuFixed menuScrolled" : "adminBonusVideosMenuFixed"} ref={adminBonusVideosMenuRef}>
-      <Menu tabular className={ menuOpen ? "adminBonusVideosMenu productsMenuOpen" : "adminBonusVideosMenu" }>
+      <Menu tabular className={ menuOpen ? "adminBonusVideosMenu bonusVideosMenuOpen" : "adminBonusVideosMenu" }>
       <Menu.Item
           name='view_all'
-          content="View All BonusVideos"
+          content="View All Linked Videos"
           active={activeItem === 'view_all'}
           onClick={handleItemClick}
         />
         <Menu.Item
           name='create'
-          content="Create New Bonus Video"
+          content="Create New Linked Video"
           active={activeItem === 'create'}
           onClick={handleItemClick}
         />
         <Menu.Item
           name='manage'
-          content="Manage Bonus Videos"
+          content="Manage Linked Videos"
           active={activeItem === 'manage'}
           onClick={handleItemClick}
         />
         <Menu.Item
           name="sorted"
-          content="View Sorted Bonus Videos"
+          content="View Sorted Linked Videos"
           active={activeItem === "sorted"}
           onClick={handleItemClick}
         >

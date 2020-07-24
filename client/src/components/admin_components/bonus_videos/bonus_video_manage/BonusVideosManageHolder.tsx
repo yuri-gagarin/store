@@ -1,7 +1,7 @@
 import React, { useEffect  } from "react";
 import { Button, Grid } from "semantic-ui-react";
 // additional components //
-import BonusVideoFormHolder from "../forms/BonusVideoFormHolder";
+import BonusVideoFormHolder from "../forms/BonusVideosFormHolder";
 import BonusVideoCard from "./BonusVideoCard";
 // actions and state //
 import { getAllBonusVideos } from "../actions/APIBonusVideoActions";
@@ -30,7 +30,7 @@ const BonusVideosManageHolder: React.FC<Props> = ({ state, dispatch, history }):
       <Route path={match?.url + "/edit"}> 
         <Grid.Row>
           <Grid.Column computer={12} tablet={6} mobile={16}>
-            <h3>Editing BonusVideo: { state.bonusVideoState.currentBonusVideoData.description }</h3>
+            <h3>Editing Video: { state.bonusVideoState.currentBonusVideoData.description }</h3>
             <Button inverted color="green" content="Back" onClick={handleBack}></Button>
           </Grid.Column>
         </Grid.Row>

@@ -17,16 +17,15 @@ const BonusVideosGeneralView: React.FC<{}> = (props): JSX.Element => {
     <div id="adminBonusVideoViewHolder">
       <AdminBonusVideoMenu  dispatch={dispatch} />
       <Switch>
-        <Route path="/admin/home/my_bonus_videos/all">
+        <Route path="/admin/home/my_videos/all">
           <Spacer width="100%" height="100px" />
           <BonusVideosPreviewHolder state={state} dispatch={dispatch} />
-          <h3>Store view</h3>
         </Route>
-        <Route path="/admin/home/my_bonus_videos/create">
+        <Route path="/admin/home/my_videos/create">
           <Spacer width="100%" height="100px"/>
           <BonusVideosFormHolder state={state} dispatch={dispatch} />
         </Route>
-        <Route path="/admin/home/my_stores/manage">
+        <Route path="/admin/home/my_videos/manage">
           <Spacer width="100%" height="100px" />
           <BonusVideosManageHolder state={state} dispatch={dispatch} />
         </Route>
