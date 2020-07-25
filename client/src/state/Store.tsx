@@ -3,16 +3,18 @@ import { indexReducer, rootState } from "./reducers/indexReducer";
 import { initialBonusVideoState } from "./reducers/bonusVideoReducer";
 import { initialProductState } from "./reducers/productReducer";
 import { initialStoreState } from "./reducers/storeReducer";
+import {initialStoreItemState } from "./reducers/storeItemReducer";
 import { initialServiceState } from "./reducers/serviceReducer";
 // global app state //
 export interface IGlobalAppState {
   bonusVideoState: IBonusVideoState;
   productState: IProductState;
   storeState: IStoreState;
+  storeItemState: IStoreItemState;
   serviceState: IServiceState;
 }
 // app actions //
-export type AppAction = StoreAction | ServiceAction | ProductAction | BonusVideoAction;
+export type AppAction = StoreAction | StoreItemAction | ServiceAction | ProductAction | BonusVideoAction;
 // global app context //
 export interface IGlobalAppContext {
   state: IGlobalAppState;
@@ -24,6 +26,7 @@ const initialContext: IGlobalAppContext = {
     bonusVideoState: { ...initialBonusVideoState },
     productState: { ...initialProductState },
     storeState: { ...initialStoreState },
+    storeItemState: { ...initialStoreItemState },
     serviceState: { ...initialServiceState }
   },
   dispatch: (value: AppAction): void => {}
