@@ -63,7 +63,8 @@ class StoreItemsController implements IGenericController {
   }
 
   create (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
-    const { name, description, details, price, storeItemImages }: StoreItemParams = req.body;
+    const { name, description, details, price, storeItemImages, categories }: StoreItemParams = req.body;
+    const storeId = req.body.storeId as unknown as Types.ObjectId;
     const imgIds: Types.ObjectId[] = [];
 
     if (Array.isArray(storeItemImages) && (storeItemImages.length > 1)) {
@@ -73,11 +74,13 @@ class StoreItemsController implements IGenericController {
     }
 
     const newStoreItem = new StoreItem({
+      storeId: storeId,
       name: name,
       description: description,
       details: details,
       price: price,
-      images: [ ...imgIds ]
+      images: [ ...imgIds ],
+      categories: categories
     });
 
     return newStoreItem.save()
@@ -88,13 +91,15 @@ class StoreItemsController implements IGenericController {
         });
       })
       .catch((err) => {
+        console.error(err)
         return respondWithDBError(res, err);
       });
   }
 
   edit (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
     const { _id } = req.params;
-    const { name, description, details, price, storeItemImages }: StoreItemParams = req.body;
+    const { name, description, details, price, storeItemImages, categories }: StoreItemParams = req.body;
+    const storeId = req.body.storeId as unknown as Types.ObjectId;
     const updatedStoreItemImgs: Types.ObjectId[] = [];
 
     if (!_id) {
@@ -110,11 +115,13 @@ class StoreItemsController implements IGenericController {
       { _id: _id },
       { 
         $set: {
+          storeId: storeId,
           name: name,
           description: description,
           details: details,
           price: price,
           images: [ ...updatedStoreItemImgs ],
+          categories: [ ...categories ],
           editedAt: new Date()
         },
       },

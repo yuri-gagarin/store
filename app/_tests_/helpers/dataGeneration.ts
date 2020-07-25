@@ -3,6 +3,7 @@ import path from "path";
 import faker from "faker";
 import Service, { IService } from "../../models/Service";
 import Store, { IStore } from "../../models/Store";
+import StoreItem, { IStoreItem } from "../../models/StoreItem";
 import Product, { IProduct } from "../../models/Product";
 import StoreImage, { IStoreImage } from "../../models/StoreImage";
 import ServiceImage, { IServiceImage } from "../../models/ServiceImage";
@@ -42,6 +43,28 @@ export const createStores = (numberOfStores: number): Promise<IStore[]> => {
   }
   return Promise.all(createdStores);
 };
+
+/**
+ * Creates a specific number of mock {StoreItem} objects.
+ * @param numOfStoreItems - Number of mock {StoreItem} objects to create.
+ * @param storeId - ObjectID of a {Store} model.
+ */
+export const createStoreItems = (numOfStoreItems: number, storeId: string): Promise<IStoreItem[]> => {
+  const createdStoreItems: Promise<IStoreItem>[] = [];
+
+  for (let i = 0; i < numOfStoreItems; i++) {
+    createdStoreItems.push(StoreItem.create({
+      storeId: storeId,
+      name: faker.lorem.word(),
+      details: faker.lorem.paragraph(),
+      description: faker.lorem.paragraphs(2),
+      price: faker.commerce.price(1, 100),
+      images: [],
+      categories: [faker.lorem.word(), faker.lorem.word()]
+    }));
+  }
+  return Promise.all(createdStoreItems);
+}
 
 /**
  * Creates a set number of mock {Service} objects.
