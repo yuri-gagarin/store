@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef }  from "react";
 import { Button, Form, TextArea } from "semantic-ui-react";
+// additional components //
+import StoreItemCategories from "./StoreItemCategories";
 
 export type FormState = {
   name: string;
@@ -46,6 +48,9 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
       ...formState,
       details: e.target.value
     })
+  };
+  const handleCategoryChange = (category: string): void => {
+
   };
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -94,8 +99,15 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
             value={formState.price}
           />
         </Form.Field>
+        <StoreItemCategories _handleCategoryChange={handleCategoryChange} />
         <Form.Field
-          id='form-textarea-control-opinion'
+          control={TextArea}
+          label='Store Item Details'
+          onChange={hadnleDescriptionChange}
+          placeholder='Store Item details here...'
+          value={formState.description}
+         />
+        <Form.Field
           control={TextArea}
           label='Store Item Description'
           onChange={hadnleDescriptionChange}

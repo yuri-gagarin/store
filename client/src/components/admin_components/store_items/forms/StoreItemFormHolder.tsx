@@ -57,9 +57,9 @@ const StoreItemFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element 
       });
   };
 
-  const handleUpdateStoreItem = ({ name, description, price }: FormState): void => {
+  const handleUpdateStoreItem = ({ name, description, details, price, categories }: FormState): void => {
     const storeItemParams: StoreItemData = {
-      name, description, price, storeItemImages: currentStoreItemData.images
+      name, details, description, price, storeItemImages: currentStoreItemData.images, categories
     };
 
     editStoreItem(currentStoreItemData._id, storeItemParams, dispatch, state)
@@ -145,9 +145,7 @@ const StoreItemFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element 
           <Button  id="storeItemFormToggleBtn" onClick={handleFormOpen} content={ !formOpen ? "Open Form" : "Close Form"}></Button>
           {
             formOpen ? <StoreItemForm 
-                        name={name} 
-                        description={description} 
-                        price={price}
+                        storeItem={currentStoreItemData}
                         handleCreateStoreItem={handleCreateStoreItem}
                         handleUpdateStoreItem={handleUpdateStoreItem}
                       /> 

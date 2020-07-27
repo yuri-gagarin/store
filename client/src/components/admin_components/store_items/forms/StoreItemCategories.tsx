@@ -1,6 +1,11 @@
 import React from "react";
 import { Dropdown, DropdownItemProps } from "semantic-ui-react";
+
+interface Props {
+  _handleCategoryChange(categry: string): void;
+}
 const options = [ "sports", "wood", "outdoors", "indoors", "tools"];
+
 const stateOptions: DropdownItemProps[] = options.map((option) => {
   return {
     key: option,
@@ -8,15 +13,23 @@ const stateOptions: DropdownItemProps[] = options.map((option) => {
     value: option,
   };
 });
-const DropdownExampleMultipleSearchSelection = () => (
-  <Dropdown
-    placeholder='State'
-    fluid
-    multiple
-    search
-    selection
-    options={stateOptions}
-  />
-)
 
-export default DropdownExampleMultipleSearchSelection
+const StoreItemCategoriesSelection: React.FC<Props> = ({ _handleCategoryChange }) => {
+
+  const handleCategoryChange = (e: React.SyntheticEvent) => {
+    console.log(e.target)
+  }
+  return (
+    <Dropdown
+      placeholder='Categories'
+      fluid
+      multiple
+      search
+      selection
+      options={stateOptions}
+      onChange={handleCategoryChange}
+    />
+  )
+}
+
+export default StoreItemCategoriesSelection
