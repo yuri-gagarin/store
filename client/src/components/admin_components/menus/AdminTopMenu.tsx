@@ -21,8 +21,12 @@ const AdminTopMenu: React.FC<Props> = ({ history, location }): JSX.Element => {
         history.push("/admin/home/dash");
         break;
       }
-      case "store": {
+      case "stores": {
         history.push("/admin/home/my_stores/all"); 
+        break;
+      }
+      case "items": {
+        history.push("/admin/home/store_items/all");
         break;
       }
       case "services": {
@@ -56,6 +60,10 @@ const AdminTopMenu: React.FC<Props> = ({ history, location }): JSX.Element => {
         history.push(baseUrl + "my_products/create");
         break;
       }
+      case 'item': {
+        history.push(baseUrl + "my_store_items/create");
+        break;
+      }
       case "video": {
         history.push(baseUrl + "my_videos/create");
         break;
@@ -86,8 +94,10 @@ const AdminTopMenu: React.FC<Props> = ({ history, location }): JSX.Element => {
       setActiveMenuItem("services");
     } else if (currentUrl.match(/my_products/)) {
       setActiveMenuItem("products");
-    } else if (currentUrl.match(/my_videos/)){
+    } else if (currentUrl.match(/my_videos/)) {
       setActiveMenuItem("videos");
+    } else if (currentUrl.match(/store_items/)) {
+      setActiveMenuItem("items");
     }
   }, [location])
 
@@ -110,6 +120,12 @@ const AdminTopMenu: React.FC<Props> = ({ history, location }): JSX.Element => {
                 name="store"
               >
                 Store
+              </Dropdown.Item>
+              <Dropdown.Item 
+                onClick={handleFileClick} 
+                name="item"
+              >
+                Store Item
               </Dropdown.Item>
               <Dropdown.Item 
                 onClick={handleFileClick}
@@ -150,9 +166,17 @@ const AdminTopMenu: React.FC<Props> = ({ history, location }): JSX.Element => {
       </Menu.Item>
       <Menu.Item
         className="adminTopMenuItem"
-        name="store"
+        name="stores"
         content="My Stores"
         active={activeMenuItem === "stores"}
+        onClick={handleMenuClick}
+      >
+      </Menu.Item>
+      <Menu.Item
+        className="adminTopMenuItem"
+        name="items"
+        content="My Store Items"
+        active={activeMenuItem === "items"}
         onClick={handleMenuClick}
       >
       </Menu.Item>

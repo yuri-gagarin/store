@@ -3,9 +3,10 @@ const emptyStoreItemData = (): IStoreItemData => {
   return {
     _id: "",
     storeId: "",
-    title: "",
+    name: "",
     description: "",
     details: "",
+    price: "",
     images: [],
     categories: [],
     createdAt: ""

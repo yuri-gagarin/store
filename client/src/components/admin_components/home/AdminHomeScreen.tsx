@@ -5,6 +5,7 @@ import { Switch, Route } from "react-router-dom";
 import MainAdminDash from "../dash/MainAdminDash";
 import AdminTopMenu from "../menus/AdminTopMenu";
 import StoreView from "../stores/StoreView";
+import StoreItemsView from "../store_items/StoreItemsView";
 import ProductsView from "../products/ProductsView";
 import ServiceView from "../services/ServiceView";
 import BonusVideosView from "../bonus_videos/BonusVideosView";
@@ -21,6 +22,9 @@ const AdminHomeScreen: React.FC<{}> = (props): JSX.Element => {
         <Switch>
           <Route path="/admin/home/my_stores">
             <StoreView />
+          </Route>
+          <Route path="/admin/home/store_items">
+            <StoreItemsView />
           </Route>
           <Route path="/admin/home/my_services">
             <ServiceView />

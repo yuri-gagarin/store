@@ -14,16 +14,16 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import { ConvertDate } from "../../../helpers/displayHelpers";
 
 interface Props extends RouteComponentProps {
-  store_item: IStoreItemData;
+  storeItem: IStoreItemData;
   imageCount: number;
   state: IGlobalAppState;
   dispatch: React.Dispatch<AppAction>;
 }
 
-const StoreItemCard: React.FC<Props> = ({ store_item, imageCount, state, dispatch, history }): JSX.Element => {
+const StoreItemCard: React.FC<Props> = ({ storeItem, imageCount, state, dispatch, history }): JSX.Element => {
   const [ editing, setEditing ] = useState<boolean>(false);
   const baseUrl = "/admin/home/my_store_items/manage"
-  const { _id, name, price, description, details, images, createdAt, editedAt } = store_item;
+  const { _id, name, price, description, details, images, createdAt, editedAt } = storeItem;
 
   const handleStoreItemOpen = (e: React.MouseEvent<HTMLButtonElement>): void => {
     history.push(baseUrl + "/view");
