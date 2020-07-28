@@ -9,7 +9,18 @@ import StoreImage, { IStoreImage } from "../../models/StoreImage";
 import ServiceImage, { IServiceImage } from "../../models/ServiceImage";
 import ProductImage, { IProductImage } from "../../models/ProductImage";
 import BonusVideo, { IBonusVideo } from "../../models/BonusVideo";
+// data //
+import storeItemMockCategories from "./storeItemMockCategories";
+import storeItemCategories from "./storeItemMockCategories";
 
+const seedRandomCategories = (categories: string[]): string[] => {
+  const returnedCategories: string[] = [];
+  const numOfCategories = Math.floor(Math.random() * Math.floor(categories.length));
+  for (let i = 0; i < numOfCategories; i++) {
+    returnedCategories.push(categories[i]);
+  }
+  return returnedCategories;
+}
 /**
  * Creates a set number of mock {BonusVideo} objects.
  * @param numOfVideos - number of mock {BonusVideo} models to create.
@@ -49,9 +60,25 @@ export const createStores = (numberOfStores: number): Promise<IStore[]> => {
  * @param numOfStoreItems - Number of mock {StoreItem} objects to create.
  * @param storeId - ObjectID of a {Store} model.
  */
-export const createStoreItems = (numOfStoreItems: number, storeId: string): Promise<IStoreItem[]> => {
+export const createStoreItems = (numOfStoreItems: number, storeId?: string): Promise<IStoreItem[]> => {
   const createdStoreItems: Promise<IStoreItem>[] = [];
-
+  if (!storeId) {
+    Store.find({}).then((stores) => {
+      for (let i = 0; i < stores.length; i++) {
+        for (let j = 0; j < numOfStoreItems; j++) {
+          createdStoreItems.push(StoreItem.create({
+            storeId: stores[i]._id,
+            name: faker.lorem.word(),
+            details: faker.lorem.paragraph(),
+            description: faker.lorem.paragraphs(2),
+            price: faker.commerce.price(1, 100),
+            images: [],
+            categories: seedRandomCategories(storeItemCategories)
+          }));
+        }
+      }
+    })
+  }
   for (let i = 0; i < numOfStoreItems; i++) {
     createdStoreItems.push(StoreItem.create({
       storeId: storeId,

@@ -12,12 +12,13 @@ import { IServiceImage } from "../models/ServiceImage";
 
 // helpers for seeding //
 import { 
-  createStores, createProducts, createServices,
+  createStores, createStoreItems, createProducts, createServices,
    createStoreImages, createProductImages, createServiceImages 
 } from "../_tests_/helpers/dataGeneration";
+import { IStoreItem } from "../models/StoreItem";
 
 
-type ModelArr = IStore[] | IProduct[] | IService[];
+type ModelArr = IStore[] | IProduct[] | IService[] | IStoreItem[];
 type ImageModelArr = IStoreImage[] | IProductImage[] | IServiceImage[];
 
 const { dbSettings } = config;
@@ -64,6 +65,9 @@ const askForModelCreation = (modelName: string) => {
         case "Product": 
           resolve(createProducts(number));
           break;
+        case "StoreItem": 
+          resolve(createStoreItems(number));
+          break;
         case "Service": 
           resolve(createServices(number));
           break;
@@ -97,6 +101,7 @@ const askForImageCreation = (modelName: string, models: ModelArr) => {
     });
   });
 };
+
 
 mongoose.connection.once("open", () => {
   let createdStores: IStore[]; let storeImages: IStoreImage[];
