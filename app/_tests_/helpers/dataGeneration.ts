@@ -63,7 +63,9 @@ export const createStores = (numberOfStores: number): Promise<IStore[]> => {
 export const createStoreItems = (numOfStoreItems: number, storeId?: string): Promise<IStoreItem[]> => {
   const createdStoreItems: Promise<IStoreItem>[] = [];
   if (!storeId) {
-    Store.find({}).then((stores) => {
+    console.log(66);
+    return Store.find({}).then((stores) => {
+      console.log(stores);
       for (let i = 0; i < stores.length; i++) {
         for (let j = 0; j < numOfStoreItems; j++) {
           createdStoreItems.push(StoreItem.create({
@@ -77,6 +79,9 @@ export const createStoreItems = (numOfStoreItems: number, storeId?: string): Pro
           }));
         }
       }
+    })
+    .then(() => {
+      return Promise.all(createdStoreItems);
     })
   }
   for (let i = 0; i < numOfStoreItems; i++) {

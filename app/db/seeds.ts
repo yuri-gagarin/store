@@ -122,6 +122,10 @@ mongoose.connection.once("open", () => {
     })
     .then((createdImages) => {
       console.log(chalk.bold.blue(`Created ${chalk.whiteBright(createdImages.length)} StoreImages`));
+      return askForModelCreation("StoreItem");
+    })
+    .then((createdStoreItems) => {
+      console.log(chalk.bold.blue(`Created ${chalk.whiteBright(createdStoreItems.length)} Store Items`));
       return askForModelCreation("Service");
     })
     .then((services) => {
