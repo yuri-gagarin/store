@@ -5,21 +5,22 @@ import config from "../config/config";
 // types and models //
 import { IService } from "../models/Service";
 import { IStore } from "../models/Store";
+import { IStoreItem } from "../models/StoreItem";
 import { IProduct } from "../models/Product";
 import { IStoreImage } from "../models/StoreImage";
 import { IProductImage } from "../models/ProductImage";
 import { IServiceImage } from "../models/ServiceImage";
+import { IStoreItemImage } from "../models/StoreItemImage";
 
 // helpers for seeding //
 import { 
   createStores, createStoreItems, createProducts, createServices,
-   createStoreImages, createProductImages, createServiceImages 
+   createStoreImages, createProductImages, createServiceImages, createStoreItemImages 
 } from "../_tests_/helpers/dataGeneration";
-import { IStoreItem } from "../models/StoreItem";
 
 
 type ModelArr = IStore[] | IProduct[] | IService[] | IStoreItem[];
-type ImageModelArr = IStoreImage[] | IProductImage[] | IServiceImage[];
+type ImageModelArr = IStoreImage[] | IStoreItemImage[] | IProductImage[] | IServiceImage[];
 
 const { dbSettings } = config;
 const dbOptions: ConnectionOptions = {
@@ -88,6 +89,10 @@ const askForImageCreation = (modelName: string, models: ModelArr) => {
           resolve(createStoreImages(models as IStore[], number));
           break;
         }
+        case "StoreItemImage": {
+          resolve(createStoreItemImages(models as IStoreItem[], number));
+          break;
+        }
         case "ProductImage": {
           resolve(createProductImages(models as IProduct[], number));
           break;
@@ -126,6 +131,10 @@ mongoose.connection.once("open", () => {
     })
     .then((createdStoreItems) => {
       console.log(chalk.bold.blue(`Created ${chalk.whiteBright(createdStoreItems.length)} Store Items`));
+      return askForImageCreation("StoreItemImage", createdStoreItems);
+    })
+    .then((createdImages) => {
+      console.log(chalk.bold.blue(`Created ${chalk.whiteBright(createdImages.length)} StoreItemImages`));
       return askForModelCreation("Service");
     })
     .then((services) => {

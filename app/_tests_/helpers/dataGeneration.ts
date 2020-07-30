@@ -4,13 +4,13 @@ import faker from "faker";
 import Service, { IService } from "../../models/Service";
 import Store, { IStore } from "../../models/Store";
 import StoreItem, { IStoreItem } from "../../models/StoreItem";
+import StoreItemImage, { IStoreItemImage } from "../../models/StoreItemImage";
 import Product, { IProduct } from "../../models/Product";
 import StoreImage, { IStoreImage } from "../../models/StoreImage";
 import ServiceImage, { IServiceImage } from "../../models/ServiceImage";
 import ProductImage, { IProductImage } from "../../models/ProductImage";
 import BonusVideo, { IBonusVideo } from "../../models/BonusVideo";
 // data //
-import storeItemMockCategories from "./storeItemMockCategories";
 import storeItemCategories from "./storeItemMockCategories";
 
 const seedRandomCategories = (categories: string[]): string[] => {
@@ -190,6 +190,25 @@ export const createServiceImage = (imgData: IServiceImage): Promise<IServiceImag
     })
 };
 
+export const createStoreItemImage = (imgData: IStoreItemImage): Promise<IStoreItemImage> => {
+  let image: IStoreItemImage;
+  return StoreItemImage.create(imgData)
+    .then((img) => {
+      image = img;
+      return StoreItem.findOneAndUpdate(
+        { _id: img.storeItemId }
+        { $push: { images: img._id} }
+      );
+    })
+    .then(() => {
+      return image;
+    })
+    .catch((err) => {
+      console.error(err);
+      throw err;
+    })
+};
+
 export const createProductImages = (products: IProduct[], numberOfImages?: number): Promise<IProductImage[]> => {
   const imagePromises: Promise<IProductImage>[] = [];
   const imagesToCreate = numberOfImages ? numberOfImages : Math.ceil(Math.random() * 10);
@@ -280,3 +299,33 @@ export const createStoreImages = (stores: IStore[], numberOfImages?: number): Pr
   }
   return Promise.all(imagePromises);
 };
+
+export const createStoreItemImages = (storeItems: IStoreItem[], numberofImages?: number): Promise<IStoreItemImage[]> => {
+  const imagePromises: Promise<IStoreItemImage>[] = [];
+  const imagesToCreate = numberofImages ? numberofImages : Math.ceil(Math.random() * 10);
+  const imagePath = path.join("uploads", "store_item_images");
+  const writePath = path.join(path.resolve(), "public", imagePath);
+  const sampleImagePath = path.join(path.resolve(), "public", "images", "services", "service1.jpeg");
+
+  for (let i = 0; i < storeItems.length; i++) {
+    for (let j = 0; j < imagesToCreate; j++) {
+      const imageName = `${i}_${j}_${storeItems[i].name}_test.jpeg`;
+      const image = path.join(writePath, imageName);
+      try {
+        fs.writeFileSync(image, fs.readFileSync(sampleImagePath));
+        const newImage = new StoreItemImage({
+          storeItemId: storeItems[i]._id,
+          imagePath: imagePath,
+          absolutePath: image,
+          fileName: imageName,
+          url: "/" + imagePath + "/" + imageName
+        });
+        imagePromises.push(createStoreItemImage(newImage));
+  
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
+  return Promise.all(imagePromises);
+}
