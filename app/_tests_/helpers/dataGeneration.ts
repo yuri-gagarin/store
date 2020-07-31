@@ -196,7 +196,7 @@ export const createStoreItemImage = (imgData: IStoreItemImage): Promise<IStoreIt
     .then((img) => {
       image = img;
       return StoreItem.findOneAndUpdate(
-        { _id: img.storeItemId }
+        { _id: img.storeItemId },
         { $push: { images: img._id} }
       );
     })
