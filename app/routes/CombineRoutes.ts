@@ -33,16 +33,16 @@ class CombineRoutes {
   private combine = (Router: Router): void => {
     // stores and images //
     new StoreRoutes(Router, new StoreController());
-    new StoreImageRoutes(Router, new StoreImageUploadController(), new ImageUploader("storeImage", 10));
+    new StoreImageRoutes(Router, new StoreImageUploadController(), new ImageUploader("storeImage", "Store", 10));
     // store items and images //
     new StoreItemRoutes(Router, new StoreItemsController());
-    new StoreItemImageRoutes(Router, new StoreItemImgUploadController(), new ImageUploader("storeItemImage", 10));
+    new StoreItemImageRoutes(Router, new StoreItemImgUploadController(), new ImageUploader("storeItemImage", "StoreItem", 10));
     // products and images //
     new ProductRoutes(Router, new ProductsController());
-    new ProductImageRoutes(Router, new ProductImageUploadController(), new ImageUploader("productImage", 10));
+    new ProductImageRoutes(Router, new ProductImageUploadController(), new ImageUploader("productImage", "Product", 10));
     // services and images //
     new ServicesRoutes(Router, new ServicesController());
-    new ServiceImagesRoutes(Router, new ServiceImgUploadController(), new ImageUploader("serviceImage", 10));
+    new ServiceImagesRoutes(Router, new ServiceImgUploadController(), new ImageUploader("serviceImage", "Service", 10));
     // videos //
     new BonnusVideosRoutes(Router, new BonusVideosController());
   }

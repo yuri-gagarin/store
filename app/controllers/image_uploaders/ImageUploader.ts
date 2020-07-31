@@ -13,14 +13,17 @@ class ImageUploader {
   private imagePath = "";
   private path: string;
   private name: string;
+  private modelName: string;
   private uploader: any;
   /**
    * 
    * @param name - Name of file field, camel case
+   * @param modelName - Name of database Model
    * @param maxFileSize - Max file size allowed in megabytes
    */
-  constructor(name: string, maxFileSize: number, path?: string) {
+  constructor(name: string, modelName: string, maxFileSize: number, path?: string) {
     this.name = name;
+    this.modelName = modelName;
     this.maxFileSize = maxFileSize * 1024 * 1024;
     this.uploadDetails = { responseMsg: "", success: false, imagePath: "", fileName: "", absolutePath: "" };
     this.imagePath = camelToSnake(this.name) + "s";
@@ -56,6 +59,9 @@ class ImageUploader {
   }
   
   public runUpload (req: Request, res: Response, next: NextFunction): void {
+    const modelIdParam = "_" + camelToSnake(this.modelName) + "_id";
+    console.log(modelIdParam)
+    this.path = this.path + "/" + req.params[modelIdParam];
     fs.access(this.path, (err) => {
       if (err && err.code === "ENOENT") {
         console.error(err);

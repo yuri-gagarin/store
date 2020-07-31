@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs, { Dirent } from "fs";
 import path from "path";
 import chalk from "chalk";
 import readLine from "readline";
@@ -31,6 +31,7 @@ export const clearFiles = (directory: string): Promise<boolean[]> => {
   
   return Promise.all(promises);
 };
+
 
 
 const rl = readLine.createInterface({
