@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Types } from "mongoose";
+import Store, { IStore } from "../models/Store";
 import StoreItem, { IStoreItem } from "../models/StoreItem";
 import StoreItemImage, { IStoreItemImage } from "../models/StoreItemImage";
 import { IGenericController } from "./helpers/controllerInterfaces";
@@ -8,6 +9,7 @@ import { respondWithDBError, respondWithInputError, deleteFile, respondWithGener
 
 interface IGenericStoreImgRes {
   responseMsg: string;
+  numberOfItems?: number;
   newStoreItem?: IStoreItem;
   editedStoreItem?: IStoreItem;
   deletedStoreItem?: IStoreItem;
@@ -27,11 +29,36 @@ export type StoreItemParams = {
 class StoreItemsController implements IGenericController {
 
   index (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
-    return StoreItem.find({})
+    let foundStore: IStore; let storeItems: IStoreItem[];
+    const limit = req.query.limit as string;
+
+    if (req.query && req.query.storeName) {
+      const storeName: string = req.query.storeName as string;
+      return Store.find({ title: storeName })
+        .then((stores) => {
+          foundStore = stores[0];
+          return StoreItem.find({ storeId: foundStore._id }).populate("images").exec()
+        })
+        .then((storeItems) => {
+          return res.status(200).json({
+            responseMsg: `Loaded all Store Item from Store: ${foundStore.title}`,
+            storeItems: storeItems
+          });
+        })
+        .catch((error) => {
+          return respondWithDBError(res, error);
+        })
+    }
+    return StoreItem.find({}).limit(limit ? parseInt(limit, 10) : 10)
       .populate("images").exec()
-      .then((storeItems) => {
+      .then((foundStoreItems) => {
+        storeItems = foundStoreItems;
+        return StoreItem.countDocuments();
+      })
+      .then((value) => {
         return res.status(200).json({
           responseMsg: "Loaded all Store Items",
+          numberOfItems: value,
           storeItems: storeItems
         });
       })

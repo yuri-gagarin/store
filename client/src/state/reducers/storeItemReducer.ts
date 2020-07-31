@@ -15,6 +15,7 @@ const emptyStoreItemData = (): IStoreItemData => {
 
 export const initialStoreItemState: IStoreItemState = {
   loading: false,
+  numberOfItems: 0,
   responseMsg: "",
   currentStoreItemData: emptyStoreItemData(),
   loadedStoreItems: [],
@@ -27,6 +28,7 @@ const storeReducer = (state: IStoreItemState = initialStoreItemState, action: St
       return {
         ...state,
         loading: action.payload.loading,
+        numberOfItems: action.payload.numberOfItems ? action.payload.numberOfItems : state.numberOfItems,
         responseMsg: action.payload.responseMsg,
         loadedStoreItems: [ ...action.payload.loadedStoreItems],
         error: action.payload.error
@@ -51,6 +53,7 @@ const storeReducer = (state: IStoreItemState = initialStoreItemState, action: St
       };
     case "UPLOAD_NEW_STORE_ITEM_IMG": 
       return {
+        ...state,
         loading: action.payload.loading,
         responseMsg: action.payload.responseMsg,
         currentStoreItemData: { ...action.payload.editedStoreItem },
@@ -59,6 +62,7 @@ const storeReducer = (state: IStoreItemState = initialStoreItemState, action: St
       };
     case "DELETE_STORE_ITEM_IMG": {
       return {
+        ...state,
         loading: action.payload.loading,
         responseMsg: action.payload.responseMsg,
         currentStoreItemData: { ...action.payload.editedStoreItem },

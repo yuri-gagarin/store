@@ -17,7 +17,7 @@ interface Props {
 }
 
 const StoreItemsPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
-  const { loadedStoreItems } = state.storeItemState;
+  const { loadedStoreItems, numberOfItems } = state.storeItemState;
   useEffect(() => {
     getAllStoreItems(dispatch);
   }, []);
@@ -40,7 +40,7 @@ const StoreItemsPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Elem
         </Item.Group>
       </Grid.Column>
       <Grid.Column computer={6} tablet={8} mobile={16}>
-        <StoreItemsControls totalStoreItems={loadedStoreItems.length} />
+        <StoreItemsControls totalStoreItems={numberOfItems} />
         <PopularStoreItemsHolder popularStoreItems={loadedStoreItems}/>
       </Grid.Column>
 

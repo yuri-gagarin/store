@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { } from "semantic-ui-react";
 // css imports //
 import "./css/storeItemsControls.css";
 // additional components //
+// actions and state //
+import { AppAction } from "../../../../state/Store";
 
 interface Props {
   totalStoreItems: number;
+  dispatch?: React.Dispatch<AppAction>;
 }
 const StoreItemsControls: React.FC<Props> = ({ totalStoreItems }): JSX.Element => {
+  useEffect(() => {
+  }, []);
 
   return (
     <div className="adminStoreItemControlsHolder">

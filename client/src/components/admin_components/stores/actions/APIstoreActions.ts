@@ -29,12 +29,17 @@ type NewStoreData = {
   description: string;
   storeImages: IStoreImgData[]
 }
+type StoreQuery = {
+  storeName?: string;
+  limit?: string;
+}
 type EditedStoreData = NewStoreData;
 
-export const getAllStores = (dispatch: Dispatch<AppAction>): Promise<boolean> => {
+export const getAllStores = (dispatch: Dispatch<AppAction>, queryOptions?: StoreQuery): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
-    url: "/api/stores"
+    url: "/api/stores",
+    params: queryOptions
   };
   return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {

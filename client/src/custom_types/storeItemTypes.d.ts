@@ -3,6 +3,7 @@ type GetAllStoreItems = {
   readonly payload: {
     loading: boolean;
     responseMsg: string;
+    numberOfItems?: number;
     loadedStoreItems: IStoreItemData[];
     error: null | Error;
   };
@@ -60,6 +61,7 @@ type DeleteStoreItemImg = {
   readonly payload: {
     loading: boolean;
     responseMsg: string;
+    numberOfItems?: number;
     editedStoreItem: IStoreItemData;
     loadedStoreItems: IStoreItemData[];
     error: null;
@@ -128,6 +130,7 @@ declare interface IStoreItemData {
 declare interface IStoreItemState {
   loading: boolean;
   responseMsg: string;
+  numberOfItems: number;
   currentStoreItemData: IStoreItemData;
   loadedStoreItems: IStoreItemData[]
   error: null | Error;

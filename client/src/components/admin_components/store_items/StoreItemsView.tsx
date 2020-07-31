@@ -26,7 +26,7 @@ const StoreItemsView: React.FC<{}> = (props): JSX.Element => {
 
   return (
     <div id="adminStoreItemsViewHolder">
-      <AdminStoreItemsMenu dispatch={dispatch} />
+      <AdminStoreItemsMenu state={state} dispatch={dispatch} />
       <Switch>
         <Route path="/admin/home/store_items/all">
           <Spacer width="100%" height="100px"/>

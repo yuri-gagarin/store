@@ -36,3 +36,7 @@ export const setDefaultImage = (images: IStoreImgData[] | IStoreImgData[] | IPro
   const defaultImage = "https://react.semantic-ui.com/images/wireframe/image.png";
   return  (images[0] && images[0].url)  ? images[0].url : defaultImage;
 };
+
+export const capitalizeString = (text: string): string => {
+  return text[0].toUpperCase() + text.slice(1);
+};

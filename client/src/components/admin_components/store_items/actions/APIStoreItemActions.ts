@@ -14,6 +14,7 @@ interface IStoreItemImgServerRes {
 
 interface IStoreItemServerResData {
   responseMsg: string;
+  numberOfItems: string;
   storeItem?: IStoreItemData;
   newStoreItem?: IStoreItemData;
   editedStoreItem?: IStoreItemData;
@@ -29,12 +30,18 @@ type NewStoreItemData = {
   description: string;
   storeItemImages: IStoreItemImgData[]
 }
+type QueryParams = {
+  storeId?: string;
+  storeName?: string;
+  limit?: string;
+}
 type EditedStoreItemData = NewStoreItemData;
 
-export const getAllStoreItems = (dispatch: Dispatch<StoreItemAction>): Promise<boolean> => {
+export const getAllStoreItems = (dispatch: Dispatch<StoreItemAction>, queryParams?: QueryParams): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
-    url: "/api/store_items"
+    url: "/api/store_items",
+    params: queryParams
   };
   return axios.request<IStoreItemServerResData, IStoreItemServerRes>(requestOptions)
     .then((response) => {
@@ -43,6 +50,7 @@ export const getAllStoreItems = (dispatch: Dispatch<StoreItemAction>): Promise<b
       dispatch({ type: "GET_ALL_STORE_ITEMS", payload: {
         loading: false,
         responseMsg: data.responseMsg,
+        numberOfItems: data.numberOfItems ? parseInt(data.numberOfItems, 10) : undefined,
         loadedStoreItems: storeItems,
         error: null
       }});
