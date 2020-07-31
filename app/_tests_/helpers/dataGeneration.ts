@@ -13,6 +13,14 @@ import BonusVideo, { IBonusVideo } from "../../models/BonusVideo";
 // data //
 import storeItemCategories from "./storeItemMockCategories";
 
+const  ensureDirectoryExistence = (filePath: string): void => {
+  var dirname = path.dirname(filePath);
+  if (fs.existsSync(dirname)) {
+    return;
+  }
+  fs.mkdirSync(dirname);
+}
+
 const seedRandomCategories = (categories: string[]): string[] => {
   const returnedCategories: string[] = [];
   const numOfCategories = Math.floor(Math.random() * Math.floor(categories.length));
@@ -63,9 +71,7 @@ export const createStores = (numberOfStores: number): Promise<IStore[]> => {
 export const createStoreItems = (numOfStoreItems: number, storeId?: string): Promise<IStoreItem[]> => {
   const createdStoreItems: Promise<IStoreItem>[] = [];
   if (!storeId) {
-    console.log(66);
     return Store.find({}).then((stores) => {
-      console.log(stores);
       for (let i = 0; i < stores.length; i++) {
         for (let j = 0; j < numOfStoreItems; j++) {
           createdStoreItems.push(StoreItem.create({
@@ -219,15 +225,16 @@ export const createProductImages = (products: IProduct[], numberOfImages?: numbe
   for (let i = 0; i < products.length; i++) {
     for (let j = 0; j < imagesToCreate; j++) {
       const imageName = `${i}_${j}_${products[i].name}_test.jpeg`;
-      const image = path.join(writePath, imageName);
+      const image = path.join(writePath, products[i]._id.toString(), imageName);
       try {
+        ensureDirectoryExistence(image);
         fs.writeFileSync(image, fs.readFileSync(sampleImagePath));
         const newImage = new ProductImage({
           productId: products[i]._id,
           imagePath: imagePath,
           absolutePath: image,
           fileName: imageName,
-          url: "/" + imagePath + "/" + imageName
+          url: "/" + imagePath + "/" + products[i]._id + "/" + imageName
         });
         imagePromises.push(createProductImage(newImage));
   
@@ -250,15 +257,16 @@ export const createServiceImages = (services: IService[], numberOfImages?: numbe
   for (let i = 0; i < services.length; i++) {
     for (let j = 0; j < imagesToCreate; j++) {
       const imageName = `${i}_${j}_${services[i].name}_test.jpeg`;
-      const image = path.join(writePath, imageName);
+      const image = path.join(writePath, services[i]._id.toString(), imageName);
       try {
+        ensureDirectoryExistence(image);
         fs.writeFileSync(image, fs.readFileSync(sampleImagePath));
         const newImage = new ServiceImage({
           serviceId: services[i]._id,
           imagePath: imagePath,
           absolutePath: image,
           fileName: imageName,
-          url: "/" + imagePath + "/" + imageName
+          url: "/" + imagePath + "/" + services[i]._id + "/" + imageName
         });
         imagePromises.push(createServiceImage(newImage));
   
@@ -280,15 +288,16 @@ export const createStoreImages = (stores: IStore[], numberOfImages?: number): Pr
   for (let i = 0; i < stores.length; i++) {
     for (let j = 0; j < imagesToCreate; j++) {
       const imageName = `${i}_${j}_${stores[i].title}_test.jpeg`;
-      const image = path.join(writePath, imageName);
+      const image = path.join(writePath, stores[i]._id.toString(), imageName);
       try {
+        ensureDirectoryExistence(image);
         fs.writeFileSync(image, fs.readFileSync(sampleImagePath));
         const newImage = new StoreImage({
           storeId: stores[i]._id,
           imagePath: imagePath,
           absolutePath: image,
           fileName: imageName,
-          url: "/" + imagePath + "/" + imageName
+          url: "/" + imagePath + "/" + stores[i]._id + "/" + imageName
         });
         imagePromises.push(createStoreImage(newImage));
   
@@ -310,15 +319,16 @@ export const createStoreItemImages = (storeItems: IStoreItem[], numberofImages?:
   for (let i = 0; i < storeItems.length; i++) {
     for (let j = 0; j < imagesToCreate; j++) {
       const imageName = `${i}_${j}_${storeItems[i].name}_test.jpeg`;
-      const image = path.join(writePath, imageName);
+      const image = path.join(writePath, storeItems[i]._id.toString(), imageName);
       try {
+        ensureDirectoryExistence(image);
         fs.writeFileSync(image, fs.readFileSync(sampleImagePath));
         const newImage = new StoreItemImage({
           storeItemId: storeItems[i]._id,
           imagePath: imagePath,
           absolutePath: image,
           fileName: imageName,
-          url: "/" + imagePath + "/" + imageName
+          url: "/" + imagePath + "/" + storeItems[i]._id.toString() + "/" + imageName
         });
         imagePromises.push(createStoreItemImage(newImage));
   
@@ -328,4 +338,4 @@ export const createStoreItemImages = (storeItems: IStoreItem[], numberofImages?:
     }
   }
   return Promise.all(imagePromises);
-}
+};

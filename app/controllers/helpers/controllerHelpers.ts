@@ -39,6 +39,7 @@ export const deleteFile = (filePath: string): Promise<boolean> => {
 
 export const normalizeImgUrl = (uploadPath: string): Promise<string> => {
   return new Promise((resolve) => {
+    console.log(uploadPath)
     const normaLizedUrl = "/" + (uploadPath.split("/").slice(1).join("/"));
     resolve(normaLizedUrl);
   });

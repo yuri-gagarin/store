@@ -1,4 +1,4 @@
-import fs, { Dirent } from "fs";
+import fs, { Dirent, readdirSync } from "fs";
 import path from "path";
 import chalk from "chalk";
 import readLine from "readline";
@@ -44,7 +44,8 @@ What would you like to do?
 ${chalk.bold.blue(1)}: Delete all uploaded ${chalk.bold.red("ProductImages")}
 ${chalk.bold.blue(2)}: Delete all uploaded ${chalk.bold.red("ServiceImages")}
 ${chalk.bold.blue(3)}: Delete all uploaded ${chalk.bold.red("StoreImages")}
-${chalk.bold.blue(4)}: Delete All uploaded ${chalk.bold.red("Images")}
+${chalk.bold.blue(4)}: Delete all uploaded ${chalk.bold.red("StoreItemImages")}
+${chalk.bold.blue(5)}: Delete All uploaded ${chalk.bold.red("Images")}
 ${chalk.bold.blue(0)}: Exit
 input:`);
 
@@ -55,9 +56,10 @@ const recursiveQuestion = (question: string) => {
     const imagePaths: ImagePaths = {
       "1": "/public/uploads/product_images/",
       "2": "/public/uploads/service_images/",
-      "3": "/public/uploads/store_images"
+      "3": "/public/uploads/store_images",
+      "4": "/public/uploads/store_item_images"
     };
-    if (option === 4) {
+    if (option === 5) {
       try {
         // delete all images from all directories //
         let total = 0;
@@ -74,10 +76,17 @@ const recursiveQuestion = (question: string) => {
       }  
     } else {
       try {
+        let result: boolean[] = [];
         const directory = imagePaths[option.toString()];
         console.log(chalk.bgYellowBright.bold.black`Deleting Images from ${chalk.bold.blue(directory)}.`);
-        const result = await clearFiles(directory);
-        console.log(chalk.bgBlue.bold.white(`Deleted ${result.length} images.`));
+        const imageDirectories = readdirSync(path.join(path.resolve(), directory));
+        if (imageDirectories.length) {
+          for (let i = 0; i < imageDirectories.length; i++) {
+            let deleteImages = await clearFiles(path.join(directory, imageDirectories[i]))
+            result.concat(deleteImages)
+          }
+          console.log(chalk.bgBlue.bold.white(`Deleted ${result.length} images.`));
+        }
         recursiveQuestion(startQuestion);
       } catch (err) {
         throw(err);
@@ -110,9 +119,13 @@ const recursiveQuestion = (question: string) => {
         return deleteImages(3); 
       }
       case 4: {
+        console.log(chalk.bgWhiteBright.bold.blue("Deleting uploaded StoreItemImages"));
+        return deleteImages(4); 
+      }
+      case 4: {
         console.log(chalk.bgWhiteBright.bold.blue("Deleting all uploaded Images"));
         //rl.close();
-        return(deleteImages(4));
+        return(deleteImages(5));
       }
       case 0: {
         process.exit(0);

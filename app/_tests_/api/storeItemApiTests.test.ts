@@ -19,7 +19,7 @@ describe ("StoreItem API tests", () => {
       .then(() => createStores(1))
       .then((stores) => {
         storeId = stores[0]._id;
-        return createStoreItems(10, storeId);
+        return createStoreItems(20, storeId);
       })
       .then(() => StoreItem.countDocuments())
       .then((number) => { totalStoreItems = number; done(); })
@@ -44,9 +44,33 @@ describe ("StoreItem API tests", () => {
           done();
         });
     });
-    it("Should have the correct response", () => {
+    it("Should have the correct response AND correct default number of StoreItems", () => {
       expect(responseMsg).to.be.a("string");
       expect(storeItems).to.be.an("array");
+      expect(storeItems.length).to.equal(10);
+    });
+  });
+
+  describe("GET { '/api/store_items?query=5' }", () => {
+    let storeItems: IStoreItem[], responseMsg: string;
+
+    it("Should GET all StoreItems", (done) => {
+      chai.request(server)
+        .get("/api/store_items")
+        .query({ limit: 5 })
+        .end((error, response) => {
+          if (error) done(error);
+          expect(response.status).to.equal(200);
+          expect(response.body).to.be.an("object");
+          storeItems = response.body.storeItems;
+          responseMsg = response.body.responseMsg;
+          done();
+        });
+    });
+    it("Should have the correct response AND correct number of StoreItems", () => {
+      expect(responseMsg).to.be.a("string");
+      expect(storeItems).to.be.an("array");
+      expect(storeItems.length).to.equal(5);
     });
   });
 

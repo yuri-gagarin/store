@@ -27,7 +27,8 @@ export type StoreItemParams = {
 class StoreItemsController implements IGenericController {
 
   index (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
-    return StoreItem.find({})
+    const itemLimit = req.query.limit as string;
+    return StoreItem.find({}).limit(itemLimit ? parseInt(itemLimit, 10) : 10)
       .populate("images").exec()
       .then((storeItems) => {
         return res.status(200).json({
