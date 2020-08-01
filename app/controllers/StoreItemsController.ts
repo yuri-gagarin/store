@@ -37,7 +37,7 @@ class StoreItemsController implements IGenericController {
       return Store.find({ title: storeName })
         .then((stores) => {
           foundStore = stores[0];
-          return StoreItem.find({ storeId: foundStore._id }).populate("images").exec()
+          return StoreItem.find({ storeId: foundStore._id }).populate("images").populate("store").exec();
         })
         .then((storeItems) => {
           return res.status(200).json({
@@ -50,7 +50,7 @@ class StoreItemsController implements IGenericController {
         })
     }
     return StoreItem.find({}).limit(limit ? parseInt(limit, 10) : 10)
-      .populate("images").exec()
+      .populate("images").populate("store").exec()
       .then((foundStoreItems) => {
         storeItems = foundStoreItems;
         return StoreItem.countDocuments();
@@ -92,6 +92,7 @@ class StoreItemsController implements IGenericController {
   create (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
     const { name, description, details, price, storeItemImages, categories }: StoreItemParams = req.body;
     const storeId = req.body.storeId as unknown as Types.ObjectId;
+    const storeName: string = req.body.storeName;
     const imgIds: Types.ObjectId[] = [];
 
     if (Array.isArray(storeItemImages) && (storeItemImages.length > 1)) {
@@ -102,6 +103,7 @@ class StoreItemsController implements IGenericController {
 
     const newStoreItem = new StoreItem({
       storeId: storeId,
+      storeName: storeName,
       name: name,
       description: description,
       details: details,

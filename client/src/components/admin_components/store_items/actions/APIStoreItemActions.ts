@@ -26,8 +26,13 @@ interface IStoreItemServerRes {
 }
 
 type NewStoreItemData = {
+  storeId: string;
+  storeName: string;
   name: string;
   description: string;
+  details: string;
+  price: string;
+  categories: string[];
   storeItemImages: IStoreItemImgData[]
 }
 type QueryParams = {
@@ -93,14 +98,19 @@ export const getStoreItem = (_id: string, dispatch: Dispatch<StoreItemAction>): 
     });
 };
 
-export const createStoreItem = ({ name, description, storeItemImages }: NewStoreItemData, dispatch: Dispatch<StoreItemAction>): Promise<boolean> => {
+export const createStoreItem = ({ storeId, storeName, name, description, details, price, categories, storeItemImages }: NewStoreItemData, dispatch: Dispatch<StoreItemAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/store_items/create",
     data: {
+      storeId: storeId,
+      storeName: storeName,
       name: name,
       description: description,
-      storeItemImages: storeItemImages,
+      details: details,
+      price: price,
+      categores: categories,
+      storeItemImages: storeItemImages
     }
   };
 

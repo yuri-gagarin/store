@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Item } from "semantic-ui-react";
+import { Button, Item, List } from "semantic-ui-react";
 // css //
 import "./css/storeItemPreview.css";
 // helpers //
@@ -23,7 +23,18 @@ const StoreItemPreview: React.FC<Props> = ({ storeItem }): JSX.Element => {
           Store name: <strong>Store Name Here</strong>
         </Item.Meta>
         <Item.Meta>
-          {categories}
+          Categories: 
+          <List horizontal className="storeItemCategoryList"> 
+            {
+              categories.map((category) => {
+                return (
+                  <List.Item className="storeItemCategory">
+                    <List.Content>{category}</List.Content>
+                  </List.Item>
+                );
+              })
+            }
+          </List>
         </Item.Meta>
         <Item.Meta>
           <span className='storeItemPrice'>Displayed Price: <strong>{price}</strong></span>
