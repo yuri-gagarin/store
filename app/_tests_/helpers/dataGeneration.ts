@@ -63,13 +63,12 @@ export const createStores = (numberOfStores: number): Promise<IStore[]> => {
 export const createStoreItems = (numOfStoreItems: number, storeId?: string): Promise<IStoreItem[]> => {
   const createdStoreItems: Promise<IStoreItem>[] = [];
   if (!storeId) {
-    console.log(66);
     return Store.find({}).then((stores) => {
-      console.log(stores);
       for (let i = 0; i < stores.length; i++) {
         for (let j = 0; j < numOfStoreItems; j++) {
           createdStoreItems.push(StoreItem.create({
             storeId: stores[i]._id,
+            storeName: stores[i].title,
             name: faker.lorem.word(),
             details: faker.lorem.paragraph(),
             description: faker.lorem.paragraphs(2),
@@ -84,18 +83,27 @@ export const createStoreItems = (numOfStoreItems: number, storeId?: string): Pro
       return Promise.all(createdStoreItems);
     })
   }
-  for (let i = 0; i < numOfStoreItems; i++) {
-    createdStoreItems.push(StoreItem.create({
-      storeId: storeId,
-      name: faker.lorem.word(),
-      details: faker.lorem.paragraph(),
-      description: faker.lorem.paragraphs(2),
-      price: faker.commerce.price(1, 100),
-      images: [],
-      categories: [faker.lorem.word(), faker.lorem.word()]
-    }));
+  else {
+    return Store.findOne({ _id: storeId })
+      .then((store) => {
+        for (let i = 0; i < numOfStoreItems; i++) {
+          createdStoreItems.push(StoreItem.create({
+            storeId: storeId,
+            name: faker.lorem.word(),
+            storeName: store?.title,
+            details: faker.lorem.paragraph(),
+            description: faker.lorem.paragraphs(2),
+            price: faker.commerce.price(1, 100),
+            images: [],
+            categories: [faker.lorem.word(), faker.lorem.word()]
+          }));
+        }
+        return Promise.all(createdStoreItems);
+      })
+      .catch((err) => {
+        throw err;
+      });
   }
-  return Promise.all(createdStoreItems);
 }
 
 /**

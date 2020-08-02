@@ -4,6 +4,7 @@ import faker from "faker";
 // server, models //
 import server from "../../server";
 import StoreItem, { IStoreItem} from "../../models/StoreItem";
+import Store, { IStore } from "../../models/Store";
 import { StoreItemParams } from "../../controllers/StoreItemsController";
 // helpers //
 import { setupDB, clearDB } from "../helpers/dbHelpers";
@@ -12,17 +13,20 @@ import { createStoreItems, createStores } from "../helpers/dataGeneration";
 chai.use(chaiHttp);
 
 describe ("StoreItem API tests", () => {
-  let totalStoreItems: number; let storeId: string;
+  let totalStoreItems: number; let store: IStore;
 
   before((done) => {
     setupDB()
       .then(() => createStores(1))
       .then((stores) => {
-        storeId = stores[0]._id;
-        return createStoreItems(10, storeId);
+        store = stores[0]
+        return createStoreItems(10, store._id);
       })
       .then(() => StoreItem.countDocuments())
-      .then((number) => { totalStoreItems = number; done(); })
+      .then((number) => { 
+        totalStoreItems = number; 
+        done(); 
+      })
       .catch((error) => { done(error); });
   });
   after((done) => {
@@ -88,7 +92,8 @@ describe ("StoreItem API tests", () => {
     let createdStoreItem: IStoreItem; let newData: StoreItemParams;
     before(() => {
       newData = {
-        storeId: storeId,
+        storeId: store._id,
+        storeName: store.title,
         name: faker.lorem.word(),
         description: faker.lorem.paragraphs(1),
         details: faker.lorem.paragraphs(2),
@@ -134,18 +139,19 @@ describe ("StoreItem API tests", () => {
 
   describe("PATCH { '/api/store_items/update/:_id' }", () => {
 
-    let storeItem: IStoreItem, editedStoreItem: IStoreItem;
-    const updateData: StoreItemParams = {
-      storeId: storeId,
-      name: faker.lorem.word(),
-      description: faker.lorem.paragraphs(1),
-      details: faker.lorem.paragraphs(2),
-      price: "200",
-      storeItemImages: [],
-      categories: ["misc"]
-    };
-
+    let storeItem: IStoreItem; let editedStoreItem: IStoreItem;
+    let updateData: StoreItemParams;
     before((done) => {
+      updateData = {
+        storeId: store._id,
+        storeName: store.title,
+        name: faker.lorem.word(),
+        description: faker.lorem.paragraphs(1),
+        details: faker.lorem.paragraphs(2),
+        price: "200",
+        storeItemImages: [],
+        categories: ["misc"]
+      };
       StoreItem.find().limit(1)
         .then((storeItems) => {
           storeItem = storeItems[0];

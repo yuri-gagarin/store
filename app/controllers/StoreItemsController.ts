@@ -18,6 +18,7 @@ interface IGenericStoreImgRes {
 }
 export type StoreItemParams = {
   storeId: string;
+  storeName: string;
   name: string;
   description: string;
   details: string;
