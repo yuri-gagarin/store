@@ -118,6 +118,7 @@ declare interface IStoreItemImgData {
 declare interface IStoreItemData {
   _id: string;
   storeId: string;
+  storeName: string;
   name: string;
   description: string;
   details: string;

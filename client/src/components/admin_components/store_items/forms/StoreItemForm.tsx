@@ -4,6 +4,8 @@ import { Button, Form, TextArea } from "semantic-ui-react";
 import StoreItemCategories from "./StoreItemCategories";
 
 export type FormState = {
+  storeId: string;
+  storeName: string;
   name: string;
   description: string;
   details: string;
@@ -19,10 +21,10 @@ interface Props {
 
 
 const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, handleUpdateStoreItem }): JSX.Element => {
-  const { name, description, details, price, categories } = storeItem;
+  const { storeId, storeName, name, description, details, price, categories } = storeItem;
   // state and refs //
   const [ newForm, setNewForm ] = useState<boolean>(true)
-  const [ formState, setFormState ] = useState<FormState>({ name, description, details, price, categories });
+  const [ formState, setFormState ] = useState<FormState>({ storeId, storeName, name, description, details, price, categories });
   const storeItemFormRef = useRef<HTMLDivElement>(document.createElement("div"));
   
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
@@ -83,6 +85,22 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
   return (
     <div className="createStoreItemFormHolder" ref={storeItemFormRef}>
       <Form id="createStoreItemForm">
+        <Form.Field>
+          <label>Store ID for the item</label>
+          <input 
+            onChange={handleTitleChange} 
+            placeholder="Store Item name here ..." 
+            value={formState.storeId}
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>Store Name for the item</label>
+          <input 
+            onChange={handleTitleChange} 
+            placeholder="Store Item name here ..." 
+            value={formState.storeId}
+          />
+        </Form.Field>
         <Form.Field>
           <label>Store Item name</label>
           <input 

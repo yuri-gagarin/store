@@ -20,6 +20,8 @@ interface Props {
 }
 
 type StoreItemData = {
+  storeId: string,
+  storeName: string,
   name: string;
   description: string;
   details: string;
