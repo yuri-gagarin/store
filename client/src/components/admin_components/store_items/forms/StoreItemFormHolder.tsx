@@ -14,6 +14,7 @@ import { createStoreItem, editStoreItem } from "../actions/APIStoreItemActions";
 import { ConvertDate } from "../../../helpers/displayHelpers";
 // types 
 import { FormState } from "./StoreItemForm";
+
 interface Props {
   state: IGlobalAppState;
   dispatch: React.Dispatch<AppAction>;
@@ -38,8 +39,10 @@ const StoreItemFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element 
   const { currentStoreItemData } = state.storeItemState;
   const { name, description, details, price, categories, createdAt, editedAt } = currentStoreItemData;
 
-  const handleCreateStoreItem = ({ name, price, description, details, categories }: FormState): void => {
+  const handleCreateStoreItem = ({ storeId, storeName, name, price, description, details, categories }: FormState): void => {
     const storeItemData: StoreItemData = {
+      storeId,
+      storeName,
       name,
       description,
       details,
@@ -59,9 +62,9 @@ const StoreItemFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element 
       });
   };
 
-  const handleUpdateStoreItem = ({ name, description, details, price, categories }: FormState): void => {
+  const handleUpdateStoreItem = ({ storeId, storeName,name, description, details, price, categories }: FormState): void => {
     const storeItemParams: StoreItemData = {
-      name, details, description, price, storeItemImages: currentStoreItemData.images, categories
+      storeId, storeName, name, details, description, price, storeItemImages: currentStoreItemData.images, categories
     };
 
     editStoreItem(currentStoreItemData._id, storeItemParams, dispatch, state)
@@ -147,6 +150,8 @@ const StoreItemFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element 
           <Button  id="storeItemFormToggleBtn" onClick={handleFormOpen} content={ !formOpen ? "Open Form" : "Close Form"}></Button>
           {
             formOpen ? <StoreItemForm 
+                        state={state}
+                        dispatch={dispatch}
                         storeItem={currentStoreItemData}
                         handleCreateStoreItem={handleCreateStoreItem}
                         handleUpdateStoreItem={handleUpdateStoreItem}

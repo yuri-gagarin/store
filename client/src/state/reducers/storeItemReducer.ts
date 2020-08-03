@@ -3,6 +3,7 @@ const emptyStoreItemData = (): IStoreItemData => {
   return {
     _id: "",
     storeId: "",
+    storeName: "",
     name: "",
     description: "",
     details: "",

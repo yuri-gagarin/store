@@ -2,6 +2,10 @@ import React, { useState, useEffect, useRef }  from "react";
 import { Button, Form, TextArea } from "semantic-ui-react";
 // additional components //
 import StoreItemCategories from "./StoreItemCategories";
+import StoreDetails from "./StoreDetails";
+import StoreNameDropDown from "./StoreNameDropdown";
+import { IGlobalAppState, AppAction } from "../../../../state/Store";
+// actions and state //
 
 export type FormState = {
   storeId: string;
@@ -14,11 +18,12 @@ export type FormState = {
 }
 
 interface Props {
+  state: IGlobalAppState;
+  dispatch: React.Dispatch<AppAction>;
   storeItem: IStoreItemData;
   handleCreateStoreItem(data: FormState): void;
   handleUpdateStoreItem(data: FormState): void;
 }
-
 
 const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, handleUpdateStoreItem }): JSX.Element => {
   const { storeId, storeName, name, description, details, price, categories } = storeItem;
@@ -85,13 +90,12 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
   return (
     <div className="createStoreItemFormHolder" ref={storeItemFormRef}>
       <Form id="createStoreItemForm">
+        {
+          (storeId && storeName) ? <StoreDetails /> : null
+        }
         <Form.Field>
-          <label>Store ID for the item</label>
-          <input 
-            onChange={handleTitleChange} 
-            placeholder="Store Item name here ..." 
-            value={formState.storeId}
-          />
+          <label>Store Name to associate the item</label>
+          <StoreNameDropDown />
         </Form.Field>
         <Form.Field>
           <label>Store Name for the item</label>

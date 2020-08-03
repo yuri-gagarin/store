@@ -32,9 +32,19 @@ export const trimString = (text: string, toIndex: number): string  => {
   return text.slice(0, toIndex) + "...";
 };
 
-export const setDefaultImage = (images: IStoreImgData[] | IStoreImgData[] | IProductImgData[]): string => {
+export const setDefaultImage = (images: IStoreImgData[] | IStoreImgData[] | IProductImgData[] | string | undefined): string => {
   const defaultImage = "https://react.semantic-ui.com/images/wireframe/image.png";
-  return  (images[0] && images[0].url)  ? images[0].url : defaultImage;
+  // handle undefined //
+  if (!images) {
+    return defaultImage;
+  }
+  if (images && typeof images === "string") {
+    return images;
+  } else if (Array.isArray(images) && images.length > 0) {
+    return  images[0].url ? images[0].url : defaultImage;
+  } else {
+    return defaultImage;
+  }
 };
 
 export const capitalizeString = (text: string): string => {

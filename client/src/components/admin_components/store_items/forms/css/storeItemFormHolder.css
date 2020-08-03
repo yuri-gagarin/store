@@ -1,0 +1,43 @@
+#storeItemFormHolder {
+  height: 100%;
+  width: 100%;
+  padding: 1em;
+  border: 3px solid green;
+}
+#storeItemFormToggleBtn {
+  background-color: rgb(197, 90, 3);
+  color: white;
+  width: 100%;
+  margin-top: 1em;
+}
+#storeItemFormToggleBtn:hover {
+  background-color: rgb(134, 62, 2)
+}
+.storeItemFormHolderDetails {
+  border: 0.5px solid grey;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  -webkit-box-shadow: 1px 1px 1px 1px rgba(26, 24, 24, 0.75);
+  -moz-box-shadow: 1px 1px 1px 1px rgba(26, 24, 24, 0.75);
+  box-shadow: 1px 1px 1px 1px rgba(26, 24, 24, 0.75);
+}
+.storeItemFormHolderTimestamps {
+  border: 0.5px solid grey;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  -webkit-box-shadow: 0px 0px 2px 1px rgba(1,28,107,1);
+  -moz-box-shadow: 0px 0px 2px 1px rgba(1,28,107,1);
+  box-shadow: 0px 0px 2px 1px rgba(1,28,107,1);
+}
+.storeItemFormHolderTimestamps > span {
+  color: rgb(2, 2, 27);
+  padding-right: 2em;
+}
+#createStoreItemFormHolder {
+  border-radius: 4px;
+}
+#createStoreItemForm {
+  width: 75%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
