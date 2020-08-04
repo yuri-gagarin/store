@@ -62,7 +62,38 @@ export const getAllStores = (dispatch: Dispatch<AppAction>, queryOptions?: Store
       return false;
     });
 };
-
+export const getStoreByName = (name: string, dispatch: Dispatch<StoreAction>): Promise<boolean> => {
+  const requestOptions: AxiosRequestConfig = {
+    method: "get",
+    url: "/api/stores",
+    params: {
+      name: name
+    }
+  };
+  return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
+    .then((response) => {
+      const { data } = response;
+      const store = data.store;
+      if (!store) {
+        return false;
+      }
+      dispatch({ type: "GET_STORE", payload: {
+        loading: false,
+        responseMsg: data.responseMsg,
+        currentStoreData: store, 
+        error: null
+      }});
+      return true
+    })
+    .catch((error: AxiosError) => {
+      dispatch({ type: "SET_STORE_ERROR", payload: {
+        loading: false,
+        responseMsg: error.message,
+        error: error
+      }});
+      return false;
+    });
+}
 export const getStore = (_id: string, dispatch: Dispatch<AppAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",

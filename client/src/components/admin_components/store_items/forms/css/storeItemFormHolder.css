@@ -21,6 +21,22 @@
   -moz-box-shadow: 1px 1px 1px 1px rgba(26, 24, 24, 0.75);
   box-shadow: 1px 1px 1px 1px rgba(26, 24, 24, 0.75);
 }
+.storeItemFormHolderDescription {
+  border: 0.5px solid grey;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  -webkit-box-shadow: 1px 1px 1px 1px rgba(26, 24, 24, 0.75);
+  -moz-box-shadow: 1px 1px 1px 1px rgba(26, 24, 24, 0.75);
+  box-shadow: 1px 1px 1px 1px rgba(26, 24, 24, 0.75);
+}
+.storeItemFormHolderCategories {
+  border: 0.5px solid grey;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  -webkit-box-shadow: 1px 1px 1px 1px rgba(26, 24, 24, 0.75);
+  -moz-box-shadow: 1px 1px 1px 1px rgba(26, 24, 24, 0.75);
+  box-shadow: 1px 1px 1px 1px rgba(26, 24, 24, 0.75);
+}
 .storeItemFormHolderTimestamps {
   border: 0.5px solid grey;
   padding: 0.5em;

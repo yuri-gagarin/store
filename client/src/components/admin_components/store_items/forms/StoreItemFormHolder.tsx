@@ -115,8 +115,10 @@ const StoreItemFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element 
                   <h3>Store Item details:</h3>
                   <p>{details}</p>
                 </div>
-                <div className="storeItemCategories">
-                  <List>
+                <div className="storeItemFormHolderCategories">
+                  <h3>Listed Store Item categories: </h3>
+                  { categories.length === 0 ? "no categories listed" : null}
+                  <List horizontal>
                     {
                       categories.map((category) => {
                         return (

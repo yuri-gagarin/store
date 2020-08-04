@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Dropdown, DropdownProps } from "semantic-ui-react";
 // actions and state //
-import { getAllStores } from "../../stores/actions/APIstoreActions";
-import { getAllStoreItems } from "../actions/APIStoreItemActions";
+import { getAllStores, getStore } from "../../stores/actions/APIstoreActions";
+import { setStoreByOptions } from "../../stores/actions/uiStoreActions";
 import { IGlobalAppState, AppAction } from "../../../../state/Store";
 // helpers //
 import { capitalizeString } from "../../../helpers/displayHelpers";
@@ -21,10 +21,7 @@ const StoreNameDropDown: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
   const { loadedStores } = state.storeState;
 
   const handleSearchChange = (e: React.SyntheticEvent, data: DropdownProps): void => {
-    const queryOptions = {
-      storeName: data.value as string
-    }
-    getAllStoreItems(dispatch, queryOptions);
+    setStoreByOptions({ title: data.value as string }, dispatch, state);
   }
   // lifecycle methods //
   useEffect(() => {
@@ -46,7 +43,7 @@ const StoreNameDropDown: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
 
   return (
     <Dropdown
-      placeholder={"Filter by Store name"}
+      placeholder={"Select a Store"}
       selection
       onChange={handleSearchChange}
       options={dropdownState}

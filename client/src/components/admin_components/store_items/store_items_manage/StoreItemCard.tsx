@@ -22,7 +22,7 @@ interface Props extends RouteComponentProps {
 
 const StoreItemCard: React.FC<Props> = ({ storeItem, imageCount, state, dispatch, history }): JSX.Element => {
   const [ editing, setEditing ] = useState<boolean>(false);
-  const baseUrl = "/admin/home/my_store_items/manage"
+  const baseUrl = "/admin/home/store_items/manage"
   const { _id, name, price, description, details, images, createdAt, editedAt } = storeItem;
 
   const handleStoreItemOpen = (e: React.MouseEvent<HTMLButtonElement>): void => {

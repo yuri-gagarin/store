@@ -4,8 +4,9 @@ import { Button, Form, TextArea } from "semantic-ui-react";
 import StoreItemCategories from "./StoreItemCategories";
 import StoreDetails from "./StoreDetails";
 import StoreNameDropDown from "./StoreNameDropdown";
-import { IGlobalAppState, AppAction } from "../../../../state/Store";
 // actions and state //
+import { IGlobalAppState, AppAction } from "../../../../state/Store";
+import { getStore } from "../../stores/actions/APIstoreActions";
 
 export type FormState = {
   storeId: string;
@@ -25,8 +26,9 @@ interface Props {
   handleUpdateStoreItem(data: FormState): void;
 }
 
-const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, handleUpdateStoreItem }): JSX.Element => {
+const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, handleUpdateStoreItem, state, dispatch }): JSX.Element => {
   const { storeId, storeName, name, description, details, price, categories } = storeItem;
+  const { currentStoreData } = state.storeState;
   // state and refs //
   const [ newForm, setNewForm ] = useState<boolean>(true)
   const [ formState, setFormState ] = useState<FormState>({ storeId, storeName, name, description, details, price, categories });
@@ -70,12 +72,20 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
   };
 
   useEffect(() => {
-    if (name && description && price) {
-      setNewForm(false);
+    // edit form //
+    if (storeId) {
+      if (storeId != currentStoreData._id) {
+        getStore(storeId, dispatch)
+          .then((success) => {
+            if (success) setNewForm(false);
+          })
+      } else {
+        setNewForm(false);
+      }
     } else {
       setNewForm(true);
     }
-  },  [name, description, price]);
+  },  [storeId, currentStoreData]);
 
   useEffect(() => {
     if (storeItemFormRef.current) {
@@ -91,19 +101,11 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
     <div className="createStoreItemFormHolder" ref={storeItemFormRef}>
       <Form id="createStoreItemForm">
         {
-          (storeId && storeName) ? <StoreDetails /> : null
+          (storeId && storeName) ? <StoreDetails storeId={storeId} storeName={storeName} createdAt={currentStoreData.createdAt}/> : null
         }
         <Form.Field>
-          <label>Store Name to associate the item</label>
-          <StoreNameDropDown />
-        </Form.Field>
-        <Form.Field>
-          <label>Store Name for the item</label>
-          <input 
-            onChange={handleTitleChange} 
-            placeholder="Store Item name here ..." 
-            value={formState.storeId}
-          />
+          <label>Which Store to place the item in?</label>
+          <StoreNameDropDown state={state} dispatch={dispatch} />
         </Form.Field>
         <Form.Field>
           <label>Store Item name</label>
@@ -125,7 +127,7 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
         <Form.Field
           control={TextArea}
           label='Store Item Details'
-          onChange={hadnleDescriptionChange}
+          onChange={handleDetailsChange}
           placeholder='Store Item details here...'
           value={formState.description}
          />
