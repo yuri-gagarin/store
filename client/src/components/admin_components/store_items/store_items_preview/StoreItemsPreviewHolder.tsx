@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Item } from "semantic-ui-react";
 // css imports //
 import "./css/storeItemsPreviewHolder.css";
@@ -6,6 +6,7 @@ import "./css/storeItemsPreviewHolder.css";
 import StoreItemPreview from "./StoreItemPreview";
 import StoreItemsControls from "./StoreItemsControls";
 import PopularStoreItemsHolder from "./popular_store_items/PopularStoreItemsHolder";
+import LoadingScreen from "../../miscelaneous/LoadingScreen";
 // types and interfaces //
 import { AppAction, IGlobalAppState } from "../../../../state/Store";
 // api actions //
@@ -18,36 +19,54 @@ interface Props {
 
 const StoreItemsPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   const { loadedStoreItems, numberOfItems } = state.storeItemState;
+  // local state //
+  const [ pageLoaded, setPageLoaded ] = useState<boolean>(false);
+  const [ showErrorPage, setShowErrorPage ] = useState<boolean>(false);
+
   useEffect(() => {
-    getAllStoreItems(dispatch);
+    getAllStoreItems(dispatch)
+      .then((success) => {
+        if (success) {
+          setPageLoaded(true);
+        } else {
+          setShowErrorPage(true);
+        }
+      })
   }, []);
 
-  return (
-    <Grid stackable padded columns={2}>
-      <Grid.Row>
-      <Grid.Column computer={10} tablet={8} mobile={16}>
-        <Item.Group>
-          {
-            loadedStoreItems.map((storeItem) => {
-              return (
-                <StoreItemPreview 
-                  key={storeItem._id}
-                  storeItem={storeItem}
-                />
-              );
-            })
-          }
-        </Item.Group>
-      </Grid.Column>
-      <Grid.Column computer={6} tablet={8} mobile={16}>
-        <StoreItemsControls totalStoreItems={numberOfItems} />
-        <PopularStoreItemsHolder popularStoreItems={loadedStoreItems}/>
-      </Grid.Column>
-
-      </Grid.Row>
-      
-    </Grid>
-  )
+  if (pageLoaded) {
+    return (
+      <Grid stackable padded columns={2}>
+        <Grid.Row>
+        <Grid.Column computer={10} tablet={8} mobile={16}>
+          <Item.Group>
+            {
+              loadedStoreItems.map((storeItem) => {
+                return (
+                  <StoreItemPreview 
+                    key={storeItem._id}
+                    storeItem={storeItem}
+                  />
+                );
+              })
+            }
+          </Item.Group>
+        </Grid.Column>
+        <Grid.Column computer={6} tablet={8} mobile={16}>
+          <StoreItemsControls totalStoreItems={numberOfItems} />
+          <PopularStoreItemsHolder popularStoreItems={loadedStoreItems}/>
+        </Grid.Column>
+  
+        </Grid.Row>
+        
+      </Grid>
+    );
+  } else {
+    return (
+      <LoadingScreen />
+    );
+  }
+  
 };
 
 export default StoreItemsPreviewHolder;

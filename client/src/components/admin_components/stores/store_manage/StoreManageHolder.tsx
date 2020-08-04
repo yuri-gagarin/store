@@ -1,28 +1,37 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Grid } from "semantic-ui-react";
+// additional components //
 import StoreFormHolder from "../forms/StoreFormHolder";
 import StoreCard from "./StoreCard";
-import { withRouter, RouteComponentProps, useRouteMatch, Route } from "react-router-dom";
-import { Store } from "../../../../state/Store";
+import LoadingScreen from "../../miscelaneous/LoadingScreen";
+// actions and state //
 import { getAllStores } from "../actions/APIstoreActions";
+import { Store } from "../../../../state/Store";
+// routing and dependencies //
+import { withRouter, RouteComponentProps, useRouteMatch, Route } from "react-router-dom";
 
 interface Props extends RouteComponentProps {};
 
 const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const { state, dispatch } = useContext(Store);
   const { loadedStores } = state.storeState;
-  const match = useRouteMatch("/admin/home/my_store/manage");
-
+  // local state //
+  const [ dataLoaded, setDataLoaded ] = useState<boolean>(false);
+  // routing //
+  const match = useRouteMatch("/admin/home/my_stores/manage");
   const handleBack = () => {
     history.goBack();
   }
   useEffect(() => {
-    getAllStores(dispatch);
+    getAllStores(dispatch)
+      .then((success) => {
+        setDataLoaded(true);
+      });
   }, []); 
 
   return (
+    dataLoaded ?
     <Grid padded>
-       
       <Route path={match?.url + "/edit"}> 
         <Grid.Row>
           <Grid.Column>
@@ -53,6 +62,8 @@ const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
       </Route>
      
     </Grid>
+    :
+    <LoadingScreen />
   );
 };
 

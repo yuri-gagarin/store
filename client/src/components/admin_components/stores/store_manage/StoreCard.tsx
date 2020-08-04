@@ -38,7 +38,7 @@ const StoreCard: React.FC<StoreCardProps> = ({
    state, dispatch
   }): JSX.Element => {
   const [ editing, setEditing ] = useState<boolean>(false);
-  const baseUrl = "/admin/home/my_store/manage"
+  const baseUrl = "/admin/home/my_stores/manage"
  
   const handleStoreOpen = (e: React.MouseEvent<HTMLButtonElement>): void => {
     history.push(baseUrl + "/view");

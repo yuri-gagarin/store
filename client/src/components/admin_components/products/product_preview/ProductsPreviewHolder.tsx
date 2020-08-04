@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Item } from "semantic-ui-react";
 // css imports //
 import "./css/productsPreviewHolder.css";
@@ -6,6 +6,7 @@ import "./css/productsPreviewHolder.css";
 import ProductPreview from "./ProductPreview";
 import ProductsControls from "./ProductsControls";
 import PopularProductsHolder from "./popular_products/PopularProductsHolder";
+import LoadingScreen from "../../miscelaneous/LoadingScreen";
 // types and interfaces //
 import { AppAction, IGlobalAppState } from "../../../../state/Store";
 // api actions //
@@ -18,11 +19,20 @@ interface Props {
 
 const ProductsPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   const { loadedProducts } = state.productState;
+  // local state //
+  const [ dataLoaded, setDataLoaded ] = useState<boolean>(false);
+
   useEffect(() => {
-    getAllProducts(dispatch);
+    getAllProducts(dispatch)
+      .then((success) => {
+        if (success) {
+          setDataLoaded(true);
+        }
+      })
   }, []);
 
   return (
+    dataLoaded ? 
     <Grid stackable padded columns={2}>
       <Grid.Row>
       <Grid.Column computer={10} tablet={8} mobile={16}>
@@ -47,6 +57,8 @@ const ProductsPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
       </Grid.Row>
       
     </Grid>
+    :
+    <LoadingScreen />
   )
 };
 

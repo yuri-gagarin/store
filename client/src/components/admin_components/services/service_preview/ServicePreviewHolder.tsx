@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Item } from "semantic-ui-react";
 // additional components //
 import ServicePreview from "./ServicePreview";
-import ServicesDetails from "./ServicesDetails"
+import ServicesDetails from "./ServicesDetails";
+import LoadingScreen from "../../miscelaneous/LoadingScreen";
 // types and interfaces //
 import { AppAction, IGlobalAppState } from "../../../../state/Store";
 // api actions //
@@ -16,36 +17,49 @@ interface Props {
 
 const ServicePreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   const { loadedServices } = state.serviceState;
+  // local state //
+  const [ dataLoaded, setDataLoaded ] = useState<boolean>(false);
+
   useEffect(() => {
-    getAllServices(dispatch);
+    getAllServices(dispatch)
+      .then((success) => {
+        setDataLoaded(true);
+      });
   }, []);
 
-  return (
-    <Grid stackable padded columns={2}>
-      <Grid.Row>
-      <Grid.Column computer={10} tablet={8} mobile={16}>
-        <Item.Group>
-          {
-            loadedServices.map((service) => {
-              return (
-                <ServicePreview 
-                  key={service._id}
-                  service={service}
-                />
-              );
-            })
-          }
-        </Item.Group>
-      </Grid.Column>
-      <Grid.Column computer={6} tablet={8} mobile={16}>
-        <ServicesDetails totalServices={loadedServices.length} />
-        <PopularServiceHolder popularServices={loadedServices}/>
-      </Grid.Column>
-
-      </Grid.Row>
-      
-    </Grid>
-  )
+  if (dataLoaded) {
+    return (
+      <Grid stackable padded columns={2}>
+        <Grid.Row>
+        <Grid.Column computer={10} tablet={8} mobile={16}>
+          <Item.Group>
+            {
+              loadedServices.map((service) => {
+                return (
+                  <ServicePreview 
+                    key={service._id}
+                    service={service}
+                  />
+                );
+              })
+            }
+          </Item.Group>
+        </Grid.Column>
+        <Grid.Column computer={6} tablet={8} mobile={16}>
+          <ServicesDetails totalServices={loadedServices.length} />
+          <PopularServiceHolder popularServices={loadedServices}/>
+        </Grid.Column>
+  
+        </Grid.Row>
+        
+      </Grid>
+    );
+  } else {
+    return (
+      <LoadingScreen />
+    );
+  }
+  
 };
 
 export default ServicePreviewHolder;
