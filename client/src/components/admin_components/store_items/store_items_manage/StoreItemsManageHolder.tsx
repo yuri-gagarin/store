@@ -64,7 +64,7 @@ const StoreItemsManageHolder: React.FC<Props> = ({ state, dispatch, history }): 
             }
             </Grid.Column>
             <Grid.Column computer={4} tablet={8} mobile={16}>
-              <StoreItemControls totalStoreItems={state.storeItemState.numberOfItems} />
+              <StoreItemControls state={state} dispatch={dispatch} />
             </Grid.Column>
           </Grid.Row>
         </Route>

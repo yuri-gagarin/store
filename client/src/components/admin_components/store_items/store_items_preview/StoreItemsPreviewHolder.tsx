@@ -18,7 +18,7 @@ interface Props {
 }
 
 const StoreItemsPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
-  const { loadedStoreItems, numberOfItems } = state.storeItemState;
+  const { loadedStoreItems } = state.storeItemState;
   // local state //
   const [ pageLoaded, setPageLoaded ] = useState<boolean>(false);
   const [ showErrorPage, setShowErrorPage ] = useState<boolean>(false);
@@ -28,45 +28,39 @@ const StoreItemsPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Elem
       .then((success) => {
         if (success) {
           setPageLoaded(true);
-        } else {
-          setShowErrorPage(true);
         }
       })
   }, []);
 
-  if (pageLoaded) {
-    return (
-      <Grid stackable padded columns={2}>
-        <Grid.Row>
-        <Grid.Column computer={10} tablet={8} mobile={16}>
-          <Item.Group>
-            {
-              loadedStoreItems.map((storeItem) => {
-                return (
-                  <StoreItemPreview 
-                    key={storeItem._id}
-                    storeItem={storeItem}
-                  />
-                );
-              })
-            }
-          </Item.Group>
-        </Grid.Column>
-        <Grid.Column computer={6} tablet={8} mobile={16}>
-          <StoreItemsControls totalStoreItems={numberOfItems} />
-          <PopularStoreItemsHolder popularStoreItems={loadedStoreItems}/>
-        </Grid.Column>
-  
-        </Grid.Row>
-        
-      </Grid>
-    );
-  } else {
-    return (
-      <LoadingScreen />
-    );
-  }
-  
+  return (
+    pageLoaded ?
+    <Grid stackable padded columns={2}>
+      <Grid.Row>
+      <Grid.Column computer={10} tablet={8} mobile={16}>
+        <Item.Group>
+          {
+            loadedStoreItems.map((storeItem) => {
+              return (
+                <StoreItemPreview 
+                  key={storeItem._id}
+                  storeItem={storeItem}
+                />
+              );
+            })
+          }
+        </Item.Group>
+      </Grid.Column>
+      <Grid.Column computer={6} tablet={8} mobile={16}>
+        <StoreItemsControls state={state} dispatch={dispatch} />
+        <PopularStoreItemsHolder popularStoreItems={loadedStoreItems}/>
+      </Grid.Column>
+
+      </Grid.Row>
+      
+    </Grid>
+    : 
+    <LoadingScreen />
+  );
 };
 
 export default StoreItemsPreviewHolder;
