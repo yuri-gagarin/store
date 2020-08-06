@@ -39,6 +39,8 @@ type QueryParams = {
   storeId?: string;
   storeName?: string;
   limit?: string;
+  sortBy?: string;
+  sortOrder?: string;
 }
 type EditedStoreItemData = NewStoreItemData;
 
