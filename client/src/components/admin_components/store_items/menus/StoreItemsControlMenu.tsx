@@ -7,11 +7,13 @@ import { getAllStores } from "../../stores/actions/APIstoreActions";
 import { getAllStoreItems } from "../actions/APIStoreItemActions";
 import { AppAction, IGlobalAppState } from "../../../../state/Store";
 // types and interfaces //
+import { StoreItemQueryPar } from "../custom_types/customTypes";
 type DropdownData = {
   key: string;
   text: string;
   value: string;
 }
+
 interface Props {
   dispatch: React.Dispatch<AppAction>
   state: IGlobalAppState;
@@ -21,15 +23,20 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
   const { loadedStores : stores } = state.storeState;
   // local state //
   const [ dropdownLoading, setDropdownLoading ] = useState<boolean>(true);
+  const [ storeItemQuery, setStoreItemQuery ] = useState<StoreItemQueryPar>();
   const [ dropdownData, setDropdownData ] = useState<DropdownData[]>();
   // dropdown handlers //
   const handleDateSortClick = (e: React.MouseEvent, data: DropdownItemProps): void => {
     const queryOption = data.value as string;
-    
+    setStoreItemQuery({ ...storeItemQuery, date: queryOption });
   };
   const handlePriceSortClick = (e: React.MouseEvent, data: DropdownItemProps): void => {
     const queryOption = data.value as string;
-    getAllStoreItems(dispatch, { })
+    setStoreItemQuery({ ...storeItemQuery, price: queryOption });
+  };
+  const handleNameSortClick = (e: React.MouseEvent, data: DropdownItemProps): void => {
+    const queryOption = data.value as string;
+    setStoreItemQuery({ ...storeItemQuery, price: queryOption });
   };
   // lifecycle hooks //
   useEffect(() => {
@@ -56,6 +63,7 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
   }, [stores])
 
   return (
+    <div>
     <Menu horizontal className="storeItemsControlsMenu">
       <Dropdown 
         item 
@@ -101,6 +109,30 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
       </Menu.Item>
       
     </Menu>
+    <Menu id="storeItemsControlsSecondMenu">
+      <Menu.Item fluid>
+        <Dropdown text="Sort by Item name">
+          <Dropdown.Menu>
+            <Dropdown.Item 
+              text="Descending" 
+              description="Z - A" 
+              value="desc"
+              onClick={handlePriceSortClick}
+            />
+            <Dropdown.Item 
+              text="Ascending" 
+              description="A - Z" 
+              value="asc"
+              onClick={handlePriceSortClick}
+            />
+          </Dropdown.Menu>
+
+        </Dropdown>
+        
+      </Menu.Item>
+    </Menu>
+
+    </div>
   );
 }
 

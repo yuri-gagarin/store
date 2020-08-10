@@ -1,4 +1,9 @@
 .ui.storeItemsControlsMenu {
   width: 100%;
   margin-top: 0;
+  margin-bottom: 0;
+}
+
+#storeItemsControlsSecondMenu {
+  margin-top: 0;
 }
