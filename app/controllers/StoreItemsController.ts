@@ -26,15 +26,22 @@ export type StoreItemParams = {
   categories: string[];
   storeItemImages: IStoreItemImage[];
 }
+type StoreItemQueryPar = {
+  storeName?: string;
+  storeId?: string;
+  limit?: string;
+  date?: string;
+  price?: string;
+  name?: string;
+}
 
 class StoreItemsController implements IGenericController {
 
   index (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
     let foundStore: IStore; let storeItems: IStoreItem[];
-    const limit = req.query.limit as string;
-
-    if (req.query && req.query.storeName) {
-      const storeName: string = req.query.storeName as string;
+    const { storeName, storeId, limit, date, price, name }  = req.query as StoreItemQueryPar;
+    // return store items by store name //
+    if (storeName) {
       return Store.find({ title: storeName })
         .then((stores) => {
           foundStore = stores[0];
@@ -48,7 +55,72 @@ class StoreItemsController implements IGenericController {
         })
         .catch((error) => {
           return respondWithDBError(res, error);
+        });
+    }
+    // return store items by date //
+    if (date) {
+      if (storeName) {
+        // return store items from a specific store by date //
+        return Store.find({ title: storeName })
+          .then((stores) => {
+            foundStore = stores[0];
+            return (
+              StoreItem.find({ storeId: foundStore._id})
+                .populate("images")
+                .sort({ createdAt: date }).exec()
+            );
+          })
+          .then((storeItems) => {
+            return res.status(200).json({
+              responseMsg: `Loaded all Store Items from Store ${foundStore.title}`,
+              storeItems: storeItems
+            });
+          })
+          .catch((error) => {
+            return respondWithDBError(res, error);
+          });
+      } else {
+        return ( 
+          StoreItem.find({})
+          .sort({ createdAt: date })
+          .limit(limit ? parseInt(limit, 10) : 10)
+        )
+        .then((storeItems) => {
+          return res.status(200).json({
+            responseMsg: `Loaded all Store Items by date in order: ${date}`,
+            storeItems: storeItems
+          });
         })
+        .catch((error) => {
+          return respondWithDBError(res, error);
+        });
+      }  
+    }
+    // return store items by price //
+    if (price) {
+      if (storeName) {
+        // return store items form a specific store by price //
+        return Store.find(({ title: storeName }))
+          .then((stores) => {
+            foundStore = stores[0];
+            return (
+              StoreItem.find({ storeId: foundStore._id })
+                .sort({ price: price })
+                .limit(limit ? parseInt(limit, 10) : 10)
+                .populate("images")
+                .exec()
+            );
+          })
+          .then((storeItems) => {
+            return res.status(200).json({
+              responseMsg: `Loaded Store Items from store ${storeName} and sorted by price ${price}`,
+              storeItems: storeItems
+            });
+          })
+          .catch((error) => {
+            return respondWithDBError(res, error);
+          })
+      }
     }
     return StoreItem.find({}).limit(limit ? parseInt(limit, 10) : 10)
       .populate("images").populate("store").exec()

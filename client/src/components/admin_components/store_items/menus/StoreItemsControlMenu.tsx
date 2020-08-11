@@ -61,6 +61,9 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
       ]
     })
   }, [stores])
+  useEffect(() => {
+    getAllStoreItems(dispatch, storeItemQuery)
+  }, [storeItemQuery]);
 
   return (
     <div>
@@ -111,7 +114,27 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
     </Menu>
     <Menu id="storeItemsControlsSecondMenu">
       <Menu.Item fluid>
-        <Dropdown text="Sort by Item name">
+        <Dropdown text="Sort by name">
+          <Dropdown.Menu>
+            <Dropdown.Item 
+              text="Descending" 
+              description="Z - A" 
+              value="desc"
+              onClick={handlePriceSortClick}
+            />
+            <Dropdown.Item 
+              text="Ascending" 
+              description="A - Z" 
+              value="asc"
+              onClick={handlePriceSortClick}
+            />
+          </Dropdown.Menu>
+
+        </Dropdown>
+        
+      </Menu.Item>
+      <Menu.Item fluid>
+        <Dropdown text="Sort by category">
           <Dropdown.Menu>
             <Dropdown.Item 
               text="Descending" 

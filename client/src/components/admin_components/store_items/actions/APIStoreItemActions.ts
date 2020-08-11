@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
 import { Dispatch } from "react";
 import { IGlobalAppState } from "../../../../state/Store";
+import { StoreItemQueryPar } from "../custom_types/customTypes";
 
 interface IStoreItemImgServerResData {
   responseMsg: string;
@@ -35,16 +36,9 @@ type NewStoreItemData = {
   categories: string[];
   storeItemImages: IStoreItemImgData[]
 }
-type QueryParams = {
-  storeId?: string;
-  storeName?: string;
-  limit?: string;
-  sortBy?: string;
-  sortOrder?: string;
-}
 type EditedStoreItemData = NewStoreItemData;
 
-export const getAllStoreItems = (dispatch: Dispatch<StoreItemAction>, queryParams?: QueryParams): Promise<boolean> => {
+export const getAllStoreItems = (dispatch: Dispatch<StoreItemAction>, queryParams?: StoreItemQueryPar): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/store_items",

@@ -7,3 +7,6 @@
 #storeItemsControlsSecondMenu {
   margin-top: 0;
 }
+#storeItemsControlsSecondMenu > div {
+  width: 50%;
+}
