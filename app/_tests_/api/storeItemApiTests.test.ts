@@ -372,8 +372,8 @@ describe ("StoreItem API tests", () => {
 
   });
   // END GET Requests with queries tests //
-  // GET requests for one item tests
-  context("GET Request for specific item", () => {
+  // GET requests for one item tests //
+  context("GET Request for specific Item", () => {
     describe("GET { '/api/store_items/:_id }", () => {
       let storeItem: IStoreItem, requestedStoreItem: IStoreItem; 
   

@@ -18,18 +18,73 @@ export type ProductParams = {
   name: string;
   description: string;
   details: string;
-  price: string;
+  price: string | number;
   productImages: IProductImage[];
+}
+type ProducQueryPar = {
+  price?: string;
+  date?: string;
+  name?: string;
+  limit?: string;
 }
 
 class ProductsController implements IGenericController {
 
   index (req: Request, res: Response<IGenericProdRes>): Promise<Response> {
-    return Product.find({})
-      .populate("images").exec()
+    const { name, price, date, limit }: ProducQueryPar = req.query;
+    const queryLimit = limit ? parseInt(limit, 10) : 10;
+    // optional queries //
+    // sort by price //
+    if (price) {
+      return (
+        Product.find({})
+          .sort({ price: price }).limit(queryLimit)
+          .populate("images").exec()
+      )
       .then((products) => {
         return res.status(200).json({
-          responseMsg: "Loaded all products",
+          responseMsg: `Loaded ${products.length} Products and sorted by price ${price.toUpperCase()}`,
+          products: products
+        });
+      })
+      .catch((error) => {
+        return respondWithDBError(res, error);
+      });
+    }
+    // sort by date //
+    if (date) {
+      return (
+        Product.find({})
+          .sort({ createdAt: date }).limit(queryLimit)
+          .populate("images").exec()
+      )
+      .then((products) => {
+        return res.status(200).json({
+          responseMsg: `Loaded ${products.length} Products and sorted by date ${date.toUpperCase()}`,
+          products: products
+        });
+      });
+    }
+    // sort by name //
+    if (name) {
+      return (
+        Product.find({})
+          .sort({ name: name }).limit(queryLimit)
+          .populate("images").exec()
+      )
+      .then((products) => {
+        return res.status(200).json({
+          responseMsg: `Loaded ${products.length} Producsts and sorted alphabetically ${name.toUpperCase()}`,
+          products: products
+        });
+      });
+    }
+    // general response //
+    return Product.find({})
+      .limit(queryLimit).populate("images").exec()
+      .then((products) => {
+        return res.status(200).json({
+          responseMsg: `Loaded ${products.length} products`,
           products: products
         });
       })
@@ -40,9 +95,8 @@ class ProductsController implements IGenericController {
 
   get (req: Request, res: Response<IGenericProdRes>): Promise<Response>  {
     const _id: string = req.params._id;
-  
     if (!_id) return respondWithInputError(res, "Can't find product");
-
+   
     return Product.findOne({ _id: _id })
       .populate("images").exec()
       .then((product) => {
@@ -74,7 +128,7 @@ class ProductsController implements IGenericController {
       name: name,
       description: description,
       details: details,
-      price: price,
+      price: price as number,
       images: [ ...imgIds ]
     });
 
@@ -111,7 +165,7 @@ class ProductsController implements IGenericController {
           name: name,
           description: description,
           details: details,
-          price: price,
+          price: price as number,
           images: [ ...updatedProductImgs ],
           editedAt: new Date()
         },
