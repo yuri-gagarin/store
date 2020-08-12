@@ -22,7 +22,7 @@ export type StoreItemParams = {
   name: string;
   description: string;
   details: string;
-  price: string;
+  price: string | number;
   categories: string[];
   storeItemImages: IStoreItemImage[];
 }
@@ -41,11 +41,15 @@ class StoreItemsController implements IGenericController {
     let foundStore: IStore; let storeItems: IStoreItem[];
     const { storeName, storeId, limit, date, price, name }  = req.query as StoreItemQueryPar;
     // return store items by store name //
-    if (storeName) {
+    if (storeName && !price && !date) {
       return Store.find({ title: storeName })
         .then((stores) => {
           foundStore = stores[0];
-          return StoreItem.find({ storeId: foundStore._id }).populate("images").populate("store").exec();
+          return (
+            StoreItem.find({ storeId: foundStore._id })
+              .limit(limit ? parseInt(limit, 10) : 10)
+              .populate("images").exec()
+          );
         })
         .then((storeItems) => {
           return res.status(200).json({
@@ -66,8 +70,9 @@ class StoreItemsController implements IGenericController {
             foundStore = stores[0];
             return (
               StoreItem.find({ storeId: foundStore._id})
-                .populate("images")
-                .sort({ createdAt: date }).exec()
+                .sort({ createdAt: date })
+                .limit(limit ? parseInt(limit, 10) : 10)
+                .populate("images").exec()
             );
           })
           .then((storeItems) => {
@@ -84,6 +89,7 @@ class StoreItemsController implements IGenericController {
           StoreItem.find({})
           .sort({ createdAt: date })
           .limit(limit ? parseInt(limit, 10) : 10)
+          .populate("images").exec()
         )
         .then((storeItems) => {
           return res.status(200).json({
@@ -107,8 +113,7 @@ class StoreItemsController implements IGenericController {
               StoreItem.find({ storeId: foundStore._id })
                 .sort({ price: price })
                 .limit(limit ? parseInt(limit, 10) : 10)
-                .populate("images")
-                .exec()
+                .populate("images").exec()
             );
           })
           .then((storeItems) => {
@@ -122,22 +127,26 @@ class StoreItemsController implements IGenericController {
           })
       }
     }
-    return StoreItem.find({}).limit(limit ? parseInt(limit, 10) : 10)
-      .populate("images").populate("store").exec()
-      .then((foundStoreItems) => {
-        storeItems = foundStoreItems;
-        return StoreItem.countDocuments();
-      })
-      .then((value) => {
-        return res.status(200).json({
-          responseMsg: "Loaded all Store Items",
-          numberOfItems: value,
-          storeItems: storeItems
-        });
-      })
-      .catch((error) => {
-        return respondWithDBError(res, error);
-      });
+    // a query with no specific params only possible limit //
+    return (
+      StoreItem.find({})
+        .limit(limit ? parseInt(limit, 10) : 10)
+        .populate("images").exec()
+        .then((foundStoreItems) => {
+          storeItems = foundStoreItems;
+          return StoreItem.countDocuments();
+        })
+        .then((value) => {
+          return res.status(200).json({
+            responseMsg: "Loaded all Store Items",
+            numberOfItems: value,
+            storeItems: storeItems
+          });
+        })
+        .catch((error) => {
+          return respondWithDBError(res, error);
+        })
+    );
   }
 
   get (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response>  {
@@ -180,7 +189,7 @@ class StoreItemsController implements IGenericController {
       name: name,
       description: description,
       details: details,
-      price: price,
+      price: price as number,
       images: [ ...imgIds ],
       categories: categories
     });
@@ -221,7 +230,7 @@ class StoreItemsController implements IGenericController {
           name: name,
           description: description,
           details: details,
-          price: price,
+          price: price as number,
           images: [ ...updatedStoreItemImgs ],
           categories: [ ...categories ],
           editedAt: new Date()

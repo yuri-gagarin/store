@@ -8,7 +8,7 @@ export interface IStoreItem extends Document {
   name: string;
   description: string;
   details: string;
-  price: string;
+  price: number;
   categories: string[];
   images: (StoreItemImgRef | IStoreItemImage )[];
   createdAt: Date;
@@ -38,7 +38,7 @@ const StoreItemSchema: Schema = new Schema({
     required: false
   },
   price: {
-    type: String,
+    type: Number,
     required: true
   },
   categories: {
