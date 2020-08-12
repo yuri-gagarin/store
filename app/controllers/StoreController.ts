@@ -72,6 +72,7 @@ class StoresController implements IGenericController {
     const newStore = new Store({
       title: title,
       description: description,
+      numOfItems: 0,
       images: [ ...imgIds ]
     });
 

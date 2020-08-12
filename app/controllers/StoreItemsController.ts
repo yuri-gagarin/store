@@ -210,18 +210,28 @@ class StoreItemsController implements IGenericController {
       images: [ ...imgIds ],
       categories: categories
     });
-
-    return newStoreItem.save()
-      .then((newStoreItem) => {
-        return res.status(200).json({
-          responseMsg: "New StoreItem created",
-          newStoreItem: newStoreItem
-        });
+    return Store.findByIdAndUpdate({ _id: storeId }, { $inc : { numOfItems: 1 } })
+      .then((store) => {
+        if (!store) {
+          return respondWithInputError(res, "Can't resolve Store for new Item");
+        } else {
+          return newStoreItem.save()
+            .then((newStoreItem) => {
+              return res.status(200).json({
+                responseMsg: "New StoreItem created",
+                newStoreItem: newStoreItem
+              });
+            })
+            .catch((err) => {
+              console.error(err)
+              return respondWithDBError(res, err);
+            });
+        }
       })
-      .catch((err) => {
-        console.error(err)
-        return respondWithDBError(res, err);
-      });
+      .catch((error) => {
+        return respondWithDBError(res, error);
+      })
+    
   }
 
   edit (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
@@ -271,7 +281,7 @@ class StoreItemsController implements IGenericController {
   delete (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
    const { _id } = req.params;
 
-   let deletedImages: number;
+   let deletedImages: number; let deletedItem: IStoreItem;
    const storeItemImagePaths: string[] = [];
    const storeItemImageIds: string[] = [];
    const deleteStoreImgPromises: Promise<boolean>[] = [];
@@ -302,15 +312,22 @@ class StoreItemsController implements IGenericController {
               })
               .then((storeItem) => {
                 if (storeItem) {
-                  return res.status(200).json({
-                    responseMsg: "Deleted the Store Item and " + deletedImages,
-                    deletedStoreItem: storeItem
-                  });
+                  const storeId = storeItem.storeId;
+                  deletedItem = storeItem;
+                  return Store.findByIdAndUpdate({ _id: storeId }, { $inc: { numOfItems: -1 } })
+                    .then((store) => {
+                      return res.status(200).json({
+                        responseMsg: "Deleted the Store Item and " + deletedImages,
+                        deletedStoreItem: deletedItem
+                      });
+                    })
+                    .catch((error) => {
+                      return respondWithDBError(res, error);
+                    });
                 }
                 else {
                   return respondWithDBError(res, new Error("Can't resolve delete"));
-                }
-                
+                } 
               })
               .catch((error) => {
                 return respondWithDBError(res, error);

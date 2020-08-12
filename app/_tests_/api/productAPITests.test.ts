@@ -24,7 +24,7 @@ describe ("Product API tests", () => {
   after((done) => {
     clearDB().then(() => done()).catch((err) => done(err));
   });
-  // genereic GET request tests //
+  // generic GET request tests //
   context("GET Request generic", () => {
     describe("GET { '/api/products' }", () => {
       let products: IProduct[], responseMsg: string;
