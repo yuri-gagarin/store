@@ -66,6 +66,92 @@ describe ("StoreItem API tests", () => {
   // GET Requests with queries tests //
   context("GET Requests with specific query options", () => {
 
+    describe("GET { '/api/store_items?price=x&limit=x' }", () => {
+      let storeItems: IStoreItem[], store: IStore, responseMsg: string;
+      const price="desc"; let limit = 25;
+      let differentStore = false;
+
+      before((done) => {
+        Store.find({}).limit(2).then((stores) => {
+          store = stores[0]
+          done()
+        })
+      })
+      it("Should GET StoreItems from a variety of Stores", (done) => {
+        chai.request(server)
+          .get(`/api/store_items?price=${price}&limit=${limit}`)
+          .end((error, response) => {
+            if (error) done(error);
+            expect(response.status).to.equal(200);
+            expect(response.body).to.be.an("object");
+            storeItems = response.body.storeItems;
+            responseMsg = response.body.responseMsg;
+            done();
+          });
+      });
+      it("Should return correct StoreItems", () => {
+        for (const item of storeItems) {
+          if (item.storeName !== store.title) {
+            differentStore = true;
+          }
+        }
+        expect(differentStore).to.equal(true)
+      });
+      it(`Should return a correct number=${limit} of StoreItems`, () => {
+        expect(storeItems.length).to.equal(limit);
+      });
+      it(`Should correctly sort StoreItems by price=${price}`, () => {
+        for (let i = 0; i < storeItems.length - 1; i++) {
+          const firstItemPrice = storeItems[i].price;
+          const secondItemPrice = storeItems[i + 1].price;
+          expect(firstItemPrice >= secondItemPrice).to.equal(true)
+        }
+      });
+    });
+
+    describe("GET { '/api/store_items?date=x&limit=x' }", () => {
+      let storeItems: IStoreItem[], store: IStore, responseMsg: string;
+      const date="desc"; let limit = 25;
+      let differentStore = false;
+
+      before((done) => {
+        Store.find({}).limit(2).then((stores) => {
+          store = stores[0]
+          done()
+        })
+      })
+      it("Should GET StoreItems from a variety of Stores", (done) => {
+        chai.request(server)
+          .get(`/api/store_items?date=${date}&limit=${limit}`)
+          .end((error, response) => {
+            if (error) done(error);
+            expect(response.status).to.equal(200);
+            expect(response.body).to.be.an("object");
+            storeItems = response.body.storeItems;
+            responseMsg = response.body.responseMsg;
+            done();
+          });
+      });
+      it("Should return correct StoreItems", () => {
+        for (const item of storeItems) {
+          if (item.storeName !== store.title) {
+            differentStore = true;
+          }
+        }
+        expect(differentStore).to.equal(true)
+      });
+      it(`Should return a correct number=${limit} of StoreItems`, () => {
+        expect(storeItems.length).to.equal(limit);
+      });
+      it(`Should correctly sort StoreItems by date=${date}`, () => {
+        for (let i = 0; i < storeItems.length - 1; i++) {
+          const firstItemDate = storeItems[i].createdAt;
+          const secondItemDate = storeItems[i + 1].createdAt;
+          expect(firstItemDate >= secondItemDate).to.equal(true)
+        }
+      });
+    });
+
     describe("GET { '/api/store_items?storeName=x' }", () => {
       let storeItems: IStoreItem[], store: IStore, responseMsg: string;
       before((done) => {

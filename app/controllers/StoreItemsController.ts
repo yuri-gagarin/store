@@ -87,19 +87,19 @@ class StoreItemsController implements IGenericController {
       } else {
         return ( 
           StoreItem.find({})
-          .sort({ createdAt: date })
-          .limit(limit ? parseInt(limit, 10) : 10)
-          .populate("images").exec()
-        )
-        .then((storeItems) => {
-          return res.status(200).json({
-            responseMsg: `Loaded all Store Items by date in order: ${date}`,
-            storeItems: storeItems
-          });
-        })
-        .catch((error) => {
-          return respondWithDBError(res, error);
-        });
+            .sort({ createdAt: date })
+            .limit(limit ? parseInt(limit, 10) : 10)
+            .populate("images").exec()
+          )
+          .then((storeItems) => {
+            return res.status(200).json({
+              responseMsg: `Loaded all Store Items by date in order: ${date}`,
+              storeItems: storeItems
+            });
+          })
+          .catch((error) => {
+            return respondWithDBError(res, error);
+          })
       }  
     }
     // return store items by price //
@@ -125,6 +125,23 @@ class StoreItemsController implements IGenericController {
           .catch((error) => {
             return respondWithDBError(res, error);
           })
+      }
+      else {
+        return (
+          StoreItem.find({})
+            .sort({ price: price })
+            .limit(limit ? parseInt(limit, 10) : 10)
+            .populate("images").exec()
+        )
+        .then((storeItems) => {
+          return res.status(200).json({
+            responseMsg: `Loaded Store Items and sorted by price ${price}`,
+            storeItems: storeItems
+          });
+        })
+        .catch((error) => {
+          return respondWithDBError(res, error);
+        });
       }
     }
     // a query with no specific params only possible limit //
