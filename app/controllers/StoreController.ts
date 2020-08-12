@@ -25,7 +25,6 @@ export type StoreParams = {
 }
 class StoresController implements IGenericController {
   index (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
-    console.log("called index");
     return Store.find({})
       .populate("images").exec()
       .then((stores) => {
@@ -39,7 +38,6 @@ class StoresController implements IGenericController {
       });
   }
   get (req: Request, res: Response<IGenericStoreResponse>): Promise<Response>  {
-    console.log("called get")
     const _id: string = req.params._id;
 
     if (!_id) return respondWithInputError(res, "Can't find store");

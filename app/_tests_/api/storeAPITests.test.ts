@@ -4,21 +4,34 @@ import faker from "faker";
 // server, models //
 import server from "../../server";
 import Store, { IStore } from "../../models/Store";
+import { IStoreItem } from "../../models/StoreItem";
 import { StoreParams } from "../../controllers/StoreController";
 // helpers
 import { setupDB, clearDB } from "../helpers/dbHelpers";
-import { createStores } from "../helpers/dataGeneration";
+import { createStores, createStoreItems } from "../helpers/dataGeneration";
 
 chai.use(chaiHttp);
 
 describe ("Store API tests", () => {
-  let totalStores: number;
+  let totalStores: number; let createdStores: IStore[]; const storeItemPromises: Promise<IStoreItem[]>[] = []
 
   before((done) => {
     setupDB()
       .then(() => createStores(10))
-      .then(() => Store.countDocuments())
-      .then((number) => { totalStores = number; done(); })
+      .then((stores) => {
+        totalStores = stores.length;
+        for (const store of stores) {
+          storeItemPromises.push(createStoreItems("random", store._id))
+        }
+        return Promise.all(storeItemPromises);
+      })
+      .then((storeItemArray) => {
+        return Store.find({})
+      })
+      .then((stores) => {
+        createdStores = stores;
+        done();
+      })
       .catch((error) => { done(error); });
   });
   after((done) => {
@@ -80,7 +93,7 @@ describe ("Store API tests", () => {
       it(`Should sort the Stores with number of items in ${items.toUpperCase()} order`, () => {
         for (let i = 0; i < stores.length - 1; i++) {
           const firstStoreItems = stores[i].numOfItems;
-          const secondStoreItems =stores[i].numOfItems;
+          const secondStoreItems = stores[i + 1].numOfItems;
           expect(firstStoreItems >= secondStoreItems).to.equal(true);
         }
       });
@@ -112,7 +125,7 @@ describe ("Store API tests", () => {
       it(`Should sort the Stores with number of items in ${items.toUpperCase()} order`, () => {
         for (let i = 0; i < stores.length - 1; i++) {
           const firstStoreItems = stores[i].numOfItems;
-          const secondStoreItems =stores[i].numOfItems;
+          const secondStoreItems =stores[i + 1].numOfItems;
           expect(firstStoreItems >= secondStoreItems).to.equal(true);
         }
       });

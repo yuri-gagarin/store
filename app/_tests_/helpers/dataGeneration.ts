@@ -55,27 +55,48 @@ export const createStores = (numberOfStores: number): Promise<IStore[]> => {
   return Promise.all(createdStores);
 };
 
+const createStoreItem = (store: IStore): Promise<IStoreItem> => {
+  let createdItem: IStoreItem;
+
+  let newItem = {
+      storeId: store._id,
+      name: faker.lorem.word(),
+      storeName: store?.title,
+      details: faker.lorem.paragraph(),
+      description: faker.lorem.paragraphs(2),
+      price: faker.commerce.price(1, 100),
+      images: [],
+      categories: [faker.lorem.word(), faker.lorem.word()]
+  };
+  return StoreItem.create(newItem)
+    .then((storeItem) => {
+      createdItem  = storeItem;
+      return Store.findByIdAndUpdate({ _id: store._id }, { $inc: { numOfItems: 1} })
+    })
+    .then((store) => {
+      return createdItem;
+    })  
+    .catch((error) => {
+      throw error;
+    })
+}
+type CreateStoreItemArg = number | "random"
 /**
  * Creates a specific number of mock {StoreItem} objects.
  * @param numOfStoreItems - Number of mock {StoreItem} objects to create.
  * @param storeId - ObjectID of a {Store} model.
  */
-export const createStoreItems = (numOfStoreItems: number, storeId?: string): Promise<IStoreItem[]> => {
+export const createStoreItems = (numOfStoreItems: CreateStoreItemArg, storeId?: string): Promise<IStoreItem[]> => {
+  let numOfItems: number;
+  if (numOfStoreItems === "random") {
+    numOfItems = Math.ceil(Math.random() * 10);
+  }
   const createdStoreItems: Promise<IStoreItem>[] = [];
   if (!storeId) {
     return Store.find({}).then((stores) => {
       for (let i = 0; i < stores.length; i++) {
-        for (let j = 0; j < numOfStoreItems; j++) {
-          createdStoreItems.push(StoreItem.create({
-            storeId: stores[i]._id,
-            storeName: stores[i].title,
-            name: faker.lorem.word(),
-            details: faker.lorem.paragraph(),
-            description: faker.lorem.paragraphs(2),
-            price: faker.commerce.price(1, 100),
-            images: [],
-            categories: seedRandomCategories(storeItemCategories)
-          }));
+        for (let j = 0; j < numOfItems; j++) {
+          createdStoreItems.push(createStoreItem(stores[i]))
         }
       }
     })
@@ -86,17 +107,9 @@ export const createStoreItems = (numOfStoreItems: number, storeId?: string): Pro
   else {
     return Store.findOne({ _id: storeId })
       .then((store) => {
-        for (let i = 0; i < numOfStoreItems; i++) {
-          createdStoreItems.push(StoreItem.create({
-            storeId: storeId,
-            name: faker.lorem.word(),
-            storeName: store?.title,
-            details: faker.lorem.paragraph(),
-            description: faker.lorem.paragraphs(2),
-            price: faker.commerce.price(1, 100),
-            images: [],
-            categories: [faker.lorem.word(), faker.lorem.word()]
-          }));
+        console.log(110)
+        for (let i = 0; i < numOfItems; i++) {
+          createdStoreItems.push(createStoreItem(store!))
         }
         return Promise.all(createdStoreItems);
       })
