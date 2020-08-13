@@ -4,11 +4,13 @@ import faker from "faker";
 // server, models //
 import server from "../../server";
 import Store, { IStore } from "../../models/Store";
+import { IStoreImage } from "../../models/StoreImage";
+import StoreImage from "../../models/StoreImage";
 import { IStoreItem } from "../../models/StoreItem";
 import { StoreParams } from "../../controllers/StoreController";
 // helpers
 import { setupDB, clearDB } from "../helpers/dbHelpers";
-import { createStores, createStoreItems } from "../helpers/dataGeneration";
+import { createStores, createStoreItems, createStoreImages } from "../helpers/dataGeneration";
 
 chai.use(chaiHttp);
 
@@ -25,11 +27,19 @@ describe ("Store API tests", () => {
         }
         return Promise.all(storeItemPromises);
       })
-      .then((storeItemArray) => {
+      .then((createdItems) => {
         return Store.find({})
       })
       .then((stores) => {
         createdStores = stores;
+        return createStoreImages(stores, 5)
+      })
+      .then((createdStoreImages) => {
+        return Store.find({})
+      })
+      .then((stores) => {
+      })
+      .then((storeImages) => {
         done();
       })
       .catch((error) => { done(error); });
@@ -120,7 +130,7 @@ describe ("Store API tests", () => {
         expect(stores).to.be.an("array");
       });
       it(`Should return a correct number (${limit}) of Stores`, () => {
-        expect(stores.length).to.equal(5);
+        expect(stores.length).to.equal(limit);
       });
       it(`Should sort the Stores with number of items in ${items.toUpperCase()} order`, () => {
         for (let i = 0; i < stores.length - 1; i++) {
@@ -157,7 +167,7 @@ describe ("Store API tests", () => {
       it(`Should sort the Stores by title in correct alphabetical ${title.toUpperCase()} order`, () => {
         for (let i = 0; i < stores.length - 1; i++) {
           const firstStoreTitle = stores[i].title;
-          const secondStoreTitle =stores[i].title;
+          const secondStoreTitle =stores[i + 1].title;
           expect(firstStoreTitle <= secondStoreTitle).to.equal(true);
         }
       });
@@ -189,16 +199,79 @@ describe ("Store API tests", () => {
       it(`Should sort the Stores by title in correct alphabetical ${title.toUpperCase()} order`, () => {
         for (let i = 0; i < stores.length - 1; i++) {
           const firstStoreTitle = stores[i].title;
-          const secondStoreTitle =stores[i].title;
+          const secondStoreTitle =stores[i + 1].title;
           expect(firstStoreTitle <= secondStoreTitle).to.equal(true);
         }
       });
     });
 
+    describe("GET { '/api/stores?date=x' }", () => {
+      let stores: IStore[], responseMsg: string;
+      const date = "desc"; 
+
+      it("Should GET all stores", (done) => {
+        chai.request(server)
+          .get(`/api/stores?date=${date}`)
+          .end((error, response) => {
+            if (error) done(error);
+            expect(response.status).to.equal(200);
+            expect(response.body).to.be.an("object");
+            stores = response.body.stores;
+            responseMsg = response.body.responseMsg;
+            done();
+          });
+      });
+      it("Should have the correct response", () => {
+        expect(responseMsg).to.be.a("string");
+        expect(stores).to.be.an("array");
+      });
+      it("Should return a default number of Stores", () => {
+        expect(stores.length).to.equal(5);
+      });
+      it(`Should sort the Stores by date in a correct ${date.toUpperCase()} order`, () => {
+        for (let i = 0; i < stores.length - 1; i++) {
+          const firstStoreDate = stores[i].createdAt;
+          const secondStoreDate = stores[i + 1].createdAt;
+          expect(firstStoreDate  >= secondStoreDate).to.equal(true);
+        }
+      });
+    });
+
+    describe("GET { '/api/stores?date=x&limit=x' }", () => {
+      let stores: IStore[], responseMsg: string;
+      const date = "desc"; const limit = 2;
+
+      it("Should GET all stores", (done) => {
+        chai.request(server)
+          .get(`/api/stores?title=${date}&limit=${limit}`)
+          .end((error, response) => {
+            if (error) done(error);
+            expect(response.status).to.equal(200);
+            expect(response.body).to.be.an("object");
+            stores = response.body.stores;
+            responseMsg = response.body.responseMsg;
+            done();
+          });
+      });
+      it("Should have the correct response", () => {
+        expect(responseMsg).to.be.a("string");
+        expect(stores).to.be.an("array");
+      });
+      it(`Should return a correct number (${limit}) of Stores`, () => {
+        expect(stores.length).to.equal(limit);
+      });
+      it(`Should sort the Stores by date in a correct ${date.toUpperCase()} order`, () => {
+        for (let i = 0; i < stores.length - 1; i++) {
+          const firstStoreDate = stores[i].createdAt;
+          const secondStoreDate =stores[i + 1].createdAt;
+          expect(firstStoreDate >= secondStoreDate).to.equal(true);
+        }
+      });
+    });
   });
   // END requests with queries tests //
   // GET request for specific store tests //
-  context("GET Request for specific Product", () => {
+  context("GET Request for specific Store", () => {
     describe("GET { '/api/stores/:_id }", () => {
       let store: IStore, requestedStore: IStore; 
       let responseMsg: string;
@@ -282,16 +355,17 @@ describe ("Store API tests", () => {
     describe("PATCH { '/api/stores/update/:_id' }", () => {
 
       let store: IStore, editedStore: IStore;
-      const updateData: StoreParams = {
-        title: faker.lorem.word(),
-        description: faker.lorem.paragraphs(1),
-        storeImages: []
-      };
+      let  updateData: StoreParams;
 
       before((done) => {
-        Store.find().limit(1)
+        Store.find().populate("images").limit(1)
           .then((stores) => {
             store = stores[0];
+            updateData = {
+              title: faker.lorem.word(),
+              description: faker.lorem.paragraphs(1),
+              storeImages: store.images as IStoreImage[]
+            }
             done();
           })
           .catch((error) => { done(error); });
@@ -308,6 +382,7 @@ describe ("Store API tests", () => {
             expect(res.body.responseMsg).to.be.a("string");
             expect(res.body.editedStore).to.be.an("object");
             editedStore = res.body.editedStore;
+            console.log(editedStore)
             done();
           });
       });
@@ -365,6 +440,14 @@ describe ("Store API tests", () => {
           .then((number) => {
             expect(number).to.equal(totalStores - 1);
             totalStores = number;
+            done();
+          })
+          .catch((err) => { done(err); });
+      });
+      it("Should DELETE all the corresponding StoreImages", (done) => {
+        StoreImage.find({ storeId: store._id})
+          .then((storeImages) => {
+            expect(storeImages.length).to.equal(0);
             done();
           })
           .catch((err) => { done(err); });

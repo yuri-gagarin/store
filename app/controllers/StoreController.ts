@@ -1,15 +1,11 @@
 import { Request, Response } from "express";
 import { Types } from "mongoose";
 import Store, { IStore } from "../models/Store";
-import StorePicture, { IStoreImage } from "../models/StoreImage";
+import StoreImage, { IStoreImage } from "../models/StoreImage";
 import { IGenericController } from "./helpers/controllerInterfaces";
 // helpers //
 import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
-import ProductImage from "../models/ProductImage";
-type StoreImg = {
-  _id: string;
-  url: string;
-}
+
 interface IGenericStoreResponse {
   responseMsg: string;
   newStore?: IStore;
@@ -23,13 +19,78 @@ export type StoreParams = {
   description: string;
   storeImages: IStoreImage[];
 }
+type StoreQueryPar = {
+  title?: string;
+  items?: string;
+  date?: string;
+  limit?: string;
+}
 class StoresController implements IGenericController {
   index (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
+    const { title, items, date, limit } : StoreQueryPar = req.query;
+    const queryLimit = limit ? parseInt(limit, 10) : 5;
+    // custom queries //
+    // sort by title alphabetically //
+    if (title) {
+      return (
+        Store.find({})
+          .sort({ title: title })
+          .limit(queryLimit)
+          .populate("images").exec()
+      )
+      .then((stores) => {
+        return res.status(200).json({
+          responseMsg: `Loaded ${stores.length} stores and sorted by Store title ${title.toUpperCase()}`,
+          stores: stores
+        });
+      })
+      .catch((error) => {
+        return respondWithDBError(res, error);
+      });
+    }
+    // sort by number of items //
+    if (items) {
+      return (
+        Store.find({})
+          .sort({ numOfItems: items })
+          .limit(queryLimit)
+          .populate("images").exec()
+      )
+      .then((stores) => {
+        return res.status(200).json({
+          responseMsg: `Loaded ${stores.length} stores and sorted by Store Item count ${items.toUpperCase()}`,
+          stores: stores
+        });
+      })
+      .catch((error) => {
+        return respondWithDBError(res, error);
+      });
+    }
+    // sort by date created //
+    if (date) {
+      return (
+        Store.find({})
+          .sort({ createdAt: date })
+          .limit(queryLimit)
+          .populate("images").exec()
+      )
+      .then((stores) => {
+        return res.status(200).json({
+          responseMsg: `Loaded ${stores.length} stores and sorted by date created ${date.toUpperCase()}`,
+          stores: stores
+        });
+      })
+      .catch((error) => {
+        return respondWithDBError(res, error);
+      });
+    }
+    // generic response //
     return Store.find({})
+      .limit(queryLimit)
       .populate("images").exec()
       .then((stores) => {
         return res.status(200).json({
-          responseMsg: "Loaded all stores",
+          responseMsg: `Loaded ${stores.length} stores`,
           stores: stores
         });
       })
@@ -45,6 +106,8 @@ class StoresController implements IGenericController {
       .populate("images").exec()
       .then((store) => {
         if (store) {
+          console.log(109)
+          console.log(store)
           return res.status(200).json({
             responseMsg: "Store found",
             store: store
@@ -103,8 +166,13 @@ class StoresController implements IGenericController {
         },
       },
       { new: true }
-     ).populate("images").exec()
+     )
       .then((store) => {
+        return store?.populate("images")
+      })
+      .then((store) => {
+        console.log(169)
+        console.log(store)
         return res.status(200).json({
           responseMsg: "Store Updates",
           editedStore: store!
@@ -124,7 +192,7 @@ class StoresController implements IGenericController {
      return respondWithInputError(res, "Can't find store");
    }
    return Store.findOne({ _id: _id})
-    .populate("images")
+    .populate("images").exec()
     .then((store) => {
       // first delete all store images //
       if (store) {
@@ -140,7 +208,7 @@ class StoresController implements IGenericController {
         }
         return Promise.all(deletePromises)
           .then(() => {
-            return StorePicture.deleteMany({ _id: { $in: [ ...storeImgIds ] } })
+            return StoreImage.deleteMany({ _id: { $in: [ ...storeImgIds ] } })
               .then(({ n }) => {
                 n ? deletedImages = n : 0;
                 return Store.findOneAndDelete({ _id: _id });
