@@ -1,6 +1,6 @@
 import chaiHttp from "chai-http";
 import chai, { expect } from "chai";
-import fs, { exists } from "fs";
+import fs  from "fs";
 import path from "path";
 import faker from "faker";
 // server, models //
