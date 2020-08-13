@@ -1,12 +1,14 @@
 import chaiHttp from "chai-http";
 import chai, { expect } from "chai";
+import fs, { exists } from "fs";
+import path from "path";
 import faker from "faker";
 // server, models //
 import server from "../../server";
 import Store, { IStore } from "../../models/Store";
 import { IStoreImage } from "../../models/StoreImage";
 import StoreImage from "../../models/StoreImage";
-import { IStoreItem } from "../../models/StoreItem";
+import StoreItem, { IStoreItem } from "../../models/StoreItem";
 import { StoreParams } from "../../controllers/StoreController";
 // helpers
 import { setupDB, clearDB } from "../helpers/dbHelpers";
@@ -111,7 +113,7 @@ describe ("Store API tests", () => {
 
     describe("GET { '/api/stores?items=x'&limit=x }", () => {
       let stores: IStore[], responseMsg: string;
-      const items = "desc"; const limit = 2;
+      const items = "desc"; const limit = 4;
 
       it("Should GET all stores", (done) => {
         chai.request(server)
@@ -175,7 +177,7 @@ describe ("Store API tests", () => {
 
     describe("GET { '/api/stores?title=x&limit=x' }", () => {
       let stores: IStore[], responseMsg: string;
-      const title = "asc"; const limit = 2;
+      const title = "asc"; const limit = 4;
 
       it("Should GET all stores", (done) => {
         chai.request(server)
@@ -239,11 +241,11 @@ describe ("Store API tests", () => {
 
     describe("GET { '/api/stores?date=x&limit=x' }", () => {
       let stores: IStore[], responseMsg: string;
-      const date = "desc"; const limit = 2;
+      const date = "desc"; const limit = 4;
 
       it("Should GET all stores", (done) => {
         chai.request(server)
-          .get(`/api/stores?title=${date}&limit=${limit}`)
+          .get(`/api/stores?date=${date}&limit=${limit}`)
           .end((error, response) => {
             if (error) done(error);
             expect(response.status).to.equal(200);
@@ -263,7 +265,7 @@ describe ("Store API tests", () => {
       it(`Should sort the Stores by date in a correct ${date.toUpperCase()} order`, () => {
         for (let i = 0; i < stores.length - 1; i++) {
           const firstStoreDate = stores[i].createdAt;
-          const secondStoreDate =stores[i + 1].createdAt;
+          const secondStoreDate = stores[i + 1].createdAt;
           expect(firstStoreDate >= secondStoreDate).to.equal(true);
         }
       });
@@ -382,7 +384,6 @@ describe ("Store API tests", () => {
             expect(res.body.responseMsg).to.be.a("string");
             expect(res.body.editedStore).to.be.an("object");
             editedStore = res.body.editedStore;
-            console.log(editedStore)
             done();
           });
       });
@@ -451,6 +452,24 @@ describe ("Store API tests", () => {
             done();
           })
           .catch((err) => { done(err); });
+      });
+      it("Should DELETE all the corresponding image uploads and directory", (done) => {
+        const imageSubDir: string  = store._id.toString();
+        const imageDirectory = path.join(path.resolve(), "public", "uploads", "store_images", imageSubDir);
+        fs.access(imageDirectory, (err) => {
+          if (err) {
+            expect(err.code === "ENOENT").to.equal(true);
+            done();
+          }
+        });
+      });
+      it("Should DELETE all the corresponding Store Items", (done) => {
+        StoreItem.find({ storeId: store._id })
+          .then((storeItems) => {
+            expect(storeItems.length).to.equal(0);
+            done();
+          })
+          .catch((err) => { done(err) });
       });
     });
   });

@@ -1,10 +1,13 @@
 import { Request, Response } from "express";
+import fs from "fs";
+import path from "path";
 import { Types } from "mongoose";
 import Store, { IStore } from "../models/Store";
 import StoreImage, { IStoreImage } from "../models/StoreImage";
 import { IGenericController } from "./helpers/controllerInterfaces";
 // helpers //
 import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
+import StoreItem from "../models/StoreItem";
 
 interface IGenericStoreResponse {
   responseMsg: string;
@@ -106,8 +109,6 @@ class StoresController implements IGenericController {
       .populate("images").exec()
       .then((store) => {
         if (store) {
-          console.log(109)
-          console.log(store)
           return res.status(200).json({
             responseMsg: "Store found",
             store: store
@@ -171,8 +172,6 @@ class StoresController implements IGenericController {
         return store?.populate("images")
       })
       .then((store) => {
-        console.log(169)
-        console.log(store)
         return res.status(200).json({
           responseMsg: "Store Updates",
           editedStore: store!
@@ -186,12 +185,12 @@ class StoresController implements IGenericController {
   }
 
   delete (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
-   const { _id } = req.params;
-   let deletedImages: number;
-   if (!_id) {
+   const { _id : storeId } = req.params;
+   let deletedImages: number; let deletedStoreItems: number;
+   if (!storeId) {
      return respondWithInputError(res, "Can't find store");
    }
-   return Store.findOne({ _id: _id})
+   return Store.findOne({ _id: storeId})
     .populate("images").exec()
     .then((store) => {
       // first delete all store images //
@@ -208,26 +207,31 @@ class StoresController implements IGenericController {
         }
         return Promise.all(deletePromises)
           .then(() => {
-            return StoreImage.deleteMany({ _id: { $in: [ ...storeImgIds ] } })
-              .then(({ n }) => {
-                n ? deletedImages = n : 0;
-                return Store.findOneAndDelete({ _id: _id });
-              })
-              .then((store) => {
-                if (store) {
-                  return res.status(200).json({
-                    responseMsg: "Deleted the store and " + deletedImages,
-                    deletedStore: store
-                  });
-                }
-                else {
-                  return respondWithDBError(res, new Error("Can't resolve delete"));
-                }
-                
-              })
-              .catch((error) => {
-                return respondWithDBError(res, error);
+            // remove empty directory //
+            const directory = path.join(path.resolve("public", "uploads", "store_images", storeId));
+            return fs.promises.rmdir(directory);
+          })
+          .then(() => {
+            return StoreItem.deleteMany({ storeId: storeId })
+          })
+          .then(({ n }) => {
+            n ? deletedStoreItems = n : 0;
+            return StoreImage.deleteMany({ storeId: storeId })
+          })
+          .then(({ n }) => {
+            n ? deletedImages = n : 0;
+            return Store.findOneAndDelete({ _id: storeId });
+          })
+          .then((store) => {
+            if (store) {
+              return res.status(200).json({
+                responseMsg: "Deleted the store and " + deletedImages,
+                deletedStore: store
               });
+            }
+            else {
+              return respondWithDBError(res, new Error("Can't resolve delete"));
+            }
           })
           .catch((err: Error) => {
             return respondWithGeneralError(res, err.message, 400);
