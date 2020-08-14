@@ -5,12 +5,14 @@ import Service, { IService } from "../models/Service";
 import ServiceImage, { IServiceImage } from "../models/ServiceImage";
 import { IGenericController } from "./helpers/controllerInterfaces";
 // helpers //
-import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
+import { respondWithDBError, respondWithInputError, 
+  deleteFile, respondWithGeneralError, resolveDirectoryOfImg, removeDirectoryWithFiles
+} from "./helpers/controllerHelpers";
 
 export type ServiceParams = {
   name: string;
   description: string;
-  price: string;
+  price: string | number;
   serviceImages: ServiceImg[];
 }
 type ServiceImg = {
@@ -25,11 +27,71 @@ type GenericServiceResponse = {
   service?: IService;
   services?: IService[];
 }
+type ServiceQueryPar = {
+  price?: string;
+  name?: string;
+  popularity?: string;
+  date?: string;
+  limit?: string;
+}
 
 class ServicesController implements IGenericController {
 
   index (req: Request, res: Response<GenericServiceResponse>): Promise<Response> {
+    const { price, name, popularity, date, limit } = req.query as ServiceQueryPar;
+    const queryLimit = limit ? parseInt(limit, 10) : 10;
+    // optional queries //
+    // sort by price //
+    if (price) {
+      return (
+        Service.find({})
+          .sort({ price: price }).limit(queryLimit)
+          .populate("images").exec()
+      )
+      .then((services) => {
+        return res.status(200).json({
+          responseMsg: `Loaded ${services.length} Services and sorted by PRICE ${price.toUpperCase()}`,
+          services: services
+        });
+      })
+      .catch((error) => {
+        return respondWithDBError(res, error);
+      });
+    }
+    // sort by name alphabetically //
+    if (name) {
+      return (
+        Service.find({})
+          .sort({ name: name }).limit(queryLimit)
+          .populate("images").exec()
+      )
+      .then((services) => {
+        return res.status(200).json({
+          responseMsg: `Loaded ${services.length} Services and sorted by NAME ${name?.toUpperCase()}`,
+          services: services
+        });
+      })
+      .catch((error) => {
+        return respondWithDBError(res, error);
+      });
+    }
+    // sort by date created //
+    if (date) {
+      return (
+        Service.find({})
+          .sort({ createdAt: date }).limit(queryLimit)
+          .populate("images").exec()
+      )
+      .then((services) => {
+        return res.status(200).json({
+          responseMsg: `Loaded ${services.length} Services and sorted by DATE CREATED ${date.toUpperCase()}`,
+          services: services
+        })
+      })
+    }
+    // general query //
     return Service.find({})
+      .limit(queryLimit)
       .populate("images").exec()
       .then((services) => {
         return res.status(200).json({
@@ -108,7 +170,7 @@ class ServicesController implements IGenericController {
         $set: {
           name: name,
           description: description,
-          price: price,
+          price: price as number,
           images: [ ...updatedServiceImgs ],
           editedAt: new Date()
         },
@@ -129,56 +191,63 @@ class ServicesController implements IGenericController {
   }
 
   delete (req: Request, res: Response<GenericServiceResponse>): Promise<Response> {
-   const { _id } = req.params;
+   const { _id : serviceId } = req.params;
+   let serviceToDelete: IService;
    let deletedImages: number;
 
-   if (!_id) {
+   if (!serviceId) {
      return respondWithInputError(res, "Can't find service");
    }
 
-   return Service.findOne({ _id: _id})
-    .populate("images")
+   return Service.findOne({ _id: serviceId })
+    .populate("images").exec()
     .then((service) => {
-      // first delete all service images //
       if (service) {
-        const serviceImgPaths = service.images.map((image) => {
-          return (image as IServiceImage).absolutePath;
-        });
-        const serviceImgIds: Types.ObjectId[] = service.images.map((image) => {
-          return (image as IServiceImage)._id;
-        });
-        const deletePromises: Promise<boolean>[] = [];
-
-        for (const path of serviceImgPaths) {
-          deletePromises.push(deleteFile(path));
-        }
-
-        return Promise.all(deletePromises)
-          .then(() => {
-            return ServiceImage.deleteMany({ _id: { $in: [ ...serviceImgIds ] } })
-              .then(({ n }) => {
-                n ? deletedImages = n : 0;
-                return Service.findOneAndDelete({ _id: _id });
-              })
-              .then((deletedService) => {
-                if (deletedService) {
-                  return res.status(200).json({
-                    responseMsg: "Deleted the Service and " + deletedImages,
-                    deletedService: deletedService
-                  });
-                }
-                else {
-                  return respondWithDBError(res, new Error("Can't resolve delete"));
-                }
-                
-              })
-              .catch((error) => {
-                return respondWithDBError(res, error);
-              });
-          })
-          .catch((err: Error) => {
-            return respondWithGeneralError(res, err.message, 400);
-          });
+        serviceToDelete = service;
+        // first delete all service images //
+        if (service.images[0]) {
+          const imgData = service.images[0] as IServiceImage;
+          const imagesDirectory = resolveDirectoryOfImg(imgData.absolutePath);
+          // method looks into directory removes all files within and then directory //
+          // for now assumption is there are no subdirectories //
+          return removeDirectoryWithFiles(imagesDirectory)
+            .then(({ numberRemoved, message }) => {
+              return ServiceImage.deleteMany({ serviceId: serviceId})
+            })
+            .then(( { n }) => {
+              n ? deletedImages = n : 0
+              return Service.findOneAndDelete({ _id: serviceId })
+            })
+            .then((deletedService) => {
+              if (deletedService) {
+                return res.status(200).json({
+                  responseMsg: `Deleted Service ${deletedService.name} and ${deletedImages} Service Images`,
+                  deletedService: deletedService
+                });
+              } else {
+                return respondWithDBError(res, new Error("Can't resolve DELETE"));
+              }
+            })
+            .catch((error: Error) => {
+              return respondWithGeneralError(res, error.message, 500);
+            })
+        } else {
+          // no images present - uploaded with service //
+          return Service.findOneAndDelete({ _id: serviceId })
+            .then((deletedService) => {
+              if (deletedService) {
+                return res.status(200).json({
+                  responseMsg: `Deleted Service ${deletedService.name}`,
+                  deletedService: deletedService
+                })
+              } else {
+                return respondWithGeneralError(res, "Couldn't resolve Service", 500);
+              }
+            })
+            .catch((error) => {
+              return respondWithDBError(res, error);
+            })
+        } 
       } else {
         return respondWithInputError(res, "Can't find service to delete");
       }

@@ -1,5 +1,6 @@
 import { Response } from "express";
 import fs from "fs";
+import path from "path";
 
 export const respondWithInputError = (res: Response, msg?: string, status?: number): Promise<Response> => {
   return new Promise((resolve) =>{
@@ -36,6 +37,68 @@ export const deleteFile = (filePath: string): Promise<boolean> => {
     });
   });
 };
+
+export const resolveDirectoryOfImg = (absolutePath: string): string => {
+  const pathArr = absolutePath.split("/");
+  const pathArrLength = pathArr.length;
+  return pathArr.slice(0, pathArrLength - 1).join("/");
+};
+
+type RemoveResponse = {
+  success: boolean;
+  numberRemoved: number;
+  message: string;
+}
+export const removeDirectoryWithFiles = (directoryPath: string): Promise<RemoveResponse> => {
+  // files array and removed number //
+  let foundFiles: string[]; 
+
+  const removeFilesInDir = (files: string[]) => {
+    const promiseArr: Promise<void>[] = [];
+    for (let i = 0; i < files.length;  i++) {
+      const filePath = path.join(directoryPath, files[i]);
+      promiseArr.push(fs.promises.unlink(filePath));
+    }
+    return Promise.all(promiseArr);
+  };
+  
+  return new Promise<RemoveResponse>((resolve, reject) => {
+    let numberRemoved = 0;
+    return fs.promises.readdir(directoryPath)
+      .then((files) => {
+        // empty directory, remove it //
+        if (files.length === 0) {
+          return fs.promises.rmdir(directoryPath)
+            .then(() => {
+              resolve({ 
+                success: true, 
+                numberRemoved: numberRemoved,
+                message: `Removed empty directory ${directoryPath}` 
+              });
+            })
+            .catch((error) => {
+              reject(error);
+            });
+        } else {
+          return removeFilesInDir(files)
+            .then((response) => {
+              numberRemoved= response.length;
+              return fs.promises.rmdir(directoryPath);
+            })
+            .then(() => {
+              resolve({
+                success: true, 
+                numberRemoved: numberRemoved,
+                message: `Removed empty directory ${directoryPath}`
+              });
+            })
+            .catch((error) => {
+              reject(error);
+            });
+        }
+      });
+  });
+}
 
 export const normalizeImgUrl = (uploadPath: string): Promise<string> => {
   return new Promise((resolve) => {

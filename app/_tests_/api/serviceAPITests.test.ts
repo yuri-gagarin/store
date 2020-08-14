@@ -1,10 +1,13 @@
 import chaiHttp from "chai-http";
+import fs from "fs";
+import path from "path";
 import chai, { expect } from "chai";
 import faker from "faker";
 // server, models //
 import server from "../../server";
 import Service, { IService } from "../../models/Service";
 import { ServiceParams } from "../../controllers/ServicesController";
+import  ServiceImage, { IServiceImage } from "../../models/ServiceImage";
 // helpers //
 import { setupDB, clearDB } from "../helpers/dbHelpers";
 import { createServices, createServiceImages } from "../helpers/dataGeneration";
@@ -12,7 +15,7 @@ import { createServices, createServiceImages } from "../helpers/dataGeneration";
 chai.use(chaiHttp);
 
 describe ("Service API tests", () => {
-  let totalServices: number;
+  let totalServices: number; let totalServiceImages: number;
 
   before((done) => {
     setupDB()
@@ -20,6 +23,10 @@ describe ("Service API tests", () => {
       .then((services) => {
         totalServices = services.length;
         return createServiceImages(services)
+      })
+      .then((serviceImages) => {
+        totalServiceImages = serviceImages.length;
+        done();
       })
       .catch((error) => { done(error); });
   });
@@ -56,37 +63,14 @@ describe ("Service API tests", () => {
   // END generic GET request //
   // GET requests with queries tests //
   context("GET Requests with specific query options", () => {
-    describe("GET { '/api/services?name=x' }", () => {
-      let services: IService[], responseMsg: string;
-
-      it("Should GET all services", (done) => {
-        chai.request(server)
-          .get("/api/services")
-          .end((error, response) => {
-            if (error) done(error);
-            expect(response.status).to.equal(200);
-            expect(response.body).to.be.an("object");
-            services = response.body.services;
-            responseMsg = response.body.responseMsg;
-            done();
-          });
-      });
-      it("Should have the correct response", () => {
-        expect(responseMsg).to.be.a("string");
-        expect(services).to.be.an("array");
-      });
-      it("Should return the default number of Services", () => {
-        expect(services.length).to.equal(10);
-      });
-    });
-
+  
     describe("GET { '/api/services?price=X' }", () => {
       let services: IService[], responseMsg: string;
       const price = "asc"; 
 
       it("Should GET all services", (done) => {
         chai.request(server)
-          .get(`/api/services?name=${price}`)
+          .get(`/api/services?price=${price}`)
           .end((error, response) => {
             if (error) done(error);
             expect(response.status).to.equal(200);
@@ -133,7 +117,7 @@ describe ("Service API tests", () => {
         expect(services).to.be.an("array");
       });
       it("Should return the default number of Services", () => {
-        expect(services.length).to.equal(10);
+        expect(services.length).to.equal(limit);
       });
       it(`Should return Services by price ${price.toUpperCase()}`, () => {
         for (let i = 0; i < services.length - 1; i++) {
@@ -311,7 +295,7 @@ describe ("Service API tests", () => {
 
     });
   });
-  // END request for specific store tests //
+  // END request for specific service tests //
   // POST Requests tests //
   context("POST Request CREATE", () => {
     describe("POST { '/api/services/create' }", ()=> {
@@ -319,7 +303,7 @@ describe ("Service API tests", () => {
       const newService: ServiceParams = {
         name: faker.lorem.word(),
         description: faker.lorem.paragraphs(2),
-        price: "100", 
+        price: 100, 
         serviceImages: []
       };
       let createdService: IService;
@@ -361,17 +345,18 @@ describe ("Service API tests", () => {
     describe("PATCH { '/api/services/update/:_id' }", () => {
 
       let service: IService, editedService: IService;
-      const updateData: ServiceParams = {
-        name: faker.lorem.word(),
-        description: faker.lorem.paragraphs(1),
-        price: "200",
-        serviceImages: []
-      };
+      let updateData: ServiceParams; 
 
       before((done) => {
-        Service.find().limit(1)
+        Service.find().limit(1).populate("images")
           .then((services) => {
             service = services[0];
+            updateData = {
+              name: faker.lorem.word(),
+              description: faker.lorem.paragraphs(1),
+              price: 200,
+              serviceImages: service.images as IServiceImage[]
+            }
             done();
           })
           .catch((error) => done(error));
@@ -416,7 +401,7 @@ describe ("Service API tests", () => {
       let service: IService, deletedService: IService;
 
       before((done) => {
-        Service.find().limit(1)
+        Service.find().limit(1).populate("images")
           .then((services) => {
             service = services[0];
             done();
@@ -443,7 +428,7 @@ describe ("Service API tests", () => {
         expect(String(deletedService._id)).to.equal(String(service._id));
         done();
       });
-      it("Should DECREASE the number of {Service(s)} by 1", (done) => {
+      it("Should DECREASE the number of Service(s) by 1", (done) => {
         Service.countDocuments()
           .then((number) => {
             expect(number).to.equal(totalServices - 1);
@@ -451,6 +436,26 @@ describe ("Service API tests", () => {
             done();
           })
           .catch((err) => { done(err); });
+      });
+      it("Should DELETE ALL corresponding ServiceImages", (done) => {
+        ServiceImage.find({ serviceId: service._id })
+          .then((serviceImages) => {
+            expect(serviceImages.length).to.equal(0);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should DELETE all the corresponding image uploads and directory", (done) => {
+        const imageSubDir: string  = service._id.toString();
+        const imageDirectory = path.join(path.resolve(), "public", "uploads", "service_images", imageSubDir);
+        fs.access(imageDirectory, (err) => {
+          let accessError = err;
+          expect(accessError).to.not.be.null;
+          expect(accessError!.code === "ENOENT").to.equal(true);
+          done();
+        });
       });
     });
   });
