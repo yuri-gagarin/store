@@ -80,13 +80,13 @@ describe ("Service API tests", () => {
       });
     });
 
-    describe("GET { '/api/services?name=x' }", () => {
+    describe("GET { '/api/services?price=X' }", () => {
       let services: IService[], responseMsg: string;
-      const sort = "asc"; const limit = 5;
+      const price = "asc"; 
 
       it("Should GET all services", (done) => {
         chai.request(server)
-          .get(`/api/services?name=${sort}&limit=${limit}`)
+          .get(`/api/services?name=${price}`)
           .end((error, response) => {
             if (error) done(error);
             expect(response.status).to.equal(200);
@@ -100,25 +100,25 @@ describe ("Service API tests", () => {
         expect(responseMsg).to.be.a("string");
         expect(services).to.be.an("array");
       });
-      it(`Should return a correct number (${limit}) of Services`, () => {
-        expect(services.length).to.equal(limit);
+      it(`Should return the default number of Services`, () => {
+        expect(services.length).to.equal(10);
       });
-      it(`Should return Services sorted by alphabetically by name ${sort.toUpperCase()}`, () => {
+      it(`Should return Services sorted by price ${price.toUpperCase()}`, () => {
         for (let i = 0; i < services.length - 1; i++) {
-          const firstServiceName = services[i].name;
-          const secondServiceName = services[i + 1].name;
-          expect(firstServiceName <= secondServiceName).to.equal(true);
+          const firstServicePrice = services[i].price;
+          const secondServicePrice = services[i + 1].price;
+          expect(firstServicePrice <= secondServicePrice).to.equal(true);
         }
       });
     });
 
-    describe("GET { '/api/services?name=x&limit=x' }", () => {
+    describe("GET { '/api/services?price=x&limit=x' }", () => {
       let services: IService[], responseMsg: string;
-      const sort = "asc";
+      const price = "asc"; const limit = 5;
 
       it("Should GET all services", (done) => {
         chai.request(server)
-          .get(`/api/services?name=${sort}`)
+          .get(`/api/services?price=${price}&limit=${limit}`)
           .end((error, response) => {
             if (error) done(error);
             expect(response.status).to.equal(200);
@@ -135,11 +135,139 @@ describe ("Service API tests", () => {
       it("Should return the default number of Services", () => {
         expect(services.length).to.equal(10);
       });
-      it(`Should return Services sorted by alphabetically by name ${sort.toUpperCase()}`, () => {
+      it(`Should return Services by price ${price.toUpperCase()}`, () => {
+        for (let i = 0; i < services.length - 1; i++) {
+          const firstServicePrice = services[i].price;
+          const secondServicePrice = services[i + 1].price;
+          expect(firstServicePrice <= secondServicePrice).to.equal(true);
+        }
+      });
+    });
+
+    describe("GET { '/api/services?name=X' }", () => {
+      let services: IService[], responseMsg: string;
+      const name = "asc"; 
+
+      it("Should GET all services", (done) => {
+        chai.request(server)
+          .get(`/api/services?name=${name}`)
+          .end((error, response) => {
+            if (error) done(error);
+            expect(response.status).to.equal(200);
+            expect(response.body).to.be.an("object");
+            services = response.body.services;
+            responseMsg = response.body.responseMsg;
+            done();
+          });
+      });
+      it("Should have the correct response", () => {
+        expect(responseMsg).to.be.a("string");
+        expect(services).to.be.an("array");
+      });
+      it(`Should return the default number of Services`, () => {
+        expect(services.length).to.equal(10);
+      });
+      it(`Should return Services sorted by name ${name.toUpperCase()}`, () => {
         for (let i = 0; i < services.length - 1; i++) {
           const firstServiceName = services[i].name;
           const secondServiceName = services[i + 1].name;
           expect(firstServiceName <= secondServiceName).to.equal(true);
+        }
+      });
+    });
+
+    describe("GET { '/api/services?name=x&limit=x' }", () => {
+      let services: IService[], responseMsg: string;
+      const name = "asc"; const limit = 5;
+
+      it("Should GET all services", (done) => {
+        chai.request(server)
+          .get(`/api/services?name=${name}&limit=${limit}`)
+          .end((error, response) => {
+            if (error) done(error);
+            expect(response.status).to.equal(200);
+            expect(response.body).to.be.an("object");
+            services = response.body.services;
+            responseMsg = response.body.responseMsg;
+            done();
+          });
+      });
+      it("Should have the correct response", () => {
+        expect(responseMsg).to.be.a("string");
+        expect(services).to.be.an("array");
+      });
+      it(`Should return the correct number (${limit}) of Services`, () => {
+        expect(services.length).to.equal(limit);
+      });
+      it(`Should return Services by name ${name.toUpperCase()}`, () => {
+        for (let i = 0; i < services.length - 1; i++) {
+          const firstServiceName = services[i].name;
+          const secondServiceName = services[i + 1].name;
+          expect(firstServiceName <= secondServiceName).to.equal(true);
+        }
+      });
+    });
+
+    describe("GET { '/api/services?date=X' }", () => {
+      let services: IService[], responseMsg: string;
+      const date = "asc"; 
+
+      it("Should GET all services", (done) => {
+        chai.request(server)
+          .get(`/api/services?date=${date}`)
+          .end((error, response) => {
+            if (error) done(error);
+            expect(response.status).to.equal(200);
+            expect(response.body).to.be.an("object");
+            services = response.body.services;
+            responseMsg = response.body.responseMsg;
+            done();
+          });
+      });
+      it("Should have the correct response", () => {
+        expect(responseMsg).to.be.a("string");
+        expect(services).to.be.an("array");
+      });
+      it(`Should return the default number of Services`, () => {
+        expect(services.length).to.equal(10);
+      });
+      it(`Should return Services sorted by date ${date.toUpperCase()}`, () => {
+        for (let i = 0; i < services.length - 1; i++) {
+          const firstServiceCreatedAt = services[i].createdAt;
+          const secondServiceCreatedAt = services[i + 1].createdAt;
+          expect(firstServiceCreatedAt <= secondServiceCreatedAt).to.equal(true);
+        }
+      });
+    });
+
+    describe("GET { '/api/services?date=x&limit=x' }", () => {
+      let services: IService[], responseMsg: string;
+      const date = "asc"; const limit = 5;
+
+      it("Should GET all services", (done) => {
+        chai.request(server)
+          .get(`/api/services?date=${date}&limit=${limit}`)
+          .end((error, response) => {
+            if (error) done(error);
+            expect(response.status).to.equal(200);
+            expect(response.body).to.be.an("object");
+            services = response.body.services;
+            responseMsg = response.body.responseMsg;
+            done();
+          });
+      });
+      it("Should have the correct response", () => {
+        expect(responseMsg).to.be.a("string");
+        expect(services).to.be.an("array");
+      });
+      it(`Should return the correct number (${limit}) of Services`, () => {
+        expect(services.length).to.equal(limit);
+      });
+      it(`Should return Services by date ${date.toUpperCase()}`, () => {
+        for (let i = 0; i < services.length - 1; i++) {
+          const firstServiceCreatedAt = services[i].createdAt;
+          const secondServiceCreatedAt = services[i + 1].createdAt;
+          expect(firstServiceCreatedAt <= secondServiceCreatedAt).to.equal(true);
         }
       });
     });
