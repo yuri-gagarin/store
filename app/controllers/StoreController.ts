@@ -234,6 +234,7 @@ class StoresController implements IGenericController {
             }
           })
           .catch((err: Error) => {
+            console.log(err)
             return respondWithGeneralError(res, err.message, 400);
           });
       } else {

@@ -44,7 +44,7 @@ export const resolveDirectoryOfImg = (absolutePath: string): string => {
   return pathArr.slice(0, pathArrLength - 1).join("/");
 };
 
-type RemoveResponse = {
+export type RemoveResponse = {
   success: boolean;
   numberRemoved: number;
   message: string;

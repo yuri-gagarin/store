@@ -9,10 +9,12 @@ import Store, { IStore } from "../../models/Store";
 import { IStoreImage } from "../../models/StoreImage";
 import StoreImage from "../../models/StoreImage";
 import StoreItem, { IStoreItem } from "../../models/StoreItem";
+import StoreItemImage, { IStoreItemImage } from "../../models/StoreItemImage";
 import { StoreParams } from "../../controllers/StoreController";
 // helpers
 import { setupDB, clearDB } from "../helpers/dbHelpers";
-import { createStores, createStoreItems, createStoreImages } from "../helpers/dataGeneration";
+import { createStores, createStoreItems, createStoreImages, createStoreItemImages } from "../helpers/dataGeneration";
+import { findSourceMap } from "module";
 
 chai.use(chaiHttp);
 
@@ -408,15 +410,26 @@ describe ("Store API tests", () => {
   // DELETE requests tests //
   context("DELETE Request REMOVE", () => {
     describe("DELETE { '/api/stores/delete/:_id' }", () => {
-      let store: IStore, deletedStore: IStore;
+      let store: IStore,  deletedStore: IStore;
+      let storeItems: IStoreItem[], storeItemImages: IStoreItemImage[];
+
 
       before((done) => {
-        Store.find().limit(1)
-          .then((stores) => {
-            store = stores[0];
+        createStores(1)
+          .then((createdStores) => {
+            store = createdStores[0];
+            return createStoreItems(10, store._id);
+          })
+          .then((createdStoreItems) => {
+            storeItems = createdStoreItems;
+            return createStoreItemImages(createdStoreItems, 10);
+          })
+          .then((createdStoreItemImages) => {
             done();
           })
-          .catch((err) => { done(err); });
+          .catch((err) => {
+            done(err);
+          })
       });
 
       it("Should successfully delete a {Store}", (done) => {
@@ -445,7 +458,7 @@ describe ("Store API tests", () => {
           })
           .catch((err) => { done(err); });
       });
-      it("Should DELETE all the corresponding StoreImages", (done) => {
+      it("Should DELETE all the corresponding StoreImages from the database", (done) => {
         StoreImage.find({ storeId: store._id})
           .then((storeImages) => {
             expect(storeImages.length).to.equal(0);
@@ -453,7 +466,7 @@ describe ("Store API tests", () => {
           })
           .catch((err) => { done(err); });
       });
-      it("Should DELETE all the corresponding image uploads and directory", (done) => {
+      it("Should DELETE all the corresponding Store image uploads and directory", (done) => {
         const imageSubDir: string  = store._id.toString();
         const imageDirectory = path.join(path.resolve(), "public", "uploads", "store_images", imageSubDir);
         fs.access(imageDirectory, (err) => {
@@ -463,13 +476,21 @@ describe ("Store API tests", () => {
           }
         });
       });
-      it("Should DELETE all the corresponding Store Items", (done) => {
+      it("Should DELETE all the corresponding Store Items from the database", (done) => {
         StoreItem.find({ storeId: store._id })
           .then((storeItems) => {
             expect(storeItems.length).to.equal(0);
             done();
           })
           .catch((err) => { done(err) });
+      });
+      it("Should DELETE all the corresponding Store Item image uploads and their directories", () => {
+        const imageSubDirs: string[] = storeItems.map((item) => item._id.toString());
+        for (const subDir of imageSubDirs) {
+          const imageDirectory = path.join(path.resolve(), "public", "uploads", "store_item_images", subDir);
+          let result = fs.accessSync(imageDirectory);
+          console.log(result);
+        }
       });
     });
   });
