@@ -111,9 +111,9 @@ export const resolveStoreItemImgDirectories = (storeItemImages: IStoreItemImage[
   return directoriesToDelete;
 };
 
-export const normalizeImgUrl = (uploadPath: string): Promise<string> => {
+export const normalizeImgUrl = (uploadPath: string, fileName: string): Promise<string> => {
   return new Promise((resolve) => {
-    const normaLizedUrl = "/" + (uploadPath.split("/").slice(1).join("/"));
+    const normaLizedUrl = "/" + uploadPath + "/" + fileName;
     resolve(normaLizedUrl);
   });
 };

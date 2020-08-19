@@ -22,7 +22,7 @@ class StoreItemImageUploadController implements IGenericImgUploadCtrl {
     let newImage: IStoreItemImage;
 
     if (success && imagePath && absolutePath) {
-      return normalizeImgUrl(absolutePath)
+      return normalizeImgUrl(imagePath, fileName)
         .then((imgUrl) => {
           return StoreItemImage.create({
             storeItemId: storeItemId,

@@ -33,12 +33,12 @@ describe("StoreImage API tests", () => {
       .catch((error) => { done(error); });
   });
   after((done) => {
-    clearDB().then(() => { done(); }).catch((err) => { done(err); });
-
+    // clearDB().then(() => { done(); }).catch((err) => { done(err); });
+    done();
   });
 
   describe("POST '/api/store_images/upload'", () => {
-    let updatedStore: IStore; 
+    let updatedStore: IStore; let imageDirectory: string;
     it("Should successfully upload and create StoreImage model", (done) => {
       chai.request(server)
         .post("/api/uploads/store_images/" + createdStore._id)
@@ -58,7 +58,16 @@ describe("StoreImage API tests", () => {
       expect(createdImage.storeId).to.equal(updatedStore._id);
       done();
     });
-    it("Should place the image into the correct directory", (done) => {
+    it("Should place the image into the correct directory with correct file name", (done) => {
+      imageDirectory = path.join(path.resolve(), "public", "uploads", "store_images", createdStore._id.toString())
+      fs.readdir(imageDirectory, (err, files) => {
+        expect(err).to.equal(null);
+        expect(files.length).to.equal(1);
+        expect(files[0]).to.equal(createdImage.fileName);
+        done();
+      });
+    });
+    it("Should set the correct absolute path on the Image model", (done) => {
       fs.access(createdImage.absolutePath, (err) => {
         expect(err).to.equal(null);
         done();

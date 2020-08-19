@@ -23,7 +23,7 @@ class ServiceImgUploadController implements IGenericImgUploadCtrl {
     let newImage: IServiceImage;
 
     if (success && imagePath && absolutePath) {
-      return normalizeImgUrl(absolutePath)
+      return normalizeImgUrl(imagePath, fileName)
         .then((imgUrl) => {
           return ServiceImage.create({
             serviceId: serviceId,
