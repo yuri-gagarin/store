@@ -35,6 +35,36 @@ describe ("Store API tests", () => {
       .then((storeItems) => {
         return createStoreItemImages(storeItems)
       })
+      .then(() => {
+        const imgPath = path.join(path.resolve("/public/uploads/store_images"));
+        return new Promise((res, rej) => {
+          fs.access(imgPath, (err) => {
+            if (err && err.code === "ENOENT") {
+              res(false);
+            } else {
+              fs.rmdir(imgPath, { recursive: true }, (err) => {
+                if (err) rej(new Error("Something went wrong"));
+                res(true)
+              });
+            }
+          });
+        });
+      })
+      .then((result) => {
+        const imgPath = path.join(path.resolve("/public/uploads/store_item_images"));
+        return new Promise((res, rej) => {
+          fs.access(imgPath, (err) => {
+            if (err && err.code === "ENOENT") {
+              res(false);
+            } else {
+              fs.rmdir(imgPath, { recursive: true }, (err) => {
+                if (err) rej(new Error("Something went wrong"));
+                res(true)
+              });
+            }
+          });
+        });
+      })  
       .then((_) => {
         done();
       })
@@ -506,16 +536,18 @@ describe ("Store API tests", () => {
           })
           .catch((err) => { done(err) });
       });
-      /*
+      
       it("Should DELETE all the corresponding Store Item image uploads and their directories", () => {
         const imageSubDirs: string[] = storeItems.map((item) => item._id.toString());
         for (const subDir of imageSubDirs) {
           const imageDirectory = path.join(path.resolve(), "public", "uploads", "store_item_images", subDir);
-          let result = fs.accessSync(imageDirectory);
-          console.log(result);
+          try {
+            fs.accessSync(imageDirectory);
+          } catch (error) {
+            expect(error.code === "ENOENT");
+          }
         }
       });
-      */
     });
   });
   // END DELETE requests tests //
