@@ -35,36 +35,6 @@ describe ("Store API tests", () => {
       .then((storeItems) => {
         return createStoreItemImages(storeItems)
       })
-      .then(() => {
-        const imgPath = path.join(path.resolve("/public/uploads/store_images"));
-        return new Promise((res, rej) => {
-          fs.access(imgPath, (err) => {
-            if (err && err.code === "ENOENT") {
-              res(false);
-            } else {
-              fs.rmdir(imgPath, { recursive: true }, (err) => {
-                if (err) rej(new Error("Something went wrong"));
-                res(true)
-              });
-            }
-          });
-        });
-      })
-      .then((result) => {
-        const imgPath = path.join(path.resolve("/public/uploads/store_item_images"));
-        return new Promise((res, rej) => {
-          fs.access(imgPath, (err) => {
-            if (err && err.code === "ENOENT") {
-              res(false);
-            } else {
-              fs.rmdir(imgPath, { recursive: true }, (err) => {
-                if (err) rej(new Error("Something went wrong"));
-                res(true)
-              });
-            }
-          });
-        });
-      })  
       .then((_) => {
         done();
       })
@@ -72,6 +42,45 @@ describe ("Store API tests", () => {
   });
   after((done) => {
     clearDB()
+      .then(() => {
+        const imgPath = path.join(path.resolve(), "public", "uploads", "store_images");
+        return new Promise((res, rej) => {
+          fs.access(imgPath, (err) => {
+            if (err && err.code === "ENOENT") {
+              console.error(err)
+              res(false);
+            } else {
+              fs.readdir(imgPath, (err, files) => {
+                if (files.length > 0) {
+                  for (const file of files) {
+                    fs.rmdirSync(path.join(imgPath, file), { recursive: true })
+                  }
+                  res(true)
+                }
+              });
+            }
+          });
+        });
+      })
+      .then((result) => {
+        const imgPath = path.join(path.resolve(), "public", "uploads", "store_item_images");
+        return new Promise((res, rej) => {
+          fs.access(imgPath, (err) => {
+            if (err && err.code === "ENOENT") {
+              res(false);
+            } else {
+              fs.readdir(imgPath, (err, files) => {
+                if (files.length > 0) {
+                  for (const file of files) {
+                    fs.rmdirSync(path.join(imgPath, file), { recursive: true })
+                  }
+                  res(true)
+                }
+              });
+            }
+          });
+        });
+      })  
       .then(() => {
         done();
       }) 
