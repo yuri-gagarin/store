@@ -1,6 +1,8 @@
 import { Response } from "express";
 import fs from "fs";
 import path from "path";
+import { IStoreItemImage } from "../../models/StoreItemImage";
+import { IStore } from "../../models/Store";
 
 export const respondWithInputError = (res: Response, msg?: string, status?: number): Promise<Response> => {
   return new Promise((resolve) =>{
@@ -98,7 +100,16 @@ export const removeDirectoryWithFiles = (directoryPath: string): Promise<RemoveR
         }
       });
   });
-}
+};
+
+export const resolveStoreItemImgDirectories = (storeItemImages: IStoreItemImage[]): string[] => {
+  // return unique ids //
+  const storeItemIds = storeItemImages.map((img) => img.storeItemId.toString()).filter((value, index, self) => self.indexOf(value) === index);
+  const directoriesToDelete = storeItemIds.map((storeItemId) => {
+    return path.join(path.resolve(), "public", "uploads", "store_item_images", storeItemId);
+  });
+  return directoriesToDelete;
+};
 
 export const normalizeImgUrl = (uploadPath: string): Promise<string> => {
   return new Promise((resolve) => {

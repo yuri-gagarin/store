@@ -97,7 +97,6 @@ export const createStoreItems = (numOfStoreItems: CreateStoreItemArg, storeId?: 
     return Store.find({})
       .then((stores) => {
       for (let i = 0; i < stores.length; i++) {
-        console.log(101)
         for (let j = 0; j < numOfItems; j++) {
           createdStoreItems.push(createStoreItem(stores[i]))
         }

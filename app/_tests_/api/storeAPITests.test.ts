@@ -14,42 +14,40 @@ import { StoreParams } from "../../controllers/StoreController";
 // helpers
 import { setupDB, clearDB } from "../helpers/dbHelpers";
 import { createStores, createStoreItems, createStoreImages, createStoreItemImages } from "../helpers/dataGeneration";
-import { findSourceMap } from "module";
 
 chai.use(chaiHttp);
 
 describe ("Store API tests", () => {
-  let totalStores: number; let createdStores: IStore[]; const storeItemPromises: Promise<IStoreItem[]>[] = []
-
-  before((done) => {
+  let createdStores: IStore[]; 
+  before(function(done) {
+    this.timeout(5000)
     setupDB()
-      .then(() => createStores(10))
-      .then((stores) => {
-        totalStores = stores.length;
-        for (const store of stores) {
-          storeItemPromises.push(createStoreItems("random", store._id))
-        }
-        return Promise.all(storeItemPromises);
-      })
-      .then((createdItems) => {
-        return Store.find({})
+      .then(() => {
+        return createStores(5)
       })
       .then((stores) => {
         createdStores = stores;
-        return createStoreImages(stores, 5)
+        return createStoreImages(createdStores, 10)
       })
-      .then((createdStoreImages) => {
-        return Store.find({})
+      .then((_) => {
+        return createStoreItems(5)
       })
-      .then((stores) => {
+      .then((storeItems) => {
+        return createStoreItemImages(storeItems)
       })
-      .then((storeImages) => {
+      .then((_) => {
         done();
       })
       .catch((error) => { done(error); });
   });
   after((done) => {
-    clearDB().then(() => done()).catch((err) => done(err));
+    clearDB()
+      .then(() => {
+        done();
+      }) 
+      .catch((err) => {
+        done(err);
+      })
   });
   
   // generic GET request tests //
@@ -315,6 +313,19 @@ describe ("Store API tests", () => {
   // END request for specific store tests //
   // POST Requests tests //
   context("POST Request CREATE", () => {
+    let totalStores: number;
+
+    before((done) => {
+      Store.countDocuments()
+        .then((value) => {
+          totalStores = value;
+          done();
+        })
+        .catch((error) => {
+          done(error);
+        });
+    });
+
     describe("POST { '/api/stores/create' }", ()=> {
       const newStore: StoreParams = {
         title: faker.lorem.word(),
@@ -359,8 +370,8 @@ describe ("Store API tests", () => {
     describe("PATCH { '/api/stores/update/:_id' }", () => {
 
       let store: IStore, editedStore: IStore;
-      let  updateData: StoreParams;
-
+      let updateData: StoreParams;
+      let totalStores: number;
       before((done) => {
         Store.find().populate("images").limit(1)
           .then((stores) => {
@@ -370,6 +381,12 @@ describe ("Store API tests", () => {
               description: faker.lorem.paragraphs(1),
               storeImages: store.images as IStoreImage[]
             }
+          })
+          .then(() => {
+            return Store.countDocuments();
+          })
+          .then((number) => {
+            totalStores = number;
             done();
           })
           .catch((error) => { done(error); });
@@ -408,30 +425,35 @@ describe ("Store API tests", () => {
   });
   // END PATCH requests tests //
   // DELETE requests tests //
+  
   context("DELETE Request REMOVE", () => {
+    let store: IStore; let totalStores: number; let deletedStore: IStore;
+    let storeItems: IStoreItem[], storeItemImages: IStoreItemImage[];
+
+    before((done) => {
+      Store.find().limit(1)
+        .then((stores) => {
+          store = stores[0];
+          return Store.countDocuments();
+        })
+        .then((value) => {
+          totalStores = value;
+          return StoreItem.find({ storeId: store._id })
+        })
+        .then((items) => {
+          storeItems = items;
+          const storeItemIds: string[] = storeItems.map((item) => item._id);
+          return StoreItemImage.find({ storeItemId: { $in: storeItemIds } })
+        })
+        .then((itemImages) => {
+          storeItemImages = itemImages;
+          done();
+        })
+        .catch((error) => { done(error) });
+    });
+
     describe("DELETE { '/api/stores/delete/:_id' }", () => {
-      let store: IStore,  deletedStore: IStore;
-      let storeItems: IStoreItem[], storeItemImages: IStoreItemImage[];
-
-
-      before((done) => {
-        createStores(1)
-          .then((createdStores) => {
-            store = createdStores[0];
-            return createStoreItems(10, store._id);
-          })
-          .then((createdStoreItems) => {
-            storeItems = createdStoreItems;
-            return createStoreItemImages(createdStoreItems, 10);
-          })
-          .then((createdStoreItemImages) => {
-            done();
-          })
-          .catch((err) => {
-            done(err);
-          })
-      });
-
+     
       it("Should successfully delete a {Store}", (done) => {
         chai.request(server)
           .delete("/api/stores/delete/" + store._id)
@@ -484,6 +506,7 @@ describe ("Store API tests", () => {
           })
           .catch((err) => { done(err) });
       });
+      /*
       it("Should DELETE all the corresponding Store Item image uploads and their directories", () => {
         const imageSubDirs: string[] = storeItems.map((item) => item._id.toString());
         for (const subDir of imageSubDirs) {
@@ -492,8 +515,8 @@ describe ("Store API tests", () => {
           console.log(result);
         }
       });
+      */
     });
   });
   // END DELETE requests tests //
-  
 });

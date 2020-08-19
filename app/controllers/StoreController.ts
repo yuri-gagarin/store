@@ -5,9 +5,11 @@ import { Types } from "mongoose";
 import Store, { IStore } from "../models/Store";
 import StoreImage, { IStoreImage } from "../models/StoreImage";
 import { IGenericController } from "./helpers/controllerInterfaces";
+import { RemoveResponse, resolveStoreItemImgDirectories } from "./helpers/controllerHelpers"
 // helpers //
-import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
+import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError, resolveDirectoryOfImg, removeDirectoryWithFiles } from "./helpers/controllerHelpers";
 import StoreItem from "../models/StoreItem";
+import StoreItemImage from "../models/StoreItemImage";
 
 interface IGenericStoreResponse {
   responseMsg: string;
@@ -186,61 +188,88 @@ class StoresController implements IGenericController {
 
   delete (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
    const { _id : storeId } = req.params;
-   let deletedImages: number; let deletedStoreItems: number;
+   let numOfDeletedStoreImages: number; 
+   let numOfDeletedStoreItems: number;
+   let numOfDeletedStoreItemImages: number;
+   let storeItemIds: string[];
+
    if (!storeId) {
      return respondWithInputError(res, "Can't find store");
    }
-   return Store.findOne({ _id: storeId})
-    .populate("images").exec()
-    .then((store) => {
-      // first delete all store images //
-      if (store) {
-        const storeImgPaths = store.images.map((image) => {
-          return (image as IStoreImage).absolutePath;
-        });
-        const storeImgIds: Types.ObjectId[] = store.images.map((image) => {
-          return (image as IStoreImage)._id;
-        });
-        const deletePromises: Promise<boolean>[] = [];
-        for (const path of storeImgPaths) {
-          deletePromises.push(deleteFile(path));
+   else {
+    return StoreImage.find({ storeId: storeId })
+      .then((storeImages) => {
+        if (storeImages.length > 0) {
+          const imagesDirectory = resolveDirectoryOfImg(storeImages[0].absolutePath)
+          return removeDirectoryWithFiles(imagesDirectory);
+        } else {
+          return Promise.resolve({ success: true, numberRemoved: 0, message: "No Images to remove" });
         }
-        return Promise.all(deletePromises)
-          .then(() => {
-            // remove empty directory //
-            const directory = path.join(path.resolve("public", "uploads", "store_images", storeId));
-            return fs.promises.rmdir(directory);
-          })
-          .then(() => {
-            return StoreItem.deleteMany({ storeId: storeId })
-          })
-          .then(({ n }) => {
-            n ? deletedStoreItems = n : 0;
-            return StoreImage.deleteMany({ storeId: storeId })
-          })
-          .then(({ n }) => {
-            n ? deletedImages = n : 0;
-            return Store.findOneAndDelete({ _id: storeId });
-          })
-          .then((store) => {
-            if (store) {
-              return res.status(200).json({
-                responseMsg: "Deleted the store and " + deletedImages,
-                deletedStore: store
-              });
+      }) 
+      .then(({ success, numberRemoved, message }: RemoveResponse) => {
+        // delete StoreImage models from DB //
+        return StoreImage.deleteMany({ storeId: storeId });
+      })
+      .then(({ n }) => {
+        numOfDeletedStoreImages = n ? n : 0;
+        // find and delete StoreItems //
+        return StoreItem.find({ storeId: storeId });
+      })
+      .then((storeItems) => {
+        if (storeItems.length > 0) {
+          storeItemIds = storeItems.map((storeItem) => storeItem._id);
+          return StoreItem.deleteMany({ storeId: storeId });
+        } else {
+          return Promise.resolve({ n: 0 })
+        }
+      })
+      .then(({ n }) => {
+        numOfDeletedStoreItems = n ? n : 0;
+        // deal with potential store item images //
+        return StoreItemImage.find({ storeItemId: { $in: storeItemIds } });
+      })
+      .then((storeItemImages) => {
+        if (storeItemImages.length > 0) {
+          // proceed with removing images and data //
+          // resolve directories first //
+          const directoriesToDelete: string[] = resolveStoreItemImgDirectories(storeItemImages);
+          const removeResponses: Promise<RemoveResponse>[] = []; 
+          for (const directory of directoriesToDelete) {
+            removeResponses.push(removeDirectoryWithFiles(directory));
+          }
+          return Promise.all(removeResponses);
+        } else {
+          Promise.resolve<[RemoveResponse]>([{ success: true, numberRemoved: 0, message: "No Store Item Images to remove" }]);
+        }
+      })  
+      .then((response) => {
+        if (response && response.length > 0) {
+          const totalStoreItemImgsDeleted: RemoveResponse = response.reduce((prev, next) => { 
+            return {
+              numberRemoved: prev.numberRemoved + next.numberRemoved,
+              success: true,
+              message: `Total removed`
             }
-            else {
-              return respondWithDBError(res, new Error("Can't resolve delete"));
-            }
-          })
-          .catch((err: Error) => {
-            console.log(err)
-            return respondWithGeneralError(res, err.message, 400);
           });
-      } else {
-        return respondWithInputError(res, "Can't find store to delete");
-      }
-    });
+          return StoreItemImage.deleteMany({ storeItemId: { $in: storeItemIds }})
+        } else {
+          return Promise.resolve({ n: 0 });
+        }
+      })
+      .then(({ n }) => {
+        return Store.findOneAndDelete({ _id: storeId })
+      })
+      .then((deletedStore) => {
+        return res.status(200).json({
+          responseMsg: `Removed Store`,
+          deletedStore: deletedStore!
+        });
+      })
+      .catch((error) => {
+        console.log(error)
+        return respondWithDBError(res, error);
+      })
+    }
   }
 }
 
