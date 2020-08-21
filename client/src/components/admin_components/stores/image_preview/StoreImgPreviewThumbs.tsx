@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Icon, Image } from "semantic-ui-react";
 // css  imports //
 import "./css/storeImgPreviewHolder.css";

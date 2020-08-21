@@ -229,7 +229,7 @@ export const deleteStore = (_id: string, dispatch: Dispatch<AppAction>, state: I
 
 export const uploadStoreImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<AppAction>): Promise<boolean> => {
   console.log(imageFile)
-  const { currentStoreData, loadedStores } = state.storeState;
+  const { loadedStores } = state.storeState;
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/uploads/store_images/" + _id,
@@ -239,7 +239,7 @@ export const uploadStoreImage = (_id: string, imageFile: FormData, state: IGloba
   return axios.request<IStoreImgServerResData, IStoreImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const { responseMsg, newStoreImage, updatedStore } = data;
+      const { responseMsg, updatedStore } = data;
 
       const updatedStores = loadedStores.map((store) => {
         if (store._id === updatedStore._id) {
@@ -269,7 +269,7 @@ export const uploadStoreImage = (_id: string, imageFile: FormData, state: IGloba
 };
 
 export const deleteStoreImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<AppAction>): Promise<boolean> => {
-  const { loadedStores, currentStoreData } = state.storeState; 
+  const { loadedStores } = state.storeState; 
   const { _id: storeId } = state.storeState.currentStoreData;
 
   const requestOptions: AxiosRequestConfig = {
@@ -280,7 +280,7 @@ export const deleteStoreImage = (imgId: string, state: IGlobalAppState, dispatch
   return axios.request<IStoreImgServerResData, IStoreImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const { responseMsg, deletedStoreImage, updatedStore } = data;
+      const { responseMsg, updatedStore } = data;
       
      
       const updatedStores = loadedStores.map((store) => {

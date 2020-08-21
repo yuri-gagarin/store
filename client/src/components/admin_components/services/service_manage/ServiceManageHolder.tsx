@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Grid } from "semantic-ui-react";
 // additional components //
 import ServiceFormHolder from "../forms/ServiceFormHolder";
@@ -31,7 +31,7 @@ const ServiceManageHolder: React.FC<Props> = ({ state, dispatch, history }): JSX
           setPageLoaded(true);
         }
       });
-  }, []); 
+  }, [dispatch]); 
 
   if (pageLoaded) {
     return (

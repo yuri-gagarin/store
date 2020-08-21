@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { Dropdown, DropdownProps } from "semantic-ui-react";
 // actions and state //
-import { getAllStores, getStore } from "../../stores/actions/APIstoreActions";
+import { getAllStores } from "../../stores/actions/APIstoreActions";
 import { setStoreByOptions } from "../../stores/actions/uiStoreActions";
 import { IGlobalAppState, AppAction } from "../../../../state/Store";
 // helpers //
@@ -18,6 +18,7 @@ type DropdownData = {
 }
 const StoreNameDropDown: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   const [ dropdownState, setDropdownState ] = useState<DropdownData[]>();
+  const [ disabled, setDisabled ] = useState<boolean>(true);
   const { loadedStores } = state.storeState;
 
   const handleSearchChange = (e: React.SyntheticEvent, data: DropdownProps): void => {
@@ -38,7 +39,10 @@ const StoreNameDropDown: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
     });
     setDropdownState(() => {
       return [ ...dropdownData ];
-    })
+    });
+    if (loadedStores.length > 0) {
+      setDisabled(false);
+    }
   }, [loadedStores]);
 
   return (
@@ -47,6 +51,7 @@ const StoreNameDropDown: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
       selection
       onChange={handleSearchChange}
       options={dropdownState}
+      disabled={disabled}
     />
   )
 };

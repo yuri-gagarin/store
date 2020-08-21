@@ -20,9 +20,10 @@ export const setStoreByOptions = (optionsObject: StoreSearchData, dispatch: Disp
   const loadedStores = state.storeState.loadedStores;
   if (title) {
     newCurrenstStore = loadedStores.filter((store) => store._id === _id)[0];
-  }
-  else if (newest) {
+  } else if (newest) {
     // sort by newest and return newest //
+  } else if (oldest) {
+    // sort by oldest and return oldest //
   }
   dispatch({ type: "SET_CURRENT_STORE", payload: {
     currentStoreData: newCurrenstStore ? newCurrenstStore : state.storeState.currentStoreData

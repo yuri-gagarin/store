@@ -56,10 +56,13 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
     setFormState({
       ...formState,
       details: e.target.value
-    })
+    });
   };
-  const handleCategoryChange = (category: string): void => {
-
+  const handleCategoryChange = (categories: string[]): void => {
+    setFormState({
+      ...formState,
+      categories: [ ...categories ]
+    });
   };
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -123,13 +126,16 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
             value={formState.price}
           />
         </Form.Field>
-        <StoreItemCategories _handleCategoryChange={handleCategoryChange} />
+        <Form.Field>
+          <label>Categories</label>
+          <StoreItemCategories _handleCategoryChange={handleCategoryChange} />
+        </Form.Field>
         <Form.Field
           control={TextArea}
           label='Store Item Details'
           onChange={handleDetailsChange}
           placeholder='Store Item details here...'
-          value={formState.description}
+          value={formState.details}
          />
         <Form.Field
           control={TextArea}

@@ -12,7 +12,7 @@ interface Props {
 }
 
 const StorePreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
-  const { loadedStores, loading } = state.storeState;
+  const { loadedStores } = state.storeState;
   // local state //
   const [ dataLoaded, setDataLoaded ] = useState<boolean>(false);
 
@@ -21,7 +21,7 @@ const StorePreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =
       .then((success) => {
         setDataLoaded(true);
       });
-  }, []);
+  }, [dispatch]);
 
   return (
     dataLoaded ?

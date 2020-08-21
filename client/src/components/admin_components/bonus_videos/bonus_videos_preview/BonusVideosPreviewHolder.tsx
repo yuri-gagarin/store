@@ -19,7 +19,7 @@ const BonusVideosPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Ele
   const { loadedBonusVideos } = state.bonusVideoState;
   useEffect(() => {
     getAllBonusVideos(dispatch);
-  }, []);
+  }, [dispatch]);
 
   return (
     <Grid stackable padded columns={2}>

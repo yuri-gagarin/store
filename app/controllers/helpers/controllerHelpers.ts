@@ -4,10 +4,11 @@ import path from "path";
 import { IStoreItemImage } from "../../models/StoreItemImage";
 import { IStore } from "../../models/Store";
 
-export const respondWithInputError = (res: Response, msg?: string, status?: number): Promise<Response> => {
+export const respondWithInputError = (res: Response, msg?: string, status?: number, messages?: string[]): Promise<Response> => {
   return new Promise((resolve) =>{
     return resolve(res.status(status ? status : 400).json({
-      responseMsg: msg ? msg : "Seems like an error occured"
+      responseMsg: msg ? msg : "Seems like an error occured",
+      messages: messages ? messages : ""
     }));
   });
 };

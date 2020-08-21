@@ -191,7 +191,7 @@ export const deleteProduct = (_id: string, dispatch: Dispatch<AppAction>, state:
 };
 
 export const uploadProductImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<AppAction>): Promise<boolean> => {
-  const { currentProductData, loadedProducts } = state.productState;
+  const { loadedProducts } = state.productState;
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/uploads/product_images/" + _id,
@@ -201,7 +201,7 @@ export const uploadProductImage = (_id: string, imageFile: FormData, state: IGlo
   return axios.request<IProductImgServerResData, IProductImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const { responseMsg, newProductImage, updatedProduct } = data;
+      const { responseMsg, updatedProduct } = data;
 
       const updatedProducts = loadedProducts.map((product) => {
         if (product._id === updatedProduct._id) {
@@ -231,7 +231,7 @@ export const uploadProductImage = (_id: string, imageFile: FormData, state: IGlo
 };
 
 export const deleteProductImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<AppAction>): Promise<boolean> => {
-  const { loadedProducts, currentProductData } = state.productState; 
+  const { loadedProducts } = state.productState; 
   const { _id: productId } = state.productState.currentProductData;
 
   const requestOptions: AxiosRequestConfig = {

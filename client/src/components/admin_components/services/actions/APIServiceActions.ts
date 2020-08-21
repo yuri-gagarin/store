@@ -191,7 +191,7 @@ export const deleteService = (_id: string, dispatch: Dispatch<AppAction>, state:
 };
 
 export const uploadServiceImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<AppAction>): Promise<boolean> => {
-  const { currentServiceData, loadedServices } = state.serviceState;
+  const { loadedServices } = state.serviceState;
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/uploads/service_images/" + _id,
@@ -201,7 +201,7 @@ export const uploadServiceImage = (_id: string, imageFile: FormData, state: IGlo
   return axios.request<IServiceImgServerResData, IServiceImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const { responseMsg, newServiceImage, updatedService } = data;
+      const { responseMsg, updatedService } = data;
 
       const updatedServices = loadedServices.map((service) => {
         if (service._id === updatedService._id) {
@@ -231,7 +231,7 @@ export const uploadServiceImage = (_id: string, imageFile: FormData, state: IGlo
 };
 
 export const deleteServiceImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<AppAction>): Promise<boolean> => {
-  const { loadedServices, currentServiceData } = state.serviceState; 
+  const { loadedServices } = state.serviceState; 
   const { _id: serviceId } = state.serviceState.currentServiceData;
 
   const requestOptions: AxiosRequestConfig = {
@@ -242,7 +242,7 @@ export const deleteServiceImage = (imgId: string, state: IGlobalAppState, dispat
   return axios.request<IServiceImgServerResData, IServiceImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const { responseMsg, deletedServiceImage, updatedService } = data;
+      const { responseMsg, updatedService } = data;
       
      
       const updatedServices = loadedServices.map((service) => {

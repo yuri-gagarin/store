@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
-import { Types } from "mongoose";
+import { Types, isValidObjectId } from "mongoose";
 import Store, { IStore } from "../models/Store";
 import StoreItem, { IStoreItem } from "../models/StoreItem";
 import StoreItemImage, { IStoreItemImage } from "../models/StoreItemImage";
 import { IGenericController } from "./helpers/controllerInterfaces";
 // helpers //
 import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
+import { validateStoreItems } from "./validators/formValidators";
 
 interface IGenericStoreImgRes {
   responseMsg: string;
@@ -17,14 +18,14 @@ interface IGenericStoreImgRes {
   storeItems?: IStoreItem[];
 }
 export type StoreItemParams = {
-  storeId: string;
-  storeName: string;
-  name: string;
-  description: string;
-  details: string;
-  price: string | number;
-  categories: string[];
-  storeItemImages: IStoreItemImage[];
+  storeId?: string;
+  storeName?: string;
+  name?: string;
+  description?: string;
+  details?: string;
+  price?: string | number;
+  categories?: string[];
+  storeItemImages?: IStoreItemImage[];
 }
 type StoreItemQueryPar = {
   storeName?: string;
@@ -189,11 +190,17 @@ class StoreItemsController implements IGenericController {
   }
 
   create (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
+    // immediate data validation //
+    const { isValid, errors } = validateStoreItems(req.body);
+    if (!isValid) {
+      return respondWithInputError(res, "Validation Error", 422, errors);
+    }
+
     const { name, description, details, price, storeItemImages, categories }: StoreItemParams = req.body;
     const storeId = req.body.storeId as unknown as Types.ObjectId;
     const storeName: string = req.body.storeName;
     const imgIds: Types.ObjectId[] = [];
-
+    
     if (Array.isArray(storeItemImages) && (storeItemImages.length > 1)) {
       for (const newImg of storeItemImages) {
         imgIds.push(Types.ObjectId(newImg.url));
@@ -236,7 +243,7 @@ class StoreItemsController implements IGenericController {
 
   edit (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
     const { _id } = req.params;
-    const { name, description, details, price, storeItemImages, categories }: StoreItemParams = req.body;
+    const { name, description, details, price, storeItemImages, categories = [] }: StoreItemParams = req.body;
     const storeId = req.body.storeId as unknown as Types.ObjectId;
     const updatedStoreItemImgs: Types.ObjectId[] = [];
 

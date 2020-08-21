@@ -15,53 +15,8 @@ interface Props extends RouteComponentProps {
   state: IGlobalAppState;
   dispatch: React.Dispatch<AppAction>;
 }
-interface DProps {
-  state: IGlobalAppState;
-  dispatch: React.Dispatch<AppAction>
-}
-type DropdownData = {
-  key: string;
-  text: string;
-  value: string;
-}
-const StoreNameDropDown: React.FC<DProps> = ({ state, dispatch }): JSX.Element => {
-  const [ dropdownState, setDropdownState ] = useState<DropdownData[]>();
-  const { loadedStores } = state.storeState;
 
-  const handleSearchChange = (e: React.SyntheticEvent, data: DropdownProps): void => {
-    console.log(31);
-    console.log(e)
-    console.log(data.value);
-    const queryOptions = {
-      storeName: data.value as string
-    }
-    getAllStoreItems(dispatch, queryOptions)
-  }
-  useEffect(() => {
-    getAllStores(dispatch)
-  }, [])
-  useEffect(() => {
-    const dropdownData = loadedStores.map((store) => {
-      return {
-        key: store._id,
-        text: capitalizeString(store.title),
-        value: store.title
-      }
-    });
-    setDropdownState(() => {
-      return [ ...dropdownData ];
-    })
-  }, [loadedStores]);
-  return (
-    <Dropdown
-      placeholder={"Filter by Store name"}
-      selection
-      onChange={handleSearchChange}
-      options={dropdownState}
-    />
-  )
-}
-const AdminStoreItemsMenu: React.FC<Props> = ({ history, location, state, dispatch }): JSX.Element => {
+const AdminStoreItemsMenu: React.FC<Props> = ({ history, location, dispatch }): JSX.Element => {
   const [ scrolled, setScrolled ] = useState<boolean>(false);
   const [ activeItem, setActiveItem ] = useState<string>("view_all");
   const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
@@ -124,7 +79,6 @@ const AdminStoreItemsMenu: React.FC<Props> = ({ history, location, state, dispat
   return (
     <div className={ scrolled ? "adminStoreItemsMenuFixed menuScrolled" : "adminStoreItemsMenuFixed"} ref={adminStoreItemMenuRef}>
       <Menu tabular className={ menuOpen ? "adminStoreItemsMenu storeItemsMenuOpen" : "adminStoreItemsMenu" }>
-        <StoreNameDropDown state={state} dispatch={dispatch} />
         <Menu.Item
           name='view_all'
           content="View All StoreItems"

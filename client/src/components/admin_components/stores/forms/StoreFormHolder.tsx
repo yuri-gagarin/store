@@ -20,7 +20,6 @@ interface Props {
 
 const StoreFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   const [ formOpen, setFormOpen ] = useState<boolean>(false);
-  const [ imgUpload, setImgUpload ] = useState<boolean>(false);
   const [ newForm, setNewForm ] = useState<boolean>(true);
 
   const { currentStoreData } = state.storeState;
@@ -36,7 +35,6 @@ const StoreFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
       .then((success) => {
         if (success) {
           // store created //
-          setImgUpload(true);
         } else {
           console.error("error");
         }

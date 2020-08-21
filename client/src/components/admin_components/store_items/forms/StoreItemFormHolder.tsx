@@ -6,6 +6,7 @@ import "./css/storeItemFormHolder.css";
 import StoreItemForm from "./StoreItemForm";
 import StoreItemImgPreviewHolder from "../image_preview/StoreItemImgPreviewHolder";
 import StoreItemImgUplForm from "./StoreItemImgUplForm";
+import FormErrorComponent from "../../popups/FormErrorComponent";
 // state //
 import { IGlobalAppState, AppAction } from "../../../../state/Store";
 // api actions //
@@ -14,6 +15,7 @@ import { createStoreItem, editStoreItem } from "../actions/APIStoreItemActions";
 import { ConvertDate } from "../../../helpers/displayHelpers";
 // types 
 import { FormState } from "./StoreItemForm";
+import { AxiosError } from "axios";
 
 interface Props {
   state: IGlobalAppState;
@@ -36,7 +38,7 @@ const StoreItemFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element 
   const [ imgUpload, setImgUpload ] = useState<boolean>(false);
   const [ newForm, setNewForm ] = useState<boolean>(true);
 
-  const { currentStoreItemData } = state.storeItemState;
+  const { currentStoreItemData, error } = state.storeItemState;
   const { name, description, details, price, categories, createdAt, editedAt } = currentStoreItemData;
 
   const handleCreateStoreItem = ({ storeId, storeName, name, price, description, details, categories }: FormState): void => {
@@ -93,6 +95,7 @@ const StoreItemFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element 
 
   return (
     <div id="storeItemFormHolder">
+      <FormErrorComponent error={error as AxiosError} />
       {
         !newForm ?
           <React.Fragment>

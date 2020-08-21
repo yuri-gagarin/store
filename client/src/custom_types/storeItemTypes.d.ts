@@ -105,16 +105,7 @@ type ClearStoreItemError = {
   };
 }
 
-declare interface IStoreItemImgData {
-  _id: string;
-  description?: string;
-  url: string;
-  fileName: string;
-  imagePath: string;
-  absolutePath: string;
-  createdAt: string;
-  editedAt?: string;
-}
+
 declare interface IStoreItemData {
   _id: string;
   storeId: string;
@@ -133,8 +124,18 @@ declare interface IStoreItemState {
   responseMsg: string;
   numberOfItems: number;
   currentStoreItemData: IStoreItemData;
-  loadedStoreItems: IStoreItemData[]
-  error: null | Error;
+  loadedStoreItems: IStoreItemData[];
+  error: null | Error | import("axios").AxiosError<Error>;
+}
+declare interface IStoreItemImgData {
+  _id: string;
+  description?: string;
+  url: string;
+  fileName: string;
+  imagePath: string;
+  absolutePath: string;
+  createdAt: string;
+  editedAt?: string;
 }
 declare type StoreItemAction = GetAllStoreItems | GetStoreItem | SetCurrentStoreItem | ClearCurrentStoreItem | CreateStoreItem | EditStoreItem | 
                           DeleteStoreItem | SetStoreItemError | ClearStoreItemError | UploadNewStoreItemImg | UpdateStoreItemImgs | DeleteStoreItemImg;

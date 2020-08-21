@@ -204,7 +204,7 @@ export const deleteStoreItem = (_id: string, dispatch: Dispatch<StoreItemAction>
 };
 
 export const uploadStoreItemImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<StoreItemAction>): Promise<boolean> => {
-  const { currentStoreItemData, loadedStoreItems } = state.storeItemState;
+  const { loadedStoreItems } = state.storeItemState;
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/uploads/storeItem_images/" + _id,
@@ -214,7 +214,7 @@ export const uploadStoreItemImage = (_id: string, imageFile: FormData, state: IG
   return axios.request<IStoreItemImgServerResData, IStoreItemImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const { responseMsg, newStoreItemImage, updatedStoreItem } = data;
+      const { responseMsg, updatedStoreItem } = data;
 
       const updatedStoreItems = loadedStoreItems.map((storeItem) => {
         if (storeItem._id === updatedStoreItem._id) {
@@ -244,7 +244,7 @@ export const uploadStoreItemImage = (_id: string, imageFile: FormData, state: IG
 };
 
 export const deleteStoreItemImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<StoreItemAction>): Promise<boolean> => {
-  const { loadedStoreItems, currentStoreItemData } = state.storeItemState; 
+  const { loadedStoreItems } = state.storeItemState; 
   const { _id: storeItemId } = state.storeItemState.currentStoreItemData;
 
   const requestOptions: AxiosRequestConfig = {
@@ -255,7 +255,7 @@ export const deleteStoreItemImage = (imgId: string, state: IGlobalAppState, disp
   return axios.request<IStoreItemImgServerResData, IStoreItemImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const { responseMsg, deletedStoreItemImage, updatedStoreItem } = data;
+      const { responseMsg, updatedStoreItem } = data;
       
      
       const updatedStoreItems = loadedStoreItems.map((storeItem) => {
