@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Button, Message } from "semantic-ui-react";
+import { Message } from "semantic-ui-react";
 // css imports //
 import "./css/formErrorComponent.css";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosError } from "axios";
 
 type ErrorResponse = {
   responseMsg: string;

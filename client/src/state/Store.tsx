@@ -21,7 +21,7 @@ export interface IGlobalAppContext {
   dispatch: React.Dispatch<AppAction>;
 }
 // context initialization //
-const initialContext: IGlobalAppContext = {
+export const initialContext: IGlobalAppContext = {
   state: {
     bonusVideoState: { ...initialBonusVideoState },
     productState: { ...initialProductState },
