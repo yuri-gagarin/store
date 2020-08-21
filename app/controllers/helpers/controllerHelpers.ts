@@ -113,8 +113,8 @@ export const resolveStoreItemImgDirectories = (storeItemImages: IStoreItemImage[
 
 export const normalizeImgUrl = (uploadPath: string, fileName: string): Promise<string> => {
   return new Promise((resolve) => {
-    const normaLizedUrl = "/" + uploadPath + "/" + fileName;
-    resolve(normaLizedUrl);
+    const normaLizedUrl = uploadPath.split("/").slice(1).join("/") + "/" + fileName;
+    resolve(`/${normaLizedUrl}`);
   });
 };
 

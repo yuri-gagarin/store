@@ -33,8 +33,7 @@ describe("StoreImage API tests", () => {
       .catch((error) => { done(error); });
   });
   after((done) => {
-    // clearDB().then(() => { done(); }).catch((err) => { done(err); });
-    done();
+    clearDB().then(() => { done(); }).catch((err) => { done(err); });
   });
 
   describe("POST '/api/store_images/upload'", () => {
@@ -54,6 +53,19 @@ describe("StoreImage API tests", () => {
           done();
         });
     });
+  
+    it("Should respond with correct image", (done) => {
+      chai.request(server)
+        .get(createdImage.url)
+        .end((err, response) => {
+          if (err) {
+            done(err)
+          }
+          expect(response.type).to.equal("image/jpeg");
+          done();
+        });
+    });
+    
     it("Should set the correct storeId property on {StoreImage} model", (done) => {
       expect(createdImage.storeId).to.equal(updatedStore._id);
       done();
@@ -113,7 +125,7 @@ describe("StoreImage API tests", () => {
         });
     });
     it("Should delete the image from its directory", (done) => {
-      const imagePath = path.join(__dirname, "/../../../", deletedImage.absolutePath);
+      const imagePath = deletedImage.absolutePath;
       fs.access(imagePath, fs.constants.F_OK, (err) => {
         expect(err!.code).to.equal("ENOENT");
         done();
