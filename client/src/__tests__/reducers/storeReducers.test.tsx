@@ -4,24 +4,43 @@ import moxios from "moxios";
 import configureStore from "redux-mock-store";
 import storeReducer, { initialStoreState } from "../../state/reducers/storeReducer";
 import { createMockStores } from "../helpers/storeHelpers";
-import { initialContext, IGlobalAppState, AppAction } from "../../state/Store";
+import { initialContext, IGlobalAppState, AppAction, IGlobalAppContext } from "../../state/Store";
 import { setCurrentStore } from "../../components/admin_components/stores/actions/uiStoreActions";
 import { StateProvider } from "../../state/Store";
-import { mount, shallow } from "enzyme";
+import { mount, shallow, ShallowWrapper } from "enzyme";
 import StoreView from "../../components/admin_components/stores/StoreView";
 
 const mockStore = configureStore<IGlobalAppState, StoreAction>();
 const store = mockStore(initialContext.state);
 
-describe("Store Reducers tests", () => {
+type WrapperProps = {
+  value?: IGlobalAppContext;
+}
+const getNewState = (wrapper: ShallowWrapper): IGlobalAppState => {
+  const props = wrapper.props() as WrapperProps;
+  const state = props.value!.state;
+  return state;
+};
 
+const dispatchAction = (wrapper: ShallowWrapper, action: StoreAction) => {
+  const props = wrapper.props() as WrapperProps;
+  const dispatch = props.value!.dispatch;
+  dispatch(action);
+};
+
+describe("Store Reducers tests", () => {
+  let wrapper: ShallowWrapper;
   beforeAll(() => {
-    const wrapper = shallow(
+    wrapper = shallow(
     <StateProvider>
       <StoreView></StoreView>
     </StateProvider>
     );
-    console.log(wrapper.props())
+    /*
+    wrapper.props().value.dispatch({ type: "SET_CURRENT_STORE", payload: {
+      currentStoreData: createMockStores(1)[0]
+    }});
+    */
   })
   beforeEach(() => {
     moxios.install();
@@ -34,42 +53,65 @@ describe("Store Reducers tests", () => {
       expect(storeReducer(initialStoreState, {} as StoreAction)).to.deep.equal(initialStoreState);
     })
   });
-  describe("Get All Stores Action", () => {
-    /*
-    it("Should set a store array in 'StoreState'", () => {
-      const stores = createMockStores(5);
-      const payload = {
+  describe("Action: 'SET_CURRENT_STORE'", () => {
+    let mockStore: IStoreData;
+    beforeAll(() => {
+      mockStore = createMockStores(1)[0];
+    })
+    it("Should properly dispatch the action", () => {
+      dispatchAction(wrapper, { 
+        type: "SET_CURRENT_STORE",
+        payload: { currentStoreData: mockStore }
+      });
+    });
+    it("Should correctly set the new Store State", () => {
+      const expectedStoreState: IStoreState = {
+        responseMsg: "",
         loading: false,
-        responseMsg: "All ok",
-        loadedStores: stores,
+        currentStoreData: mockStore,
+        loadedStores: [],
         error: null
-      }
+      };
+      const newStoreState = getNewState(wrapper).storeState;
+      expect(expectedStoreState).to.eql(newStoreState)
+    });
+  });
+  describe("Action: 'GET_ALL_STORES'", () => {
+    let mockStores: IStoreData[];
+    beforeAll(() => {
+      mockStores = createMockStores(10);
+    })
+    it("Should properly dispatch the action", () => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
           status: 200,
           response: {
             responseMsg: "All ok",
-            stores: stores
+            stores: mockStores
           }
         });
       });
-
-      const result = storeReducer(initialStoreState, { type: "GET_ALL_STORES", payload: payload })
+      dispatchAction(wrapper, { 
+        type: "GET_ALL_STORES",
+        payload: { 
+          loading: false,
+          responseMsg: "All ok",
+          loadedStores: mockStores,
+          error: null
+        }
+      });
     });
-    */
-   it("Should something", () => {
-     const mockStoreData = createMockStores(2)[0];
-     setCurrentStore("idhere", store.dispatch, store.getState())
-
-     store.dispatch({ 
-       type: "SET_CURRENT_STORE", 
-       payload: { currentStoreData: mockStoreData }
-     })
-     store.dispatch({
-       type: ""
-     })
-     console.log(store.getState().storeState);
-   });
-  });
+    it("Should correctly set the new Store State", () => {
+      const expectedStoreState: IStoreState = {
+        responseMsg: "",
+        loading: false,
+        currentStoreData: mockStores[0],
+        loadedStores: mockStores,
+        error: null
+      };
+      const newStoreState = getNewState(wrapper).storeState;
+      expect(expectedStoreState).to.eql(newStoreState)
+    })
+  })
 })
