@@ -17,6 +17,7 @@ import { getAllServices, getService, createService, editService,
 // helpers and additional dependencies //
 import { emptyServiceData } from "../../state/reducers/serviceReducer";
 import { createMockServices, createMockServiceImage } from "../helpers/serviceHelpers";
+import { ClientServiceData } from "../../components/admin_components/services/actions/APIServiceActions";
 
 
 
@@ -46,7 +47,7 @@ describe("Service Actions Tests", () => {
     moxios.uninstall();
   });
 
-  describe("Action: 'SET_CURRENT_STORE'", () => {
+  describe("Action: 'SET_CURRENT_SERVICE'", () => {
     let mockServices: IServiceData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
     beforeAll(() => {
       mockServices = createMockServices(10);
@@ -71,7 +72,7 @@ describe("Service Actions Tests", () => {
     });
   });
 
-  describe("Action: 'CLEAR_CURRENT_STORE'", () => {
+  describe("Action: 'CLEAR_CURRENT_SERVICE'", () => {
     let mockServices: IServiceData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
     beforeAll(() => {
       mockServices = createMockServices(10);
@@ -95,7 +96,7 @@ describe("Service Actions Tests", () => {
     });
   });
 
-  describe("Action: 'GET_ALL_STORES'", () => {
+  describe("Action: 'GET_ALL_SERVICES'", () => {
     let mockServices: IServiceData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
     beforeAll(() => {
       mockServices = createMockServices(10);
@@ -135,7 +136,7 @@ describe("Service Actions Tests", () => {
     });
   });
 
-  describe("Action: 'GET_STORE'", () => {
+  describe("Action: 'GET_SERVICE'", () => {
     let mockService: IServiceData; let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
     beforeAll(() => {
       mockService = createMockServices(1)[0];
@@ -176,7 +177,7 @@ describe("Service Actions Tests", () => {
     });
   });
 
-  describe("Action: 'CREATE_STORE'", () => {
+  describe("Action: 'CREATE_SERVICE'", () => {
     let createdService: IServiceData; let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
     beforeAll(() => {
       ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -194,9 +195,10 @@ describe("Service Actions Tests", () => {
         });
       });
       // mock service form data //
-      let newService = {
+      let newService: ClientServiceData = {
         name: createdService.name,
         description: createdService.description,
+        price: "100",
         serviceImages: createdService.images
       };
       // mock action with moxios //
@@ -224,12 +226,12 @@ describe("Service Actions Tests", () => {
     });
   });
 
-  describe("Action: 'EDIT_STORE'", () => {
+  describe("Action: 'EDIT_SERVICE'", () => {
     let editedService: IServiceData; let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
     beforeAll(() => {
       ({ state, dispatch } = getContextFromWrapper(wrapper));
-      let service = state.serviceState.loadedServices[0];
-      service.title = faker.lorem.word();
+      let service = { ...state.serviceState.loadedServices[0] };
+      service.name = faker.lorem.word();
       service.description = faker.lorem.paragraphs(1),
       editedService = service;
     });
@@ -245,8 +247,9 @@ describe("Service Actions Tests", () => {
         });
       });
       // mock service form data //
-      let serviceUpdate = {
-        title: editedService.title,
+      let serviceUpdate: ClientServiceData = {
+        name: editedService.name,
+        price: editedService.price,
         description: editedService.description,
         serviceImages: editedService.images
       };
@@ -281,7 +284,7 @@ describe("Service Actions Tests", () => {
     });
   });
 
-  describe("Action: 'DELETE_STORE'", () => {
+  describe("Action: 'DELETE_SERVICE'", () => {
     let deletedService: IServiceData; let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
     beforeAll(() => {
       ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -323,7 +326,7 @@ describe("Service Actions Tests", () => {
     });
   });
 
-  describe("Action: 'UPLOAD_STORE_IMAGE'", () => {
+  describe("Action: 'UPLOAD_SERVICE_IMAGE'", () => {
     let createdImage: IServiceImgData; let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
     let updatedService: IServiceData;
     beforeAll(() => {
@@ -377,7 +380,7 @@ describe("Service Actions Tests", () => {
     });
   });
 
-  describe("Action: 'DELETE_STORE_IMAGE'", () => {
+  describe("Action: 'DELETE_SERVICE_IMAGE'", () => {
     let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
     let updatedService: IServiceData;
 

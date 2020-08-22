@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
 import { Dispatch } from "react";
 import { IGlobalAppState } from "../../../../state/Store";
-import { AppAction } from "../../../../state/Store";
 
 interface IServiceImgServerResData {
   responseMsg: string;
@@ -28,11 +27,14 @@ interface IServiceServerRes {
 type NewServiceData = {
   name: string;
   description: string;
+  price: string;
   serviceImages: IServiceImgData[]
 }
 type EditedServiceData = NewServiceData;
 
-export const getAllServices = (dispatch: Dispatch<AppAction>): Promise<boolean> => {
+export type ClientServiceData = EditedServiceData;
+
+export const getAllServices = (dispatch: Dispatch<ServiceAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/services"
@@ -59,7 +61,7 @@ export const getAllServices = (dispatch: Dispatch<AppAction>): Promise<boolean> 
     });
 };
 
-export const getService = (_id: string, dispatch: Dispatch<AppAction>): Promise<boolean> => {
+export const getService = (_id: string, dispatch: Dispatch<ServiceAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/services/" + _id,
@@ -86,12 +88,13 @@ export const getService = (_id: string, dispatch: Dispatch<AppAction>): Promise<
     });
 };
 
-export const createService = ({ name, description, serviceImages }: NewServiceData, dispatch: Dispatch<AppAction>): Promise<boolean> => {
+export const createService = ({ name, description, price, serviceImages }: ClientServiceData, dispatch: Dispatch<ServiceAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/services/create",
     data: {
       name: name,
+      price: price,
       description: description,
       serviceImages: serviceImages,
     }
@@ -120,7 +123,7 @@ export const createService = ({ name, description, serviceImages }: NewServiceDa
     });
 };
 
-export const editService = (_id: string, data: EditedServiceData, dispatch: Dispatch<AppAction>, state: IGlobalAppState) => {
+export const editService = (_id: string, data: ClientServiceData, dispatch: Dispatch<ServiceAction>, state: IGlobalAppState) => {
   const { loadedServices } = state.serviceState;
   const requestOptions: AxiosRequestConfig = {
     method: "patch",
@@ -158,7 +161,7 @@ export const editService = (_id: string, data: EditedServiceData, dispatch: Disp
     });
 };
 
-export const deleteService = (_id: string, dispatch: Dispatch<AppAction>, state: IGlobalAppState): Promise<boolean> => {
+export const deleteService = (_id: string, dispatch: Dispatch<ServiceAction>, state: IGlobalAppState): Promise<boolean> => {
   const { loadedServices } = state.serviceState;
   const requestOptions: AxiosRequestConfig = {
     method: "delete",
@@ -190,7 +193,7 @@ export const deleteService = (_id: string, dispatch: Dispatch<AppAction>, state:
     });
 };
 
-export const uploadServiceImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<AppAction>): Promise<boolean> => {
+export const uploadServiceImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<ServiceAction>): Promise<boolean> => {
   const { loadedServices } = state.serviceState;
   const requestOptions: AxiosRequestConfig = {
     method: "post",
@@ -230,7 +233,7 @@ export const uploadServiceImage = (_id: string, imageFile: FormData, state: IGlo
     });
 };
 
-export const deleteServiceImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<AppAction>): Promise<boolean> => {
+export const deleteServiceImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<ServiceAction>): Promise<boolean> => {
   const { loadedServices } = state.serviceState; 
   const { _id: serviceId } = state.serviceState.currentServiceData;
 
