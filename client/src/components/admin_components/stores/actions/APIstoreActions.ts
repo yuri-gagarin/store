@@ -224,12 +224,11 @@ export const deleteStore = (_id: string, dispatch: Dispatch<StoreAction>, state:
     });
 };
 
-export const uploadStoreImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<StoreAction>): Promise<boolean> => {
-  console.log(imageFile)
+export const uploadStoreImage = (_store_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<StoreAction>): Promise<boolean> => {
   const { loadedStores } = state.storeState;
   const requestOptions: AxiosRequestConfig = {
     method: "post",
-    url: "/api/uploads/store_images/" + _id,
+    url: "/api/uploads/store_images/" + _store_id,
     data: imageFile
   };
 

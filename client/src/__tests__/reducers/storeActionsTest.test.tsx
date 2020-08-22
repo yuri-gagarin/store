@@ -4,13 +4,13 @@ import { expect } from "chai";
 import moxios from "moxios";
 import configureStore from "redux-mock-store";
 import storeReducer, { emptyStoreData, initialStoreState } from "../../state/reducers/storeReducer";
-import { createMockStores } from "../helpers/storeHelpers";
+import { createMockStores, createMockStoreImage } from "../helpers/storeHelpers";
 import { initialContext, IGlobalAppState, IGlobalAppContext } from "../../state/Store";
 import { setCurrentStore, clearCurrentStore } from "../../components/admin_components/stores/actions/uiStoreActions";
 import { StateProvider } from "../../state/Store";
 import { shallow, ShallowWrapper } from "enzyme";
 import StoreView from "../../components/admin_components/stores/StoreView";
-import { getAllStores, getStore, createStore, editStore, deleteStore } from "../../components/admin_components/stores/actions/APIstoreActions";
+import { getAllStores, getStore, createStore, editStore, deleteStore, uploadStoreImage, deleteStoreImage } from "../../components/admin_components/stores/actions/APIstoreActions";
 
 const mockStore = configureStore<IGlobalAppState, StoreAction>();
 const store = mockStore(initialContext.state);
@@ -39,11 +39,6 @@ describe("Store Actions Tests", () => {
   });
   afterEach(() => {
     moxios.uninstall();
-  })
-  describe("Default return value test", () => {
-    it("Should return the default state", () => {
-      expect(storeReducer(initialStoreState, {} as StoreAction)).to.deep.equal(initialStoreState);
-    })
   });
 
   describe("Action: 'SET_CURRENT_STORE'", () => {
@@ -94,6 +89,7 @@ describe("Store Actions Tests", () => {
       expect(state.storeState.error).to.equal(null);
     });
   });
+
   describe("Action: 'GET_ALL_STORES'", () => {
     let mockStores: IStoreData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
     beforeAll(() => {
@@ -121,7 +117,7 @@ describe("Store Actions Tests", () => {
     });
     it("Should return the correct new state", () => {
       // expected state after action //
-      const expectedStoreState = state.storeState;
+      const expectedStoreState = { ...state.storeState };
       expectedStoreState.responseMsg = "All Ok";
       expectedStoreState.loadedStores = mockStores;
       // retrieve new state and compare //
@@ -162,7 +158,7 @@ describe("Store Actions Tests", () => {
     });
     it("Should return the correct new state", () => {
       // expected state after action //
-      const expectedStoreState = state.storeState;
+      const expectedStoreState = { ...state.storeState };
       expectedStoreState.responseMsg = "All Ok";
       expectedStoreState.currentStoreData = mockStore;
       // retrieve new state and compare //
@@ -209,7 +205,7 @@ describe("Store Actions Tests", () => {
     });
     it("Should return the correct new state", () => {
       // expected state after action //
-      const expectedStoreState = state.storeState;
+      const expectedStoreState = { ...state.storeState };
       expectedStoreState.responseMsg = "All Ok";
       expectedStoreState.currentStoreData = createdStore;
       expectedStoreState.loadedStores = [ ...expectedStoreState.loadedStores, createdStore ]
@@ -260,7 +256,7 @@ describe("Store Actions Tests", () => {
     });
     it("Should return the correct new state", () => {
       // expected state after action //
-      const expectedStoreState = state.storeState;
+      const expectedStoreState = { ...state.storeState };
       expectedStoreState.responseMsg = "All Ok";
       expectedStoreState.currentStoreData = editedStore;
       expectedStoreState.loadedStores = expectedStoreState.loadedStores.map((store) => {
@@ -297,6 +293,7 @@ describe("Store Actions Tests", () => {
           }
         });
       });
+      // mock action with moxios //
       deleteStore(deletedStore._id, dispatch, state)
         .then((success) => {
           if (success) done();
@@ -307,10 +304,118 @@ describe("Store Actions Tests", () => {
     });
     it("Should return the correct new state", () => {
       // expected state after action //
-      const expectedStoreState = state.storeState;
+      const expectedStoreState = { ...state.storeState };
       expectedStoreState.responseMsg = "All Ok";
       expectedStoreState.currentStoreData = emptyStoreData();
       expectedStoreState.loadedStores = state.storeState.loadedStores.filter((store) => store._id !== deletedStore._id);
+      // retrieve new state and compare //
+      const { state: newState } = getContextFromWrapper(wrapper);
+      expect(newState.storeState).to.eql(expectedStoreState);
+    });
+    it("Should NOT have an error", () => {
+      const { state } = getContextFromWrapper(wrapper);
+      expect(state.storeState.error).to.equal(null);
+    });
+  });
+
+  describe("Action: 'UPLOAD_STORE_IMAGE'", () => {
+    let createdImage: IStoreImgData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
+    let updatedStore: IStoreData;
+    beforeAll(() => {
+      ({ state, dispatch } = getContextFromWrapper(wrapper));
+      state.storeState.currentStoreData = state.storeState.loadedStores[0];
+      createdImage = createMockStoreImage();
+      // set mock updated store with mock image //
+      updatedStore = state.storeState.loadedStores[0];
+      updatedStore.images.push(createdImage);
+    });
+    it("Should properly dispatch the action", (done) => {
+      moxios.wait(() => {
+        let request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: {
+            responseMsg: "All Ok",
+            updatedStore: updatedStore
+          }
+        });
+      });
+      // mock action with moxios //
+      const formData = new FormData();
+      uploadStoreImage(updatedStore._id, formData, state, dispatch) 
+        .then((success) => {
+          if (success) done();
+        })
+        .catch((error) => {
+          done(error);
+        });
+    });
+    it("Should return the correct new state", () => {
+      // expected state after action //
+      const expectedStoreState = { ...state.storeState };
+      expectedStoreState.responseMsg = "All Ok";
+      expectedStoreState.currentStoreData = updatedStore;
+      expectedStoreState.loadedStores = state.storeState.loadedStores.map((store) => {
+        if (store._id === updatedStore._id) {
+          return updatedStore;
+        } else {
+          return store;
+        }
+      });
+      // retrieve new state and compare //
+      const { state: newState } = getContextFromWrapper(wrapper);
+      expect(newState.storeState).to.eql(expectedStoreState);
+    });
+    it("Should NOT have an error", () => {
+      const { state } = getContextFromWrapper(wrapper);
+      expect(state.storeState.error).to.equal(null);
+    });
+  });
+
+  describe("Action: 'DELETE_STORE_IMAGE'", () => {
+    let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
+    let updatedStore: IStoreData;
+
+    beforeAll(() => {
+      ({ state, dispatch } = getContextFromWrapper(wrapper));
+      updatedStore = { ...state.storeState.currentStoreData, images: [] };
+    });
+
+    it("Should properly dispatch the action", (done) => {
+      moxios.wait(() => {
+        let request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: {
+            responseMsg: "All Ok",
+            updatedStore: updatedStore
+          }
+        });
+      });
+      // mock action with moxios //
+      deleteStoreImage(updatedStore._id, state, dispatch) 
+        .then((success) => {
+          if (success) done();
+        })
+        .catch((error) => {
+          done(error);
+        });
+    });
+    it("Should return the correct new state", () => {
+      // expected state after action //
+      const expectedStoreState = { ...state.storeState };
+      expectedStoreState.responseMsg = "All Ok";
+      expectedStoreState.currentStoreData = updatedStore;
+      expectedStoreState.loadedStores = state.storeState.loadedStores.map((store) => {
+        if (store._id === updatedStore._id) {
+          return  {
+            ...updatedStore,
+            images: []
+          };
+        } else {
+          return store;
+        }
+      });
       // retrieve new state and compare //
       const { state: newState } = getContextFromWrapper(wrapper);
       expect(newState.storeState).to.eql(expectedStoreState);

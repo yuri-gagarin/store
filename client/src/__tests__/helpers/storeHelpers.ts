@@ -1,4 +1,5 @@
 import faker from "faker";
+
 export const createMockStores = (numberOfStores?: number): IStoreData[] => {
   const createdStores: IStoreData[] = [];
   let totalToCreate: number;
@@ -20,4 +21,17 @@ export const createMockStores = (numberOfStores?: number): IStoreData[] => {
     createdStores.push(store);
   }
   return createdStores;
-}
+};
+
+export const createMockStoreImage = (storeId?: string): IStoreImgData => {
+  const mockImage: IStoreImgData = {
+    _id: faker.random.alphaNumeric(),
+    url: faker.internet.url(),
+    absolutePath: faker.system.filePath(),
+    imagePath: faker.system.directoryPath(),
+    fileName: faker.system.fileName(),
+    createdAt: faker.date.recent().toString()
+  };
+  return mockImage;
+};
+
