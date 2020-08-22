@@ -5,18 +5,18 @@ import { expect } from "chai";
 import { shallow, ShallowWrapper } from "enzyme";
 import moxios from "moxios";
 // component dependencies //
-import StoreView from "../../components/admin_components/stores/StoreView";
+import ServiceView from "../../components/admin_components/services/ServiceView";
 // state and React.context dependenies //
 import { IGlobalAppState, IGlobalAppContext } from "../../state/Store";
 import { StateProvider } from "../../state/Store";
 // actions to test //
-import { setCurrentStore, clearCurrentStore } from "../../components/admin_components/stores/actions/uiStoreActions";
-import { getAllStores, getStore, createStore, editStore, 
-  deleteStore, uploadStoreImage, deleteStoreImage 
-} from "../../components/admin_components/stores/actions/APIstoreActions";
+import { setCurrentService, clearCurrentService } from "../../components/admin_components/services/actions/UIServiceActions";
+import { getAllServices, getService, createService, editService, 
+  deleteService, uploadServiceImage, deleteServiceImage 
+} from "../../components/admin_components/services/actions/APIServiceActions";
 // helpers and additional dependencies //
-import { emptyStoreData } from "../../state/reducers/storeReducer";
-import { createMockStores, createMockStoreImage } from "../helpers/storeHelpers";
+import { emptyServiceData } from "../../state/reducers/serviceReducer";
+import { createMockServices, createMockServiceImage } from "../helpers/serviceHelpers";
 
 
 
@@ -30,12 +30,12 @@ const getContextFromWrapper = (wrapper: ShallowWrapper): IGlobalAppContext => {
   return globalAppContext;
 }
 
-describe("Store Actions Tests", () => {
+describe("Service Actions Tests", () => {
   let wrapper: ShallowWrapper;
   beforeAll(() => {
     wrapper = shallow(
     <StateProvider>
-      <StoreView></StoreView>
+      <ServiceView></ServiceView>
     </StateProvider>
     );
   })
@@ -47,58 +47,58 @@ describe("Store Actions Tests", () => {
   });
 
   describe("Action: 'SET_CURRENT_STORE'", () => {
-    let mockStores: IStoreData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
+    let mockServices: IServiceData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
     beforeAll(() => {
-      mockStores = createMockStores(10);
+      mockServices = createMockServices(10);
      ({ state, dispatch } = getContextFromWrapper(wrapper));
     });
     it("Should properly dispatch the action", () => {
-      state.storeState.loadedStores = [ ...mockStores ];
-      const store = state.storeState.loadedStores[0];
-      setCurrentStore(store._id, dispatch, state);
+      state.serviceState.loadedServices = [ ...mockServices ];
+      const service = state.serviceState.loadedServices[0];
+      setCurrentService(service._id, dispatch, state);
     });
     it('Should return the correct new state', () => {
       // expected state after action //
-      const expectedStoreState = state.storeState;
-      expectedStoreState.currentStoreData = mockStores[0];
+      const expectedServiceState = state.serviceState;
+      expectedServiceState.currentServiceData = mockServices[0];
       // retrieve new state //
       const { state : newState } = getContextFromWrapper(wrapper);
-      expect(newState.storeState).to.eql(expectedStoreState);
+      expect(newState.serviceState).to.eql(expectedServiceState);
     });
     it("Should NOT have an error", () => {
       const { state } = getContextFromWrapper(wrapper);
-      expect(state.storeState.error).to.equal(null);
+      expect(state.serviceState.error).to.equal(null);
     });
   });
 
   describe("Action: 'CLEAR_CURRENT_STORE'", () => {
-    let mockStores: IStoreData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
+    let mockServices: IServiceData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
     beforeAll(() => {
-      mockStores = createMockStores(10);
+      mockServices = createMockServices(10);
       ({ state, dispatch } = getContextFromWrapper(wrapper));
-      state.storeState.currentStoreData = mockStores[0];
+      state.serviceState.currentServiceData = mockServices[0];
     });
     it("Should properly dispatch the action", () => {
-      clearCurrentStore(dispatch);
+      clearCurrentService(dispatch);
     });
     it("Should return the correct new state", () => {
       // expected state after action //
-      const expectedStoreState = state.storeState;
-      expectedStoreState.currentStoreData = emptyStoreData();
+      const expectedServiceState = state.serviceState;
+      expectedServiceState.currentServiceData = emptyServiceData();
       // retrieve new state and compare //
       const { state: newState } = getContextFromWrapper(wrapper);
-      expect(newState.storeState).to.eql(expectedStoreState);
+      expect(newState.serviceState).to.eql(expectedServiceState);
     });
     it("Should NOT have an error", () => {
       const { state } = getContextFromWrapper(wrapper);
-      expect(state.storeState.error).to.equal(null);
+      expect(state.serviceState.error).to.equal(null);
     });
   });
 
   describe("Action: 'GET_ALL_STORES'", () => {
-    let mockStores: IStoreData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
+    let mockServices: IServiceData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
     beforeAll(() => {
-      mockStores = createMockStores(10);
+      mockServices = createMockServices(10);
       ({ state, dispatch } = getContextFromWrapper(wrapper));
     });
     it("Should properly dispatch the action", (done) => {
@@ -108,11 +108,11 @@ describe("Store Actions Tests", () => {
           status: 200,
           response: {
             responseMsg: "All Ok",
-            stores: mockStores
+            services: mockServices
           }
         });
       });
-      getAllStores(dispatch)
+      getAllServices(dispatch)
         .then((success) => {
           if (success) done();
         })
@@ -122,23 +122,23 @@ describe("Store Actions Tests", () => {
     });
     it("Should return the correct new state", () => {
       // expected state after action //
-      const expectedStoreState = { ...state.storeState };
-      expectedStoreState.responseMsg = "All Ok";
-      expectedStoreState.loadedStores = mockStores;
+      const expectedServiceState = { ...state.serviceState };
+      expectedServiceState.responseMsg = "All Ok";
+      expectedServiceState.loadedServices = mockServices;
       // retrieve new state and compare //
       const { state: newState } = getContextFromWrapper(wrapper);
-      expect(newState.storeState).to.eql(expectedStoreState);
+      expect(newState.serviceState).to.eql(expectedServiceState);
     });
     it("Should NOT have an error", () => {
       const { state } = getContextFromWrapper(wrapper);
-      expect(state.storeState.error).to.equal(null);
+      expect(state.serviceState.error).to.equal(null);
     });
   });
 
   describe("Action: 'GET_STORE'", () => {
-    let mockStore: IStoreData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
+    let mockService: IServiceData; let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
     beforeAll(() => {
-      mockStore = createMockStores(1)[0];
+      mockService = createMockServices(1)[0];
       ({ state, dispatch } = getContextFromWrapper(wrapper));
     });
     it("Should properly dispatch the action", (done) => {
@@ -148,12 +148,12 @@ describe("Store Actions Tests", () => {
           status: 200,
           response: {
             responseMsg: "All Ok",
-            store: mockStore
+            service: mockService
           }
         });
       });
       // mock action with moxios //
-      getStore(mockStore._id, dispatch)
+      getService(mockService._id, dispatch)
         .then((success) => {
           if (success) done();
         })
@@ -163,24 +163,24 @@ describe("Store Actions Tests", () => {
     });
     it("Should return the correct new state", () => {
       // expected state after action //
-      const expectedStoreState = { ...state.storeState };
-      expectedStoreState.responseMsg = "All Ok";
-      expectedStoreState.currentStoreData = mockStore;
+      const expectedServiceState = { ...state.serviceState };
+      expectedServiceState.responseMsg = "All Ok";
+      expectedServiceState.currentServiceData = mockService;
       // retrieve new state and compare //
       const { state: newState } = getContextFromWrapper(wrapper);
-      expect(newState.storeState).to.eql(expectedStoreState);
+      expect(newState.serviceState).to.eql(expectedServiceState);
     });
     it("Should NOT have an error", () => {
       const { state } = getContextFromWrapper(wrapper);
-      expect(state.storeState.error).to.equal(null);
+      expect(state.serviceState.error).to.equal(null);
     });
   });
 
   describe("Action: 'CREATE_STORE'", () => {
-    let createdStore: IStoreData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
+    let createdService: IServiceData; let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
     beforeAll(() => {
       ({ state, dispatch } = getContextFromWrapper(wrapper));
-      createdStore = createMockStores(1)[0];
+      createdService = createMockServices(1)[0];
     });
     it("Should properly dispatch the action", (done) => {
       moxios.wait(() => {
@@ -189,18 +189,18 @@ describe("Store Actions Tests", () => {
           status: 200,
           response: {
             responseMsg: "All Ok",
-            newStore: createdStore
+            newService: createdService
           }
         });
       });
-      // mock store form data //
-      let newStore = {
-        title: createdStore.title,
-        description: createdStore.description,
-        storeImages: createdStore.images
+      // mock service form data //
+      let newService = {
+        name: createdService.name,
+        description: createdService.description,
+        serviceImages: createdService.images
       };
       // mock action with moxios //
-      createStore(newStore, dispatch)
+      createService(newService, dispatch)
         .then((success) => {
           if (success) done();
         })
@@ -210,28 +210,28 @@ describe("Store Actions Tests", () => {
     });
     it("Should return the correct new state", () => {
       // expected state after action //
-      const expectedStoreState = { ...state.storeState };
-      expectedStoreState.responseMsg = "All Ok";
-      expectedStoreState.currentStoreData = createdStore;
-      expectedStoreState.loadedStores = [ ...expectedStoreState.loadedStores, createdStore ]
+      const expectedServiceState = { ...state.serviceState };
+      expectedServiceState.responseMsg = "All Ok";
+      expectedServiceState.currentServiceData = createdService;
+      expectedServiceState.loadedServices = [ ...expectedServiceState.loadedServices, createdService ]
       // retrieve new state and compare //
       const { state: newState } = getContextFromWrapper(wrapper);
-      expect(newState.storeState).to.eql(expectedStoreState);
+      expect(newState.serviceState).to.eql(expectedServiceState);
     });
     it("Should NOT have an error", () => {
       const { state } = getContextFromWrapper(wrapper);
-      expect(state.storeState.error).to.equal(null);
+      expect(state.serviceState.error).to.equal(null);
     });
   });
 
   describe("Action: 'EDIT_STORE'", () => {
-    let editedStore: IStoreData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
+    let editedService: IServiceData; let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
     beforeAll(() => {
       ({ state, dispatch } = getContextFromWrapper(wrapper));
-      let store = state.storeState.loadedStores[0];
-      store.title = faker.lorem.word();
-      store.description = faker.lorem.paragraphs(1),
-      editedStore = store;
+      let service = state.serviceState.loadedServices[0];
+      service.title = faker.lorem.word();
+      service.description = faker.lorem.paragraphs(1),
+      editedService = service;
     });
     it("Should properly dispatch the action", (done) => {
       moxios.wait(() => {
@@ -240,18 +240,18 @@ describe("Store Actions Tests", () => {
           status: 200,
           response: {
             responseMsg: "All Ok",
-            editedStore: editedStore
+            editedService: editedService
           }
         });
       });
-      // mock store form data //
-      let storeUpdate = {
-        title: editedStore.title,
-        description: editedStore.description,
-        storeImages: editedStore.images
+      // mock service form data //
+      let serviceUpdate = {
+        title: editedService.title,
+        description: editedService.description,
+        serviceImages: editedService.images
       };
       // mock action with moxios //
-      editStore(editedStore._id, storeUpdate, dispatch, state)
+      editService(editedService._id, serviceUpdate, dispatch, state)
         .then((success) => {
           if (success) done();
         })
@@ -261,31 +261,31 @@ describe("Store Actions Tests", () => {
     });
     it("Should return the correct new state", () => {
       // expected state after action //
-      const expectedStoreState = { ...state.storeState };
-      expectedStoreState.responseMsg = "All Ok";
-      expectedStoreState.currentStoreData = editedStore;
-      expectedStoreState.loadedStores = expectedStoreState.loadedStores.map((store) => {
-        if (store._id === editedStore._id) {
-          return editedStore;
+      const expectedServiceState = { ...state.serviceState };
+      expectedServiceState.responseMsg = "All Ok";
+      expectedServiceState.currentServiceData = editedService;
+      expectedServiceState.loadedServices = expectedServiceState.loadedServices.map((service) => {
+        if (service._id === editedService._id) {
+          return editedService;
         } else {
-          return store;
+          return service;
         }
       })
       // retrieve new state and compare //
       const { state: newState } = getContextFromWrapper(wrapper);
-      expect(newState.storeState).to.eql(expectedStoreState);
+      expect(newState.serviceState).to.eql(expectedServiceState);
     });
     it("Should NOT have an error", () => {
       const { state } = getContextFromWrapper(wrapper);
-      expect(state.storeState.error).to.equal(null);
+      expect(state.serviceState.error).to.equal(null);
     });
   });
 
   describe("Action: 'DELETE_STORE'", () => {
-    let deletedStore: IStoreData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
+    let deletedService: IServiceData; let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
     beforeAll(() => {
       ({ state, dispatch } = getContextFromWrapper(wrapper));
-      deletedStore = state.storeState.loadedStores[0];
+      deletedService = state.serviceState.loadedServices[0];
     });
     it("Should properly dispatch the action", (done) => {
       moxios.wait(() => {
@@ -294,12 +294,12 @@ describe("Store Actions Tests", () => {
           status: 200,
           response: {
             responseMsg: "All Ok",
-            deletedStore: deletedStore
+            deletedService: deletedService
           }
         });
       });
       // mock action with moxios //
-      deleteStore(deletedStore._id, dispatch, state)
+      deleteService(deletedService._id, dispatch, state)
         .then((success) => {
           if (success) done();
         })
@@ -309,30 +309,30 @@ describe("Store Actions Tests", () => {
     });
     it("Should return the correct new state", () => {
       // expected state after action //
-      const expectedStoreState = { ...state.storeState };
-      expectedStoreState.responseMsg = "All Ok";
-      expectedStoreState.currentStoreData = emptyStoreData();
-      expectedStoreState.loadedStores = state.storeState.loadedStores.filter((store) => store._id !== deletedStore._id);
+      const expectedServiceState = { ...state.serviceState };
+      expectedServiceState.responseMsg = "All Ok";
+      expectedServiceState.currentServiceData = emptyServiceData();
+      expectedServiceState.loadedServices = state.serviceState.loadedServices.filter((service) => service._id !== deletedService._id);
       // retrieve new state and compare //
       const { state: newState } = getContextFromWrapper(wrapper);
-      expect(newState.storeState).to.eql(expectedStoreState);
+      expect(newState.serviceState).to.eql(expectedServiceState);
     });
     it("Should NOT have an error", () => {
       const { state } = getContextFromWrapper(wrapper);
-      expect(state.storeState.error).to.equal(null);
+      expect(state.serviceState.error).to.equal(null);
     });
   });
 
   describe("Action: 'UPLOAD_STORE_IMAGE'", () => {
-    let createdImage: IStoreImgData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
-    let updatedStore: IStoreData;
+    let createdImage: IServiceImgData; let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
+    let updatedService: IServiceData;
     beforeAll(() => {
       ({ state, dispatch } = getContextFromWrapper(wrapper));
-      state.storeState.currentStoreData = state.storeState.loadedStores[0];
-      createdImage = createMockStoreImage();
-      // set mock updated store with mock image //
-      updatedStore = state.storeState.loadedStores[0];
-      updatedStore.images.push(createdImage);
+      state.serviceState.currentServiceData = state.serviceState.loadedServices[0];
+      createdImage = createMockServiceImage();
+      // set mock updated service with mock image //
+      updatedService = state.serviceState.loadedServices[0];
+      updatedService.images.push(createdImage);
     });
     it("Should properly dispatch the action", (done) => {
       moxios.wait(() => {
@@ -341,13 +341,13 @@ describe("Store Actions Tests", () => {
           status: 200,
           response: {
             responseMsg: "All Ok",
-            updatedStore: updatedStore
+            updatedService: updatedService
           }
         });
       });
       // mock action with moxios //
       const formData = new FormData();
-      uploadStoreImage(updatedStore._id, formData, state, dispatch) 
+      uploadServiceImage(updatedService._id, formData, state, dispatch) 
         .then((success) => {
           if (success) done();
         })
@@ -357,33 +357,33 @@ describe("Store Actions Tests", () => {
     });
     it("Should return the correct new state", () => {
       // expected state after action //
-      const expectedStoreState = { ...state.storeState };
-      expectedStoreState.responseMsg = "All Ok";
-      expectedStoreState.currentStoreData = updatedStore;
-      expectedStoreState.loadedStores = state.storeState.loadedStores.map((store) => {
-        if (store._id === updatedStore._id) {
-          return updatedStore;
+      const expectedServiceState = { ...state.serviceState };
+      expectedServiceState.responseMsg = "All Ok";
+      expectedServiceState.currentServiceData = updatedService;
+      expectedServiceState.loadedServices = state.serviceState.loadedServices.map((service) => {
+        if (service._id === updatedService._id) {
+          return updatedService;
         } else {
-          return store;
+          return service;
         }
       });
       // retrieve new state and compare //
       const { state: newState } = getContextFromWrapper(wrapper);
-      expect(newState.storeState).to.eql(expectedStoreState);
+      expect(newState.serviceState).to.eql(expectedServiceState);
     });
     it("Should NOT have an error", () => {
       const { state } = getContextFromWrapper(wrapper);
-      expect(state.storeState.error).to.equal(null);
+      expect(state.serviceState.error).to.equal(null);
     });
   });
 
   describe("Action: 'DELETE_STORE_IMAGE'", () => {
-    let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
-    let updatedStore: IStoreData;
+    let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
+    let updatedService: IServiceData;
 
     beforeAll(() => {
       ({ state, dispatch } = getContextFromWrapper(wrapper));
-      updatedStore = { ...state.storeState.currentStoreData, images: [] };
+      updatedService = { ...state.serviceState.currentServiceData, images: [] };
     });
 
     it("Should properly dispatch the action", (done) => {
@@ -393,12 +393,12 @@ describe("Store Actions Tests", () => {
           status: 200,
           response: {
             responseMsg: "All Ok",
-            updatedStore: updatedStore
+            updatedService: updatedService
           }
         });
       });
       // mock action with moxios //
-      deleteStoreImage(updatedStore._id, state, dispatch) 
+      deleteServiceImage(updatedService._id, state, dispatch) 
         .then((success) => {
           if (success) done();
         })
@@ -408,26 +408,26 @@ describe("Store Actions Tests", () => {
     });
     it("Should return the correct new state", () => {
       // expected state after action //
-      const expectedStoreState = { ...state.storeState };
-      expectedStoreState.responseMsg = "All Ok";
-      expectedStoreState.currentStoreData = updatedStore;
-      expectedStoreState.loadedStores = state.storeState.loadedStores.map((store) => {
-        if (store._id === updatedStore._id) {
+      const expectedServiceState = { ...state.serviceState };
+      expectedServiceState.responseMsg = "All Ok";
+      expectedServiceState.currentServiceData = updatedService;
+      expectedServiceState.loadedServices = state.serviceState.loadedServices.map((service) => {
+        if (service._id === updatedService._id) {
           return  {
-            ...updatedStore,
+            ...updatedService,
             images: []
           };
         } else {
-          return store;
+          return service;
         }
       });
       // retrieve new state and compare //
       const { state: newState } = getContextFromWrapper(wrapper);
-      expect(newState.storeState).to.eql(expectedStoreState);
+      expect(newState.serviceState).to.eql(expectedServiceState);
     });
     it("Should NOT have an error", () => {
       const { state } = getContextFromWrapper(wrapper);
-      expect(state.storeState.error).to.equal(null);
+      expect(state.serviceState.error).to.equal(null);
     });
   });
 

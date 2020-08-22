@@ -1,5 +1,5 @@
 // types //
-const emptyServiceData = (): IServiceData => {
+export const emptyServiceData = (): IServiceData => {
   return {
     _id: "",
     name: "",
