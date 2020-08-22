@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
 import { Dispatch } from "react";
 import { IGlobalAppState } from "../../../../state/Store";
-import { AppAction } from "../../../../state/Store";
 
 interface IStoreImgServerRes {
   data: IStoreImgServerResData;
@@ -35,7 +34,7 @@ type StoreQuery = {
 }
 type EditedStoreData = NewStoreData;
 
-export const getAllStores = (dispatch: Dispatch<AppAction>, queryOptions?: StoreQuery): Promise<boolean> => {
+export const getAllStores = (dispatch: Dispatch<StoreAction>, queryOptions?: StoreQuery): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/stores",
@@ -94,7 +93,7 @@ export const getStoreByName = (name: string, dispatch: Dispatch<StoreAction>): P
       return false;
     });
 }
-export const getStore = (_id: string, dispatch: Dispatch<AppAction>): Promise<boolean> => {
+export const getStore = (_id: string, dispatch: Dispatch<StoreAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/stores/" + _id,
@@ -121,7 +120,7 @@ export const getStore = (_id: string, dispatch: Dispatch<AppAction>): Promise<bo
     });
 };
 
-export const createStore = ({ title, description, storeImages }: NewStoreData, dispatch: Dispatch<AppAction>): Promise<boolean> => {
+export const createStore = ({ title, description, storeImages }: NewStoreData, dispatch: Dispatch<StoreAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/stores/create",
@@ -134,7 +133,6 @@ export const createStore = ({ title, description, storeImages }: NewStoreData, d
 
   return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
-      console.log(response)
       const { data } = response;
       const newStore = data.newStore!
       dispatch({ type: "CREATE_STORE", payload: {
@@ -156,8 +154,7 @@ export const createStore = ({ title, description, storeImages }: NewStoreData, d
     });
 };
 
-export const editStore = (_id: string, data: EditedStoreData, dispatch: Dispatch<AppAction>, state: IGlobalAppState) => {
-  console.log(data)
+export const editStore = (_id: string, data: EditedStoreData, dispatch: Dispatch<StoreAction>, state: IGlobalAppState) => {
   const { loadedStores } = state.storeState;
   const requestOptions: AxiosRequestConfig = {
     method: "patch",
@@ -195,7 +192,7 @@ export const editStore = (_id: string, data: EditedStoreData, dispatch: Dispatch
     });
 };
 
-export const deleteStore = (_id: string, dispatch: Dispatch<AppAction>, state: IGlobalAppState): Promise<boolean> => {
+export const deleteStore = (_id: string, dispatch: Dispatch<StoreAction>, state: IGlobalAppState): Promise<boolean> => {
   const { loadedStores } = state.storeState;
   const requestOptions: AxiosRequestConfig = {
     method: "delete",
@@ -227,7 +224,7 @@ export const deleteStore = (_id: string, dispatch: Dispatch<AppAction>, state: I
     });
 };
 
-export const uploadStoreImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<AppAction>): Promise<boolean> => {
+export const uploadStoreImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<StoreAction>): Promise<boolean> => {
   console.log(imageFile)
   const { loadedStores } = state.storeState;
   const requestOptions: AxiosRequestConfig = {
@@ -268,7 +265,7 @@ export const uploadStoreImage = (_id: string, imageFile: FormData, state: IGloba
     });
 };
 
-export const deleteStoreImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<AppAction>): Promise<boolean> => {
+export const deleteStoreImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<StoreAction>): Promise<boolean> => {
   const { loadedStores } = state.storeState; 
   const { _id: storeId } = state.storeState.currentStoreData;
 

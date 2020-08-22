@@ -1,5 +1,5 @@
 // types //
-const emptyStoreData = (): IStoreData => {
+export const emptyStoreData = (): IStoreData => {
   return {
     _id: "",
     title: "",
@@ -18,7 +18,6 @@ export const initialStoreState: IStoreState = {
 };
 
 const storeReducer = (state: IStoreState = initialStoreState, action: StoreAction): IStoreState => {
-  console.log("called");
   switch (action.type) {
     case "GET_ALL_STORES": 
       return {
@@ -37,7 +36,6 @@ const storeReducer = (state: IStoreState = initialStoreState, action: StoreActio
         error: action.payload.error
       };
     case "SET_CURRENT_STORE": 
-    console.log("called set")
       return {
         ...state,
         currentStoreData: { ...action.payload.currentStoreData }

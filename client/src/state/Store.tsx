@@ -14,7 +14,7 @@ export interface IGlobalAppState {
   serviceState: IServiceState;
 }
 // app actions //
-export type AppAction = StoreAction | StoreItemAction | ServiceAction | ProductAction | BonusVideoAction;
+export type AppAction = StoreAction | StoreItemAction | ServiceAction  | ProductAction | BonusVideoAction;
 // global app context //
 export interface IGlobalAppContext {
   state: IGlobalAppState;

@@ -93,4 +93,4 @@ declare interface IBonusVideoState {
   error: null | Error;
 }
 declare type BonusVideoAction = GetAllBonusVideos | GetBonusVideo | SetCurrentBonusVideo | ClearCurrentBonusVideo | CreateBonusVideo | EditBonusVideo | 
-                          DeleteBonusVideo | SetBonusVideoError | ClearBonusVideoError | UploadNewBonusVideoImg | UpdateBonusVideoImgs | DeleteBonusVideoImg;
+                          DeleteBonusVideo | SetBonusVideoError | ClearBonusVideoError;
