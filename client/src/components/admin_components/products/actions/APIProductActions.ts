@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
 import { Dispatch } from "react";
 import { IGlobalAppState } from "../../../../state/Store";
-import { AppAction } from "../../../../state/Store";
 
 interface IProductImgServerResData {
   responseMsg: string;
@@ -25,14 +24,14 @@ interface IProductServerRes {
   data: IProductServerResData
 }
 
-type NewProductData = {
+
+export type ClientProductData = {
   name: string;
   description: string;
+  price: string;
   productImages: IProductImgData[]
 }
-type EditedProductData = NewProductData;
-
-export const getAllProducts = (dispatch: Dispatch<AppAction>): Promise<boolean> => {
+export const getAllProducts = (dispatch: Dispatch<ProductAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/products"
@@ -59,7 +58,7 @@ export const getAllProducts = (dispatch: Dispatch<AppAction>): Promise<boolean> 
     });
 };
 
-export const getProduct = (_id: string, dispatch: Dispatch<AppAction>): Promise<boolean> => {
+export const getProduct = (_id: string, dispatch: Dispatch<ProductAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/products/" + _id,
@@ -86,7 +85,7 @@ export const getProduct = (_id: string, dispatch: Dispatch<AppAction>): Promise<
     });
 };
 
-export const createProduct = ({ name, description, productImages }: NewProductData, dispatch: Dispatch<AppAction>): Promise<boolean> => {
+export const createProduct = ({ name, description, price, productImages }: ClientProductData, dispatch: Dispatch<ProductAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/products/create",
@@ -120,7 +119,7 @@ export const createProduct = ({ name, description, productImages }: NewProductDa
     });
 };
 
-export const editProduct = (_id: string, data: EditedProductData, dispatch: Dispatch<AppAction>, state: IGlobalAppState) => {
+export const editProduct = (_id: string, data: ClientProductData, dispatch: Dispatch<ProductAction>, state: IGlobalAppState) => {
   const { loadedProducts } = state.productState;
   const requestOptions: AxiosRequestConfig = {
     method: "patch",
@@ -158,7 +157,7 @@ export const editProduct = (_id: string, data: EditedProductData, dispatch: Disp
     });
 };
 
-export const deleteProduct = (_id: string, dispatch: Dispatch<AppAction>, state: IGlobalAppState): Promise<boolean> => {
+export const deleteProduct = (_id: string, dispatch: Dispatch<ProductAction>, state: IGlobalAppState): Promise<boolean> => {
   const { loadedProducts } = state.productState;
   const requestOptions: AxiosRequestConfig = {
     method: "delete",
@@ -190,7 +189,7 @@ export const deleteProduct = (_id: string, dispatch: Dispatch<AppAction>, state:
     });
 };
 
-export const uploadProductImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<AppAction>): Promise<boolean> => {
+export const uploadProductImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<ProductAction>): Promise<boolean> => {
   const { loadedProducts } = state.productState;
   const requestOptions: AxiosRequestConfig = {
     method: "post",
@@ -230,7 +229,7 @@ export const uploadProductImage = (_id: string, imageFile: FormData, state: IGlo
     });
 };
 
-export const deleteProductImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<AppAction>): Promise<boolean> => {
+export const deleteProductImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<ProductAction>): Promise<boolean> => {
   const { loadedProducts } = state.productState; 
   const { _id: productId } = state.productState.currentProductData;
 
