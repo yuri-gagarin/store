@@ -45,12 +45,14 @@ const storeReducer = (state: IStoreItemState = initialStoreItemState, action: St
     case "SET_CURRENT_STORE_ITEM": 
       return {
         ...state,
-        currentStoreItemData: { ...action.payload.currentStoreItemData }
+        currentStoreItemData: { ...action.payload.currentStoreItemData },
+        error: action.payload.error
       };
     case "CLEAR_CURRENT_STORE_ITEM": 
       return {
         ...state,
-        currentStoreItemData: { ...emptyStoreItemData() }
+        currentStoreItemData: { ...emptyStoreItemData() },
+        error: action.payload.error
       };
     case "UPLOAD_NEW_STORE_ITEM_IMG": 
       return {

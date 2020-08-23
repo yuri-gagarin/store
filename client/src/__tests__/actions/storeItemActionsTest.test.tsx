@@ -41,6 +41,53 @@ describe("StoreItem Actions Tests", () => {
       <StoreItemView></StoreItemView>
     </StateProvider>
     );
+  });
+
+  describe("Mock request with error returned", () => {
+    beforeEach(() => {
+      moxios.install();
+    });
+    afterEach(() => {
+      moxios.uninstall();
+    });
+
+    describe("Action: 'GET_ALL_STORE_ITEMS'", () => {
+      let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
+      let requestConfig: AxiosRequestConfig;
+      const error = new Error("Error occured")
+
+      beforeAll(() => {
+        ({ state, dispatch } = getContextFromWrapper(wrapper));
+      });
+
+      it("Should properly dispatch the action", (done) => {
+        moxios.wait(() => {
+          let request = moxios.requests.mostRecent();
+          requestConfig = request.config;
+          request.reject(error)
+        });
+        getAllStoreItems(dispatch)
+          .then((success) => {
+            if (!success) done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should return the correct new state", () => {
+        // expected state after action //
+        const expectedStoreItemState = { ...state.storeItemState };
+        expectedStoreItemState.responseMsg = error.message;
+        expectedStoreItemState.error = error;
+        // retrieve new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState.storeItemState).to.eql(expectedStoreItemState);
+      });
+      it("Should have an error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.storeItemState.error).to.not.be.null;
+      });
+    });
   })
 
   describe("Mock requests with no errors", () => {
@@ -57,6 +104,7 @@ describe("StoreItem Actions Tests", () => {
       beforeAll(() => {
         mockStoreItems = createMockStoreItems(10);
       ({ state, dispatch } = getContextFromWrapper(wrapper));
+      state.storeItemState.error = null;
       });
 
       it("Should properly dispatch the action", () => {

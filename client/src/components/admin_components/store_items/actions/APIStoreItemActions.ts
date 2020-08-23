@@ -234,7 +234,7 @@ export const uploadStoreItemImage = (storeId: string, imageFile: FormData, state
 export const deleteStoreItemImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<StoreItemAction>): Promise<boolean> => {
   const { loadedStoreItems } = state.storeItemState; 
   const { _id: storeItemId } = state.storeItemState.currentStoreItemData;
-  
+
   const requestOptions: AxiosRequestConfig = {
     method: "delete",
     url: "/api/uploads/store_item_images/" + imgId + "/" + storeItemId

@@ -12,11 +12,14 @@ type SetCurrentStoreItem = {
   readonly type: "SET_CURRENT_STORE_ITEM";
   payload: {
     currentStoreItemData: IStoreItemData;
+    error: null | Error
   }
 }
 type ClearCurrentStoreItem = {
   readonly type: "CLEAR_CURRENT_STORE_ITEM";
-  payload: null;
+  payload: {
+    error: null | Error
+  }
 }
 type GetStoreItem = {
   readonly type: "GET_STORE_ITEM";
