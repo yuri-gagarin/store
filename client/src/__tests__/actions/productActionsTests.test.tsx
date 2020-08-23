@@ -16,7 +16,7 @@ import { getAllProducts, getProduct, createProduct, editProduct,
 } from "../../components/admin_components/products/actions/APIProductActions";
 // helpers and additional dependencies //
 import { emptyProductData } from "../../state/reducers/productReducer";
-import { createMockProducts, createMockProductImage } from "../helpers/productHelpers"
+import { createMockProducts, createMockProductImage } from "../../test_helpers/productHelpers"
 import { ClientProductData } from "../../components/admin_components/products/actions/APIProductActions";
 
 

@@ -1,5 +1,5 @@
 // types //
-const emptyStoreItemData = (): IStoreItemData => {
+export const emptyStoreItemData = (): IStoreItemData => {
   return {
     _id: "",
     storeId: "",

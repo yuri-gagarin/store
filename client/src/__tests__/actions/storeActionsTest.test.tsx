@@ -16,7 +16,7 @@ import { getAllStores, getStore, createStore, editStore,
 } from "../../components/admin_components/stores/actions/APIstoreActions";
 // helpers and additional dependencies //
 import { emptyStoreData } from "../../state/reducers/storeReducer";
-import { createMockStores, createMockStoreImage } from "../helpers/storeHelpers";
+import { createMockStores, createMockStoreImage } from "../../test_helpers/storeHelpers";
 
 
 

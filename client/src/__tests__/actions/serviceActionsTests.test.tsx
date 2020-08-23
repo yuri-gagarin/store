@@ -16,7 +16,7 @@ import { getAllServices, getService, createService, editService,
 } from "../../components/admin_components/services/actions/APIServiceActions";
 // helpers and additional dependencies //
 import { emptyServiceData } from "../../state/reducers/serviceReducer";
-import { createMockServices, createMockServiceImage } from "../helpers/serviceHelpers";
+import { createMockServices, createMockServiceImage } from "../../test_helpers/serviceHelpers";
 import { ClientServiceData } from "../../components/admin_components/services/actions/APIServiceActions";
 
 
