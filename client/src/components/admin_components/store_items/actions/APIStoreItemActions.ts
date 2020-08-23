@@ -113,10 +113,9 @@ export const createStoreItem = (data: ClientStoreItemData, dispatch: Dispatch<St
       return true;
     })
     .catch((error: AxiosError) => {
-      console.error(error)
       dispatch({ type: "SET_STORE_ITEM_ERROR", payload: {
         loading: false,
-        responseMsg: "An Error occured",
+        responseMsg: error.message,
         error: error
       }});
       return false;
@@ -153,7 +152,7 @@ export const editStoreItem = (_id: string, data: ClientStoreItemData, dispatch: 
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_STORE_ITEM_ERROR", payload: {
         loading: false,
-        responseMsg: "An error occured",
+        responseMsg: error.message,
         error: error
       }});
     });

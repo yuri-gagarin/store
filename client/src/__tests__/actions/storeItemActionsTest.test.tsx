@@ -26,6 +26,23 @@ type WrapperProps = {
   value: IGlobalAppContext;
 }
 
+const clearStoreItemState = (globalState: IGlobalAppState): IGlobalAppState => {
+  return {
+    storeState: { ...globalState.storeState },
+    storeItemState: {
+      responseMsg: "",
+      loading: false,
+      numberOfItems: 0,
+      currentStoreItemData:emptyStoreItemData(),
+      loadedStoreItems: [],
+      error: null
+    },
+    productState: { ...globalState.productState },
+    serviceState: { ...globalState.serviceState },
+    bonusVideoState: { ...globalState.bonusVideoState }
+  };
+};
+
 const getContextFromWrapper = (wrapper: ShallowWrapper): IGlobalAppContext => {
   const props = wrapper.props() as WrapperProps;
   const globalAppContext = props.value;
@@ -43,16 +60,17 @@ describe("StoreItem Actions Tests", () => {
     );
   });
 
-  describe("Mock request with error returned", () => {
+  describe("Mock request with API error returned", () => {
+    let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
     beforeEach(() => {
       moxios.install();
+      clearStoreItemState(state);
     });
     afterEach(() => {
       moxios.uninstall();
     });
 
     describe("Action: 'GET_ALL_STORE_ITEMS'", () => {
-      let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
       let requestConfig: AxiosRequestConfig;
       const error = new Error("Error occured")
 
@@ -88,7 +106,122 @@ describe("StoreItem Actions Tests", () => {
         expect(state.storeItemState.error).to.not.be.null;
       });
     });
-  })
+
+    describe("Action: 'GET_STORE_ITEM'", () => {
+      let requestConfig: AxiosRequestConfig; let storeItem: IStoreItemData;
+      const error = new Error("Error occured")
+
+      beforeAll(() => {
+        ({ state, dispatch } = getContextFromWrapper(wrapper));
+        storeItem = createMockStoreItems(1)[0];
+      });
+
+      it("Should properly dispatch the action", (done) => {
+        moxios.wait(() => {
+          let request = moxios.requests.mostRecent();
+          requestConfig = request.config;
+          request.reject(error)
+        });
+        getStoreItem(storeItem._id, dispatch)
+          .then((success) => {
+            if (!success) done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should return the correct new state", () => {
+        // expected state after action //
+        const expectedStoreItemState = { ...state.storeItemState };
+        expectedStoreItemState.responseMsg = error.message;
+        expectedStoreItemState.error = error;
+        // retrieve new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState.storeItemState).to.eql(expectedStoreItemState);
+      });
+      it("Should have an error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.storeItemState.error).to.not.be.null;
+      });
+    });
+
+    describe("Action: 'CREATE_STORE_ITEM'", () => {
+      let requestConfig: AxiosRequestConfig; let storeItem: IStoreItemData;
+      const error = new Error("Error occured")
+
+      beforeAll(() => {
+        ({ state, dispatch } = getContextFromWrapper(wrapper));
+        storeItem = createMockStoreItems(1)[0];
+      });
+
+      it("Should properly dispatch the action", (done) => {
+        moxios.wait(() => {
+          let request = moxios.requests.mostRecent();
+          requestConfig = request.config;
+          request.reject(error)
+        });
+        createStoreItem(storeItem, dispatch)
+          .then((success) => {
+            if (!success) done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should return the correct new state", () => {
+        // expected state after action //
+        const expectedStoreItemState = { ...state.storeItemState };
+        expectedStoreItemState.responseMsg = error.message;
+        expectedStoreItemState.error = error;
+        // retrieve new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState.storeItemState).to.eql(expectedStoreItemState);
+      });
+      it("Should have an error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.storeItemState.error).to.not.be.null;
+      });
+    });
+
+    describe("Action: 'EDIT_STORE_ITEM'", () => {
+      let requestConfig: AxiosRequestConfig; let storeItem: IStoreItemData;
+      const error = new Error("Error occured")
+
+      beforeAll(() => {
+        ({ state, dispatch } = getContextFromWrapper(wrapper));
+        storeItem = createMockStoreItems(1)[0];
+      });
+
+      it("Should properly dispatch the action", (done) => {
+        moxios.wait(() => {
+          let request = moxios.requests.mostRecent();
+          requestConfig = request.config;
+          request.reject(error)
+        });
+        editStoreItem(storeItem._id, storeItem, dispatch, state)
+          .then((success) => {
+            if (!success) done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should return the correct new state", () => {
+        // expected state after action //
+        const expectedStoreItemState = { ...state.storeItemState };
+        expectedStoreItemState.responseMsg = error.message;
+        expectedStoreItemState.error = error;
+        // retrieve new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState.storeItemState).to.eql(expectedStoreItemState);
+      });
+      it("Should have an error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.storeItemState.error).to.not.be.null;
+      });
+    });
+
+  });
 
   describe("Mock requests with no errors", () => {
     beforeEach(() => {
