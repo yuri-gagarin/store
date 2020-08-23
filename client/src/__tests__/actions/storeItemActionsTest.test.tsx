@@ -16,8 +16,9 @@ import { getAllStoreItems, getStoreItem, createStoreItem, editStoreItem,
 } from "../../components/admin_components/store_items/actions/APIStoreItemActions";
 // helpers and additional dependencies //
 import { emptyStoreItemData } from "../../state/reducers/storeItemReducer";
-import { createMockStoreItems, createMockStoreItemImage } from "../../test_helpers/store_itemHelpers"
+import { createMockStoreItems, createMockStoreItemImage } from "../../test_helpers/storeItemHelpers"
 import { ClientStoreItemData } from "../../components/admin_components/store_items/actions/APIStoreItemActions";
+import { AxiosRequestConfig } from "axios";
 
 
 
@@ -33,6 +34,7 @@ const getContextFromWrapper = (wrapper: ShallowWrapper): IGlobalAppContext => {
 
 describe("StoreItem Actions Tests", () => {
   let wrapper: ShallowWrapper;
+
   beforeAll(() => {
     wrapper = shallow(
     <StateProvider>
@@ -40,398 +42,482 @@ describe("StoreItem Actions Tests", () => {
     </StateProvider>
     );
   })
-  beforeEach(() => {
-    moxios.install();
-  });
-  afterEach(() => {
-    moxios.uninstall();
-  });
 
-  describe("Action: 'SET_CURRENT_STORE_ITEM'", () => {
-    let mockStoreItems: IStoreItemData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
-    beforeAll(() => {
-      mockStoreItems = createMockStoreItems(10);
-     ({ state, dispatch } = getContextFromWrapper(wrapper));
+  describe("Mock requests with no errors", () => {
+    beforeEach(() => {
+      moxios.install();
     });
-    it("Should properly dispatch the action", () => {
-      state.storeItemState.loadedStoreItems = [ ...mockStoreItems ];
-      const store_item = state.storeItemState.loadedStoreItems[0];
-      setCurrentStoreItem(store_item._id, dispatch, state);
+    afterEach(() => {
+      moxios.uninstall();
     });
-    it('Should return the correct new state', () => {
-      // expected state after action //
-      const expectedStoreItemState = state.storeItemState;
-      expectedStoreItemState.currentStoreItemData = mockStoreItems[0];
-      // retrieve new state //
-      const { state : newState } = getContextFromWrapper(wrapper);
-      expect(newState.storeItemState).to.eql(expectedStoreItemState);
-    });
-    it("Should NOT have an error", () => {
-      const { state } = getContextFromWrapper(wrapper);
-      expect(state.storeItemState.error).to.equal(null);
-    });
-  });
 
-  describe("Action: 'CLEAR_CURRENT_STORE_ITEM'", () => {
-    let mockStoreItems: IStoreItemData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
-    beforeAll(() => {
-      mockStoreItems = createMockStoreItems(10);
+    describe("Action: 'SET_CURRENT_STORE_ITEM'", () => {
+      let mockStoreItems: IStoreItemData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
+      
+      beforeAll(() => {
+        mockStoreItems = createMockStoreItems(10);
       ({ state, dispatch } = getContextFromWrapper(wrapper));
-      state.storeItemState.currentStoreItemData = mockStoreItems[0];
-    });
-    it("Should properly dispatch the action", () => {
-      clearCurrentStoreItem(dispatch);
-    });
-    it("Should return the correct new state", () => {
-      // expected state after action //
-      const expectedStoreItemState = state.storeItemState;
-      expectedStoreItemState.currentStoreItemData = emptyStoreItemData();
-      // retrieve new state and compare //
-      const { state: newState } = getContextFromWrapper(wrapper);
-      expect(newState.storeItemState).to.eql(expectedStoreItemState);
-    });
-    it("Should NOT have an error", () => {
-      const { state } = getContextFromWrapper(wrapper);
-      expect(state.storeItemState.error).to.equal(null);
-    });
-  });
+      });
 
-  describe("Action: 'GET_ALL_STORE_ITEMS'", () => {
-    let mockStoreItems: IStoreItemData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
-    beforeAll(() => {
-      mockStoreItems = createMockStoreItems(10);
-      ({ state, dispatch } = getContextFromWrapper(wrapper));
+      it("Should properly dispatch the action", () => {
+        state.storeItemState.loadedStoreItems = [ ...mockStoreItems ];
+        const storeItem = state.storeItemState.loadedStoreItems[0];
+        setCurrentStoreItem(storeItem._id, dispatch, state);
+      });
+      it('Should return the correct new state', () => {
+        // expected state after action //
+        const expectedStoreItemState = { ...state.storeItemState };
+        expectedStoreItemState.currentStoreItemData = mockStoreItems[0];
+        // retrieve new state //
+        const { state : newState } = getContextFromWrapper(wrapper);
+        expect(newState.storeItemState).to.eql(expectedStoreItemState);
+      });
+      it("Should NOT have an error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.storeItemState.error).to.equal(null);
+      });
     });
-    it("Should properly dispatch the action", (done) => {
-      moxios.wait(() => {
-        let request = moxios.requests.mostRecent();
-        request.respondWith({
-          status: 200,
-          response: {
-            responseMsg: "All Ok",
-            store_items: mockStoreItems
+
+    describe("Action: 'CLEAR_CURRENT_STORE_ITEM'", () => {
+      let mockStoreItems: IStoreItemData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
+      
+      beforeAll(() => {
+        mockStoreItems = createMockStoreItems(10);
+        ({ state, dispatch } = getContextFromWrapper(wrapper));
+        state.storeItemState.currentStoreItemData = mockStoreItems[0];
+      });
+
+      it("Should properly dispatch the action", () => {
+        clearCurrentStoreItem(dispatch);
+      });
+      it("Should return the correct new state", () => {
+        // expected state after action //
+        const expectedStoreItemState = { ...state.storeItemState };
+        expectedStoreItemState.currentStoreItemData = emptyStoreItemData();
+        // retrieve new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState.storeItemState).to.eql(expectedStoreItemState);
+      });
+      it("Should NOT have an error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.storeItemState.error).to.equal(null);
+      });
+    });
+
+    describe("Action: 'GET_ALL_STORE_ITEMS'", () => {
+      let mockStoreItems: IStoreItemData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
+      let requestConfig: AxiosRequestConfig;
+
+      beforeAll(() => {
+        mockStoreItems = createMockStoreItems(10);
+        ({ state, dispatch } = getContextFromWrapper(wrapper));
+      });
+
+      it("Should properly dispatch the action", (done) => {
+        moxios.wait(() => {
+          let request = moxios.requests.mostRecent();
+          requestConfig = request.config;
+          request.respondWith({
+            status: 200,
+            response: {
+              responseMsg: "All Ok",
+              storeItems: mockStoreItems
+            }
+          });
+        });
+        getAllStoreItems(dispatch)
+          .then((success) => {
+            if (success) done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should send the correct API request", () => {
+        expect(requestConfig.url).to.eq("/api/store_items");
+        expect(requestConfig.method).to.eq("get");
+      });
+      it("Should return the correct new state", () => {
+        // expected state after action //
+        const expectedStoreItemState = { ...state.storeItemState };
+        expectedStoreItemState.responseMsg = "All Ok";
+        expectedStoreItemState.loadedStoreItems = mockStoreItems;
+        // retrieve new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState.storeItemState).to.eql(expectedStoreItemState);
+      });
+      it("Should NOT have an error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.storeItemState.error).to.equal(null);
+      });
+    });
+
+    describe("Action: 'GET_STORE_ITEM'", () => {
+      let mockStoreItem: IStoreItemData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
+      let requestConfig: AxiosRequestConfig;
+
+      beforeAll(() => {
+        mockStoreItem = createMockStoreItems(1)[0];
+        ({ state, dispatch } = getContextFromWrapper(wrapper));
+      });
+
+      it("Should properly dispatch the action", (done) => {
+        moxios.wait(() => {
+          let request = moxios.requests.mostRecent();
+          requestConfig = request.config;
+          request.respondWith({
+            status: 200,
+            response: {
+              responseMsg: "All Ok",
+              storeItem: mockStoreItem
+            }
+          });
+        });
+        // mock action with moxios //
+        getStoreItem(mockStoreItem._id, dispatch)
+          .then((success) => {
+            if (success) done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should send the correct API request", () => {
+        expect(requestConfig.url).to.eq("/api/store_items/" + mockStoreItem._id);
+        expect(requestConfig.method).to.eq("get");
+      });
+      it("Should return the correct new state", () => {
+        // expected state after action //
+        const expectedStoreItemState = { ...state.storeItemState };
+        expectedStoreItemState.responseMsg = "All Ok";
+        expectedStoreItemState.currentStoreItemData = mockStoreItem;
+        // retrieve new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState.storeItemState).to.eql(expectedStoreItemState);
+      });
+      it("Should NOT have an error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.storeItemState.error).to.equal(null);
+      });
+    });
+
+    describe("Action: 'CREATE_STORE_ITEM'", () => {
+      let createdStoreItem: IStoreItemData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
+      let requestConfig: AxiosRequestConfig;
+
+      beforeAll(() => {
+        ({ state, dispatch } = getContextFromWrapper(wrapper));
+        createdStoreItem = createMockStoreItems(1)[0];
+      });
+
+      it("Should properly dispatch the action", (done) => {
+        moxios.wait(() => {
+          let request = moxios.requests.mostRecent();
+          requestConfig = request.config;
+          request.respondWith({
+            status: 200,
+            response: {
+              responseMsg: "All Ok",
+              newStoreItem: createdStoreItem
+            }
+          });
+        });
+        // mock store_item form data //
+        let newStoreItem: ClientStoreItemData = {
+          ...createdStoreItem,
+        };
+        // mock action with moxios //
+        createStoreItem(newStoreItem, dispatch)
+          .then((success) => {
+            if (success) done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should send the correct API request", () => {
+        expect(requestConfig.url).to.eq("/api/store_items/create");
+        expect(requestConfig.method).to.eq("post");
+      });
+      it("Should send the correct Store Item Data", () => {
+        const sentData: ClientStoreItemData = JSON.parse(requestConfig.data);
+        const { storeId, storeName, name, price, description, details, images, categories } = sentData;
+        expect(storeId).to.be.a("string");
+        expect(storeName).to.be.a("string");
+        expect(name).to.be.a("string");
+        expect(price).to.be.a("string");
+        expect(description).to.be.a("string");
+        expect(details).to.be.a("string");
+        expect(images).to.be.an("array");
+        expect(categories).to.be.an("array");
+      });
+      it("Should return the correct new state", () => {
+        // expected state after action //
+        const expectedStoreItemState = { ...state.storeItemState };
+        expectedStoreItemState.responseMsg = "All Ok";
+        expectedStoreItemState.currentStoreItemData = createdStoreItem;
+        expectedStoreItemState.loadedStoreItems = [ ...expectedStoreItemState.loadedStoreItems, createdStoreItem ]
+        // retrieve new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState.storeItemState).to.eql(expectedStoreItemState);
+      });
+      it("Should NOT have an error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.storeItemState.error).to.equal(null);
+      });
+    });
+
+    describe("Action: 'EDIT_STORE_ITEM'", () => {
+      let editedStoreItem: IStoreItemData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
+      let requestConfig: AxiosRequestConfig;
+
+      beforeAll(() => {
+        ({ state, dispatch } = getContextFromWrapper(wrapper));
+        let storeItem = { ...state.storeItemState.loadedStoreItems[0] };
+        storeItem.name = faker.lorem.word();
+        storeItem.description = faker.lorem.paragraphs(1),
+        editedStoreItem = storeItem;
+      });
+
+      it("Should properly dispatch the action", (done) => {
+        moxios.wait(() => {
+          let request = moxios.requests.mostRecent();
+          requestConfig = request.config;
+          request.respondWith({
+            status: 200,
+            response: {
+              responseMsg: "All Ok",
+              editedStoreItem: editedStoreItem
+            }
+          });
+        });
+        // mock storeItem form data //
+        let storeItemUpdate: ClientStoreItemData = {
+          ...editedStoreItem,
+        };
+        // mock action with moxios //
+        editStoreItem(editedStoreItem._id, storeItemUpdate, dispatch, state)
+          .then((success) => {
+            if (success) done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should send the correct API request", () => {
+        expect(requestConfig.url).to.eq("/api/store_items/update/" + editedStoreItem._id);
+        expect(requestConfig.method).to.eq("patch");
+      });
+      it("Should send the correct Store Item Data", () => {
+        const sentData: ClientStoreItemData = JSON.parse(requestConfig.data);
+        const { storeId, storeName, name, price, description, details, images, categories } = sentData;
+        expect(storeId).to.be.a("string");
+        expect(storeName).to.be.a("string");
+        expect(name).to.be.a("string");
+        expect(price).to.be.a("string");
+        expect(description).to.be.a("string");
+        expect(details).to.be.a("string");
+        expect(images).to.be.an("array");
+        expect(categories).to.be.an("array");
+      });
+      it("Should return the correct new state", () => {
+        // expected state after action //
+        const expectedStoreItemState = { ...state.storeItemState };
+        expectedStoreItemState.responseMsg = "All Ok";
+        expectedStoreItemState.currentStoreItemData = editedStoreItem;
+        expectedStoreItemState.loadedStoreItems = expectedStoreItemState.loadedStoreItems.map((storeItem) => {
+          if (storeItem._id === editedStoreItem._id) {
+            return editedStoreItem;
+          } else {
+            return storeItem;
+          }
+        })
+        // retrieve new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState.storeItemState).to.eql(expectedStoreItemState);
+      });
+      it("Should NOT have an error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.storeItemState.error).to.equal(null);
+      });
+    });
+
+    describe("Action: 'DELETE_STORE_ITEM'", () => {
+      let deletedStoreItem: IStoreItemData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
+      let requestConfig: AxiosRequestConfig;
+
+      beforeAll(() => {
+        ({ state, dispatch } = getContextFromWrapper(wrapper));
+        deletedStoreItem = state.storeItemState.loadedStoreItems[0];
+      });
+
+      it("Should properly dispatch the action", (done) => {
+        moxios.wait(() => {
+          let request = moxios.requests.mostRecent();
+          requestConfig = request.config
+          request.respondWith({
+            status: 200,
+            response: {
+              responseMsg: "All Ok",
+              deletedStoreItem: deletedStoreItem
+            }
+          });
+        });
+        // mock action with moxios //
+        deleteStoreItem(deletedStoreItem._id, dispatch, state)
+          .then((success) => {
+            if (success) done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should send the correct API request", () => {
+        expect(requestConfig.url).to.eq("/api/store_items/delete/" + deletedStoreItem._id);
+        expect(requestConfig.method).to.eq("delete");
+      });
+      it("Should return the correct new state", () => {
+        // expected state after action //
+        const expectedStoreItemState = { ...state.storeItemState };
+        expectedStoreItemState.responseMsg = "All Ok";
+        expectedStoreItemState.currentStoreItemData = emptyStoreItemData();
+        expectedStoreItemState.loadedStoreItems = state.storeItemState.loadedStoreItems.filter((storeItem) => storeItem._id !== deletedStoreItem._id);
+        // retrieve new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState.storeItemState).to.eql(expectedStoreItemState);
+      });
+      it("Should NOT have an error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.storeItemState.error).to.equal(null);
+      });
+    });
+
+    describe("Action: 'UPLOAD_STORE_ITEM_IMAGE'", () => {
+      let createdImage: IStoreItemImgData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
+      let updatedStoreItem: IStoreItemData; let requestConfig: AxiosRequestConfig;
+
+      beforeAll(() => {
+        ({ state, dispatch } = getContextFromWrapper(wrapper));
+        state.storeItemState.currentStoreItemData = state.storeItemState.loadedStoreItems[0];
+        createdImage = createMockStoreItemImage();
+        // set mock updated store_item with mock image //
+        updatedStoreItem = { ...state.storeItemState.currentStoreItemData };
+        updatedStoreItem.images.push(createdImage);
+      });
+
+      it("Should properly dispatch the action", (done) => {
+        moxios.wait(() => {
+          let request = moxios.requests.mostRecent();
+          requestConfig = request.config;
+          request.respondWith({
+            status: 200,
+            response: {
+              responseMsg: "All Ok",
+              updatedStoreItem: updatedStoreItem
+            }
+          });
+        });
+        // mock action with moxios //
+        const formData = new FormData();
+        uploadStoreItemImage(updatedStoreItem._id, formData, state, dispatch) 
+          .then((success) => {
+            if (success) done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should send the correct API request", () => {
+        expect(requestConfig.url).to.eq("/api/uploads/store_item_images/" + updatedStoreItem._id);
+        expect(requestConfig.method).to.eq("post");
+      });
+      it("Should send the correct request Data", () => {
+        expect(requestConfig.data instanceof FormData).to.eq(true);
+      });
+      it("Should return the correct new state", () => {
+        // expected state after action //
+        const expectedStoreItemState = { ...state.storeItemState };
+        expectedStoreItemState.responseMsg = "All Ok";
+        expectedStoreItemState.currentStoreItemData = updatedStoreItem;
+        expectedStoreItemState.loadedStoreItems = state.storeItemState.loadedStoreItems.map((storeItem) => {
+          if (storeItem._id === updatedStoreItem._id) {
+            return updatedStoreItem;
+          } else {
+            return storeItem;
           }
         });
+        // retrieve new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState.storeItemState).to.eql(expectedStoreItemState);
       });
-      getAllStoreItems(dispatch)
-        .then((success) => {
-          if (success) done();
-        })
-        .catch((error) => {
-          done(error);
-        });
+      it("Should NOT have an error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.storeItemState.error).to.equal(null);
+      });
     });
-    it("Should return the correct new state", () => {
-      // expected state after action //
-      const expectedStoreItemState = { ...state.storeItemState };
-      expectedStoreItemState.responseMsg = "All Ok";
-      expectedStoreItemState.loadedStoreItems = mockStoreItems;
-      // retrieve new state and compare //
-      const { state: newState } = getContextFromWrapper(wrapper);
-      expect(newState.storeItemState).to.eql(expectedStoreItemState);
-    });
-    it("Should NOT have an error", () => {
-      const { state } = getContextFromWrapper(wrapper);
-      expect(state.storeItemState.error).to.equal(null);
-    });
-  });
 
-  describe("Action: 'GET_STORE_ITEM'", () => {
-    let mockStoreItem: IStoreItemData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
-    beforeAll(() => {
-      mockStoreItem = createMockStoreItems(1)[0];
-      ({ state, dispatch } = getContextFromWrapper(wrapper));
-    });
-    it("Should properly dispatch the action", (done) => {
-      moxios.wait(() => {
-        let request = moxios.requests.mostRecent();
-        request.respondWith({
-          status: 200,
-          response: {
-            responseMsg: "All Ok",
-            store_item: mockStoreItem
+    describe("Action: 'DELETE_STORE_ITEM_IMAGE'", () => {
+      let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
+      let updatedStoreItem: IStoreItemData; let deletedImage: IStoreItemImgData;
+      let requestConfig: AxiosRequestConfig;
+
+      beforeAll(() => {
+        ({ state, dispatch } = getContextFromWrapper(wrapper));
+        deletedImage = { ...state.storeItemState.currentStoreItemData.images[0] }
+        updatedStoreItem = { ...state.storeItemState.currentStoreItemData, images: [] };
+      });
+
+      it("Should properly dispatch the action", (done) => {
+        moxios.wait(() => {
+          let request = moxios.requests.mostRecent();
+          requestConfig = request.config;
+          request.respondWith({
+            status: 200,
+            response: {
+              responseMsg: "All Ok",
+              updatedStoreItem: updatedStoreItem
+            }
+          });
+        });
+        // mock action with moxios //
+        deleteStoreItemImage(deletedImage._id, state, dispatch) 
+          .then((success) => {
+            if (success) done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should send the correct API request", () => {
+        expect(requestConfig.url).to.eq("/api/uploads/store_item_images/" + deletedImage._id + "/" + updatedStoreItem._id);
+        expect(requestConfig.method).to.eq("delete");
+      });
+      it("Should not send any additional data", () => {
+        expect(requestConfig.data).to.eq(undefined);
+      });
+      it("Should return the correct new state", () => {
+        // expected state after action //
+        const expectedStoreItemState = { ...state.storeItemState };
+        expectedStoreItemState.responseMsg = "All Ok";
+        expectedStoreItemState.currentStoreItemData = updatedStoreItem;
+        expectedStoreItemState.loadedStoreItems = state.storeItemState.loadedStoreItems.map((storeItem) => {
+          if (storeItem._id === updatedStoreItem._id) {
+            return  {
+              ...updatedStoreItem,
+              images: []
+            };
+          } else {
+            return storeItem;
           }
         });
+        // retrieve new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState.storeItemState).to.eql(expectedStoreItemState);
       });
-      // mock action with moxios //
-      getStoreItem(mockStoreItem._id, dispatch)
-        .then((success) => {
-          if (success) done();
-        })
-        .catch((error) => {
-          done(error);
-        });
-    });
-    it("Should return the correct new state", () => {
-      // expected state after action //
-      const expectedStoreItemState = { ...state.storeItemState };
-      expectedStoreItemState.responseMsg = "All Ok";
-      expectedStoreItemState.currentStoreItemData = mockStoreItem;
-      // retrieve new state and compare //
-      const { state: newState } = getContextFromWrapper(wrapper);
-      expect(newState.storeItemState).to.eql(expectedStoreItemState);
-    });
-    it("Should NOT have an error", () => {
-      const { state } = getContextFromWrapper(wrapper);
-      expect(state.storeItemState.error).to.equal(null);
+      it("Should NOT have an error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.storeItemState.error).to.equal(null);
+      });
     });
   });
-
-  describe("Action: 'CREATE_STORE_ITEM'", () => {
-    let createdStoreItem: IStoreItemData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
-    beforeAll(() => {
-      ({ state, dispatch } = getContextFromWrapper(wrapper));
-      createdStoreItem = createMockStoreItems(1)[0];
-    });
-    it("Should properly dispatch the action", (done) => {
-      moxios.wait(() => {
-        let request = moxios.requests.mostRecent();
-        request.respondWith({
-          status: 200,
-          response: {
-            responseMsg: "All Ok",
-            newStoreItem: createdStoreItem
-          }
-        });
-      });
-      // mock store_item form data //
-      let newStoreItem: ClientStoreItemData = {
-        name: createdStoreItem.name,
-        description: createdStoreItem.description,
-        price: "100",
-        store_itemImages: createdStoreItem.images
-      };
-      // mock action with moxios //
-      createStoreItem(newStoreItem, dispatch)
-        .then((success) => {
-          if (success) done();
-        })
-        .catch((error) => {
-          done(error);
-        });
-    });
-    it("Should return the correct new state", () => {
-      // expected state after action //
-      const expectedStoreItemState = { ...state.storeItemState };
-      expectedStoreItemState.responseMsg = "All Ok";
-      expectedStoreItemState.currentStoreItemData = createdStoreItem;
-      expectedStoreItemState.loadedStoreItems = [ ...expectedStoreItemState.loadedStoreItems, createdStoreItem ]
-      // retrieve new state and compare //
-      const { state: newState } = getContextFromWrapper(wrapper);
-      expect(newState.storeItemState).to.eql(expectedStoreItemState);
-    });
-    it("Should NOT have an error", () => {
-      const { state } = getContextFromWrapper(wrapper);
-      expect(state.storeItemState.error).to.equal(null);
-    });
-  });
-
-  describe("Action: 'EDIT_STORE_ITEM'", () => {
-    let editedStoreItem: IStoreItemData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
-    beforeAll(() => {
-      ({ state, dispatch } = getContextFromWrapper(wrapper));
-      let store_item = { ...state.storeItemState.loadedStoreItems[0] };
-      store_item.name = faker.lorem.word();
-      store_item.description = faker.lorem.paragraphs(1),
-      editedStoreItem = store_item;
-    });
-    it("Should properly dispatch the action", (done) => {
-      moxios.wait(() => {
-        let request = moxios.requests.mostRecent();
-        request.respondWith({
-          status: 200,
-          response: {
-            responseMsg: "All Ok",
-            editedStoreItem: editedStoreItem
-          }
-        });
-      });
-      // mock store_item form data //
-      let store_itemUpdate: ClientStoreItemData = {
-        name: editedStoreItem.name,
-        price: editedStoreItem.price,
-        description: editedStoreItem.description,
-        store_itemImages: editedStoreItem.images
-      };
-      // mock action with moxios //
-      editStoreItem(editedStoreItem._id, store_itemUpdate, dispatch, state)
-        .then((success) => {
-          if (success) done();
-        })
-        .catch((error) => {
-          done(error);
-        });
-    });
-    it("Should return the correct new state", () => {
-      // expected state after action //
-      const expectedStoreItemState = { ...state.storeItemState };
-      expectedStoreItemState.responseMsg = "All Ok";
-      expectedStoreItemState.currentStoreItemData = editedStoreItem;
-      expectedStoreItemState.loadedStoreItems = expectedStoreItemState.loadedStoreItems.map((store_item) => {
-        if (store_item._id === editedStoreItem._id) {
-          return editedStoreItem;
-        } else {
-          return store_item;
-        }
-      })
-      // retrieve new state and compare //
-      const { state: newState } = getContextFromWrapper(wrapper);
-      expect(newState.storeItemState).to.eql(expectedStoreItemState);
-    });
-    it("Should NOT have an error", () => {
-      const { state } = getContextFromWrapper(wrapper);
-      expect(state.storeItemState.error).to.equal(null);
-    });
-  });
-
-  describe("Action: 'DELETE_STORE_ITEM'", () => {
-    let deletedStoreItem: IStoreItemData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
-    beforeAll(() => {
-      ({ state, dispatch } = getContextFromWrapper(wrapper));
-      deletedStoreItem = state.storeItemState.loadedStoreItems[0];
-    });
-    it("Should properly dispatch the action", (done) => {
-      moxios.wait(() => {
-        let request = moxios.requests.mostRecent();
-        request.respondWith({
-          status: 200,
-          response: {
-            responseMsg: "All Ok",
-            deletedStoreItem: deletedStoreItem
-          }
-        });
-      });
-      // mock action with moxios //
-      deleteStoreItem(deletedStoreItem._id, dispatch, state)
-        .then((success) => {
-          if (success) done();
-        })
-        .catch((error) => {
-          done(error);
-        });
-    });
-    it("Should return the correct new state", () => {
-      // expected state after action //
-      const expectedStoreItemState = { ...state.storeItemState };
-      expectedStoreItemState.responseMsg = "All Ok";
-      expectedStoreItemState.currentStoreItemData = emptyStoreItemData();
-      expectedStoreItemState.loadedStoreItems = state.storeItemState.loadedStoreItems.filter((storeItem) => storeItem._id !== deletedStoreItem._id);
-      // retrieve new state and compare //
-      const { state: newState } = getContextFromWrapper(wrapper);
-      expect(newState.storeItemState).to.eql(expectedStoreItemState);
-    });
-    it("Should NOT have an error", () => {
-      const { state } = getContextFromWrapper(wrapper);
-      expect(state.storeItemState.error).to.equal(null);
-    });
-  });
-
-  describe("Action: 'UPLOAD_STORE_ITEM_IMAGE'", () => {
-    let createdImage: IStoreItemImgData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
-    let updatedStoreItem: IStoreItemData;
-    beforeAll(() => {
-      ({ state, dispatch } = getContextFromWrapper(wrapper));
-      state.storeItemState.currentStoreItemData = state.storeItemState.loadedStoreItems[0];
-      createdImage = createMockStoreItemImage();
-      // set mock updated store_item with mock image //
-      updatedStoreItem = state.storeItemState.loadedStoreItems[0];
-      updatedStoreItem.images.push(createdImage);
-    });
-    it("Should properly dispatch the action", (done) => {
-      moxios.wait(() => {
-        let request = moxios.requests.mostRecent();
-        request.respondWith({
-          status: 200,
-          response: {
-            responseMsg: "All Ok",
-            updatedStoreItem: updatedStoreItem
-          }
-        });
-      });
-      // mock action with moxios //
-      const formData = new FormData();
-      uploadStoreItemImage(updatedStoreItem._id, formData, state, dispatch) 
-        .then((success) => {
-          if (success) done();
-        })
-        .catch((error) => {
-          done(error);
-        });
-    });
-    it("Should return the correct new state", () => {
-      // expected state after action //
-      const expectedStoreItemState = { ...state.storeItemState };
-      expectedStoreItemState.responseMsg = "All Ok";
-      expectedStoreItemState.currentStoreItemData = updatedStoreItem;
-      expectedStoreItemState.loadedStoreItems = state.storeItemState.loadedStoreItems.map((storeItem) => {
-        if (storeItem._id === updatedStoreItem._id) {
-          return updatedStoreItem;
-        } else {
-          return storeItem;
-        }
-      });
-      // retrieve new state and compare //
-      const { state: newState } = getContextFromWrapper(wrapper);
-      expect(newState.storeItemState).to.eql(expectedStoreItemState);
-    });
-    it("Should NOT have an error", () => {
-      const { state } = getContextFromWrapper(wrapper);
-      expect(state.storeItemState.error).to.equal(null);
-    });
-  });
-
-  describe("Action: 'DELETE_STORE_ITEM_IMAGE'", () => {
-    let state: IGlobalAppState; let dispatch: React.Dispatch<StoreItemAction>;
-    let updatedStoreItem: IStoreItemData;
-
-    beforeAll(() => {
-      ({ state, dispatch } = getContextFromWrapper(wrapper));
-      updatedStoreItem = { ...state.storeItemState.currentStoreItemData, images: [] };
-    });
-
-    it("Should properly dispatch the action", (done) => {
-      moxios.wait(() => {
-        let request = moxios.requests.mostRecent();
-        request.respondWith({
-          status: 200,
-          response: {
-            responseMsg: "All Ok",
-            updatedStoreItem: updatedStoreItem
-          }
-        });
-      });
-      // mock action with moxios //
-      deleteStoreItemImage(updatedStoreItem._id, state, dispatch) 
-        .then((success) => {
-          if (success) done();
-        })
-        .catch((error) => {
-          done(error);
-        });
-    });
-    it("Should return the correct new state", () => {
-      // expected state after action //
-      const expectedStoreItemState = { ...state.storeItemState };
-      expectedStoreItemState.responseMsg = "All Ok";
-      expectedStoreItemState.currentStoreItemData = updatedStoreItem;
-      expectedStoreItemState.loadedStoreItems = state.storeItemState.loadedStoreItems.map((storeItem) => {
-        if (storeItem._id === updatedStoreItem._id) {
-          return  {
-            ...updatedStoreItem,
-            images: []
-          };
-        } else {
-          return storeItem;
-        }
-      });
-      // retrieve new state and compare //
-      const { state: newState } = getContextFromWrapper(wrapper);
-      expect(newState.storeItemState).to.eql(expectedStoreItemState);
-    });
-    it("Should NOT have an error", () => {
-      const { state } = getContextFromWrapper(wrapper);
-      expect(state.storeItemState.error).to.equal(null);
-    });
-  });
-
 });

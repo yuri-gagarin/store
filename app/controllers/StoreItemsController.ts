@@ -25,7 +25,7 @@ export type StoreItemParams = {
   details?: string;
   price?: string | number;
   categories?: string[];
-  storeItemImages?: IStoreItemImage[];
+  images?: IStoreItemImage[];
 }
 type StoreItemQueryPar = {
   storeName?: string;
@@ -196,7 +196,7 @@ class StoreItemsController implements IGenericController {
       return respondWithInputError(res, "Validation Error", 422, errors);
     }
 
-    const { name, description, details, price, storeItemImages, categories }: StoreItemParams = req.body;
+    const { name, description, details, price, images : storeItemImages, categories }: StoreItemParams = req.body;
     const storeId = req.body.storeId as unknown as Types.ObjectId;
     const storeName: string = req.body.storeName;
     const imgIds: Types.ObjectId[] = [];
@@ -243,7 +243,7 @@ class StoreItemsController implements IGenericController {
 
   edit (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
     const { _id } = req.params;
-    const { name, description, details, price, storeItemImages, categories = [] }: StoreItemParams = req.body;
+    const { name, description, details, price, images : storeItemImages, categories = [] }: StoreItemParams = req.body;
     const storeId = req.body.storeId as unknown as Types.ObjectId;
     const updatedStoreItemImgs: Types.ObjectId[] = [];
 

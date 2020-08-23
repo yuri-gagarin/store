@@ -26,7 +26,7 @@ interface IStoreItemServerRes {
   data: IStoreItemServerResData
 }
 
-type NewStoreItemData = {
+export type ClientStoreItemData = {
   storeId: string;
   storeName: string;
   name: string;
@@ -34,9 +34,8 @@ type NewStoreItemData = {
   details: string;
   price: string;
   categories: string[];
-  storeItemImages: IStoreItemImgData[]
+  images: IStoreItemImgData[]
 }
-type EditedStoreItemData = NewStoreItemData;
 
 export const getAllStoreItems = (dispatch: Dispatch<StoreItemAction>, queryParams?: StoreItemQueryPar): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
@@ -94,20 +93,11 @@ export const getStoreItem = (_id: string, dispatch: Dispatch<StoreItemAction>): 
     });
 };
 
-export const createStoreItem = ({ storeId, storeName, name, description, details, price, categories, storeItemImages }: NewStoreItemData, dispatch: Dispatch<StoreItemAction>): Promise<boolean> => {
+export const createStoreItem = (data: ClientStoreItemData, dispatch: Dispatch<StoreItemAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/store_items/create",
-    data: {
-      storeId: storeId,
-      storeName: storeName,
-      name: name,
-      description: description,
-      details: details,
-      price: price,
-      categores: categories,
-      storeItemImages: storeItemImages
-    }
+    data: data
   };
 
   return axios.request<IStoreItemServerResData, IStoreItemServerRes>(requestOptions)
@@ -133,14 +123,12 @@ export const createStoreItem = ({ storeId, storeName, name, description, details
     });
 };
 
-export const editStoreItem = (_id: string, data: EditedStoreItemData, dispatch: Dispatch<StoreItemAction>, state: IGlobalAppState) => {
+export const editStoreItem = (_id: string, data: ClientStoreItemData, dispatch: Dispatch<StoreItemAction>, state: IGlobalAppState) => {
   const { loadedStoreItems } = state.storeItemState;
   const requestOptions: AxiosRequestConfig = {
     method: "patch",
-    url: "/api/storeItems/update/" + _id,
-    data: {
-      ...data,
-    }
+    url: "/api/store_items/update/" + _id,
+    data: data
   };
   return axios.request<IStoreItemServerResData, IStoreItemServerRes>(requestOptions)
     .then((response) => {
@@ -175,7 +163,7 @@ export const deleteStoreItem = (_id: string, dispatch: Dispatch<StoreItemAction>
   const { loadedStoreItems } = state.storeItemState;
   const requestOptions: AxiosRequestConfig = {
     method: "delete",
-    url: "/api/storeItems/delete/" + _id,
+    url: "/api/store_items/delete/" + _id,
   };
   return axios.request<IStoreItemServerResData, IStoreItemServerRes>(requestOptions)
     .then((response) => {
@@ -203,11 +191,11 @@ export const deleteStoreItem = (_id: string, dispatch: Dispatch<StoreItemAction>
     });
 };
 
-export const uploadStoreItemImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<StoreItemAction>): Promise<boolean> => {
+export const uploadStoreItemImage = (storeId: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<StoreItemAction>): Promise<boolean> => {
   const { loadedStoreItems } = state.storeItemState;
   const requestOptions: AxiosRequestConfig = {
     method: "post",
-    url: "/api/uploads/storeItem_images/" + _id,
+    url: "/api/uploads/store_item_images/" + storeId,
     data: imageFile
   };
 
@@ -246,10 +234,10 @@ export const uploadStoreItemImage = (_id: string, imageFile: FormData, state: IG
 export const deleteStoreItemImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<StoreItemAction>): Promise<boolean> => {
   const { loadedStoreItems } = state.storeItemState; 
   const { _id: storeItemId } = state.storeItemState.currentStoreItemData;
-
+  
   const requestOptions: AxiosRequestConfig = {
     method: "delete",
-    url: "/api/uploads/storeItem_images/" + imgId + "/" + storeItemId
+    url: "/api/uploads/store_item_images/" + imgId + "/" + storeItemId
   };
 
   return axios.request<IStoreItemImgServerResData, IStoreItemImgServerRes>(requestOptions)
