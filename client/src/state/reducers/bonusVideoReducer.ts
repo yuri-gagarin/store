@@ -59,6 +59,7 @@ const serviceReducer = (state: IBonusVideoState = initialBonusVideoState, action
         ...state,
         loading: action.payload.loading,
         responseMsg: action.payload.responseMsg,
+        currentBonusVideoData: { ...action.payload.editedBonusVideo },
         loadedBonusVideos: [ ...action.payload.loadedBonusVideos],
         error: action.payload.error
       };

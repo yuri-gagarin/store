@@ -98,10 +98,9 @@ export const createBonusVideo = ({ description, youTubeURL, vimeoURL }: ClientBo
       return true;
     })
     .catch((error: AxiosError) => {
-      console.error(error)
       dispatch({ type: "SET_BONUS_VIDEO_ERROR", payload: {
         loading: false,
-        responseMsg: "An Error occured",
+        responseMsg: error.message,
         error: error
       }});
       return false;
@@ -139,7 +138,7 @@ export const editBonusVideo = (_id: string, data: ClientBonusVideoData, dispatch
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_BONUS_VIDEO_ERROR", payload: {
         loading: false,
-        responseMsg: "An error occured",
+        responseMsg: error.message,
         error: error
       }});
     });
@@ -170,7 +169,7 @@ export const deleteBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoActio
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_BONUS_VIDEO_ERROR", payload: {
         loading: false,
-        responseMsg: "A delete error occured",
+        responseMsg: error.message,
         error: error
       }});
       return false;
