@@ -17,7 +17,7 @@ import { getAllBonusVideos, getBonusVideo, createBonusVideo,
 // helpers and additional dependencies //
 import { emptyBonusVideoData } from "../../state/reducers/bonusVideoReducer";
 import { createMockBonusVideos, clearBonusVideoState } from "../../test_helpers/bonusVideoHelpers"
-import { ClientBonusVideoData } from "../../components/admin_components/bonus_videos/actions/APIBonusVideoActions";
+import { ClientBonusVideoData } from "../../components/admin_components/bonus_videos/type_definitions/bonusVideoTypes"
 import { AxiosRequestConfig } from "axios";
 
 

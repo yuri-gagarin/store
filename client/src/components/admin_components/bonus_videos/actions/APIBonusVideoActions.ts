@@ -1,24 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
+// type definitions //
 import { Dispatch } from "react";
 import { IGlobalAppState } from "../../../../state/Store";
-
-interface IBonusVideoServerResData {
-  responseMsg: string;
-  bonusVideo?: IBonusVideoData;
-  newBonusVideo?: IBonusVideoData;
-  editedBonusVideo?: IBonusVideoData;
-  deletedBonusVideo?: IBonusVideoData;
-  bonusVideos?: IBonusVideoData[];
-}
-interface IBonusVideoServerRes {
-  data: IBonusVideoServerResData
-}
-
-export type ClientBonusVideoData = {
-  description?: string;
-  youTubeURL?: string;
-  vimeoURL?: string;
-}
+import { IBonusVideoServerResData, IBonusVideoServerRes, ClientBonusVideoData } from "../type_definitions/bonusVideoTypes";
 
 export const getAllBonusVideos = (dispatch: Dispatch<BonusVideoAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {

@@ -11,18 +11,12 @@ import { IGlobalAppState, AppAction } from "../../../../state/Store";
 import { createBonusVideo, editBonusVideo } from "../actions/APIBonusVideoActions";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
-// types 
-import { FormState } from "./BonusVideoForm";
+// type definitions //
+import { BonusVideoData, FormState } from "../type_definitions/bonusVideoTypes"
 
 interface Props {
   state: IGlobalAppState;
   dispatch: React.Dispatch<BonusVideoAction>;
-}
-
-type BonusVideoData = {
-  description: string;
-  youTubeURL: string;
-  vimeoURL: string;
 }
 
 const BonusVideoFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {

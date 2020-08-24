@@ -1,22 +1,17 @@
 import React, { useState, useEffect, useRef }  from "react";
 import { Button, Form, TextArea } from "semantic-ui-react";
-
-export type FormState = {
-  description: string;
-  youTubeURL: string;
-  vimeoURL: string;
-}
+// type definitions //
+import { FormState } from "../type_definitions/bonusVideoTypes";
 
 interface Props {
-  description: string;
-  youTubeURL: string;
-  vimeoURL: string;
+  description?: string;
+  youTubeURL?: string;
+  vimeoURL?: string;
   handleCreateBonusVideo(data: FormState): void;
   handleUpdateBonusVideo(data: FormState): void;
 }
 
-
-const ProductForm: React.FC<Props> = ({ description, youTubeURL, vimeoURL, handleCreateBonusVideo, handleUpdateBonusVideo }): JSX.Element => {
+const BonusVideoForm: React.FC<Props> = ({ description, youTubeURL, vimeoURL, handleCreateBonusVideo, handleUpdateBonusVideo }): JSX.Element => {
   
   const [ newForm, setNewForm ] = useState<boolean>(true)
   const [ formState, setFormState ] = useState<FormState>({ description, youTubeURL, vimeoURL });
@@ -105,4 +100,4 @@ const ProductForm: React.FC<Props> = ({ description, youTubeURL, vimeoURL, handl
   );
 };
 
-export default ProductForm;
+export default BonusVideoForm;
