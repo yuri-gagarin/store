@@ -1,4 +1,6 @@
 import faker from "faker";
+import { IGlobalAppState } from "../state/Store";
+import { emptyStoreItemData } from "../state/reducers/storeItemReducer";
 
 export const seedRandomCategories = (howMany?: number): string[] => {
   const numOfCategories = howMany ? howMany : Math.floor(Math.random() * 10);
@@ -48,3 +50,19 @@ export const createMockStoreItemImage = (storeItemId?: string): IStoreItemImgDat
   return mockImage;
 };
 
+export const clearStoreItemState = (globalState: IGlobalAppState): IGlobalAppState => {
+  return {
+    storeState: { ...globalState.storeState },
+    storeItemState: {
+      responseMsg: "",
+      loading: false,
+      numberOfItems: 0,
+      currentStoreItemData: emptyStoreItemData(),
+      loadedStoreItems: [],
+      error: null
+    },
+    productState: { ...globalState.productState },
+    serviceState: { ...globalState.serviceState },
+    bonusVideoState: { ...globalState.bonusVideoState }
+  };
+};

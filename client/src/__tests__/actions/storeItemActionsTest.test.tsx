@@ -16,7 +16,7 @@ import { getAllStoreItems, getStoreItem, createStoreItem, editStoreItem,
 } from "../../components/admin_components/store_items/actions/APIStoreItemActions";
 // helpers and additional dependencies //
 import { emptyStoreItemData } from "../../state/reducers/storeItemReducer";
-import { createMockStoreItems, createMockStoreItemImage } from "../../test_helpers/storeItemHelpers"
+import { createMockStoreItems, createMockStoreItemImage, clearStoreItemState } from "../../test_helpers/storeItemHelpers"
 import { ClientStoreItemData } from "../../components/admin_components/store_items/actions/APIStoreItemActions";
 import { AxiosRequestConfig } from "axios";
 
@@ -26,22 +26,7 @@ type WrapperProps = {
   value: IGlobalAppContext;
 }
 
-const clearStoreItemState = (globalState: IGlobalAppState): IGlobalAppState => {
-  return {
-    storeState: { ...globalState.storeState },
-    storeItemState: {
-      responseMsg: "",
-      loading: false,
-      numberOfItems: 0,
-      currentStoreItemData:emptyStoreItemData(),
-      loadedStoreItems: [],
-      error: null
-    },
-    productState: { ...globalState.productState },
-    serviceState: { ...globalState.serviceState },
-    bonusVideoState: { ...globalState.bonusVideoState }
-  };
-};
+
 
 const getContextFromWrapper = (wrapper: ShallowWrapper): IGlobalAppContext => {
   const props = wrapper.props() as WrapperProps;

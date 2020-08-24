@@ -23,16 +23,15 @@ interface IStoreServerResData {
   stores?: IStoreData[];
 }
 
-type NewStoreData = {
+type ClientStoreData = {
   title: string;
   description: string;
-  storeImages: IStoreImgData[]
+  images: IStoreImgData[]
 }
 type StoreQuery = {
   storeName?: string;
   limit?: string;
 }
-type EditedStoreData = NewStoreData;
 
 export const getAllStores = (dispatch: Dispatch<StoreAction>, queryOptions?: StoreQuery): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
@@ -120,14 +119,14 @@ export const getStore = (_id: string, dispatch: Dispatch<StoreAction>): Promise<
     });
 };
 
-export const createStore = ({ title, description, storeImages }: NewStoreData, dispatch: Dispatch<StoreAction>): Promise<boolean> => {
+export const createStore = ({ title, description, images }: ClientStoreData, dispatch: Dispatch<StoreAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/stores/create",
     data: {
       title: title,
       description: description,
-      storeImages: storeImages,
+      images: images,
     }
   };
 
@@ -144,17 +143,16 @@ export const createStore = ({ title, description, storeImages }: NewStoreData, d
       return true;
     })
     .catch((error: AxiosError) => {
-      console.error(error)
       dispatch({ type: "SET_STORE_ERROR", payload: {
         loading: false,
-        responseMsg: "An Error occured",
+        responseMsg: error.message,
         error: error
       }});
       return false;
     });
 };
 
-export const editStore = (_id: string, data: EditedStoreData, dispatch: Dispatch<StoreAction>, state: IGlobalAppState) => {
+export const editStore = (_id: string, data: ClientStoreData, dispatch: Dispatch<StoreAction>, state: IGlobalAppState) => {
   const { loadedStores } = state.storeState;
   const requestOptions: AxiosRequestConfig = {
     method: "patch",
@@ -186,7 +184,7 @@ export const editStore = (_id: string, data: EditedStoreData, dispatch: Dispatch
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_STORE_ERROR", payload: {
         loading: false,
-        responseMsg: "An error occured",
+        responseMsg: error.message,
         error: error
       }});
     });
@@ -217,7 +215,7 @@ export const deleteStore = (_id: string, dispatch: Dispatch<StoreAction>, state:
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_STORE_ERROR", payload: {
         loading: false,
-        responseMsg: "A delete error occured",
+        responseMsg: error.message,
         error: error
       }});
       return false;
@@ -254,7 +252,6 @@ export const uploadStoreImage = (_store_id: string, imageFile: FormData, state: 
       return true;
     })
     .catch((error: AxiosError) => {
-      console.error(error);
       dispatch({ type: "SET_STORE_ERROR", payload: {
         loading: false,
         responseMsg: error.message,
