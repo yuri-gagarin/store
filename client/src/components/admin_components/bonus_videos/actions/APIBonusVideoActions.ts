@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
 import { Dispatch } from "react";
 import { IGlobalAppState } from "../../../../state/Store";
-import { AppAction } from "../../../../state/Store";
 
 interface IBonusVideoServerResData {
   responseMsg: string;
@@ -15,12 +14,11 @@ interface IBonusVideoServerRes {
   data: IBonusVideoServerResData
 }
 
-type NewBonusVideoData = {
-  description: string;
-  youTubeURL: string;
-  vimeoURL: string;
+export type ClientBonusVideoData = {
+  description?: string;
+  youTubeURL?: string;
+  vimeoURL?: string;
 }
-type EditedBonusVideoData = NewBonusVideoData;
 
 export const getAllBonusVideos = (dispatch: Dispatch<BonusVideoAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
@@ -30,13 +28,13 @@ export const getAllBonusVideos = (dispatch: Dispatch<BonusVideoAction>): Promise
   return axios.request<IBonusVideoServerResData, IBonusVideoServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const bonusVideos = data.bonusVideos;
+      const { responseMsg, bonusVideos } = data;
       dispatch({ type: "GET_ALL_BONUS_VIDEOS", payload: {
         loading: false,
-        responseMsg: data.responseMsg,
-        loadedBonusVideos: bonusVideos,
+        responseMsg: responseMsg,
+        loadedBonusVideos: bonusVideos ? bonusVideos : [],
         error: null
-      }});
+      }})
       return true;
     })
     .catch((error: AxiosError) => {
@@ -57,11 +55,11 @@ export const getBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoAction>)
   return axios.request<IBonusVideoServerResData, IBonusVideoServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const bonusVideo  = data.bonusVideo;
+      const { responseMsg, bonusVideo }  = data;
       dispatch({ type: "GET_BONUS_VIDEO", payload: {
         loading: false,
-        responseMsg: data.responseMsg,
-        currentBonusVideoData: bonusVideo,
+        responseMsg: responseMsg,
+        currentBonusVideoData: bonusVideo ? bonusVideo : {} as IBonusVideoData,
         error: null
       }});
       return true;
@@ -76,7 +74,7 @@ export const getBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoAction>)
     });
 };
 
-export const createBonusVideo = ({ description, youTubeURL, vimeoURL }: NewBonusVideoData, dispatch: Dispatch<BonusVideoAction>): Promise<boolean> => {
+export const createBonusVideo = ({ description, youTubeURL, vimeoURL }: ClientBonusVideoData, dispatch: Dispatch<BonusVideoAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/bonus_videos/create",
@@ -90,7 +88,7 @@ export const createBonusVideo = ({ description, youTubeURL, vimeoURL }: NewBonus
   return axios.request<IBonusVideoServerResData, IBonusVideoServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const newBonusVideo = data.newBonusVideo;
+      const newBonusVideo = data.newBonusVideo!;
       dispatch({ type: "CREATE_BONUS_VIDEO", payload: {
         loading: false,
         responseMsg: data.responseMsg,
@@ -110,19 +108,18 @@ export const createBonusVideo = ({ description, youTubeURL, vimeoURL }: NewBonus
     });
 };
 
-export const editBonusVideo = (_id: string, data: EditedBonusVideoData, dispatch: Dispatch<BonusVideoAction>, state: IGlobalAppState) => {
+export const editBonusVideo = (_id: string, data: ClientBonusVideoData, dispatch: Dispatch<BonusVideoAction>, state: IGlobalAppState) => {
   const { loadedBonusVideos } = state.bonusVideoState;
   const requestOptions: AxiosRequestConfig = {
     method: "patch",
     url: "/api/bonus_videos/update/" + _id,
-    data: {
-      ...data,
-    }
+    data: data
   };
   return axios.request<IBonusVideoServerResData, IBonusVideoServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const editedBonusVideo = data.editedBonusVideo!;
+      const { responseMsg } = data;
+      let editedBonusVideo = data.editedBonusVideo!;
       const updatedBonusVideos = loadedBonusVideos.map((video) => {
         if (video._id === editedBonusVideo._id) {
           return editedBonusVideo;
@@ -132,10 +129,11 @@ export const editBonusVideo = (_id: string, data: EditedBonusVideoData, dispatch
       });
       dispatch({ type: "EDIT_BONUS_VIDEO", payload: {
         loading: false,
-        responseMsg: data.responseMsg,
+        responseMsg: responseMsg,
+        editedBonusVideo: editedBonusVideo,
         loadedBonusVideos: updatedBonusVideos,
         error: null
-      }});
+      }})
       return true;
     })
     .catch((error: AxiosError) => {
