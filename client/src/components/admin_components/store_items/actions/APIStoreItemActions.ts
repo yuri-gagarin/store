@@ -183,18 +183,18 @@ export const deleteStoreItem = (_id: string, dispatch: Dispatch<StoreItemAction>
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_STORE_ITEM_ERROR", payload: {
         loading: false,
-        responseMsg: "A delete error occured",
+        responseMsg: error.message,
         error: error
       }});
       return false;
     });
 };
 
-export const uploadStoreItemImage = (storeId: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<StoreItemAction>): Promise<boolean> => {
+export const uploadStoreItemImage = (storeItemId: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<StoreItemAction>): Promise<boolean> => {
   const { loadedStoreItems } = state.storeItemState;
   const requestOptions: AxiosRequestConfig = {
     method: "post",
-    url: "/api/uploads/store_item_images/" + storeId,
+    url: "/api/uploads/store_item_images/" + storeItemId,
     data: imageFile
   };
 
@@ -220,7 +220,6 @@ export const uploadStoreItemImage = (storeId: string, imageFile: FormData, state
       return true;
     })
     .catch((error: AxiosError) => {
-      console.error(error);
       dispatch({ type: "SET_STORE_ITEM_ERROR", payload: {
         loading: false,
         responseMsg: error.message,
