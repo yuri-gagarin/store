@@ -17,6 +17,7 @@ import { getAllStores, getStore, createStore, editStore,
 // helpers and additional dependencies //
 import { emptyStoreData } from "../../state/reducers/storeReducer";
 import { createMockStores, createMockStoreImage, clearStoreState } from "../../test_helpers/storeHelpers";
+import { ClientStoreData } from "../../components/admin_components/stores/actions/APIstoreActions";
 import { AxiosRequestConfig } from "axios";
 
 
@@ -33,6 +34,7 @@ const getContextFromWrapper = (wrapper: ShallowWrapper): IGlobalAppContext => {
 
 describe("Store Actions Tests", () => {
   let wrapper: ShallowWrapper;
+  
   beforeAll(() => {
     wrapper = shallow(
     <StateProvider>
@@ -103,13 +105,17 @@ describe("Store Actions Tests", () => {
 
     describe("Action: 'GET_ALL_STORES'", () => {
       let mockStores: IStoreData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
+      let requestConfig: AxiosRequestConfig;
+
       beforeAll(() => {
         mockStores = createMockStores(10);
         ({ state, dispatch } = getContextFromWrapper(wrapper));
       });
+
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
+          requestConfig = request.config;
           request.respondWith({
             status: 200,
             response: {
@@ -118,6 +124,7 @@ describe("Store Actions Tests", () => {
             }
           });
         });
+        // mock action with moxios //
         getAllStores(dispatch)
           .then((success) => {
             if (success) done();
@@ -125,6 +132,10 @@ describe("Store Actions Tests", () => {
           .catch((error) => {
             done(error);
           });
+      });
+      it("Should send the correct API request", () => {
+        expect(requestConfig.url).to.eq("/api/stores");
+        expect(requestConfig.method).to.eq("get");
       });
       it("Should return the correct new state", () => {
         // expected state after action //
@@ -143,13 +154,17 @@ describe("Store Actions Tests", () => {
 
     describe("Action: 'GET_STORE'", () => {
       let mockStore: IStoreData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
+      let requestConfig:  AxiosRequestConfig;
+
       beforeAll(() => {
         mockStore = createMockStores(1)[0];
         ({ state, dispatch } = getContextFromWrapper(wrapper));
       });
+
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
+          requestConfig = request.config;
           request.respondWith({
             status: 200,
             response: {
@@ -166,6 +181,10 @@ describe("Store Actions Tests", () => {
           .catch((error) => {
             done(error);
           });
+      });
+      it("Should send the correct API request", () => {
+        expect(requestConfig.url).to.eq("/api/stores/" + mockStore._id);
+        expect(requestConfig.method).to.eq("get");
       });
       it("Should return the correct new state", () => {
         // expected state after action //
@@ -184,13 +203,17 @@ describe("Store Actions Tests", () => {
 
     describe("Action: 'CREATE_STORE'", () => {
       let createdStore: IStoreData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
+      let requestConfig: AxiosRequestConfig;
+
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
         createdStore = createMockStores(1)[0];
       });
+
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
+          requestConfig = request.config;
           request.respondWith({
             status: 200,
             response: {
@@ -214,6 +237,17 @@ describe("Store Actions Tests", () => {
             done(error);
           });
       });
+      it("Should send the correct API request", () => {
+        expect(requestConfig.url).to.eq("/api/stores/create");
+        expect(requestConfig.method).to.eq("post");
+      });
+      it("Should send the correct Store Data", () => {
+        const sentData: ClientStoreData = JSON.parse(requestConfig.data);
+        const { title, description, images } = sentData;
+        expect(title).to.be.a("string");
+        expect(description).to.be.a("string");
+        expect(images).to.be.an("array");
+      });
       it("Should return the correct new state", () => {
         // expected state after action //
         const expectedStoreState = { ...state.storeState };
@@ -232,16 +266,20 @@ describe("Store Actions Tests", () => {
 
     describe("Action: 'EDIT_STORE'", () => {
       let editedStore: IStoreData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
+      let requestConfig: AxiosRequestConfig;
+
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
-        let store = state.storeState.loadedStores[0];
+        let store = { ...state.storeState.loadedStores[0] };
         store.title = faker.lorem.word();
         store.description = faker.lorem.paragraphs(1),
         editedStore = store;
       });
+
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
+          requestConfig = request.config;
           request.respondWith({
             status: 200,
             response: {
@@ -264,6 +302,17 @@ describe("Store Actions Tests", () => {
           .catch((error) => {
             done(error);
           });
+      });
+      it("Should send the correct API request", () => {
+        expect(requestConfig.url).to.eq("/api/stores/update/" + editedStore._id);
+        expect(requestConfig.method).to.eq("patch");
+      });
+      it("Should send the correct Store Data", () => {
+        const sentData: ClientStoreData = JSON.parse(requestConfig.data);
+        const { title, description, images } = sentData;
+        expect(title).to.be.a("string");
+        expect(description).to.be.a("string");
+        expect(images).to.be.an("array");
       });
       it("Should return the correct new state", () => {
         // expected state after action //
@@ -289,13 +338,17 @@ describe("Store Actions Tests", () => {
 
     describe("Action: 'DELETE_STORE'", () => {
       let deletedStore: IStoreData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
+      let requestConfig: AxiosRequestConfig;
+
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
         deletedStore = state.storeState.loadedStores[0];
       });
+
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
+          requestConfig = request.config;
           request.respondWith({
             status: 200,
             response: {
@@ -312,6 +365,10 @@ describe("Store Actions Tests", () => {
           .catch((error) => {
             done(error);
           });
+      });
+      it("Should send the correct API request", () => {
+        expect(requestConfig.url).to.eq("/api/stores/delete/" + deletedStore._id);
+        expect(requestConfig.method).to.eq("delete");
       });
       it("Should return the correct new state", () => {
         // expected state after action //
@@ -331,18 +388,21 @@ describe("Store Actions Tests", () => {
 
     describe("Action: 'UPLOAD_STORE_IMAGE'", () => {
       let createdImage: IStoreImgData; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
-      let updatedStore: IStoreData;
+      let updatedStore: IStoreData; let requestConfig: AxiosRequestConfig;
+
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
         state.storeState.currentStoreData = state.storeState.loadedStores[0];
         createdImage = createMockStoreImage();
         // set mock updated store with mock image //
-        updatedStore = state.storeState.loadedStores[0];
+        updatedStore = { ...state.storeState.loadedStores[0] };
         updatedStore.images.push(createdImage);
       });
+
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
+          requestConfig = request.config;
           request.respondWith({
             status: 200,
             response: {
@@ -360,6 +420,13 @@ describe("Store Actions Tests", () => {
           .catch((error) => {
             done(error);
           });
+      });
+      it("Should send the correct API request", () => {
+        expect(requestConfig.url).to.eq("/api/uploads/store_images/" + updatedStore._id);
+        expect(requestConfig.method).to.eq("post");
+      });
+      it("Should send the correct request Data", () => {
+        expect(requestConfig.data instanceof FormData).to.eq(true);
       });
       it("Should return the correct new state", () => {
         // expected state after action //
@@ -385,16 +452,19 @@ describe("Store Actions Tests", () => {
 
     describe("Action: 'DELETE_STORE_IMAGE'", () => {
       let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
-      let updatedStore: IStoreData;
+      let updatedStore: IStoreData; let deletedImage: IStoreImgData;
+      let requestConfig: AxiosRequestConfig;
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
+        deletedImage = { ...state.storeState.currentStoreData.images[0] }
         updatedStore = { ...state.storeState.currentStoreData, images: [] };
       });
 
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
+          requestConfig = request.config;
           request.respondWith({
             status: 200,
             response: {
@@ -404,13 +474,20 @@ describe("Store Actions Tests", () => {
           });
         });
         // mock action with moxios //
-        deleteStoreImage(updatedStore._id, state, dispatch) 
+        deleteStoreImage(deletedImage._id, state, dispatch) 
           .then((success) => {
             if (success) done();
           })
           .catch((error) => {
             done(error);
           });
+      });
+      it("Should send the correct API request", () => {
+        expect(requestConfig.url).to.eq("/api/uploads/store_images/" + deletedImage._id + "/" + updatedStore._id);
+        expect(requestConfig.method).to.eq("delete");
+      });
+      it("Should not send any additional data", () => {
+        expect(requestConfig.data).to.eq(undefined);
       });
       it("Should return the correct new state", () => {
         // expected state after action //

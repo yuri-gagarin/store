@@ -23,7 +23,7 @@ interface IStoreServerResData {
   stores?: IStoreData[];
 }
 
-type ClientStoreData = {
+export type ClientStoreData = {
   title: string;
   description: string;
   images: IStoreImgData[]

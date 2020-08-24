@@ -128,6 +128,7 @@ describe("StoreItem Actions Tests", () => {
             }
           });
         });
+        // mock action with moxios //
         getAllStoreItems(dispatch)
           .then((success) => {
             if (success) done();
