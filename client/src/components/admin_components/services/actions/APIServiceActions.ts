@@ -24,15 +24,12 @@ interface IServiceServerRes {
   data: IServiceServerResData
 }
 
-type NewServiceData = {
+export type ClientServiceData = {
   name: string;
   description: string;
   price: string;
-  serviceImages: IServiceImgData[]
+  images: IServiceImgData[]
 }
-type EditedServiceData = NewServiceData;
-
-export type ClientServiceData = EditedServiceData;
 
 export const getAllServices = (dispatch: Dispatch<ServiceAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
@@ -88,7 +85,7 @@ export const getService = (_id: string, dispatch: Dispatch<ServiceAction>): Prom
     });
 };
 
-export const createService = ({ name, description, price, serviceImages }: ClientServiceData, dispatch: Dispatch<ServiceAction>): Promise<boolean> => {
+export const createService = ({ name, description, price, images }: ClientServiceData, dispatch: Dispatch<ServiceAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/services/create",
@@ -96,7 +93,7 @@ export const createService = ({ name, description, price, serviceImages }: Clien
       name: name,
       price: price,
       description: description,
-      serviceImages: serviceImages,
+      images: images
     }
   };
 

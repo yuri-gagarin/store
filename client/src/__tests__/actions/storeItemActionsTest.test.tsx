@@ -46,6 +46,7 @@ describe("StoreItem Actions Tests", () => {
   });
 
   describe("Mock requests with no errors", () => {
+    
     beforeEach(() => {
       moxios.install();
     });
@@ -277,10 +278,9 @@ describe("StoreItem Actions Tests", () => {
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
-        let storeItem = { ...state.storeItemState.loadedStoreItems[0] };
-        storeItem.name = faker.lorem.word();
-        storeItem.description = faker.lorem.paragraphs(1),
-        editedStoreItem = storeItem;
+        editedStoreItem = { ...state.storeItemState.loadedStoreItems[0] };
+        editedStoreItem.name = faker.lorem.word();
+        editedStoreItem.description = faker.lorem.paragraphs(1),
       });
 
       it("Should properly dispatch the action", (done) => {
@@ -352,7 +352,7 @@ describe("StoreItem Actions Tests", () => {
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
-        deletedStoreItem = state.storeItemState.loadedStoreItems[0];
+        deletedStoreItem = { ...state.storeItemState.loadedStoreItems[0] };
       });
 
       it("Should properly dispatch the action", (done) => {

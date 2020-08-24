@@ -1,5 +1,7 @@
 import faker from "faker";
-
+import { IGlobalAppState } from "../state/Store";
+import { emptyServiceData } from "../state/reducers/serviceReducer";
+ 
 export const createMockServices = (numberOfServices?: number): IServiceData[] => {
   const createdServices: IServiceData[] = [];
   let totalToCreate: number;
@@ -34,5 +36,21 @@ export const createMockServiceImage = (serviceId?: string): IServiceImgData => {
     createdAt: faker.date.recent().toString()
   };
   return mockImage;
+};
+
+export const clearServiceState = (globalState: IGlobalAppState): IGlobalAppState => {
+  return {
+    storeState: { ...globalState.storeState },
+    storeItemState: { ...globalState.storeItemState },
+    productState: { ...globalState.productState },
+    serviceState: { 
+      responseMsg: "",
+      loading: false,
+      currentServiceData: emptyServiceData(),
+      loadedServices: [],
+      error: null
+    },
+    bonusVideoState: { ...globalState.bonusVideoState }
+  };
 };
 
