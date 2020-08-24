@@ -38,19 +38,13 @@ export const createMockServiceImage = (serviceId?: string): IServiceImgData => {
   return mockImage;
 };
 
-export const clearServiceState = (globalState: IGlobalAppState): IGlobalAppState => {
-  return {
-    storeState: { ...globalState.storeState },
-    storeItemState: { ...globalState.storeItemState },
-    productState: { ...globalState.productState },
-    serviceState: { 
+export const clearServiceState = (globalState: IGlobalAppState): void => {
+    globalState.serviceState = { 
       responseMsg: "",
       loading: false,
       currentServiceData: emptyServiceData(),
       loadedServices: [],
       error: null
-    },
-    bonusVideoState: { ...globalState.bonusVideoState }
-  };
+    };
 };
 

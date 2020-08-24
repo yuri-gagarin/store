@@ -1,4 +1,6 @@
 import faker from "faker";
+import { IGlobalAppState } from "../state/Store";
+import { emptyProductData } from "../state/reducers/productReducer";
 
 export const createMockProducts = (numberOfProducts?: number): IProductData[] => {
   const createdProducts: IProductData[] = [];
@@ -35,5 +37,15 @@ export const createMockProductImage = (productId?: string): IProductImgData => {
     createdAt: faker.date.recent().toString()
   };
   return mockImage;
+};
+
+export const clearProductState = (globalState: IGlobalAppState): void => {
+  globalState.productState = {
+    responseMsg: "",
+    loading: false,
+    currentProductData: emptyProductData(),
+    loadedProducts: [],
+    error: null
+  };
 };
 

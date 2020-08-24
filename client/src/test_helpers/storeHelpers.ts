@@ -37,19 +37,13 @@ export const createMockStoreImage = (storeId?: string): IStoreImgData => {
   return mockImage;
 };
 
-export const clearStoreState = (globalState: IGlobalAppState): IGlobalAppState => {
-  return {
-    storeState: { 
-      responseMsg: "",
-      loading: false,
-      currentStoreData: emptyStoreData(),
-      loadedStores: [],
-      error: null
-    },
-    storeItemState: { ...globalState.storeItemState },
-    productState: { ...globalState.productState },
-    serviceState: { ...globalState.serviceState },
-    bonusVideoState: { ...globalState.bonusVideoState }
+export const clearStoreState = (globalState: IGlobalAppState): void => {
+  globalState.storeState = { 
+    responseMsg: "",
+    loading: false,
+    currentStoreData: emptyStoreData(),
+    loadedStores: [],
+    error: null
   };
 };
 

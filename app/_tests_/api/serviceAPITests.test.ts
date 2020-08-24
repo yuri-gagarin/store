@@ -304,7 +304,7 @@ describe ("Service API tests", () => {
         name: faker.lorem.word(),
         description: faker.lorem.paragraphs(2),
         price: 100, 
-        serviceImages: []
+        images: []
       };
       let createdService: IService;
 
@@ -355,7 +355,7 @@ describe ("Service API tests", () => {
               name: faker.lorem.word(),
               description: faker.lorem.paragraphs(1),
               price: 200,
-              serviceImages: service.images as IServiceImage[]
+              images: service.images as IServiceImage[]
             }
             done();
           })

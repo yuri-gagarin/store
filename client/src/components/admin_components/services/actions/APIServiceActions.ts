@@ -110,10 +110,9 @@ export const createService = ({ name, description, price, images }: ClientServic
       return true;
     })
     .catch((error: AxiosError) => {
-      console.error(error)
       dispatch({ type: "SET_SERVICE_ERROR", payload: {
         loading: false,
-        responseMsg: "An Error occured",
+        responseMsg: error.message,
         error: error
       }});
       return false;
@@ -152,7 +151,7 @@ export const editService = (_id: string, data: ClientServiceData, dispatch: Disp
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_SERVICE_ERROR", payload: {
         loading: false,
-        responseMsg: "An error occured",
+        responseMsg: error.message,
         error: error
       }});
     });
@@ -183,7 +182,7 @@ export const deleteService = (_id: string, dispatch: Dispatch<ServiceAction>, st
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_SERVICE_ERROR", payload: {
         loading: false,
-        responseMsg: "A delete error occured",
+        responseMsg: error.message,
         error: error
       }});
       return false;
@@ -220,7 +219,6 @@ export const uploadServiceImage = (_id: string, imageFile: FormData, state: IGlo
       return true;
     })
     .catch((error: AxiosError) => {
-      console.error(error);
       dispatch({ type: "SET_SERVICE_ERROR", payload: {
         loading: false,
         responseMsg: error.message,

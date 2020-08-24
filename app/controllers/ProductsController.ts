@@ -19,7 +19,7 @@ export type ProductParams = {
   description: string;
   details: string;
   price: string | number;
-  productImages: IProductImage[];
+  images: IProductImage[];
 }
 type ProducQueryPar = {
   price?: string;
@@ -115,7 +115,7 @@ class ProductsController implements IGenericController {
   }
 
   create (req: Request, res: Response<IGenericProdRes>): Promise<Response> {
-    const { name, description, details, price, productImages }: ProductParams = req.body;
+    const { name, description, details, price, images : productImages }: ProductParams = req.body;
     const imgIds: Types.ObjectId[] = [];
 
     if (Array.isArray(productImages) && (productImages.length > 1)) {
@@ -146,7 +146,7 @@ class ProductsController implements IGenericController {
 
   edit (req: Request, res: Response<IGenericProdRes>): Promise<Response> {
     const { _id } = req.params;
-    const { name, description, details, price, productImages }: ProductParams = req.body;
+    const { name, description, details, price, images : productImages }: ProductParams = req.body;
     const updatedProductImgs: Types.ObjectId[] = [];
 
     if (!_id) {

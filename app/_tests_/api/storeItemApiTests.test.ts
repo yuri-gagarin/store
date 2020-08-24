@@ -420,7 +420,7 @@ describe ("StoreItem API tests", () => {
           description: faker.lorem.paragraphs(1),
           details: faker.lorem.paragraphs(2),
           price: 100,
-          storeItemImages: [],
+          images: [],
           categories: ["sports"]
         };
       });
@@ -473,7 +473,7 @@ describe ("StoreItem API tests", () => {
           description: faker.lorem.paragraphs(1),
           details: faker.lorem.paragraphs(2),
           price: 200,
-          storeItemImages: [],
+          images: [],
           categories: ["misc"]
         };
         StoreItem.find().limit(1)

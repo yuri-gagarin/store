@@ -22,7 +22,7 @@ interface IGenericStoreResponse {
 export type StoreParams = {
   title: string;
   description: string;
-  storeImages: IStoreImage[];
+  images: IStoreImage[];
 }
 type StoreQueryPar = {
   title?: string;
@@ -124,7 +124,7 @@ class StoresController implements IGenericController {
       });
   }
   create (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
-    const { title, description, storeImages }: StoreParams = req.body;
+    const { title, description, images : storeImages }: StoreParams = req.body;
     const imgIds: Types.ObjectId[] = [];
 
     if (storeImages.length > 1) {
@@ -153,7 +153,7 @@ class StoresController implements IGenericController {
   }
   edit (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
     const { _id } = req.params;
-    const { title, description, storeImages }: StoreParams = req.body;
+    const { title, description, images : storeImages }: StoreParams = req.body;
     const updatesStoreImgs = storeImages.map((img) => Types.ObjectId(img._id));
     if (!_id) {
       return respondWithInputError(res, "Can't resolve store", 400);

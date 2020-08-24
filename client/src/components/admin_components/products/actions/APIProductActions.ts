@@ -29,8 +29,9 @@ export type ClientProductData = {
   name: string;
   description: string;
   price: string;
-  productImages: IProductImgData[]
+  images: IProductImgData[]
 }
+
 export const getAllProducts = (dispatch: Dispatch<ProductAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
@@ -85,15 +86,11 @@ export const getProduct = (_id: string, dispatch: Dispatch<ProductAction>): Prom
     });
 };
 
-export const createProduct = ({ name, description, price, productImages }: ClientProductData, dispatch: Dispatch<ProductAction>): Promise<boolean> => {
+export const createProduct = (data: ClientProductData, dispatch: Dispatch<ProductAction>): Promise<boolean> => {
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/products/create",
-    data: {
-      name: name,
-      description: description,
-      productImages: productImages,
-    }
+    data: data
   };
 
   return axios.request<IProductServerResData, IProductServerRes>(requestOptions)
@@ -109,10 +106,9 @@ export const createProduct = ({ name, description, price, productImages }: Clien
       return true;
     })
     .catch((error: AxiosError) => {
-      console.error(error)
       dispatch({ type: "SET_PRODUCT_ERROR", payload: {
         loading: false,
-        responseMsg: "An Error occured",
+        responseMsg: error.message,
         error: error
       }});
       return false;
@@ -124,9 +120,7 @@ export const editProduct = (_id: string, data: ClientProductData, dispatch: Disp
   const requestOptions: AxiosRequestConfig = {
     method: "patch",
     url: "/api/products/update/" + _id,
-    data: {
-      ...data,
-    }
+    data: data
   };
   return axios.request<IProductServerResData, IProductServerRes>(requestOptions)
     .then((response) => {
@@ -151,7 +145,7 @@ export const editProduct = (_id: string, data: ClientProductData, dispatch: Disp
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_PRODUCT_ERROR", payload: {
         loading: false,
-        responseMsg: "An error occured",
+        responseMsg: error.message,
         error: error
       }});
     });
@@ -182,7 +176,7 @@ export const deleteProduct = (_id: string, dispatch: Dispatch<ProductAction>, st
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_PRODUCT_ERROR", payload: {
         loading: false,
-        responseMsg: "A delete error occured",
+        responseMsg: error.message,
         error: error
       }});
       return false;
@@ -219,7 +213,6 @@ export const uploadProductImage = (_id: string, imageFile: FormData, state: IGlo
       return true;
     })
     .catch((error: AxiosError) => {
-      console.error(error);
       dispatch({ type: "SET_PRODUCT_ERROR", payload: {
         loading: false,
         responseMsg: error.message,

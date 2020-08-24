@@ -372,7 +372,7 @@ describe("Service Actions Tests", () => {
           });
       });
       it("Should send the correct API request", () => {
-        expect(requestConfig.url).to.eq("/api/store_items/delete/" + deletedService._id);
+        expect(requestConfig.url).to.eq("/api/services/delete/" + deletedService._id);
         expect(requestConfig.method).to.eq("delete");
       });
       it("Should return the correct new state", () => {
@@ -522,6 +522,7 @@ describe("Service Actions Tests", () => {
 
   describe("Mock request with API error returned", () => {
     let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
+
     beforeEach(() => {
       moxios.install();
       clearServiceState(state);
@@ -530,8 +531,7 @@ describe("Service Actions Tests", () => {
       moxios.uninstall();
     });
 
-    describe("Action: 'GET_ALL_STORE_ITEMS'", () => {
-      let requestConfig: AxiosRequestConfig;
+    describe("Action: 'GET_ALL_SERVICES'", () => {
       const error = new Error("Error occured")
 
       beforeAll(() => {
@@ -541,7 +541,6 @@ describe("Service Actions Tests", () => {
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
-          requestConfig = request.config;
           request.reject(error)
         });
         getAllServices(dispatch)
@@ -567,8 +566,8 @@ describe("Service Actions Tests", () => {
       });
     });
 
-    describe("Action: 'GET_STORE_ITEM'", () => {
-      let requestConfig: AxiosRequestConfig; let service: IServiceData;
+    describe("Action: 'GET_SERVICE'", () => {
+      let service: IServiceData;
       const error = new Error("Error occured")
 
       beforeAll(() => {
@@ -579,7 +578,6 @@ describe("Service Actions Tests", () => {
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
-          requestConfig = request.config;
           request.reject(error)
         });
         getService(service._id, dispatch)
@@ -605,8 +603,8 @@ describe("Service Actions Tests", () => {
       });
     });
 
-    describe("Action: 'CREATE_STORE_ITEM'", () => {
-      let requestConfig: AxiosRequestConfig; let service: IServiceData;
+    describe("Action: 'CREATE_SERVICE'", () => {
+      let service: IServiceData;
       const error = new Error("Error occured")
 
       beforeAll(() => {
@@ -617,7 +615,6 @@ describe("Service Actions Tests", () => {
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
-          requestConfig = request.config;
           request.reject(error)
         });
         createService(service, dispatch)
@@ -643,8 +640,8 @@ describe("Service Actions Tests", () => {
       });
     });
 
-    describe("Action: 'EDIT_STORE_ITEM'", () => {
-      let requestConfig: AxiosRequestConfig; let service: IServiceData;
+    describe("Action: 'EDIT_SERVICE'", () => {
+      let service: IServiceData;
       const error = new Error("Error occured")
 
       beforeAll(() => {
@@ -655,7 +652,6 @@ describe("Service Actions Tests", () => {
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
-          requestConfig = request.config;
           request.reject(error)
         });
         editService(service._id, service, dispatch, state)
@@ -681,8 +677,8 @@ describe("Service Actions Tests", () => {
       });
     });
 
-    describe("Action: 'DELETE_STORE_ITEM'", () => {
-      let requestConfig: AxiosRequestConfig; let service: IServiceData;
+    describe("Action: 'DELETE_SERVICE'", () => {
+      let service: IServiceData;
       const error = new Error("Error occured")
 
       beforeAll(() => {
@@ -693,7 +689,6 @@ describe("Service Actions Tests", () => {
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
-          requestConfig = request.config;
           request.reject(error)
         });
         deleteService(service._id, dispatch, state)
@@ -719,8 +714,8 @@ describe("Service Actions Tests", () => {
       });
     });
 
-    describe("Action: 'UPLOAD_STORE_ITEM_IMAGE'", () => {
-      let requestConfig: AxiosRequestConfig; let service: IServiceData;
+    describe("Action: 'UPLOAD_SERVICE_IMAGE'", () => {
+      let service: IServiceData;
       const error = new Error("Error occured")
 
       beforeAll(() => {
@@ -731,7 +726,6 @@ describe("Service Actions Tests", () => {
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
-          requestConfig = request.config;
           request.reject(error)
         });
         const mockImg = new FormData();
@@ -758,8 +752,8 @@ describe("Service Actions Tests", () => {
       });
     });
 
-    describe("Action: 'DELETE_STORE_ITEM_IMAGE'", () => {
-      let requestConfig: AxiosRequestConfig; let serviceImage: IServiceImgData;
+    describe("Action: 'DELETE_SERVICE_IMAGE'", () => {
+      let serviceImage: IServiceImgData;
       const error = new Error("Error occured")
 
       beforeAll(() => {
@@ -770,7 +764,6 @@ describe("Service Actions Tests", () => {
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
-          requestConfig = request.config;
           request.reject(error)
         });
         deleteServiceImage(serviceImage._id, state, dispatch)

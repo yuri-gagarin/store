@@ -13,7 +13,7 @@ export type ServiceParams = {
   name: string;
   description: string;
   price: string | number;
-  serviceImages: ServiceImg[];
+  images: ServiceImg[];
 }
 type ServiceImg = {
   _id: string;
@@ -126,7 +126,7 @@ class ServicesController implements IGenericController {
   }
 
   create (req: Request, res: Response<GenericServiceResponse>): Promise<Response> {
-    const { name, description, price, serviceImages }: ServiceParams = req.body;
+    const { name, description, price, images : serviceImages }: ServiceParams = req.body;
     const imgIds: Types.ObjectId[] = [];
     
     if ((serviceImages.length) > 1 && (Array.isArray(serviceImages))) {
@@ -161,7 +161,7 @@ class ServicesController implements IGenericController {
       return respondWithInputError(res, "Can't resolve service", 400);
     }
 
-    const { name, description, price, serviceImages }: ServiceParams = req.body;
+    const { name, description, price, images : serviceImages }: ServiceParams = req.body;
     const updatedServiceImgs = serviceImages.map((img) => Types.ObjectId(img._id));
     
     return Service.findOneAndUpdate(

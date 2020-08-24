@@ -517,6 +517,7 @@ describe("Store Actions Tests", () => {
 
   describe("Mock request with API error returned", () => {
     let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
+
     beforeEach(() => {
       moxios.install();
       clearStoreState(state);
@@ -525,8 +526,7 @@ describe("Store Actions Tests", () => {
       moxios.uninstall();
     });
 
-    describe("Action: 'GET_ALL_STORE_ITEMS'", () => {
-      let requestConfig: AxiosRequestConfig;
+    describe("Action: 'GET_ALL_STORES'", () => {
       const error = new Error("Error occured")
 
       beforeAll(() => {
@@ -536,7 +536,6 @@ describe("Store Actions Tests", () => {
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
-          requestConfig = request.config;
           request.reject(error)
         });
         getAllStores(dispatch)
@@ -562,8 +561,8 @@ describe("Store Actions Tests", () => {
       });
     });
 
-    describe("Action: 'GET_STORE_ITEM'", () => {
-      let requestConfig: AxiosRequestConfig; let store: IStoreData;
+    describe("Action: 'GET_STORE'", () => {
+      let store: IStoreData;
       const error = new Error("Error occured")
 
       beforeAll(() => {
@@ -574,7 +573,6 @@ describe("Store Actions Tests", () => {
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
-          requestConfig = request.config;
           request.reject(error)
         });
         getStore(store._id, dispatch)
@@ -600,8 +598,8 @@ describe("Store Actions Tests", () => {
       });
     });
 
-    describe("Action: 'CREATE_STORE_ITEM'", () => {
-      let requestConfig: AxiosRequestConfig; let store: IStoreData;
+    describe("Action: 'CREATE_STORE'", () => {
+      let store: IStoreData;
       const error = new Error("Error occured")
 
       beforeAll(() => {
@@ -612,7 +610,6 @@ describe("Store Actions Tests", () => {
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
-          requestConfig = request.config;
           request.reject(error)
         });
         createStore(store, dispatch)
@@ -638,8 +635,8 @@ describe("Store Actions Tests", () => {
       });
     });
 
-    describe("Action: 'EDIT_STORE_ITEM'", () => {
-      let requestConfig: AxiosRequestConfig; let store: IStoreData;
+    describe("Action: 'EDIT_STORE'", () => {
+      let store: IStoreData;
       const error = new Error("Error occured")
 
       beforeAll(() => {
@@ -650,7 +647,6 @@ describe("Store Actions Tests", () => {
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
-          requestConfig = request.config;
           request.reject(error)
         });
         editStore(store._id, store, dispatch, state)
@@ -676,8 +672,8 @@ describe("Store Actions Tests", () => {
       });
     });
 
-    describe("Action: 'DELETE_STORE_ITEM'", () => {
-      let requestConfig: AxiosRequestConfig; let store: IStoreData;
+    describe("Action: 'DELETE_STORE'", () => {
+      let store: IStoreData;
       const error = new Error("Error occured")
 
       beforeAll(() => {
@@ -688,7 +684,6 @@ describe("Store Actions Tests", () => {
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
-          requestConfig = request.config;
           request.reject(error)
         });
         deleteStore(store._id, dispatch, state)
@@ -714,8 +709,8 @@ describe("Store Actions Tests", () => {
       });
     });
 
-    describe("Action: 'UPLOAD_STORE_ITEM_IMAGE'", () => {
-      let requestConfig: AxiosRequestConfig; let store: IStoreData;
+    describe("Action: 'UPLOAD_STORE_IMAGE'", () => {
+      let store: IStoreData;
       const error = new Error("Error occured")
 
       beforeAll(() => {
@@ -726,7 +721,6 @@ describe("Store Actions Tests", () => {
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
-          requestConfig = request.config;
           request.reject(error)
         });
         const mockImg = new FormData();
@@ -753,8 +747,8 @@ describe("Store Actions Tests", () => {
       });
     });
 
-    describe("Action: 'DELETE_STORE_ITEM_IMAGE'", () => {
-      let requestConfig: AxiosRequestConfig; let storeImage: IStoreImgData;
+    describe("Action: 'DELETE_STORE_IMAGE'", () => {
+      let storeImage: IStoreImgData;
       const error = new Error("Error occured")
 
       beforeAll(() => {
@@ -765,7 +759,6 @@ describe("Store Actions Tests", () => {
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
-          requestConfig = request.config;
           request.reject(error)
         });
         deleteStoreImage(storeImage._id, state, dispatch)

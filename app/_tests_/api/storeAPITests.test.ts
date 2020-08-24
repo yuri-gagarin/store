@@ -369,7 +369,7 @@ describe ("Store API tests", () => {
       const newStore: StoreParams = {
         title: faker.lorem.word(),
         description: faker.lorem.paragraphs(2),
-        storeImages: []
+        images: []
       };
       let createdStore: IStore;
 
@@ -418,7 +418,7 @@ describe ("Store API tests", () => {
             updateData = {
               title: faker.lorem.word(),
               description: faker.lorem.paragraphs(1),
-              storeImages: store.images as IStoreImage[]
+              images: store.images as IStoreImage[]
             }
           })
           .then(() => {

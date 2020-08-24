@@ -285,7 +285,7 @@ describe ("Product API tests", () => {
         description: faker.lorem.paragraphs(1),
         details: faker.lorem.paragraphs(2),
         price: 100,
-        productImages: []
+        images: []
       };
       let createdProduct: IProduct;
 
@@ -331,7 +331,7 @@ describe ("Product API tests", () => {
         description: faker.lorem.paragraphs(1),
         details: faker.lorem.paragraphs(2),
         price: 200,
-        productImages: []
+        images: []
       };
 
       before((done) => {
