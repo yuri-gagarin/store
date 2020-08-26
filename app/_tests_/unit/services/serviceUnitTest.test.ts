@@ -36,7 +36,7 @@ describe("Service Unit Tests", () => {
     it("Should have valid properties", (done) => {
       expect(typeof createdService.name).to.eq("string");
       expect(typeof createdService.description).to.eq("string");
-      expect(typeof createdService.price).to.eq("string");
+      expect(typeof createdService.price).to.eq("number");
       expect(typeof createdService.images).to.eq("object");
       done();
     });

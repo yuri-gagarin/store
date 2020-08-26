@@ -40,7 +40,7 @@ describe("StoreItem Unit Tests", () => {
     it("Should have valid properties", (done) => {
       expect(createdStoreItem.name).to.be.a("string");
       expect(createdStoreItem.description).to.be.a("string");
-      expect(createdStoreItem.price).to.be.a("string");
+      expect(createdStoreItem.price).to.be.a("number");
       expect(createdStoreItem.categories).to.be.an("array");
       expect(createdStoreItem.images).to.be.an("array");
       done();
