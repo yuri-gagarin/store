@@ -78,8 +78,8 @@ const StoreForm: React.FC<Props> = ({ title, description, handleCreateStore, han
          />
          {
            newForm 
-            ? <Button type='submit' onClick={handleSubmit} content= "Create Store" />
-            : <Button type='submit' onClick={handleSubmit} content= "Update Store" />
+            ? <Button type='submit' id="adminStoreFormCreate" onClick={handleSubmit} content= "Create Store" />
+            : <Button type='submit' id="adminStoreFormUpdate" onClick={handleSubmit} content= "Update Store" />
          }  
       </Form>
     </div>

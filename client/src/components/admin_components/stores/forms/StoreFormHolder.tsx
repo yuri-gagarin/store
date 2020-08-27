@@ -29,7 +29,7 @@ const StoreFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
     const storePams = {
       title,
       description,
-      storeImages: currentStoreData.images
+      images: currentStoreData.images
     };
     createStore(storePams, dispatch)
       .then((success) => {
@@ -43,7 +43,7 @@ const StoreFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
 
   const handleUpdateStore = (title: string, description: string): void => {
     const storeParams = {
-      title, description, storeImages: currentStoreData.images
+      title, description, images: currentStoreData.images
     }
     editStore(currentStoreData._id, storeParams, dispatch, state)
       .then((success) => {
