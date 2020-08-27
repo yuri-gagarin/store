@@ -70,18 +70,21 @@ const AdminStoreMenu: React.FC<Props> = ({ history, location,  dispatch }): JSX.
     <div className={ scrolled ? "adminStoreMenuFixed menuScrolled" : "adminStoreMenuFixed"} ref={adminStoreMenuRef}>
       <Menu tabular className={ menuOpen ? "adminStoreMenu storeMenuOpen" : "adminStoreMenu" }>
       <Menu.Item
+          className="adminMenuLink"
           name='view_all'
           content="View All"
           active={activeItem === 'view_all'}
           onClick={handleItemClick}
         />
         <Menu.Item
+          className="adminMenuLink"
           name='create'
           content="Create Store"
           active={activeItem === 'create'}
           onClick={handleItemClick}
         />
         <Menu.Item
+          className="adminMenuLink"
           name='manage'
           content="Manage"
           active={activeItem === 'manage'}

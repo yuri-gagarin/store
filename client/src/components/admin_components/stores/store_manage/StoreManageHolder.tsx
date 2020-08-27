@@ -67,4 +67,7 @@ const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
   );
 };
 
+// for unit testing //
+export { StoreManageHolder };
+
 export default withRouter(StoreManageHolder);
