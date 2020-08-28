@@ -76,19 +76,12 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
 
   useEffect(() => {
     // edit form //
-    if (storeId) {
-      if (storeId != currentStoreData._id) {
-        getStore(storeId, dispatch)
-          .then((success) => {
-            if (success) setNewForm(false);
-          })
-      } else {
-        setNewForm(false);
-      }
+    if (storeItem._id) {
+      setNewForm(false);
     } else {
       setNewForm(true);
     }
-  },  [storeId, currentStoreData]);
+  },  [storeItem]);
 
   useEffect(() => {
     if (storeItemFormRef.current) {
@@ -146,8 +139,8 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
          />
          {
            newForm 
-            ? <Button type='submit' onClick={handleSubmit} content= "Create  New Store Item" />
-            : <Button type='submit' onClick={handleSubmit} content= "Update Store Item" />
+            ? <Button id="adminStoreItemFormCreate" type='submit' onClick={handleSubmit} content= "Create  New Store Item" />
+            : <Button id="adminStoreItemFormUpdate" type='submit' onClick={handleSubmit} content= "Update Store Item" />
          }  
       </Form>
     </div>

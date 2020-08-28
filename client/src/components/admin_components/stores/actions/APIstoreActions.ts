@@ -93,6 +93,7 @@ export const getStoreByName = (name: string, dispatch: Dispatch<StoreAction>): P
     });
 }
 export const getStore = (_id: string, dispatch: Dispatch<StoreAction>): Promise<boolean> => {
+  console.log(96)
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/stores/" + _id,
@@ -115,6 +116,7 @@ export const getStore = (_id: string, dispatch: Dispatch<StoreAction>): Promise<
         responseMsg: error.message,
         error: error
       }});
+      console.log("error")
       return false;
     });
 };

@@ -52,6 +52,16 @@ export const clearStoreState = (globalState: IGlobalAppState): void => {
   };
 };
 
+export const resetStoreState = (): IStoreState => {
+  return {
+    responseMsg: "",
+    loading: false,
+    currentStoreData: emptyStoreData(),
+    loadedStores: [],
+    error: null
+  };
+};
+
 type SetMockStoreStateOpts = {
   currentStore?: boolean;
   loadedStores?: number;

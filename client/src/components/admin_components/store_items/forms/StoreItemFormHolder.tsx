@@ -29,7 +29,7 @@ type StoreItemData = {
   description: string;
   details: string;
   price: string;
-  storeItemImages: IStoreItemImgData[];
+  images: IStoreItemImgData[];
   categories: string[];
 }
 
@@ -49,7 +49,7 @@ const StoreItemFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element 
       description,
       details,
       price,
-      storeItemImages: currentStoreItemData.images,
+      images: currentStoreItemData.images,
       categories,
     };
 
@@ -66,7 +66,7 @@ const StoreItemFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element 
 
   const handleUpdateStoreItem = ({ storeId, storeName,name, description, details, price, categories }: FormState): void => {
     const storeItemParams: StoreItemData = {
-      storeId, storeName, name, details, description, price, storeItemImages: currentStoreItemData.images, categories
+      storeId, storeName, name, details, description, price, images: currentStoreItemData.images, categories
     };
 
     editStoreItem(currentStoreItemData._id, storeItemParams, dispatch, state)
@@ -89,6 +89,7 @@ const StoreItemFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element 
   useEffect(() => {
     if (name && description && price) {
       setNewForm(false);
+      setFormOpen(true);
     }
   }, [name, description, price]);
 
@@ -125,7 +126,7 @@ const StoreItemFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element 
                     {
                       categories.map((category) => {
                         return (
-                          <List.Item>
+                          <List.Item key={category}>
                             <List.Content>
                               <List.Header>{category}</List.Header>
                             </List.Content>

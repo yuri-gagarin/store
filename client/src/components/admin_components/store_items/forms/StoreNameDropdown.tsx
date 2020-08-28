@@ -17,7 +17,7 @@ type DropdownData = {
   value: string;
 }
 const StoreNameDropDown: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
-  const [ dropdownState, setDropdownState ] = useState<DropdownData[]>();
+  const [ dropdownState, setDropdownState ] = useState<DropdownData[]>([]);
   const [ disabled, setDisabled ] = useState<boolean>(true);
   const { loadedStores } = state.storeState;
 
