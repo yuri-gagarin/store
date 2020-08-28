@@ -21,7 +21,6 @@ const StoreItemsView: React.FC<{}> = (props): JSX.Element => {
     setPopularStoreItems(() => {
       return popularStoreItems.slice(0, 4);
     });
-    console.log("loaded")
   }, []);
 
   return (

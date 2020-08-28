@@ -76,5 +76,7 @@ const StoreItemsManageHolder: React.FC<Props> = ({ state, dispatch, history }): 
     )
   }
 }
+// for tests //
+export { StoreItemsManageHolder };
 
 export default withRouter(StoreItemsManageHolder);

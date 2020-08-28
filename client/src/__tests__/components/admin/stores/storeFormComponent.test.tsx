@@ -1,14 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 import { mount, ReactWrapper } from "enzyme";
+import { Button } from "semantic-ui-react";
 // component imports //
 import StoreFormHolder from "../../../../components/admin_components/stores/forms/StoreFormHolder";
+import StoreForm from "../../../../components/admin_components/stores/forms/StoreForm";
 import StoreImageUplForm from "../../../../components/admin_components/stores/forms/StoreImageUplForm";
 import StoreImgPreviewHolder, { StoreImgPreviewThumb } from "../../../../components/admin_components/stores/image_preview/StoreImgPreviewThumbs";
 // helpers //
 import { generateCleanState } from "../../../../test_helpers/miscHelpers";
 import { setMockStoreState } from "../../../../test_helpers/storeHelpers";
-import StoreForm from "../../../../components/admin_components/stores/forms/StoreForm";
-import { Button } from "semantic-ui-react";
 import { IGlobalAppState } from "../../../../state/Store";
 
 describe("StoreFormHolder Component tests", () => {
@@ -146,5 +146,5 @@ describe("StoreFormHolder Component tests", () => {
       expect(imgUploadForm.length).toEqual(1);
     });
   });
-  
+
 });

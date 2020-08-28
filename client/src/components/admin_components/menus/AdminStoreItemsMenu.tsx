@@ -13,7 +13,7 @@ import { capitalizeString } from "../../helpers/displayHelpers";
 
 interface Props extends RouteComponentProps {
   state: IGlobalAppState;
-  dispatch: React.Dispatch<AppAction>;
+  dispatch: React.Dispatch<StoreItemAction>;
 }
 
 const AdminStoreItemsMenu: React.FC<Props> = ({ history, location, dispatch }): JSX.Element => {
@@ -34,7 +34,7 @@ const AdminStoreItemsMenu: React.FC<Props> = ({ history, location, dispatch }): 
         break;
       case "create":
         history.push(match?.path + "/create");
-        dispatch({ type: "CLEAR_CURRENT_STORE_ITEM", payload: null });
+        dispatch({ type: "CLEAR_CURRENT_STORE_ITEM", payload: { error: null } });
         break;
       case "manage":
         history.push(match?.path + "/manage");
