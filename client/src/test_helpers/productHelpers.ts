@@ -49,3 +49,13 @@ export const clearProductState = (globalState: IGlobalAppState): void => {
   };
 };
 
+export const resetProductState = (): IProductState => {
+  return {
+    responseMsg: "",
+    loading: false,
+    currentProductData: emptyProductData(),
+    loadedProducts: [],
+    error: null
+  };
+};
+

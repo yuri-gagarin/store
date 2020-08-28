@@ -60,3 +60,14 @@ export const clearStoreItemState = (globalState: IGlobalAppState): void => {
     error: null
   };
 };
+
+export const resetStoreItemState = (): IStoreItemState => {
+  return {
+    responseMsg: "",
+    loading: false,
+    numberOfItems: 0,
+    currentStoreItemData: emptyStoreItemData(),
+    loadedStoreItems: [],
+    error: null
+  };
+};

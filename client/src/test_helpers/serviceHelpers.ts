@@ -48,3 +48,13 @@ export const clearServiceState = (globalState: IGlobalAppState): void => {
     };
 };
 
+export const resetServiceState = (): IServiceState => {
+  return { 
+    responseMsg: "",
+    loading: false,
+    currentServiceData: emptyServiceData(),
+    loadedServices: [],
+    error: null
+  };
+};
+

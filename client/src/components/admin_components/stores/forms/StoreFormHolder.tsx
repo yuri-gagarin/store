@@ -56,10 +56,11 @@ const StoreFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   const handleFormOpen = () => {
     setFormOpen(!formOpen);
   };
+  /*
   useEffect(() => {
     console.log("form loaded")
   }, []);
-
+  */
   useEffect(() => {
     if (!formOpen) {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -68,6 +69,7 @@ const StoreFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   useEffect(() => {
     if (title && description) {
       setNewForm(false);
+      setFormOpen(true);
     }
   }, [title, description]);
 
