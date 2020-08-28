@@ -76,4 +76,7 @@ const ServiceManageHolder: React.FC<Props> = ({ state, dispatch, history }): JSX
   }
 };
 
+// export without router for tests //
+export { ServiceManageHolder };
+//
 export default withRouter(ServiceManageHolder);

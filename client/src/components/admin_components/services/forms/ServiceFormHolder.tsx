@@ -23,7 +23,7 @@ type ServiceData = {
   name: string;
   description: string;
   price: string;
-  serviceImages: IServiceImgData[];
+  images: IServiceImgData[];
 }
 
 const ServiceFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
@@ -39,7 +39,7 @@ const ServiceFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
       name,
       description,
       price,
-      serviceImages: currentServiceData.images
+      images: currentServiceData.images
     };
 
     createService(serviceData, dispatch)
@@ -55,7 +55,7 @@ const ServiceFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
 
   const handleUpdateService = ({ name, description, price }: FormState): void => {
     const serviceParams: ServiceData = {
-      name, description, price, serviceImages: currentServiceData.images
+      name, description, price, images: currentServiceData.images
     };
 
     editService(currentServiceData._id, serviceParams, dispatch, state)
