@@ -76,4 +76,7 @@ const ProductsManageHolder: React.FC<Props> = ({ state, dispatch, history }): JS
   }
 };
 
+// export for testing //
+export { ProductsManageHolder };
+//
 export default withRouter(ProductsManageHolder);
