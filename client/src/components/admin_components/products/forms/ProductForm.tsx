@@ -97,8 +97,8 @@ const ProductForm: React.FC<Props> = ({ name, description, price, handleCreatePr
          />
          {
            newForm 
-            ? <Button type='submit' onClick={handleSubmit} content= "Create  New Product" />
-            : <Button type='submit' onClick={handleSubmit} content= "Update Product" />
+            ? <Button id="adminProductFormCreate" type='submit' onClick={handleSubmit} content= "Create  New Product" />
+            : <Button id="adminProductFormUpdate" type='submit' onClick={handleSubmit} content= "Update Product" />
          }  
       </Form>
     </div>

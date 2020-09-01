@@ -1,6 +1,10 @@
 import faker from "faker";
 import { IGlobalAppState } from "../state/Store";
 import { emptyProductData } from "../state/reducers/productReducer";
+import { resetStoreState } from "./storeHelpers";
+import { resetStoreItemState } from "./storeItemHelpers";
+import { resetServiceState } from "./serviceHelpers";
+import { resetBonusVideoState } from "./bonusVideoHelpers";
 
 export const createMockProducts = (numberOfProducts?: number): IProductData[] => {
   const createdProducts: IProductData[] = [];
@@ -56,6 +60,62 @@ export const resetProductState = (): IProductState => {
     currentProductData: emptyProductData(),
     loadedProducts: [],
     error: null
+  };
+};
+
+type SetMockProductStateOpts = {
+  currentProduct?: boolean;
+  loadedProducts?: number;
+  productImages?: number;
+}
+export const setMockProductState = ( opts: SetMockProductStateOpts): IGlobalAppState => {
+  const { currentProduct, loadedProducts, productImages } = opts;
+  let _product: IProductData | undefined; const _loadedProducts: IProductData[] = []; const _productImages: IProductImgData[] = [];
+  if (currentProduct) {
+    _product = {
+      _id: faker.random.alphaNumeric(10),
+      name: faker.lorem.word(),
+      price: faker.commerce.price(),
+      description: faker.lorem.paragraph(),
+      details: faker.lorem.paragraph(),
+      images: [],
+      createdAt: faker.date.recent().toString()
+    }
+    if (productImages) {
+      for (let i = 0; i < productImages; i++) {
+        _productImages.push(createMockProductImage(_product._id))
+      }
+      _product.images = _productImages;
+    }
+  }
+
+  if (loadedProducts) {
+    for (let i = 0; i < loadedProducts; i++) {
+      const _product: IProductData = {
+        _id: faker.random.alphaNumeric(10),
+      name: faker.lorem.word(),
+      price: faker.commerce.price(),
+      description: faker.lorem.paragraph(),
+      details: faker.lorem.paragraph(),
+      images: [],
+      createdAt: faker.date.recent().toString()
+      };
+      _loadedProducts.push(_product)
+    }
+  }
+
+  return {
+    storeState: resetStoreState(),
+    storeItemState: resetStoreItemState(),
+    productState: {
+      responseMsg: "Ok",
+      loading: false,
+      currentProductData: _product ? _product : emptyProductData(),
+      loadedProducts: _loadedProducts,
+      error: null
+    },
+    serviceState: resetServiceState(),
+    bonusVideoState: resetBonusVideoState()
   };
 };
 

@@ -25,7 +25,7 @@ describe("ProductView Component test", () => {
       expect(component).toBeDefined();
     });
     it("Should render Admin Product Menu", () => {
-      expect(component.find("AdminProductMenu")).toHaveLength(1);
+      expect(component.find(AdminProductsMenu)).toHaveLength(1);
     });
     it("Should render conditional routes", () => {
       expect(component.find("Switch")).toHaveLength(1);
@@ -57,10 +57,10 @@ describe("ProductView Component test", () => {
   });
   describe("ProductView Component button actions", () => {
     describe("AdminProductMenu", () => {
-      it("Should have 3 main navigation links", () => {
+      it("Should have 4 main navigation links", () => {
         const wrapper = component.find(AdminProductsMenu);
         const links = wrapper.find(Menu.Item)
-        expect(links.length).toEqual(3);
+        expect(links.length).toEqual(4);
       });
       it("'View All Products' link should properly function", () => {
         window.scrollTo = jest.fn();

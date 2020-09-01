@@ -23,7 +23,7 @@ type ProductData = {
   name: string;
   description: string;
   price: string;
-  productImages: IProductImgData[];
+  images: IProductImgData[];
 }
 
 const ProductFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
@@ -39,7 +39,7 @@ const ProductFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
       name,
       description,
       price,
-      productImages: currentProductData.images
+      images: currentProductData.images
     };
 
     createProduct(productData, dispatch)
@@ -55,7 +55,7 @@ const ProductFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
 
   const handleUpdateProduct = ({ name, description, price }: FormState): void => {
     const productParams: ProductData = {
-      name, description, price, productImages: currentProductData.images
+      name, description, price, images: currentProductData.images
     };
 
     editProduct(currentProductData._id, productParams, dispatch, state)
@@ -78,6 +78,7 @@ const ProductFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
   useEffect(() => {
     if (name && description && price) {
       setNewForm(false);
+      setFormOpen(true);
     }
   }, [name, description, price]);
 
