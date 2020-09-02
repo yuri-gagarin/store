@@ -21,8 +21,8 @@ describe("ProductView Component test", () => {
     );
   });
   describe("ProductView Component render test", () => {
-    it("Should correctly mount", () => {
-      expect(component).toBeDefined();
+    it("Should Properly render Products View", () => {
+      expect(component).toMatchSnapshot();
     });
     it("Should render Admin Product Menu", () => {
       expect(component.find(AdminProductsMenu)).toHaveLength(1);

@@ -33,7 +33,7 @@ export const createMockProducts = (numberOfProducts?: number): IProductData[] =>
 
 export const createMockProductImage = (productId?: string): IProductImgData => {
   const mockImage: IProductImgData = {
-    _id: faker.random.alphaNumeric(),
+    _id: faker.random.alphaNumeric(10),
     url: faker.internet.url(),
     absolutePath: faker.system.filePath(),
     imagePath: faker.system.directoryPath(),

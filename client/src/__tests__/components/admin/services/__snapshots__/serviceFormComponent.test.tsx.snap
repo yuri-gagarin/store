@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ServiceFormHolder Component tests Default Form Holder state Should Properly render Form Holder 1`] = `
+<ServiceFormHolder
+  dispatch={[MockFunction]}
+  state={
+    Object {
+      "bonusVideoState": Object {
+        "currentBonusVideoData": Object {
+          "_id": "",
+          "createdAt": "",
+          "description": "",
+          "vimeoURL": "",
+          "youTubeURL": "",
+        },
+        "error": null,
+        "loadedBonusVideos": Array [],
+        "loading": false,
+        "responseMsg": "",
+      },
+      "productState": Object {
+        "currentProductData": Object {
+          "_id": "",
+          "createdAt": "",
+          "description": "",
+          "details": "",
+          "images": Array [],
+          "name": "",
+          "price": "",
+        },
+        "error": null,
+        "loadedProducts": Array [],
+        "loading": false,
+        "responseMsg": "",
+      },
+      "serviceState": Object {
+        "currentServiceData": Object {
+          "_id": "",
+          "createdAt": "",
+          "description": "",
+          "images": Array [],
+          "name": "",
+          "price": "",
+        },
+        "error": null,
+        "loadedServices": Array [],
+        "loading": false,
+        "responseMsg": "",
+      },
+      "storeItemState": Object {
+        "currentStoreItemData": Object {
+          "_id": "",
+          "categories": Array [],
+          "createdAt": "",
+          "description": "",
+          "details": "",
+          "images": Array [],
+          "name": "",
+          "price": "",
+          "storeId": "",
+          "storeName": "",
+        },
+        "error": null,
+        "loadedStoreItems": Array [],
+        "loading": false,
+        "numberOfItems": 0,
+        "responseMsg": "",
+      },
+      "storeState": Object {
+        "currentStoreData": Object {
+          "_id": "",
+          "createdAt": "",
+          "description": "",
+          "images": Array [],
+          "title": "",
+        },
+        "error": null,
+        "loadedStores": Array [],
+        "loading": false,
+        "responseMsg": "",
+      },
+    }
+  }
+>
+  <div
+    id="serviceFormHolder"
+  >
+    <GridRow>
+      <div
+        className="row"
+      >
+        <GridColumn
+          computer={14}
+          mobile={16}
+          tablet={15}
+        >
+          <div
+            className="fourteen wide computer sixteen wide mobile fifteen wide tablet column"
+          >
+            <Button
+              as="button"
+              content="Open Form"
+              id="serviceFormToggleBtn"
+              onClick={[Function]}
+            >
+              <Ref
+                innerRef={
+                  Object {
+                    "current": <button
+                      class="ui button"
+                      id="serviceFormToggleBtn"
+                    >
+                      Open Form
+                    </button>,
+                  }
+                }
+              >
+                <RefFindNode
+                  innerRef={
+                    Object {
+                      "current": <button
+                        class="ui button"
+                        id="serviceFormToggleBtn"
+                      >
+                        Open Form
+                      </button>,
+                    }
+                  }
+                >
+                  <button
+                    className="ui button"
+                    id="serviceFormToggleBtn"
+                    onClick={[Function]}
+                  >
+                    Open Form
+                  </button>
+                </RefFindNode>
+              </Ref>
+            </Button>
+          </div>
+        </GridColumn>
+      </div>
+    </GridRow>
+  </div>
+</ServiceFormHolder>
+`;

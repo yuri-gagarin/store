@@ -22,8 +22,8 @@ describe("ServiceFormHolder Component tests", () => {
       wrapper = mount<{}, typeof ServiceFormHolder>(<ServiceFormHolder state={generateCleanState()} dispatch={jest.fn<React.Dispatch<ServiceAction>, []>()}/>)
     });
 
-    it("Should Properly Mount Form Holder", () => {
-      expect(wrapper.html()).toBeDefined();
+    it("Should Properly render Form Holder", () => {
+      expect(wrapper).toMatchSnapshot();
     });
     it("Form Should be closed by default", () => {
       const form = wrapper.find(ServiceForm);

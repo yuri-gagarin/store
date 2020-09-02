@@ -32,7 +32,7 @@ const ServiceFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
   const [ newForm, setNewForm ] = useState<boolean>(true);
 
   const { currentServiceData } = state.serviceState;
-  const { name, description, price, createdAt, editedAt } = currentServiceData;
+  const { _id : serviceId, name, description, price, createdAt, editedAt } = currentServiceData;
 
   const handleCreateService = ({ name, price, description }: FormState): void => {
     const serviceData: ServiceData = {
@@ -75,11 +75,13 @@ const ServiceFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [formOpen])
+  // set correct data if a service is loaded //
   useEffect(() => {
-    if (name && description && price) {
+    if (serviceId) {
       setNewForm(false);
+      setFormOpen(true);
     }
-  }, [name, description, price]);
+  }, [serviceId]);
 
 
   return (
