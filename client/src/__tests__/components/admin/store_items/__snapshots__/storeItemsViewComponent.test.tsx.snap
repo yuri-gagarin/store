@@ -1,0 +1,319 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StoreItemView Component test StoreItemView Component render test Should Properly render StoreItemsView 1`] = `
+<MemoryRouter
+  initialEntries={
+    Array [
+      "/admin/home/store_items",
+    ]
+  }
+>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "canGo": [Function],
+        "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "key": "ikijwj",
+            "pathname": "/admin/home/store_items",
+            "search": "",
+            "state": undefined,
+          },
+        ],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "index": 0,
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "key": "ikijwj",
+          "pathname": "/admin/home/store_items",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <StoreItemsView>
+      <div
+        id="adminStoreItemsViewHolder"
+      >
+        <withRouter(AdminStoreItemsMenu)
+          dispatch={[Function]}
+          state={
+            Object {
+              "bonusVideoState": Object {
+                "currentBonusVideoData": Object {
+                  "_id": "",
+                  "createdAt": "",
+                  "description": "",
+                  "vimeoURL": "",
+                  "youTubeURL": "",
+                },
+                "error": null,
+                "loadedBonusVideos": Array [],
+                "loading": false,
+                "responseMsg": "",
+              },
+              "productState": Object {
+                "currentProductData": Object {
+                  "_id": "",
+                  "createdAt": "",
+                  "description": "",
+                  "details": "",
+                  "images": Array [],
+                  "name": "",
+                  "price": "",
+                },
+                "error": null,
+                "loadedProducts": Array [],
+                "loading": false,
+                "responseMsg": "",
+              },
+              "serviceState": Object {
+                "currentServiceData": Object {
+                  "_id": "",
+                  "createdAt": "",
+                  "description": "",
+                  "images": Array [],
+                  "name": "",
+                  "price": "",
+                },
+                "error": null,
+                "loadedServices": Array [],
+                "loading": false,
+                "responseMsg": "",
+              },
+              "storeItemState": Object {
+                "currentStoreItemData": Object {
+                  "_id": "",
+                  "categories": Array [],
+                  "createdAt": "",
+                  "description": "",
+                  "details": "",
+                  "images": Array [],
+                  "name": "",
+                  "price": "",
+                  "storeId": "",
+                  "storeName": "",
+                },
+                "error": null,
+                "loadedStoreItems": Array [],
+                "loading": false,
+                "numberOfItems": 0,
+                "responseMsg": "",
+              },
+              "storeState": Object {
+                "currentStoreData": Object {
+                  "_id": "",
+                  "createdAt": "",
+                  "description": "",
+                  "images": Array [],
+                  "title": "",
+                },
+                "error": null,
+                "loadedStores": Array [],
+                "loading": false,
+                "responseMsg": "",
+              },
+            }
+          }
+        >
+          <AdminStoreItemsMenu
+            dispatch={[Function]}
+            history={
+              Object {
+                "action": "POP",
+                "block": [Function],
+                "canGo": [Function],
+                "createHref": [Function],
+                "entries": Array [
+                  Object {
+                    "hash": "",
+                    "key": "ikijwj",
+                    "pathname": "/admin/home/store_items",
+                    "search": "",
+                    "state": undefined,
+                  },
+                ],
+                "go": [Function],
+                "goBack": [Function],
+                "goForward": [Function],
+                "index": 0,
+                "length": 1,
+                "listen": [Function],
+                "location": Object {
+                  "hash": "",
+                  "key": "ikijwj",
+                  "pathname": "/admin/home/store_items",
+                  "search": "",
+                  "state": undefined,
+                },
+                "push": [Function],
+                "replace": [Function],
+              }
+            }
+            location={
+              Object {
+                "hash": "",
+                "key": "ikijwj",
+                "pathname": "/admin/home/store_items",
+                "search": "",
+                "state": undefined,
+              }
+            }
+            match={
+              Object {
+                "isExact": false,
+                "params": Object {},
+                "path": "/",
+                "url": "/",
+              }
+            }
+            state={
+              Object {
+                "bonusVideoState": Object {
+                  "currentBonusVideoData": Object {
+                    "_id": "",
+                    "createdAt": "",
+                    "description": "",
+                    "vimeoURL": "",
+                    "youTubeURL": "",
+                  },
+                  "error": null,
+                  "loadedBonusVideos": Array [],
+                  "loading": false,
+                  "responseMsg": "",
+                },
+                "productState": Object {
+                  "currentProductData": Object {
+                    "_id": "",
+                    "createdAt": "",
+                    "description": "",
+                    "details": "",
+                    "images": Array [],
+                    "name": "",
+                    "price": "",
+                  },
+                  "error": null,
+                  "loadedProducts": Array [],
+                  "loading": false,
+                  "responseMsg": "",
+                },
+                "serviceState": Object {
+                  "currentServiceData": Object {
+                    "_id": "",
+                    "createdAt": "",
+                    "description": "",
+                    "images": Array [],
+                    "name": "",
+                    "price": "",
+                  },
+                  "error": null,
+                  "loadedServices": Array [],
+                  "loading": false,
+                  "responseMsg": "",
+                },
+                "storeItemState": Object {
+                  "currentStoreItemData": Object {
+                    "_id": "",
+                    "categories": Array [],
+                    "createdAt": "",
+                    "description": "",
+                    "details": "",
+                    "images": Array [],
+                    "name": "",
+                    "price": "",
+                    "storeId": "",
+                    "storeName": "",
+                  },
+                  "error": null,
+                  "loadedStoreItems": Array [],
+                  "loading": false,
+                  "numberOfItems": 0,
+                  "responseMsg": "",
+                },
+                "storeState": Object {
+                  "currentStoreData": Object {
+                    "_id": "",
+                    "createdAt": "",
+                    "description": "",
+                    "images": Array [],
+                    "title": "",
+                  },
+                  "error": null,
+                  "loadedStores": Array [],
+                  "loading": false,
+                  "responseMsg": "",
+                },
+              }
+            }
+          >
+            <div
+              className="adminStoreItemsMenuFixed"
+            >
+              <Menu
+                className="adminStoreItemsMenu"
+                tabular={true}
+              >
+                <div
+                  className="ui tabular adminStoreItemsMenu menu"
+                >
+                  <MenuItem
+                    active={true}
+                    content="View All StoreItems"
+                    name="view_all"
+                    onClick={[Function]}
+                  >
+                    <a
+                      className="active item"
+                      onClick={[Function]}
+                    >
+                      View All StoreItems
+                    </a>
+                  </MenuItem>
+                  <MenuItem
+                    active={false}
+                    content="Create New StoreItem"
+                    name="create"
+                    onClick={[Function]}
+                  >
+                    <a
+                      className="item"
+                      onClick={[Function]}
+                    >
+                      Create New StoreItem
+                    </a>
+                  </MenuItem>
+                  <MenuItem
+                    active={false}
+                    content="Manage StoreItems"
+                    name="manage"
+                    onClick={[Function]}
+                  >
+                    <a
+                      className="item"
+                      onClick={[Function]}
+                    >
+                      Manage StoreItems
+                    </a>
+                  </MenuItem>
+                </div>
+              </Menu>
+            </div>
+          </AdminStoreItemsMenu>
+        </withRouter(AdminStoreItemsMenu)>
+        <Switch />
+      </div>
+    </StoreItemsView>
+  </Router>
+</MemoryRouter>
+`;

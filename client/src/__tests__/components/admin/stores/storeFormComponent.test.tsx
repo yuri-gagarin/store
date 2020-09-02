@@ -22,7 +22,7 @@ describe("StoreFormHolder Component tests", () => {
     });
 
     it("Should Properly Mount Form Holder", () => {
-      expect(wrapper.html()).toBeDefined();
+      expect(wrapper).toMatchSnapshot();
     });
     it("Form Should be closed by default", () => {
       const form = wrapper.find(StoreForm);

@@ -1,39 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ProductView Component test ProductView Component render test Should Properly render Products View 1`] = `
-<MemoryRouter
-  initialEntries={
-    Array [
-      "/admin/home/my_products",
-    ]
-  }
->
+exports[`StoreView Component test StoreView Component render test Should Properly render StoreView 1`] = `
+<BrowserRouter>
   <Router
     history={
       Object {
         "action": "POP",
         "block": [Function],
-        "canGo": [Function],
         "createHref": [Function],
-        "entries": Array [
-          Object {
-            "hash": "",
-            "key": "twifrz",
-            "pathname": "/admin/home/my_products",
-            "search": "",
-            "state": undefined,
-          },
-        ],
         "go": [Function],
         "goBack": [Function],
         "goForward": [Function],
-        "index": 0,
         "length": 1,
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "twifrz",
-          "pathname": "/admin/home/my_products",
+          "pathname": "/",
           "search": "",
           "state": undefined,
         },
@@ -42,40 +24,28 @@ exports[`ProductView Component test ProductView Component render test Should Pro
       }
     }
   >
-    <ProductsView>
+    <StoreGeneralView>
       <div
-        id="adminProductsViewHolder"
+        id="adminStoreViewHolder"
       >
-        <withRouter(AdminProductsMenu)
+        <withRouter(AdminStoreMenu)
           dispatch={[Function]}
         >
-          <AdminProductsMenu
+          <AdminStoreMenu
             dispatch={[Function]}
             history={
               Object {
                 "action": "POP",
                 "block": [Function],
-                "canGo": [Function],
                 "createHref": [Function],
-                "entries": Array [
-                  Object {
-                    "hash": "",
-                    "key": "twifrz",
-                    "pathname": "/admin/home/my_products",
-                    "search": "",
-                    "state": undefined,
-                  },
-                ],
                 "go": [Function],
                 "goBack": [Function],
                 "goForward": [Function],
-                "index": 0,
                 "length": 1,
                 "listen": [Function],
                 "location": Object {
                   "hash": "",
-                  "key": "twifrz",
-                  "pathname": "/admin/home/my_products",
+                  "pathname": "/",
                   "search": "",
                   "state": undefined,
                 },
@@ -86,15 +56,14 @@ exports[`ProductView Component test ProductView Component render test Should Pro
             location={
               Object {
                 "hash": "",
-                "key": "twifrz",
-                "pathname": "/admin/home/my_products",
+                "pathname": "/",
                 "search": "",
                 "state": undefined,
               }
             }
             match={
               Object {
-                "isExact": false,
+                "isExact": true,
                 "params": Object {},
                 "path": "/",
                 "url": "/",
@@ -102,75 +71,65 @@ exports[`ProductView Component test ProductView Component render test Should Pro
             }
           >
             <div
-              className="adminProductsMenuFixed"
+              className="adminStoreMenuFixed"
             >
               <Menu
-                className="adminProductsMenu"
+                className="adminStoreMenu"
                 tabular={true}
               >
                 <div
-                  className="ui tabular adminProductsMenu menu"
+                  className="ui tabular adminStoreMenu menu"
                 >
                   <MenuItem
                     active={true}
-                    content="View All Products"
+                    className="adminMenuLink"
+                    content="View All"
                     name="view_all"
                     onClick={[Function]}
                   >
                     <a
-                      className="active item"
+                      className="active item adminMenuLink"
                       onClick={[Function]}
                     >
-                      View All Products
+                      View All
                     </a>
                   </MenuItem>
                   <MenuItem
                     active={false}
-                    content="Create New Product"
+                    className="adminMenuLink"
+                    content="Create Store"
                     name="create"
                     onClick={[Function]}
                   >
                     <a
-                      className="item"
+                      className="item adminMenuLink"
                       onClick={[Function]}
                     >
-                      Create New Product
+                      Create Store
                     </a>
                   </MenuItem>
                   <MenuItem
                     active={false}
-                    content="Manage Products"
+                    className="adminMenuLink"
+                    content="Manage"
                     name="manage"
                     onClick={[Function]}
                   >
                     <a
-                      className="item"
+                      className="item adminMenuLink"
                       onClick={[Function]}
                     >
-                      Manage Products
-                    </a>
-                  </MenuItem>
-                  <MenuItem
-                    active={false}
-                    content="View Sorted Products"
-                    name="sorted"
-                    onClick={[Function]}
-                  >
-                    <a
-                      className="item"
-                      onClick={[Function]}
-                    >
-                      View Sorted Products
+                      Manage
                     </a>
                   </MenuItem>
                 </div>
               </Menu>
             </div>
-          </AdminProductsMenu>
-        </withRouter(AdminProductsMenu)>
+          </AdminStoreMenu>
+        </withRouter(AdminStoreMenu)>
         <Switch />
       </div>
-    </ProductsView>
+    </StoreGeneralView>
   </Router>
-</MemoryRouter>
+</BrowserRouter>
 `;

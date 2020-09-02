@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ProductFormHolder Component tests Default Form Holder state Should Properly render Form Holder 1`] = `
-<ProductFormHolder
+exports[`StoreFormHolder Component tests Default Form Holder state Should Properly Mount Form Holder 1`] = `
+<StoreFormHolder
   dispatch={[MockFunction]}
   state={
     Object {
@@ -83,7 +83,7 @@ exports[`ProductFormHolder Component tests Default Form Holder state Should Prop
   }
 >
   <div
-    id="productFormHolder"
+    id="storeFormHolder"
   >
     <GridRow>
       <div
@@ -100,7 +100,7 @@ exports[`ProductFormHolder Component tests Default Form Holder state Should Prop
             <Button
               as="button"
               content="Open Form"
-              id="productFormToggleBtn"
+              id="storeFormToggleBtn"
               onClick={[Function]}
             >
               <Ref
@@ -108,7 +108,7 @@ exports[`ProductFormHolder Component tests Default Form Holder state Should Prop
                   Object {
                     "current": <button
                       class="ui button"
-                      id="productFormToggleBtn"
+                      id="storeFormToggleBtn"
                     >
                       Open Form
                     </button>,
@@ -120,7 +120,7 @@ exports[`ProductFormHolder Component tests Default Form Holder state Should Prop
                     Object {
                       "current": <button
                         class="ui button"
-                        id="productFormToggleBtn"
+                        id="storeFormToggleBtn"
                       >
                         Open Form
                       </button>,
@@ -129,7 +129,7 @@ exports[`ProductFormHolder Component tests Default Form Holder state Should Prop
                 >
                   <button
                     className="ui button"
-                    id="productFormToggleBtn"
+                    id="storeFormToggleBtn"
                     onClick={[Function]}
                   >
                     Open Form
@@ -142,5 +142,5 @@ exports[`ProductFormHolder Component tests Default Form Holder state Should Prop
       </div>
     </GridRow>
   </div>
-</ProductFormHolder>
+</StoreFormHolder>
 `;

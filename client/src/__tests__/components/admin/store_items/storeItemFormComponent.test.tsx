@@ -81,7 +81,7 @@ describe("StoreItemFormHolder Component tests", () => {
     });
 
     it("Should Properly Mount Form Holder", () => {
-      expect(wrapper.html()).toBeDefined();
+      expect(wrapper).toMatchSnapshot();
     });
     it("Should have a Form toggle Button", () => {
       const toggleButton = wrapper.render().find('#storeItemFormToggleBtn');

@@ -21,8 +21,8 @@ describe("ServiceView Component test", () => {
     );
   });
   describe("ServiceView Component render test", () => {
-    it("Should correctly mount", () => {
-      expect(component).toBeDefined();
+    it("Should Properly render Services View", () => {
+      expect(component).toMatchSnapshot();
     });
     it("Should render Admin Service Menu", () => {
       expect(component.find("AdminServiceMenu")).toHaveLength(1);

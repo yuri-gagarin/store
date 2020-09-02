@@ -20,8 +20,8 @@ describe("StoreItemView Component test", () => {
     );
   });
   describe("StoreItemView Component render test", () => {
-    it("Should correctly mount", () => {
-      expect(component).toBeDefined();
+    it("Should Properly render StoreItemsView", () => {
+      expect(component).toMatchSnapshot();
     });
     it("Should render Admin StoreItem Menu", () => {
       expect(component.find(AdminStoreItemsMenu)).toHaveLength(1);

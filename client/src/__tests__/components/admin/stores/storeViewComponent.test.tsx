@@ -20,8 +20,8 @@ describe("StoreView Component test", () => {
     );
   });
   describe("StoreView Component render test", () => {
-    it("Should correctly mount", () => {
-      expect(component).toBeDefined();
+    it("Should Properly render StoreView", () => {
+      expect(component).toMatchSnapshot();
     });
     it("Should render Admin Store Menu", () => {
       expect(component.find("AdminStoreMenu")).toHaveLength(1);
