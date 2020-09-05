@@ -25,6 +25,8 @@ const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
   useEffect(() => {
     getAllStores(dispatch)
       .then((success) => {
+        console.log(28)
+        console.log("Success")
         setDataLoaded(true);
       });
   }, []); 

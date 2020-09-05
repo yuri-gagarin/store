@@ -34,6 +34,7 @@ type StoreQuery = {
 }
 
 export const getAllStores = (dispatch: Dispatch<StoreAction>, queryOptions?: StoreQuery): Promise<boolean> => {
+  console.log("dispatiching request")
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/stores",
