@@ -12,7 +12,7 @@ exports[`Store Manage Holder Tests Default local state render Default state at f
         "entries": Array [
           Object {
             "hash": "",
-            "key": "3di584",
+            "key": "fi4bg3",
             "pathname": "/",
             "search": "",
             "state": undefined,
@@ -26,7 +26,7 @@ exports[`Store Manage Holder Tests Default local state render Default state at f
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "3di584",
+          "key": "fi4bg3",
           "pathname": "/",
           "search": "",
           "state": undefined,
@@ -36,110 +36,91 @@ exports[`Store Manage Holder Tests Default local state render Default state at f
       }
     }
   >
-    <withRouter(StoreManageHolder)>
-      <StoreManageHolder
-        history={
-          Object {
-            "action": "POP",
-            "block": [Function],
-            "canGo": [Function],
-            "createHref": [Function],
-            "entries": Array [
-              Object {
+    <Component>
+      <withRouter(StoreManageHolder)>
+        <StoreManageHolder
+          history={
+            Object {
+              "action": "POP",
+              "block": [Function],
+              "canGo": [Function],
+              "createHref": [Function],
+              "entries": Array [
+                Object {
+                  "hash": "",
+                  "key": "fi4bg3",
+                  "pathname": "/",
+                  "search": "",
+                  "state": undefined,
+                },
+              ],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "index": 0,
+              "length": 1,
+              "listen": [Function],
+              "location": Object {
                 "hash": "",
-                "key": "3di584",
+                "key": "fi4bg3",
                 "pathname": "/",
                 "search": "",
                 "state": undefined,
               },
-            ],
-            "go": [Function],
-            "goBack": [Function],
-            "goForward": [Function],
-            "index": 0,
-            "length": 1,
-            "listen": [Function],
-            "location": Object {
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+          location={
+            Object {
               "hash": "",
-              "key": "3di584",
+              "key": "fi4bg3",
               "pathname": "/",
               "search": "",
               "state": undefined,
-            },
-            "push": [Function],
-            "replace": [Function],
-          }
-        }
-        location={
-          Object {
-            "hash": "",
-            "key": "3di584",
-            "pathname": "/",
-            "search": "",
-            "state": undefined,
-          }
-        }
-        match={
-          Object {
-            "isExact": true,
-            "params": Object {},
-            "path": "/",
-            "url": "/",
-          }
-        }
-      >
-        <LoaderExampleText>
-          <div
-            style={
-              Object {
-                "height": "100vh",
-              }
             }
-          >
-            <Segment
+          }
+          match={
+            Object {
+              "isExact": true,
+              "params": Object {},
+              "path": "/",
+              "url": "/",
+            }
+          }
+        >
+          <LoaderExampleText>
+            <div
               style={
                 Object {
                   "height": "100vh",
                 }
               }
             >
-              <div
-                className="ui segment"
+              <Segment
                 style={
                   Object {
                     "height": "100vh",
                   }
                 }
               >
-                <Dimmer
-                  active={true}
-                  inverted={true}
+                <div
+                  className="ui segment"
+                  style={
+                    Object {
+                      "height": "100vh",
+                    }
+                  }
                 >
-                  <DimmerInner
+                  <Dimmer
                     active={true}
                     inverted={true}
                   >
-                    <Ref
-                      innerRef={
-                        Object {
-                          "current": <div
-                            class="ui active transition visible inverted dimmer"
-                            style="display: flex;"
-                          >
-                            <div
-                              class="content"
-                            >
-                              <div
-                                class="ui text loader"
-                              >
-                                Please Wait
-                              </div>
-                            </div>
-                          </div>,
-                        }
-                      }
+                    <DimmerInner
+                      active={true}
+                      inverted={true}
                     >
-                      <RefFindNode
+                      <Ref
                         innerRef={
                           Object {
                             "current": <div
@@ -159,221 +140,53 @@ exports[`Store Manage Holder Tests Default local state render Default state at f
                           }
                         }
                       >
-                        <div
-                          className="ui active transition visible inverted dimmer"
-                          onClick={[Function]}
-                        >
-                          <div
-                            className="content"
-                          >
-                            <Loader>
-                              <div
-                                className="ui text loader"
-                              >
-                                Please Wait
-                              </div>
-                            </Loader>
-                          </div>
-                        </div>
-                      </RefFindNode>
-                    </Ref>
-                  </DimmerInner>
-                </Dimmer>
-              </div>
-            </Segment>
-          </div>
-        </LoaderExampleText>
-      </StoreManageHolder>
-    </withRouter(StoreManageHolder)>
-  </Router>
-</MemoryRouter>
-`;
-
-exports[`Store Manage Holder Tests Default local state render State after a successful API call Should properly render 1`] = `
-<MemoryRouter>
-  <Router
-    history={
-      Object {
-        "action": "POP",
-        "block": [Function],
-        "canGo": [Function],
-        "createHref": [Function],
-        "entries": Array [
-          Object {
-            "hash": "",
-            "key": "graq2w",
-            "pathname": "/",
-            "search": "",
-            "state": undefined,
-          },
-        ],
-        "go": [Function],
-        "goBack": [Function],
-        "goForward": [Function],
-        "index": 0,
-        "length": 1,
-        "listen": [Function],
-        "location": Object {
-          "hash": "",
-          "key": "graq2w",
-          "pathname": "/",
-          "search": "",
-          "state": undefined,
-        },
-        "push": [Function],
-        "replace": [Function],
-      }
-    }
-  >
-    <withRouter(StoreManageHolder)>
-      <StoreManageHolder
-        history={
-          Object {
-            "action": "POP",
-            "block": [Function],
-            "canGo": [Function],
-            "createHref": [Function],
-            "entries": Array [
-              Object {
-                "hash": "",
-                "key": "graq2w",
-                "pathname": "/",
-                "search": "",
-                "state": undefined,
-              },
-            ],
-            "go": [Function],
-            "goBack": [Function],
-            "goForward": [Function],
-            "index": 0,
-            "length": 1,
-            "listen": [Function],
-            "location": Object {
-              "hash": "",
-              "key": "graq2w",
-              "pathname": "/",
-              "search": "",
-              "state": undefined,
-            },
-            "push": [Function],
-            "replace": [Function],
-          }
-        }
-        location={
-          Object {
-            "hash": "",
-            "key": "graq2w",
-            "pathname": "/",
-            "search": "",
-            "state": undefined,
-          }
-        }
-        match={
-          Object {
-            "isExact": true,
-            "params": Object {},
-            "path": "/",
-            "url": "/",
-          }
-        }
-      >
-        <LoaderExampleText>
-          <div
-            style={
-              Object {
-                "height": "100vh",
-              }
-            }
-          >
-            <Segment
-              style={
-                Object {
-                  "height": "100vh",
-                }
-              }
-            >
-              <div
-                className="ui segment"
-                style={
-                  Object {
-                    "height": "100vh",
-                  }
-                }
-              >
-                <Dimmer
-                  active={true}
-                  inverted={true}
-                >
-                  <DimmerInner
-                    active={true}
-                    inverted={true}
-                  >
-                    <Ref
-                      innerRef={
-                        Object {
-                          "current": <div
-                            class="ui active transition visible inverted dimmer"
-                            style="display: flex;"
-                          >
-                            <div
-                              class="content"
-                            >
-                              <div
-                                class="ui text loader"
-                              >
-                                Please Wait
-                              </div>
-                            </div>
-                          </div>,
-                        }
-                      }
-                    >
-                      <RefFindNode
-                        innerRef={
-                          Object {
-                            "current": <div
-                              class="ui active transition visible inverted dimmer"
-                              style="display: flex;"
-                            >
-                              <div
-                                class="content"
+                        <RefFindNode
+                          innerRef={
+                            Object {
+                              "current": <div
+                                class="ui active transition visible inverted dimmer"
+                                style="display: flex;"
                               >
                                 <div
-                                  class="ui text loader"
+                                  class="content"
+                                >
+                                  <div
+                                    class="ui text loader"
+                                  >
+                                    Please Wait
+                                  </div>
+                                </div>
+                              </div>,
+                            }
+                          }
+                        >
+                          <div
+                            className="ui active transition visible inverted dimmer"
+                            onClick={[Function]}
+                          >
+                            <div
+                              className="content"
+                            >
+                              <Loader>
+                                <div
+                                  className="ui text loader"
                                 >
                                   Please Wait
                                 </div>
-                              </div>
-                            </div>,
-                          }
-                        }
-                      >
-                        <div
-                          className="ui active transition visible inverted dimmer"
-                          onClick={[Function]}
-                        >
-                          <div
-                            className="content"
-                          >
-                            <Loader>
-                              <div
-                                className="ui text loader"
-                              >
-                                Please Wait
-                              </div>
-                            </Loader>
+                              </Loader>
+                            </div>
                           </div>
-                        </div>
-                      </RefFindNode>
-                    </Ref>
-                  </DimmerInner>
-                </Dimmer>
-              </div>
-            </Segment>
-          </div>
-        </LoaderExampleText>
-      </StoreManageHolder>
-    </withRouter(StoreManageHolder)>
+                        </RefFindNode>
+                      </Ref>
+                    </DimmerInner>
+                  </Dimmer>
+                </div>
+              </Segment>
+            </div>
+          </LoaderExampleText>
+        </StoreManageHolder>
+      </withRouter(StoreManageHolder)>
+    </Component>
   </Router>
 </MemoryRouter>
 `;

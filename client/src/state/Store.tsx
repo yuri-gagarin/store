@@ -58,7 +58,7 @@ export const StateProvider: React.FC<{}> = ({ children }): JSX.Element => {
    
   };
 
-  usePrevious(globalState)
+  // usePrevious(globalState)
 
   return  (
     <Store.Provider value={{ state: globalState, dispatch: dispatch }}>

@@ -34,12 +34,12 @@ type StoreQuery = {
 }
 
 export const getAllStores = (dispatch: Dispatch<StoreAction>, queryOptions?: StoreQuery): Promise<boolean> => {
-  console.log("dispatiching request")
   const requestOptions: AxiosRequestConfig = {
     method: "get",
-    url: "/api/stores",
+    url: "/api/stores/",
     params: queryOptions
   };
+  console.log("calling")
   return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -52,7 +52,8 @@ export const getAllStores = (dispatch: Dispatch<StoreAction>, queryOptions?: Sto
       }});
       return true;
     })
-    .catch((error: AxiosError) => {
+    .catch((error: AxiosError) => {      
+      console.error("A damn error")
       dispatch({ type: "SET_STORE_ERROR", payload: {
         loading: false,
         responseMsg: error.message,
