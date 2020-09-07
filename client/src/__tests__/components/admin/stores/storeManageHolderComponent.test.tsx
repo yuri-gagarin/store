@@ -9,6 +9,7 @@ import LoadingScreen  from "../../../../components/admin_components/miscelaneous
 import { act } from "react-dom/test-utils";
 import { createMockStores } from "../../../../test_helpers/storeHelpers";
 import { initialContext, StateProvider } from "../../../../state/Store";
+import StoreCard from "../../../../components/admin_components/stores/store_manage/StoreCard";
 
 describe("Store Manage Holder Tests", () => {
   describe("Default local state render", () => {
@@ -45,7 +46,10 @@ describe("Store Manage Holder Tests", () => {
       let stores: IStoreData[];
 
       beforeEach(() => {
-        fetchMock.resetMocks();
+        moxios.install();
+      });
+      afterEach(() => {
+        moxios.uninstall();
       })
       
       it("Should fetch the request", async () => {
@@ -62,20 +66,54 @@ describe("Store Manage Holder Tests", () => {
         expect(fetchMock).toHaveBeenCalledWith("thisurl")
       });
 
-      it('should display error if api request fail', async () => {
-        fetchMock.mockRejectOnce();
-        let comp: ReactWrapper | null;
-        await act(async () => {
-          comp = await mount(
-            <Router>
-              <StateProvider>
-                <StoreManageHolder />
+      it('Should display error if api request fail', async () => {
+      
+        let comp: ReactWrapper;
+        comp = mount(
+          <Router>
+            <StateProvider>
+              <StoreManageHolder />
 
-              </StateProvider>
-            </Router>
-          );
+            </StateProvider>
+          </Router>
+        );
+        await moxios.wait(jest.fn);
+        await act(async() => {
+          const request = moxios.requests.mostRecent()
+          await request.respondWith({
+            response: {
+              responseMsg: "All ok",
+              stores: createMockStores(5)
+            }
+          })
+        });
+        act(() => {
+          comp.update();
         })
-        comp!.update();
+        let storeCards = comp.find(StoreCard)
+        console.log(storeCards.length)
+      });
+
+      it('should display error if api request fail', async () => {
+      
+        let comp: ReactWrapper | null;
+        comp = mount(
+          <Router>
+            <StateProvider>
+              <StoreManageHolder />
+
+            </StateProvider>
+          </Router>
+        );
+        await moxios.wait(jest.fn);
+        await act(async() => {
+          const request = moxios.requests.mostRecent()
+          await request.reject(new Error("Boo"));
+        });
+        act(() => {
+          comp!.update();
+          console.log(comp?.props())
+        })
     
       });
       /*

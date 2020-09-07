@@ -30,7 +30,11 @@ const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
         setDataLoaded(true);
       });
   }, []); 
-
+  /*
+  useEffect(() => {
+    console.log(state);
+  }, [state])
+  */
   return (
     dataLoaded ?
     <Grid padded>

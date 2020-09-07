@@ -3,7 +3,7 @@ import faker from "faker";
 // test dependences
 import { expect } from "chai";
 import { shallow, ShallowWrapper } from "enzyme";
-import moxios from "moxios";
+import * as moxios from "moxios";
 // component dependencies //
 import StoreView from "../../components/admin_components/stores/StoreView";
 // state and React.context dependenies //
