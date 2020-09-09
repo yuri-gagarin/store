@@ -12,7 +12,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
         "entries": Array [
           Object {
             "hash": "",
-            "key": "5rdcmi",
+            "key": "jox4jb",
             "pathname": "/",
             "search": "",
             "state": undefined,
@@ -26,7 +26,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "5rdcmi",
+          "key": "jox4jb",
           "pathname": "/",
           "search": "",
           "state": undefined,
@@ -38,7 +38,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
   >
     <Component>
       <withRouter(ServiceManageHolder)
-        dispatch={[MockFunction]}
+        dispatch={[Function]}
         state={
           Object {
             "bonusVideoState": Object {
@@ -119,7 +119,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
         }
       >
         <ServiceManageHolder
-          dispatch={[MockFunction]}
+          dispatch={[Function]}
           history={
             Object {
               "action": "POP",
@@ -129,7 +129,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
               "entries": Array [
                 Object {
                   "hash": "",
-                  "key": "5rdcmi",
+                  "key": "jox4jb",
                   "pathname": "/",
                   "search": "",
                   "state": undefined,
@@ -143,7 +143,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
               "listen": [Function],
               "location": Object {
                 "hash": "",
-                "key": "5rdcmi",
+                "key": "jox4jb",
                 "pathname": "/",
                 "search": "",
                 "state": undefined,
@@ -155,7 +155,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
           location={
             Object {
               "hash": "",
-              "key": "5rdcmi",
+              "key": "jox4jb",
               "pathname": "/",
               "search": "",
               "state": undefined,

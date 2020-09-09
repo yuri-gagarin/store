@@ -21,7 +21,8 @@ export const initialServiceState: IServiceState = {
 const serviceReducer = (state: IServiceState = initialServiceState, action: ServiceAction): IServiceState => {
   switch (action.type) {
     case "GET_ALL_SERVICES": 
-      console.log("dispatched get all")
+      console.log("new services")
+      console.log(action.payload)
       return {
         ...state,
         loading: action.payload.loading,

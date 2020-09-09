@@ -42,10 +42,8 @@ const logStateChanges = (state: IGlobalAppState): void => {
   }
 }
 */
-
 export const StateProvider: React.FC<{}> = ({ children }): JSX.Element => {
   const [ globalState, dispatch ] = useReducer(indexReducer, rootState);
-
   const usePrevious = (state: IGlobalAppState) => {
     const ref = useRef<IGlobalAppState>();
     useEffect(() => {
@@ -55,10 +53,12 @@ export const StateProvider: React.FC<{}> = ({ children }): JSX.Element => {
       console.log("Current State");
       console.log(state);
     }, [state])
-   
   };
 
-  // usePrevious(globalState)
+  if (process.env.NODE_ENV === "development") {
+    usePrevious(globalState);
+  }
+
 
   return  (
     <Store.Provider value={{ state: globalState, dispatch: dispatch }}>

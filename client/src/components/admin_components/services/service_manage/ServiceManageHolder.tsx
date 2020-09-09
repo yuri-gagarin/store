@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Grid } from "semantic-ui-react";
 // additional components //
 import ServiceFormHolder from "../forms/ServiceFormHolder";
@@ -6,7 +6,7 @@ import ServiceCard from "./ServiceCard";
 import LoadingScreen from "../../miscelaneous/LoadingScreen";
 // actions and state //
 import { getAllServices } from "../actions/APIServiceActions";
-import { IGlobalAppState, AppAction } from "../../../../state/Store";
+import { IGlobalAppState, AppAction, Store } from "../../../../state/Store";
 // additional dependencies //
 import { withRouter, RouteComponentProps, useRouteMatch, Route } from "react-router-dom";
 
@@ -20,13 +20,10 @@ const ServiceManageHolder: React.FC<Props> = ({ state, dispatch, history }): JSX
   // local state //
   const [ pageLoaded, setPageLoaded ] = useState<boolean>(false);
   const match = useRouteMatch("/admin/home/my_services/manage");
-
   const handleBack = () => {
     history.goBack();
   };
-  useEffect(() => {
-    console.log(loadedServices)
-  }, [loadedServices])
+
   useEffect(() => {
     getAllServices(dispatch)
       .then((success) => {
