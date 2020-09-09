@@ -23,7 +23,6 @@
     "websocket-extensions": "^0.1.4"
   },
   "jest": {
-    "automock": false,
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/**/*.d.ts",

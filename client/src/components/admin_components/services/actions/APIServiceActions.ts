@@ -38,6 +38,7 @@ export const getAllServices = (dispatch: Dispatch<ServiceAction>): Promise<boole
   };
   return axios.request<IServiceServerResData, IServiceServerRes>(requestOptions)
     .then((response) => {
+      console.log(response)
       const { data } = response;
       const services = data.services!;
       dispatch({ type: "GET_ALL_SERVICES", payload: {

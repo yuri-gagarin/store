@@ -25,6 +25,9 @@ const ServiceManageHolder: React.FC<Props> = ({ state, dispatch, history }): JSX
     history.goBack();
   };
   useEffect(() => {
+    console.log(loadedServices)
+  }, [loadedServices])
+  useEffect(() => {
     getAllServices(dispatch)
       .then((success) => {
         if (success) {
@@ -35,7 +38,7 @@ const ServiceManageHolder: React.FC<Props> = ({ state, dispatch, history }): JSX
 
   if (pageLoaded) {
     return (
-      <Grid padded stackable columns={2}>
+      <Grid padded stackable columns={2} id="serviceManageHolder">
         <Route path={match?.url + "/edit"}> 
           <Grid.Row>
             <Grid.Column computer={12} tablet={6} mobile={16}>
