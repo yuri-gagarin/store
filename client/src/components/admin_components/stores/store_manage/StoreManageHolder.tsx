@@ -4,6 +4,7 @@ import { Button, Grid } from "semantic-ui-react";
 import StoreFormHolder from "../forms/StoreFormHolder";
 import StoreCard from "./StoreCard";
 import LoadingScreen from "../../miscelaneous/LoadingScreen";
+import ErrorScreen from "../../miscelaneous/ErrorScreen";
 // actions and state //
 import { getAllStores } from "../actions/APIstoreActions";
 import { Store } from "../../../../state/Store";
@@ -14,7 +15,7 @@ interface Props extends RouteComponentProps {};
 
 const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const { state, dispatch } = useContext(Store);
-  const { loadedStores } = state.storeState;
+  const { loadedStores, error } = state.storeState;
   // local state //
   const [ dataLoaded, setDataLoaded ] = useState<boolean>(false);
   // routing //
@@ -34,10 +35,7 @@ const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
     return () => { isMounted = false }; 
 
   }, []); 
-  useEffect(() => {
-    console.log(38)
-    console.log(dataLoaded)
-  }, [dataLoaded])
+  
   /*
   useEffect(() => {
     console.log(state);
