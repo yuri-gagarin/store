@@ -1,20 +1,16 @@
 import React, { useReducer, useEffect } from "react";
 import { mount, ReactWrapper, shallow } from "enzyme";
 import moxios from "moxios";
-import fetchMock from "jest-fetch-mock";
 import { MemoryRouter as Router } from "react-router-dom";
 // components //
+import { act } from "react-dom/test-utils";
 import ServiceManageHolder from "../../../../components/admin_components/services/service_manage/ServiceManageHolder";
 import LoadingScreen  from "../../../../components/admin_components/miscelaneous/LoadingScreen";
-import TestRenderer from 'react-test-renderer';
-import { act } from "react-dom/test-utils";
-import { renderHook } from "@testing-library/react-hooks";
 import { createMockServices } from "../../../../test_helpers/serviceHelpers";
 import { generateCleanState } from "../../../../test_helpers/miscHelpers";
 import { initialContext, StateProvider, IGlobalAppState } from "../../../../state/Store";
 import ServiceCard from "../../../../components/admin_components/services/service_manage/ServiceCard";
 import { indexReducer, rootState } from "../../../../state/reducers/indexReducer";
-import { RenderResult } from "@testing-library/react";
 import ServiceComponent from "../../../../components/client_components/store_screen/services/ServiceComponent";
 import { Grid } from "semantic-ui-react";
 

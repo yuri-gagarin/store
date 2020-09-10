@@ -22,6 +22,7 @@ const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const handleBack = () => {
     history.goBack();
   }
+
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
@@ -30,9 +31,13 @@ const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
           setDataLoaded(true);
         });
     }
-    return () => { isMounted = false };
-   
+    return () => { isMounted = false }; 
+
   }, []); 
+  useEffect(() => {
+    console.log(38)
+    console.log(dataLoaded)
+  }, [dataLoaded])
   /*
   useEffect(() => {
     console.log(state);

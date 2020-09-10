@@ -7,7 +7,7 @@ import StoreManageHolder from "../../../../components/admin_components/stores/st
 import LoadingScreen  from "../../../../components/admin_components/miscelaneous/LoadingScreen";
 import { act } from "react-dom/test-utils";
 import { createMockStores } from "../../../../test_helpers/storeHelpers";
-import { initialContext, StateProvider } from "../../../../state/Store";
+import { StateProvider } from "../../../../state/Store";
 import StoreCard from "../../../../components/admin_components/stores/store_manage/StoreCard";
 
 describe("Store Manage Holder Tests", () => {
@@ -31,11 +31,11 @@ describe("Store Manage Holder Tests", () => {
           </Router>
         )
       });
-      /*
+      
       it("Should correctly render", () => {
         expect(component).toMatchSnapshot();
       });
-      */
+      
       it("Should render a 'LoadingScreen' Component before an API call resolves", () => {
         loadingScreen = component.find(LoadingScreen);
         expect(loadingScreen.length).toEqual(1)
@@ -94,20 +94,20 @@ describe("Store Manage Holder Tests", () => {
       });
       */
 
-      it("Should not render the initial Loading Screen after a successful API call", () => {
-        act(() => {
+      it("Should not render the initial Loading Screen after a successful API call", async () => {
+        act( () => {
           component.update();
         });
         loadingScreen = component.find(LoadingScreen);
-        expect(LoadingScreen.length).toEqual(0);
+        expect(loadingScreen.length).toEqual(0);
       });
-
+      
       it("Should render the correct StoreManageHolder Component", () => {
         const storeManageHolderComp = component.find("#storeManageHolder");
         expect(storeManageHolderComp.at(0)).toBeDefined();
         expect(storeManageHolderComp.at(0)).toMatchSnapshot();
       });
-
+    
       it("Should properly render all StoreCard components", () => {
         const storeCards = component.find(StoreCard);
         expect(storeCards.length).toEqual(stores.length);
