@@ -16,6 +16,7 @@ import ServiceCard from "../../../../components/admin_components/services/servic
 import { indexReducer, rootState } from "../../../../state/reducers/indexReducer";
 import { RenderResult } from "@testing-library/react";
 import ServiceComponent from "../../../../components/client_components/store_screen/services/ServiceComponent";
+import { Grid } from "semantic-ui-react";
 
 describe("Service Manage Holder Tests", () => {
   beforeEach(() => {
@@ -124,8 +125,12 @@ describe("Service Manage Holder Tests", () => {
           loadedServices: [ ...services ]
         }
       }
-      const updated = comp.setProps({ state: newState});
-      console.log(updated.find(ServiceCard).length)
+      // console.log(comp.find(Grid).length)
+      let f = 10;
+      let newr = comp.setProps({ state: newState})
+      newr.update()
+      console.log(newr.props())
+
       /*
       const serviceCards = component.find(ServiceCard);
       expect(serviceCards.at(0)).toBeDefined();

@@ -34,16 +34,18 @@ type StoreQuery = {
 }
 
 export const getAllStores = (dispatch: Dispatch<StoreAction>, queryOptions?: StoreQuery): Promise<boolean> => {
+  console.log(37)
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/stores/",
     params: queryOptions
   };
-  console.log("calling")
   return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
       const { data } = response;
       const stores = data.stores!;
+      console.log("Line 46")
+      console.log(response)
       dispatch({ type: "GET_ALL_STORES", payload: {
         loading: false,
         responseMsg: data.responseMsg,
@@ -53,7 +55,7 @@ export const getAllStores = (dispatch: Dispatch<StoreAction>, queryOptions?: Sto
       return true;
     })
     .catch((error: AxiosError) => {      
-      console.error("A damn error")
+      console.error(error)
       dispatch({ type: "SET_STORE_ERROR", payload: {
         loading: false,
         responseMsg: error.message,

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { Button, Grid } from "semantic-ui-react";
 // additional components //
 import StoreFormHolder from "../forms/StoreFormHolder";
@@ -23,12 +23,15 @@ const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
     history.goBack();
   }
   useEffect(() => {
-    getAllStores(dispatch)
-      .then((success) => {
-        console.log(28)
-        console.log("Success")
-        setDataLoaded(true);
-      });
+    let isMounted = true;
+    if (isMounted) {
+      getAllStores(dispatch)
+        .then((_) => {
+          setDataLoaded(true);
+        });
+    }
+    return () => { isMounted = false };
+   
   }, []); 
   /*
   useEffect(() => {
@@ -37,7 +40,7 @@ const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
   */
   return (
     dataLoaded ?
-    <Grid padded>
+    <Grid padded id="storeManageHolder">
       <Route path={match?.url + "/edit"}> 
         <Grid.Row>
           <Grid.Column>
