@@ -539,8 +539,8 @@ describe("Store Actions Tests", () => {
           request.reject(error)
         });
         getAllStores(dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then(() => {
+            done();
           })
           .catch((error) => {
             done(error);

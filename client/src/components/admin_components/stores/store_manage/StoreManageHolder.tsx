@@ -79,7 +79,7 @@ const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
     </Grid>
     :
     (
-      error ? <ErrorScreen /> : <LoadingScreen />
+      error ? <ErrorScreen lastRequest={() => getAllStores(dispatch)} /> : <LoadingScreen />
     )
   );
 };

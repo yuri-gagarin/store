@@ -11,6 +11,7 @@ import { createMockStores } from "../../../../test_helpers/storeHelpers";
 import { StateProvider } from "../../../../state/Store";
 import StoreCard from "../../../../components/admin_components/stores/store_manage/StoreCard";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
+import { error } from "console";
 
 describe("Store Manage Holder Tests", () => {
   describe("Default local state render", () => {
@@ -159,7 +160,32 @@ describe("Store Manage Holder Tests", () => {
       it("Should NOT render ANY StoreCard components", () => {
         const storeCards = component.find(StoreCard);
         expect(storeCards.length).toEqual(0);
+      });
+  
+      it("Should have a retry Store API call Button", () => {
+        const retryButton = component.find("#errorScreenRetryButton");
+        expect(retryButton.length).toEqual(2);
+      });
+
+      it("Should correctly re-dispatch the 'getStores' API request with the button click", async () => {
+        act(() => {
+          moxios.install();
+          moxios.stubRequest("/api/stores/", {
+            status: 200,
+            response: {
+              responseMsg: "All Ok",
+              stores: createMockStores(6)
+            }
+          });
+          const retryButton = component.find("#errorScreenRetryButton");
+          retryButton.at(0).simulate("click");
+          component.update();
+          const errorScreen = component.find(ErrorScreen);
+          expect(errorScreen.length).toEqual(0)
+
+        });
       })
+
     });
     // END mock successfull API call tests //
     

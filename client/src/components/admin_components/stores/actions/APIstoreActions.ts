@@ -51,8 +51,8 @@ export const getAllStores = (dispatch: Dispatch<StoreAction>, queryOptions?: Sto
       }});
       return Promise.resolve();
     })
-    .catch((error: AxiosError) => {      
-      dispatch({ type: "SET_STORE_ERROR", payload: {
+    .catch((error: AxiosError) => {   
+        dispatch({ type: "SET_STORE_ERROR", payload: {
         loading: false,
         responseMsg: error.message,
         error: error
