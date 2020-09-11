@@ -30,11 +30,14 @@ const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
       getAllStores(dispatch)
         .then((_) => {
           setDataLoaded(true);
-        });
+        })
+        .catch(_ => {
+          setDataLoaded(false);
+        })
     }
     return () => { isMounted = false }; 
 
-  }, []); 
+  }, []);
   
   /*
   useEffect(() => {
@@ -75,7 +78,9 @@ const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
      
     </Grid>
     :
-    <LoadingScreen />
+    (
+      error ? <ErrorScreen /> : <LoadingScreen />
+    )
   );
 };
 

@@ -92,9 +92,10 @@ describe("Store Manage Holder Tests", () => {
         expect(errorScreenComponent.length).toEqual(0);
       });
   
-      it("Shouldrender the correct StoreManageHolder Component", () => {
+      it("Should render the correct StoreManageHolder Component", () => {
         const storeManageHolderComp = component.find("#storeManageHolder");
-        expect(storeManageHolderComp.at(0)).toBeUndefined();
+        expect(storeManageHolderComp.at(0)).toBeDefined();
+        expect(storeManageHolderComp.at(0)).toMatchSnapshot();
       });
     
       it("Should render correct number of StoreCard components", () => {
@@ -152,7 +153,7 @@ describe("Store Manage Holder Tests", () => {
       
       it("Should NOT render the StoreManageHolder Component", () => {
         const storeManageHolderComp = component.find("#storeManageHolder");
-        expect(storeManageHolderComp.at(0)).toBeUndefined();
+        expect(storeManageHolderComp.length).toEqual(0);
       });
     
       it("Should NOT render ANY StoreCard components", () => {

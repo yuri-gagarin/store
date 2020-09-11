@@ -126,8 +126,8 @@ describe("Store Actions Tests", () => {
         });
         // mock action with moxios //
         getAllStores(dispatch)
-          .then((success) => {
-            if (success) done();
+          .then(() => {
+            done();
           })
           .catch((error) => {
             done(error);

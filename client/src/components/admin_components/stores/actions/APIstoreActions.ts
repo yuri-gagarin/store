@@ -33,7 +33,7 @@ type StoreQuery = {
   limit?: string;
 }
 
-export const getAllStores = (dispatch: Dispatch<StoreAction>, queryOptions?: StoreQuery): Promise<boolean> => {
+export const getAllStores = (dispatch: Dispatch<StoreAction>, queryOptions?: StoreQuery): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/stores/",
@@ -49,7 +49,7 @@ export const getAllStores = (dispatch: Dispatch<StoreAction>, queryOptions?: Sto
         loadedStores: stores,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {      
       dispatch({ type: "SET_STORE_ERROR", payload: {
@@ -57,7 +57,7 @@ export const getAllStores = (dispatch: Dispatch<StoreAction>, queryOptions?: Sto
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject()
     });
 };
 export const getStoreByName = (name: string, dispatch: Dispatch<StoreAction>): Promise<boolean> => {
