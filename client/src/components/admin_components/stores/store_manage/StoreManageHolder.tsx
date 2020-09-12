@@ -15,37 +15,45 @@ interface Props extends RouteComponentProps {};
 
 const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const { state, dispatch } = useContext(Store);
-  const { loadedStores, error } = state.storeState;
+  const { loading, loadedStores, error } = state.storeState;
   // local state //
-  const [ dataLoaded, setDataLoaded ] = useState<boolean>(false);
+  const [ newDataLoaded, setNewDataLoaded ] = useState<boolean>(false);
+  const storesRef = useRef(loadedStores);
   // routing //
   const match = useRouteMatch("/admin/home/my_stores/manage");
   const handleBack = () => {
     history.goBack();
   }
-
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
       getAllStores(dispatch)
         .then((_) => {
-          setDataLoaded(true);
+          setNewDataLoaded(true)
         })
         .catch(_ => {
-          setDataLoaded(false);
+          setNewDataLoaded(false)
         })
     }
     return () => { isMounted = false }; 
 
   }, []);
-  
+
+  useEffect(() => {
+    if (storesRef.current != loadedStores && !error && !loading) {
+      setNewDataLoaded(true);
+    }
+  }, [storesRef.current, loadedStores]);
+
+
   /*
   useEffect(() => {
-    console.log(state);
-  }, [state])
+    console.log(state.storeState)
+  }, [state.storeState])
   */
+
   return (
-    dataLoaded ?
+    newDataLoaded ?
     <Grid padded id="storeManageHolder">
       <Route path={match?.url + "/edit"}> 
         <Grid.Row>

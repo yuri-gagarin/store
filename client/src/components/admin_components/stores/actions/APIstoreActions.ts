@@ -39,6 +39,8 @@ export const getAllStores = (dispatch: Dispatch<StoreAction>, queryOptions?: Sto
     url: "/api/stores/",
     params: queryOptions
   };
+
+  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true } });
   return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
       const { data } = response;

@@ -19,6 +19,11 @@ export const initialStoreState: IStoreState = {
 
 const storeReducer = (state: IStoreState = initialStoreState, action: StoreAction): IStoreState => {
   switch (action.type) {
+    case "DISPATCH_STORE_API_REQUEST": 
+      return {
+        ...state,
+        loading: action.payload.loading
+      };
     case "GET_ALL_STORES": 
       return {
         ...state,

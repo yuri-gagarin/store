@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Store Manage Holder Tests Default local state render Default Component state at first render Should correctly render 1`] = `
+exports[`Store Manage Holder Tests Default Component state at first render Should correctly render 1`] = `
 <MemoryRouter>
   <Router
     history={
@@ -12,7 +12,7 @@ exports[`Store Manage Holder Tests Default local state render Default Component 
         "entries": Array [
           Object {
             "hash": "",
-            "key": "xvcp4y",
+            "key": "wbyydd",
             "pathname": "/",
             "search": "",
             "state": undefined,
@@ -26,7 +26,7 @@ exports[`Store Manage Holder Tests Default local state render Default Component 
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "xvcp4y",
+          "key": "wbyydd",
           "pathname": "/",
           "search": "",
           "state": undefined,
@@ -48,7 +48,7 @@ exports[`Store Manage Holder Tests Default local state render Default Component 
               "entries": Array [
                 Object {
                   "hash": "",
-                  "key": "xvcp4y",
+                  "key": "wbyydd",
                   "pathname": "/",
                   "search": "",
                   "state": undefined,
@@ -62,7 +62,7 @@ exports[`Store Manage Holder Tests Default local state render Default Component 
               "listen": [Function],
               "location": Object {
                 "hash": "",
-                "key": "xvcp4y",
+                "key": "wbyydd",
                 "pathname": "/",
                 "search": "",
                 "state": undefined,
@@ -74,7 +74,7 @@ exports[`Store Manage Holder Tests Default local state render Default Component 
           location={
             Object {
               "hash": "",
-              "key": "xvcp4y",
+              "key": "wbyydd",
               "pathname": "/",
               "search": "",
               "state": undefined,
@@ -123,40 +123,14 @@ exports[`Store Manage Holder Tests Default local state render Default Component 
                       <Ref
                         innerRef={
                           Object {
-                            "current": <div
-                              class="ui active transition visible inverted dimmer"
-                              style="display: flex;"
-                            >
-                              <div
-                                class="content"
-                              >
-                                <div
-                                  class="ui text loader"
-                                >
-                                  Please Wait
-                                </div>
-                              </div>
-                            </div>,
+                            "current": null,
                           }
                         }
                       >
                         <RefFindNode
                           innerRef={
                             Object {
-                              "current": <div
-                                class="ui active transition visible inverted dimmer"
-                                style="display: flex;"
-                              >
-                                <div
-                                  class="content"
-                                >
-                                  <div
-                                    class="ui text loader"
-                                  >
-                                    Please Wait
-                                  </div>
-                                </div>
-                              </div>,
+                              "current": null,
                             }
                           }
                         >
@@ -191,7 +165,7 @@ exports[`Store Manage Holder Tests Default local state render Default Component 
 </MemoryRouter>
 `;
 
-exports[`Store Manage Holder Tests Default local state render State after a successful API call Should render the correct StoreManageHolder Component 1`] = `
+exports[`Store Manage Holder Tests State after a successful API call Should render the correct StoreManageHolder Component 1`] = `
 <Grid
   id="storeManageHolder"
   padded={true}
@@ -207,12 +181,12 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
       exact={true}
     >
       <withRouter(StoreCard)
-        _id="4mivf371v0"
-        createdAt="Fri Sep 11 2020 03:19:36 GMT+0300 (Eastern European Summer Time)"
-        description="Libero ullam possimus et occaecati voluptatem. Est voluptas porro. Ad ex aperiam sit hic debitis similique aut. Est dolor aliquam repellendus."
+        _id="ljqrb612fk"
+        createdAt="Sat Sep 12 2020 06:22:01 GMT+0300 (Eastern European Summer Time)"
+        description="Impedit quasi qui molestiae est praesentium. Mollitia et dicta qui atque rerum id. Accusantium ullam omnis commodi enim non laborum adipisci et facere. Veritatis ipsa sequi nulla. Omnis sequi possimus repellat. Natus voluptatum beatae mollitia nihil et."
         dispatch={[Function]}
         imageCount={0}
-        key="4mivf371v0"
+        key="ljqrb612fk"
         state={
           Object {
             "bonusVideoState": Object {
@@ -287,39 +261,39 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               "error": null,
               "loadedStores": Array [
                 Object {
-                  "_id": "4mivf371v0",
-                  "createdAt": "Fri Sep 11 2020 03:19:36 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Libero ullam possimus et occaecati voluptatem. Est voluptas porro. Ad ex aperiam sit hic debitis similique aut. Est dolor aliquam repellendus.",
+                  "_id": "ljqrb612fk",
+                  "createdAt": "Sat Sep 12 2020 06:22:01 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Impedit quasi qui molestiae est praesentium. Mollitia et dicta qui atque rerum id. Accusantium ullam omnis commodi enim non laborum adipisci et facere. Veritatis ipsa sequi nulla. Omnis sequi possimus repellat. Natus voluptatum beatae mollitia nihil et.",
                   "images": Array [],
-                  "title": "provident",
+                  "title": "ut",
                 },
                 Object {
-                  "_id": "vtfcqtiahi",
-                  "createdAt": "Thu Sep 10 2020 20:54:10 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Cum et consequatur quae voluptatem omnis. Sunt tempore eum quia voluptatem. Fugiat atque molestiae accusamus. Dolorum quis aut nihil provident tenetur dolores. Voluptas qui architecto eligendi consequatur aut dicta nulla sunt.",
+                  "_id": "1vf6d9j8o1",
+                  "createdAt": "Sat Sep 12 2020 10:19:16 GMT+0300 (Eastern European Summer Time)",
+                  "description": "In nesciunt omnis architecto nulla. Qui sint dolorem nam aut nam in nulla reiciendis consequatur. Et iste et qui sed et.",
                   "images": Array [],
-                  "title": "aut",
+                  "title": "pariatur",
                 },
                 Object {
-                  "_id": "48rvchbcyo",
-                  "createdAt": "Fri Sep 11 2020 09:23:27 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Quod adipisci molestiae. Numquam vel ex est modi. Voluptates reiciendis qui iure amet similique rerum ut. Exercitationem voluptatem repudiandae inventore cupiditate ratione accusantium expedita sit. Provident expedita illo. Minus est velit minus ullam eligendi quasi.",
+                  "_id": "phnxouxlh9",
+                  "createdAt": "Sat Sep 12 2020 07:01:55 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Veritatis voluptates dolor et iure. Et aliquid sed sint rerum ratione. Alias est consequatur. Expedita et quisquam velit non amet nobis praesentium. Quia illum voluptate itaque tenetur.",
                   "images": Array [],
-                  "title": "libero",
+                  "title": "pariatur",
                 },
                 Object {
-                  "_id": "jmsrai5wh6",
-                  "createdAt": "Fri Sep 11 2020 15:47:12 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Maiores nisi sit. Corrupti eum repellat et provident molestias libero aut quibusdam. Et ipsam dolore eaque sit et voluptatem.",
+                  "_id": "xdwu7omsrx",
+                  "createdAt": "Sat Sep 12 2020 11:25:56 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Quae excepturi adipisci harum enim ut. Enim alias iusto reiciendis est sit. Autem atque sunt qui est. Et quas eius magni nihil voluptas sit.",
                   "images": Array [],
-                  "title": "labore",
+                  "title": "vitae",
                 },
                 Object {
-                  "_id": "sbky98ovve",
-                  "createdAt": "Fri Sep 11 2020 01:24:40 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Asperiores voluptas aut neque inventore atque repellendus non omnis. Dolore cum quidem quis consectetur. Adipisci voluptatibus deserunt nemo quisquam et et fugiat sed ipsa. Fugit maiores tempora. Voluptatibus dolor impedit. Voluptatem inventore quae non.",
+                  "_id": "celryu7ddg",
+                  "createdAt": "Sat Sep 12 2020 08:18:17 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Voluptatem animi laborum aliquid et. Autem quos excepturi pariatur. Quis voluptates quis qui minima voluptates autem repellat nihil. Rem atque modi porro quia ea. Id quia cupiditate ut dolorem perferendis et ex laboriosam.",
                   "images": Array [],
-                  "title": "aut",
+                  "title": "nostrum",
                 },
               ],
               "loading": false,
@@ -327,12 +301,12 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
             },
           }
         }
-        title="provident"
+        title="ut"
       >
         <StoreCard
-          _id="4mivf371v0"
-          createdAt="Fri Sep 11 2020 03:19:36 GMT+0300 (Eastern European Summer Time)"
-          description="Libero ullam possimus et occaecati voluptatem. Est voluptas porro. Ad ex aperiam sit hic debitis similique aut. Est dolor aliquam repellendus."
+          _id="ljqrb612fk"
+          createdAt="Sat Sep 12 2020 06:22:01 GMT+0300 (Eastern European Summer Time)"
+          description="Impedit quasi qui molestiae est praesentium. Mollitia et dicta qui atque rerum id. Accusantium ullam omnis commodi enim non laborum adipisci et facere. Veritatis ipsa sequi nulla. Omnis sequi possimus repellat. Natus voluptatum beatae mollitia nihil et."
           dispatch={[Function]}
           history={
             Object {
@@ -343,7 +317,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               "entries": Array [
                 Object {
                   "hash": "",
-                  "key": "r40zwz",
+                  "key": "5cfoq0",
                   "pathname": "/",
                   "search": "",
                   "state": undefined,
@@ -357,7 +331,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               "listen": [Function],
               "location": Object {
                 "hash": "",
-                "key": "r40zwz",
+                "key": "5cfoq0",
                 "pathname": "/",
                 "search": "",
                 "state": undefined,
@@ -370,7 +344,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
           location={
             Object {
               "hash": "",
-              "key": "r40zwz",
+              "key": "5cfoq0",
               "pathname": "/",
               "search": "",
               "state": undefined,
@@ -458,39 +432,39 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
                 "error": null,
                 "loadedStores": Array [
                   Object {
-                    "_id": "4mivf371v0",
-                    "createdAt": "Fri Sep 11 2020 03:19:36 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Libero ullam possimus et occaecati voluptatem. Est voluptas porro. Ad ex aperiam sit hic debitis similique aut. Est dolor aliquam repellendus.",
+                    "_id": "ljqrb612fk",
+                    "createdAt": "Sat Sep 12 2020 06:22:01 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Impedit quasi qui molestiae est praesentium. Mollitia et dicta qui atque rerum id. Accusantium ullam omnis commodi enim non laborum adipisci et facere. Veritatis ipsa sequi nulla. Omnis sequi possimus repellat. Natus voluptatum beatae mollitia nihil et.",
                     "images": Array [],
-                    "title": "provident",
+                    "title": "ut",
                   },
                   Object {
-                    "_id": "vtfcqtiahi",
-                    "createdAt": "Thu Sep 10 2020 20:54:10 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Cum et consequatur quae voluptatem omnis. Sunt tempore eum quia voluptatem. Fugiat atque molestiae accusamus. Dolorum quis aut nihil provident tenetur dolores. Voluptas qui architecto eligendi consequatur aut dicta nulla sunt.",
+                    "_id": "1vf6d9j8o1",
+                    "createdAt": "Sat Sep 12 2020 10:19:16 GMT+0300 (Eastern European Summer Time)",
+                    "description": "In nesciunt omnis architecto nulla. Qui sint dolorem nam aut nam in nulla reiciendis consequatur. Et iste et qui sed et.",
                     "images": Array [],
-                    "title": "aut",
+                    "title": "pariatur",
                   },
                   Object {
-                    "_id": "48rvchbcyo",
-                    "createdAt": "Fri Sep 11 2020 09:23:27 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Quod adipisci molestiae. Numquam vel ex est modi. Voluptates reiciendis qui iure amet similique rerum ut. Exercitationem voluptatem repudiandae inventore cupiditate ratione accusantium expedita sit. Provident expedita illo. Minus est velit minus ullam eligendi quasi.",
+                    "_id": "phnxouxlh9",
+                    "createdAt": "Sat Sep 12 2020 07:01:55 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Veritatis voluptates dolor et iure. Et aliquid sed sint rerum ratione. Alias est consequatur. Expedita et quisquam velit non amet nobis praesentium. Quia illum voluptate itaque tenetur.",
                     "images": Array [],
-                    "title": "libero",
+                    "title": "pariatur",
                   },
                   Object {
-                    "_id": "jmsrai5wh6",
-                    "createdAt": "Fri Sep 11 2020 15:47:12 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Maiores nisi sit. Corrupti eum repellat et provident molestias libero aut quibusdam. Et ipsam dolore eaque sit et voluptatem.",
+                    "_id": "xdwu7omsrx",
+                    "createdAt": "Sat Sep 12 2020 11:25:56 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Quae excepturi adipisci harum enim ut. Enim alias iusto reiciendis est sit. Autem atque sunt qui est. Et quas eius magni nihil voluptas sit.",
                     "images": Array [],
-                    "title": "labore",
+                    "title": "vitae",
                   },
                   Object {
-                    "_id": "sbky98ovve",
-                    "createdAt": "Fri Sep 11 2020 01:24:40 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Asperiores voluptas aut neque inventore atque repellendus non omnis. Dolore cum quidem quis consectetur. Adipisci voluptatibus deserunt nemo quisquam et et fugiat sed ipsa. Fugit maiores tempora. Voluptatibus dolor impedit. Voluptatem inventore quae non.",
+                    "_id": "celryu7ddg",
+                    "createdAt": "Sat Sep 12 2020 08:18:17 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Voluptatem animi laborum aliquid et. Autem quos excepturi pariatur. Quis voluptates quis qui minima voluptates autem repellat nihil. Rem atque modi porro quia ea. Id quia cupiditate ut dolorem perferendis et ex laboriosam.",
                     "images": Array [],
-                    "title": "aut",
+                    "title": "nostrum",
                   },
                 ],
                 "loading": false,
@@ -498,7 +472,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               },
             }
           }
-          title="provident"
+          title="ut"
         >
           <GridRow
             style={
@@ -538,11 +512,11 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
                 >
                   <h3>
                     Title: 
-                    provident
+                    ut
                   </h3>
                   <h5>
                     Description: 
-                    Libero ullam possimus et occaecati voluptatem. Est voluptas porro. Ad ex aperiam sit hic debitis similique aut. Est dolor aliquam repellendus.
+                    Impedit quasi qui molestiae est praesentium. Mollitia et dicta qui atque rerum id. Accusantium ullam omnis commodi enim non laborum adipisci et facere. Veritatis ipsa sequi nulla. Omnis sequi possimus repellat. Natus voluptatum beatae mollitia nihil et.
                   </h5>
                   <h5>
                     Number of Images: 
@@ -552,7 +526,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
                     <span>
                       Created At: 
                     </span>
-                    2020-Sep-11
+                    2020-Sep-12
                   </p>
                 </div>
               </GridColumn>
@@ -697,12 +671,12 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
         </StoreCard>
       </withRouter(StoreCard)>
       <withRouter(StoreCard)
-        _id="vtfcqtiahi"
-        createdAt="Thu Sep 10 2020 20:54:10 GMT+0300 (Eastern European Summer Time)"
-        description="Cum et consequatur quae voluptatem omnis. Sunt tempore eum quia voluptatem. Fugiat atque molestiae accusamus. Dolorum quis aut nihil provident tenetur dolores. Voluptas qui architecto eligendi consequatur aut dicta nulla sunt."
+        _id="1vf6d9j8o1"
+        createdAt="Sat Sep 12 2020 10:19:16 GMT+0300 (Eastern European Summer Time)"
+        description="In nesciunt omnis architecto nulla. Qui sint dolorem nam aut nam in nulla reiciendis consequatur. Et iste et qui sed et."
         dispatch={[Function]}
         imageCount={0}
-        key="vtfcqtiahi"
+        key="1vf6d9j8o1"
         state={
           Object {
             "bonusVideoState": Object {
@@ -777,39 +751,39 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               "error": null,
               "loadedStores": Array [
                 Object {
-                  "_id": "4mivf371v0",
-                  "createdAt": "Fri Sep 11 2020 03:19:36 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Libero ullam possimus et occaecati voluptatem. Est voluptas porro. Ad ex aperiam sit hic debitis similique aut. Est dolor aliquam repellendus.",
+                  "_id": "ljqrb612fk",
+                  "createdAt": "Sat Sep 12 2020 06:22:01 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Impedit quasi qui molestiae est praesentium. Mollitia et dicta qui atque rerum id. Accusantium ullam omnis commodi enim non laborum adipisci et facere. Veritatis ipsa sequi nulla. Omnis sequi possimus repellat. Natus voluptatum beatae mollitia nihil et.",
                   "images": Array [],
-                  "title": "provident",
+                  "title": "ut",
                 },
                 Object {
-                  "_id": "vtfcqtiahi",
-                  "createdAt": "Thu Sep 10 2020 20:54:10 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Cum et consequatur quae voluptatem omnis. Sunt tempore eum quia voluptatem. Fugiat atque molestiae accusamus. Dolorum quis aut nihil provident tenetur dolores. Voluptas qui architecto eligendi consequatur aut dicta nulla sunt.",
+                  "_id": "1vf6d9j8o1",
+                  "createdAt": "Sat Sep 12 2020 10:19:16 GMT+0300 (Eastern European Summer Time)",
+                  "description": "In nesciunt omnis architecto nulla. Qui sint dolorem nam aut nam in nulla reiciendis consequatur. Et iste et qui sed et.",
                   "images": Array [],
-                  "title": "aut",
+                  "title": "pariatur",
                 },
                 Object {
-                  "_id": "48rvchbcyo",
-                  "createdAt": "Fri Sep 11 2020 09:23:27 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Quod adipisci molestiae. Numquam vel ex est modi. Voluptates reiciendis qui iure amet similique rerum ut. Exercitationem voluptatem repudiandae inventore cupiditate ratione accusantium expedita sit. Provident expedita illo. Minus est velit minus ullam eligendi quasi.",
+                  "_id": "phnxouxlh9",
+                  "createdAt": "Sat Sep 12 2020 07:01:55 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Veritatis voluptates dolor et iure. Et aliquid sed sint rerum ratione. Alias est consequatur. Expedita et quisquam velit non amet nobis praesentium. Quia illum voluptate itaque tenetur.",
                   "images": Array [],
-                  "title": "libero",
+                  "title": "pariatur",
                 },
                 Object {
-                  "_id": "jmsrai5wh6",
-                  "createdAt": "Fri Sep 11 2020 15:47:12 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Maiores nisi sit. Corrupti eum repellat et provident molestias libero aut quibusdam. Et ipsam dolore eaque sit et voluptatem.",
+                  "_id": "xdwu7omsrx",
+                  "createdAt": "Sat Sep 12 2020 11:25:56 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Quae excepturi adipisci harum enim ut. Enim alias iusto reiciendis est sit. Autem atque sunt qui est. Et quas eius magni nihil voluptas sit.",
                   "images": Array [],
-                  "title": "labore",
+                  "title": "vitae",
                 },
                 Object {
-                  "_id": "sbky98ovve",
-                  "createdAt": "Fri Sep 11 2020 01:24:40 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Asperiores voluptas aut neque inventore atque repellendus non omnis. Dolore cum quidem quis consectetur. Adipisci voluptatibus deserunt nemo quisquam et et fugiat sed ipsa. Fugit maiores tempora. Voluptatibus dolor impedit. Voluptatem inventore quae non.",
+                  "_id": "celryu7ddg",
+                  "createdAt": "Sat Sep 12 2020 08:18:17 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Voluptatem animi laborum aliquid et. Autem quos excepturi pariatur. Quis voluptates quis qui minima voluptates autem repellat nihil. Rem atque modi porro quia ea. Id quia cupiditate ut dolorem perferendis et ex laboriosam.",
                   "images": Array [],
-                  "title": "aut",
+                  "title": "nostrum",
                 },
               ],
               "loading": false,
@@ -817,12 +791,12 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
             },
           }
         }
-        title="aut"
+        title="pariatur"
       >
         <StoreCard
-          _id="vtfcqtiahi"
-          createdAt="Thu Sep 10 2020 20:54:10 GMT+0300 (Eastern European Summer Time)"
-          description="Cum et consequatur quae voluptatem omnis. Sunt tempore eum quia voluptatem. Fugiat atque molestiae accusamus. Dolorum quis aut nihil provident tenetur dolores. Voluptas qui architecto eligendi consequatur aut dicta nulla sunt."
+          _id="1vf6d9j8o1"
+          createdAt="Sat Sep 12 2020 10:19:16 GMT+0300 (Eastern European Summer Time)"
+          description="In nesciunt omnis architecto nulla. Qui sint dolorem nam aut nam in nulla reiciendis consequatur. Et iste et qui sed et."
           dispatch={[Function]}
           history={
             Object {
@@ -833,7 +807,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               "entries": Array [
                 Object {
                   "hash": "",
-                  "key": "r40zwz",
+                  "key": "5cfoq0",
                   "pathname": "/",
                   "search": "",
                   "state": undefined,
@@ -847,7 +821,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               "listen": [Function],
               "location": Object {
                 "hash": "",
-                "key": "r40zwz",
+                "key": "5cfoq0",
                 "pathname": "/",
                 "search": "",
                 "state": undefined,
@@ -860,7 +834,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
           location={
             Object {
               "hash": "",
-              "key": "r40zwz",
+              "key": "5cfoq0",
               "pathname": "/",
               "search": "",
               "state": undefined,
@@ -948,39 +922,39 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
                 "error": null,
                 "loadedStores": Array [
                   Object {
-                    "_id": "4mivf371v0",
-                    "createdAt": "Fri Sep 11 2020 03:19:36 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Libero ullam possimus et occaecati voluptatem. Est voluptas porro. Ad ex aperiam sit hic debitis similique aut. Est dolor aliquam repellendus.",
+                    "_id": "ljqrb612fk",
+                    "createdAt": "Sat Sep 12 2020 06:22:01 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Impedit quasi qui molestiae est praesentium. Mollitia et dicta qui atque rerum id. Accusantium ullam omnis commodi enim non laborum adipisci et facere. Veritatis ipsa sequi nulla. Omnis sequi possimus repellat. Natus voluptatum beatae mollitia nihil et.",
                     "images": Array [],
-                    "title": "provident",
+                    "title": "ut",
                   },
                   Object {
-                    "_id": "vtfcqtiahi",
-                    "createdAt": "Thu Sep 10 2020 20:54:10 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Cum et consequatur quae voluptatem omnis. Sunt tempore eum quia voluptatem. Fugiat atque molestiae accusamus. Dolorum quis aut nihil provident tenetur dolores. Voluptas qui architecto eligendi consequatur aut dicta nulla sunt.",
+                    "_id": "1vf6d9j8o1",
+                    "createdAt": "Sat Sep 12 2020 10:19:16 GMT+0300 (Eastern European Summer Time)",
+                    "description": "In nesciunt omnis architecto nulla. Qui sint dolorem nam aut nam in nulla reiciendis consequatur. Et iste et qui sed et.",
                     "images": Array [],
-                    "title": "aut",
+                    "title": "pariatur",
                   },
                   Object {
-                    "_id": "48rvchbcyo",
-                    "createdAt": "Fri Sep 11 2020 09:23:27 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Quod adipisci molestiae. Numquam vel ex est modi. Voluptates reiciendis qui iure amet similique rerum ut. Exercitationem voluptatem repudiandae inventore cupiditate ratione accusantium expedita sit. Provident expedita illo. Minus est velit minus ullam eligendi quasi.",
+                    "_id": "phnxouxlh9",
+                    "createdAt": "Sat Sep 12 2020 07:01:55 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Veritatis voluptates dolor et iure. Et aliquid sed sint rerum ratione. Alias est consequatur. Expedita et quisquam velit non amet nobis praesentium. Quia illum voluptate itaque tenetur.",
                     "images": Array [],
-                    "title": "libero",
+                    "title": "pariatur",
                   },
                   Object {
-                    "_id": "jmsrai5wh6",
-                    "createdAt": "Fri Sep 11 2020 15:47:12 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Maiores nisi sit. Corrupti eum repellat et provident molestias libero aut quibusdam. Et ipsam dolore eaque sit et voluptatem.",
+                    "_id": "xdwu7omsrx",
+                    "createdAt": "Sat Sep 12 2020 11:25:56 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Quae excepturi adipisci harum enim ut. Enim alias iusto reiciendis est sit. Autem atque sunt qui est. Et quas eius magni nihil voluptas sit.",
                     "images": Array [],
-                    "title": "labore",
+                    "title": "vitae",
                   },
                   Object {
-                    "_id": "sbky98ovve",
-                    "createdAt": "Fri Sep 11 2020 01:24:40 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Asperiores voluptas aut neque inventore atque repellendus non omnis. Dolore cum quidem quis consectetur. Adipisci voluptatibus deserunt nemo quisquam et et fugiat sed ipsa. Fugit maiores tempora. Voluptatibus dolor impedit. Voluptatem inventore quae non.",
+                    "_id": "celryu7ddg",
+                    "createdAt": "Sat Sep 12 2020 08:18:17 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Voluptatem animi laborum aliquid et. Autem quos excepturi pariatur. Quis voluptates quis qui minima voluptates autem repellat nihil. Rem atque modi porro quia ea. Id quia cupiditate ut dolorem perferendis et ex laboriosam.",
                     "images": Array [],
-                    "title": "aut",
+                    "title": "nostrum",
                   },
                 ],
                 "loading": false,
@@ -988,7 +962,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               },
             }
           }
-          title="aut"
+          title="pariatur"
         >
           <GridRow
             style={
@@ -1028,11 +1002,11 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
                 >
                   <h3>
                     Title: 
-                    aut
+                    pariatur
                   </h3>
                   <h5>
                     Description: 
-                    Cum et consequatur quae voluptatem omnis. Sunt tempore eum quia voluptatem. Fugiat atque molestiae accusamus. Dolorum quis aut nihil provident tenetur dolores. Voluptas qui architecto eligendi consequatur aut dicta nulla sunt.
+                    In nesciunt omnis architecto nulla. Qui sint dolorem nam aut nam in nulla reiciendis consequatur. Et iste et qui sed et.
                   </h5>
                   <h5>
                     Number of Images: 
@@ -1042,7 +1016,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
                     <span>
                       Created At: 
                     </span>
-                    2020-Sep-10
+                    2020-Sep-12
                   </p>
                 </div>
               </GridColumn>
@@ -1187,12 +1161,12 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
         </StoreCard>
       </withRouter(StoreCard)>
       <withRouter(StoreCard)
-        _id="48rvchbcyo"
-        createdAt="Fri Sep 11 2020 09:23:27 GMT+0300 (Eastern European Summer Time)"
-        description="Quod adipisci molestiae. Numquam vel ex est modi. Voluptates reiciendis qui iure amet similique rerum ut. Exercitationem voluptatem repudiandae inventore cupiditate ratione accusantium expedita sit. Provident expedita illo. Minus est velit minus ullam eligendi quasi."
+        _id="phnxouxlh9"
+        createdAt="Sat Sep 12 2020 07:01:55 GMT+0300 (Eastern European Summer Time)"
+        description="Veritatis voluptates dolor et iure. Et aliquid sed sint rerum ratione. Alias est consequatur. Expedita et quisquam velit non amet nobis praesentium. Quia illum voluptate itaque tenetur."
         dispatch={[Function]}
         imageCount={0}
-        key="48rvchbcyo"
+        key="phnxouxlh9"
         state={
           Object {
             "bonusVideoState": Object {
@@ -1267,39 +1241,39 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               "error": null,
               "loadedStores": Array [
                 Object {
-                  "_id": "4mivf371v0",
-                  "createdAt": "Fri Sep 11 2020 03:19:36 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Libero ullam possimus et occaecati voluptatem. Est voluptas porro. Ad ex aperiam sit hic debitis similique aut. Est dolor aliquam repellendus.",
+                  "_id": "ljqrb612fk",
+                  "createdAt": "Sat Sep 12 2020 06:22:01 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Impedit quasi qui molestiae est praesentium. Mollitia et dicta qui atque rerum id. Accusantium ullam omnis commodi enim non laborum adipisci et facere. Veritatis ipsa sequi nulla. Omnis sequi possimus repellat. Natus voluptatum beatae mollitia nihil et.",
                   "images": Array [],
-                  "title": "provident",
+                  "title": "ut",
                 },
                 Object {
-                  "_id": "vtfcqtiahi",
-                  "createdAt": "Thu Sep 10 2020 20:54:10 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Cum et consequatur quae voluptatem omnis. Sunt tempore eum quia voluptatem. Fugiat atque molestiae accusamus. Dolorum quis aut nihil provident tenetur dolores. Voluptas qui architecto eligendi consequatur aut dicta nulla sunt.",
+                  "_id": "1vf6d9j8o1",
+                  "createdAt": "Sat Sep 12 2020 10:19:16 GMT+0300 (Eastern European Summer Time)",
+                  "description": "In nesciunt omnis architecto nulla. Qui sint dolorem nam aut nam in nulla reiciendis consequatur. Et iste et qui sed et.",
                   "images": Array [],
-                  "title": "aut",
+                  "title": "pariatur",
                 },
                 Object {
-                  "_id": "48rvchbcyo",
-                  "createdAt": "Fri Sep 11 2020 09:23:27 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Quod adipisci molestiae. Numquam vel ex est modi. Voluptates reiciendis qui iure amet similique rerum ut. Exercitationem voluptatem repudiandae inventore cupiditate ratione accusantium expedita sit. Provident expedita illo. Minus est velit minus ullam eligendi quasi.",
+                  "_id": "phnxouxlh9",
+                  "createdAt": "Sat Sep 12 2020 07:01:55 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Veritatis voluptates dolor et iure. Et aliquid sed sint rerum ratione. Alias est consequatur. Expedita et quisquam velit non amet nobis praesentium. Quia illum voluptate itaque tenetur.",
                   "images": Array [],
-                  "title": "libero",
+                  "title": "pariatur",
                 },
                 Object {
-                  "_id": "jmsrai5wh6",
-                  "createdAt": "Fri Sep 11 2020 15:47:12 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Maiores nisi sit. Corrupti eum repellat et provident molestias libero aut quibusdam. Et ipsam dolore eaque sit et voluptatem.",
+                  "_id": "xdwu7omsrx",
+                  "createdAt": "Sat Sep 12 2020 11:25:56 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Quae excepturi adipisci harum enim ut. Enim alias iusto reiciendis est sit. Autem atque sunt qui est. Et quas eius magni nihil voluptas sit.",
                   "images": Array [],
-                  "title": "labore",
+                  "title": "vitae",
                 },
                 Object {
-                  "_id": "sbky98ovve",
-                  "createdAt": "Fri Sep 11 2020 01:24:40 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Asperiores voluptas aut neque inventore atque repellendus non omnis. Dolore cum quidem quis consectetur. Adipisci voluptatibus deserunt nemo quisquam et et fugiat sed ipsa. Fugit maiores tempora. Voluptatibus dolor impedit. Voluptatem inventore quae non.",
+                  "_id": "celryu7ddg",
+                  "createdAt": "Sat Sep 12 2020 08:18:17 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Voluptatem animi laborum aliquid et. Autem quos excepturi pariatur. Quis voluptates quis qui minima voluptates autem repellat nihil. Rem atque modi porro quia ea. Id quia cupiditate ut dolorem perferendis et ex laboriosam.",
                   "images": Array [],
-                  "title": "aut",
+                  "title": "nostrum",
                 },
               ],
               "loading": false,
@@ -1307,12 +1281,12 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
             },
           }
         }
-        title="libero"
+        title="pariatur"
       >
         <StoreCard
-          _id="48rvchbcyo"
-          createdAt="Fri Sep 11 2020 09:23:27 GMT+0300 (Eastern European Summer Time)"
-          description="Quod adipisci molestiae. Numquam vel ex est modi. Voluptates reiciendis qui iure amet similique rerum ut. Exercitationem voluptatem repudiandae inventore cupiditate ratione accusantium expedita sit. Provident expedita illo. Minus est velit minus ullam eligendi quasi."
+          _id="phnxouxlh9"
+          createdAt="Sat Sep 12 2020 07:01:55 GMT+0300 (Eastern European Summer Time)"
+          description="Veritatis voluptates dolor et iure. Et aliquid sed sint rerum ratione. Alias est consequatur. Expedita et quisquam velit non amet nobis praesentium. Quia illum voluptate itaque tenetur."
           dispatch={[Function]}
           history={
             Object {
@@ -1323,7 +1297,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               "entries": Array [
                 Object {
                   "hash": "",
-                  "key": "r40zwz",
+                  "key": "5cfoq0",
                   "pathname": "/",
                   "search": "",
                   "state": undefined,
@@ -1337,7 +1311,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               "listen": [Function],
               "location": Object {
                 "hash": "",
-                "key": "r40zwz",
+                "key": "5cfoq0",
                 "pathname": "/",
                 "search": "",
                 "state": undefined,
@@ -1350,7 +1324,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
           location={
             Object {
               "hash": "",
-              "key": "r40zwz",
+              "key": "5cfoq0",
               "pathname": "/",
               "search": "",
               "state": undefined,
@@ -1438,39 +1412,39 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
                 "error": null,
                 "loadedStores": Array [
                   Object {
-                    "_id": "4mivf371v0",
-                    "createdAt": "Fri Sep 11 2020 03:19:36 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Libero ullam possimus et occaecati voluptatem. Est voluptas porro. Ad ex aperiam sit hic debitis similique aut. Est dolor aliquam repellendus.",
+                    "_id": "ljqrb612fk",
+                    "createdAt": "Sat Sep 12 2020 06:22:01 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Impedit quasi qui molestiae est praesentium. Mollitia et dicta qui atque rerum id. Accusantium ullam omnis commodi enim non laborum adipisci et facere. Veritatis ipsa sequi nulla. Omnis sequi possimus repellat. Natus voluptatum beatae mollitia nihil et.",
                     "images": Array [],
-                    "title": "provident",
+                    "title": "ut",
                   },
                   Object {
-                    "_id": "vtfcqtiahi",
-                    "createdAt": "Thu Sep 10 2020 20:54:10 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Cum et consequatur quae voluptatem omnis. Sunt tempore eum quia voluptatem. Fugiat atque molestiae accusamus. Dolorum quis aut nihil provident tenetur dolores. Voluptas qui architecto eligendi consequatur aut dicta nulla sunt.",
+                    "_id": "1vf6d9j8o1",
+                    "createdAt": "Sat Sep 12 2020 10:19:16 GMT+0300 (Eastern European Summer Time)",
+                    "description": "In nesciunt omnis architecto nulla. Qui sint dolorem nam aut nam in nulla reiciendis consequatur. Et iste et qui sed et.",
                     "images": Array [],
-                    "title": "aut",
+                    "title": "pariatur",
                   },
                   Object {
-                    "_id": "48rvchbcyo",
-                    "createdAt": "Fri Sep 11 2020 09:23:27 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Quod adipisci molestiae. Numquam vel ex est modi. Voluptates reiciendis qui iure amet similique rerum ut. Exercitationem voluptatem repudiandae inventore cupiditate ratione accusantium expedita sit. Provident expedita illo. Minus est velit minus ullam eligendi quasi.",
+                    "_id": "phnxouxlh9",
+                    "createdAt": "Sat Sep 12 2020 07:01:55 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Veritatis voluptates dolor et iure. Et aliquid sed sint rerum ratione. Alias est consequatur. Expedita et quisquam velit non amet nobis praesentium. Quia illum voluptate itaque tenetur.",
                     "images": Array [],
-                    "title": "libero",
+                    "title": "pariatur",
                   },
                   Object {
-                    "_id": "jmsrai5wh6",
-                    "createdAt": "Fri Sep 11 2020 15:47:12 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Maiores nisi sit. Corrupti eum repellat et provident molestias libero aut quibusdam. Et ipsam dolore eaque sit et voluptatem.",
+                    "_id": "xdwu7omsrx",
+                    "createdAt": "Sat Sep 12 2020 11:25:56 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Quae excepturi adipisci harum enim ut. Enim alias iusto reiciendis est sit. Autem atque sunt qui est. Et quas eius magni nihil voluptas sit.",
                     "images": Array [],
-                    "title": "labore",
+                    "title": "vitae",
                   },
                   Object {
-                    "_id": "sbky98ovve",
-                    "createdAt": "Fri Sep 11 2020 01:24:40 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Asperiores voluptas aut neque inventore atque repellendus non omnis. Dolore cum quidem quis consectetur. Adipisci voluptatibus deserunt nemo quisquam et et fugiat sed ipsa. Fugit maiores tempora. Voluptatibus dolor impedit. Voluptatem inventore quae non.",
+                    "_id": "celryu7ddg",
+                    "createdAt": "Sat Sep 12 2020 08:18:17 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Voluptatem animi laborum aliquid et. Autem quos excepturi pariatur. Quis voluptates quis qui minima voluptates autem repellat nihil. Rem atque modi porro quia ea. Id quia cupiditate ut dolorem perferendis et ex laboriosam.",
                     "images": Array [],
-                    "title": "aut",
+                    "title": "nostrum",
                   },
                 ],
                 "loading": false,
@@ -1478,7 +1452,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               },
             }
           }
-          title="libero"
+          title="pariatur"
         >
           <GridRow
             style={
@@ -1518,11 +1492,11 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
                 >
                   <h3>
                     Title: 
-                    libero
+                    pariatur
                   </h3>
                   <h5>
                     Description: 
-                    Quod adipisci molestiae. Numquam vel ex est modi. Voluptates reiciendis qui iure amet similique rerum ut. Exercitationem voluptatem repudiandae inventore cupiditate ratione accusantium expedita sit. Provident expedita illo. Minus est velit minus ullam eligendi quasi.
+                    Veritatis voluptates dolor et iure. Et aliquid sed sint rerum ratione. Alias est consequatur. Expedita et quisquam velit non amet nobis praesentium. Quia illum voluptate itaque tenetur.
                   </h5>
                   <h5>
                     Number of Images: 
@@ -1532,7 +1506,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
                     <span>
                       Created At: 
                     </span>
-                    2020-Sep-11
+                    2020-Sep-12
                   </p>
                 </div>
               </GridColumn>
@@ -1677,12 +1651,12 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
         </StoreCard>
       </withRouter(StoreCard)>
       <withRouter(StoreCard)
-        _id="jmsrai5wh6"
-        createdAt="Fri Sep 11 2020 15:47:12 GMT+0300 (Eastern European Summer Time)"
-        description="Maiores nisi sit. Corrupti eum repellat et provident molestias libero aut quibusdam. Et ipsam dolore eaque sit et voluptatem."
+        _id="xdwu7omsrx"
+        createdAt="Sat Sep 12 2020 11:25:56 GMT+0300 (Eastern European Summer Time)"
+        description="Quae excepturi adipisci harum enim ut. Enim alias iusto reiciendis est sit. Autem atque sunt qui est. Et quas eius magni nihil voluptas sit."
         dispatch={[Function]}
         imageCount={0}
-        key="jmsrai5wh6"
+        key="xdwu7omsrx"
         state={
           Object {
             "bonusVideoState": Object {
@@ -1757,39 +1731,39 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               "error": null,
               "loadedStores": Array [
                 Object {
-                  "_id": "4mivf371v0",
-                  "createdAt": "Fri Sep 11 2020 03:19:36 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Libero ullam possimus et occaecati voluptatem. Est voluptas porro. Ad ex aperiam sit hic debitis similique aut. Est dolor aliquam repellendus.",
+                  "_id": "ljqrb612fk",
+                  "createdAt": "Sat Sep 12 2020 06:22:01 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Impedit quasi qui molestiae est praesentium. Mollitia et dicta qui atque rerum id. Accusantium ullam omnis commodi enim non laborum adipisci et facere. Veritatis ipsa sequi nulla. Omnis sequi possimus repellat. Natus voluptatum beatae mollitia nihil et.",
                   "images": Array [],
-                  "title": "provident",
+                  "title": "ut",
                 },
                 Object {
-                  "_id": "vtfcqtiahi",
-                  "createdAt": "Thu Sep 10 2020 20:54:10 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Cum et consequatur quae voluptatem omnis. Sunt tempore eum quia voluptatem. Fugiat atque molestiae accusamus. Dolorum quis aut nihil provident tenetur dolores. Voluptas qui architecto eligendi consequatur aut dicta nulla sunt.",
+                  "_id": "1vf6d9j8o1",
+                  "createdAt": "Sat Sep 12 2020 10:19:16 GMT+0300 (Eastern European Summer Time)",
+                  "description": "In nesciunt omnis architecto nulla. Qui sint dolorem nam aut nam in nulla reiciendis consequatur. Et iste et qui sed et.",
                   "images": Array [],
-                  "title": "aut",
+                  "title": "pariatur",
                 },
                 Object {
-                  "_id": "48rvchbcyo",
-                  "createdAt": "Fri Sep 11 2020 09:23:27 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Quod adipisci molestiae. Numquam vel ex est modi. Voluptates reiciendis qui iure amet similique rerum ut. Exercitationem voluptatem repudiandae inventore cupiditate ratione accusantium expedita sit. Provident expedita illo. Minus est velit minus ullam eligendi quasi.",
+                  "_id": "phnxouxlh9",
+                  "createdAt": "Sat Sep 12 2020 07:01:55 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Veritatis voluptates dolor et iure. Et aliquid sed sint rerum ratione. Alias est consequatur. Expedita et quisquam velit non amet nobis praesentium. Quia illum voluptate itaque tenetur.",
                   "images": Array [],
-                  "title": "libero",
+                  "title": "pariatur",
                 },
                 Object {
-                  "_id": "jmsrai5wh6",
-                  "createdAt": "Fri Sep 11 2020 15:47:12 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Maiores nisi sit. Corrupti eum repellat et provident molestias libero aut quibusdam. Et ipsam dolore eaque sit et voluptatem.",
+                  "_id": "xdwu7omsrx",
+                  "createdAt": "Sat Sep 12 2020 11:25:56 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Quae excepturi adipisci harum enim ut. Enim alias iusto reiciendis est sit. Autem atque sunt qui est. Et quas eius magni nihil voluptas sit.",
                   "images": Array [],
-                  "title": "labore",
+                  "title": "vitae",
                 },
                 Object {
-                  "_id": "sbky98ovve",
-                  "createdAt": "Fri Sep 11 2020 01:24:40 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Asperiores voluptas aut neque inventore atque repellendus non omnis. Dolore cum quidem quis consectetur. Adipisci voluptatibus deserunt nemo quisquam et et fugiat sed ipsa. Fugit maiores tempora. Voluptatibus dolor impedit. Voluptatem inventore quae non.",
+                  "_id": "celryu7ddg",
+                  "createdAt": "Sat Sep 12 2020 08:18:17 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Voluptatem animi laborum aliquid et. Autem quos excepturi pariatur. Quis voluptates quis qui minima voluptates autem repellat nihil. Rem atque modi porro quia ea. Id quia cupiditate ut dolorem perferendis et ex laboriosam.",
                   "images": Array [],
-                  "title": "aut",
+                  "title": "nostrum",
                 },
               ],
               "loading": false,
@@ -1797,12 +1771,12 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
             },
           }
         }
-        title="labore"
+        title="vitae"
       >
         <StoreCard
-          _id="jmsrai5wh6"
-          createdAt="Fri Sep 11 2020 15:47:12 GMT+0300 (Eastern European Summer Time)"
-          description="Maiores nisi sit. Corrupti eum repellat et provident molestias libero aut quibusdam. Et ipsam dolore eaque sit et voluptatem."
+          _id="xdwu7omsrx"
+          createdAt="Sat Sep 12 2020 11:25:56 GMT+0300 (Eastern European Summer Time)"
+          description="Quae excepturi adipisci harum enim ut. Enim alias iusto reiciendis est sit. Autem atque sunt qui est. Et quas eius magni nihil voluptas sit."
           dispatch={[Function]}
           history={
             Object {
@@ -1813,7 +1787,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               "entries": Array [
                 Object {
                   "hash": "",
-                  "key": "r40zwz",
+                  "key": "5cfoq0",
                   "pathname": "/",
                   "search": "",
                   "state": undefined,
@@ -1827,7 +1801,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               "listen": [Function],
               "location": Object {
                 "hash": "",
-                "key": "r40zwz",
+                "key": "5cfoq0",
                 "pathname": "/",
                 "search": "",
                 "state": undefined,
@@ -1840,7 +1814,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
           location={
             Object {
               "hash": "",
-              "key": "r40zwz",
+              "key": "5cfoq0",
               "pathname": "/",
               "search": "",
               "state": undefined,
@@ -1928,39 +1902,39 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
                 "error": null,
                 "loadedStores": Array [
                   Object {
-                    "_id": "4mivf371v0",
-                    "createdAt": "Fri Sep 11 2020 03:19:36 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Libero ullam possimus et occaecati voluptatem. Est voluptas porro. Ad ex aperiam sit hic debitis similique aut. Est dolor aliquam repellendus.",
+                    "_id": "ljqrb612fk",
+                    "createdAt": "Sat Sep 12 2020 06:22:01 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Impedit quasi qui molestiae est praesentium. Mollitia et dicta qui atque rerum id. Accusantium ullam omnis commodi enim non laborum adipisci et facere. Veritatis ipsa sequi nulla. Omnis sequi possimus repellat. Natus voluptatum beatae mollitia nihil et.",
                     "images": Array [],
-                    "title": "provident",
+                    "title": "ut",
                   },
                   Object {
-                    "_id": "vtfcqtiahi",
-                    "createdAt": "Thu Sep 10 2020 20:54:10 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Cum et consequatur quae voluptatem omnis. Sunt tempore eum quia voluptatem. Fugiat atque molestiae accusamus. Dolorum quis aut nihil provident tenetur dolores. Voluptas qui architecto eligendi consequatur aut dicta nulla sunt.",
+                    "_id": "1vf6d9j8o1",
+                    "createdAt": "Sat Sep 12 2020 10:19:16 GMT+0300 (Eastern European Summer Time)",
+                    "description": "In nesciunt omnis architecto nulla. Qui sint dolorem nam aut nam in nulla reiciendis consequatur. Et iste et qui sed et.",
                     "images": Array [],
-                    "title": "aut",
+                    "title": "pariatur",
                   },
                   Object {
-                    "_id": "48rvchbcyo",
-                    "createdAt": "Fri Sep 11 2020 09:23:27 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Quod adipisci molestiae. Numquam vel ex est modi. Voluptates reiciendis qui iure amet similique rerum ut. Exercitationem voluptatem repudiandae inventore cupiditate ratione accusantium expedita sit. Provident expedita illo. Minus est velit minus ullam eligendi quasi.",
+                    "_id": "phnxouxlh9",
+                    "createdAt": "Sat Sep 12 2020 07:01:55 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Veritatis voluptates dolor et iure. Et aliquid sed sint rerum ratione. Alias est consequatur. Expedita et quisquam velit non amet nobis praesentium. Quia illum voluptate itaque tenetur.",
                     "images": Array [],
-                    "title": "libero",
+                    "title": "pariatur",
                   },
                   Object {
-                    "_id": "jmsrai5wh6",
-                    "createdAt": "Fri Sep 11 2020 15:47:12 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Maiores nisi sit. Corrupti eum repellat et provident molestias libero aut quibusdam. Et ipsam dolore eaque sit et voluptatem.",
+                    "_id": "xdwu7omsrx",
+                    "createdAt": "Sat Sep 12 2020 11:25:56 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Quae excepturi adipisci harum enim ut. Enim alias iusto reiciendis est sit. Autem atque sunt qui est. Et quas eius magni nihil voluptas sit.",
                     "images": Array [],
-                    "title": "labore",
+                    "title": "vitae",
                   },
                   Object {
-                    "_id": "sbky98ovve",
-                    "createdAt": "Fri Sep 11 2020 01:24:40 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Asperiores voluptas aut neque inventore atque repellendus non omnis. Dolore cum quidem quis consectetur. Adipisci voluptatibus deserunt nemo quisquam et et fugiat sed ipsa. Fugit maiores tempora. Voluptatibus dolor impedit. Voluptatem inventore quae non.",
+                    "_id": "celryu7ddg",
+                    "createdAt": "Sat Sep 12 2020 08:18:17 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Voluptatem animi laborum aliquid et. Autem quos excepturi pariatur. Quis voluptates quis qui minima voluptates autem repellat nihil. Rem atque modi porro quia ea. Id quia cupiditate ut dolorem perferendis et ex laboriosam.",
                     "images": Array [],
-                    "title": "aut",
+                    "title": "nostrum",
                   },
                 ],
                 "loading": false,
@@ -1968,7 +1942,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               },
             }
           }
-          title="labore"
+          title="vitae"
         >
           <GridRow
             style={
@@ -2008,11 +1982,11 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
                 >
                   <h3>
                     Title: 
-                    labore
+                    vitae
                   </h3>
                   <h5>
                     Description: 
-                    Maiores nisi sit. Corrupti eum repellat et provident molestias libero aut quibusdam. Et ipsam dolore eaque sit et voluptatem.
+                    Quae excepturi adipisci harum enim ut. Enim alias iusto reiciendis est sit. Autem atque sunt qui est. Et quas eius magni nihil voluptas sit.
                   </h5>
                   <h5>
                     Number of Images: 
@@ -2022,7 +1996,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
                     <span>
                       Created At: 
                     </span>
-                    2020-Sep-11
+                    2020-Sep-12
                   </p>
                 </div>
               </GridColumn>
@@ -2167,12 +2141,12 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
         </StoreCard>
       </withRouter(StoreCard)>
       <withRouter(StoreCard)
-        _id="sbky98ovve"
-        createdAt="Fri Sep 11 2020 01:24:40 GMT+0300 (Eastern European Summer Time)"
-        description="Asperiores voluptas aut neque inventore atque repellendus non omnis. Dolore cum quidem quis consectetur. Adipisci voluptatibus deserunt nemo quisquam et et fugiat sed ipsa. Fugit maiores tempora. Voluptatibus dolor impedit. Voluptatem inventore quae non."
+        _id="celryu7ddg"
+        createdAt="Sat Sep 12 2020 08:18:17 GMT+0300 (Eastern European Summer Time)"
+        description="Voluptatem animi laborum aliquid et. Autem quos excepturi pariatur. Quis voluptates quis qui minima voluptates autem repellat nihil. Rem atque modi porro quia ea. Id quia cupiditate ut dolorem perferendis et ex laboriosam."
         dispatch={[Function]}
         imageCount={0}
-        key="sbky98ovve"
+        key="celryu7ddg"
         state={
           Object {
             "bonusVideoState": Object {
@@ -2247,39 +2221,39 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               "error": null,
               "loadedStores": Array [
                 Object {
-                  "_id": "4mivf371v0",
-                  "createdAt": "Fri Sep 11 2020 03:19:36 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Libero ullam possimus et occaecati voluptatem. Est voluptas porro. Ad ex aperiam sit hic debitis similique aut. Est dolor aliquam repellendus.",
+                  "_id": "ljqrb612fk",
+                  "createdAt": "Sat Sep 12 2020 06:22:01 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Impedit quasi qui molestiae est praesentium. Mollitia et dicta qui atque rerum id. Accusantium ullam omnis commodi enim non laborum adipisci et facere. Veritatis ipsa sequi nulla. Omnis sequi possimus repellat. Natus voluptatum beatae mollitia nihil et.",
                   "images": Array [],
-                  "title": "provident",
+                  "title": "ut",
                 },
                 Object {
-                  "_id": "vtfcqtiahi",
-                  "createdAt": "Thu Sep 10 2020 20:54:10 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Cum et consequatur quae voluptatem omnis. Sunt tempore eum quia voluptatem. Fugiat atque molestiae accusamus. Dolorum quis aut nihil provident tenetur dolores. Voluptas qui architecto eligendi consequatur aut dicta nulla sunt.",
+                  "_id": "1vf6d9j8o1",
+                  "createdAt": "Sat Sep 12 2020 10:19:16 GMT+0300 (Eastern European Summer Time)",
+                  "description": "In nesciunt omnis architecto nulla. Qui sint dolorem nam aut nam in nulla reiciendis consequatur. Et iste et qui sed et.",
                   "images": Array [],
-                  "title": "aut",
+                  "title": "pariatur",
                 },
                 Object {
-                  "_id": "48rvchbcyo",
-                  "createdAt": "Fri Sep 11 2020 09:23:27 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Quod adipisci molestiae. Numquam vel ex est modi. Voluptates reiciendis qui iure amet similique rerum ut. Exercitationem voluptatem repudiandae inventore cupiditate ratione accusantium expedita sit. Provident expedita illo. Minus est velit minus ullam eligendi quasi.",
+                  "_id": "phnxouxlh9",
+                  "createdAt": "Sat Sep 12 2020 07:01:55 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Veritatis voluptates dolor et iure. Et aliquid sed sint rerum ratione. Alias est consequatur. Expedita et quisquam velit non amet nobis praesentium. Quia illum voluptate itaque tenetur.",
                   "images": Array [],
-                  "title": "libero",
+                  "title": "pariatur",
                 },
                 Object {
-                  "_id": "jmsrai5wh6",
-                  "createdAt": "Fri Sep 11 2020 15:47:12 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Maiores nisi sit. Corrupti eum repellat et provident molestias libero aut quibusdam. Et ipsam dolore eaque sit et voluptatem.",
+                  "_id": "xdwu7omsrx",
+                  "createdAt": "Sat Sep 12 2020 11:25:56 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Quae excepturi adipisci harum enim ut. Enim alias iusto reiciendis est sit. Autem atque sunt qui est. Et quas eius magni nihil voluptas sit.",
                   "images": Array [],
-                  "title": "labore",
+                  "title": "vitae",
                 },
                 Object {
-                  "_id": "sbky98ovve",
-                  "createdAt": "Fri Sep 11 2020 01:24:40 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Asperiores voluptas aut neque inventore atque repellendus non omnis. Dolore cum quidem quis consectetur. Adipisci voluptatibus deserunt nemo quisquam et et fugiat sed ipsa. Fugit maiores tempora. Voluptatibus dolor impedit. Voluptatem inventore quae non.",
+                  "_id": "celryu7ddg",
+                  "createdAt": "Sat Sep 12 2020 08:18:17 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Voluptatem animi laborum aliquid et. Autem quos excepturi pariatur. Quis voluptates quis qui minima voluptates autem repellat nihil. Rem atque modi porro quia ea. Id quia cupiditate ut dolorem perferendis et ex laboriosam.",
                   "images": Array [],
-                  "title": "aut",
+                  "title": "nostrum",
                 },
               ],
               "loading": false,
@@ -2287,12 +2261,12 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
             },
           }
         }
-        title="aut"
+        title="nostrum"
       >
         <StoreCard
-          _id="sbky98ovve"
-          createdAt="Fri Sep 11 2020 01:24:40 GMT+0300 (Eastern European Summer Time)"
-          description="Asperiores voluptas aut neque inventore atque repellendus non omnis. Dolore cum quidem quis consectetur. Adipisci voluptatibus deserunt nemo quisquam et et fugiat sed ipsa. Fugit maiores tempora. Voluptatibus dolor impedit. Voluptatem inventore quae non."
+          _id="celryu7ddg"
+          createdAt="Sat Sep 12 2020 08:18:17 GMT+0300 (Eastern European Summer Time)"
+          description="Voluptatem animi laborum aliquid et. Autem quos excepturi pariatur. Quis voluptates quis qui minima voluptates autem repellat nihil. Rem atque modi porro quia ea. Id quia cupiditate ut dolorem perferendis et ex laboriosam."
           dispatch={[Function]}
           history={
             Object {
@@ -2303,7 +2277,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               "entries": Array [
                 Object {
                   "hash": "",
-                  "key": "r40zwz",
+                  "key": "5cfoq0",
                   "pathname": "/",
                   "search": "",
                   "state": undefined,
@@ -2317,7 +2291,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               "listen": [Function],
               "location": Object {
                 "hash": "",
-                "key": "r40zwz",
+                "key": "5cfoq0",
                 "pathname": "/",
                 "search": "",
                 "state": undefined,
@@ -2330,7 +2304,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
           location={
             Object {
               "hash": "",
-              "key": "r40zwz",
+              "key": "5cfoq0",
               "pathname": "/",
               "search": "",
               "state": undefined,
@@ -2418,39 +2392,39 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
                 "error": null,
                 "loadedStores": Array [
                   Object {
-                    "_id": "4mivf371v0",
-                    "createdAt": "Fri Sep 11 2020 03:19:36 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Libero ullam possimus et occaecati voluptatem. Est voluptas porro. Ad ex aperiam sit hic debitis similique aut. Est dolor aliquam repellendus.",
+                    "_id": "ljqrb612fk",
+                    "createdAt": "Sat Sep 12 2020 06:22:01 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Impedit quasi qui molestiae est praesentium. Mollitia et dicta qui atque rerum id. Accusantium ullam omnis commodi enim non laborum adipisci et facere. Veritatis ipsa sequi nulla. Omnis sequi possimus repellat. Natus voluptatum beatae mollitia nihil et.",
                     "images": Array [],
-                    "title": "provident",
+                    "title": "ut",
                   },
                   Object {
-                    "_id": "vtfcqtiahi",
-                    "createdAt": "Thu Sep 10 2020 20:54:10 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Cum et consequatur quae voluptatem omnis. Sunt tempore eum quia voluptatem. Fugiat atque molestiae accusamus. Dolorum quis aut nihil provident tenetur dolores. Voluptas qui architecto eligendi consequatur aut dicta nulla sunt.",
+                    "_id": "1vf6d9j8o1",
+                    "createdAt": "Sat Sep 12 2020 10:19:16 GMT+0300 (Eastern European Summer Time)",
+                    "description": "In nesciunt omnis architecto nulla. Qui sint dolorem nam aut nam in nulla reiciendis consequatur. Et iste et qui sed et.",
                     "images": Array [],
-                    "title": "aut",
+                    "title": "pariatur",
                   },
                   Object {
-                    "_id": "48rvchbcyo",
-                    "createdAt": "Fri Sep 11 2020 09:23:27 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Quod adipisci molestiae. Numquam vel ex est modi. Voluptates reiciendis qui iure amet similique rerum ut. Exercitationem voluptatem repudiandae inventore cupiditate ratione accusantium expedita sit. Provident expedita illo. Minus est velit minus ullam eligendi quasi.",
+                    "_id": "phnxouxlh9",
+                    "createdAt": "Sat Sep 12 2020 07:01:55 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Veritatis voluptates dolor et iure. Et aliquid sed sint rerum ratione. Alias est consequatur. Expedita et quisquam velit non amet nobis praesentium. Quia illum voluptate itaque tenetur.",
                     "images": Array [],
-                    "title": "libero",
+                    "title": "pariatur",
                   },
                   Object {
-                    "_id": "jmsrai5wh6",
-                    "createdAt": "Fri Sep 11 2020 15:47:12 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Maiores nisi sit. Corrupti eum repellat et provident molestias libero aut quibusdam. Et ipsam dolore eaque sit et voluptatem.",
+                    "_id": "xdwu7omsrx",
+                    "createdAt": "Sat Sep 12 2020 11:25:56 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Quae excepturi adipisci harum enim ut. Enim alias iusto reiciendis est sit. Autem atque sunt qui est. Et quas eius magni nihil voluptas sit.",
                     "images": Array [],
-                    "title": "labore",
+                    "title": "vitae",
                   },
                   Object {
-                    "_id": "sbky98ovve",
-                    "createdAt": "Fri Sep 11 2020 01:24:40 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Asperiores voluptas aut neque inventore atque repellendus non omnis. Dolore cum quidem quis consectetur. Adipisci voluptatibus deserunt nemo quisquam et et fugiat sed ipsa. Fugit maiores tempora. Voluptatibus dolor impedit. Voluptatem inventore quae non.",
+                    "_id": "celryu7ddg",
+                    "createdAt": "Sat Sep 12 2020 08:18:17 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Voluptatem animi laborum aliquid et. Autem quos excepturi pariatur. Quis voluptates quis qui minima voluptates autem repellat nihil. Rem atque modi porro quia ea. Id quia cupiditate ut dolorem perferendis et ex laboriosam.",
                     "images": Array [],
-                    "title": "aut",
+                    "title": "nostrum",
                   },
                 ],
                 "loading": false,
@@ -2458,7 +2432,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
               },
             }
           }
-          title="aut"
+          title="nostrum"
         >
           <GridRow
             style={
@@ -2498,11 +2472,11 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
                 >
                   <h3>
                     Title: 
-                    aut
+                    nostrum
                   </h3>
                   <h5>
                     Description: 
-                    Asperiores voluptas aut neque inventore atque repellendus non omnis. Dolore cum quidem quis consectetur. Adipisci voluptatibus deserunt nemo quisquam et et fugiat sed ipsa. Fugit maiores tempora. Voluptatibus dolor impedit. Voluptatem inventore quae non.
+                    Voluptatem animi laborum aliquid et. Autem quos excepturi pariatur. Quis voluptates quis qui minima voluptates autem repellat nihil. Rem atque modi porro quia ea. Id quia cupiditate ut dolorem perferendis et ex laboriosam.
                   </h5>
                   <h5>
                     Number of Images: 
@@ -2512,7 +2486,7 @@ exports[`Store Manage Holder Tests Default local state render State after a succ
                     <span>
                       Created At: 
                     </span>
-                    2020-Sep-11
+                    2020-Sep-12
                   </p>
                 </div>
               </GridColumn>

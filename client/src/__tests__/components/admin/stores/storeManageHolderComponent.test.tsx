@@ -14,26 +14,33 @@ import ErrorScreen from "../../../../components/admin_components/miscelaneous/Er
 import { error } from "console";
 
 describe("Store Manage Holder Tests", () => {
-  describe("Default local state render", () => {
-    /*
-    beforeEach(() => {
-      moxios.install();
-    });
-    afterEach(() => {
-      moxios.uninstall();
-    });
-    */
+  
     describe("Default Component state at first render", () => {
       let component: ReactWrapper; let loadingScreen: ReactWrapper;
-      beforeAll(() => {
+      beforeAll( async () => {
+        moxios.install();
         component = mount(
           <Router>
             <StateProvider>
               <StoreManageHolder />
             </StateProvider>
           </Router>
-        )
+        );
+
+        await act( async () => {
+          await moxios.stubRequest("/api/stores/", {
+            status: 200,
+            response: {
+              responseMsg: "All Ok",
+              stores: []
+            }
+          });
+        });
+
       });
+       afterAll(() => {
+        moxios.uninstall();
+      }); 
       
       it("Should correctly render", () => {
         expect(component).toMatchSnapshot();
@@ -108,20 +115,19 @@ describe("Store Manage Holder Tests", () => {
     // mock ERROR API call render tests //
     describe("State after a Error in API call", () => {
       let component: ReactWrapper; let loadingScreen: ReactWrapper;
+      let stores: IStoreData[];
 
-      beforeAll( async () => {
-        moxios.install();
-
-        component = mount(
-          <Router>
-            <StateProvider>
-              <StoreManageHolder />
-            </StateProvider>
-          </Router>
-        );
-        
-        await act( async () => {
-          await moxios.stubRequest("/api/stores/", {
+      beforeAll(async () => {
+        await act(async () => {
+          moxios.install();
+          component = await mount(
+            <Router>
+              <StateProvider>
+                <StoreManageHolder />
+              </StateProvider>
+            </Router>
+          );
+          moxios.stubRequest("/api/stores/", {
             status: 500,
             response: {
               responseMsg: "Error here",
@@ -129,18 +135,17 @@ describe("Store Manage Holder Tests", () => {
             }
           });
         });
+        act(() => {
+          moxios.uninstall();
+        })
       });
-
-      afterAll(() => {
-        moxios.uninstall();
-      }); 
 
       it("Should correctly render the initial Loading Screen", () => {
         loadingScreen = component.find(LoadingScreen);
         expect(loadingScreen.length).toEqual(1);
       });
 
-      it("Should not render the initial Loading Screen after an  API call", async () => {
+      it("Should not render the initial Loading Screen after an  API call", () => {
         act( () => {
           component.update();
         });
@@ -166,29 +171,35 @@ describe("Store Manage Holder Tests", () => {
         const retryButton = component.find("#errorScreenRetryButton");
         expect(retryButton.length).toEqual(2);
       });
-
+      
+      
       it("Should correctly re-dispatch the 'getStores' API request with the button click", async () => {
-        act(() => {
+        await act( async () => {
+          stores = createMockStores(6);
           moxios.install();
           moxios.stubRequest("/api/stores/", {
             status: 200,
             response: {
               responseMsg: "All Ok",
-              stores: createMockStores(6)
+              stores: stores
             }
           });
           const retryButton = component.find("#errorScreenRetryButton");
           retryButton.at(0).simulate("click");
-          component.update();
-          const errorScreen = component.find(ErrorScreen);
-          expect(errorScreen.length).toEqual(0)
-
         });
-      })
-
+        component.update()
+        const errorScreen = component.find(ErrorScreen);
+        const storeManageHolderComp = component.find(StoreManageHolder);
+        expect(errorScreen.length).toEqual(0);
+        expect(storeManageHolderComp.length).toEqual(1);
+      });
+      
+      it("Should render correct number of 'StoreCard' Components", () => {
+        const storeCards = component.find(StoreCard);
+        expect(storeCards.length).toEqual(stores.length);
+      });
     });
     // END mock successfull API call tests //
     
-  });
   
 });

@@ -7,6 +7,12 @@
       error: null | Error;
     };
   }
+  type DispatchStoreAPIRequest = {
+    readonly type: "DISPATCH_STORE_API_REQUEST",
+    readonly payload: {
+      loading: boolean;
+    }
+  }
   type SetCurrentStore = {
     readonly type: "SET_CURRENT_STORE";
     payload: {
@@ -128,5 +134,4 @@
     loadedStores: IStoreData[]
     error: null | Error;
   }
-  declare type StoreAction = GetAllStores | GetStore | SetCurrentStore | ClearCurrentStore | CreateStore | EditStore | 
-                            DeleteStore | SetStoreError | ClearStoreError | UploadNewStoreImg | UpdateStoreImgs | DeleteStoreImg;
+  declare type StoreAction = DispatchStoreAPIRequest | GetAllStores | GetStore | SetCurrentStore | ClearCurrentStore | CreateStore | EditStore | DeleteStore | SetStoreError | ClearStoreError | UploadNewStoreImg | UpdateStoreImgs | DeleteStoreImg;
