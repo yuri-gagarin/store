@@ -12,7 +12,6 @@ const ErrorScreen: React.FC<Props> = ({ errorMessage, lastRequest }): JSX.Elemen
   const handleRetry = (e: React.MouseEvent<HTMLButtonElement>): void => {
     if (lastRequest) {
       lastRequest();
-      console.log("clicked")
     }
   };
   

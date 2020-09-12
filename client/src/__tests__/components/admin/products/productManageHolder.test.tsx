@@ -11,7 +11,6 @@ import { createMockProducts } from "../../../../test_helpers/productHelpers";
 import { StateProvider } from "../../../../state/Store";
 import ProductCard from "../../../../components/admin_components/products/product_manage/ProductCard";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
-import { error } from "console";
 
 describe("Product Manage Holder Tests", () => {
   

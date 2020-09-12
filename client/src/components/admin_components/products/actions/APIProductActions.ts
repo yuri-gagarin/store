@@ -1,41 +1,16 @@
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
 import { Dispatch } from "react";
 import { IGlobalAppState } from "../../../../state/Store";
-
-interface IProductImgServerResData {
-  responseMsg: string;
-  newProductImage?: IProductImgData;
-  deletedProductImage?: IProductImgData;
-  updatedProduct: IProductData;
-}
-interface IProductImgServerRes {
-  data: IProductImgServerResData;
-}
-
-interface IProductServerResData {
-  responseMsg: string;
-  product?: IProductData;
-  newProduct?: IProductData;
-  editedProduct?: IProductData;
-  deletedProduct?: IProductData;
-  products?: IProductData[];
-}
-interface IProductServerRes {
-  data: IProductServerResData
-}
-
-
-export type ClientProductData = {
-  name: string;
-  description: string;
-  price: string;
-  images: IProductImgData[]
-}
+// type definitions //
+import { 
+  IProductServerResData, IProductServerRes, ClientProductData,
+  IProductImgServerResData, IProductImgServerRes
+} from "../type_definitions/productTypes";
 
 export const getAllProducts = (dispatch: Dispatch<ProductAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
-    url: "/api/products/"
+    url: "/api/products"
   };
   dispatch({ type: "DISPATCH_PRODUCT_API_REQUEST", payload: { loading: true } });
   return axios.request<IProductServerResData, IProductServerRes>(requestOptions)
@@ -56,26 +31,28 @@ export const getAllProducts = (dispatch: Dispatch<ProductAction>): Promise<void>
         responseMsg: error.message,
         error: error
       }});
-      return Promise.reject(error);
+      return Promise.reject();
     });
 };
 
-export const getProduct = (_id: string, dispatch: Dispatch<ProductAction>): Promise<boolean> => {
+export const getProduct = (_id: string, dispatch: Dispatch<ProductAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/products/" + _id,
   };
+  dispatch({ type: "DISPATCH_PRODUCT_API_REQUEST", payload: { loading: true } });
   return axios.request<IProductServerResData, IProductServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
       const product = data.product!;
+
       dispatch({ type: "GET_PRODUCT", payload: {
         loading: false,
         responseMsg: data.responseMsg,
         currentProductData: product,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_PRODUCT_ERROR", payload: {
@@ -83,17 +60,17 @@ export const getProduct = (_id: string, dispatch: Dispatch<ProductAction>): Prom
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const createProduct = (data: ClientProductData, dispatch: Dispatch<ProductAction>): Promise<boolean> => {
+export const createProduct = (data: ClientProductData, dispatch: Dispatch<ProductAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/products/create",
     data: data
   };
-
+  dispatch({ type: "DISPATCH_PRODUCT_API_REQUEST", payload: { loading: true } });
   return axios.request<IProductServerResData, IProductServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -104,7 +81,7 @@ export const createProduct = (data: ClientProductData, dispatch: Dispatch<Produc
         newProduct: newProduct,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_PRODUCT_ERROR", payload: {
@@ -112,17 +89,18 @@ export const createProduct = (data: ClientProductData, dispatch: Dispatch<Produc
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const editProduct = (_id: string, data: ClientProductData, dispatch: Dispatch<ProductAction>, state: IGlobalAppState) => {
+export const editProduct = (_id: string, data: ClientProductData, dispatch: Dispatch<ProductAction>, state: IGlobalAppState): Promise<void> => {
   const { loadedProducts } = state.productState;
   const requestOptions: AxiosRequestConfig = {
     method: "patch",
     url: "/api/products/update/" + _id,
     data: data
   };
+  dispatch({ type: "DISPATCH_PRODUCT_API_REQUEST", payload: { loading: true } });
   return axios.request<IProductServerResData, IProductServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -141,7 +119,7 @@ export const editProduct = (_id: string, data: ClientProductData, dispatch: Disp
         loadedProducts: updatedProducts,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_PRODUCT_ERROR", payload: {
@@ -149,15 +127,17 @@ export const editProduct = (_id: string, data: ClientProductData, dispatch: Disp
         responseMsg: error.message,
         error: error
       }});
+      return Promise.reject();
     });
 };
 
-export const deleteProduct = (_id: string, dispatch: Dispatch<ProductAction>, state: IGlobalAppState): Promise<boolean> => {
+export const deleteProduct = (_id: string, dispatch: Dispatch<ProductAction>, state: IGlobalAppState): Promise<void> => {
   const { loadedProducts } = state.productState;
   const requestOptions: AxiosRequestConfig = {
     method: "delete",
     url: "/api/products/delete/" + _id,
   };
+  dispatch({ type: "DISPATCH_PRODUCT_API_REQUEST", payload: { loading: true } });
   return axios.request<IProductServerResData, IProductServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -172,7 +152,7 @@ export const deleteProduct = (_id: string, dispatch: Dispatch<ProductAction>, st
         loadedProducts: updatedProducts,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_PRODUCT_ERROR", payload: {
@@ -180,18 +160,18 @@ export const deleteProduct = (_id: string, dispatch: Dispatch<ProductAction>, st
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const uploadProductImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<ProductAction>): Promise<boolean> => {
+export const uploadProductImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<ProductAction>): Promise<void> => {
   const { loadedProducts } = state.productState;
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/uploads/product_images/" + _id,
     data: imageFile
   };
-
+  dispatch({ type: "DISPATCH_PRODUCT_API_REQUEST", payload: { loading: true } });
   return axios.request<IProductImgServerResData, IProductImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -211,7 +191,7 @@ export const uploadProductImage = (_id: string, imageFile: FormData, state: IGlo
         loadedProducts: updatedProducts,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_PRODUCT_ERROR", payload: {
@@ -219,11 +199,11 @@ export const uploadProductImage = (_id: string, imageFile: FormData, state: IGlo
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const deleteProductImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<ProductAction>): Promise<boolean> => {
+export const deleteProductImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<ProductAction>): Promise<void> => {
   const { loadedProducts } = state.productState; 
   const { _id: productId } = state.productState.currentProductData;
 
@@ -231,11 +211,11 @@ export const deleteProductImage = (imgId: string, state: IGlobalAppState, dispat
     method: "delete",
     url: "/api/uploads/product_images/" + imgId + "/" + productId
   };
-
+  dispatch({ type: "DISPATCH_PRODUCT_API_REQUEST", payload: { loading: true } });
   return axios.request<IProductImgServerResData, IProductImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const { responseMsg, deletedProductImage, updatedProduct } = data;
+      const { responseMsg, updatedProduct } = data;
       
      
       const updatedProducts = loadedProducts.map((product) => {
@@ -252,7 +232,7 @@ export const deleteProductImage = (imgId: string, state: IGlobalAppState, dispat
         loadedProducts: updatedProducts,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_PRODUCT_ERROR", payload: {
@@ -260,8 +240,8 @@ export const deleteProductImage = (imgId: string, state: IGlobalAppState, dispat
         responseMsg: error.message,
         error: error
       }});
-      return false;
-    })
+      return Promise.reject();
+    });
 };
 
 

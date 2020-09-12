@@ -84,7 +84,7 @@ const ProductsManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
     </Grid>
     : 
     ( 
-      error ? <ErrorScreen /> : <LoadingScreen /> 
+      error ? <ErrorScreen lastRequest={ () => getAllProducts(dispatch) }/> : <LoadingScreen /> 
     )
   )
 };

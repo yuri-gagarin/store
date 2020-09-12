@@ -17,7 +17,7 @@ import { getAllProducts, getProduct, createProduct, editProduct,
 // helpers and additional dependencies //
 import { emptyProductData } from "../../state/reducers/productReducer";
 import { createMockProducts, createMockProductImage, clearProductState } from "../../test_helpers/productHelpers"
-import { ClientProductData } from "../../components/admin_components/products/actions/APIProductActions";
+import { ClientProductData } from "../../components/admin_components/products/type_definitions/productTypes";
 import { AxiosRequestConfig } from "axios";
 
 
@@ -33,7 +33,7 @@ const getContextFromWrapper = (wrapper: ShallowWrapper): IGlobalAppContext => {
 }
 
 describe("Product Actions Tests", () => {
-  let wrapper: ShallowWrapper;
+  let wrapper: ShallowWrapper; let error = new Error("An error");
 
   beforeAll(() => {
     wrapper = shallow(
@@ -128,8 +128,8 @@ describe("Product Actions Tests", () => {
         });
         // mock action with moxios //
         getAllProducts(dispatch)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -177,8 +177,8 @@ describe("Product Actions Tests", () => {
         });
         // mock action with moxios //
         getProduct(mockProduct._id, dispatch)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -233,8 +233,8 @@ describe("Product Actions Tests", () => {
         };
         // mock action with moxios //
         createProduct(newProduct, dispatch)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -300,8 +300,8 @@ describe("Product Actions Tests", () => {
         };
         // mock action with moxios //
         editProduct(editedProduct._id, productUpdate, dispatch, state)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -364,8 +364,8 @@ describe("Product Actions Tests", () => {
         });
         // mock action with moxios //
         deleteProduct(deletedProduct._id, dispatch, state)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -419,8 +419,8 @@ describe("Product Actions Tests", () => {
         // mock action with moxios //
         const formData = new FormData();
         uploadProductImage(updatedProduct._id, formData, state, dispatch) 
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -480,8 +480,8 @@ describe("Product Actions Tests", () => {
         });
         // mock action with moxios //
         deleteProductImage(deletedImage._id, state, dispatch) 
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -529,7 +529,7 @@ describe("Product Actions Tests", () => {
     });
 
     describe("Action: 'GET_ALL_PRODUCTS'", () => {
-      const error = new Error("Error occured")
+      // const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -538,11 +538,11 @@ describe("Product Actions Tests", () => {
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
-          request.reject(error)
+          request.reject(error);
         });
         getAllProducts(dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -578,8 +578,8 @@ describe("Product Actions Tests", () => {
           request.reject(error)
         });
         getProduct(product._id, dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -615,8 +615,8 @@ describe("Product Actions Tests", () => {
           request.reject(error)
         });
         createProduct(product, dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -652,8 +652,8 @@ describe("Product Actions Tests", () => {
           request.reject(error)
         });
         editProduct(product._id, product, dispatch, state)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -689,8 +689,8 @@ describe("Product Actions Tests", () => {
           request.reject(error)
         });
         deleteProduct(product._id, dispatch, state)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -727,8 +727,8 @@ describe("Product Actions Tests", () => {
         });
         const mockImg = new FormData();
         uploadProductImage(product._id, mockImg, state, dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -764,8 +764,8 @@ describe("Product Actions Tests", () => {
           request.reject(error)
         });
         deleteProductImage(productImage._id, state, dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
