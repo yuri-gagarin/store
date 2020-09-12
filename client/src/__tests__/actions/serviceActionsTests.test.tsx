@@ -128,15 +128,15 @@ describe("Service Actions Tests", () => {
         });
         // mock action with moxios //
         getAllServices(dispatch)
-          .then((success) => {
-            if (success) done();
+          .then(_ => {
+            done();
           })
           .catch((error) => {
             done(error);
           });
       });
       it("Should send the correct API request", () => {
-        expect(requestConfig.url).to.eq("/api/services");
+        expect(requestConfig.url).to.eq("/api/services/");
         expect(requestConfig.method).to.eq("get");
       });
       it("Should return the correct new state", () => {
@@ -522,6 +522,7 @@ describe("Service Actions Tests", () => {
 
   describe("Mock request with API error returned", () => {
     let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
+    const error = new Error("Error occured");
 
     beforeEach(() => {
       moxios.install();
@@ -532,7 +533,6 @@ describe("Service Actions Tests", () => {
     });
 
     describe("Action: 'GET_ALL_SERVICES'", () => {
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -541,11 +541,11 @@ describe("Service Actions Tests", () => {
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
-          request.reject(error)
+          request.reject(error);
         });
         getAllServices(dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -568,7 +568,6 @@ describe("Service Actions Tests", () => {
 
     describe("Action: 'GET_SERVICE'", () => {
       let service: IServiceData;
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -605,7 +604,6 @@ describe("Service Actions Tests", () => {
 
     describe("Action: 'CREATE_SERVICE'", () => {
       let service: IServiceData;
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -642,7 +640,6 @@ describe("Service Actions Tests", () => {
 
     describe("Action: 'EDIT_SERVICE'", () => {
       let service: IServiceData;
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -679,7 +676,6 @@ describe("Service Actions Tests", () => {
 
     describe("Action: 'DELETE_SERVICE'", () => {
       let service: IServiceData;
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -716,7 +712,6 @@ describe("Service Actions Tests", () => {
 
     describe("Action: 'UPLOAD_SERVICE_IMAGE'", () => {
       let service: IServiceData;
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -754,7 +749,6 @@ describe("Service Actions Tests", () => {
 
     describe("Action: 'DELETE_SERVICE_IMAGE'", () => {
       let serviceImage: IServiceImgData;
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));

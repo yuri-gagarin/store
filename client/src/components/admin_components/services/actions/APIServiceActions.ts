@@ -31,11 +31,13 @@ export type ClientServiceData = {
   images: IServiceImgData[]
 }
 
-export const getAllServices = (dispatch: Dispatch<ServiceAction>): Promise<boolean> => {
+export const getAllServices = (dispatch: Dispatch<ServiceAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/services/"
   };
+  console.log("dispatched")
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true }});
   return axios.request<IServiceServerResData, IServiceServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -46,7 +48,7 @@ export const getAllServices = (dispatch: Dispatch<ServiceAction>): Promise<boole
         loadedServices: services,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_SERVICE_ERROR", payload: {
@@ -54,7 +56,7 @@ export const getAllServices = (dispatch: Dispatch<ServiceAction>): Promise<boole
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject(error);
     });
 };
 

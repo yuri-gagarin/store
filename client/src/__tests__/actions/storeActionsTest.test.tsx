@@ -134,7 +134,7 @@ describe("Store Actions Tests", () => {
           });
       });
       it("Should send the correct API request", () => {
-        expect(requestConfig.url).to.eq("/api/stores");
+        expect(requestConfig.url).to.eq("/api/stores/");
         expect(requestConfig.method).to.eq("get");
       });
       it("Should return the correct new state", () => {

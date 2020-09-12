@@ -43,7 +43,7 @@ const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
     if (storesRef.current != loadedStores && !error && !loading) {
       setNewDataLoaded(true);
     }
-  }, [storesRef.current, loadedStores]);
+  }, [ storesRef.current, loadedStores, error, loading ]);
 
 
   /*

@@ -7,6 +7,12 @@ type GetAllServices = {
     error: null | Error;
   };
 }
+type DispatchServiceAPIRequest = {
+  readonly type: "DISPATCH_SERVICE_API_REQUEST",
+  readonly payload: {
+    loading: boolean;
+  }
+}
 type SetCurrentService = {
   readonly type: "SET_CURRENT_SERVICE";
   payload: {
@@ -129,5 +135,4 @@ declare interface IServiceState {
   loadedServices: IServiceData[]
   error: null | Error;
 }
-declare type ServiceAction = GetAllServices | GetService | SetCurrentService | ClearCurrentService | CreateService | EditService | 
-                          DeleteService | SetServiceError | ClearServiceError | UploadNewServiceImg | UpdateServiceImgs | DeleteServiceImg;
+declare type ServiceAction = GetAllServices | DispatchServiceAPIRequest | GetService | SetCurrentService | ClearCurrentService | CreateService | EditService | DeleteService | SetServiceError | ClearServiceError | UploadNewServiceImg | UpdateServiceImgs | DeleteServiceImg;

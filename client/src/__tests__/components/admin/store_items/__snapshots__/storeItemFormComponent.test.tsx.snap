@@ -2,7 +2,26 @@
 
 exports[`StoreItemFormHolder Component tests Form Holder state OPEN - WITH Current StoreItem Data - NO IMAGES Should Properly Mount Form Holder 1`] = `
 <StoreItemFormHolder
-  dispatch={[MockFunction]}
+  dispatch={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "payload": Object {
+              "loading": true,
+            },
+            "type": "DISPATCH_STORE_API_REQUEST",
+          },
+        ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    }
+  }
   state={
     Object {
       "bonusVideoState": Object {
@@ -49,20 +68,20 @@ exports[`StoreItemFormHolder Component tests Form Holder state OPEN - WITH Curre
       },
       "storeItemState": Object {
         "currentStoreItemData": Object {
-          "_id": "6lxspl2qa8",
+          "_id": "weyqa1gph8",
           "categories": Array [
             "mock",
             "new",
           ],
-          "createdAt": "Wed Sep 02 2020 17:31:32 GMT+0300 (Eastern European Summer Time)",
-          "description": "Quasi perspiciatis voluptas eligendi et vel illo veritatis. Rerum est qui velit hic quaerat necessitatibus repudiandae sed. Doloremque blanditiis enim illum. Cumque id ea quae ut et. Ut facere atque perferendis labore officia voluptas ea qui qui.",
-          "details": "Et impedit sit sed. Eius et nam maxime deserunt est dolor nesciunt. Atque vel laudantium delectus. Aut nesciunt asperiores accusantium ullam praesentium. Quis incidunt et ut beatae laboriosam.
+          "createdAt": "Sat Sep 12 2020 15:08:38 GMT+0300 (Eastern European Summer Time)",
+          "description": "Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis.",
+          "details": "Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
  
-Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deserunt dolor accusamus est et enim cupiditate. Hic minus omnis quos explicabo fugiat optio nulla architecto. Totam inventore quo id non sit ducimus consequatur.",
+Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed.",
           "images": Array [],
-          "name": "id",
-          "price": "98.00",
-          "storeId": "n4x3z8tr8d",
+          "name": "ut",
+          "price": "99.00",
+          "storeId": "udbw6ffznm",
           "storeName": "velit",
         },
         "error": null,
@@ -115,7 +134,7 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                 Store Item name:
               </h3>
               <p>
-                id
+                ut
               </p>
             </div>
             <div
@@ -125,7 +144,7 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                 Store Item price:
               </h3>
               <p>
-                98.00
+                99.00
               </p>
             </div>
             <div
@@ -135,7 +154,7 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                 Store Item description:
               </h3>
               <p>
-                Quasi perspiciatis voluptas eligendi et vel illo veritatis. Rerum est qui velit hic quaerat necessitatibus repudiandae sed. Doloremque blanditiis enim illum. Cumque id ea quae ut et. Ut facere atque perferendis labore officia voluptas ea qui qui.
+                Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis.
               </p>
             </div>
             <div
@@ -145,9 +164,9 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                 Store Item details:
               </h3>
               <p>
-                Et impedit sit sed. Eius et nam maxime deserunt est dolor nesciunt. Atque vel laudantium delectus. Aut nesciunt asperiores accusantium ullam praesentium. Quis incidunt et ut beatae laboriosam.
+                Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
  
-Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deserunt dolor accusamus est et enim cupiditate. Hic minus omnis quos explicabo fugiat optio nulla architecto. Totam inventore quo id non sit ducimus consequatur.
+Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed.
               </p>
             </div>
             <div
@@ -218,7 +237,7 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
               <span>
                 Created At: 
                 <strong>
-                  2020-Sep-2
+                  2020-Sep-12
                 </strong>
               </span>
               <span>
@@ -245,7 +264,26 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
             className="fourteen wide computer sixteen wide mobile fourteen wide tablet column"
           >
             <StoreItemImgPreviewHolder
-              dispatch={[MockFunction]}
+              dispatch={
+                [MockFunction] {
+                  "calls": Array [
+                    Array [
+                      Object {
+                        "payload": Object {
+                          "loading": true,
+                        },
+                        "type": "DISPATCH_STORE_API_REQUEST",
+                      },
+                    ],
+                  ],
+                  "results": Array [
+                    Object {
+                      "type": "return",
+                      "value": undefined,
+                    },
+                  ],
+                }
+              }
               state={
                 Object {
                   "bonusVideoState": Object {
@@ -292,20 +330,20 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                   },
                   "storeItemState": Object {
                     "currentStoreItemData": Object {
-                      "_id": "6lxspl2qa8",
+                      "_id": "weyqa1gph8",
                       "categories": Array [
                         "mock",
                         "new",
                       ],
-                      "createdAt": "Wed Sep 02 2020 17:31:32 GMT+0300 (Eastern European Summer Time)",
-                      "description": "Quasi perspiciatis voluptas eligendi et vel illo veritatis. Rerum est qui velit hic quaerat necessitatibus repudiandae sed. Doloremque blanditiis enim illum. Cumque id ea quae ut et. Ut facere atque perferendis labore officia voluptas ea qui qui.",
-                      "details": "Et impedit sit sed. Eius et nam maxime deserunt est dolor nesciunt. Atque vel laudantium delectus. Aut nesciunt asperiores accusantium ullam praesentium. Quis incidunt et ut beatae laboriosam.
+                      "createdAt": "Sat Sep 12 2020 15:08:38 GMT+0300 (Eastern European Summer Time)",
+                      "description": "Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis.",
+                      "details": "Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
  
-Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deserunt dolor accusamus est et enim cupiditate. Hic minus omnis quos explicabo fugiat optio nulla architecto. Totam inventore quo id non sit ducimus consequatur.",
+Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed.",
                       "images": Array [],
-                      "name": "id",
-                      "price": "98.00",
-                      "storeId": "n4x3z8tr8d",
+                      "name": "ut",
+                      "price": "99.00",
+                      "storeId": "udbw6ffznm",
                       "storeName": "velit",
                     },
                     "error": null,
@@ -493,7 +531,26 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
               </Ref>
             </Button>
             <StoreItemForm
-              dispatch={[MockFunction]}
+              dispatch={
+                [MockFunction] {
+                  "calls": Array [
+                    Array [
+                      Object {
+                        "payload": Object {
+                          "loading": true,
+                        },
+                        "type": "DISPATCH_STORE_API_REQUEST",
+                      },
+                    ],
+                  ],
+                  "results": Array [
+                    Object {
+                      "type": "return",
+                      "value": undefined,
+                    },
+                  ],
+                }
+              }
               handleCreateStoreItem={[Function]}
               handleUpdateStoreItem={[Function]}
               state={
@@ -542,20 +599,20 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                   },
                   "storeItemState": Object {
                     "currentStoreItemData": Object {
-                      "_id": "6lxspl2qa8",
+                      "_id": "weyqa1gph8",
                       "categories": Array [
                         "mock",
                         "new",
                       ],
-                      "createdAt": "Wed Sep 02 2020 17:31:32 GMT+0300 (Eastern European Summer Time)",
-                      "description": "Quasi perspiciatis voluptas eligendi et vel illo veritatis. Rerum est qui velit hic quaerat necessitatibus repudiandae sed. Doloremque blanditiis enim illum. Cumque id ea quae ut et. Ut facere atque perferendis labore officia voluptas ea qui qui.",
-                      "details": "Et impedit sit sed. Eius et nam maxime deserunt est dolor nesciunt. Atque vel laudantium delectus. Aut nesciunt asperiores accusantium ullam praesentium. Quis incidunt et ut beatae laboriosam.
+                      "createdAt": "Sat Sep 12 2020 15:08:38 GMT+0300 (Eastern European Summer Time)",
+                      "description": "Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis.",
+                      "details": "Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
  
-Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deserunt dolor accusamus est et enim cupiditate. Hic minus omnis quos explicabo fugiat optio nulla architecto. Totam inventore quo id non sit ducimus consequatur.",
+Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed.",
                       "images": Array [],
-                      "name": "id",
-                      "price": "98.00",
-                      "storeId": "n4x3z8tr8d",
+                      "name": "ut",
+                      "price": "99.00",
+                      "storeId": "udbw6ffznm",
                       "storeName": "velit",
                     },
                     "error": null,
@@ -581,20 +638,20 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
               }
               storeItem={
                 Object {
-                  "_id": "6lxspl2qa8",
+                  "_id": "weyqa1gph8",
                   "categories": Array [
                     "mock",
                     "new",
                   ],
-                  "createdAt": "Wed Sep 02 2020 17:31:32 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Quasi perspiciatis voluptas eligendi et vel illo veritatis. Rerum est qui velit hic quaerat necessitatibus repudiandae sed. Doloremque blanditiis enim illum. Cumque id ea quae ut et. Ut facere atque perferendis labore officia voluptas ea qui qui.",
-                  "details": "Et impedit sit sed. Eius et nam maxime deserunt est dolor nesciunt. Atque vel laudantium delectus. Aut nesciunt asperiores accusantium ullam praesentium. Quis incidunt et ut beatae laboriosam.
+                  "createdAt": "Sat Sep 12 2020 15:08:38 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis.",
+                  "details": "Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
  
-Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deserunt dolor accusamus est et enim cupiditate. Hic minus omnis quos explicabo fugiat optio nulla architecto. Totam inventore quo id non sit ducimus consequatur.",
+Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed.",
                   "images": Array [],
-                  "name": "id",
-                  "price": "98.00",
-                  "storeId": "n4x3z8tr8d",
+                  "name": "ut",
+                  "price": "99.00",
+                  "storeId": "udbw6ffznm",
                   "storeName": "velit",
                 }
               }
@@ -613,7 +670,7 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                   >
                     <StoreDetails
                       createdAt=""
-                      storeId="n4x3z8tr8d"
+                      storeId="udbw6ffznm"
                       storeName="velit"
                     >
                       <div>
@@ -659,7 +716,7 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                                     <span
                                       className="storeItemFormStoreId"
                                     >
-                                      n4x3z8tr8d
+                                      udbw6ffznm
                                     </span>
                                     <span
                                       className="storeItemFormStoreCreated"
@@ -680,7 +737,26 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                           Which Store to place the item in?
                         </label>
                         <StoreNameDropDown
-                          dispatch={[MockFunction]}
+                          dispatch={
+                            [MockFunction] {
+                              "calls": Array [
+                                Array [
+                                  Object {
+                                    "payload": Object {
+                                      "loading": true,
+                                    },
+                                    "type": "DISPATCH_STORE_API_REQUEST",
+                                  },
+                                ],
+                              ],
+                              "results": Array [
+                                Object {
+                                  "type": "return",
+                                  "value": undefined,
+                                },
+                              ],
+                            }
+                          }
                           state={
                             Object {
                               "bonusVideoState": Object {
@@ -727,20 +803,20 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                               },
                               "storeItemState": Object {
                                 "currentStoreItemData": Object {
-                                  "_id": "6lxspl2qa8",
+                                  "_id": "weyqa1gph8",
                                   "categories": Array [
                                     "mock",
                                     "new",
                                   ],
-                                  "createdAt": "Wed Sep 02 2020 17:31:32 GMT+0300 (Eastern European Summer Time)",
-                                  "description": "Quasi perspiciatis voluptas eligendi et vel illo veritatis. Rerum est qui velit hic quaerat necessitatibus repudiandae sed. Doloremque blanditiis enim illum. Cumque id ea quae ut et. Ut facere atque perferendis labore officia voluptas ea qui qui.",
-                                  "details": "Et impedit sit sed. Eius et nam maxime deserunt est dolor nesciunt. Atque vel laudantium delectus. Aut nesciunt asperiores accusantium ullam praesentium. Quis incidunt et ut beatae laboriosam.
+                                  "createdAt": "Sat Sep 12 2020 15:08:38 GMT+0300 (Eastern European Summer Time)",
+                                  "description": "Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis.",
+                                  "details": "Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
  
-Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deserunt dolor accusamus est et enim cupiditate. Hic minus omnis quos explicabo fugiat optio nulla architecto. Totam inventore quo id non sit ducimus consequatur.",
+Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed.",
                                   "images": Array [],
-                                  "name": "id",
-                                  "price": "98.00",
-                                  "storeId": "n4x3z8tr8d",
+                                  "name": "ut",
+                                  "price": "99.00",
+                                  "storeId": "udbw6ffznm",
                                   "storeName": "velit",
                                 },
                                 "error": null,
@@ -898,7 +974,7 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                         <input
                           onChange={[Function]}
                           placeholder="Store Item name here ..."
-                          value="id"
+                          value="ut"
                         />
                       </div>
                     </FormField>
@@ -912,7 +988,7 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                         <input
                           onChange={[Function]}
                           placeholder="Store Item price here..."
-                          value="98.00"
+                          value="99.00"
                         />
                       </div>
                     </FormField>
@@ -1463,9 +1539,9 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                       label="Store Item Details"
                       onChange={[Function]}
                       placeholder="Store Item details here..."
-                      value="Et impedit sit sed. Eius et nam maxime deserunt est dolor nesciunt. Atque vel laudantium delectus. Aut nesciunt asperiores accusantium ullam praesentium. Quis incidunt et ut beatae laboriosam.
+                      value="Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
  
-Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deserunt dolor accusamus est et enim cupiditate. Hic minus omnis quos explicabo fugiat optio nulla architecto. Totam inventore quo id non sit ducimus consequatur."
+Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed."
                     >
                       <div
                         className="field"
@@ -1479,9 +1555,9 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                           onChange={[Function]}
                           placeholder="Store Item details here..."
                           rows={3}
-                          value="Et impedit sit sed. Eius et nam maxime deserunt est dolor nesciunt. Atque vel laudantium delectus. Aut nesciunt asperiores accusantium ullam praesentium. Quis incidunt et ut beatae laboriosam.
+                          value="Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
  
-Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deserunt dolor accusamus est et enim cupiditate. Hic minus omnis quos explicabo fugiat optio nulla architecto. Totam inventore quo id non sit ducimus consequatur."
+Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed."
                         >
                           <Ref
                             innerRef={
@@ -1490,9 +1566,9 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                                   placeholder="Store Item details here..."
                                   rows="3"
                                 >
-                                  Et impedit sit sed. Eius et nam maxime deserunt est dolor nesciunt. Atque vel laudantium delectus. Aut nesciunt asperiores accusantium ullam praesentium. Quis incidunt et ut beatae laboriosam.
+                                  Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
  
-Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deserunt dolor accusamus est et enim cupiditate. Hic minus omnis quos explicabo fugiat optio nulla architecto. Totam inventore quo id non sit ducimus consequatur.
+Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed.
                                 </textarea>,
                               }
                             }
@@ -1504,9 +1580,9 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                                     placeholder="Store Item details here..."
                                     rows="3"
                                   >
-                                    Et impedit sit sed. Eius et nam maxime deserunt est dolor nesciunt. Atque vel laudantium delectus. Aut nesciunt asperiores accusantium ullam praesentium. Quis incidunt et ut beatae laboriosam.
+                                    Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
  
-Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deserunt dolor accusamus est et enim cupiditate. Hic minus omnis quos explicabo fugiat optio nulla architecto. Totam inventore quo id non sit ducimus consequatur.
+Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed.
                                   </textarea>,
                                 }
                               }
@@ -1517,9 +1593,9 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                                 onInput={[Function]}
                                 placeholder="Store Item details here..."
                                 rows={3}
-                                value="Et impedit sit sed. Eius et nam maxime deserunt est dolor nesciunt. Atque vel laudantium delectus. Aut nesciunt asperiores accusantium ullam praesentium. Quis incidunt et ut beatae laboriosam.
+                                value="Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
  
-Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deserunt dolor accusamus est et enim cupiditate. Hic minus omnis quos explicabo fugiat optio nulla architecto. Totam inventore quo id non sit ducimus consequatur."
+Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed."
                               />
                             </RefFindNode>
                           </Ref>
@@ -1531,7 +1607,7 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                       label="Store Item Description"
                       onChange={[Function]}
                       placeholder="Store Item description here..."
-                      value="Quasi perspiciatis voluptas eligendi et vel illo veritatis. Rerum est qui velit hic quaerat necessitatibus repudiandae sed. Doloremque blanditiis enim illum. Cumque id ea quae ut et. Ut facere atque perferendis labore officia voluptas ea qui qui."
+                      value="Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis."
                     >
                       <div
                         className="field"
@@ -1545,7 +1621,7 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                           onChange={[Function]}
                           placeholder="Store Item description here..."
                           rows={3}
-                          value="Quasi perspiciatis voluptas eligendi et vel illo veritatis. Rerum est qui velit hic quaerat necessitatibus repudiandae sed. Doloremque blanditiis enim illum. Cumque id ea quae ut et. Ut facere atque perferendis labore officia voluptas ea qui qui."
+                          value="Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis."
                         >
                           <Ref
                             innerRef={
@@ -1554,7 +1630,7 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                                   placeholder="Store Item description here..."
                                   rows="3"
                                 >
-                                  Quasi perspiciatis voluptas eligendi et vel illo veritatis. Rerum est qui velit hic quaerat necessitatibus repudiandae sed. Doloremque blanditiis enim illum. Cumque id ea quae ut et. Ut facere atque perferendis labore officia voluptas ea qui qui.
+                                  Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis.
                                 </textarea>,
                               }
                             }
@@ -1566,7 +1642,7 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                                     placeholder="Store Item description here..."
                                     rows="3"
                                   >
-                                    Quasi perspiciatis voluptas eligendi et vel illo veritatis. Rerum est qui velit hic quaerat necessitatibus repudiandae sed. Doloremque blanditiis enim illum. Cumque id ea quae ut et. Ut facere atque perferendis labore officia voluptas ea qui qui.
+                                    Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis.
                                   </textarea>,
                                 }
                               }
@@ -1577,7 +1653,7 @@ Non aut ipsum iusto cum sint facere. Aliquam ullam tempora. Laborum omnis deseru
                                 onInput={[Function]}
                                 placeholder="Store Item description here..."
                                 rows={3}
-                                value="Quasi perspiciatis voluptas eligendi et vel illo veritatis. Rerum est qui velit hic quaerat necessitatibus repudiandae sed. Doloremque blanditiis enim illum. Cumque id ea quae ut et. Ut facere atque perferendis labore officia voluptas ea qui qui."
+                                value="Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis."
                               />
                             </RefFindNode>
                           </Ref>

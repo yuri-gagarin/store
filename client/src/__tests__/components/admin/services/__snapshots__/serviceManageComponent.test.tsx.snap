@@ -12,7 +12,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
         "entries": Array [
           Object {
             "hash": "",
-            "key": "jox4jb",
+            "key": "6ly42f",
             "pathname": "/",
             "search": "",
             "state": undefined,
@@ -26,7 +26,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "jox4jb",
+          "key": "6ly42f",
           "pathname": "/",
           "search": "",
           "state": undefined,
@@ -37,89 +37,8 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
     }
   >
     <Component>
-      <withRouter(ServiceManageHolder)
-        dispatch={[Function]}
-        state={
-          Object {
-            "bonusVideoState": Object {
-              "currentBonusVideoData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "vimeoURL": "",
-                "youTubeURL": "",
-              },
-              "error": null,
-              "loadedBonusVideos": Array [],
-              "loading": false,
-              "responseMsg": "",
-            },
-            "productState": Object {
-              "currentProductData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "details": "",
-                "images": Array [],
-                "name": "",
-                "price": "",
-              },
-              "error": null,
-              "loadedProducts": Array [],
-              "loading": false,
-              "responseMsg": "",
-            },
-            "serviceState": Object {
-              "currentServiceData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "images": Array [],
-                "name": "",
-                "price": "",
-              },
-              "error": null,
-              "loadedServices": Array [],
-              "loading": false,
-              "responseMsg": "",
-            },
-            "storeItemState": Object {
-              "currentStoreItemData": Object {
-                "_id": "",
-                "categories": Array [],
-                "createdAt": "",
-                "description": "",
-                "details": "",
-                "images": Array [],
-                "name": "",
-                "price": "",
-                "storeId": "",
-                "storeName": "",
-              },
-              "error": null,
-              "loadedStoreItems": Array [],
-              "loading": false,
-              "numberOfItems": 0,
-              "responseMsg": "",
-            },
-            "storeState": Object {
-              "currentStoreData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "images": Array [],
-                "title": "",
-              },
-              "error": null,
-              "loadedStores": Array [],
-              "loading": false,
-              "responseMsg": "",
-            },
-          }
-        }
-      >
+      <withRouter(ServiceManageHolder)>
         <ServiceManageHolder
-          dispatch={[Function]}
           history={
             Object {
               "action": "POP",
@@ -129,7 +48,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
               "entries": Array [
                 Object {
                   "hash": "",
-                  "key": "jox4jb",
+                  "key": "6ly42f",
                   "pathname": "/",
                   "search": "",
                   "state": undefined,
@@ -143,7 +62,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
               "listen": [Function],
               "location": Object {
                 "hash": "",
-                "key": "jox4jb",
+                "key": "6ly42f",
                 "pathname": "/",
                 "search": "",
                 "state": undefined,
@@ -155,7 +74,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
           location={
             Object {
               "hash": "",
-              "key": "jox4jb",
+              "key": "6ly42f",
               "pathname": "/",
               "search": "",
               "state": undefined,
@@ -167,84 +86,6 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
               "params": Object {},
               "path": "/",
               "url": "/",
-            }
-          }
-          state={
-            Object {
-              "bonusVideoState": Object {
-                "currentBonusVideoData": Object {
-                  "_id": "",
-                  "createdAt": "",
-                  "description": "",
-                  "vimeoURL": "",
-                  "youTubeURL": "",
-                },
-                "error": null,
-                "loadedBonusVideos": Array [],
-                "loading": false,
-                "responseMsg": "",
-              },
-              "productState": Object {
-                "currentProductData": Object {
-                  "_id": "",
-                  "createdAt": "",
-                  "description": "",
-                  "details": "",
-                  "images": Array [],
-                  "name": "",
-                  "price": "",
-                },
-                "error": null,
-                "loadedProducts": Array [],
-                "loading": false,
-                "responseMsg": "",
-              },
-              "serviceState": Object {
-                "currentServiceData": Object {
-                  "_id": "",
-                  "createdAt": "",
-                  "description": "",
-                  "images": Array [],
-                  "name": "",
-                  "price": "",
-                },
-                "error": null,
-                "loadedServices": Array [],
-                "loading": false,
-                "responseMsg": "",
-              },
-              "storeItemState": Object {
-                "currentStoreItemData": Object {
-                  "_id": "",
-                  "categories": Array [],
-                  "createdAt": "",
-                  "description": "",
-                  "details": "",
-                  "images": Array [],
-                  "name": "",
-                  "price": "",
-                  "storeId": "",
-                  "storeName": "",
-                },
-                "error": null,
-                "loadedStoreItems": Array [],
-                "loading": false,
-                "numberOfItems": 0,
-                "responseMsg": "",
-              },
-              "storeState": Object {
-                "currentStoreData": Object {
-                  "_id": "",
-                  "createdAt": "",
-                  "description": "",
-                  "images": Array [],
-                  "title": "",
-                },
-                "error": null,
-                "loadedStores": Array [],
-                "loading": false,
-                "responseMsg": "",
-              },
             }
           }
         >
@@ -282,40 +123,14 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
                       <Ref
                         innerRef={
                           Object {
-                            "current": <div
-                              class="ui active transition visible inverted dimmer"
-                              style="display: flex;"
-                            >
-                              <div
-                                class="content"
-                              >
-                                <div
-                                  class="ui text loader"
-                                >
-                                  Please Wait
-                                </div>
-                              </div>
-                            </div>,
+                            "current": null,
                           }
                         }
                       >
                         <RefFindNode
                           innerRef={
                             Object {
-                              "current": <div
-                                class="ui active transition visible inverted dimmer"
-                                style="display: flex;"
-                              >
-                                <div
-                                  class="content"
-                                >
-                                  <div
-                                    class="ui text loader"
-                                  >
-                                    Please Wait
-                                  </div>
-                                </div>
-                              </div>,
+                              "current": null,
                             }
                           }
                         >
@@ -350,7 +165,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
 </MemoryRouter>
 `;
 
-exports[`Service Manage Holder Tests State after a successful API call Should render correct ServiceManageHolder Component 1`] = `
+exports[`Service Manage Holder Tests State after a successful API call Should render the correct ServiceManageHolder Component 1`] = `
 <Grid
   columns={2}
   id="serviceManageHolder"
@@ -378,7 +193,2433 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
           >
             <div
               className="twelve wide computer sixteen wide mobile eight wide tablet column"
-            />
+            >
+              <withRouter(ServiceCard)
+                dispatch={[Function]}
+                imageCount={0}
+                key="o1t8d2petm"
+                service={
+                  Object {
+                    "_id": "o1t8d2petm",
+                    "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                    "images": Array [],
+                    "name": "voluptas",
+                    "price": "53.00",
+                  }
+                }
+                state={
+                  Object {
+                    "bonusVideoState": Object {
+                      "currentBonusVideoData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "vimeoURL": "",
+                        "youTubeURL": "",
+                      },
+                      "error": null,
+                      "loadedBonusVideos": Array [],
+                      "loading": false,
+                      "responseMsg": "",
+                    },
+                    "productState": Object {
+                      "currentProductData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "details": "",
+                        "images": Array [],
+                        "name": "",
+                        "price": "",
+                      },
+                      "error": null,
+                      "loadedProducts": Array [],
+                      "loading": false,
+                      "responseMsg": "",
+                    },
+                    "serviceState": Object {
+                      "currentServiceData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "images": Array [],
+                        "name": "",
+                        "price": "",
+                      },
+                      "error": null,
+                      "loadedServices": Array [
+                        Object {
+                          "_id": "o1t8d2petm",
+                          "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                          "images": Array [],
+                          "name": "voluptas",
+                          "price": "53.00",
+                        },
+                        Object {
+                          "_id": "j3azex0eaw",
+                          "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                          "images": Array [],
+                          "name": "deserunt",
+                          "price": "66.00",
+                        },
+                        Object {
+                          "_id": "4w3uueltdj",
+                          "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                          "images": Array [],
+                          "name": "qui",
+                          "price": "77.00",
+                        },
+                        Object {
+                          "_id": "mmx9xvfdq1",
+                          "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                          "images": Array [],
+                          "name": "quod",
+                          "price": "95.00",
+                        },
+                        Object {
+                          "_id": "ykxcpc3irr",
+                          "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
+                          "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                          "images": Array [],
+                          "name": "dicta",
+                          "price": "59.00",
+                        },
+                      ],
+                      "loading": false,
+                      "responseMsg": "All Ok",
+                    },
+                    "storeItemState": Object {
+                      "currentStoreItemData": Object {
+                        "_id": "",
+                        "categories": Array [],
+                        "createdAt": "",
+                        "description": "",
+                        "details": "",
+                        "images": Array [],
+                        "name": "",
+                        "price": "",
+                        "storeId": "",
+                        "storeName": "",
+                      },
+                      "error": null,
+                      "loadedStoreItems": Array [],
+                      "loading": false,
+                      "numberOfItems": 0,
+                      "responseMsg": "",
+                    },
+                    "storeState": Object {
+                      "currentStoreData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "images": Array [],
+                        "title": "",
+                      },
+                      "error": null,
+                      "loadedStores": Array [],
+                      "loading": false,
+                      "responseMsg": "",
+                    },
+                  }
+                }
+              >
+                <ServiceCard
+                  dispatch={[Function]}
+                  history={
+                    Object {
+                      "action": "POP",
+                      "block": [Function],
+                      "canGo": [Function],
+                      "createHref": [Function],
+                      "entries": Array [
+                        Object {
+                          "hash": "",
+                          "key": "ksa69q",
+                          "pathname": "/",
+                          "search": "",
+                          "state": undefined,
+                        },
+                      ],
+                      "go": [Function],
+                      "goBack": [Function],
+                      "goForward": [Function],
+                      "index": 0,
+                      "length": 1,
+                      "listen": [Function],
+                      "location": Object {
+                        "hash": "",
+                        "key": "ksa69q",
+                        "pathname": "/",
+                        "search": "",
+                        "state": undefined,
+                      },
+                      "push": [Function],
+                      "replace": [Function],
+                    }
+                  }
+                  imageCount={0}
+                  location={
+                    Object {
+                      "hash": "",
+                      "key": "ksa69q",
+                      "pathname": "/",
+                      "search": "",
+                      "state": undefined,
+                    }
+                  }
+                  match={
+                    Object {
+                      "isExact": true,
+                      "params": Object {},
+                      "path": "/",
+                      "url": "/",
+                    }
+                  }
+                  service={
+                    Object {
+                      "_id": "o1t8d2petm",
+                      "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
+                      "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                      "images": Array [],
+                      "name": "voluptas",
+                      "price": "53.00",
+                    }
+                  }
+                  state={
+                    Object {
+                      "bonusVideoState": Object {
+                        "currentBonusVideoData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "vimeoURL": "",
+                          "youTubeURL": "",
+                        },
+                        "error": null,
+                        "loadedBonusVideos": Array [],
+                        "loading": false,
+                        "responseMsg": "",
+                      },
+                      "productState": Object {
+                        "currentProductData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "details": "",
+                          "images": Array [],
+                          "name": "",
+                          "price": "",
+                        },
+                        "error": null,
+                        "loadedProducts": Array [],
+                        "loading": false,
+                        "responseMsg": "",
+                      },
+                      "serviceState": Object {
+                        "currentServiceData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "images": Array [],
+                          "name": "",
+                          "price": "",
+                        },
+                        "error": null,
+                        "loadedServices": Array [
+                          Object {
+                            "_id": "o1t8d2petm",
+                            "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                            "images": Array [],
+                            "name": "voluptas",
+                            "price": "53.00",
+                          },
+                          Object {
+                            "_id": "j3azex0eaw",
+                            "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                            "images": Array [],
+                            "name": "deserunt",
+                            "price": "66.00",
+                          },
+                          Object {
+                            "_id": "4w3uueltdj",
+                            "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                            "images": Array [],
+                            "name": "qui",
+                            "price": "77.00",
+                          },
+                          Object {
+                            "_id": "mmx9xvfdq1",
+                            "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                            "images": Array [],
+                            "name": "quod",
+                            "price": "95.00",
+                          },
+                          Object {
+                            "_id": "ykxcpc3irr",
+                            "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
+                            "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                            "images": Array [],
+                            "name": "dicta",
+                            "price": "59.00",
+                          },
+                        ],
+                        "loading": false,
+                        "responseMsg": "All Ok",
+                      },
+                      "storeItemState": Object {
+                        "currentStoreItemData": Object {
+                          "_id": "",
+                          "categories": Array [],
+                          "createdAt": "",
+                          "description": "",
+                          "details": "",
+                          "images": Array [],
+                          "name": "",
+                          "price": "",
+                          "storeId": "",
+                          "storeName": "",
+                        },
+                        "error": null,
+                        "loadedStoreItems": Array [],
+                        "loading": false,
+                        "numberOfItems": 0,
+                        "responseMsg": "",
+                      },
+                      "storeState": Object {
+                        "currentStoreData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "images": Array [],
+                          "title": "",
+                        },
+                        "error": null,
+                        "loadedStores": Array [],
+                        "loading": false,
+                        "responseMsg": "",
+                      },
+                    }
+                  }
+                >
+                  <GridRow
+                    style={
+                      Object {
+                        "marginTop": "1em",
+                        "padding": "0.5em",
+                      }
+                    }
+                  >
+                    <div
+                      className="row"
+                      style={
+                        Object {
+                          "marginTop": "1em",
+                          "padding": "0.5em",
+                        }
+                      }
+                    >
+                      <div
+                        className="serviceManageDesc"
+                      >
+                        <h3>
+                          Name: 
+                          voluptas
+                        </h3>
+                        <p>
+                          <strong>
+                            Description:
+                          </strong>
+                           
+                          Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.
+                        </p>
+                        <span>
+                          Number of Images: 
+                          <strong>
+                            0
+                          </strong>
+                        </span>
+                        <p>
+                          <span>
+                            Created At: 
+                          </span>
+                          2020-Sep-12
+                        </p>
+                      </div>
+                      <div
+                        className="serviceManageCtrls"
+                      >
+                        <Button
+                          as="button"
+                          className="serviceCardBtn"
+                          color="green"
+                          content="Open"
+                          inverted={true}
+                          onClick={[Function]}
+                        >
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui green inverted button serviceCardBtn"
+                                >
+                                  Open
+                                </button>,
+                              }
+                            }
+                          >
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui green inverted button serviceCardBtn"
+                                  >
+                                    Open
+                                  </button>,
+                                }
+                              }
+                            >
+                              <button
+                                className="ui green inverted button serviceCardBtn"
+                                onClick={[Function]}
+                              >
+                                Open
+                              </button>
+                            </RefFindNode>
+                          </Ref>
+                        </Button>
+                        <Button
+                          as="button"
+                          className="serviceCardBtn"
+                          color="orange"
+                          content="Edit"
+                          inverted={true}
+                          onClick={[Function]}
+                        >
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui orange inverted button serviceCardBtn"
+                                >
+                                  Edit
+                                </button>,
+                              }
+                            }
+                          >
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui orange inverted button serviceCardBtn"
+                                  >
+                                    Edit
+                                  </button>,
+                                }
+                              }
+                            >
+                              <button
+                                className="ui orange inverted button serviceCardBtn"
+                                onClick={[Function]}
+                              >
+                                Edit
+                              </button>
+                            </RefFindNode>
+                          </Ref>
+                        </Button>
+                        <Button
+                          as="button"
+                          className="serviceCardBtn"
+                          color="red"
+                          content="Delete"
+                          inverted={true}
+                          onClick={[Function]}
+                        >
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui red inverted button serviceCardBtn"
+                                >
+                                  Delete
+                                </button>,
+                              }
+                            }
+                          >
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui red inverted button serviceCardBtn"
+                                  >
+                                    Delete
+                                  </button>,
+                                }
+                              }
+                            >
+                              <button
+                                className="ui red inverted button serviceCardBtn"
+                                onClick={[Function]}
+                              >
+                                Delete
+                              </button>
+                            </RefFindNode>
+                          </Ref>
+                        </Button>
+                      </div>
+                    </div>
+                  </GridRow>
+                </ServiceCard>
+              </withRouter(ServiceCard)>
+              <withRouter(ServiceCard)
+                dispatch={[Function]}
+                imageCount={0}
+                key="j3azex0eaw"
+                service={
+                  Object {
+                    "_id": "j3azex0eaw",
+                    "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                    "images": Array [],
+                    "name": "deserunt",
+                    "price": "66.00",
+                  }
+                }
+                state={
+                  Object {
+                    "bonusVideoState": Object {
+                      "currentBonusVideoData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "vimeoURL": "",
+                        "youTubeURL": "",
+                      },
+                      "error": null,
+                      "loadedBonusVideos": Array [],
+                      "loading": false,
+                      "responseMsg": "",
+                    },
+                    "productState": Object {
+                      "currentProductData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "details": "",
+                        "images": Array [],
+                        "name": "",
+                        "price": "",
+                      },
+                      "error": null,
+                      "loadedProducts": Array [],
+                      "loading": false,
+                      "responseMsg": "",
+                    },
+                    "serviceState": Object {
+                      "currentServiceData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "images": Array [],
+                        "name": "",
+                        "price": "",
+                      },
+                      "error": null,
+                      "loadedServices": Array [
+                        Object {
+                          "_id": "o1t8d2petm",
+                          "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                          "images": Array [],
+                          "name": "voluptas",
+                          "price": "53.00",
+                        },
+                        Object {
+                          "_id": "j3azex0eaw",
+                          "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                          "images": Array [],
+                          "name": "deserunt",
+                          "price": "66.00",
+                        },
+                        Object {
+                          "_id": "4w3uueltdj",
+                          "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                          "images": Array [],
+                          "name": "qui",
+                          "price": "77.00",
+                        },
+                        Object {
+                          "_id": "mmx9xvfdq1",
+                          "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                          "images": Array [],
+                          "name": "quod",
+                          "price": "95.00",
+                        },
+                        Object {
+                          "_id": "ykxcpc3irr",
+                          "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
+                          "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                          "images": Array [],
+                          "name": "dicta",
+                          "price": "59.00",
+                        },
+                      ],
+                      "loading": false,
+                      "responseMsg": "All Ok",
+                    },
+                    "storeItemState": Object {
+                      "currentStoreItemData": Object {
+                        "_id": "",
+                        "categories": Array [],
+                        "createdAt": "",
+                        "description": "",
+                        "details": "",
+                        "images": Array [],
+                        "name": "",
+                        "price": "",
+                        "storeId": "",
+                        "storeName": "",
+                      },
+                      "error": null,
+                      "loadedStoreItems": Array [],
+                      "loading": false,
+                      "numberOfItems": 0,
+                      "responseMsg": "",
+                    },
+                    "storeState": Object {
+                      "currentStoreData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "images": Array [],
+                        "title": "",
+                      },
+                      "error": null,
+                      "loadedStores": Array [],
+                      "loading": false,
+                      "responseMsg": "",
+                    },
+                  }
+                }
+              >
+                <ServiceCard
+                  dispatch={[Function]}
+                  history={
+                    Object {
+                      "action": "POP",
+                      "block": [Function],
+                      "canGo": [Function],
+                      "createHref": [Function],
+                      "entries": Array [
+                        Object {
+                          "hash": "",
+                          "key": "ksa69q",
+                          "pathname": "/",
+                          "search": "",
+                          "state": undefined,
+                        },
+                      ],
+                      "go": [Function],
+                      "goBack": [Function],
+                      "goForward": [Function],
+                      "index": 0,
+                      "length": 1,
+                      "listen": [Function],
+                      "location": Object {
+                        "hash": "",
+                        "key": "ksa69q",
+                        "pathname": "/",
+                        "search": "",
+                        "state": undefined,
+                      },
+                      "push": [Function],
+                      "replace": [Function],
+                    }
+                  }
+                  imageCount={0}
+                  location={
+                    Object {
+                      "hash": "",
+                      "key": "ksa69q",
+                      "pathname": "/",
+                      "search": "",
+                      "state": undefined,
+                    }
+                  }
+                  match={
+                    Object {
+                      "isExact": true,
+                      "params": Object {},
+                      "path": "/",
+                      "url": "/",
+                    }
+                  }
+                  service={
+                    Object {
+                      "_id": "j3azex0eaw",
+                      "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
+                      "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                      "images": Array [],
+                      "name": "deserunt",
+                      "price": "66.00",
+                    }
+                  }
+                  state={
+                    Object {
+                      "bonusVideoState": Object {
+                        "currentBonusVideoData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "vimeoURL": "",
+                          "youTubeURL": "",
+                        },
+                        "error": null,
+                        "loadedBonusVideos": Array [],
+                        "loading": false,
+                        "responseMsg": "",
+                      },
+                      "productState": Object {
+                        "currentProductData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "details": "",
+                          "images": Array [],
+                          "name": "",
+                          "price": "",
+                        },
+                        "error": null,
+                        "loadedProducts": Array [],
+                        "loading": false,
+                        "responseMsg": "",
+                      },
+                      "serviceState": Object {
+                        "currentServiceData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "images": Array [],
+                          "name": "",
+                          "price": "",
+                        },
+                        "error": null,
+                        "loadedServices": Array [
+                          Object {
+                            "_id": "o1t8d2petm",
+                            "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                            "images": Array [],
+                            "name": "voluptas",
+                            "price": "53.00",
+                          },
+                          Object {
+                            "_id": "j3azex0eaw",
+                            "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                            "images": Array [],
+                            "name": "deserunt",
+                            "price": "66.00",
+                          },
+                          Object {
+                            "_id": "4w3uueltdj",
+                            "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                            "images": Array [],
+                            "name": "qui",
+                            "price": "77.00",
+                          },
+                          Object {
+                            "_id": "mmx9xvfdq1",
+                            "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                            "images": Array [],
+                            "name": "quod",
+                            "price": "95.00",
+                          },
+                          Object {
+                            "_id": "ykxcpc3irr",
+                            "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
+                            "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                            "images": Array [],
+                            "name": "dicta",
+                            "price": "59.00",
+                          },
+                        ],
+                        "loading": false,
+                        "responseMsg": "All Ok",
+                      },
+                      "storeItemState": Object {
+                        "currentStoreItemData": Object {
+                          "_id": "",
+                          "categories": Array [],
+                          "createdAt": "",
+                          "description": "",
+                          "details": "",
+                          "images": Array [],
+                          "name": "",
+                          "price": "",
+                          "storeId": "",
+                          "storeName": "",
+                        },
+                        "error": null,
+                        "loadedStoreItems": Array [],
+                        "loading": false,
+                        "numberOfItems": 0,
+                        "responseMsg": "",
+                      },
+                      "storeState": Object {
+                        "currentStoreData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "images": Array [],
+                          "title": "",
+                        },
+                        "error": null,
+                        "loadedStores": Array [],
+                        "loading": false,
+                        "responseMsg": "",
+                      },
+                    }
+                  }
+                >
+                  <GridRow
+                    style={
+                      Object {
+                        "marginTop": "1em",
+                        "padding": "0.5em",
+                      }
+                    }
+                  >
+                    <div
+                      className="row"
+                      style={
+                        Object {
+                          "marginTop": "1em",
+                          "padding": "0.5em",
+                        }
+                      }
+                    >
+                      <div
+                        className="serviceManageDesc"
+                      >
+                        <h3>
+                          Name: 
+                          deserunt
+                        </h3>
+                        <p>
+                          <strong>
+                            Description:
+                          </strong>
+                           
+                          Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.
+                        </p>
+                        <span>
+                          Number of Images: 
+                          <strong>
+                            0
+                          </strong>
+                        </span>
+                        <p>
+                          <span>
+                            Created At: 
+                          </span>
+                          2020-Sep-12
+                        </p>
+                      </div>
+                      <div
+                        className="serviceManageCtrls"
+                      >
+                        <Button
+                          as="button"
+                          className="serviceCardBtn"
+                          color="green"
+                          content="Open"
+                          inverted={true}
+                          onClick={[Function]}
+                        >
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui green inverted button serviceCardBtn"
+                                >
+                                  Open
+                                </button>,
+                              }
+                            }
+                          >
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui green inverted button serviceCardBtn"
+                                  >
+                                    Open
+                                  </button>,
+                                }
+                              }
+                            >
+                              <button
+                                className="ui green inverted button serviceCardBtn"
+                                onClick={[Function]}
+                              >
+                                Open
+                              </button>
+                            </RefFindNode>
+                          </Ref>
+                        </Button>
+                        <Button
+                          as="button"
+                          className="serviceCardBtn"
+                          color="orange"
+                          content="Edit"
+                          inverted={true}
+                          onClick={[Function]}
+                        >
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui orange inverted button serviceCardBtn"
+                                >
+                                  Edit
+                                </button>,
+                              }
+                            }
+                          >
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui orange inverted button serviceCardBtn"
+                                  >
+                                    Edit
+                                  </button>,
+                                }
+                              }
+                            >
+                              <button
+                                className="ui orange inverted button serviceCardBtn"
+                                onClick={[Function]}
+                              >
+                                Edit
+                              </button>
+                            </RefFindNode>
+                          </Ref>
+                        </Button>
+                        <Button
+                          as="button"
+                          className="serviceCardBtn"
+                          color="red"
+                          content="Delete"
+                          inverted={true}
+                          onClick={[Function]}
+                        >
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui red inverted button serviceCardBtn"
+                                >
+                                  Delete
+                                </button>,
+                              }
+                            }
+                          >
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui red inverted button serviceCardBtn"
+                                  >
+                                    Delete
+                                  </button>,
+                                }
+                              }
+                            >
+                              <button
+                                className="ui red inverted button serviceCardBtn"
+                                onClick={[Function]}
+                              >
+                                Delete
+                              </button>
+                            </RefFindNode>
+                          </Ref>
+                        </Button>
+                      </div>
+                    </div>
+                  </GridRow>
+                </ServiceCard>
+              </withRouter(ServiceCard)>
+              <withRouter(ServiceCard)
+                dispatch={[Function]}
+                imageCount={0}
+                key="4w3uueltdj"
+                service={
+                  Object {
+                    "_id": "4w3uueltdj",
+                    "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                    "images": Array [],
+                    "name": "qui",
+                    "price": "77.00",
+                  }
+                }
+                state={
+                  Object {
+                    "bonusVideoState": Object {
+                      "currentBonusVideoData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "vimeoURL": "",
+                        "youTubeURL": "",
+                      },
+                      "error": null,
+                      "loadedBonusVideos": Array [],
+                      "loading": false,
+                      "responseMsg": "",
+                    },
+                    "productState": Object {
+                      "currentProductData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "details": "",
+                        "images": Array [],
+                        "name": "",
+                        "price": "",
+                      },
+                      "error": null,
+                      "loadedProducts": Array [],
+                      "loading": false,
+                      "responseMsg": "",
+                    },
+                    "serviceState": Object {
+                      "currentServiceData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "images": Array [],
+                        "name": "",
+                        "price": "",
+                      },
+                      "error": null,
+                      "loadedServices": Array [
+                        Object {
+                          "_id": "o1t8d2petm",
+                          "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                          "images": Array [],
+                          "name": "voluptas",
+                          "price": "53.00",
+                        },
+                        Object {
+                          "_id": "j3azex0eaw",
+                          "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                          "images": Array [],
+                          "name": "deserunt",
+                          "price": "66.00",
+                        },
+                        Object {
+                          "_id": "4w3uueltdj",
+                          "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                          "images": Array [],
+                          "name": "qui",
+                          "price": "77.00",
+                        },
+                        Object {
+                          "_id": "mmx9xvfdq1",
+                          "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                          "images": Array [],
+                          "name": "quod",
+                          "price": "95.00",
+                        },
+                        Object {
+                          "_id": "ykxcpc3irr",
+                          "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
+                          "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                          "images": Array [],
+                          "name": "dicta",
+                          "price": "59.00",
+                        },
+                      ],
+                      "loading": false,
+                      "responseMsg": "All Ok",
+                    },
+                    "storeItemState": Object {
+                      "currentStoreItemData": Object {
+                        "_id": "",
+                        "categories": Array [],
+                        "createdAt": "",
+                        "description": "",
+                        "details": "",
+                        "images": Array [],
+                        "name": "",
+                        "price": "",
+                        "storeId": "",
+                        "storeName": "",
+                      },
+                      "error": null,
+                      "loadedStoreItems": Array [],
+                      "loading": false,
+                      "numberOfItems": 0,
+                      "responseMsg": "",
+                    },
+                    "storeState": Object {
+                      "currentStoreData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "images": Array [],
+                        "title": "",
+                      },
+                      "error": null,
+                      "loadedStores": Array [],
+                      "loading": false,
+                      "responseMsg": "",
+                    },
+                  }
+                }
+              >
+                <ServiceCard
+                  dispatch={[Function]}
+                  history={
+                    Object {
+                      "action": "POP",
+                      "block": [Function],
+                      "canGo": [Function],
+                      "createHref": [Function],
+                      "entries": Array [
+                        Object {
+                          "hash": "",
+                          "key": "ksa69q",
+                          "pathname": "/",
+                          "search": "",
+                          "state": undefined,
+                        },
+                      ],
+                      "go": [Function],
+                      "goBack": [Function],
+                      "goForward": [Function],
+                      "index": 0,
+                      "length": 1,
+                      "listen": [Function],
+                      "location": Object {
+                        "hash": "",
+                        "key": "ksa69q",
+                        "pathname": "/",
+                        "search": "",
+                        "state": undefined,
+                      },
+                      "push": [Function],
+                      "replace": [Function],
+                    }
+                  }
+                  imageCount={0}
+                  location={
+                    Object {
+                      "hash": "",
+                      "key": "ksa69q",
+                      "pathname": "/",
+                      "search": "",
+                      "state": undefined,
+                    }
+                  }
+                  match={
+                    Object {
+                      "isExact": true,
+                      "params": Object {},
+                      "path": "/",
+                      "url": "/",
+                    }
+                  }
+                  service={
+                    Object {
+                      "_id": "4w3uueltdj",
+                      "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
+                      "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                      "images": Array [],
+                      "name": "qui",
+                      "price": "77.00",
+                    }
+                  }
+                  state={
+                    Object {
+                      "bonusVideoState": Object {
+                        "currentBonusVideoData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "vimeoURL": "",
+                          "youTubeURL": "",
+                        },
+                        "error": null,
+                        "loadedBonusVideos": Array [],
+                        "loading": false,
+                        "responseMsg": "",
+                      },
+                      "productState": Object {
+                        "currentProductData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "details": "",
+                          "images": Array [],
+                          "name": "",
+                          "price": "",
+                        },
+                        "error": null,
+                        "loadedProducts": Array [],
+                        "loading": false,
+                        "responseMsg": "",
+                      },
+                      "serviceState": Object {
+                        "currentServiceData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "images": Array [],
+                          "name": "",
+                          "price": "",
+                        },
+                        "error": null,
+                        "loadedServices": Array [
+                          Object {
+                            "_id": "o1t8d2petm",
+                            "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                            "images": Array [],
+                            "name": "voluptas",
+                            "price": "53.00",
+                          },
+                          Object {
+                            "_id": "j3azex0eaw",
+                            "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                            "images": Array [],
+                            "name": "deserunt",
+                            "price": "66.00",
+                          },
+                          Object {
+                            "_id": "4w3uueltdj",
+                            "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                            "images": Array [],
+                            "name": "qui",
+                            "price": "77.00",
+                          },
+                          Object {
+                            "_id": "mmx9xvfdq1",
+                            "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                            "images": Array [],
+                            "name": "quod",
+                            "price": "95.00",
+                          },
+                          Object {
+                            "_id": "ykxcpc3irr",
+                            "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
+                            "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                            "images": Array [],
+                            "name": "dicta",
+                            "price": "59.00",
+                          },
+                        ],
+                        "loading": false,
+                        "responseMsg": "All Ok",
+                      },
+                      "storeItemState": Object {
+                        "currentStoreItemData": Object {
+                          "_id": "",
+                          "categories": Array [],
+                          "createdAt": "",
+                          "description": "",
+                          "details": "",
+                          "images": Array [],
+                          "name": "",
+                          "price": "",
+                          "storeId": "",
+                          "storeName": "",
+                        },
+                        "error": null,
+                        "loadedStoreItems": Array [],
+                        "loading": false,
+                        "numberOfItems": 0,
+                        "responseMsg": "",
+                      },
+                      "storeState": Object {
+                        "currentStoreData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "images": Array [],
+                          "title": "",
+                        },
+                        "error": null,
+                        "loadedStores": Array [],
+                        "loading": false,
+                        "responseMsg": "",
+                      },
+                    }
+                  }
+                >
+                  <GridRow
+                    style={
+                      Object {
+                        "marginTop": "1em",
+                        "padding": "0.5em",
+                      }
+                    }
+                  >
+                    <div
+                      className="row"
+                      style={
+                        Object {
+                          "marginTop": "1em",
+                          "padding": "0.5em",
+                        }
+                      }
+                    >
+                      <div
+                        className="serviceManageDesc"
+                      >
+                        <h3>
+                          Name: 
+                          qui
+                        </h3>
+                        <p>
+                          <strong>
+                            Description:
+                          </strong>
+                           
+                          Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.
+                        </p>
+                        <span>
+                          Number of Images: 
+                          <strong>
+                            0
+                          </strong>
+                        </span>
+                        <p>
+                          <span>
+                            Created At: 
+                          </span>
+                          2020-Sep-11
+                        </p>
+                      </div>
+                      <div
+                        className="serviceManageCtrls"
+                      >
+                        <Button
+                          as="button"
+                          className="serviceCardBtn"
+                          color="green"
+                          content="Open"
+                          inverted={true}
+                          onClick={[Function]}
+                        >
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui green inverted button serviceCardBtn"
+                                >
+                                  Open
+                                </button>,
+                              }
+                            }
+                          >
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui green inverted button serviceCardBtn"
+                                  >
+                                    Open
+                                  </button>,
+                                }
+                              }
+                            >
+                              <button
+                                className="ui green inverted button serviceCardBtn"
+                                onClick={[Function]}
+                              >
+                                Open
+                              </button>
+                            </RefFindNode>
+                          </Ref>
+                        </Button>
+                        <Button
+                          as="button"
+                          className="serviceCardBtn"
+                          color="orange"
+                          content="Edit"
+                          inverted={true}
+                          onClick={[Function]}
+                        >
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui orange inverted button serviceCardBtn"
+                                >
+                                  Edit
+                                </button>,
+                              }
+                            }
+                          >
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui orange inverted button serviceCardBtn"
+                                  >
+                                    Edit
+                                  </button>,
+                                }
+                              }
+                            >
+                              <button
+                                className="ui orange inverted button serviceCardBtn"
+                                onClick={[Function]}
+                              >
+                                Edit
+                              </button>
+                            </RefFindNode>
+                          </Ref>
+                        </Button>
+                        <Button
+                          as="button"
+                          className="serviceCardBtn"
+                          color="red"
+                          content="Delete"
+                          inverted={true}
+                          onClick={[Function]}
+                        >
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui red inverted button serviceCardBtn"
+                                >
+                                  Delete
+                                </button>,
+                              }
+                            }
+                          >
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui red inverted button serviceCardBtn"
+                                  >
+                                    Delete
+                                  </button>,
+                                }
+                              }
+                            >
+                              <button
+                                className="ui red inverted button serviceCardBtn"
+                                onClick={[Function]}
+                              >
+                                Delete
+                              </button>
+                            </RefFindNode>
+                          </Ref>
+                        </Button>
+                      </div>
+                    </div>
+                  </GridRow>
+                </ServiceCard>
+              </withRouter(ServiceCard)>
+              <withRouter(ServiceCard)
+                dispatch={[Function]}
+                imageCount={0}
+                key="mmx9xvfdq1"
+                service={
+                  Object {
+                    "_id": "mmx9xvfdq1",
+                    "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                    "images": Array [],
+                    "name": "quod",
+                    "price": "95.00",
+                  }
+                }
+                state={
+                  Object {
+                    "bonusVideoState": Object {
+                      "currentBonusVideoData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "vimeoURL": "",
+                        "youTubeURL": "",
+                      },
+                      "error": null,
+                      "loadedBonusVideos": Array [],
+                      "loading": false,
+                      "responseMsg": "",
+                    },
+                    "productState": Object {
+                      "currentProductData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "details": "",
+                        "images": Array [],
+                        "name": "",
+                        "price": "",
+                      },
+                      "error": null,
+                      "loadedProducts": Array [],
+                      "loading": false,
+                      "responseMsg": "",
+                    },
+                    "serviceState": Object {
+                      "currentServiceData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "images": Array [],
+                        "name": "",
+                        "price": "",
+                      },
+                      "error": null,
+                      "loadedServices": Array [
+                        Object {
+                          "_id": "o1t8d2petm",
+                          "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                          "images": Array [],
+                          "name": "voluptas",
+                          "price": "53.00",
+                        },
+                        Object {
+                          "_id": "j3azex0eaw",
+                          "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                          "images": Array [],
+                          "name": "deserunt",
+                          "price": "66.00",
+                        },
+                        Object {
+                          "_id": "4w3uueltdj",
+                          "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                          "images": Array [],
+                          "name": "qui",
+                          "price": "77.00",
+                        },
+                        Object {
+                          "_id": "mmx9xvfdq1",
+                          "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                          "images": Array [],
+                          "name": "quod",
+                          "price": "95.00",
+                        },
+                        Object {
+                          "_id": "ykxcpc3irr",
+                          "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
+                          "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                          "images": Array [],
+                          "name": "dicta",
+                          "price": "59.00",
+                        },
+                      ],
+                      "loading": false,
+                      "responseMsg": "All Ok",
+                    },
+                    "storeItemState": Object {
+                      "currentStoreItemData": Object {
+                        "_id": "",
+                        "categories": Array [],
+                        "createdAt": "",
+                        "description": "",
+                        "details": "",
+                        "images": Array [],
+                        "name": "",
+                        "price": "",
+                        "storeId": "",
+                        "storeName": "",
+                      },
+                      "error": null,
+                      "loadedStoreItems": Array [],
+                      "loading": false,
+                      "numberOfItems": 0,
+                      "responseMsg": "",
+                    },
+                    "storeState": Object {
+                      "currentStoreData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "images": Array [],
+                        "title": "",
+                      },
+                      "error": null,
+                      "loadedStores": Array [],
+                      "loading": false,
+                      "responseMsg": "",
+                    },
+                  }
+                }
+              >
+                <ServiceCard
+                  dispatch={[Function]}
+                  history={
+                    Object {
+                      "action": "POP",
+                      "block": [Function],
+                      "canGo": [Function],
+                      "createHref": [Function],
+                      "entries": Array [
+                        Object {
+                          "hash": "",
+                          "key": "ksa69q",
+                          "pathname": "/",
+                          "search": "",
+                          "state": undefined,
+                        },
+                      ],
+                      "go": [Function],
+                      "goBack": [Function],
+                      "goForward": [Function],
+                      "index": 0,
+                      "length": 1,
+                      "listen": [Function],
+                      "location": Object {
+                        "hash": "",
+                        "key": "ksa69q",
+                        "pathname": "/",
+                        "search": "",
+                        "state": undefined,
+                      },
+                      "push": [Function],
+                      "replace": [Function],
+                    }
+                  }
+                  imageCount={0}
+                  location={
+                    Object {
+                      "hash": "",
+                      "key": "ksa69q",
+                      "pathname": "/",
+                      "search": "",
+                      "state": undefined,
+                    }
+                  }
+                  match={
+                    Object {
+                      "isExact": true,
+                      "params": Object {},
+                      "path": "/",
+                      "url": "/",
+                    }
+                  }
+                  service={
+                    Object {
+                      "_id": "mmx9xvfdq1",
+                      "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
+                      "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                      "images": Array [],
+                      "name": "quod",
+                      "price": "95.00",
+                    }
+                  }
+                  state={
+                    Object {
+                      "bonusVideoState": Object {
+                        "currentBonusVideoData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "vimeoURL": "",
+                          "youTubeURL": "",
+                        },
+                        "error": null,
+                        "loadedBonusVideos": Array [],
+                        "loading": false,
+                        "responseMsg": "",
+                      },
+                      "productState": Object {
+                        "currentProductData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "details": "",
+                          "images": Array [],
+                          "name": "",
+                          "price": "",
+                        },
+                        "error": null,
+                        "loadedProducts": Array [],
+                        "loading": false,
+                        "responseMsg": "",
+                      },
+                      "serviceState": Object {
+                        "currentServiceData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "images": Array [],
+                          "name": "",
+                          "price": "",
+                        },
+                        "error": null,
+                        "loadedServices": Array [
+                          Object {
+                            "_id": "o1t8d2petm",
+                            "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                            "images": Array [],
+                            "name": "voluptas",
+                            "price": "53.00",
+                          },
+                          Object {
+                            "_id": "j3azex0eaw",
+                            "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                            "images": Array [],
+                            "name": "deserunt",
+                            "price": "66.00",
+                          },
+                          Object {
+                            "_id": "4w3uueltdj",
+                            "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                            "images": Array [],
+                            "name": "qui",
+                            "price": "77.00",
+                          },
+                          Object {
+                            "_id": "mmx9xvfdq1",
+                            "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                            "images": Array [],
+                            "name": "quod",
+                            "price": "95.00",
+                          },
+                          Object {
+                            "_id": "ykxcpc3irr",
+                            "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
+                            "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                            "images": Array [],
+                            "name": "dicta",
+                            "price": "59.00",
+                          },
+                        ],
+                        "loading": false,
+                        "responseMsg": "All Ok",
+                      },
+                      "storeItemState": Object {
+                        "currentStoreItemData": Object {
+                          "_id": "",
+                          "categories": Array [],
+                          "createdAt": "",
+                          "description": "",
+                          "details": "",
+                          "images": Array [],
+                          "name": "",
+                          "price": "",
+                          "storeId": "",
+                          "storeName": "",
+                        },
+                        "error": null,
+                        "loadedStoreItems": Array [],
+                        "loading": false,
+                        "numberOfItems": 0,
+                        "responseMsg": "",
+                      },
+                      "storeState": Object {
+                        "currentStoreData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "images": Array [],
+                          "title": "",
+                        },
+                        "error": null,
+                        "loadedStores": Array [],
+                        "loading": false,
+                        "responseMsg": "",
+                      },
+                    }
+                  }
+                >
+                  <GridRow
+                    style={
+                      Object {
+                        "marginTop": "1em",
+                        "padding": "0.5em",
+                      }
+                    }
+                  >
+                    <div
+                      className="row"
+                      style={
+                        Object {
+                          "marginTop": "1em",
+                          "padding": "0.5em",
+                        }
+                      }
+                    >
+                      <div
+                        className="serviceManageDesc"
+                      >
+                        <h3>
+                          Name: 
+                          quod
+                        </h3>
+                        <p>
+                          <strong>
+                            Description:
+                          </strong>
+                           
+                          Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.
+                        </p>
+                        <span>
+                          Number of Images: 
+                          <strong>
+                            0
+                          </strong>
+                        </span>
+                        <p>
+                          <span>
+                            Created At: 
+                          </span>
+                          2020-Sep-11
+                        </p>
+                      </div>
+                      <div
+                        className="serviceManageCtrls"
+                      >
+                        <Button
+                          as="button"
+                          className="serviceCardBtn"
+                          color="green"
+                          content="Open"
+                          inverted={true}
+                          onClick={[Function]}
+                        >
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui green inverted button serviceCardBtn"
+                                >
+                                  Open
+                                </button>,
+                              }
+                            }
+                          >
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui green inverted button serviceCardBtn"
+                                  >
+                                    Open
+                                  </button>,
+                                }
+                              }
+                            >
+                              <button
+                                className="ui green inverted button serviceCardBtn"
+                                onClick={[Function]}
+                              >
+                                Open
+                              </button>
+                            </RefFindNode>
+                          </Ref>
+                        </Button>
+                        <Button
+                          as="button"
+                          className="serviceCardBtn"
+                          color="orange"
+                          content="Edit"
+                          inverted={true}
+                          onClick={[Function]}
+                        >
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui orange inverted button serviceCardBtn"
+                                >
+                                  Edit
+                                </button>,
+                              }
+                            }
+                          >
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui orange inverted button serviceCardBtn"
+                                  >
+                                    Edit
+                                  </button>,
+                                }
+                              }
+                            >
+                              <button
+                                className="ui orange inverted button serviceCardBtn"
+                                onClick={[Function]}
+                              >
+                                Edit
+                              </button>
+                            </RefFindNode>
+                          </Ref>
+                        </Button>
+                        <Button
+                          as="button"
+                          className="serviceCardBtn"
+                          color="red"
+                          content="Delete"
+                          inverted={true}
+                          onClick={[Function]}
+                        >
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui red inverted button serviceCardBtn"
+                                >
+                                  Delete
+                                </button>,
+                              }
+                            }
+                          >
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui red inverted button serviceCardBtn"
+                                  >
+                                    Delete
+                                  </button>,
+                                }
+                              }
+                            >
+                              <button
+                                className="ui red inverted button serviceCardBtn"
+                                onClick={[Function]}
+                              >
+                                Delete
+                              </button>
+                            </RefFindNode>
+                          </Ref>
+                        </Button>
+                      </div>
+                    </div>
+                  </GridRow>
+                </ServiceCard>
+              </withRouter(ServiceCard)>
+              <withRouter(ServiceCard)
+                dispatch={[Function]}
+                imageCount={0}
+                key="ykxcpc3irr"
+                service={
+                  Object {
+                    "_id": "ykxcpc3irr",
+                    "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
+                    "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                    "images": Array [],
+                    "name": "dicta",
+                    "price": "59.00",
+                  }
+                }
+                state={
+                  Object {
+                    "bonusVideoState": Object {
+                      "currentBonusVideoData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "vimeoURL": "",
+                        "youTubeURL": "",
+                      },
+                      "error": null,
+                      "loadedBonusVideos": Array [],
+                      "loading": false,
+                      "responseMsg": "",
+                    },
+                    "productState": Object {
+                      "currentProductData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "details": "",
+                        "images": Array [],
+                        "name": "",
+                        "price": "",
+                      },
+                      "error": null,
+                      "loadedProducts": Array [],
+                      "loading": false,
+                      "responseMsg": "",
+                    },
+                    "serviceState": Object {
+                      "currentServiceData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "images": Array [],
+                        "name": "",
+                        "price": "",
+                      },
+                      "error": null,
+                      "loadedServices": Array [
+                        Object {
+                          "_id": "o1t8d2petm",
+                          "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                          "images": Array [],
+                          "name": "voluptas",
+                          "price": "53.00",
+                        },
+                        Object {
+                          "_id": "j3azex0eaw",
+                          "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                          "images": Array [],
+                          "name": "deserunt",
+                          "price": "66.00",
+                        },
+                        Object {
+                          "_id": "4w3uueltdj",
+                          "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                          "images": Array [],
+                          "name": "qui",
+                          "price": "77.00",
+                        },
+                        Object {
+                          "_id": "mmx9xvfdq1",
+                          "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                          "images": Array [],
+                          "name": "quod",
+                          "price": "95.00",
+                        },
+                        Object {
+                          "_id": "ykxcpc3irr",
+                          "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
+                          "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                          "images": Array [],
+                          "name": "dicta",
+                          "price": "59.00",
+                        },
+                      ],
+                      "loading": false,
+                      "responseMsg": "All Ok",
+                    },
+                    "storeItemState": Object {
+                      "currentStoreItemData": Object {
+                        "_id": "",
+                        "categories": Array [],
+                        "createdAt": "",
+                        "description": "",
+                        "details": "",
+                        "images": Array [],
+                        "name": "",
+                        "price": "",
+                        "storeId": "",
+                        "storeName": "",
+                      },
+                      "error": null,
+                      "loadedStoreItems": Array [],
+                      "loading": false,
+                      "numberOfItems": 0,
+                      "responseMsg": "",
+                    },
+                    "storeState": Object {
+                      "currentStoreData": Object {
+                        "_id": "",
+                        "createdAt": "",
+                        "description": "",
+                        "images": Array [],
+                        "title": "",
+                      },
+                      "error": null,
+                      "loadedStores": Array [],
+                      "loading": false,
+                      "responseMsg": "",
+                    },
+                  }
+                }
+              >
+                <ServiceCard
+                  dispatch={[Function]}
+                  history={
+                    Object {
+                      "action": "POP",
+                      "block": [Function],
+                      "canGo": [Function],
+                      "createHref": [Function],
+                      "entries": Array [
+                        Object {
+                          "hash": "",
+                          "key": "ksa69q",
+                          "pathname": "/",
+                          "search": "",
+                          "state": undefined,
+                        },
+                      ],
+                      "go": [Function],
+                      "goBack": [Function],
+                      "goForward": [Function],
+                      "index": 0,
+                      "length": 1,
+                      "listen": [Function],
+                      "location": Object {
+                        "hash": "",
+                        "key": "ksa69q",
+                        "pathname": "/",
+                        "search": "",
+                        "state": undefined,
+                      },
+                      "push": [Function],
+                      "replace": [Function],
+                    }
+                  }
+                  imageCount={0}
+                  location={
+                    Object {
+                      "hash": "",
+                      "key": "ksa69q",
+                      "pathname": "/",
+                      "search": "",
+                      "state": undefined,
+                    }
+                  }
+                  match={
+                    Object {
+                      "isExact": true,
+                      "params": Object {},
+                      "path": "/",
+                      "url": "/",
+                    }
+                  }
+                  service={
+                    Object {
+                      "_id": "ykxcpc3irr",
+                      "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
+                      "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                      "images": Array [],
+                      "name": "dicta",
+                      "price": "59.00",
+                    }
+                  }
+                  state={
+                    Object {
+                      "bonusVideoState": Object {
+                        "currentBonusVideoData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "vimeoURL": "",
+                          "youTubeURL": "",
+                        },
+                        "error": null,
+                        "loadedBonusVideos": Array [],
+                        "loading": false,
+                        "responseMsg": "",
+                      },
+                      "productState": Object {
+                        "currentProductData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "details": "",
+                          "images": Array [],
+                          "name": "",
+                          "price": "",
+                        },
+                        "error": null,
+                        "loadedProducts": Array [],
+                        "loading": false,
+                        "responseMsg": "",
+                      },
+                      "serviceState": Object {
+                        "currentServiceData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "images": Array [],
+                          "name": "",
+                          "price": "",
+                        },
+                        "error": null,
+                        "loadedServices": Array [
+                          Object {
+                            "_id": "o1t8d2petm",
+                            "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                            "images": Array [],
+                            "name": "voluptas",
+                            "price": "53.00",
+                          },
+                          Object {
+                            "_id": "j3azex0eaw",
+                            "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                            "images": Array [],
+                            "name": "deserunt",
+                            "price": "66.00",
+                          },
+                          Object {
+                            "_id": "4w3uueltdj",
+                            "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                            "images": Array [],
+                            "name": "qui",
+                            "price": "77.00",
+                          },
+                          Object {
+                            "_id": "mmx9xvfdq1",
+                            "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                            "images": Array [],
+                            "name": "quod",
+                            "price": "95.00",
+                          },
+                          Object {
+                            "_id": "ykxcpc3irr",
+                            "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
+                            "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                            "images": Array [],
+                            "name": "dicta",
+                            "price": "59.00",
+                          },
+                        ],
+                        "loading": false,
+                        "responseMsg": "All Ok",
+                      },
+                      "storeItemState": Object {
+                        "currentStoreItemData": Object {
+                          "_id": "",
+                          "categories": Array [],
+                          "createdAt": "",
+                          "description": "",
+                          "details": "",
+                          "images": Array [],
+                          "name": "",
+                          "price": "",
+                          "storeId": "",
+                          "storeName": "",
+                        },
+                        "error": null,
+                        "loadedStoreItems": Array [],
+                        "loading": false,
+                        "numberOfItems": 0,
+                        "responseMsg": "",
+                      },
+                      "storeState": Object {
+                        "currentStoreData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "images": Array [],
+                          "title": "",
+                        },
+                        "error": null,
+                        "loadedStores": Array [],
+                        "loading": false,
+                        "responseMsg": "",
+                      },
+                    }
+                  }
+                >
+                  <GridRow
+                    style={
+                      Object {
+                        "marginTop": "1em",
+                        "padding": "0.5em",
+                      }
+                    }
+                  >
+                    <div
+                      className="row"
+                      style={
+                        Object {
+                          "marginTop": "1em",
+                          "padding": "0.5em",
+                        }
+                      }
+                    >
+                      <div
+                        className="serviceManageDesc"
+                      >
+                        <h3>
+                          Name: 
+                          dicta
+                        </h3>
+                        <p>
+                          <strong>
+                            Description:
+                          </strong>
+                           
+                          In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.
+                        </p>
+                        <span>
+                          Number of Images: 
+                          <strong>
+                            0
+                          </strong>
+                        </span>
+                        <p>
+                          <span>
+                            Created At: 
+                          </span>
+                          2020-Sep-12
+                        </p>
+                      </div>
+                      <div
+                        className="serviceManageCtrls"
+                      >
+                        <Button
+                          as="button"
+                          className="serviceCardBtn"
+                          color="green"
+                          content="Open"
+                          inverted={true}
+                          onClick={[Function]}
+                        >
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui green inverted button serviceCardBtn"
+                                >
+                                  Open
+                                </button>,
+                              }
+                            }
+                          >
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui green inverted button serviceCardBtn"
+                                  >
+                                    Open
+                                  </button>,
+                                }
+                              }
+                            >
+                              <button
+                                className="ui green inverted button serviceCardBtn"
+                                onClick={[Function]}
+                              >
+                                Open
+                              </button>
+                            </RefFindNode>
+                          </Ref>
+                        </Button>
+                        <Button
+                          as="button"
+                          className="serviceCardBtn"
+                          color="orange"
+                          content="Edit"
+                          inverted={true}
+                          onClick={[Function]}
+                        >
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui orange inverted button serviceCardBtn"
+                                >
+                                  Edit
+                                </button>,
+                              }
+                            }
+                          >
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui orange inverted button serviceCardBtn"
+                                  >
+                                    Edit
+                                  </button>,
+                                }
+                              }
+                            >
+                              <button
+                                className="ui orange inverted button serviceCardBtn"
+                                onClick={[Function]}
+                              >
+                                Edit
+                              </button>
+                            </RefFindNode>
+                          </Ref>
+                        </Button>
+                        <Button
+                          as="button"
+                          className="serviceCardBtn"
+                          color="red"
+                          content="Delete"
+                          inverted={true}
+                          onClick={[Function]}
+                        >
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui red inverted button serviceCardBtn"
+                                >
+                                  Delete
+                                </button>,
+                              }
+                            }
+                          >
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui red inverted button serviceCardBtn"
+                                  >
+                                    Delete
+                                  </button>,
+                                }
+                              }
+                            >
+                              <button
+                                className="ui red inverted button serviceCardBtn"
+                                onClick={[Function]}
+                              >
+                                Delete
+                              </button>
+                            </RefFindNode>
+                          </Ref>
+                        </Button>
+                      </div>
+                    </div>
+                  </GridRow>
+                </ServiceCard>
+              </withRouter(ServiceCard)>
+            </div>
           </GridColumn>
           <GridColumn
             computer={4}
