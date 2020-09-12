@@ -17,7 +17,7 @@ import { getAllStores, getStore, createStore, editStore,
 // helpers and additional dependencies //
 import { emptyStoreData } from "../../state/reducers/storeReducer";
 import { createMockStores, createMockStoreImage, clearStoreState } from "../../test_helpers/storeHelpers";
-import { ClientStoreData } from "../../components/admin_components/stores/actions/APIstoreActions";
+import { ClientStoreData } from "../../components/admin_components/stores/type_definitions/storeTypes";
 import { AxiosRequestConfig } from "axios";
 
 
@@ -134,7 +134,7 @@ describe("Store Actions Tests", () => {
           });
       });
       it("Should send the correct API request", () => {
-        expect(requestConfig.url).to.eq("/api/stores/");
+        expect(requestConfig.url).to.eq("/api/stores");
         expect(requestConfig.method).to.eq("get");
       });
       it("Should return the correct new state", () => {
@@ -175,8 +175,8 @@ describe("Store Actions Tests", () => {
         });
         // mock action with moxios //
         getStore(mockStore._id, dispatch)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -230,8 +230,8 @@ describe("Store Actions Tests", () => {
         };
         // mock action with moxios //
         createStore(newStore, dispatch)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -296,8 +296,8 @@ describe("Store Actions Tests", () => {
         };
         // mock action with moxios //
         editStore(editedStore._id, storeUpdate, dispatch, state)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -359,8 +359,8 @@ describe("Store Actions Tests", () => {
         });
         // mock action with moxios //
         deleteStore(deletedStore._id, dispatch, state)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -414,8 +414,8 @@ describe("Store Actions Tests", () => {
         // mock action with moxios //
         const formData = new FormData();
         uploadStoreImage(updatedStore._id, formData, state, dispatch) 
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -475,8 +475,8 @@ describe("Store Actions Tests", () => {
         });
         // mock action with moxios //
         deleteStoreImage(deletedImage._id, state, dispatch) 
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -576,8 +576,8 @@ describe("Store Actions Tests", () => {
           request.reject(error)
         });
         getStore(store._id, dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -613,8 +613,8 @@ describe("Store Actions Tests", () => {
           request.reject(error)
         });
         createStore(store, dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -650,8 +650,8 @@ describe("Store Actions Tests", () => {
           request.reject(error)
         });
         editStore(store._id, store, dispatch, state)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -687,8 +687,8 @@ describe("Store Actions Tests", () => {
           request.reject(error)
         });
         deleteStore(store._id, dispatch, state)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -725,8 +725,8 @@ describe("Store Actions Tests", () => {
         });
         const mockImg = new FormData();
         uploadStoreImage(store._id, mockImg, state, dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -762,8 +762,8 @@ describe("Store Actions Tests", () => {
           request.reject(error)
         });
         deleteStoreImage(storeImage._id, state, dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
