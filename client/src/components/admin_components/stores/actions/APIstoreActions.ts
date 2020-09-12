@@ -1,42 +1,16 @@
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
 import { Dispatch } from "react";
+// type definitions //
 import { IGlobalAppState } from "../../../../state/Store";
-
-interface IStoreImgServerRes {
-  data: IStoreImgServerResData;
-}
-interface IStoreImgServerResData {
-  responseMsg: string;
-  newStoreImage?: IStoreImgData;
-  deletedStoreImage?: IStoreImgData;
-  updatedStore: IStoreData;
-}
-interface IStoreServerResponse {
-  data: IStoreServerResData
-}
-interface IStoreServerResData {
-  responseMsg: string;
-  store?: IStoreData;
-  newStore?: IStoreData;
-  editedStore?: IStoreData;
-  deletedStore?: IStoreData;
-  stores?: IStoreData[];
-}
-
-export type ClientStoreData = {
-  title: string;
-  description: string;
-  images: IStoreImgData[]
-}
-type StoreQuery = {
-  storeName?: string;
-  limit?: string;
-}
+import {
+  StoreQuery, IStoreServerResData, IStoreServerResponse,
+  IStoreImgServerResData, IStoreImgServerRes, ClientStoreData
+} from "../type_definitions/storeTypes";
 
 export const getAllStores = (dispatch: Dispatch<StoreAction>, queryOptions?: StoreQuery): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
-    url: "/api/stores/",
+    url: "/api/stores",
     params: queryOptions
   };
   dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true } });
@@ -61,7 +35,7 @@ export const getAllStores = (dispatch: Dispatch<StoreAction>, queryOptions?: Sto
       return Promise.reject()
     });
 };
-export const getStoreByName = (name: string, dispatch: Dispatch<StoreAction>): Promise<boolean> => {
+export const getStoreByName = (name: string, dispatch: Dispatch<StoreAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/stores",
@@ -69,12 +43,13 @@ export const getStoreByName = (name: string, dispatch: Dispatch<StoreAction>): P
       name: name
     }
   };
+  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true } });
   return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
       const { data } = response;
       const store = data.store;
       if (!store) {
-        return false;
+        return Promise.reject();
       }
       dispatch({ type: "GET_STORE", payload: {
         loading: false,
@@ -82,7 +57,7 @@ export const getStoreByName = (name: string, dispatch: Dispatch<StoreAction>): P
         currentStoreData: store, 
         error: null
       }});
-      return true
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_STORE_ERROR", payload: {
@@ -90,14 +65,16 @@ export const getStoreByName = (name: string, dispatch: Dispatch<StoreAction>): P
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
+  
 }
-export const getStore = (_id: string, dispatch: Dispatch<StoreAction>): Promise<boolean> => {
+export const getStore = (_id: string, dispatch: Dispatch<StoreAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/stores/" + _id,
   };
+  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true } });
   return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -108,7 +85,7 @@ export const getStore = (_id: string, dispatch: Dispatch<StoreAction>): Promise<
         currentStoreData: store,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_STORE_ERROR", payload: {
@@ -116,11 +93,11 @@ export const getStore = (_id: string, dispatch: Dispatch<StoreAction>): Promise<
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const createStore = ({ title, description, images }: ClientStoreData, dispatch: Dispatch<StoreAction>): Promise<boolean> => {
+export const createStore = ({ title, description, images }: ClientStoreData, dispatch: Dispatch<StoreAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/stores/create",
@@ -130,7 +107,7 @@ export const createStore = ({ title, description, images }: ClientStoreData, dis
       images: images,
     }
   };
-
+  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true } });
   return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -141,7 +118,7 @@ export const createStore = ({ title, description, images }: ClientStoreData, dis
         newStore: newStore,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_STORE_ERROR", payload: {
@@ -149,11 +126,11 @@ export const createStore = ({ title, description, images }: ClientStoreData, dis
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const editStore = (_id: string, data: ClientStoreData, dispatch: Dispatch<StoreAction>, state: IGlobalAppState) => {
+export const editStore = (_id: string, data: ClientStoreData, dispatch: Dispatch<StoreAction>, state: IGlobalAppState): Promise<void> => {
   const { loadedStores } = state.storeState;
   const requestOptions: AxiosRequestConfig = {
     method: "patch",
@@ -162,6 +139,7 @@ export const editStore = (_id: string, data: ClientStoreData, dispatch: Dispatch
       ...data,
     }
   };
+  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true } });
   return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -180,7 +158,7 @@ export const editStore = (_id: string, data: ClientStoreData, dispatch: Dispatch
         loadedStores: updatedStores,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_STORE_ERROR", payload: {
@@ -188,15 +166,17 @@ export const editStore = (_id: string, data: ClientStoreData, dispatch: Dispatch
         responseMsg: error.message,
         error: error
       }});
+      return Promise.reject();
     });
 };
 
-export const deleteStore = (_id: string, dispatch: Dispatch<StoreAction>, state: IGlobalAppState): Promise<boolean> => {
+export const deleteStore = (_id: string, dispatch: Dispatch<StoreAction>, state: IGlobalAppState): Promise<void> => {
   const { loadedStores } = state.storeState;
   const requestOptions: AxiosRequestConfig = {
     method: "delete",
     url: "/api/stores/delete/" + _id,
   };
+  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true } });
   return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -211,7 +191,7 @@ export const deleteStore = (_id: string, dispatch: Dispatch<StoreAction>, state:
         loadedStores: updatedStores,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_STORE_ERROR", payload: {
@@ -219,18 +199,18 @@ export const deleteStore = (_id: string, dispatch: Dispatch<StoreAction>, state:
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const uploadStoreImage = (_store_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<StoreAction>): Promise<boolean> => {
+export const uploadStoreImage = (_store_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<StoreAction>): Promise<void> => {
   const { loadedStores } = state.storeState;
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/uploads/store_images/" + _store_id,
     data: imageFile
   };
-
+  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true } });
   return axios.request<IStoreImgServerResData, IStoreImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -250,7 +230,7 @@ export const uploadStoreImage = (_store_id: string, imageFile: FormData, state: 
         loadedStores: updatedStores,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_STORE_ERROR", payload: {
@@ -258,11 +238,11 @@ export const uploadStoreImage = (_store_id: string, imageFile: FormData, state: 
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const deleteStoreImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<StoreAction>): Promise<boolean> => {
+export const deleteStoreImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<StoreAction>): Promise<void> => {
   const { loadedStores } = state.storeState; 
   const { _id: storeId } = state.storeState.currentStoreData;
 
@@ -270,7 +250,7 @@ export const deleteStoreImage = (imgId: string, state: IGlobalAppState, dispatch
     method: "delete",
     url: "/api/uploads/store_images/" + imgId + "/" + storeId
   };
-
+  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true } });
   return axios.request<IStoreImgServerResData, IStoreImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -291,7 +271,7 @@ export const deleteStoreImage = (imgId: string, state: IGlobalAppState, dispatch
         loadedStores: updatedStores,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_STORE_ERROR", payload: {
@@ -299,7 +279,7 @@ export const deleteStoreImage = (imgId: string, state: IGlobalAppState, dispatch
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     })
 };
 
