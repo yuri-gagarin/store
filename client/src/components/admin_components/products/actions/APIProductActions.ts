@@ -32,11 +32,12 @@ export type ClientProductData = {
   images: IProductImgData[]
 }
 
-export const getAllProducts = (dispatch: Dispatch<ProductAction>): Promise<boolean> => {
+export const getAllProducts = (dispatch: Dispatch<ProductAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
-    url: "/api/products"
+    url: "/api/products/"
   };
+  dispatch({ type: "DISPATCH_PRODUCT_API_REQUEST", payload: { loading: true } });
   return axios.request<IProductServerResData, IProductServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -47,7 +48,7 @@ export const getAllProducts = (dispatch: Dispatch<ProductAction>): Promise<boole
         loadedProducts: products,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_PRODUCT_ERROR", payload: {
@@ -55,7 +56,7 @@ export const getAllProducts = (dispatch: Dispatch<ProductAction>): Promise<boole
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject(error);
     });
 };
 

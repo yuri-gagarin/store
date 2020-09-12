@@ -7,6 +7,12 @@ type GetAllProducts = {
     error: null | Error;
   };
 }
+type DispatchProductAPIRequest = {
+  readonly type: "DISPATCH_PRODUCT_API_REQUEST",
+  readonly payload: {
+    loading: boolean;
+  }
+}
 type SetCurrentProduct = {
   readonly type: "SET_CURRENT_PRODUCT";
   payload: {
@@ -103,7 +109,7 @@ type ClearProductError = {
   };
 }
 
-declare interface IProductImgData {
+interface IProductImgData {
   _id: string;
   description?: string;
   url: string;
@@ -113,7 +119,7 @@ declare interface IProductImgData {
   createdAt: string;
   editedAt?: string;
 }
-declare interface IProductData {
+interface IProductData {
   _id: string;
   name: string;
   details: string;
@@ -123,12 +129,11 @@ declare interface IProductData {
   createdAt: string;
   editedAt?: string;
 }
-declare interface IProductState {
+interface IProductState {
   loading: boolean;
   responseMsg: string;
   currentProductData: IProductData;
   loadedProducts: IProductData[]
   error: null | Error;
 }
-declare type ProductAction = GetAllProducts | GetProduct | SetCurrentProduct | ClearCurrentProduct | CreateProduct | EditProduct | 
-                          DeleteProduct | SetProductError | ClearProductError | UploadNewProductImg | UpdateProductImgs | DeleteProductImg;
+type ProductAction = DispatchProductAPIRequest | GetAllProducts | GetProduct | SetCurrentProduct | ClearCurrentProduct | CreateProduct | EditProduct | DeleteProduct | SetProductError | ClearProductError | UploadNewProductImg | UpdateProductImgs | DeleteProductImg;

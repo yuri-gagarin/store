@@ -109,7 +109,7 @@ type ClearServiceError = {
   };
 }
 
-declare interface IServiceImgData {
+interface IServiceImgData {
   _id: string;
   description?: string;
   url: string;
@@ -119,7 +119,7 @@ declare interface IServiceImgData {
   createdAt: string;
   editedAt?: string;
 }
-declare interface IServiceData {
+interface IServiceData {
   _id: string;
   name: string;
   description: string;
@@ -128,11 +128,11 @@ declare interface IServiceData {
   createdAt: string;
   editedAt?: string;
 }
-declare interface IServiceState {
+interface IServiceState {
   loading: boolean;
   responseMsg: string;
   currentServiceData: IServiceData;
   loadedServices: IServiceData[]
   error: null | Error;
 }
-declare type ServiceAction = GetAllServices | DispatchServiceAPIRequest | GetService | SetCurrentService | ClearCurrentService | CreateService | EditService | DeleteService | SetServiceError | ClearServiceError | UploadNewServiceImg | UpdateServiceImgs | DeleteServiceImg;
+type ServiceAction = GetAllServices | DispatchServiceAPIRequest | GetService | SetCurrentService | ClearCurrentService | CreateService | EditService | DeleteService | SetServiceError | ClearServiceError | UploadNewServiceImg | UpdateServiceImgs | DeleteServiceImg;

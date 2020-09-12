@@ -37,7 +37,7 @@ const ServiceManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
           setNewDataLoaded(false);
         })
     }
-     
+    return () => { isMounted = false };
   }, [dispatch]); 
 
   useEffect(() => {

@@ -77,7 +77,7 @@ type ClearBonusVideoError = {
   };
 }
 
-declare interface IBonusVideoData {
+interface IBonusVideoData {
   _id: string;
   description: string;
   youTubeURL: string;
@@ -85,12 +85,12 @@ declare interface IBonusVideoData {
   createdAt: string;
   editedAt?: string;
 }
-declare interface IBonusVideoState {
+interface IBonusVideoState {
   loading: boolean;
   responseMsg: string;
   currentBonusVideoData: IBonusVideoData;
   loadedBonusVideos: IBonusVideoData[]
   error: null | Error;
 }
-declare type BonusVideoAction = GetAllBonusVideos | GetBonusVideo | SetCurrentBonusVideo | ClearCurrentBonusVideo | CreateBonusVideo | EditBonusVideo | 
+type BonusVideoAction = GetAllBonusVideos | GetBonusVideo | SetCurrentBonusVideo | ClearCurrentBonusVideo | CreateBonusVideo | EditBonusVideo | 
                           DeleteBonusVideo | SetBonusVideoError | ClearBonusVideoError;
