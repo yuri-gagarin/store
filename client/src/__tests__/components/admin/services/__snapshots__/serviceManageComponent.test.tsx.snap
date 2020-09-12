@@ -12,7 +12,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
         "entries": Array [
           Object {
             "hash": "",
-            "key": "6ly42f",
+            "key": "w3uphm",
             "pathname": "/",
             "search": "",
             "state": undefined,
@@ -26,7 +26,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "6ly42f",
+          "key": "w3uphm",
           "pathname": "/",
           "search": "",
           "state": undefined,
@@ -48,7 +48,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
               "entries": Array [
                 Object {
                   "hash": "",
-                  "key": "6ly42f",
+                  "key": "w3uphm",
                   "pathname": "/",
                   "search": "",
                   "state": undefined,
@@ -62,7 +62,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
               "listen": [Function],
               "location": Object {
                 "hash": "",
-                "key": "6ly42f",
+                "key": "w3uphm",
                 "pathname": "/",
                 "search": "",
                 "state": undefined,
@@ -74,7 +74,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
           location={
             Object {
               "hash": "",
-              "key": "6ly42f",
+              "key": "w3uphm",
               "pathname": "/",
               "search": "",
               "state": undefined,
@@ -197,15 +197,15 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
               <withRouter(ServiceCard)
                 dispatch={[Function]}
                 imageCount={0}
-                key="o1t8d2petm"
+                key="z24pjjhnkp"
                 service={
                   Object {
-                    "_id": "o1t8d2petm",
-                    "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                    "_id": "z24pjjhnkp",
+                    "createdAt": "Sat Sep 12 2020 12:19:40 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Dignissimos est est nihil nostrum distinctio expedita nemo. Rerum minima alias. Error quis dignissimos. Qui aut unde molestiae mollitia mollitia cumque reiciendis.",
                     "images": Array [],
-                    "name": "voluptas",
-                    "price": "53.00",
+                    "name": "aliquam",
+                    "price": "96.00",
                   }
                 }
                 state={
@@ -250,44 +250,44 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       "error": null,
                       "loadedServices": Array [
                         Object {
-                          "_id": "o1t8d2petm",
-                          "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                          "_id": "z24pjjhnkp",
+                          "createdAt": "Sat Sep 12 2020 12:19:40 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Dignissimos est est nihil nostrum distinctio expedita nemo. Rerum minima alias. Error quis dignissimos. Qui aut unde molestiae mollitia mollitia cumque reiciendis.",
                           "images": Array [],
-                          "name": "voluptas",
-                          "price": "53.00",
+                          "name": "aliquam",
+                          "price": "96.00",
                         },
                         Object {
-                          "_id": "j3azex0eaw",
-                          "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                          "_id": "5yf82e8g2b",
+                          "createdAt": "Sat Sep 12 2020 06:41:54 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Aut saepe quia hic sit quo tenetur et reiciendis quas. Dicta consequuntur eum earum sed reprehenderit ea eum voluptate. Nostrum ad omnis velit autem nostrum delectus. Maxime aut aut sequi suscipit ullam. Quasi sit cum quae iste mollitia.",
                           "images": Array [],
-                          "name": "deserunt",
-                          "price": "66.00",
+                          "name": "quisquam",
+                          "price": "38.00",
                         },
                         Object {
-                          "_id": "4w3uueltdj",
-                          "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                          "_id": "b1pkezpmnk",
+                          "createdAt": "Sat Sep 12 2020 14:14:04 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Ducimus eum sit culpa reprehenderit aut error illo. Qui aliquam ipsum dolores reprehenderit iusto debitis ducimus. Earum consequuntur qui laboriosam occaecati provident quas illo sit blanditiis. Qui sint blanditiis minus eos voluptatum illo.",
                           "images": Array [],
-                          "name": "qui",
-                          "price": "77.00",
+                          "name": "blanditiis",
+                          "price": "52.00",
                         },
                         Object {
-                          "_id": "mmx9xvfdq1",
-                          "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                          "_id": "z6ezcqpqvq",
+                          "createdAt": "Sat Sep 12 2020 22:34:24 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Unde est est consequatur. Et et et ut. Minima optio omnis id. Eos vel rerum nostrum minus laudantium minima hic inventore voluptas.",
                           "images": Array [],
-                          "name": "quod",
-                          "price": "95.00",
+                          "name": "earum",
+                          "price": "88.00",
                         },
                         Object {
-                          "_id": "ykxcpc3irr",
-                          "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
-                          "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                          "_id": "akdbkgfinf",
+                          "createdAt": "Sat Sep 12 2020 22:26:52 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Quisquam debitis dolores totam occaecati consequatur veniam ad asperiores. Eveniet eos voluptas nihil quia excepturi veniam blanditiis aliquam. Molestiae voluptas culpa est perspiciatis sed nesciunt ratione. Vel voluptates possimus dolores laborum et et. Velit enim totam at accusantium est.",
                           "images": Array [],
-                          "name": "dicta",
-                          "price": "59.00",
+                          "name": "et",
+                          "price": "34.00",
                         },
                       ],
                       "loading": false,
@@ -339,7 +339,7 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       "entries": Array [
                         Object {
                           "hash": "",
-                          "key": "ksa69q",
+                          "key": "ktpw8e",
                           "pathname": "/",
                           "search": "",
                           "state": undefined,
@@ -353,7 +353,7 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       "listen": [Function],
                       "location": Object {
                         "hash": "",
-                        "key": "ksa69q",
+                        "key": "ktpw8e",
                         "pathname": "/",
                         "search": "",
                         "state": undefined,
@@ -366,7 +366,7 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                   location={
                     Object {
                       "hash": "",
-                      "key": "ksa69q",
+                      "key": "ktpw8e",
                       "pathname": "/",
                       "search": "",
                       "state": undefined,
@@ -382,12 +382,12 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                   }
                   service={
                     Object {
-                      "_id": "o1t8d2petm",
-                      "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
-                      "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                      "_id": "z24pjjhnkp",
+                      "createdAt": "Sat Sep 12 2020 12:19:40 GMT+0300 (Eastern European Summer Time)",
+                      "description": "Dignissimos est est nihil nostrum distinctio expedita nemo. Rerum minima alias. Error quis dignissimos. Qui aut unde molestiae mollitia mollitia cumque reiciendis.",
                       "images": Array [],
-                      "name": "voluptas",
-                      "price": "53.00",
+                      "name": "aliquam",
+                      "price": "96.00",
                     }
                   }
                   state={
@@ -432,44 +432,44 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                         "error": null,
                         "loadedServices": Array [
                           Object {
-                            "_id": "o1t8d2petm",
-                            "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                            "_id": "z24pjjhnkp",
+                            "createdAt": "Sat Sep 12 2020 12:19:40 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Dignissimos est est nihil nostrum distinctio expedita nemo. Rerum minima alias. Error quis dignissimos. Qui aut unde molestiae mollitia mollitia cumque reiciendis.",
                             "images": Array [],
-                            "name": "voluptas",
-                            "price": "53.00",
+                            "name": "aliquam",
+                            "price": "96.00",
                           },
                           Object {
-                            "_id": "j3azex0eaw",
-                            "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                            "_id": "5yf82e8g2b",
+                            "createdAt": "Sat Sep 12 2020 06:41:54 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Aut saepe quia hic sit quo tenetur et reiciendis quas. Dicta consequuntur eum earum sed reprehenderit ea eum voluptate. Nostrum ad omnis velit autem nostrum delectus. Maxime aut aut sequi suscipit ullam. Quasi sit cum quae iste mollitia.",
                             "images": Array [],
-                            "name": "deserunt",
-                            "price": "66.00",
+                            "name": "quisquam",
+                            "price": "38.00",
                           },
                           Object {
-                            "_id": "4w3uueltdj",
-                            "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                            "_id": "b1pkezpmnk",
+                            "createdAt": "Sat Sep 12 2020 14:14:04 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Ducimus eum sit culpa reprehenderit aut error illo. Qui aliquam ipsum dolores reprehenderit iusto debitis ducimus. Earum consequuntur qui laboriosam occaecati provident quas illo sit blanditiis. Qui sint blanditiis minus eos voluptatum illo.",
                             "images": Array [],
-                            "name": "qui",
-                            "price": "77.00",
+                            "name": "blanditiis",
+                            "price": "52.00",
                           },
                           Object {
-                            "_id": "mmx9xvfdq1",
-                            "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                            "_id": "z6ezcqpqvq",
+                            "createdAt": "Sat Sep 12 2020 22:34:24 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Unde est est consequatur. Et et et ut. Minima optio omnis id. Eos vel rerum nostrum minus laudantium minima hic inventore voluptas.",
                             "images": Array [],
-                            "name": "quod",
-                            "price": "95.00",
+                            "name": "earum",
+                            "price": "88.00",
                           },
                           Object {
-                            "_id": "ykxcpc3irr",
-                            "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
-                            "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                            "_id": "akdbkgfinf",
+                            "createdAt": "Sat Sep 12 2020 22:26:52 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Quisquam debitis dolores totam occaecati consequatur veniam ad asperiores. Eveniet eos voluptas nihil quia excepturi veniam blanditiis aliquam. Molestiae voluptas culpa est perspiciatis sed nesciunt ratione. Vel voluptates possimus dolores laborum et et. Velit enim totam at accusantium est.",
                             "images": Array [],
-                            "name": "dicta",
-                            "price": "59.00",
+                            "name": "et",
+                            "price": "34.00",
                           },
                         ],
                         "loading": false,
@@ -532,14 +532,14 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       >
                         <h3>
                           Name: 
-                          voluptas
+                          aliquam
                         </h3>
                         <p>
                           <strong>
                             Description:
                           </strong>
                            
-                          Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.
+                          Dignissimos est est nihil nostrum distinctio expedita nemo. Rerum minima alias. Error quis dignissimos. Qui aut unde molestiae mollitia mollitia cumque reiciendis.
                         </p>
                         <span>
                           Number of Images: 
@@ -682,15 +682,15 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
               <withRouter(ServiceCard)
                 dispatch={[Function]}
                 imageCount={0}
-                key="j3azex0eaw"
+                key="5yf82e8g2b"
                 service={
                   Object {
-                    "_id": "j3azex0eaw",
-                    "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                    "_id": "5yf82e8g2b",
+                    "createdAt": "Sat Sep 12 2020 06:41:54 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Aut saepe quia hic sit quo tenetur et reiciendis quas. Dicta consequuntur eum earum sed reprehenderit ea eum voluptate. Nostrum ad omnis velit autem nostrum delectus. Maxime aut aut sequi suscipit ullam. Quasi sit cum quae iste mollitia.",
                     "images": Array [],
-                    "name": "deserunt",
-                    "price": "66.00",
+                    "name": "quisquam",
+                    "price": "38.00",
                   }
                 }
                 state={
@@ -735,44 +735,44 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       "error": null,
                       "loadedServices": Array [
                         Object {
-                          "_id": "o1t8d2petm",
-                          "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                          "_id": "z24pjjhnkp",
+                          "createdAt": "Sat Sep 12 2020 12:19:40 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Dignissimos est est nihil nostrum distinctio expedita nemo. Rerum minima alias. Error quis dignissimos. Qui aut unde molestiae mollitia mollitia cumque reiciendis.",
                           "images": Array [],
-                          "name": "voluptas",
-                          "price": "53.00",
+                          "name": "aliquam",
+                          "price": "96.00",
                         },
                         Object {
-                          "_id": "j3azex0eaw",
-                          "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                          "_id": "5yf82e8g2b",
+                          "createdAt": "Sat Sep 12 2020 06:41:54 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Aut saepe quia hic sit quo tenetur et reiciendis quas. Dicta consequuntur eum earum sed reprehenderit ea eum voluptate. Nostrum ad omnis velit autem nostrum delectus. Maxime aut aut sequi suscipit ullam. Quasi sit cum quae iste mollitia.",
                           "images": Array [],
-                          "name": "deserunt",
-                          "price": "66.00",
+                          "name": "quisquam",
+                          "price": "38.00",
                         },
                         Object {
-                          "_id": "4w3uueltdj",
-                          "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                          "_id": "b1pkezpmnk",
+                          "createdAt": "Sat Sep 12 2020 14:14:04 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Ducimus eum sit culpa reprehenderit aut error illo. Qui aliquam ipsum dolores reprehenderit iusto debitis ducimus. Earum consequuntur qui laboriosam occaecati provident quas illo sit blanditiis. Qui sint blanditiis minus eos voluptatum illo.",
                           "images": Array [],
-                          "name": "qui",
-                          "price": "77.00",
+                          "name": "blanditiis",
+                          "price": "52.00",
                         },
                         Object {
-                          "_id": "mmx9xvfdq1",
-                          "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                          "_id": "z6ezcqpqvq",
+                          "createdAt": "Sat Sep 12 2020 22:34:24 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Unde est est consequatur. Et et et ut. Minima optio omnis id. Eos vel rerum nostrum minus laudantium minima hic inventore voluptas.",
                           "images": Array [],
-                          "name": "quod",
-                          "price": "95.00",
+                          "name": "earum",
+                          "price": "88.00",
                         },
                         Object {
-                          "_id": "ykxcpc3irr",
-                          "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
-                          "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                          "_id": "akdbkgfinf",
+                          "createdAt": "Sat Sep 12 2020 22:26:52 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Quisquam debitis dolores totam occaecati consequatur veniam ad asperiores. Eveniet eos voluptas nihil quia excepturi veniam blanditiis aliquam. Molestiae voluptas culpa est perspiciatis sed nesciunt ratione. Vel voluptates possimus dolores laborum et et. Velit enim totam at accusantium est.",
                           "images": Array [],
-                          "name": "dicta",
-                          "price": "59.00",
+                          "name": "et",
+                          "price": "34.00",
                         },
                       ],
                       "loading": false,
@@ -824,7 +824,7 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       "entries": Array [
                         Object {
                           "hash": "",
-                          "key": "ksa69q",
+                          "key": "ktpw8e",
                           "pathname": "/",
                           "search": "",
                           "state": undefined,
@@ -838,7 +838,7 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       "listen": [Function],
                       "location": Object {
                         "hash": "",
-                        "key": "ksa69q",
+                        "key": "ktpw8e",
                         "pathname": "/",
                         "search": "",
                         "state": undefined,
@@ -851,7 +851,7 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                   location={
                     Object {
                       "hash": "",
-                      "key": "ksa69q",
+                      "key": "ktpw8e",
                       "pathname": "/",
                       "search": "",
                       "state": undefined,
@@ -867,12 +867,12 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                   }
                   service={
                     Object {
-                      "_id": "j3azex0eaw",
-                      "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
-                      "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                      "_id": "5yf82e8g2b",
+                      "createdAt": "Sat Sep 12 2020 06:41:54 GMT+0300 (Eastern European Summer Time)",
+                      "description": "Aut saepe quia hic sit quo tenetur et reiciendis quas. Dicta consequuntur eum earum sed reprehenderit ea eum voluptate. Nostrum ad omnis velit autem nostrum delectus. Maxime aut aut sequi suscipit ullam. Quasi sit cum quae iste mollitia.",
                       "images": Array [],
-                      "name": "deserunt",
-                      "price": "66.00",
+                      "name": "quisquam",
+                      "price": "38.00",
                     }
                   }
                   state={
@@ -917,44 +917,44 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                         "error": null,
                         "loadedServices": Array [
                           Object {
-                            "_id": "o1t8d2petm",
-                            "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                            "_id": "z24pjjhnkp",
+                            "createdAt": "Sat Sep 12 2020 12:19:40 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Dignissimos est est nihil nostrum distinctio expedita nemo. Rerum minima alias. Error quis dignissimos. Qui aut unde molestiae mollitia mollitia cumque reiciendis.",
                             "images": Array [],
-                            "name": "voluptas",
-                            "price": "53.00",
+                            "name": "aliquam",
+                            "price": "96.00",
                           },
                           Object {
-                            "_id": "j3azex0eaw",
-                            "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                            "_id": "5yf82e8g2b",
+                            "createdAt": "Sat Sep 12 2020 06:41:54 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Aut saepe quia hic sit quo tenetur et reiciendis quas. Dicta consequuntur eum earum sed reprehenderit ea eum voluptate. Nostrum ad omnis velit autem nostrum delectus. Maxime aut aut sequi suscipit ullam. Quasi sit cum quae iste mollitia.",
                             "images": Array [],
-                            "name": "deserunt",
-                            "price": "66.00",
+                            "name": "quisquam",
+                            "price": "38.00",
                           },
                           Object {
-                            "_id": "4w3uueltdj",
-                            "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                            "_id": "b1pkezpmnk",
+                            "createdAt": "Sat Sep 12 2020 14:14:04 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Ducimus eum sit culpa reprehenderit aut error illo. Qui aliquam ipsum dolores reprehenderit iusto debitis ducimus. Earum consequuntur qui laboriosam occaecati provident quas illo sit blanditiis. Qui sint blanditiis minus eos voluptatum illo.",
                             "images": Array [],
-                            "name": "qui",
-                            "price": "77.00",
+                            "name": "blanditiis",
+                            "price": "52.00",
                           },
                           Object {
-                            "_id": "mmx9xvfdq1",
-                            "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                            "_id": "z6ezcqpqvq",
+                            "createdAt": "Sat Sep 12 2020 22:34:24 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Unde est est consequatur. Et et et ut. Minima optio omnis id. Eos vel rerum nostrum minus laudantium minima hic inventore voluptas.",
                             "images": Array [],
-                            "name": "quod",
-                            "price": "95.00",
+                            "name": "earum",
+                            "price": "88.00",
                           },
                           Object {
-                            "_id": "ykxcpc3irr",
-                            "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
-                            "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                            "_id": "akdbkgfinf",
+                            "createdAt": "Sat Sep 12 2020 22:26:52 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Quisquam debitis dolores totam occaecati consequatur veniam ad asperiores. Eveniet eos voluptas nihil quia excepturi veniam blanditiis aliquam. Molestiae voluptas culpa est perspiciatis sed nesciunt ratione. Vel voluptates possimus dolores laborum et et. Velit enim totam at accusantium est.",
                             "images": Array [],
-                            "name": "dicta",
-                            "price": "59.00",
+                            "name": "et",
+                            "price": "34.00",
                           },
                         ],
                         "loading": false,
@@ -1017,14 +1017,14 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       >
                         <h3>
                           Name: 
-                          deserunt
+                          quisquam
                         </h3>
                         <p>
                           <strong>
                             Description:
                           </strong>
                            
-                          Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.
+                          Aut saepe quia hic sit quo tenetur et reiciendis quas. Dicta consequuntur eum earum sed reprehenderit ea eum voluptate. Nostrum ad omnis velit autem nostrum delectus. Maxime aut aut sequi suscipit ullam. Quasi sit cum quae iste mollitia.
                         </p>
                         <span>
                           Number of Images: 
@@ -1167,15 +1167,15 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
               <withRouter(ServiceCard)
                 dispatch={[Function]}
                 imageCount={0}
-                key="4w3uueltdj"
+                key="b1pkezpmnk"
                 service={
                   Object {
-                    "_id": "4w3uueltdj",
-                    "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                    "_id": "b1pkezpmnk",
+                    "createdAt": "Sat Sep 12 2020 14:14:04 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Ducimus eum sit culpa reprehenderit aut error illo. Qui aliquam ipsum dolores reprehenderit iusto debitis ducimus. Earum consequuntur qui laboriosam occaecati provident quas illo sit blanditiis. Qui sint blanditiis minus eos voluptatum illo.",
                     "images": Array [],
-                    "name": "qui",
-                    "price": "77.00",
+                    "name": "blanditiis",
+                    "price": "52.00",
                   }
                 }
                 state={
@@ -1220,44 +1220,44 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       "error": null,
                       "loadedServices": Array [
                         Object {
-                          "_id": "o1t8d2petm",
-                          "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                          "_id": "z24pjjhnkp",
+                          "createdAt": "Sat Sep 12 2020 12:19:40 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Dignissimos est est nihil nostrum distinctio expedita nemo. Rerum minima alias. Error quis dignissimos. Qui aut unde molestiae mollitia mollitia cumque reiciendis.",
                           "images": Array [],
-                          "name": "voluptas",
-                          "price": "53.00",
+                          "name": "aliquam",
+                          "price": "96.00",
                         },
                         Object {
-                          "_id": "j3azex0eaw",
-                          "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                          "_id": "5yf82e8g2b",
+                          "createdAt": "Sat Sep 12 2020 06:41:54 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Aut saepe quia hic sit quo tenetur et reiciendis quas. Dicta consequuntur eum earum sed reprehenderit ea eum voluptate. Nostrum ad omnis velit autem nostrum delectus. Maxime aut aut sequi suscipit ullam. Quasi sit cum quae iste mollitia.",
                           "images": Array [],
-                          "name": "deserunt",
-                          "price": "66.00",
+                          "name": "quisquam",
+                          "price": "38.00",
                         },
                         Object {
-                          "_id": "4w3uueltdj",
-                          "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                          "_id": "b1pkezpmnk",
+                          "createdAt": "Sat Sep 12 2020 14:14:04 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Ducimus eum sit culpa reprehenderit aut error illo. Qui aliquam ipsum dolores reprehenderit iusto debitis ducimus. Earum consequuntur qui laboriosam occaecati provident quas illo sit blanditiis. Qui sint blanditiis minus eos voluptatum illo.",
                           "images": Array [],
-                          "name": "qui",
-                          "price": "77.00",
+                          "name": "blanditiis",
+                          "price": "52.00",
                         },
                         Object {
-                          "_id": "mmx9xvfdq1",
-                          "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                          "_id": "z6ezcqpqvq",
+                          "createdAt": "Sat Sep 12 2020 22:34:24 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Unde est est consequatur. Et et et ut. Minima optio omnis id. Eos vel rerum nostrum minus laudantium minima hic inventore voluptas.",
                           "images": Array [],
-                          "name": "quod",
-                          "price": "95.00",
+                          "name": "earum",
+                          "price": "88.00",
                         },
                         Object {
-                          "_id": "ykxcpc3irr",
-                          "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
-                          "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                          "_id": "akdbkgfinf",
+                          "createdAt": "Sat Sep 12 2020 22:26:52 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Quisquam debitis dolores totam occaecati consequatur veniam ad asperiores. Eveniet eos voluptas nihil quia excepturi veniam blanditiis aliquam. Molestiae voluptas culpa est perspiciatis sed nesciunt ratione. Vel voluptates possimus dolores laborum et et. Velit enim totam at accusantium est.",
                           "images": Array [],
-                          "name": "dicta",
-                          "price": "59.00",
+                          "name": "et",
+                          "price": "34.00",
                         },
                       ],
                       "loading": false,
@@ -1309,7 +1309,7 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       "entries": Array [
                         Object {
                           "hash": "",
-                          "key": "ksa69q",
+                          "key": "ktpw8e",
                           "pathname": "/",
                           "search": "",
                           "state": undefined,
@@ -1323,7 +1323,7 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       "listen": [Function],
                       "location": Object {
                         "hash": "",
-                        "key": "ksa69q",
+                        "key": "ktpw8e",
                         "pathname": "/",
                         "search": "",
                         "state": undefined,
@@ -1336,7 +1336,7 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                   location={
                     Object {
                       "hash": "",
-                      "key": "ksa69q",
+                      "key": "ktpw8e",
                       "pathname": "/",
                       "search": "",
                       "state": undefined,
@@ -1352,12 +1352,12 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                   }
                   service={
                     Object {
-                      "_id": "4w3uueltdj",
-                      "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
-                      "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                      "_id": "b1pkezpmnk",
+                      "createdAt": "Sat Sep 12 2020 14:14:04 GMT+0300 (Eastern European Summer Time)",
+                      "description": "Ducimus eum sit culpa reprehenderit aut error illo. Qui aliquam ipsum dolores reprehenderit iusto debitis ducimus. Earum consequuntur qui laboriosam occaecati provident quas illo sit blanditiis. Qui sint blanditiis minus eos voluptatum illo.",
                       "images": Array [],
-                      "name": "qui",
-                      "price": "77.00",
+                      "name": "blanditiis",
+                      "price": "52.00",
                     }
                   }
                   state={
@@ -1402,44 +1402,44 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                         "error": null,
                         "loadedServices": Array [
                           Object {
-                            "_id": "o1t8d2petm",
-                            "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                            "_id": "z24pjjhnkp",
+                            "createdAt": "Sat Sep 12 2020 12:19:40 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Dignissimos est est nihil nostrum distinctio expedita nemo. Rerum minima alias. Error quis dignissimos. Qui aut unde molestiae mollitia mollitia cumque reiciendis.",
                             "images": Array [],
-                            "name": "voluptas",
-                            "price": "53.00",
+                            "name": "aliquam",
+                            "price": "96.00",
                           },
                           Object {
-                            "_id": "j3azex0eaw",
-                            "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                            "_id": "5yf82e8g2b",
+                            "createdAt": "Sat Sep 12 2020 06:41:54 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Aut saepe quia hic sit quo tenetur et reiciendis quas. Dicta consequuntur eum earum sed reprehenderit ea eum voluptate. Nostrum ad omnis velit autem nostrum delectus. Maxime aut aut sequi suscipit ullam. Quasi sit cum quae iste mollitia.",
                             "images": Array [],
-                            "name": "deserunt",
-                            "price": "66.00",
+                            "name": "quisquam",
+                            "price": "38.00",
                           },
                           Object {
-                            "_id": "4w3uueltdj",
-                            "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                            "_id": "b1pkezpmnk",
+                            "createdAt": "Sat Sep 12 2020 14:14:04 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Ducimus eum sit culpa reprehenderit aut error illo. Qui aliquam ipsum dolores reprehenderit iusto debitis ducimus. Earum consequuntur qui laboriosam occaecati provident quas illo sit blanditiis. Qui sint blanditiis minus eos voluptatum illo.",
                             "images": Array [],
-                            "name": "qui",
-                            "price": "77.00",
+                            "name": "blanditiis",
+                            "price": "52.00",
                           },
                           Object {
-                            "_id": "mmx9xvfdq1",
-                            "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                            "_id": "z6ezcqpqvq",
+                            "createdAt": "Sat Sep 12 2020 22:34:24 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Unde est est consequatur. Et et et ut. Minima optio omnis id. Eos vel rerum nostrum minus laudantium minima hic inventore voluptas.",
                             "images": Array [],
-                            "name": "quod",
-                            "price": "95.00",
+                            "name": "earum",
+                            "price": "88.00",
                           },
                           Object {
-                            "_id": "ykxcpc3irr",
-                            "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
-                            "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                            "_id": "akdbkgfinf",
+                            "createdAt": "Sat Sep 12 2020 22:26:52 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Quisquam debitis dolores totam occaecati consequatur veniam ad asperiores. Eveniet eos voluptas nihil quia excepturi veniam blanditiis aliquam. Molestiae voluptas culpa est perspiciatis sed nesciunt ratione. Vel voluptates possimus dolores laborum et et. Velit enim totam at accusantium est.",
                             "images": Array [],
-                            "name": "dicta",
-                            "price": "59.00",
+                            "name": "et",
+                            "price": "34.00",
                           },
                         ],
                         "loading": false,
@@ -1502,14 +1502,14 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       >
                         <h3>
                           Name: 
-                          qui
+                          blanditiis
                         </h3>
                         <p>
                           <strong>
                             Description:
                           </strong>
                            
-                          Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.
+                          Ducimus eum sit culpa reprehenderit aut error illo. Qui aliquam ipsum dolores reprehenderit iusto debitis ducimus. Earum consequuntur qui laboriosam occaecati provident quas illo sit blanditiis. Qui sint blanditiis minus eos voluptatum illo.
                         </p>
                         <span>
                           Number of Images: 
@@ -1521,7 +1521,7 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                           <span>
                             Created At: 
                           </span>
-                          2020-Sep-11
+                          2020-Sep-12
                         </p>
                       </div>
                       <div
@@ -1652,15 +1652,15 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
               <withRouter(ServiceCard)
                 dispatch={[Function]}
                 imageCount={0}
-                key="mmx9xvfdq1"
+                key="z6ezcqpqvq"
                 service={
                   Object {
-                    "_id": "mmx9xvfdq1",
-                    "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                    "_id": "z6ezcqpqvq",
+                    "createdAt": "Sat Sep 12 2020 22:34:24 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Unde est est consequatur. Et et et ut. Minima optio omnis id. Eos vel rerum nostrum minus laudantium minima hic inventore voluptas.",
                     "images": Array [],
-                    "name": "quod",
-                    "price": "95.00",
+                    "name": "earum",
+                    "price": "88.00",
                   }
                 }
                 state={
@@ -1705,44 +1705,44 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       "error": null,
                       "loadedServices": Array [
                         Object {
-                          "_id": "o1t8d2petm",
-                          "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                          "_id": "z24pjjhnkp",
+                          "createdAt": "Sat Sep 12 2020 12:19:40 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Dignissimos est est nihil nostrum distinctio expedita nemo. Rerum minima alias. Error quis dignissimos. Qui aut unde molestiae mollitia mollitia cumque reiciendis.",
                           "images": Array [],
-                          "name": "voluptas",
-                          "price": "53.00",
+                          "name": "aliquam",
+                          "price": "96.00",
                         },
                         Object {
-                          "_id": "j3azex0eaw",
-                          "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                          "_id": "5yf82e8g2b",
+                          "createdAt": "Sat Sep 12 2020 06:41:54 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Aut saepe quia hic sit quo tenetur et reiciendis quas. Dicta consequuntur eum earum sed reprehenderit ea eum voluptate. Nostrum ad omnis velit autem nostrum delectus. Maxime aut aut sequi suscipit ullam. Quasi sit cum quae iste mollitia.",
                           "images": Array [],
-                          "name": "deserunt",
-                          "price": "66.00",
+                          "name": "quisquam",
+                          "price": "38.00",
                         },
                         Object {
-                          "_id": "4w3uueltdj",
-                          "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                          "_id": "b1pkezpmnk",
+                          "createdAt": "Sat Sep 12 2020 14:14:04 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Ducimus eum sit culpa reprehenderit aut error illo. Qui aliquam ipsum dolores reprehenderit iusto debitis ducimus. Earum consequuntur qui laboriosam occaecati provident quas illo sit blanditiis. Qui sint blanditiis minus eos voluptatum illo.",
                           "images": Array [],
-                          "name": "qui",
-                          "price": "77.00",
+                          "name": "blanditiis",
+                          "price": "52.00",
                         },
                         Object {
-                          "_id": "mmx9xvfdq1",
-                          "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                          "_id": "z6ezcqpqvq",
+                          "createdAt": "Sat Sep 12 2020 22:34:24 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Unde est est consequatur. Et et et ut. Minima optio omnis id. Eos vel rerum nostrum minus laudantium minima hic inventore voluptas.",
                           "images": Array [],
-                          "name": "quod",
-                          "price": "95.00",
+                          "name": "earum",
+                          "price": "88.00",
                         },
                         Object {
-                          "_id": "ykxcpc3irr",
-                          "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
-                          "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                          "_id": "akdbkgfinf",
+                          "createdAt": "Sat Sep 12 2020 22:26:52 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Quisquam debitis dolores totam occaecati consequatur veniam ad asperiores. Eveniet eos voluptas nihil quia excepturi veniam blanditiis aliquam. Molestiae voluptas culpa est perspiciatis sed nesciunt ratione. Vel voluptates possimus dolores laborum et et. Velit enim totam at accusantium est.",
                           "images": Array [],
-                          "name": "dicta",
-                          "price": "59.00",
+                          "name": "et",
+                          "price": "34.00",
                         },
                       ],
                       "loading": false,
@@ -1794,7 +1794,7 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       "entries": Array [
                         Object {
                           "hash": "",
-                          "key": "ksa69q",
+                          "key": "ktpw8e",
                           "pathname": "/",
                           "search": "",
                           "state": undefined,
@@ -1808,7 +1808,7 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       "listen": [Function],
                       "location": Object {
                         "hash": "",
-                        "key": "ksa69q",
+                        "key": "ktpw8e",
                         "pathname": "/",
                         "search": "",
                         "state": undefined,
@@ -1821,7 +1821,7 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                   location={
                     Object {
                       "hash": "",
-                      "key": "ksa69q",
+                      "key": "ktpw8e",
                       "pathname": "/",
                       "search": "",
                       "state": undefined,
@@ -1837,12 +1837,12 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                   }
                   service={
                     Object {
-                      "_id": "mmx9xvfdq1",
-                      "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
-                      "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                      "_id": "z6ezcqpqvq",
+                      "createdAt": "Sat Sep 12 2020 22:34:24 GMT+0300 (Eastern European Summer Time)",
+                      "description": "Unde est est consequatur. Et et et ut. Minima optio omnis id. Eos vel rerum nostrum minus laudantium minima hic inventore voluptas.",
                       "images": Array [],
-                      "name": "quod",
-                      "price": "95.00",
+                      "name": "earum",
+                      "price": "88.00",
                     }
                   }
                   state={
@@ -1887,44 +1887,44 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                         "error": null,
                         "loadedServices": Array [
                           Object {
-                            "_id": "o1t8d2petm",
-                            "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                            "_id": "z24pjjhnkp",
+                            "createdAt": "Sat Sep 12 2020 12:19:40 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Dignissimos est est nihil nostrum distinctio expedita nemo. Rerum minima alias. Error quis dignissimos. Qui aut unde molestiae mollitia mollitia cumque reiciendis.",
                             "images": Array [],
-                            "name": "voluptas",
-                            "price": "53.00",
+                            "name": "aliquam",
+                            "price": "96.00",
                           },
                           Object {
-                            "_id": "j3azex0eaw",
-                            "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                            "_id": "5yf82e8g2b",
+                            "createdAt": "Sat Sep 12 2020 06:41:54 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Aut saepe quia hic sit quo tenetur et reiciendis quas. Dicta consequuntur eum earum sed reprehenderit ea eum voluptate. Nostrum ad omnis velit autem nostrum delectus. Maxime aut aut sequi suscipit ullam. Quasi sit cum quae iste mollitia.",
                             "images": Array [],
-                            "name": "deserunt",
-                            "price": "66.00",
+                            "name": "quisquam",
+                            "price": "38.00",
                           },
                           Object {
-                            "_id": "4w3uueltdj",
-                            "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                            "_id": "b1pkezpmnk",
+                            "createdAt": "Sat Sep 12 2020 14:14:04 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Ducimus eum sit culpa reprehenderit aut error illo. Qui aliquam ipsum dolores reprehenderit iusto debitis ducimus. Earum consequuntur qui laboriosam occaecati provident quas illo sit blanditiis. Qui sint blanditiis minus eos voluptatum illo.",
                             "images": Array [],
-                            "name": "qui",
-                            "price": "77.00",
+                            "name": "blanditiis",
+                            "price": "52.00",
                           },
                           Object {
-                            "_id": "mmx9xvfdq1",
-                            "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                            "_id": "z6ezcqpqvq",
+                            "createdAt": "Sat Sep 12 2020 22:34:24 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Unde est est consequatur. Et et et ut. Minima optio omnis id. Eos vel rerum nostrum minus laudantium minima hic inventore voluptas.",
                             "images": Array [],
-                            "name": "quod",
-                            "price": "95.00",
+                            "name": "earum",
+                            "price": "88.00",
                           },
                           Object {
-                            "_id": "ykxcpc3irr",
-                            "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
-                            "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                            "_id": "akdbkgfinf",
+                            "createdAt": "Sat Sep 12 2020 22:26:52 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Quisquam debitis dolores totam occaecati consequatur veniam ad asperiores. Eveniet eos voluptas nihil quia excepturi veniam blanditiis aliquam. Molestiae voluptas culpa est perspiciatis sed nesciunt ratione. Vel voluptates possimus dolores laborum et et. Velit enim totam at accusantium est.",
                             "images": Array [],
-                            "name": "dicta",
-                            "price": "59.00",
+                            "name": "et",
+                            "price": "34.00",
                           },
                         ],
                         "loading": false,
@@ -1987,14 +1987,14 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       >
                         <h3>
                           Name: 
-                          quod
+                          earum
                         </h3>
                         <p>
                           <strong>
                             Description:
                           </strong>
                            
-                          Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.
+                          Unde est est consequatur. Et et et ut. Minima optio omnis id. Eos vel rerum nostrum minus laudantium minima hic inventore voluptas.
                         </p>
                         <span>
                           Number of Images: 
@@ -2006,7 +2006,7 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                           <span>
                             Created At: 
                           </span>
-                          2020-Sep-11
+                          2020-Sep-12
                         </p>
                       </div>
                       <div
@@ -2137,15 +2137,15 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
               <withRouter(ServiceCard)
                 dispatch={[Function]}
                 imageCount={0}
-                key="ykxcpc3irr"
+                key="akdbkgfinf"
                 service={
                   Object {
-                    "_id": "ykxcpc3irr",
-                    "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
-                    "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                    "_id": "akdbkgfinf",
+                    "createdAt": "Sat Sep 12 2020 22:26:52 GMT+0300 (Eastern European Summer Time)",
+                    "description": "Quisquam debitis dolores totam occaecati consequatur veniam ad asperiores. Eveniet eos voluptas nihil quia excepturi veniam blanditiis aliquam. Molestiae voluptas culpa est perspiciatis sed nesciunt ratione. Vel voluptates possimus dolores laborum et et. Velit enim totam at accusantium est.",
                     "images": Array [],
-                    "name": "dicta",
-                    "price": "59.00",
+                    "name": "et",
+                    "price": "34.00",
                   }
                 }
                 state={
@@ -2190,44 +2190,44 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       "error": null,
                       "loadedServices": Array [
                         Object {
-                          "_id": "o1t8d2petm",
-                          "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                          "_id": "z24pjjhnkp",
+                          "createdAt": "Sat Sep 12 2020 12:19:40 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Dignissimos est est nihil nostrum distinctio expedita nemo. Rerum minima alias. Error quis dignissimos. Qui aut unde molestiae mollitia mollitia cumque reiciendis.",
                           "images": Array [],
-                          "name": "voluptas",
-                          "price": "53.00",
+                          "name": "aliquam",
+                          "price": "96.00",
                         },
                         Object {
-                          "_id": "j3azex0eaw",
-                          "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                          "_id": "5yf82e8g2b",
+                          "createdAt": "Sat Sep 12 2020 06:41:54 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Aut saepe quia hic sit quo tenetur et reiciendis quas. Dicta consequuntur eum earum sed reprehenderit ea eum voluptate. Nostrum ad omnis velit autem nostrum delectus. Maxime aut aut sequi suscipit ullam. Quasi sit cum quae iste mollitia.",
                           "images": Array [],
-                          "name": "deserunt",
-                          "price": "66.00",
+                          "name": "quisquam",
+                          "price": "38.00",
                         },
                         Object {
-                          "_id": "4w3uueltdj",
-                          "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                          "_id": "b1pkezpmnk",
+                          "createdAt": "Sat Sep 12 2020 14:14:04 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Ducimus eum sit culpa reprehenderit aut error illo. Qui aliquam ipsum dolores reprehenderit iusto debitis ducimus. Earum consequuntur qui laboriosam occaecati provident quas illo sit blanditiis. Qui sint blanditiis minus eos voluptatum illo.",
                           "images": Array [],
-                          "name": "qui",
-                          "price": "77.00",
+                          "name": "blanditiis",
+                          "price": "52.00",
                         },
                         Object {
-                          "_id": "mmx9xvfdq1",
-                          "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                          "_id": "z6ezcqpqvq",
+                          "createdAt": "Sat Sep 12 2020 22:34:24 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Unde est est consequatur. Et et et ut. Minima optio omnis id. Eos vel rerum nostrum minus laudantium minima hic inventore voluptas.",
                           "images": Array [],
-                          "name": "quod",
-                          "price": "95.00",
+                          "name": "earum",
+                          "price": "88.00",
                         },
                         Object {
-                          "_id": "ykxcpc3irr",
-                          "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
-                          "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                          "_id": "akdbkgfinf",
+                          "createdAt": "Sat Sep 12 2020 22:26:52 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Quisquam debitis dolores totam occaecati consequatur veniam ad asperiores. Eveniet eos voluptas nihil quia excepturi veniam blanditiis aliquam. Molestiae voluptas culpa est perspiciatis sed nesciunt ratione. Vel voluptates possimus dolores laborum et et. Velit enim totam at accusantium est.",
                           "images": Array [],
-                          "name": "dicta",
-                          "price": "59.00",
+                          "name": "et",
+                          "price": "34.00",
                         },
                       ],
                       "loading": false,
@@ -2279,7 +2279,7 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       "entries": Array [
                         Object {
                           "hash": "",
-                          "key": "ksa69q",
+                          "key": "ktpw8e",
                           "pathname": "/",
                           "search": "",
                           "state": undefined,
@@ -2293,7 +2293,7 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       "listen": [Function],
                       "location": Object {
                         "hash": "",
-                        "key": "ksa69q",
+                        "key": "ktpw8e",
                         "pathname": "/",
                         "search": "",
                         "state": undefined,
@@ -2306,7 +2306,7 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                   location={
                     Object {
                       "hash": "",
-                      "key": "ksa69q",
+                      "key": "ktpw8e",
                       "pathname": "/",
                       "search": "",
                       "state": undefined,
@@ -2322,12 +2322,12 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                   }
                   service={
                     Object {
-                      "_id": "ykxcpc3irr",
-                      "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
-                      "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                      "_id": "akdbkgfinf",
+                      "createdAt": "Sat Sep 12 2020 22:26:52 GMT+0300 (Eastern European Summer Time)",
+                      "description": "Quisquam debitis dolores totam occaecati consequatur veniam ad asperiores. Eveniet eos voluptas nihil quia excepturi veniam blanditiis aliquam. Molestiae voluptas culpa est perspiciatis sed nesciunt ratione. Vel voluptates possimus dolores laborum et et. Velit enim totam at accusantium est.",
                       "images": Array [],
-                      "name": "dicta",
-                      "price": "59.00",
+                      "name": "et",
+                      "price": "34.00",
                     }
                   }
                   state={
@@ -2372,44 +2372,44 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                         "error": null,
                         "loadedServices": Array [
                           Object {
-                            "_id": "o1t8d2petm",
-                            "createdAt": "Sat Sep 12 2020 03:06:16 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Voluptas minima iste voluptas nesciunt earum beatae voluptatum et. Voluptate est temporibus autem iure dignissimos. Aliquam incidunt a quasi. Maiores a eaque. Eos quod recusandae qui quia. Ipsum nihil deleniti voluptate quis aliquam.",
+                            "_id": "z24pjjhnkp",
+                            "createdAt": "Sat Sep 12 2020 12:19:40 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Dignissimos est est nihil nostrum distinctio expedita nemo. Rerum minima alias. Error quis dignissimos. Qui aut unde molestiae mollitia mollitia cumque reiciendis.",
                             "images": Array [],
-                            "name": "voluptas",
-                            "price": "53.00",
+                            "name": "aliquam",
+                            "price": "96.00",
                           },
                           Object {
-                            "_id": "j3azex0eaw",
-                            "createdAt": "Sat Sep 12 2020 15:38:32 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Exercitationem facilis veniam molestias ab enim voluptates in vel. Ut quia sed autem saepe veniam repellat cupiditate. Sed non error et dolor. Aspernatur perferendis illo qui alias. Sit est rerum eum reprehenderit molestiae laboriosam odit est reprehenderit. Dolor et laudantium laudantium.",
+                            "_id": "5yf82e8g2b",
+                            "createdAt": "Sat Sep 12 2020 06:41:54 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Aut saepe quia hic sit quo tenetur et reiciendis quas. Dicta consequuntur eum earum sed reprehenderit ea eum voluptate. Nostrum ad omnis velit autem nostrum delectus. Maxime aut aut sequi suscipit ullam. Quasi sit cum quae iste mollitia.",
                             "images": Array [],
-                            "name": "deserunt",
-                            "price": "66.00",
+                            "name": "quisquam",
+                            "price": "38.00",
                           },
                           Object {
-                            "_id": "4w3uueltdj",
-                            "createdAt": "Fri Sep 11 2020 20:59:48 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Quae provident corporis et magnam quas ut quibusdam esse. In aliquid et nemo reiciendis. Cum error ad quo voluptatem rerum consequuntur adipisci aut. At eos sed dolores quia sequi quo. Explicabo iusto sequi vero exercitationem doloremque rerum et deserunt ab.",
+                            "_id": "b1pkezpmnk",
+                            "createdAt": "Sat Sep 12 2020 14:14:04 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Ducimus eum sit culpa reprehenderit aut error illo. Qui aliquam ipsum dolores reprehenderit iusto debitis ducimus. Earum consequuntur qui laboriosam occaecati provident quas illo sit blanditiis. Qui sint blanditiis minus eos voluptatum illo.",
                             "images": Array [],
-                            "name": "qui",
-                            "price": "77.00",
+                            "name": "blanditiis",
+                            "price": "52.00",
                           },
                           Object {
-                            "_id": "mmx9xvfdq1",
-                            "createdAt": "Fri Sep 11 2020 17:10:59 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Ullam voluptas laboriosam consectetur similique asperiores a. Nulla reprehenderit officia sint sit quas et quasi excepturi molestias. Consequatur cupiditate temporibus consectetur facilis autem reiciendis nihil. Voluptas rerum rerum tempore est aspernatur veniam. Dolorem repudiandae et minus ipsa reiciendis fuga.",
+                            "_id": "z6ezcqpqvq",
+                            "createdAt": "Sat Sep 12 2020 22:34:24 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Unde est est consequatur. Et et et ut. Minima optio omnis id. Eos vel rerum nostrum minus laudantium minima hic inventore voluptas.",
                             "images": Array [],
-                            "name": "quod",
-                            "price": "95.00",
+                            "name": "earum",
+                            "price": "88.00",
                           },
                           Object {
-                            "_id": "ykxcpc3irr",
-                            "createdAt": "Sat Sep 12 2020 08:49:42 GMT+0300 (Eastern European Summer Time)",
-                            "description": "In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.",
+                            "_id": "akdbkgfinf",
+                            "createdAt": "Sat Sep 12 2020 22:26:52 GMT+0300 (Eastern European Summer Time)",
+                            "description": "Quisquam debitis dolores totam occaecati consequatur veniam ad asperiores. Eveniet eos voluptas nihil quia excepturi veniam blanditiis aliquam. Molestiae voluptas culpa est perspiciatis sed nesciunt ratione. Vel voluptates possimus dolores laborum et et. Velit enim totam at accusantium est.",
                             "images": Array [],
-                            "name": "dicta",
-                            "price": "59.00",
+                            "name": "et",
+                            "price": "34.00",
                           },
                         ],
                         "loading": false,
@@ -2472,14 +2472,14 @@ exports[`Service Manage Holder Tests State after a successful API call Should re
                       >
                         <h3>
                           Name: 
-                          dicta
+                          et
                         </h3>
                         <p>
                           <strong>
                             Description:
                           </strong>
                            
-                          In architecto voluptate neque odit. Fuga explicabo laudantium atque aliquam repellat occaecati rerum dolorum. Ipsa nesciunt ut a magnam saepe. Aperiam aut asperiores id explicabo nostrum quidem in a officiis.
+                          Quisquam debitis dolores totam occaecati consequatur veniam ad asperiores. Eveniet eos voluptas nihil quia excepturi veniam blanditiis aliquam. Molestiae voluptas culpa est perspiciatis sed nesciunt ratione. Vel voluptates possimus dolores laborum et et. Velit enim totam at accusantium est.
                         </p>
                         <span>
                           Number of Images: 

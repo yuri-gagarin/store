@@ -28,7 +28,7 @@ describe("Service Manage Holder Tests", () => {
         );
 
         await act( async () => {
-          await moxios.stubRequest("/api/services/", {
+          await moxios.stubRequest("/api/services", {
             status: 200,
             response: {
               responseMsg: "All Ok",
@@ -70,7 +70,7 @@ describe("Service Manage Holder Tests", () => {
         );
         
         await act( async () => {
-          await moxios.stubRequest("/api/services/", {
+          await moxios.stubRequest("/api/services", {
             status: 200,
             response: {
               responseMsg: "All Ok",
@@ -127,7 +127,7 @@ describe("Service Manage Holder Tests", () => {
               </StateProvider>
             </Router>
           );
-          moxios.stubRequest("/api/services/", {
+          moxios.stubRequest("/api/services", {
             status: 500,
             response: {
               responseMsg: "Error here",
@@ -177,7 +177,7 @@ describe("Service Manage Holder Tests", () => {
         await act( async () => {
           services = createMockServices(6);
           moxios.install();
-          moxios.stubRequest("/api/services/", {
+          moxios.stubRequest("/api/services", {
             status: 200,
             response: {
               responseMsg: "All Ok",

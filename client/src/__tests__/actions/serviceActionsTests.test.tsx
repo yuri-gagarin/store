@@ -17,7 +17,7 @@ import { getAllServices, getService, createService, editService,
 // helpers and additional dependencies //
 import { emptyServiceData } from "../../state/reducers/serviceReducer";
 import { createMockServices, createMockServiceImage, clearServiceState } from "../../test_helpers/serviceHelpers";
-import { ClientServiceData } from "../../components/admin_components/services/actions/APIServiceActions";
+import { ClientServiceData } from "../../components/admin_components/services/type_definitions/serviceTypes";
 import { AxiosRequestConfig } from "axios";
 
 
@@ -136,7 +136,7 @@ describe("Service Actions Tests", () => {
           });
       });
       it("Should send the correct API request", () => {
-        expect(requestConfig.url).to.eq("/api/services/");
+        expect(requestConfig.url).to.eq("/api/services");
         expect(requestConfig.method).to.eq("get");
       });
       it("Should return the correct new state", () => {
@@ -177,8 +177,8 @@ describe("Service Actions Tests", () => {
         });
         // mock action with moxios //
         getService(mockService._id, dispatch)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -233,8 +233,8 @@ describe("Service Actions Tests", () => {
         };
         // mock action with moxios //
         createService(newService, dispatch)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -300,8 +300,8 @@ describe("Service Actions Tests", () => {
         };
         // mock action with moxios //
         editService(editedService._id, serviceUpdate, dispatch, state)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -364,8 +364,8 @@ describe("Service Actions Tests", () => {
         });
         // mock action with moxios //
         deleteService(deletedService._id, dispatch, state)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -419,8 +419,8 @@ describe("Service Actions Tests", () => {
         // mock action with moxios //
         const formData = new FormData();
         uploadServiceImage(updatedService._id, formData, state, dispatch) 
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -480,8 +480,8 @@ describe("Service Actions Tests", () => {
         });
         // mock action with moxios //
         deleteServiceImage(deletedImage._id, state, dispatch) 
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -580,8 +580,8 @@ describe("Service Actions Tests", () => {
           request.reject(error)
         });
         getService(service._id, dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -616,8 +616,8 @@ describe("Service Actions Tests", () => {
           request.reject(error)
         });
         createService(service, dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -652,8 +652,8 @@ describe("Service Actions Tests", () => {
           request.reject(error)
         });
         editService(service._id, service, dispatch, state)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -688,8 +688,8 @@ describe("Service Actions Tests", () => {
           request.reject(error)
         });
         deleteService(service._id, dispatch, state)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -725,8 +725,8 @@ describe("Service Actions Tests", () => {
         });
         const mockImg = new FormData();
         uploadServiceImage(service._id, mockImg, state, dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -761,8 +761,8 @@ describe("Service Actions Tests", () => {
           request.reject(error)
         });
         deleteServiceImage(serviceImage._id, state, dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);

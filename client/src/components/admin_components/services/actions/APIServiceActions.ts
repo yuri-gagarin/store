@@ -1,43 +1,19 @@
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
 import { Dispatch } from "react";
 import { IGlobalAppState } from "../../../../state/Store";
-
-interface IServiceImgServerResData {
-  responseMsg: string;
-  newServiceImage?: IServiceImgData;
-  deletedServiceImage?: IServiceImgData;
-  updatedService: IServiceData;
-}
-interface IServiceImgServerRes {
-  data: IServiceImgServerResData;
-}
-
-interface IServiceServerResData {
-  responseMsg: string;
-  service?: IServiceData;
-  newService?: IServiceData;
-  editedService?: IServiceData;
-  deletedService?: IServiceData;
-  services?: IServiceData[];
-}
-interface IServiceServerRes {
-  data: IServiceServerResData
-}
-
-export type ClientServiceData = {
-  name: string;
-  description: string;
-  price: string;
-  images: IServiceImgData[]
-}
+// type definitions //
+import {
+  IServiceServerResData, IServiceServerRes,
+  IServiceImgServerResData, IServiceImgServerRes,
+  ClientServiceData
+} from "../type_definitions/serviceTypes";
 
 export const getAllServices = (dispatch: Dispatch<ServiceAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
-    url: "/api/services/"
+    url: "/api/services"
   };
-  console.log("dispatched")
-  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true }});
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true } });
   return axios.request<IServiceServerResData, IServiceServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -56,15 +32,16 @@ export const getAllServices = (dispatch: Dispatch<ServiceAction>): Promise<void>
         responseMsg: error.message,
         error: error
       }});
-      return Promise.reject(error);
+      return Promise.reject();
     });
 };
 
-export const getService = (_id: string, dispatch: Dispatch<ServiceAction>): Promise<boolean> => {
+export const getService = (_id: string, dispatch: Dispatch<ServiceAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/services/" + _id,
   };
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true } });
   return axios.request<IServiceServerResData, IServiceServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -75,7 +52,7 @@ export const getService = (_id: string, dispatch: Dispatch<ServiceAction>): Prom
         currentServiceData: service,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_SERVICE_ERROR", payload: {
@@ -83,11 +60,11 @@ export const getService = (_id: string, dispatch: Dispatch<ServiceAction>): Prom
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const createService = ({ name, description, price, images }: ClientServiceData, dispatch: Dispatch<ServiceAction>): Promise<boolean> => {
+export const createService = ({ name, description, price, images }: ClientServiceData, dispatch: Dispatch<ServiceAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/services/create",
@@ -98,7 +75,7 @@ export const createService = ({ name, description, price, images }: ClientServic
       images: images
     }
   };
-
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true } });
   return axios.request<IServiceServerResData, IServiceServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -109,7 +86,7 @@ export const createService = ({ name, description, price, images }: ClientServic
         newService: newService,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_SERVICE_ERROR", payload: {
@@ -117,11 +94,11 @@ export const createService = ({ name, description, price, images }: ClientServic
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const editService = (_id: string, data: ClientServiceData, dispatch: Dispatch<ServiceAction>, state: IGlobalAppState) => {
+export const editService = (_id: string, data: ClientServiceData, dispatch: Dispatch<ServiceAction>, state: IGlobalAppState): Promise<void> => {
   const { loadedServices } = state.serviceState;
   const requestOptions: AxiosRequestConfig = {
     method: "patch",
@@ -130,6 +107,7 @@ export const editService = (_id: string, data: ClientServiceData, dispatch: Disp
       ...data,
     }
   };
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true } });
   return axios.request<IServiceServerResData, IServiceServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -148,7 +126,7 @@ export const editService = (_id: string, data: ClientServiceData, dispatch: Disp
         loadedServices: updatedServices,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_SERVICE_ERROR", payload: {
@@ -156,15 +134,17 @@ export const editService = (_id: string, data: ClientServiceData, dispatch: Disp
         responseMsg: error.message,
         error: error
       }});
+      return Promise.reject();
     });
 };
 
-export const deleteService = (_id: string, dispatch: Dispatch<ServiceAction>, state: IGlobalAppState): Promise<boolean> => {
+export const deleteService = (_id: string, dispatch: Dispatch<ServiceAction>, state: IGlobalAppState): Promise<void> => {
   const { loadedServices } = state.serviceState;
   const requestOptions: AxiosRequestConfig = {
     method: "delete",
     url: "/api/services/delete/" + _id,
   };
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true } });
   return axios.request<IServiceServerResData, IServiceServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -179,7 +159,7 @@ export const deleteService = (_id: string, dispatch: Dispatch<ServiceAction>, st
         loadedServices: updatedServices,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_SERVICE_ERROR", payload: {
@@ -187,18 +167,18 @@ export const deleteService = (_id: string, dispatch: Dispatch<ServiceAction>, st
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const uploadServiceImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<ServiceAction>): Promise<boolean> => {
+export const uploadServiceImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<ServiceAction>): Promise<void> => {
   const { loadedServices } = state.serviceState;
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/uploads/service_images/" + _id,
     data: imageFile
   };
-
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true } });
   return axios.request<IServiceImgServerResData, IServiceImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -218,7 +198,7 @@ export const uploadServiceImage = (_id: string, imageFile: FormData, state: IGlo
         loadedServices: updatedServices,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_SERVICE_ERROR", payload: {
@@ -226,11 +206,11 @@ export const uploadServiceImage = (_id: string, imageFile: FormData, state: IGlo
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const deleteServiceImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<ServiceAction>): Promise<boolean> => {
+export const deleteServiceImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<ServiceAction>): Promise<void> => {
   const { loadedServices } = state.serviceState; 
   const { _id: serviceId } = state.serviceState.currentServiceData;
 
@@ -238,7 +218,7 @@ export const deleteServiceImage = (imgId: string, state: IGlobalAppState, dispat
     method: "delete",
     url: "/api/uploads/service_images/" + imgId + "/" + serviceId
   };
-
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true } });
   return axios.request<IServiceImgServerResData, IServiceImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -259,7 +239,7 @@ export const deleteServiceImage = (imgId: string, state: IGlobalAppState, dispat
         loadedServices: updatedServices,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_SERVICE_ERROR", payload: {
@@ -267,8 +247,8 @@ export const deleteServiceImage = (imgId: string, state: IGlobalAppState, dispat
         responseMsg: error.message,
         error: error
       }});
-      return false;
-    })
+      return Promise.reject();
+    });
 };
 
 
