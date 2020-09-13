@@ -20,10 +20,8 @@ const ServiceImageUplForm: React.FC<{}> = (props): JSX.Element => {
       const { _id } = currentServiceData;
       formData.append("serviceImage", file);
       uploadServiceImage(_id, formData, state, dispatch)
-        .then((success) => {
-          if (success) {
-            setFile(undefined)
-          }
+        .then((_) => {
+          setFile(undefined)
         })
     }
   }

@@ -43,14 +43,13 @@ const ServiceFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
     };
 
     createService(serviceData, dispatch)
-      .then((success) => {
-        if (success) {
-          // service created //
-          setImgUpload(true);
-        } else {
-          console.error("error");
-        }
-      });
+      .then((_) => {
+        // service created //
+        setImgUpload(true);
+      })
+      .catch((err) => {
+        setImgUpload(false);
+      })
   };
 
   const handleUpdateService = ({ name, description, price }: FormState): void => {
@@ -59,10 +58,8 @@ const ServiceFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
     };
 
     editService(currentServiceData._id, serviceParams, dispatch, state)
-      .then((success) => {
-        if (success) {
-          setFormOpen(false);
-        }
+      .then((_) => {
+        setFormOpen(false);
       })
   }
 

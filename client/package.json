@@ -23,7 +23,8 @@
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/**/*.d.ts",
       "!src/index.tsx",
-      "!src/serviceWorker.ts"
+      "!src/serviceWorker.ts",
+      "helpers"
     ],
     "coveragePathIgnorePatterns": [
       "./src/*/*.types.{ts,tsx}",
