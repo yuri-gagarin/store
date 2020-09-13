@@ -26,7 +26,7 @@ class MockFile {
       }
       case "plain/txt": {
         fileName = fileName + ".txt";
-        break
+        break;
       }
     }
 

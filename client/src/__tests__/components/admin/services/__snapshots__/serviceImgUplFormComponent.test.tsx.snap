@@ -21,6 +21,7 @@ exports[`Service Image Upload Form Tests Render tests without any Image data Sho
         content="Choose Image"
         htmlFor="serviceImgFile"
         icon="file"
+        id="selectServiceImgBtn"
         labelPosition="left"
         onClick={[Function]}
       />

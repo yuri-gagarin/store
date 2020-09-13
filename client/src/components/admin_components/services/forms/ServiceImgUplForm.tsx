@@ -43,6 +43,7 @@ const ServiceImageUplForm: React.FC<{}> = (props): JSX.Element => {
           !file ?
           <div id="serviceImgInputControlls"> 
             <Button
+              id="selectServiceImgBtn"
               as="label"
               content="Choose Image"
               labelPosition="left"
