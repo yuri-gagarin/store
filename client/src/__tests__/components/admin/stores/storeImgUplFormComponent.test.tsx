@@ -6,7 +6,6 @@ import { mount, shallow, ReactWrapper, ShallowWrapper } from "enzyme";
 import { act } from 'react-dom/test-utils';
 // components //
 import StoreImgUplForm from "../../../../components/admin_components/stores/forms/StoreImageUplForm";
-// React.Context and State //
 import { StateProvider } from "../../../../state/Store";
 // helpers //
 import MockFile from "../../../helpers/mockFile";
@@ -32,7 +31,6 @@ describe("Store Image Upload Form Tests", () => {
       const input = component.find("input");
       expect(input.length).toEqual(1);
     });
-
   });
   
   describe("Render tests with an Image file present", () => {
@@ -65,7 +63,6 @@ describe("Store Image Upload Form Tests", () => {
       expect(component.find("#storeImgUploadBtn").length).toEqual(0);
       expect(component.find("#selectStoreImgBtn").length).toEqual(1);
     });
-
   });
   // MOCK Successful Image upload tests //
   describe("'#storeImgUploadBtn' functionality, successful upload and local state changes", () => {
@@ -149,7 +146,7 @@ describe("Store Image Upload Form Tests", () => {
     });
 
     it("Should successfully handle the 'uploadStoreImg' action error", async () => {
-      moxios.install()
+      moxios.install();
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
