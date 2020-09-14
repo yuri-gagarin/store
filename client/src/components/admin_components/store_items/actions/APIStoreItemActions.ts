@@ -1,43 +1,16 @@
-import axios, { AxiosRequestConfig, AxiosError } from "axios";
 import { Dispatch } from "react";
+import axios, { AxiosRequestConfig, AxiosError } from "axios";
+// state //
 import { IGlobalAppState } from "../../../../state/Store";
-import { StoreItemQueryPar } from "../custom_types/customTypes";
+// type definitions //
+import { 
+  StoreItemQueryPar, IStoreItemServerResData, IStoreItemServerRes,
+  IStoreItemImgServerResData, IStoreItemImgServerRes,
+  ClientStoreItemData
+} from "../type_definitions/storeItemTypes";
 
-interface IStoreItemImgServerResData {
-  responseMsg: string;
-  newStoreItemImage?: IStoreItemImgData;
-  deletedStoreItemImage?: IStoreItemImgData;
-  updatedStoreItem: IStoreItemData;
-}
-interface IStoreItemImgServerRes {
-  data: IStoreItemImgServerResData;
-}
 
-interface IStoreItemServerResData {
-  responseMsg: string;
-  numberOfItems: string;
-  storeItem?: IStoreItemData;
-  newStoreItem?: IStoreItemData;
-  editedStoreItem?: IStoreItemData;
-  deletedStoreItem?: IStoreItemData;
-  storeItems?: IStoreItemData[];
-}
-interface IStoreItemServerRes {
-  data: IStoreItemServerResData
-}
-
-export type ClientStoreItemData = {
-  storeId: string;
-  storeName: string;
-  name: string;
-  description: string;
-  details: string;
-  price: string;
-  categories: string[];
-  images: IStoreItemImgData[]
-}
-
-export const getAllStoreItems = (dispatch: Dispatch<StoreItemAction>, queryParams?: StoreItemQueryPar): Promise<boolean> => {
+export const getAllStoreItems = (dispatch: Dispatch<StoreItemAction>, queryParams?: StoreItemQueryPar): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/store_items",
@@ -54,7 +27,7 @@ export const getAllStoreItems = (dispatch: Dispatch<StoreItemAction>, queryParam
         loadedStoreItems: storeItems,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_STORE_ITEM_ERROR", payload: {
@@ -62,11 +35,11 @@ export const getAllStoreItems = (dispatch: Dispatch<StoreItemAction>, queryParam
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const getStoreItem = (_id: string, dispatch: Dispatch<StoreItemAction>): Promise<boolean> => {
+export const getStoreItem = (_id: string, dispatch: Dispatch<StoreItemAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/store_items/" + _id,
@@ -81,7 +54,7 @@ export const getStoreItem = (_id: string, dispatch: Dispatch<StoreItemAction>): 
         currentStoreItemData: storeItem,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_STORE_ITEM_ERROR", payload: {
@@ -89,11 +62,11 @@ export const getStoreItem = (_id: string, dispatch: Dispatch<StoreItemAction>): 
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const createStoreItem = (data: ClientStoreItemData, dispatch: Dispatch<StoreItemAction>): Promise<boolean> => {
+export const createStoreItem = (data: ClientStoreItemData, dispatch: Dispatch<StoreItemAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/store_items/create",
@@ -110,7 +83,7 @@ export const createStoreItem = (data: ClientStoreItemData, dispatch: Dispatch<St
         newStoreItem: newStoreItem,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_STORE_ITEM_ERROR", payload: {
@@ -118,11 +91,11 @@ export const createStoreItem = (data: ClientStoreItemData, dispatch: Dispatch<St
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const editStoreItem = (_id: string, data: ClientStoreItemData, dispatch: Dispatch<StoreItemAction>, state: IGlobalAppState) => {
+export const editStoreItem = (_id: string, data: ClientStoreItemData, dispatch: Dispatch<StoreItemAction>, state: IGlobalAppState): Promise<void> => {
   const { loadedStoreItems } = state.storeItemState;
   const requestOptions: AxiosRequestConfig = {
     method: "patch",
@@ -147,7 +120,7 @@ export const editStoreItem = (_id: string, data: ClientStoreItemData, dispatch: 
         loadedStoreItems: updatedStoreItems,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_STORE_ITEM_ERROR", payload: {
@@ -155,10 +128,11 @@ export const editStoreItem = (_id: string, data: ClientStoreItemData, dispatch: 
         responseMsg: error.message,
         error: error
       }});
+      return Promise.reject();
     });
 };
 
-export const deleteStoreItem = (_id: string, dispatch: Dispatch<StoreItemAction>, state: IGlobalAppState): Promise<boolean> => {
+export const deleteStoreItem = (_id: string, dispatch: Dispatch<StoreItemAction>, state: IGlobalAppState): Promise<void> => {
   const { loadedStoreItems } = state.storeItemState;
   const requestOptions: AxiosRequestConfig = {
     method: "delete",
@@ -178,7 +152,7 @@ export const deleteStoreItem = (_id: string, dispatch: Dispatch<StoreItemAction>
         loadedStoreItems: updatedStoreItems,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_STORE_ITEM_ERROR", payload: {
@@ -186,11 +160,11 @@ export const deleteStoreItem = (_id: string, dispatch: Dispatch<StoreItemAction>
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const uploadStoreItemImage = (storeItemId: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<StoreItemAction>): Promise<boolean> => {
+export const uploadStoreItemImage = (storeItemId: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<StoreItemAction>): Promise<void> => {
   const { loadedStoreItems } = state.storeItemState;
   const requestOptions: AxiosRequestConfig = {
     method: "post",
@@ -217,7 +191,7 @@ export const uploadStoreItemImage = (storeItemId: string, imageFile: FormData, s
         loadedStoreItems: updatedStoreItems,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_STORE_ITEM_ERROR", payload: {
@@ -225,11 +199,11 @@ export const uploadStoreItemImage = (storeItemId: string, imageFile: FormData, s
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const deleteStoreItemImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<StoreItemAction>): Promise<boolean> => {
+export const deleteStoreItemImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<StoreItemAction>): Promise<void> => {
   const { loadedStoreItems } = state.storeItemState; 
   const { _id: storeItemId } = state.storeItemState.currentStoreItemData;
 
@@ -243,7 +217,6 @@ export const deleteStoreItemImage = (imgId: string, state: IGlobalAppState, disp
       const { data } = response;
       const { responseMsg, updatedStoreItem } = data;
       
-     
       const updatedStoreItems = loadedStoreItems.map((storeItem) => {
         if (storeItem._id === updatedStoreItem._id) {
           return updatedStoreItem;
@@ -258,7 +231,7 @@ export const deleteStoreItemImage = (imgId: string, state: IGlobalAppState, disp
         loadedStoreItems: updatedStoreItems,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_STORE_ITEM_ERROR", payload: {
@@ -266,7 +239,7 @@ export const deleteStoreItemImage = (imgId: string, state: IGlobalAppState, disp
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     })
 };
 
