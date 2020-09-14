@@ -172,7 +172,6 @@ export const deleteService = (_id: string, dispatch: Dispatch<ServiceAction>, st
 };
 
 export const uploadServiceImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<ServiceAction>): Promise<void> => {
-  console.log("dispatched")
   const { loadedServices } = state.serviceState;
   const requestOptions: AxiosRequestConfig = {
     method: "post",
@@ -180,7 +179,6 @@ export const uploadServiceImage = (_id: string, imageFile: FormData, state: IGlo
     data: imageFile
   };
   dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true } });
-  console.log("should dispatch request")
   return axios.request<IServiceImgServerResData, IServiceImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;

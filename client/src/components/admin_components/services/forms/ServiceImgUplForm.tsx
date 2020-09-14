@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button, Form } from "semantic-ui-react";
 // css imports //
 import "./css/serviceImgUploadForm.css";
@@ -9,8 +9,11 @@ import { Store } from "../../../../state/Store";
 
 const ServiceImageUplForm: React.FC<{}> = (props): JSX.Element => {
   const { state, dispatch } = useContext(Store);
+  const { loading, currentServiceData } = state.serviceState;
+  // local file state 
   const [ file, setFile ] = useState<File>();
-  const { currentServiceData } = state.serviceState;
+
+  // event handlers and listeners //
   const handleButtonClick = () => {
 
   };
@@ -23,17 +26,20 @@ const ServiceImageUplForm: React.FC<{}> = (props): JSX.Element => {
         .then((_) => {
           setFile(undefined)
         })
+        .catch(() => {
+          // perhaps show error later //
+        })
     }
-  }
+  };
   const cancelFile = () => {
     setFile(undefined);
-  }
-
+  };
   const fileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFile(e.target.files[0])
     }
   };
+  
 
   return (
     <div id="serviceImgUplFormHolder">
@@ -73,6 +79,7 @@ const ServiceImageUplForm: React.FC<{}> = (props): JSX.Element => {
               content="Upload"
               icon="upload"
               onClick={uploadFile}
+              loading={loading}
             />
           </div>
           : null
