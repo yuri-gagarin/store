@@ -29,6 +29,11 @@ const productReducer = (state: IProductState = initialProductState, action: Prod
         loadedProducts: [ ...action.payload.loadedProducts],
         error: action.payload.error
       };
+    case "DISPATCH_PRODUCT_API_REQUEST": 
+      return {
+        ...state,
+        loading: true
+      };
     case "GET_PRODUCT": 
       return {
         ...state,

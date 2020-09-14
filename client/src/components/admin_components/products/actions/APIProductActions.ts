@@ -164,7 +164,8 @@ export const deleteProduct = (_id: string, dispatch: Dispatch<ProductAction>, st
     });
 };
 
-export const uploadProductImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<ProductAction>): Promise<void> => {
+export const uploadProductImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<ProductAction>): 
+Promise<void> => {
   const { loadedProducts } = state.productState;
   const requestOptions: AxiosRequestConfig = {
     method: "post",
@@ -176,7 +177,6 @@ export const uploadProductImage = (_id: string, imageFile: FormData, state: IGlo
     .then((response) => {
       const { data } = response;
       const { responseMsg, updatedProduct } = data;
-
       const updatedProducts = loadedProducts.map((product) => {
         if (product._id === updatedProduct._id) {
           return updatedProduct;
@@ -216,8 +216,6 @@ export const deleteProductImage = (imgId: string, state: IGlobalAppState, dispat
     .then((response) => {
       const { data } = response;
       const { responseMsg, updatedProduct } = data;
-      
-     
       const updatedProducts = loadedProducts.map((product) => {
         if (product._id === updatedProduct._id) {
           return updatedProduct;
