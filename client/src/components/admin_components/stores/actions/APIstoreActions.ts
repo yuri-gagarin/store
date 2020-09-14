@@ -215,7 +215,6 @@ export const uploadStoreImage = (_store_id: string, imageFile: FormData, state: 
     .then((response) => {
       const { data } = response;
       const { responseMsg, updatedStore } = data;
-
       const updatedStores = loadedStores.map((store) => {
         if (store._id === updatedStore._id) {
           return updatedStore;
