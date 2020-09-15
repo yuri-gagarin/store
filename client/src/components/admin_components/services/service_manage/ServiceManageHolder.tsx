@@ -85,7 +85,7 @@ const ServiceManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
     (
       error ? <ErrorScreen lastRequest={ () => getAllServices(dispatch) }/> : <LoadingScreen />
     )
-  )
+  );
 };
 
 // export without router for tests //

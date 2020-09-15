@@ -133,6 +133,6 @@ interface IServiceState {
   responseMsg: string;
   currentServiceData: IServiceData;
   loadedServices: IServiceData[]
-  error: null | Error;
+  error: null | Error | import("axios").AxiosError<Error>;
 }
 type ServiceAction = GetAllServices | DispatchServiceAPIRequest | GetService | SetCurrentService | ClearCurrentService | CreateService | EditService | DeleteService | SetServiceError | ClearServiceError | UploadNewServiceImg | UpdateServiceImgs | DeleteServiceImg;

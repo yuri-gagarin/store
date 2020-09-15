@@ -37,7 +37,7 @@ const StoreItemsView: React.FC<{}> = (props): JSX.Element => {
         </Route>
         <Route path="/admin/home/store_items/manage">
           <Spacer width="100%" height="100px"></Spacer>
-          <StoreItemsManageHolder state={state} dispatch={dispatch} />
+          <StoreItemsManageHolder />
         </Route>
       </Switch>
     </div>
