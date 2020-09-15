@@ -17,7 +17,7 @@ describe("Store Image Upload Form Tests", () => {
     let component: ShallowWrapper<React.FC>;
 
     beforeAll(() => {
-      component = shallow<React.FC<{}>, {}>(<StoreImgUplForm />)
+      component = shallow(<StoreImgUplForm />)
      });
 
     it("Should properly render", () => {
@@ -38,7 +38,7 @@ describe("Store Image Upload Form Tests", () => {
     let input: ShallowWrapper;
 
     beforeAll(() => {
-      component = shallow<React.FC<{}>, {}>(<StoreImgUplForm />);
+      component = shallow(<StoreImgUplForm />);
       const file: File = MockFile.create("test", 1024, { type: "image/jpeg" });
       input = component.find("input");
       input.simulate("change", { target: { files: [ file ] } });
@@ -66,11 +66,11 @@ describe("Store Image Upload Form Tests", () => {
   });
   // MOCK Successful Image upload tests //
   describe("'#storeImgUploadBtn' functionality, successful upload and local state changes", () => {
-    let component: ReactWrapper<typeof StoreImgUplForm, {}, {}>;
+    let component: ReactWrapper<typeof StoreImgUplForm>;
     let input: ReactWrapper;
 
     beforeAll(() => {
-      component = mount<React.FC<{}>, {}>(
+      component = mount(
         <StateProvider>
           <StoreImgUplForm />
         </StateProvider>

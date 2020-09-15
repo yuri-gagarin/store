@@ -7,6 +7,7 @@ import StoreItemForm from "../../../../components/admin_components/store_items/f
 import StoreItemImageUplForm from "../../../../components/admin_components/store_items/forms/StoreItemImgUplForm";
 import StoreItemImgPreviewHolder from "../../../../components/admin_components/store_items/image_preview/StoreItemImgPreviewHolder";
 import StoreItemImgPreviewThumb from "../../../../components/admin_components/store_items/image_preview/StoreItemImgThumb";
+import LoadingBar from "../../../../components/admin_components/miscelaneous/LoadingBar";
 // helpers //
 import { generateCleanState } from "../../../../test_helpers/miscHelpers";
 import { createMockStoreItems, setMockStoreItemState } from "../../../../test_helpers/storeItemHelpers";
@@ -25,6 +26,17 @@ const extractContext = (): IGlobalAppContext => {
     dispatch
   };
 }
+const ConnectToContext = (component: React.Component): IGlobalAppContext => {
+  type WrapperProps = {
+    value: IGlobalAppContext;
+  }
+  let wrapper = shallow<WrapperProps>(<StateProvider />)
+  const { state, dispatch } = wrapper.props().value;
+  return {
+    state,
+    dispatch
+  };
+}
 describe("StoreItemFormHolder Component tests", () => {
   let wrapper: ReactWrapper; 
   
@@ -32,7 +44,7 @@ describe("StoreItemFormHolder Component tests", () => {
 
     beforeAll(() => {
       window.scrollTo = jest.fn();
-      wrapper = mount<{}, typeof StoreItemFormHolder>(<StoreItemFormHolder state={generateCleanState()} dispatch={jest.fn<React.Dispatch<StoreItemAction>, []>()}/>)
+      wrapper = mount(<StoreItemFormHolder />);
     });
 
     it("Should Properly Mount Form Holder", () => {
@@ -52,7 +64,7 @@ describe("StoreItemFormHolder Component tests", () => {
 
     beforeAll(() => {
       window.scrollTo = jest.fn();
-      wrapper = mount<{}, typeof StoreItemFormHolder>(<StoreItemFormHolder state={generateCleanState()} dispatch={jest.fn<React.Dispatch<StoreItemAction>, []>()}/>)
+      wrapper = mount(<StoreItemFormHolder />);
     });
 
     it("Should Properly Mount Form Holder", () => {
@@ -90,7 +102,7 @@ describe("StoreItemFormHolder Component tests", () => {
     beforeAll(() => {
       window.scrollTo = jest.fn();
       state = setMockStoreItemState({ currentStoreItem: true });
-      wrapper = mount<{}, typeof StoreItemFormHolder>(<StoreItemFormHolder state={state} dispatch={jest.fn<React.Dispatch<StoreItemAction>, []>()}/>)
+      wrapper = mount(<StoreItemFormHolder />);
     });
 
     it("Should Properly Mount Form Holder", () => {
@@ -128,7 +140,7 @@ describe("StoreItemFormHolder Component tests", () => {
     beforeAll(() => {
       window.scrollTo = jest.fn();
       state = setMockStoreItemState({ currentStoreItem: true, storeItemImages: 3 });
-      wrapper = mount<{}, typeof StoreItemFormHolder>(<StoreItemFormHolder state={state} dispatch={jest.fn<React.Dispatch<StoreItemAction>, []>()}/>)
+      wrapper = mount(<StoreItemFormHolder />);
     });
 
     it("Should Properly Mount Form Holder", () => {
@@ -168,7 +180,7 @@ describe("StoreItemFormHolder Component tests", () => {
       const { state, dispatch } = extractContext();
       wrapper = mount(
         <StateProvider>
-          <StoreItemFormHolder state={state} dispatch={dispatch} />
+          <StoreItemFormHolder />
         </StateProvider>
       );
     });
@@ -178,7 +190,7 @@ describe("StoreItemFormHolder Component tests", () => {
       const adminStoreItemFormCreate = wrapper.find("#adminStoreItemFormCreate").at(0);
       expect(adminStoreItemFormCreate).toMatchSnapshot();
     })
-    it("Should handle the 'handleCreateStoreItemAction", async () => {
+    it("Should handle the 'handleCreateStoreItemAction, show 'LoadingBar' Component", async () => {
       moxios.install();
       await act( async () => {
         moxios.stubRequest("/api/store_items/create", {
@@ -189,11 +201,17 @@ describe("StoreItemFormHolder Component tests", () => {
           }
         });
         const adminStoreItemFormCreate = wrapper.find("#adminStoreItemFormCreate").at(0);
+        expect(wrapper.find(LoadingBar).length).toEqual(1);
         adminStoreItemFormCreate.simulate("click");
-      })
-      wrapper.update()
+      });
     });
-
+    it("Should NOT show the 'LoadingBar' Component after successful API call", () => {
+      wrapper.update();
+      expect(wrapper.find(LoadingBar).length).toEqual(0);
+    });
+    it("Should NOT show the 'StoreItemForm' Component after successful API call", () => {
+      expect(wrapper.find(StoreItemForm).length).toEqual(0);
+    });
   });
 
 });

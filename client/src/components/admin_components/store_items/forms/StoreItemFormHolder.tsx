@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Button, Grid, List } from "semantic-ui-react";
 // css imports //
 import "./css/storeItemFormHolder.css";
@@ -7,8 +7,9 @@ import StoreItemForm from "./StoreItemForm";
 import StoreItemImgPreviewHolder from "../image_preview/StoreItemImgPreviewHolder";
 import StoreItemImgUplForm from "./StoreItemImgUplForm";
 import FormErrorComponent from "../../popups/FormErrorComponent";
+import LoadingBar from "../../miscelaneous/LoadingBar";
 // state //
-import { IGlobalAppState, AppAction } from "../../../../state/Store";
+import { Store } from "../../../../state/Store";
 // api actions //
 import { createStoreItem, editStoreItem } from "../actions/APIStoreItemActions";
 // helpers //
@@ -18,8 +19,7 @@ import { FormState } from "./StoreItemForm";
 import { AxiosError } from "axios";
 
 interface Props {
-  state: IGlobalAppState;
-  dispatch: React.Dispatch<AppAction>;
+  
 }
 
 type StoreItemData = {
@@ -33,8 +33,9 @@ type StoreItemData = {
   categories: string[];
 }
 
-const StoreItemFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
-  const { currentStoreItemData, error } = state.storeItemState;
+const StoreItemFormHolder: React.FC<Props> = (props): JSX.Element => {
+  const { state, dispatch } = useContext(Store);
+  const { loading, currentStoreItemData, error } = state.storeItemState;
   const { name, description, details, price, categories, createdAt, editedAt } = currentStoreItemData;
   // local component state //
   const [ formOpen, setFormOpen ] = useState<boolean>(false);
@@ -56,9 +57,11 @@ const StoreItemFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element 
       images: currentStoreItemData.images,
       categories,
     };
+    console.log(60)
     createStoreItem(storeItemData, dispatch)
       .then((_) => {
         // storeItem created //
+        setFormOpen(false);
       })
       .catch((_) => {
         // handle error? show some modal? //
@@ -88,9 +91,13 @@ const StoreItemFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element 
       setFormOpen(true);
     }
   }, [name, description, price]);
+  useEffect(() => {
+    console.log(loading)
+  }, [ loading ])
   // component return //
   return (
     <div id="storeItemFormHolder">
+      { loading ? <LoadingBar /> : null }
       <FormErrorComponent error={error as AxiosError} />
       {
         !newForm ?

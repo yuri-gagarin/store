@@ -6,7 +6,6 @@ import StoreDetails from "./StoreDetails";
 import StoreNameDropDown from "./StoreNameDropdown";
 // actions and state //
 import { IGlobalAppState, AppAction } from "../../../../state/Store";
-import { getStore } from "../../stores/actions/APIstoreActions";
 
 export type FormState = {
   storeId: string;
