@@ -27,7 +27,7 @@ describe("Product Manage Holder Tests", () => {
         );
 
         await act( async () => {
-          await moxios.stubRequest("/api/products/", {
+          await moxios.stubRequest("/api/products", {
             status: 200,
             response: {
               responseMsg: "All Ok",
@@ -69,7 +69,7 @@ describe("Product Manage Holder Tests", () => {
         );
         
         await act( async () => {
-          await moxios.stubRequest("/api/products/", {
+          await moxios.stubRequest("/api/products", {
             status: 200,
             response: {
               responseMsg: "All Ok",
@@ -126,7 +126,7 @@ describe("Product Manage Holder Tests", () => {
               </StateProvider>
             </Router>
           );
-          moxios.stubRequest("/api/products/", {
+          moxios.stubRequest("/api/products", {
             status: 500,
             response: {
               responseMsg: "Error here",
@@ -176,7 +176,7 @@ describe("Product Manage Holder Tests", () => {
         await act( async () => {
           products = createMockProducts(6);
           moxios.install();
-          moxios.stubRequest("/api/products/", {
+          moxios.stubRequest("/api/products", {
             status: 200,
             response: {
               responseMsg: "All Ok",

@@ -18,7 +18,7 @@ exports[`StoreItemView Component test StoreItemView Component render test Should
         "entries": Array [
           Object {
             "hash": "",
-            "key": "d1vo5j",
+            "key": "vy8a1q",
             "pathname": "/admin/home/store_items",
             "search": "",
             "state": undefined,
@@ -32,7 +32,7 @@ exports[`StoreItemView Component test StoreItemView Component render test Should
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "d1vo5j",
+          "key": "vy8a1q",
           "pathname": "/admin/home/store_items",
           "search": "",
           "state": undefined,
@@ -138,7 +138,7 @@ exports[`StoreItemView Component test StoreItemView Component render test Should
                 "entries": Array [
                   Object {
                     "hash": "",
-                    "key": "d1vo5j",
+                    "key": "vy8a1q",
                     "pathname": "/admin/home/store_items",
                     "search": "",
                     "state": undefined,
@@ -152,7 +152,7 @@ exports[`StoreItemView Component test StoreItemView Component render test Should
                 "listen": [Function],
                 "location": Object {
                   "hash": "",
-                  "key": "d1vo5j",
+                  "key": "vy8a1q",
                   "pathname": "/admin/home/store_items",
                   "search": "",
                   "state": undefined,
@@ -164,7 +164,7 @@ exports[`StoreItemView Component test StoreItemView Component render test Should
             location={
               Object {
                 "hash": "",
-                "key": "d1vo5j",
+                "key": "vy8a1q",
                 "pathname": "/admin/home/store_items",
                 "search": "",
                 "state": undefined,

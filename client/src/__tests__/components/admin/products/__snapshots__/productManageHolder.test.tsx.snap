@@ -12,7 +12,7 @@ exports[`Product Manage Holder Tests Default Component state at first render Sho
         "entries": Array [
           Object {
             "hash": "",
-            "key": "q8pk0y",
+            "key": "g3qay7",
             "pathname": "/",
             "search": "",
             "state": undefined,
@@ -26,7 +26,7 @@ exports[`Product Manage Holder Tests Default Component state at first render Sho
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "q8pk0y",
+          "key": "g3qay7",
           "pathname": "/",
           "search": "",
           "state": undefined,
@@ -48,7 +48,7 @@ exports[`Product Manage Holder Tests Default Component state at first render Sho
               "entries": Array [
                 Object {
                   "hash": "",
-                  "key": "q8pk0y",
+                  "key": "g3qay7",
                   "pathname": "/",
                   "search": "",
                   "state": undefined,
@@ -62,7 +62,7 @@ exports[`Product Manage Holder Tests Default Component state at first render Sho
               "listen": [Function],
               "location": Object {
                 "hash": "",
-                "key": "q8pk0y",
+                "key": "g3qay7",
                 "pathname": "/",
                 "search": "",
                 "state": undefined,
@@ -74,7 +74,7 @@ exports[`Product Manage Holder Tests Default Component state at first render Sho
           location={
             Object {
               "hash": "",
-              "key": "q8pk0y",
+              "key": "g3qay7",
               "pathname": "/",
               "search": "",
               "state": undefined,

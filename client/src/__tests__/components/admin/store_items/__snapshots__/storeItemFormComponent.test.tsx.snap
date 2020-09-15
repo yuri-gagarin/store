@@ -68,21 +68,21 @@ exports[`StoreItemFormHolder Component tests Form Holder state OPEN - WITH Curre
       },
       "storeItemState": Object {
         "currentStoreItemData": Object {
-          "_id": "hlqvexxl9p",
+          "_id": "nmmq9cinlv",
           "categories": Array [
             "mock",
             "new",
           ],
-          "createdAt": "Tue Sep 15 2020 05:07:13 GMT+0300 (Eastern European Summer Time)",
-          "description": "Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi.",
-          "details": "Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
+          "createdAt": "Mon Sep 14 2020 17:50:36 GMT+0300 (Eastern European Summer Time)",
+          "description": "Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab.",
+          "details": "Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
  
-Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis.",
+Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at.",
           "images": Array [],
-          "name": "ut",
-          "price": "24.00",
-          "storeId": "7kgbw47n56",
-          "storeName": "sapiente",
+          "name": "quasi",
+          "price": "23.00",
+          "storeId": "o5yl9va5z5",
+          "storeName": "laborum",
         },
         "error": null,
         "loadedStoreItems": Array [],
@@ -134,7 +134,7 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                 Store Item name:
               </h3>
               <p>
-                ut
+                quasi
               </p>
             </div>
             <div
@@ -144,7 +144,7 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                 Store Item price:
               </h3>
               <p>
-                24.00
+                23.00
               </p>
             </div>
             <div
@@ -154,7 +154,7 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                 Store Item description:
               </h3>
               <p>
-                Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi.
+                Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab.
               </p>
             </div>
             <div
@@ -164,9 +164,9 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                 Store Item details:
               </h3>
               <p>
-                Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
+                Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
  
-Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis.
+Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at.
               </p>
             </div>
             <div
@@ -237,7 +237,7 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
               <span>
                 Created At: 
                 <strong>
-                  2020-Sep-15
+                  2020-Sep-14
                 </strong>
               </span>
               <span>
@@ -330,21 +330,21 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                   },
                   "storeItemState": Object {
                     "currentStoreItemData": Object {
-                      "_id": "hlqvexxl9p",
+                      "_id": "nmmq9cinlv",
                       "categories": Array [
                         "mock",
                         "new",
                       ],
-                      "createdAt": "Tue Sep 15 2020 05:07:13 GMT+0300 (Eastern European Summer Time)",
-                      "description": "Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi.",
-                      "details": "Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
+                      "createdAt": "Mon Sep 14 2020 17:50:36 GMT+0300 (Eastern European Summer Time)",
+                      "description": "Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab.",
+                      "details": "Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
  
-Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis.",
+Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at.",
                       "images": Array [],
-                      "name": "ut",
-                      "price": "24.00",
-                      "storeId": "7kgbw47n56",
-                      "storeName": "sapiente",
+                      "name": "quasi",
+                      "price": "23.00",
+                      "storeId": "o5yl9va5z5",
+                      "storeName": "laborum",
                     },
                     "error": null,
                     "loadedStoreItems": Array [],
@@ -603,21 +603,21 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                   },
                   "storeItemState": Object {
                     "currentStoreItemData": Object {
-                      "_id": "hlqvexxl9p",
+                      "_id": "nmmq9cinlv",
                       "categories": Array [
                         "mock",
                         "new",
                       ],
-                      "createdAt": "Tue Sep 15 2020 05:07:13 GMT+0300 (Eastern European Summer Time)",
-                      "description": "Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi.",
-                      "details": "Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
+                      "createdAt": "Mon Sep 14 2020 17:50:36 GMT+0300 (Eastern European Summer Time)",
+                      "description": "Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab.",
+                      "details": "Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
  
-Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis.",
+Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at.",
                       "images": Array [],
-                      "name": "ut",
-                      "price": "24.00",
-                      "storeId": "7kgbw47n56",
-                      "storeName": "sapiente",
+                      "name": "quasi",
+                      "price": "23.00",
+                      "storeId": "o5yl9va5z5",
+                      "storeName": "laborum",
                     },
                     "error": null,
                     "loadedStoreItems": Array [],
@@ -642,21 +642,21 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
               }
               storeItem={
                 Object {
-                  "_id": "hlqvexxl9p",
+                  "_id": "nmmq9cinlv",
                   "categories": Array [
                     "mock",
                     "new",
                   ],
-                  "createdAt": "Tue Sep 15 2020 05:07:13 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi.",
-                  "details": "Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
+                  "createdAt": "Mon Sep 14 2020 17:50:36 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab.",
+                  "details": "Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
  
-Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis.",
+Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at.",
                   "images": Array [],
-                  "name": "ut",
-                  "price": "24.00",
-                  "storeId": "7kgbw47n56",
-                  "storeName": "sapiente",
+                  "name": "quasi",
+                  "price": "23.00",
+                  "storeId": "o5yl9va5z5",
+                  "storeName": "laborum",
                 }
               }
             >
@@ -674,8 +674,8 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                   >
                     <StoreDetails
                       createdAt=""
-                      storeId="7kgbw47n56"
-                      storeName="sapiente"
+                      storeId="o5yl9va5z5"
+                      storeName="laborum"
                     >
                       <div>
                         <Item>
@@ -710,7 +710,7 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                                   <div
                                     className="header"
                                   >
-                                    sapiente
+                                    laborum
                                   </div>
                                 </ItemHeader>
                                 <ItemMeta>
@@ -720,7 +720,7 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                                     <span
                                       className="storeItemFormStoreId"
                                     >
-                                      7kgbw47n56
+                                      o5yl9va5z5
                                     </span>
                                     <span
                                       className="storeItemFormStoreCreated"
@@ -807,21 +807,21 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                               },
                               "storeItemState": Object {
                                 "currentStoreItemData": Object {
-                                  "_id": "hlqvexxl9p",
+                                  "_id": "nmmq9cinlv",
                                   "categories": Array [
                                     "mock",
                                     "new",
                                   ],
-                                  "createdAt": "Tue Sep 15 2020 05:07:13 GMT+0300 (Eastern European Summer Time)",
-                                  "description": "Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi.",
-                                  "details": "Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
+                                  "createdAt": "Mon Sep 14 2020 17:50:36 GMT+0300 (Eastern European Summer Time)",
+                                  "description": "Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab.",
+                                  "details": "Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
  
-Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis.",
+Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at.",
                                   "images": Array [],
-                                  "name": "ut",
-                                  "price": "24.00",
-                                  "storeId": "7kgbw47n56",
-                                  "storeName": "sapiente",
+                                  "name": "quasi",
+                                  "price": "23.00",
+                                  "storeId": "o5yl9va5z5",
+                                  "storeName": "laborum",
                                 },
                                 "error": null,
                                 "loadedStoreItems": Array [],
@@ -978,7 +978,7 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                         <input
                           onChange={[Function]}
                           placeholder="Store Item name here ..."
-                          value="ut"
+                          value="quasi"
                         />
                       </div>
                     </FormField>
@@ -992,7 +992,7 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                         <input
                           onChange={[Function]}
                           placeholder="Store Item price here..."
-                          value="24.00"
+                          value="23.00"
                         />
                       </div>
                     </FormField>
@@ -1543,9 +1543,9 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                       label="Store Item Details"
                       onChange={[Function]}
                       placeholder="Store Item details here..."
-                      value="Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
+                      value="Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
  
-Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis."
+Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at."
                     >
                       <div
                         className="field"
@@ -1559,9 +1559,9 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                           onChange={[Function]}
                           placeholder="Store Item details here..."
                           rows={3}
-                          value="Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
+                          value="Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
  
-Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis."
+Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at."
                         >
                           <Ref
                             innerRef={
@@ -1570,9 +1570,9 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                                   placeholder="Store Item details here..."
                                   rows="3"
                                 >
-                                  Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
+                                  Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
  
-Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis.
+Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at.
                                 </textarea>,
                               }
                             }
@@ -1584,9 +1584,9 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                                     placeholder="Store Item details here..."
                                     rows="3"
                                   >
-                                    Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
+                                    Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
  
-Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis.
+Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at.
                                   </textarea>,
                                 }
                               }
@@ -1597,9 +1597,9 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                                 onInput={[Function]}
                                 placeholder="Store Item details here..."
                                 rows={3}
-                                value="Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
+                                value="Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
  
-Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis."
+Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at."
                               />
                             </RefFindNode>
                           </Ref>
@@ -1611,7 +1611,7 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                       label="Store Item Description"
                       onChange={[Function]}
                       placeholder="Store Item description here..."
-                      value="Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi."
+                      value="Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab."
                     >
                       <div
                         className="field"
@@ -1625,7 +1625,7 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                           onChange={[Function]}
                           placeholder="Store Item description here..."
                           rows={3}
-                          value="Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi."
+                          value="Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab."
                         >
                           <Ref
                             innerRef={
@@ -1634,7 +1634,7 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                                   placeholder="Store Item description here..."
                                   rows="3"
                                 >
-                                  Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi.
+                                  Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab.
                                 </textarea>,
                               }
                             }
@@ -1646,7 +1646,7 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                                     placeholder="Store Item description here..."
                                     rows="3"
                                   >
-                                    Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi.
+                                    Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab.
                                   </textarea>,
                                 }
                               }
@@ -1657,7 +1657,7 @@ Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxim
                                 onInput={[Function]}
                                 placeholder="Store Item description here..."
                                 rows={3}
-                                value="Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi."
+                                value="Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab."
                               />
                             </RefFindNode>
                           </Ref>

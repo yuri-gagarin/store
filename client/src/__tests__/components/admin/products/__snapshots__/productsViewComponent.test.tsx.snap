@@ -18,7 +18,7 @@ exports[`ProductView Component test ProductView Component render test Should Pro
         "entries": Array [
           Object {
             "hash": "",
-            "key": "pzr0hp",
+            "key": "0d0chg",
             "pathname": "/admin/home/my_products",
             "search": "",
             "state": undefined,
@@ -32,7 +32,7 @@ exports[`ProductView Component test ProductView Component render test Should Pro
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "pzr0hp",
+          "key": "0d0chg",
           "pathname": "/admin/home/my_products",
           "search": "",
           "state": undefined,
@@ -60,7 +60,7 @@ exports[`ProductView Component test ProductView Component render test Should Pro
                 "entries": Array [
                   Object {
                     "hash": "",
-                    "key": "pzr0hp",
+                    "key": "0d0chg",
                     "pathname": "/admin/home/my_products",
                     "search": "",
                     "state": undefined,
@@ -74,7 +74,7 @@ exports[`ProductView Component test ProductView Component render test Should Pro
                 "listen": [Function],
                 "location": Object {
                   "hash": "",
-                  "key": "pzr0hp",
+                  "key": "0d0chg",
                   "pathname": "/admin/home/my_products",
                   "search": "",
                   "state": undefined,
@@ -86,7 +86,7 @@ exports[`ProductView Component test ProductView Component render test Should Pro
             location={
               Object {
                 "hash": "",
-                "key": "pzr0hp",
+                "key": "0d0chg",
                 "pathname": "/admin/home/my_products",
                 "search": "",
                 "state": undefined,

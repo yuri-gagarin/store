@@ -37,9 +37,7 @@ describe("Product Actions Tests", () => {
 
   beforeAll(() => {
     wrapper = shallow(
-    <StateProvider>
-      <ProductView></ProductView>
-    </StateProvider>
+      <StateProvider />
     );
   });
 

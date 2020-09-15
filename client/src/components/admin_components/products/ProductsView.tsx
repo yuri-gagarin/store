@@ -37,7 +37,7 @@ const ProductsView: React.FC<{}> = (props): JSX.Element => {
         </Route>
         <Route path="/admin/home/my_products/manage">
           <Spacer width="100%" height="100px"></Spacer>
-          <ProductsManageHolder state={state} dispatch={dispatch} />
+          <ProductsManageHolder />
         </Route>
       </Switch>
     </div>
