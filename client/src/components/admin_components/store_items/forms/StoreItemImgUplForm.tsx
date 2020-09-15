@@ -9,8 +9,10 @@ import { Store } from "../../../../state/Store";
 
 const StoreItemImageUplForm: React.FC<{}> = (props): JSX.Element => {
   const { state, dispatch } = useContext(Store);
+  const { loading, currentStoreItemData } = state.storeItemState;
+  // local component state //
   const [ file, setFile ] = useState<File>();
-  const { currentStoreItemData } = state.storeItemState;
+  // event handlers and listeners //
   const handleButtonClick = () => {
 
   };
@@ -20,17 +22,17 @@ const StoreItemImageUplForm: React.FC<{}> = (props): JSX.Element => {
       const { _id } = currentStoreItemData;
       formData.append("storeItemImage", file);
       uploadStoreItemImage(_id, formData, state, dispatch)
-        .then((success) => {
-          if (success) {
-            setFile(undefined)
-          }
+        .then((_) => {
+          setFile(undefined);
         })
+        .catch((_) => {
+          // handle error ? show error screen? for later ... //
+        });
     }
-  }
+  };
   const cancelFile = () => {
     setFile(undefined);
-  }
-
+  };
   const fileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFile(e.target.files[0])
@@ -45,6 +47,7 @@ const StoreItemImageUplForm: React.FC<{}> = (props): JSX.Element => {
           !file ?
           <div id="storeItemImgInputControlls"> 
             <Button
+              id="selectStoreItemImgBtn"
               as="label"
               content="Choose Image"
               labelPosition="left"
@@ -74,6 +77,7 @@ const StoreItemImageUplForm: React.FC<{}> = (props): JSX.Element => {
               content="Upload"
               icon="upload"
               onClick={uploadFile}
+              loading={loading}
             />
           </div>
           : null

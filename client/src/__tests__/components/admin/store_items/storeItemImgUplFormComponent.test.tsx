@@ -49,18 +49,18 @@ describe("StoreItem Image Upload Form Tests", () => {
       expect(input.prop("type")).toEqual("file");
     });
     it("Should successfully update and render the ImgUpload button", () => {
-      const imgUpoadBtn = component.find("#store_itemImgUploadBtn");
+      const imgUpoadBtn = component.find("#storeItemImgUploadBtn");
       expect(imgUpoadBtn.length).toEqual(1);
     });
     it("Should successfully update and render the Cancel button", () => {
-      const imgCanceldBtn = component.find("#store_itemImgCancelBtn");
+      const imgCanceldBtn = component.find("#storeItemImgCancelBtn");
       expect(imgCanceldBtn.length).toEqual(1);
     });
     it("Should properly handle the '#store_itemImgCancelBtn' and render correct local state", () => {
-      const imgCancelBtn = component.find("#store_itemImgCancelBtn");
+      const imgCancelBtn = component.find("#storeItemImgCancelBtn");
       imgCancelBtn.simulate("click");
-      expect(component.find("#store_itemImgCancelBtn").length).toEqual(0);
-      expect(component.find("#store_itemImgUploadBtn").length).toEqual(0);
+      expect(component.find("#storeItemImgCancelBtn").length).toEqual(0);
+      expect(component.find("#storeItemImgUploadBtn").length).toEqual(0);
       expect(component.find("#selectStoreItemImgBtn").length).toEqual(1);
     });
   });
@@ -96,7 +96,7 @@ describe("StoreItem Image Upload Form Tests", () => {
         });
       });
 
-      const imgUpoadBtn = component.find("#store_itemImgUploadBtn");
+      const imgUpoadBtn = component.find("#storeItemImgUploadBtn");
       imgUpoadBtn.at(0).simulate("click");
       // loader should be displayed on th #store_itemImgUploadBtn //
       const imgUpoadBtnLoading = component.find(Button);
@@ -116,11 +116,11 @@ describe("StoreItem Image Upload Form Tests", () => {
       expect(selectImgBtn.length).toEqual(2);
     });
     it("Should NOT render Image Upload button after 'successful upload", () => {
-      const imgUpoadBtn = component.find("#store_itemImgUploadBtn");
+      const imgUpoadBtn = component.find("#storeItemImgUploadBtn");
       expect(imgUpoadBtn.length).toEqual(0);
     });
     it("Should NOT render Cancel Upload button after 'successful upload", () => {
-      const imgUpoadBtn = component.find("#store_itemImgUploadBtn");
+      const imgUpoadBtn = component.find("#storeItemImgUploadBtn");
       expect(imgUpoadBtn.length).toEqual(0);
     });
   });
@@ -157,7 +157,7 @@ describe("StoreItem Image Upload Form Tests", () => {
         });
       });
 
-      const imgUpoadBtn = component.find("#store_itemImgUploadBtn").at(0);
+      const imgUpoadBtn = component.find("#storeItemImgUploadBtn").at(0);
       imgUpoadBtn.simulate("click");
       // loader should be displayed on th #store_itemImgUploadBtn //
       const imgUpoadBtnLoading = component.find(Button);
@@ -177,11 +177,11 @@ describe("StoreItem Image Upload Form Tests", () => {
       expect(selectImgBtn.length).toEqual(0);
     });
     it("Should render Image Upload button after a 'failed' upload", () => {
-      const imgUpoadBtn = component.find("#store_itemImgUploadBtn");
+      const imgUpoadBtn = component.find("#storeItemImgUploadBtn");
       expect(imgUpoadBtn.length).toEqual(2);
     })
     it("Should render Cancel Upload button after a 'failed' upload", () => {
-      const imgUpoadBtn = component.find("#store_itemImgUploadBtn");
+      const imgUpoadBtn = component.find("#storeItemImgUploadBtn");
       expect(imgUpoadBtn.length).toEqual(2);
     });
   });

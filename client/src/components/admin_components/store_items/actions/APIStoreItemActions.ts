@@ -16,6 +16,7 @@ export const getAllStoreItems = (dispatch: Dispatch<StoreItemAction>, queryParam
     url: "/api/store_items",
     params: queryParams
   };
+  dispatch({ type: "DISPATCH_STORE_ITEM_API_REQUEST", payload: { loading: true } });
   return axios.request<IStoreItemServerResData, IStoreItemServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -44,6 +45,7 @@ export const getStoreItem = (_id: string, dispatch: Dispatch<StoreItemAction>): 
     method: "get",
     url: "/api/store_items/" + _id,
   };
+  dispatch({ type: "DISPATCH_STORE_ITEM_API_REQUEST", payload: { loading: true } });
   return axios.request<IStoreItemServerResData, IStoreItemServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -72,7 +74,7 @@ export const createStoreItem = (data: ClientStoreItemData, dispatch: Dispatch<St
     url: "/api/store_items/create",
     data: data
   };
-
+  dispatch({ type: "DISPATCH_STORE_ITEM_API_REQUEST", payload: { loading: true } });
   return axios.request<IStoreItemServerResData, IStoreItemServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -102,6 +104,7 @@ export const editStoreItem = (_id: string, data: ClientStoreItemData, dispatch: 
     url: "/api/store_items/update/" + _id,
     data: data
   };
+  dispatch({ type: "DISPATCH_STORE_ITEM_API_REQUEST", payload: { loading: true } });
   return axios.request<IStoreItemServerResData, IStoreItemServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -138,6 +141,7 @@ export const deleteStoreItem = (_id: string, dispatch: Dispatch<StoreItemAction>
     method: "delete",
     url: "/api/store_items/delete/" + _id,
   };
+  dispatch({ type: "DISPATCH_STORE_ITEM_API_REQUEST", payload: { loading: true } });
   return axios.request<IStoreItemServerResData, IStoreItemServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -171,7 +175,7 @@ export const uploadStoreItemImage = (storeItemId: string, imageFile: FormData, s
     url: "/api/uploads/store_item_images/" + storeItemId,
     data: imageFile
   };
-
+  dispatch({ type: "DISPATCH_STORE_ITEM_API_REQUEST", payload: { loading: true } });
   return axios.request<IStoreItemImgServerResData, IStoreItemImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -211,7 +215,7 @@ export const deleteStoreItemImage = (imgId: string, state: IGlobalAppState, disp
     method: "delete",
     url: "/api/uploads/store_item_images/" + imgId + "/" + storeItemId
   };
-
+  dispatch({ type: "DISPATCH_STORE_ITEM_API_REQUEST", payload: { loading: true } });
   return axios.request<IStoreItemImgServerResData, IStoreItemImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -240,7 +244,7 @@ export const deleteStoreItemImage = (imgId: string, state: IGlobalAppState, disp
         error: error
       }});
       return Promise.reject();
-    })
+    });
 };
 
 

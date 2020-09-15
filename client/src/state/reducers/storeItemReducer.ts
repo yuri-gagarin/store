@@ -25,6 +25,11 @@ export const initialStoreItemState: IStoreItemState = {
 
 const storeReducer = (state: IStoreItemState = initialStoreItemState, action: StoreItemAction): IStoreItemState => {
   switch (action.type) {
+    case "DISPATCH_STORE_ITEM_API_REQUEST":
+      return {
+        ...state,
+        loading: true
+      };
     case "GET_ALL_STORE_ITEMS": 
       return {
         ...state,

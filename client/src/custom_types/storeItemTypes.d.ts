@@ -8,6 +8,12 @@ type GetAllStoreItems = {
     error: null | Error;
   };
 }
+type DispatchStoreItemAPIReq = {
+  readonly type: "DISPATCH_STORE_ITEM_API_REQUEST",
+  readonly payload: {
+    loading: boolean;
+  }
+}
 type SetCurrentStoreItem = {
   readonly type: "SET_CURRENT_STORE_ITEM";
   payload: {
@@ -140,5 +146,4 @@ interface IStoreItemImgData {
   createdAt: string;
   editedAt?: string;
 }
-type StoreItemAction = GetAllStoreItems | GetStoreItem | SetCurrentStoreItem | ClearCurrentStoreItem | CreateStoreItem | EditStoreItem | 
-                          DeleteStoreItem | SetStoreItemError | ClearStoreItemError | UploadNewStoreItemImg | UpdateStoreItemImgs | DeleteStoreItemImg;
+type StoreItemAction = GetAllStoreItems | DispatchStoreItemAPIReq | GetStoreItem | SetCurrentStoreItem | ClearCurrentStoreItem | CreateStoreItem | EditStoreItem | DeleteStoreItem | SetStoreItemError | ClearStoreItemError | UploadNewStoreItemImg | UpdateStoreItemImgs | DeleteStoreItemImg;

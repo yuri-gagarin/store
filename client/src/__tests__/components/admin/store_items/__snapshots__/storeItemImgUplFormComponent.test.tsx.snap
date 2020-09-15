@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StoreItem Image Upload Form Tests Render tests without any Image data Should properly render 1`] = `
+<div
+  id="storeItemImgUplFormHolder"
+>
+  <div>
+    <p>
+      Image Uploader
+    </p>
+  </div>
+  <Form
+    as="form"
+    id="storeItemImgUploadForm"
+  >
+    <div
+      id="storeItemImgInputControlls"
+    >
+      <Button
+        as="label"
+        content="Choose Image"
+        htmlFor="storeItemImgFile"
+        icon="file"
+        id="selectStoreItemImgBtn"
+        labelPosition="left"
+        onClick={[Function]}
+      />
+      <input
+        hidden={true}
+        id="storeItemImgFile"
+        onChange={[Function]}
+        type="file"
+      />
+    </div>
+    <span>
+      No File
+    </span>
+  </Form>
+</div>
+`;
