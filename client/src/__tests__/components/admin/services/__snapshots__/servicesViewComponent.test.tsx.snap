@@ -18,7 +18,7 @@ exports[`ServiceView Component test ServiceView Component render test Should Pro
         "entries": Array [
           Object {
             "hash": "",
-            "key": "3jg9zc",
+            "key": "8rchyl",
             "pathname": "/admin/home/my_services",
             "search": "",
             "state": undefined,
@@ -32,7 +32,7 @@ exports[`ServiceView Component test ServiceView Component render test Should Pro
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "3jg9zc",
+          "key": "8rchyl",
           "pathname": "/admin/home/my_services",
           "search": "",
           "state": undefined,
@@ -60,7 +60,7 @@ exports[`ServiceView Component test ServiceView Component render test Should Pro
                 "entries": Array [
                   Object {
                     "hash": "",
-                    "key": "3jg9zc",
+                    "key": "8rchyl",
                     "pathname": "/admin/home/my_services",
                     "search": "",
                     "state": undefined,
@@ -74,7 +74,7 @@ exports[`ServiceView Component test ServiceView Component render test Should Pro
                 "listen": [Function],
                 "location": Object {
                   "hash": "",
-                  "key": "3jg9zc",
+                  "key": "8rchyl",
                   "pathname": "/admin/home/my_services",
                   "search": "",
                   "state": undefined,
@@ -86,7 +86,7 @@ exports[`ServiceView Component test ServiceView Component render test Should Pro
             location={
               Object {
                 "hash": "",
-                "key": "3jg9zc",
+                "key": "8rchyl",
                 "pathname": "/admin/home/my_services",
                 "search": "",
                 "state": undefined,

@@ -88,7 +88,7 @@ const StoreItemFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element 
       setFormOpen(true);
     }
   }, [name, description, price]);
-  // 
+  // component return //
   return (
     <div id="storeItemFormHolder">
       <FormErrorComponent error={error as AxiosError} />

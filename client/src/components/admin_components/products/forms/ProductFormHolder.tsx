@@ -14,6 +14,7 @@ import { createProduct, editProduct } from "../actions/APIProductActions";
 import { ConvertDate } from "../../../helpers/displayHelpers";
 // types 
 import { FormState } from "./ProductForm";
+
 interface Props {
   state: IGlobalAppState;
   dispatch: React.Dispatch<AppAction>;
@@ -27,13 +28,17 @@ type ProductData = {
 }
 
 const ProductFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
-  const [ formOpen, setFormOpen ] = useState<boolean>(false);
-  const [ imgUpload, setImgUpload ] = useState<boolean>(false);
-  const [ newForm, setNewForm ] = useState<boolean>(true);
-
   const { currentProductData } = state.productState;
   const { name, description, price, createdAt, editedAt } = currentProductData;
+  // local component state //
+  const [ formOpen, setFormOpen ] = useState<boolean>(false);
+  const [ newForm, setNewForm ] = useState<boolean>(true);
 
+  // ProductForm toggle //
+  const handleFormOpen = () => {
+    setFormOpen(!formOpen);
+  };
+  // API call handlers CREATE - EDIT //
   const handleCreateProduct = ({ name, price, description }: FormState): void => {
     const productData: ProductData = {
       name,
@@ -41,35 +46,28 @@ const ProductFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
       price,
       images: currentProductData.images
     };
-
     createProduct(productData, dispatch)
-      .then((success) => {
-        if (success) {
-          // product created //
-          setImgUpload(true);
-        } else {
-          console.error("error");
-        }
+      .then((_) => {
+        // product created //
+        setFormOpen(false);
+      })
+      .catch((_) => {
+        // handle error or show modal //
       });
   };
-
   const handleUpdateProduct = ({ name, description, price }: FormState): void => {
     const productParams: ProductData = {
       name, description, price, images: currentProductData.images
     };
-
     editProduct(currentProductData._id, productParams, dispatch, state)
-      .then((success) => {
-        if (success) {
-          setFormOpen(false);
-        }
+      .then((_) => {
+        setFormOpen(false);
       })
-  }
-
-  const handleFormOpen = () => {
-    setFormOpen(!formOpen);
+      .catch((_) => {
+        // handle error show modal //
+      });
   };
-  
+  // lifecycle hooks //
   useEffect(() => {
     if (!formOpen) {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -81,8 +79,7 @@ const ProductFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
       setFormOpen(true);
     }
   }, [name, description, price]);
-
-
+  // component return //
   return (
     <div id="productFormHolder">
       {
