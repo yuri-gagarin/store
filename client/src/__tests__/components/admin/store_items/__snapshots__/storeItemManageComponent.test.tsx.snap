@@ -12,7 +12,7 @@ exports[`StoreItem Manage Holder Tests Default Component state at first render S
         "entries": Array [
           Object {
             "hash": "",
-            "key": "v1xy3e",
+            "key": "8acq7d",
             "pathname": "/",
             "search": "",
             "state": undefined,
@@ -26,7 +26,7 @@ exports[`StoreItem Manage Holder Tests Default Component state at first render S
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "v1xy3e",
+          "key": "8acq7d",
           "pathname": "/",
           "search": "",
           "state": undefined,
@@ -48,7 +48,7 @@ exports[`StoreItem Manage Holder Tests Default Component state at first render S
               "entries": Array [
                 Object {
                   "hash": "",
-                  "key": "v1xy3e",
+                  "key": "8acq7d",
                   "pathname": "/",
                   "search": "",
                   "state": undefined,
@@ -62,7 +62,7 @@ exports[`StoreItem Manage Holder Tests Default Component state at first render S
               "listen": [Function],
               "location": Object {
                 "hash": "",
-                "key": "v1xy3e",
+                "key": "8acq7d",
                 "pathname": "/",
                 "search": "",
                 "state": undefined,
@@ -74,7 +74,7 @@ exports[`StoreItem Manage Holder Tests Default Component state at first render S
           location={
             Object {
               "hash": "",
-              "key": "v1xy3e",
+              "key": "8acq7d",
               "pathname": "/",
               "search": "",
               "state": undefined,

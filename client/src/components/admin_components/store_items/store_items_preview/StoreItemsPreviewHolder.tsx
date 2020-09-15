@@ -18,18 +18,19 @@ interface Props {
 }
 
 const StoreItemsPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
-  const { loadedStoreItems } = state.storeItemState;
+  const { loading, loadedStoreItems, error } = state.storeItemState;
   // local state //
   const [ pageLoaded, setPageLoaded ] = useState<boolean>(false);
   const [ showErrorPage, setShowErrorPage ] = useState<boolean>(false);
 
   useEffect(() => {
     getAllStoreItems(dispatch)
-      .then((success) => {
-        if (success) {
-          setPageLoaded(true);
-        }
+      .then((_) => {
+        setPageLoaded(true);
       })
+      .catch((error) => {
+        // handle error show modal ? //
+      });
   }, []);
 
   return (

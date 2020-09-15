@@ -129,7 +129,7 @@ describe("StoreItem Manage Holder Tests", () => {
           </Router>
         );
 
-        moxios.stubRequest("/api/storeItems", {
+        moxios.stubRequest("/api/store_items", {
           status: 500,
           response: {
             responseMsg: "Error here",
@@ -176,7 +176,7 @@ describe("StoreItem Manage Holder Tests", () => {
         storeItems = createMockStoreItems(6);
 
         moxios.install();
-        moxios.stubRequest("/api/storeItems", {
+        moxios.stubRequest("/api/store_items", {
           status: 200,
           response: {
             responseMsg: "All Ok",

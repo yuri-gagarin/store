@@ -34,13 +34,17 @@ type StoreItemData = {
 }
 
 const StoreItemFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
-  const [ formOpen, setFormOpen ] = useState<boolean>(false);
-  const [ imgUpload, setImgUpload ] = useState<boolean>(false);
-  const [ newForm, setNewForm ] = useState<boolean>(true);
-
   const { currentStoreItemData, error } = state.storeItemState;
   const { name, description, details, price, categories, createdAt, editedAt } = currentStoreItemData;
-
+  // local component state //
+  const [ formOpen, setFormOpen ] = useState<boolean>(false);
+  const [ newForm, setNewForm ] = useState<boolean>(true);
+  
+  // StoreItemForm toggle //
+  const handleFormOpen = () => {
+    setFormOpen(!formOpen);
+  };
+  // API call handlers CREATE - EDIT //
   const handleCreateStoreItem = ({ storeId, storeName, name, price, description, details, categories }: FormState): void => {
     const storeItemData: StoreItemData = {
       storeId,
@@ -52,35 +56,27 @@ const StoreItemFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element 
       images: currentStoreItemData.images,
       categories,
     };
-
     createStoreItem(storeItemData, dispatch)
-      .then((success) => {
-        if (success) {
-          // storeItem created //
-          setImgUpload(true);
-        } else {
-          console.error("error");
-        }
+      .then((_) => {
+        // storeItem created //
+      })
+      .catch((_) => {
+        // handle error? show some modal? //
       });
   };
-
   const handleUpdateStoreItem = ({ storeId, storeName,name, description, details, price, categories }: FormState): void => {
     const storeItemParams: StoreItemData = {
       storeId, storeName, name, details, description, price, images: currentStoreItemData.images, categories
     };
-
     editStoreItem(currentStoreItemData._id, storeItemParams, dispatch, state)
-      .then((success) => {
-        if (success) {
-          setFormOpen(false);
-        }
+      .then((_) => {
+        setFormOpen(false);
       })
-  }
-
-  const handleFormOpen = () => {
-    setFormOpen(!formOpen);
+      .catch((_) => {
+        // handle error show modal ? //
+      });
   };
-  
+  // lifecycle hooks //
   useEffect(() => {
     if (!formOpen) {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -92,8 +88,7 @@ const StoreItemFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element 
       setFormOpen(true);
     }
   }, [name, description, price]);
-
-
+  // 
   return (
     <div id="storeItemFormHolder">
       <FormErrorComponent error={error as AxiosError} />

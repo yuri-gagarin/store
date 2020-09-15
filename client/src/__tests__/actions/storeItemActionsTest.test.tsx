@@ -4,8 +4,6 @@ import faker from "faker";
 import { expect } from "chai";
 import { shallow, ShallowWrapper } from "enzyme";
 import moxios from "moxios";
-// component dependencies //
-import StoreItemView from "../../components/admin_components/store_items/StoreItemsView";
 // state and React.context dependenies //
 import { IGlobalAppState, IGlobalAppContext } from "../../state/Store";
 import { StateProvider } from "../../state/Store";
@@ -17,7 +15,7 @@ import { getAllStoreItems, getStoreItem, createStoreItem, editStoreItem,
 // helpers and additional dependencies //
 import { emptyStoreItemData } from "../../state/reducers/storeItemReducer";
 import { createMockStoreItems, createMockStoreItemImage, clearStoreItemState } from "../../test_helpers/storeItemHelpers"
-import { ClientStoreItemData } from "../../components/admin_components/store_items/actions/APIStoreItemActions";
+import { ClientStoreItemData } from "../../components/admin_components/store_items/type_definitions/storeItemTypes";
 import { AxiosRequestConfig } from "axios";
 
 
@@ -39,9 +37,7 @@ describe("StoreItem Actions Tests", () => {
 
   beforeAll(() => {
     wrapper = shallow(
-    <StateProvider>
-      <StoreItemView></StoreItemView>
-    </StateProvider>
+      <StateProvider />
     );
   });
 
@@ -131,8 +127,8 @@ describe("StoreItem Actions Tests", () => {
         });
         // mock action with moxios //
         getAllStoreItems(dispatch)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -180,8 +176,8 @@ describe("StoreItem Actions Tests", () => {
         });
         // mock action with moxios //
         getStoreItem(mockStoreItem._id, dispatch)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -233,8 +229,8 @@ describe("StoreItem Actions Tests", () => {
         };
         // mock action with moxios //
         createStoreItem(newStoreItem, dispatch)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -301,8 +297,8 @@ describe("StoreItem Actions Tests", () => {
         };
         // mock action with moxios //
         editStoreItem(editedStoreItem._id, storeItemUpdate, dispatch, state)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -369,8 +365,8 @@ describe("StoreItem Actions Tests", () => {
         });
         // mock action with moxios //
         deleteStoreItem(deletedStoreItem._id, dispatch, state)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -424,8 +420,8 @@ describe("StoreItem Actions Tests", () => {
         // mock action with moxios //
         const formData = new FormData();
         uploadStoreItemImage(updatedStoreItem._id, formData, state, dispatch) 
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -485,8 +481,8 @@ describe("StoreItem Actions Tests", () => {
         });
         // mock action with moxios //
         deleteStoreItemImage(deletedImage._id, state, dispatch) 
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -549,8 +545,8 @@ describe("StoreItem Actions Tests", () => {
           request.reject(error)
         });
         getAllStoreItems(dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -586,8 +582,8 @@ describe("StoreItem Actions Tests", () => {
           request.reject(error)
         });
         getStoreItem(storeItem._id, dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -623,8 +619,8 @@ describe("StoreItem Actions Tests", () => {
           request.reject(error)
         });
         createStoreItem(storeItem, dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -660,8 +656,8 @@ describe("StoreItem Actions Tests", () => {
           request.reject(error)
         });
         editStoreItem(storeItem._id, storeItem, dispatch, state)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -697,8 +693,8 @@ describe("StoreItem Actions Tests", () => {
           request.reject(error)
         });
         deleteStoreItem(storeItem._id, dispatch, state)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -735,8 +731,8 @@ describe("StoreItem Actions Tests", () => {
         });
         const mockImg = new FormData();
         uploadStoreItemImage(storeItem._id, mockImg, state, dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -772,8 +768,8 @@ describe("StoreItem Actions Tests", () => {
           request.reject(error)
         });
         deleteStoreItemImage(storeItemImage._id, state, dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);

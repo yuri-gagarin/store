@@ -7,7 +7,7 @@ import { getAllStores } from "../../stores/actions/APIstoreActions";
 import { getAllStoreItems } from "../actions/APIStoreItemActions";
 import { AppAction, IGlobalAppState } from "../../../../state/Store";
 // types and interfaces //
-import { StoreItemQueryPar } from "../custom_types/customTypes";
+import { StoreItemQueryPar } from "../type_definitions/storeItemTypes";
 type DropdownData = {
   key: string;
   text: string;
@@ -42,9 +42,7 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
   useEffect(() => {
     getAllStores(dispatch)
       .then((success) => {
-        if (success) {
-          setDropdownLoading(false);
-        }
+        setDropdownLoading(false);
       })
   }, []);
   useEffect(() => {
@@ -67,14 +65,14 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
 
   return (
     <div>
-    <Menu horizontal className="storeItemsControlsMenu">
+    <Menu className="storeItemsControlsMenu">
       <Dropdown 
         item 
         text="Sort by Store Name"
         loading={dropdownLoading}
         options={dropdownData}
       />
-      <Menu.Item fluid>
+      <Menu.Item>
         <Dropdown text="Sort by Date">
           <Dropdown.Menu>
             <Dropdown.Item 
@@ -92,7 +90,7 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
           </Dropdown.Menu>
         </Dropdown>
       </Menu.Item>
-      <Menu.Item fluid> 
+      <Menu.Item> 
         <Dropdown text="Sort By Price">
           <Dropdown.Menu>
             <Dropdown.Item 
@@ -113,7 +111,7 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
       
     </Menu>
     <Menu id="storeItemsControlsSecondMenu">
-      <Menu.Item fluid>
+      <Menu.Item>
         <Dropdown text="Sort by name">
           <Dropdown.Menu>
             <Dropdown.Item 
@@ -133,7 +131,7 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
         </Dropdown>
         
       </Menu.Item>
-      <Menu.Item fluid>
+      <Menu.Item>
         <Dropdown text="Sort by category">
           <Dropdown.Menu>
             <Dropdown.Item 

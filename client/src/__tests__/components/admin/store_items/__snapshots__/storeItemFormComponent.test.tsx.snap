@@ -68,21 +68,21 @@ exports[`StoreItemFormHolder Component tests Form Holder state OPEN - WITH Curre
       },
       "storeItemState": Object {
         "currentStoreItemData": Object {
-          "_id": "weyqa1gph8",
+          "_id": "hlqvexxl9p",
           "categories": Array [
             "mock",
             "new",
           ],
-          "createdAt": "Sat Sep 12 2020 15:08:38 GMT+0300 (Eastern European Summer Time)",
-          "description": "Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis.",
-          "details": "Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
+          "createdAt": "Tue Sep 15 2020 05:07:13 GMT+0300 (Eastern European Summer Time)",
+          "description": "Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi.",
+          "details": "Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
  
-Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed.",
+Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis.",
           "images": Array [],
           "name": "ut",
-          "price": "99.00",
-          "storeId": "udbw6ffznm",
-          "storeName": "velit",
+          "price": "24.00",
+          "storeId": "7kgbw47n56",
+          "storeName": "sapiente",
         },
         "error": null,
         "loadedStoreItems": Array [],
@@ -144,7 +144,7 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                 Store Item price:
               </h3>
               <p>
-                99.00
+                24.00
               </p>
             </div>
             <div
@@ -154,7 +154,7 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                 Store Item description:
               </h3>
               <p>
-                Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis.
+                Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi.
               </p>
             </div>
             <div
@@ -164,9 +164,9 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                 Store Item details:
               </h3>
               <p>
-                Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
+                Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
  
-Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed.
+Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis.
               </p>
             </div>
             <div
@@ -237,7 +237,7 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
               <span>
                 Created At: 
                 <strong>
-                  2020-Sep-12
+                  2020-Sep-15
                 </strong>
               </span>
               <span>
@@ -330,21 +330,21 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                   },
                   "storeItemState": Object {
                     "currentStoreItemData": Object {
-                      "_id": "weyqa1gph8",
+                      "_id": "hlqvexxl9p",
                       "categories": Array [
                         "mock",
                         "new",
                       ],
-                      "createdAt": "Sat Sep 12 2020 15:08:38 GMT+0300 (Eastern European Summer Time)",
-                      "description": "Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis.",
-                      "details": "Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
+                      "createdAt": "Tue Sep 15 2020 05:07:13 GMT+0300 (Eastern European Summer Time)",
+                      "description": "Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi.",
+                      "details": "Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
  
-Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed.",
+Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis.",
                       "images": Array [],
                       "name": "ut",
-                      "price": "99.00",
-                      "storeId": "udbw6ffznm",
-                      "storeName": "velit",
+                      "price": "24.00",
+                      "storeId": "7kgbw47n56",
+                      "storeName": "sapiente",
                     },
                     "error": null,
                     "loadedStoreItems": Array [],
@@ -406,6 +406,7 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                 content="Choose Image"
                 htmlFor="storeItemImgFile"
                 icon="file"
+                id="selectStoreItemImgBtn"
                 labelPosition="left"
                 onClick={[Function]}
               >
@@ -415,6 +416,7 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                       "current": <label
                         class="ui icon left labeled button"
                         for="storeItemImgFile"
+                        id="selectStoreItemImgBtn"
                         role="button"
                       >
                         <i
@@ -432,6 +434,7 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                         "current": <label
                           class="ui icon left labeled button"
                           for="storeItemImgFile"
+                          id="selectStoreItemImgBtn"
                           role="button"
                         >
                           <i
@@ -446,6 +449,7 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                     <label
                       className="ui icon left labeled button"
                       htmlFor="storeItemImgFile"
+                      id="selectStoreItemImgBtn"
                       onClick={[Function]}
                       role="button"
                     >
@@ -599,21 +603,21 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                   },
                   "storeItemState": Object {
                     "currentStoreItemData": Object {
-                      "_id": "weyqa1gph8",
+                      "_id": "hlqvexxl9p",
                       "categories": Array [
                         "mock",
                         "new",
                       ],
-                      "createdAt": "Sat Sep 12 2020 15:08:38 GMT+0300 (Eastern European Summer Time)",
-                      "description": "Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis.",
-                      "details": "Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
+                      "createdAt": "Tue Sep 15 2020 05:07:13 GMT+0300 (Eastern European Summer Time)",
+                      "description": "Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi.",
+                      "details": "Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
  
-Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed.",
+Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis.",
                       "images": Array [],
                       "name": "ut",
-                      "price": "99.00",
-                      "storeId": "udbw6ffznm",
-                      "storeName": "velit",
+                      "price": "24.00",
+                      "storeId": "7kgbw47n56",
+                      "storeName": "sapiente",
                     },
                     "error": null,
                     "loadedStoreItems": Array [],
@@ -638,21 +642,21 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
               }
               storeItem={
                 Object {
-                  "_id": "weyqa1gph8",
+                  "_id": "hlqvexxl9p",
                   "categories": Array [
                     "mock",
                     "new",
                   ],
-                  "createdAt": "Sat Sep 12 2020 15:08:38 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis.",
-                  "details": "Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
+                  "createdAt": "Tue Sep 15 2020 05:07:13 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi.",
+                  "details": "Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
  
-Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed.",
+Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis.",
                   "images": Array [],
                   "name": "ut",
-                  "price": "99.00",
-                  "storeId": "udbw6ffznm",
-                  "storeName": "velit",
+                  "price": "24.00",
+                  "storeId": "7kgbw47n56",
+                  "storeName": "sapiente",
                 }
               }
             >
@@ -670,8 +674,8 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                   >
                     <StoreDetails
                       createdAt=""
-                      storeId="udbw6ffznm"
-                      storeName="velit"
+                      storeId="7kgbw47n56"
+                      storeName="sapiente"
                     >
                       <div>
                         <Item>
@@ -706,7 +710,7 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                                   <div
                                     className="header"
                                   >
-                                    velit
+                                    sapiente
                                   </div>
                                 </ItemHeader>
                                 <ItemMeta>
@@ -716,7 +720,7 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                                     <span
                                       className="storeItemFormStoreId"
                                     >
-                                      udbw6ffznm
+                                      7kgbw47n56
                                     </span>
                                     <span
                                       className="storeItemFormStoreCreated"
@@ -803,21 +807,21 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                               },
                               "storeItemState": Object {
                                 "currentStoreItemData": Object {
-                                  "_id": "weyqa1gph8",
+                                  "_id": "hlqvexxl9p",
                                   "categories": Array [
                                     "mock",
                                     "new",
                                   ],
-                                  "createdAt": "Sat Sep 12 2020 15:08:38 GMT+0300 (Eastern European Summer Time)",
-                                  "description": "Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis.",
-                                  "details": "Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
+                                  "createdAt": "Tue Sep 15 2020 05:07:13 GMT+0300 (Eastern European Summer Time)",
+                                  "description": "Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi.",
+                                  "details": "Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
  
-Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed.",
+Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis.",
                                   "images": Array [],
                                   "name": "ut",
-                                  "price": "99.00",
-                                  "storeId": "udbw6ffznm",
-                                  "storeName": "velit",
+                                  "price": "24.00",
+                                  "storeId": "7kgbw47n56",
+                                  "storeName": "sapiente",
                                 },
                                 "error": null,
                                 "loadedStoreItems": Array [],
@@ -988,7 +992,7 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                         <input
                           onChange={[Function]}
                           placeholder="Store Item price here..."
-                          value="99.00"
+                          value="24.00"
                         />
                       </div>
                     </FormField>
@@ -1539,9 +1543,9 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                       label="Store Item Details"
                       onChange={[Function]}
                       placeholder="Store Item details here..."
-                      value="Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
+                      value="Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
  
-Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed."
+Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis."
                     >
                       <div
                         className="field"
@@ -1555,9 +1559,9 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                           onChange={[Function]}
                           placeholder="Store Item details here..."
                           rows={3}
-                          value="Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
+                          value="Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
  
-Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed."
+Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis."
                         >
                           <Ref
                             innerRef={
@@ -1566,9 +1570,9 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                                   placeholder="Store Item details here..."
                                   rows="3"
                                 >
-                                  Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
+                                  Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
  
-Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed.
+Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis.
                                 </textarea>,
                               }
                             }
@@ -1580,9 +1584,9 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                                     placeholder="Store Item details here..."
                                     rows="3"
                                   >
-                                    Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
+                                    Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
  
-Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed.
+Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis.
                                   </textarea>,
                                 }
                               }
@@ -1593,9 +1597,9 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                                 onInput={[Function]}
                                 placeholder="Store Item details here..."
                                 rows={3}
-                                value="Voluptatem accusantium nam et modi. Consequatur nihil est aut adipisci quod assumenda nihil tempore. Cupiditate aperiam suscipit aliquam itaque tempora corporis minima dolorum. Dignissimos deleniti possimus maxime corporis eveniet alias dolor error.
+                                value="Quos tempore quaerat aspernatur unde debitis. Magnam beatae rerum eos sequi eius esse voluptas odit eum. Aspernatur laboriosam qui expedita. Ducimus nostrum possimus qui neque. Optio facere labore inventore ipsum sapiente et est libero. Et explicabo odit impedit sint aut.
  
-Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Autem doloremque illum optio nisi qui aspernatur sit aut et. Minus quibusdam consectetur placeat quia temporibus voluptas quasi. Voluptas aspernatur laboriosam aliquam id voluptatem voluptatibus facilis. Eum et quo sed."
+Beatae nobis totam ea asperiores possimus sit explicabo voluptate. Debitis maxime ipsum qui facere assumenda laudantium. Ducimus omnis odit iste velit nemo qui reprehenderit error nobis."
                               />
                             </RefFindNode>
                           </Ref>
@@ -1607,7 +1611,7 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                       label="Store Item Description"
                       onChange={[Function]}
                       placeholder="Store Item description here..."
-                      value="Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis."
+                      value="Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi."
                     >
                       <div
                         className="field"
@@ -1621,7 +1625,7 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                           onChange={[Function]}
                           placeholder="Store Item description here..."
                           rows={3}
-                          value="Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis."
+                          value="Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi."
                         >
                           <Ref
                             innerRef={
@@ -1630,7 +1634,7 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                                   placeholder="Store Item description here..."
                                   rows="3"
                                 >
-                                  Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis.
+                                  Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi.
                                 </textarea>,
                               }
                             }
@@ -1642,7 +1646,7 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                                     placeholder="Store Item description here..."
                                     rows="3"
                                   >
-                                    Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis.
+                                    Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi.
                                   </textarea>,
                                 }
                               }
@@ -1653,7 +1657,7 @@ Repellendus tenetur enim aut aliquid molestiae quisquam iure quisquam quam. Aute
                                 onInput={[Function]}
                                 placeholder="Store Item description here..."
                                 rows={3}
-                                value="Aut provident velit harum. Perspiciatis eos et et earum repellendus est odit aut. Saepe dolore a perspiciatis."
+                                value="Fuga veritatis quo repellat fuga eos error voluptatem ullam. Qui et quae cum et ea ullam. Id aut cumque natus voluptatem. Omnis eum error officiis praesentium sequi aliquid nihil ipsam. In rerum aut minima et eligendi."
                               />
                             </RefFindNode>
                           </Ref>
