@@ -68,21 +68,21 @@ exports[`StoreItemFormHolder Component tests Form Holder state OPEN - WITH Curre
       },
       "storeItemState": Object {
         "currentStoreItemData": Object {
-          "_id": "nmmq9cinlv",
+          "_id": "tg9og73flf",
           "categories": Array [
             "mock",
             "new",
           ],
-          "createdAt": "Mon Sep 14 2020 17:50:36 GMT+0300 (Eastern European Summer Time)",
-          "description": "Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab.",
-          "details": "Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
+          "createdAt": "Tue Sep 15 2020 08:20:00 GMT+0300 (Eastern European Summer Time)",
+          "description": "Vel amet quo atque quia maiores. Ut quo ut omnis beatae ab iusto ea inventore qui. Excepturi sed sed quo dolor voluptates est vel. Sit consequatur dicta qui.",
+          "details": "Dolorem consequatur eum dolorem dolores autem. Voluptatibus vel dolor molestiae rerum et sunt quis sint. Incidunt iure saepe eaque animi dicta debitis. Vero dolore laboriosam nisi.
  
-Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at.",
+Nisi recusandae in rem odit animi at praesentium cum aliquam. Itaque aut inventore. Quas repellat corrupti consequuntur veritatis rerum.",
           "images": Array [],
-          "name": "quasi",
-          "price": "23.00",
-          "storeId": "o5yl9va5z5",
-          "storeName": "laborum",
+          "name": "quas",
+          "price": "44.00",
+          "storeId": "93bolzz6x6",
+          "storeName": "ipsum",
         },
         "error": null,
         "loadedStoreItems": Array [],
@@ -134,7 +134,7 @@ Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium 
                 Store Item name:
               </h3>
               <p>
-                quasi
+                quas
               </p>
             </div>
             <div
@@ -144,7 +144,7 @@ Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium 
                 Store Item price:
               </h3>
               <p>
-                23.00
+                44.00
               </p>
             </div>
             <div
@@ -154,7 +154,7 @@ Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium 
                 Store Item description:
               </h3>
               <p>
-                Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab.
+                Vel amet quo atque quia maiores. Ut quo ut omnis beatae ab iusto ea inventore qui. Excepturi sed sed quo dolor voluptates est vel. Sit consequatur dicta qui.
               </p>
             </div>
             <div
@@ -164,9 +164,9 @@ Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium 
                 Store Item details:
               </h3>
               <p>
-                Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
+                Dolorem consequatur eum dolorem dolores autem. Voluptatibus vel dolor molestiae rerum et sunt quis sint. Incidunt iure saepe eaque animi dicta debitis. Vero dolore laboriosam nisi.
  
-Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at.
+Nisi recusandae in rem odit animi at praesentium cum aliquam. Itaque aut inventore. Quas repellat corrupti consequuntur veritatis rerum.
               </p>
             </div>
             <div
@@ -237,7 +237,7 @@ Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium 
               <span>
                 Created At: 
                 <strong>
-                  2020-Sep-14
+                  2020-Sep-15
                 </strong>
               </span>
               <span>
@@ -330,21 +330,21 @@ Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium 
                   },
                   "storeItemState": Object {
                     "currentStoreItemData": Object {
-                      "_id": "nmmq9cinlv",
+                      "_id": "tg9og73flf",
                       "categories": Array [
                         "mock",
                         "new",
                       ],
-                      "createdAt": "Mon Sep 14 2020 17:50:36 GMT+0300 (Eastern European Summer Time)",
-                      "description": "Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab.",
-                      "details": "Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
+                      "createdAt": "Tue Sep 15 2020 08:20:00 GMT+0300 (Eastern European Summer Time)",
+                      "description": "Vel amet quo atque quia maiores. Ut quo ut omnis beatae ab iusto ea inventore qui. Excepturi sed sed quo dolor voluptates est vel. Sit consequatur dicta qui.",
+                      "details": "Dolorem consequatur eum dolorem dolores autem. Voluptatibus vel dolor molestiae rerum et sunt quis sint. Incidunt iure saepe eaque animi dicta debitis. Vero dolore laboriosam nisi.
  
-Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at.",
+Nisi recusandae in rem odit animi at praesentium cum aliquam. Itaque aut inventore. Quas repellat corrupti consequuntur veritatis rerum.",
                       "images": Array [],
-                      "name": "quasi",
-                      "price": "23.00",
-                      "storeId": "o5yl9va5z5",
-                      "storeName": "laborum",
+                      "name": "quas",
+                      "price": "44.00",
+                      "storeId": "93bolzz6x6",
+                      "storeName": "ipsum",
                     },
                     "error": null,
                     "loadedStoreItems": Array [],
@@ -603,21 +603,21 @@ Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium 
                   },
                   "storeItemState": Object {
                     "currentStoreItemData": Object {
-                      "_id": "nmmq9cinlv",
+                      "_id": "tg9og73flf",
                       "categories": Array [
                         "mock",
                         "new",
                       ],
-                      "createdAt": "Mon Sep 14 2020 17:50:36 GMT+0300 (Eastern European Summer Time)",
-                      "description": "Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab.",
-                      "details": "Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
+                      "createdAt": "Tue Sep 15 2020 08:20:00 GMT+0300 (Eastern European Summer Time)",
+                      "description": "Vel amet quo atque quia maiores. Ut quo ut omnis beatae ab iusto ea inventore qui. Excepturi sed sed quo dolor voluptates est vel. Sit consequatur dicta qui.",
+                      "details": "Dolorem consequatur eum dolorem dolores autem. Voluptatibus vel dolor molestiae rerum et sunt quis sint. Incidunt iure saepe eaque animi dicta debitis. Vero dolore laboriosam nisi.
  
-Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at.",
+Nisi recusandae in rem odit animi at praesentium cum aliquam. Itaque aut inventore. Quas repellat corrupti consequuntur veritatis rerum.",
                       "images": Array [],
-                      "name": "quasi",
-                      "price": "23.00",
-                      "storeId": "o5yl9va5z5",
-                      "storeName": "laborum",
+                      "name": "quas",
+                      "price": "44.00",
+                      "storeId": "93bolzz6x6",
+                      "storeName": "ipsum",
                     },
                     "error": null,
                     "loadedStoreItems": Array [],
@@ -642,21 +642,21 @@ Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium 
               }
               storeItem={
                 Object {
-                  "_id": "nmmq9cinlv",
+                  "_id": "tg9og73flf",
                   "categories": Array [
                     "mock",
                     "new",
                   ],
-                  "createdAt": "Mon Sep 14 2020 17:50:36 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab.",
-                  "details": "Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
+                  "createdAt": "Tue Sep 15 2020 08:20:00 GMT+0300 (Eastern European Summer Time)",
+                  "description": "Vel amet quo atque quia maiores. Ut quo ut omnis beatae ab iusto ea inventore qui. Excepturi sed sed quo dolor voluptates est vel. Sit consequatur dicta qui.",
+                  "details": "Dolorem consequatur eum dolorem dolores autem. Voluptatibus vel dolor molestiae rerum et sunt quis sint. Incidunt iure saepe eaque animi dicta debitis. Vero dolore laboriosam nisi.
  
-Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at.",
+Nisi recusandae in rem odit animi at praesentium cum aliquam. Itaque aut inventore. Quas repellat corrupti consequuntur veritatis rerum.",
                   "images": Array [],
-                  "name": "quasi",
-                  "price": "23.00",
-                  "storeId": "o5yl9va5z5",
-                  "storeName": "laborum",
+                  "name": "quas",
+                  "price": "44.00",
+                  "storeId": "93bolzz6x6",
+                  "storeName": "ipsum",
                 }
               }
             >
@@ -674,8 +674,8 @@ Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium 
                   >
                     <StoreDetails
                       createdAt=""
-                      storeId="o5yl9va5z5"
-                      storeName="laborum"
+                      storeId="93bolzz6x6"
+                      storeName="ipsum"
                     >
                       <div>
                         <Item>
@@ -710,7 +710,7 @@ Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium 
                                   <div
                                     className="header"
                                   >
-                                    laborum
+                                    ipsum
                                   </div>
                                 </ItemHeader>
                                 <ItemMeta>
@@ -720,7 +720,7 @@ Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium 
                                     <span
                                       className="storeItemFormStoreId"
                                     >
-                                      o5yl9va5z5
+                                      93bolzz6x6
                                     </span>
                                     <span
                                       className="storeItemFormStoreCreated"
@@ -807,21 +807,21 @@ Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium 
                               },
                               "storeItemState": Object {
                                 "currentStoreItemData": Object {
-                                  "_id": "nmmq9cinlv",
+                                  "_id": "tg9og73flf",
                                   "categories": Array [
                                     "mock",
                                     "new",
                                   ],
-                                  "createdAt": "Mon Sep 14 2020 17:50:36 GMT+0300 (Eastern European Summer Time)",
-                                  "description": "Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab.",
-                                  "details": "Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
+                                  "createdAt": "Tue Sep 15 2020 08:20:00 GMT+0300 (Eastern European Summer Time)",
+                                  "description": "Vel amet quo atque quia maiores. Ut quo ut omnis beatae ab iusto ea inventore qui. Excepturi sed sed quo dolor voluptates est vel. Sit consequatur dicta qui.",
+                                  "details": "Dolorem consequatur eum dolorem dolores autem. Voluptatibus vel dolor molestiae rerum et sunt quis sint. Incidunt iure saepe eaque animi dicta debitis. Vero dolore laboriosam nisi.
  
-Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at.",
+Nisi recusandae in rem odit animi at praesentium cum aliquam. Itaque aut inventore. Quas repellat corrupti consequuntur veritatis rerum.",
                                   "images": Array [],
-                                  "name": "quasi",
-                                  "price": "23.00",
-                                  "storeId": "o5yl9va5z5",
-                                  "storeName": "laborum",
+                                  "name": "quas",
+                                  "price": "44.00",
+                                  "storeId": "93bolzz6x6",
+                                  "storeName": "ipsum",
                                 },
                                 "error": null,
                                 "loadedStoreItems": Array [],
@@ -976,9 +976,10 @@ Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium 
                           Store Item name
                         </label>
                         <input
+                          id="storeItemFormTitle"
                           onChange={[Function]}
                           placeholder="Store Item name here ..."
-                          value="quasi"
+                          value="quas"
                         />
                       </div>
                     </FormField>
@@ -990,9 +991,10 @@ Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium 
                           Store Item price
                         </label>
                         <input
+                          id="storeItemFormPrice"
                           onChange={[Function]}
                           placeholder="Store Item price here..."
-                          value="23.00"
+                          value="44.00"
                         />
                       </div>
                     </FormField>
@@ -1540,39 +1542,44 @@ Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium 
                     </FormField>
                     <FormField
                       control={[Function]}
+                      id="storeItemFormDetails"
                       label="Store Item Details"
                       onChange={[Function]}
                       placeholder="Store Item details here..."
-                      value="Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
+                      value="Dolorem consequatur eum dolorem dolores autem. Voluptatibus vel dolor molestiae rerum et sunt quis sint. Incidunt iure saepe eaque animi dicta debitis. Vero dolore laboriosam nisi.
  
-Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at."
+Nisi recusandae in rem odit animi at praesentium cum aliquam. Itaque aut inventore. Quas repellat corrupti consequuntur veritatis rerum."
                     >
                       <div
                         className="field"
                       >
-                        <label>
+                        <label
+                          htmlFor="storeItemFormDetails"
+                        >
                           Store Item Details
                         </label>
                         <TextArea
                           aria-describedby={null}
                           as="textarea"
+                          id="storeItemFormDetails"
                           onChange={[Function]}
                           placeholder="Store Item details here..."
                           rows={3}
-                          value="Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
+                          value="Dolorem consequatur eum dolorem dolores autem. Voluptatibus vel dolor molestiae rerum et sunt quis sint. Incidunt iure saepe eaque animi dicta debitis. Vero dolore laboriosam nisi.
  
-Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at."
+Nisi recusandae in rem odit animi at praesentium cum aliquam. Itaque aut inventore. Quas repellat corrupti consequuntur veritatis rerum."
                         >
                           <Ref
                             innerRef={
                               Object {
                                 "current": <textarea
+                                  id="storeItemFormDetails"
                                   placeholder="Store Item details here..."
                                   rows="3"
                                 >
-                                  Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
+                                  Dolorem consequatur eum dolorem dolores autem. Voluptatibus vel dolor molestiae rerum et sunt quis sint. Incidunt iure saepe eaque animi dicta debitis. Vero dolore laboriosam nisi.
  
-Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at.
+Nisi recusandae in rem odit animi at praesentium cum aliquam. Itaque aut inventore. Quas repellat corrupti consequuntur veritatis rerum.
                                 </textarea>,
                               }
                             }
@@ -1581,25 +1588,27 @@ Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium 
                               innerRef={
                                 Object {
                                   "current": <textarea
+                                    id="storeItemFormDetails"
                                     placeholder="Store Item details here..."
                                     rows="3"
                                   >
-                                    Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
+                                    Dolorem consequatur eum dolorem dolores autem. Voluptatibus vel dolor molestiae rerum et sunt quis sint. Incidunt iure saepe eaque animi dicta debitis. Vero dolore laboriosam nisi.
  
-Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at.
+Nisi recusandae in rem odit animi at praesentium cum aliquam. Itaque aut inventore. Quas repellat corrupti consequuntur veritatis rerum.
                                   </textarea>,
                                 }
                               }
                             >
                               <textarea
                                 aria-describedby={null}
+                                id="storeItemFormDetails"
                                 onChange={[Function]}
                                 onInput={[Function]}
                                 placeholder="Store Item details here..."
                                 rows={3}
-                                value="Consequatur optio consectetur eos eos vero dolorum excepturi quia. Amet dolores ut ut suscipit mollitia et culpa odio. Cumque tempora qui et ut voluptatibus. Et velit doloribus tenetur. Libero voluptatem aliquam quis voluptatem officiis unde culpa minima.
+                                value="Dolorem consequatur eum dolorem dolores autem. Voluptatibus vel dolor molestiae rerum et sunt quis sint. Incidunt iure saepe eaque animi dicta debitis. Vero dolore laboriosam nisi.
  
-Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium voluptas sequi accusamus minus. Unde aut ipsum delectus atque quibusdam eum est quia. Sed quia aut praesentium et a at."
+Nisi recusandae in rem odit animi at praesentium cum aliquam. Itaque aut inventore. Quas repellat corrupti consequuntur veritatis rerum."
                               />
                             </RefFindNode>
                           </Ref>
@@ -1608,33 +1617,38 @@ Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium 
                     </FormField>
                     <FormField
                       control={[Function]}
+                      id="storeItemFormDescription"
                       label="Store Item Description"
                       onChange={[Function]}
                       placeholder="Store Item description here..."
-                      value="Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab."
+                      value="Vel amet quo atque quia maiores. Ut quo ut omnis beatae ab iusto ea inventore qui. Excepturi sed sed quo dolor voluptates est vel. Sit consequatur dicta qui."
                     >
                       <div
                         className="field"
                       >
-                        <label>
+                        <label
+                          htmlFor="storeItemFormDescription"
+                        >
                           Store Item Description
                         </label>
                         <TextArea
                           aria-describedby={null}
                           as="textarea"
+                          id="storeItemFormDescription"
                           onChange={[Function]}
                           placeholder="Store Item description here..."
                           rows={3}
-                          value="Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab."
+                          value="Vel amet quo atque quia maiores. Ut quo ut omnis beatae ab iusto ea inventore qui. Excepturi sed sed quo dolor voluptates est vel. Sit consequatur dicta qui."
                         >
                           <Ref
                             innerRef={
                               Object {
                                 "current": <textarea
+                                  id="storeItemFormDescription"
                                   placeholder="Store Item description here..."
                                   rows="3"
                                 >
-                                  Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab.
+                                  Vel amet quo atque quia maiores. Ut quo ut omnis beatae ab iusto ea inventore qui. Excepturi sed sed quo dolor voluptates est vel. Sit consequatur dicta qui.
                                 </textarea>,
                               }
                             }
@@ -1643,21 +1657,23 @@ Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium 
                               innerRef={
                                 Object {
                                   "current": <textarea
+                                    id="storeItemFormDescription"
                                     placeholder="Store Item description here..."
                                     rows="3"
                                   >
-                                    Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab.
+                                    Vel amet quo atque quia maiores. Ut quo ut omnis beatae ab iusto ea inventore qui. Excepturi sed sed quo dolor voluptates est vel. Sit consequatur dicta qui.
                                   </textarea>,
                                 }
                               }
                             >
                               <textarea
                                 aria-describedby={null}
+                                id="storeItemFormDescription"
                                 onChange={[Function]}
                                 onInput={[Function]}
                                 placeholder="Store Item description here..."
                                 rows={3}
-                                value="Earum aspernatur aut sed aliquam voluptatem sit exercitationem. Dolorum sunt accusamus maiores beatae iusto ipsum. Qui unde distinctio est quasi possimus eum provident repellendus esse. Sit cumque ratione unde ab."
+                                value="Vel amet quo atque quia maiores. Ut quo ut omnis beatae ab iusto ea inventore qui. Excepturi sed sed quo dolor voluptates est vel. Sit consequatur dicta qui."
                               />
                             </RefFindNode>
                           </Ref>
@@ -1718,4 +1734,51 @@ Sed illo est iure. Id aut vel nihil omnis provident nobis nesciunt. Praesentium 
     </GridRow>
   </div>
 </StoreItemFormHolder>
+`;
+
+exports[`StoreItemFormHolder Component tests Form Holder state OPEN - WITH Current StoreItem Data - WITH IMAGES - Submit action Should have a submit button 1`] = `
+<Button
+  as="button"
+  content="Create  New Store Item"
+  id="adminStoreItemFormCreate"
+  onClick={[Function]}
+  type="submit"
+>
+  <Ref
+    innerRef={
+      Object {
+        "current": <button
+          class="ui button"
+          id="adminStoreItemFormCreate"
+          type="submit"
+        >
+          Create  New Store Item
+        </button>,
+      }
+    }
+  >
+    <RefFindNode
+      innerRef={
+        Object {
+          "current": <button
+            class="ui button"
+            id="adminStoreItemFormCreate"
+            type="submit"
+          >
+            Create  New Store Item
+          </button>,
+        }
+      }
+    >
+      <button
+        className="ui button"
+        id="adminStoreItemFormCreate"
+        onClick={[Function]}
+        type="submit"
+      >
+        Create  New Store Item
+      </button>
+    </RefFindNode>
+  </Ref>
+</Button>
 `;

@@ -1,5 +1,5 @@
-import React from "react";
-import { mount, ReactWrapper } from "enzyme";
+import React, { Component } from "react";
+import { mount, shallow, ReactWrapper } from "enzyme";
 import { Button } from "semantic-ui-react";
 // component imports //
 import StoreItemFormHolder from "../../../../components/admin_components/store_items/forms/StoreItemFormHolder";
@@ -9,9 +9,22 @@ import StoreItemImgPreviewHolder from "../../../../components/admin_components/s
 import StoreItemImgPreviewThumb from "../../../../components/admin_components/store_items/image_preview/StoreItemImgThumb";
 // helpers //
 import { generateCleanState } from "../../../../test_helpers/miscHelpers";
-import { setMockStoreItemState } from "../../../../test_helpers/storeItemHelpers";
-import { IGlobalAppState } from "../../../../state/Store";
+import { createMockStoreItems, setMockStoreItemState } from "../../../../test_helpers/storeItemHelpers";
+import { IGlobalAppContext, IGlobalAppState, StateProvider } from "../../../../state/Store";
+import { act } from "react-dom/test-utils";
+import moxios from "moxios";
 
+const extractContext = (): IGlobalAppContext => {
+  type WrapperProps = {
+    value: IGlobalAppContext;
+  }
+  let wrapper = shallow<WrapperProps>(<StateProvider />)
+  const { state, dispatch } = wrapper.props().value;
+  return {
+    state,
+    dispatch
+  };
+}
 describe("StoreItemFormHolder Component tests", () => {
   let wrapper: ReactWrapper; 
   
@@ -146,6 +159,41 @@ describe("StoreItemFormHolder Component tests", () => {
       const imgUploadForm = wrapper.find(StoreItemImageUplForm);
       expect(imgUploadForm.length).toEqual(1);
     });
+  });
+
+  describe("Form Holder state OPEN - WITH Current StoreItem Data - WITH IMAGES - Submit action",  () => {
+    let state: IGlobalAppState; let wrapper: ReactWrapper;
+    beforeAll(() => {
+      window.scrollTo = jest.fn();
+      const { state, dispatch } = extractContext();
+      wrapper = mount(
+        <StateProvider>
+          <StoreItemFormHolder state={state} dispatch={dispatch} />
+        </StateProvider>
+      );
+    });
+
+    it("Should have a submit button", () => {
+      wrapper.find("#storeItemFormToggleBtn").at(0).simulate("click").update();
+      const adminStoreItemFormCreate = wrapper.find("#adminStoreItemFormCreate").at(0);
+      expect(adminStoreItemFormCreate).toMatchSnapshot();
+    })
+    it("Should handle the 'handleCreateStoreItemAction", async () => {
+      moxios.install();
+      await act( async () => {
+        moxios.stubRequest("/api/store_items/create", {
+          status: 200,
+          response: {
+            responseMsg: "All Good",
+            newStoreItem: createMockStoreItems(1)[0]
+          }
+        });
+        const adminStoreItemFormCreate = wrapper.find("#adminStoreItemFormCreate").at(0);
+        adminStoreItemFormCreate.simulate("click");
+      })
+      wrapper.update()
+    });
+
   });
 
 });

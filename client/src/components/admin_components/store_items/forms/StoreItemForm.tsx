@@ -106,6 +106,7 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
         <Form.Field>
           <label>Store Item name</label>
           <input 
+            id="storeItemFormTitle"
             onChange={handleTitleChange} 
             placeholder="Store Item name here ..." 
             value={formState.name}
@@ -114,6 +115,7 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
         <Form.Field>
           <label>Store Item price</label>
           <input 
+            id="storeItemFormPrice"
             onChange={handlePriceChange} 
             placeholder="Store Item price here..." 
             value={formState.price}
@@ -124,6 +126,7 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
           <StoreItemCategories _handleCategoryChange={handleCategoryChange} />
         </Form.Field>
         <Form.Field
+          id="storeItemFormDetails"
           control={TextArea}
           label='Store Item Details'
           onChange={handleDetailsChange}
@@ -131,6 +134,7 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
           value={formState.details}
          />
         <Form.Field
+          id="storeItemFormDescription"
           control={TextArea}
           label='Store Item Description'
           onChange={hadnleDescriptionChange}
