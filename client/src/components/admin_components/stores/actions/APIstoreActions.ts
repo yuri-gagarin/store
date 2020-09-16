@@ -279,7 +279,7 @@ export const deleteStoreImage = (imgId: string, state: IGlobalAppState, dispatch
         error: error
       }});
       return Promise.reject();
-    })
+    });
 };
 
 

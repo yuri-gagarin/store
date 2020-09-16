@@ -24,11 +24,8 @@ export const initialStoreItemState: IStoreItemState = {
 };
 
 const storeItemReducer = (state: IStoreItemState = initialStoreItemState, action: StoreItemAction): IStoreItemState => {
-  console.log("reducer fired")
-  console.log(action.type)
   switch (action.type) {
     case "DISPATCH_STORE_ITEM_API_REQUEST":
-      console.log("dispatched loading action")
       return {
         ...state,
         loading: action.payload.loading
@@ -87,7 +84,6 @@ const storeItemReducer = (state: IStoreItemState = initialStoreItemState, action
         currentStoreItemData: { ...action.payload.editedStoreItem }
       };
     case "CREATE_STORE_ITEM":
-      console.log("dispatched")
       return {
         ...state,
         loading: action.payload.loading,

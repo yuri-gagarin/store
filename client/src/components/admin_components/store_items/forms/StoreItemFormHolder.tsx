@@ -12,6 +12,7 @@ import LoadingBar from "../../miscelaneous/LoadingBar";
 import { Store } from "../../../../state/Store";
 // api actions //
 import { createStoreItem, editStoreItem } from "../actions/APIStoreItemActions";
+import { getAllStores } from "../../stores/actions/APIstoreActions";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
 // types 
@@ -57,10 +58,10 @@ const StoreItemFormHolder: React.FC<Props> = (props): JSX.Element => {
       images: currentStoreItemData.images,
       categories,
     };
-    console.log(60)
     createStoreItem(storeItemData, dispatch)
       .then((_) => {
         // storeItem created //
+        console.log("successful create")
         setFormOpen(false);
       })
       .catch((_) => {
@@ -81,19 +82,25 @@ const StoreItemFormHolder: React.FC<Props> = (props): JSX.Element => {
   };
   // lifecycle hooks //
   useEffect(() => {
+    getAllStores(dispatch)
+      .then((_) => {
+        // handle success //
+      })
+      .catch((_) => {
+        // handle error //
+      });
+  }, []);
+  useEffect(() => {
     if (!formOpen) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [formOpen])
+  
   useEffect(() => {
     if (name && description && price) {
       setNewForm(false);
-      setFormOpen(true);
     }
   }, [name, description, price]);
-  useEffect(() => {
-    console.log(loading)
-  }, [ loading ])
   // component return //
   return (
     <div id="storeItemFormHolder">

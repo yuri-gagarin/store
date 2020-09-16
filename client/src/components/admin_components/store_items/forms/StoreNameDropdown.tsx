@@ -24,11 +24,7 @@ const StoreNameDropDown: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
   const handleSearchChange = (e: React.SyntheticEvent, data: DropdownProps): void => {
     setStoreByOptions({ title: data.value as string }, dispatch, state);
   }
-  // lifecycle methods //
-  useEffect(() => {
-    getAllStores(dispatch);
-  }, []);
-
+  
   useEffect(() => {
     const dropdownData = loadedStores.map((store) => {
       return {

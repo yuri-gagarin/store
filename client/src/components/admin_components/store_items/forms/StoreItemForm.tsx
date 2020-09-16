@@ -65,6 +65,8 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
   };
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log("handle submit")
+
     e.preventDefault();
     if (newForm) {
       handleCreateStoreItem(formState);

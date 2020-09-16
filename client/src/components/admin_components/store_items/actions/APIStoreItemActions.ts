@@ -81,7 +81,6 @@ export const createStoreItem = (data: ClientStoreItemData, dispatch: Dispatch<St
     .then((response) => {
       const { data } = response;
       const newStoreItem = data.newStoreItem!
-      console.log(data)
       dispatch({ type: "CREATE_STORE_ITEM", payload: {
         loading: false,
         responseMsg: data.responseMsg,
@@ -91,6 +90,7 @@ export const createStoreItem = (data: ClientStoreItemData, dispatch: Dispatch<St
       return Promise.resolve();
     })
     .catch((error: AxiosError) => {
+      console.error(error)
       dispatch({ type: "SET_STORE_ITEM_ERROR", payload: {
         loading: false,
         responseMsg: error.message,
