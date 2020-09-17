@@ -10,17 +10,21 @@ import FormErrorComponent from "../../popups/FormErrorComponent";
 import LoadingBar from "../../miscelaneous/LoadingBar";
 // state //
 import { Store } from "../../../../state/Store";
+// client routing //
+import { RouteComponentProps, withRouter } from "react-router-dom";
 // api actions //
 import { createStoreItem, editStoreItem } from "../actions/APIStoreItemActions";
 import { getAllStores } from "../../stores/actions/APIstoreActions";
+// ui actions //
+import { openStoreItemForm, closeStoreItemForm } from "../actions/UIStoreItemActions";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
 // types 
 import { FormState } from "./StoreItemForm";
 import { AxiosError } from "axios";
 
-interface Props {
-  
+interface Props extends RouteComponentProps {
+
 }
 
 type StoreItemData = {
@@ -34,17 +38,21 @@ type StoreItemData = {
   categories: string[];
 }
 
-const StoreItemFormHolder: React.FC<Props> = (props): JSX.Element => {
+const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const { state, dispatch } = useContext(Store);
-  const { loading, currentStoreItemData, error } = state.storeItemState;
+  const { loading, currentStoreItemData, storeItemFormOpen, error } = state.storeItemState;
   const { name, description, details, price, categories, createdAt, editedAt } = currentStoreItemData;
   // local component state //
-  const [ formOpen, setFormOpen ] = useState<boolean>(false);
+  // const [ formOpen, setFormOpen ] = useState<boolean>(false);
   const [ newForm, setNewForm ] = useState<boolean>(true);
   
+  useEffect(() => {
+    console.log(storeItemFormOpen)
+  }, [storeItemFormOpen])
   // StoreItemForm toggle //
-  const handleFormOpen = () => {
-    setFormOpen(!formOpen);
+  const toggleForm = () => {
+    console.log("called toggle form")
+    storeItemFormOpen ? closeStoreItemForm(dispatch) : openStoreItemForm(dispatch);
   };
   // API call handlers CREATE - EDIT //
   const handleCreateStoreItem = ({ storeId, storeName, name, price, description, details, categories }: FormState): void => {
@@ -61,8 +69,9 @@ const StoreItemFormHolder: React.FC<Props> = (props): JSX.Element => {
     createStoreItem(storeItemData, dispatch)
       .then((_) => {
         // storeItem created //
-        console.log("successful create")
-        setFormOpen(false);
+        closeStoreItemForm(dispatch);
+        // push to view Item
+        // history.push("")
       })
       .catch((_) => {
         // handle error? show some modal? //
@@ -74,7 +83,7 @@ const StoreItemFormHolder: React.FC<Props> = (props): JSX.Element => {
     };
     editStoreItem(currentStoreItemData._id, storeItemParams, dispatch, state)
       .then((_) => {
-        setFormOpen(false);
+        closeStoreItemForm(dispatch);
       })
       .catch((_) => {
         // handle error show modal ? //
@@ -91,16 +100,17 @@ const StoreItemFormHolder: React.FC<Props> = (props): JSX.Element => {
       });
   }, []);
   useEffect(() => {
-    if (!formOpen) {
+    if (!storeItemFormOpen) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }, [formOpen])
+  }, [ storeItemFormOpen ]);
   
   useEffect(() => {
     if (name && description && price) {
       setNewForm(false);
+      openStoreItemForm(dispatch);
     }
-  }, [name, description, price]);
+  }, [ name, description, price, dispatch ]);
   // component return //
   return (
     <div id="storeItemFormHolder">
@@ -162,23 +172,26 @@ const StoreItemFormHolder: React.FC<Props> = (props): JSX.Element => {
       }
       <Grid.Row>
         <Grid.Column mobile={16} tablet={15} computer={14}>
-          <Button  id="storeItemFormToggleBtn" onClick={handleFormOpen} content={ !formOpen ? "Open Form" : "Close Form"}></Button>
+          <Button  id="storeItemFormToggleBtn" 
+            onClick={toggleForm} 
+            content={ !storeItemFormOpen ? "Open Form" : "Close Form"}>
+          </Button>
           {
-            formOpen ? <StoreItemForm 
-                        state={state}
-                        dispatch={dispatch}
-                        storeItem={currentStoreItemData}
-                        handleCreateStoreItem={handleCreateStoreItem}
-                        handleUpdateStoreItem={handleUpdateStoreItem}
-                      /> 
-                      : null
+            storeItemFormOpen ? 
+              <StoreItemForm 
+                state={state}
+                dispatch={dispatch}
+                storeItem={currentStoreItemData}
+                handleCreateStoreItem={handleCreateStoreItem}
+                handleUpdateStoreItem={handleUpdateStoreItem}
+              /> 
+            : null
           }
-         
         </Grid.Column>
       </Grid.Row>
     </div>
   );
 };
 
-export default StoreItemFormHolder;
+export default withRouter(StoreItemFormHolder);
 

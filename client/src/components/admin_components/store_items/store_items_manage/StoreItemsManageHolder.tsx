@@ -58,7 +58,7 @@ const StoreItemsManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
             <Button inverted color="green" content="Back" onClick={handleBack}></Button>
           </Grid.Column>
         </Grid.Row>
-        <StoreItemFormHolder state={state} dispatch={dispatch} />
+        <StoreItemFormHolder />
       </Route>
       <Route exact path={match?.url}>
         <Grid.Row>

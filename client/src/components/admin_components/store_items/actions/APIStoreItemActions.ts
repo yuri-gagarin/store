@@ -69,14 +69,12 @@ export const getStoreItem = (_id: string, dispatch: Dispatch<StoreItemAction>): 
 };
 
 export const createStoreItem = (data: ClientStoreItemData, dispatch: Dispatch<StoreItemAction>): Promise<void> => {
-  console.log(72)
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/store_items/create",
     data: data
   };
   dispatch({ type: "DISPATCH_STORE_ITEM_API_REQUEST", payload: { loading: true } });
-  console.log("dispatchhed")
   return axios.request<IStoreItemServerResData, IStoreItemServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;

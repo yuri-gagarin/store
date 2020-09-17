@@ -14,6 +14,18 @@ type DispatchStoreItemAPIReq = {
     loading: boolean;
   }
 }
+type OpenStoreItemForm = {
+  readonly type: "OPEN_STORE_ITEM_FORM",
+  readonly payload: {
+    storeItemFormOpen: boolean;
+  }
+}
+type CloseStoreItemForm = {
+  readonly type: "CLOSE_STORE_ITEM_FORM",
+  readonly payload: {
+    storeItemFormOpen: boolean;
+  }
+}
 type SetCurrentStoreItem = {
   readonly type: "SET_CURRENT_STORE_ITEM";
   payload: {
@@ -132,8 +144,10 @@ interface IStoreItemState {
   loading: boolean;
   responseMsg: string;
   numberOfItems: number;
+  storeItemFormOpen: boolean;
   currentStoreItemData: IStoreItemData;
   loadedStoreItems: IStoreItemData[];
+  storeItemFormOpen: boolean;
   error: null | Error | import("axios").AxiosError<Error>;
 }
 interface IStoreItemImgData {
@@ -146,4 +160,4 @@ interface IStoreItemImgData {
   createdAt: string;
   editedAt?: string;
 }
-type StoreItemAction = GetAllStoreItems | DispatchStoreItemAPIReq | GetStoreItem | SetCurrentStoreItem | ClearCurrentStoreItem | CreateStoreItem | EditStoreItem | DeleteStoreItem | SetStoreItemError | ClearStoreItemError | UploadNewStoreItemImg | UpdateStoreItemImgs | DeleteStoreItemImg;
+type StoreItemAction = GetAllStoreItems | DispatchStoreItemAPIReq | GetStoreItem | SetCurrentStoreItem | ClearCurrentStoreItem | OpenStoreItemForm | CloseStoreItemForm | CreateStoreItem | EditStoreItem | DeleteStoreItem | SetStoreItemError | ClearStoreItemError | UploadNewStoreItemImg | UpdateStoreItemImgs | DeleteStoreItemImg;

@@ -20,11 +20,23 @@ export const initialStoreItemState: IStoreItemState = {
   responseMsg: "",
   currentStoreItemData: emptyStoreItemData(),
   loadedStoreItems: [],
+  storeItemFormOpen: false,
   error: null
 };
 
 const storeItemReducer = (state: IStoreItemState = initialStoreItemState, action: StoreItemAction): IStoreItemState => {
   switch (action.type) {
+    case "OPEN_STORE_ITEM_FORM": 
+    console.log("called open form")
+      return {
+        ...state,
+        storeItemFormOpen: action.payload.storeItemFormOpen
+      };
+    case "CLOSE_STORE_ITEM_FORM": 
+      return {
+        ...state,
+        storeItemFormOpen: action.payload.storeItemFormOpen
+      };
     case "DISPATCH_STORE_ITEM_API_REQUEST":
       return {
         ...state,

@@ -42,6 +42,7 @@ const logStateChanges = (state: IGlobalAppState): void => {
   }
 }
 */
+
 export const StateProvider: React.FC<{}> = ({ children }): JSX.Element => {
   const [ globalState, dispatch ] = useReducer(indexReducer, rootState);
   const usePrevious = (state: IGlobalAppState) => {
@@ -62,6 +63,19 @@ export const StateProvider: React.FC<{}> = ({ children }): JSX.Element => {
 
   return  (
     <Store.Provider value={{ state: globalState, dispatch: dispatch }}>
+      {children}
+    </Store.Provider>
+  );
+};
+
+type TestStateProviderProps = {
+  mockState?: IGlobalAppState
+}
+export const TestStateProvider: React.FC<TestStateProviderProps> = ({ mockState, children }): JSX.Element => {
+  let testState = mockState ? mockState : rootState
+  const [ state, dispatch ] = useReducer(indexReducer, testState);
+  return  (
+    <Store.Provider value={{ state: state, dispatch: dispatch }}>
       {children}
     </Store.Provider>
   );

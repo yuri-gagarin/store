@@ -1,116 +1,1755 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StoreItemFormHolder Component tests Form Holder state OPEN - WITH Current StoreItem Data - NO IMAGES Should Properly Mount Form Holder 1`] = `
-<StoreItemFormHolder>
-  <div
-    id="storeItemFormHolder"
-  >
-    <FormErrorComponent
-      error={null}
-    />
-    <GridRow>
-      <div
-        className="row"
-      >
-        <GridColumn
-          computer={14}
-          mobile={16}
-          tablet={15}
-        >
-          <div
-            className="fourteen wide computer sixteen wide mobile fifteen wide tablet column"
-          >
-            <Button
-              as="button"
-              content="Open Form"
-              id="storeItemFormToggleBtn"
-              onClick={[Function]}
-            >
-              <Ref
-                innerRef={
-                  Object {
-                    "current": <button
-                      class="ui button"
-                      id="storeItemFormToggleBtn"
-                    >
-                      Open Form
-                    </button>,
-                  }
-                }
-              >
-                <RefFindNode
-                  innerRef={
-                    Object {
-                      "current": <button
-                        class="ui button"
-                        id="storeItemFormToggleBtn"
-                      >
-                        Open Form
-                      </button>,
-                    }
-                  }
-                >
-                  <button
-                    className="ui button"
-                    id="storeItemFormToggleBtn"
-                    onClick={[Function]}
-                  >
-                    Open Form
-                  </button>
-                </RefFindNode>
-              </Ref>
-            </Button>
-          </div>
-        </GridColumn>
-      </div>
-    </GridRow>
-  </div>
-</StoreItemFormHolder>
-`;
-
-exports[`StoreItemFormHolder Component tests Form Holder state OPEN - WITH Current StoreItem Data - WITH IMAGES - Submit action Should have a submit button 1`] = `
-<Button
-  as="button"
-  content="Create  New Store Item"
-  id="adminStoreItemFormCreate"
-  onClick={[Function]}
-  type="submit"
->
-  <Ref
-    innerRef={
+<MemoryRouter>
+  <Router
+    history={
       Object {
-        "current": <button
-          class="ui button"
-          id="adminStoreItemFormCreate"
-          type="submit"
-        >
-          Create  New Store Item
-        </button>,
+        "action": "POP",
+        "block": [Function],
+        "canGo": [Function],
+        "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "key": "cggj0g",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+        ],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "index": 0,
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "key": "cggj0g",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
       }
     }
   >
-    <RefFindNode
-      innerRef={
+    <Component
+      mockState={
         Object {
-          "current": <button
-            class="ui button"
-            id="adminStoreItemFormCreate"
-            type="submit"
-          >
-            Create  New Store Item
-          </button>,
+          "bonusVideoState": Object {
+            "currentBonusVideoData": Object {
+              "_id": "",
+              "createdAt": "",
+              "description": "",
+              "vimeoURL": "",
+              "youTubeURL": "",
+            },
+            "error": null,
+            "loadedBonusVideos": Array [],
+            "loading": false,
+            "responseMsg": "",
+          },
+          "productState": Object {
+            "currentProductData": Object {
+              "_id": "",
+              "createdAt": "",
+              "description": "",
+              "details": "",
+              "images": Array [],
+              "name": "",
+              "price": "",
+            },
+            "error": null,
+            "loadedProducts": Array [],
+            "loading": false,
+            "responseMsg": "",
+          },
+          "serviceState": Object {
+            "currentServiceData": Object {
+              "_id": "",
+              "createdAt": "",
+              "description": "",
+              "images": Array [],
+              "name": "",
+              "price": "",
+            },
+            "error": null,
+            "loadedServices": Array [],
+            "loading": false,
+            "responseMsg": "",
+          },
+          "storeItemState": Object {
+            "currentStoreItemData": Object {
+              "_id": "ks1jiz709z",
+              "categories": Array [
+                "mock",
+                "new",
+              ],
+              "createdAt": "Thu Sep 17 2020 09:44:49 GMT+0300 (Eastern European Summer Time)",
+              "description": "Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel.",
+              "details": "Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
+ 
+Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam.",
+              "images": Array [],
+              "name": "nihil",
+              "price": "88.00",
+              "storeId": "iz5l9layn0",
+              "storeName": "aut",
+            },
+            "error": null,
+            "loadedStoreItems": Array [],
+            "loading": false,
+            "numberOfItems": 10,
+            "responseMsg": "Ok",
+            "storeItemFormOpen": false,
+          },
+          "storeState": Object {
+            "currentStoreData": Object {
+              "_id": "",
+              "createdAt": "",
+              "description": "",
+              "images": Array [],
+              "title": "",
+            },
+            "error": null,
+            "loadedStores": Array [],
+            "loading": false,
+            "responseMsg": "",
+          },
         }
       }
     >
-      <button
-        className="ui button"
-        id="adminStoreItemFormCreate"
-        onClick={[Function]}
-        type="submit"
-      >
-        Create  New Store Item
-      </button>
-    </RefFindNode>
-  </Ref>
-</Button>
+      <withRouter(StoreItemFormHolder)>
+        <StoreItemFormHolder
+          history={
+            Object {
+              "action": "POP",
+              "block": [Function],
+              "canGo": [Function],
+              "createHref": [Function],
+              "entries": Array [
+                Object {
+                  "hash": "",
+                  "key": "cggj0g",
+                  "pathname": "/",
+                  "search": "",
+                  "state": undefined,
+                },
+              ],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "index": 0,
+              "length": 1,
+              "listen": [Function],
+              "location": Object {
+                "hash": "",
+                "key": "cggj0g",
+                "pathname": "/",
+                "search": "",
+                "state": undefined,
+              },
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+          location={
+            Object {
+              "hash": "",
+              "key": "cggj0g",
+              "pathname": "/",
+              "search": "",
+              "state": undefined,
+            }
+          }
+          match={
+            Object {
+              "isExact": true,
+              "params": Object {},
+              "path": "/",
+              "url": "/",
+            }
+          }
+        >
+          <div
+            id="storeItemFormHolder"
+          >
+            <FormErrorComponent
+              error={null}
+            />
+            <GridRow>
+              <div
+                className="row"
+              >
+                <GridColumn
+                  computer={14}
+                  mobile={16}
+                  tablet={14}
+                >
+                  <div
+                    className="fourteen wide computer sixteen wide mobile fourteen wide tablet column"
+                  >
+                    <h1>
+                      Details
+                    </h1>
+                    <div
+                      className="storeItemFormHolderDetails"
+                    >
+                      <h3>
+                        Store Item name:
+                      </h3>
+                      <p>
+                        nihil
+                      </p>
+                    </div>
+                    <div
+                      className="storeItemFormHolderPrice"
+                    >
+                      <h3>
+                        Store Item price:
+                      </h3>
+                      <p>
+                        88.00
+                      </p>
+                    </div>
+                    <div
+                      className="storeItemFormHolderDetails"
+                    >
+                      <h3>
+                        Store Item description:
+                      </h3>
+                      <p>
+                        Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel.
+                      </p>
+                    </div>
+                    <div
+                      className="storeItemFormHolderDetails"
+                    >
+                      <h3>
+                        Store Item details:
+                      </h3>
+                      <p>
+                        Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
+ 
+Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam.
+                      </p>
+                    </div>
+                    <div
+                      className="storeItemFormHolderCategories"
+                    >
+                      <h3>
+                        Listed Store Item categories: 
+                      </h3>
+                      <List
+                        horizontal={true}
+                      >
+                        <div
+                          className="ui horizontal list"
+                          role="list"
+                        >
+                          <ListItem
+                            key="mock"
+                          >
+                            <div
+                              className="item"
+                              onClick={[Function]}
+                              role="listitem"
+                            >
+                              <ListContent>
+                                <div
+                                  className="content"
+                                >
+                                  <ListHeader>
+                                    <div
+                                      className="header"
+                                    >
+                                      mock
+                                    </div>
+                                  </ListHeader>
+                                </div>
+                              </ListContent>
+                            </div>
+                          </ListItem>
+                          <ListItem
+                            key="new"
+                          >
+                            <div
+                              className="item"
+                              onClick={[Function]}
+                              role="listitem"
+                            >
+                              <ListContent>
+                                <div
+                                  className="content"
+                                >
+                                  <ListHeader>
+                                    <div
+                                      className="header"
+                                    >
+                                      new
+                                    </div>
+                                  </ListHeader>
+                                </div>
+                              </ListContent>
+                            </div>
+                          </ListItem>
+                        </div>
+                      </List>
+                    </div>
+                    <div
+                      className="storeItemFormHolderTimestamps"
+                    >
+                      <span>
+                        Created At: 
+                        <strong>
+                          2020-Sep-17
+                        </strong>
+                      </span>
+                      <span>
+                        Edited At: 
+                        <strong>
+                          Not Available
+                        </strong>
+                      </span>
+                    </div>
+                  </div>
+                </GridColumn>
+              </div>
+            </GridRow>
+            <GridRow>
+              <div
+                className="row"
+              >
+                <GridColumn
+                  computer={14}
+                  mobile={16}
+                  tablet={14}
+                >
+                  <div
+                    className="fourteen wide computer sixteen wide mobile fourteen wide tablet column"
+                  >
+                    <StoreItemImgPreviewHolder
+                      dispatch={[Function]}
+                      state={
+                        Object {
+                          "bonusVideoState": Object {
+                            "currentBonusVideoData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "vimeoURL": "",
+                              "youTubeURL": "",
+                            },
+                            "error": null,
+                            "loadedBonusVideos": Array [],
+                            "loading": false,
+                            "responseMsg": "",
+                          },
+                          "productState": Object {
+                            "currentProductData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "details": "",
+                              "images": Array [],
+                              "name": "",
+                              "price": "",
+                            },
+                            "error": null,
+                            "loadedProducts": Array [],
+                            "loading": false,
+                            "responseMsg": "",
+                          },
+                          "serviceState": Object {
+                            "currentServiceData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "images": Array [],
+                              "name": "",
+                              "price": "",
+                            },
+                            "error": null,
+                            "loadedServices": Array [],
+                            "loading": false,
+                            "responseMsg": "",
+                          },
+                          "storeItemState": Object {
+                            "currentStoreItemData": Object {
+                              "_id": "ks1jiz709z",
+                              "categories": Array [
+                                "mock",
+                                "new",
+                              ],
+                              "createdAt": "Thu Sep 17 2020 09:44:49 GMT+0300 (Eastern European Summer Time)",
+                              "description": "Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel.",
+                              "details": "Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
+ 
+Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam.",
+                              "images": Array [],
+                              "name": "nihil",
+                              "price": "88.00",
+                              "storeId": "iz5l9layn0",
+                              "storeName": "aut",
+                            },
+                            "error": null,
+                            "loadedStoreItems": Array [],
+                            "loading": false,
+                            "numberOfItems": 10,
+                            "responseMsg": "Ok",
+                            "storeItemFormOpen": true,
+                          },
+                          "storeState": Object {
+                            "currentStoreData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "images": Array [],
+                              "title": "",
+                            },
+                            "error": null,
+                            "loadedStores": Array [],
+                            "loading": true,
+                            "responseMsg": "",
+                          },
+                        }
+                      }
+                    >
+                      <div
+                        id="storeItemImgPreviewNone"
+                      >
+                        <h3>
+                          No images uploaded... you should upload some... 
+                        </h3>
+                      </div>
+                    </StoreItemImgPreviewHolder>
+                  </div>
+                </GridColumn>
+              </div>
+            </GridRow>
+            <StoreItemImageUplForm>
+              <div
+                id="storeItemImgUplFormHolder"
+              >
+                <div>
+                  <p>
+                    Image Uploader
+                  </p>
+                </div>
+                <Form
+                  as="form"
+                  id="storeItemImgUploadForm"
+                >
+                  <form
+                    className="ui form"
+                    id="storeItemImgUploadForm"
+                    onSubmit={[Function]}
+                  >
+                    <div
+                      id="storeItemImgInputControlls"
+                    >
+                      <Button
+                        as="label"
+                        content="Choose Image"
+                        htmlFor="storeItemImgFile"
+                        icon="file"
+                        id="selectStoreItemImgBtn"
+                        labelPosition="left"
+                        onClick={[Function]}
+                      >
+                        <Ref
+                          innerRef={
+                            Object {
+                              "current": <label
+                                class="ui icon left labeled button"
+                                for="storeItemImgFile"
+                                id="selectStoreItemImgBtn"
+                                role="button"
+                              >
+                                <i
+                                  aria-hidden="true"
+                                  class="file icon"
+                                />
+                                Choose Image
+                              </label>,
+                            }
+                          }
+                        >
+                          <RefFindNode
+                            innerRef={
+                              Object {
+                                "current": <label
+                                  class="ui icon left labeled button"
+                                  for="storeItemImgFile"
+                                  id="selectStoreItemImgBtn"
+                                  role="button"
+                                >
+                                  <i
+                                    aria-hidden="true"
+                                    class="file icon"
+                                  />
+                                  Choose Image
+                                </label>,
+                              }
+                            }
+                          >
+                            <label
+                              className="ui icon left labeled button"
+                              htmlFor="storeItemImgFile"
+                              id="selectStoreItemImgBtn"
+                              onClick={[Function]}
+                              role="button"
+                            >
+                              <Icon
+                                as="i"
+                                name="file"
+                              >
+                                <i
+                                  aria-hidden="true"
+                                  className="file icon"
+                                  onClick={[Function]}
+                                />
+                              </Icon>
+                              Choose Image
+                            </label>
+                          </RefFindNode>
+                        </Ref>
+                      </Button>
+                      <input
+                        hidden={true}
+                        id="storeItemImgFile"
+                        onChange={[Function]}
+                        type="file"
+                      />
+                    </div>
+                    <span>
+                      No File
+                    </span>
+                  </form>
+                </Form>
+              </div>
+            </StoreItemImageUplForm>
+            <GridRow>
+              <div
+                className="row"
+              >
+                <GridColumn
+                  computer={14}
+                  mobile={16}
+                  tablet={15}
+                >
+                  <div
+                    className="fourteen wide computer sixteen wide mobile fifteen wide tablet column"
+                  >
+                    <Button
+                      as="button"
+                      content="Close Form"
+                      id="storeItemFormToggleBtn"
+                      onClick={[Function]}
+                    >
+                      <Ref
+                        innerRef={
+                          Object {
+                            "current": <button
+                              class="ui button"
+                              id="storeItemFormToggleBtn"
+                            >
+                              Close Form
+                            </button>,
+                          }
+                        }
+                      >
+                        <RefFindNode
+                          innerRef={
+                            Object {
+                              "current": <button
+                                class="ui button"
+                                id="storeItemFormToggleBtn"
+                              >
+                                Close Form
+                              </button>,
+                            }
+                          }
+                        >
+                          <button
+                            className="ui button"
+                            id="storeItemFormToggleBtn"
+                            onClick={[Function]}
+                          >
+                            Close Form
+                          </button>
+                        </RefFindNode>
+                      </Ref>
+                    </Button>
+                    <StoreItemForm
+                      dispatch={[Function]}
+                      handleCreateStoreItem={[Function]}
+                      handleUpdateStoreItem={[Function]}
+                      state={
+                        Object {
+                          "bonusVideoState": Object {
+                            "currentBonusVideoData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "vimeoURL": "",
+                              "youTubeURL": "",
+                            },
+                            "error": null,
+                            "loadedBonusVideos": Array [],
+                            "loading": false,
+                            "responseMsg": "",
+                          },
+                          "productState": Object {
+                            "currentProductData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "details": "",
+                              "images": Array [],
+                              "name": "",
+                              "price": "",
+                            },
+                            "error": null,
+                            "loadedProducts": Array [],
+                            "loading": false,
+                            "responseMsg": "",
+                          },
+                          "serviceState": Object {
+                            "currentServiceData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "images": Array [],
+                              "name": "",
+                              "price": "",
+                            },
+                            "error": null,
+                            "loadedServices": Array [],
+                            "loading": false,
+                            "responseMsg": "",
+                          },
+                          "storeItemState": Object {
+                            "currentStoreItemData": Object {
+                              "_id": "ks1jiz709z",
+                              "categories": Array [
+                                "mock",
+                                "new",
+                              ],
+                              "createdAt": "Thu Sep 17 2020 09:44:49 GMT+0300 (Eastern European Summer Time)",
+                              "description": "Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel.",
+                              "details": "Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
+ 
+Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam.",
+                              "images": Array [],
+                              "name": "nihil",
+                              "price": "88.00",
+                              "storeId": "iz5l9layn0",
+                              "storeName": "aut",
+                            },
+                            "error": null,
+                            "loadedStoreItems": Array [],
+                            "loading": false,
+                            "numberOfItems": 10,
+                            "responseMsg": "Ok",
+                            "storeItemFormOpen": true,
+                          },
+                          "storeState": Object {
+                            "currentStoreData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "images": Array [],
+                              "title": "",
+                            },
+                            "error": null,
+                            "loadedStores": Array [],
+                            "loading": true,
+                            "responseMsg": "",
+                          },
+                        }
+                      }
+                      storeItem={
+                        Object {
+                          "_id": "ks1jiz709z",
+                          "categories": Array [
+                            "mock",
+                            "new",
+                          ],
+                          "createdAt": "Thu Sep 17 2020 09:44:49 GMT+0300 (Eastern European Summer Time)",
+                          "description": "Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel.",
+                          "details": "Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
+ 
+Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam.",
+                          "images": Array [],
+                          "name": "nihil",
+                          "price": "88.00",
+                          "storeId": "iz5l9layn0",
+                          "storeName": "aut",
+                        }
+                      }
+                    >
+                      <div
+                        className="createStoreItemFormHolder"
+                      >
+                        <Form
+                          as="form"
+                          id="createStoreItemForm"
+                        >
+                          <form
+                            className="ui form"
+                            id="createStoreItemForm"
+                            onSubmit={[Function]}
+                          >
+                            <StoreDetails
+                              createdAt=""
+                              storeId="iz5l9layn0"
+                              storeName="aut"
+                            >
+                              <div>
+                                <Item>
+                                  <div
+                                    className="item"
+                                  >
+                                    <ItemImage
+                                      size="small"
+                                      src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                    >
+                                      <Image
+                                        as="img"
+                                        size="small"
+                                        src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                        ui={true}
+                                        wrapped={true}
+                                      >
+                                        <div
+                                          className="ui small image"
+                                        >
+                                          <img
+                                            src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                          />
+                                        </div>
+                                      </Image>
+                                    </ItemImage>
+                                    <ItemContent>
+                                      <div
+                                        className="content"
+                                      >
+                                        <ItemHeader>
+                                          <div
+                                            className="header"
+                                          >
+                                            aut
+                                          </div>
+                                        </ItemHeader>
+                                        <ItemMeta>
+                                          <div
+                                            className="meta"
+                                          >
+                                            <span
+                                              className="storeItemFormStoreId"
+                                            >
+                                              iz5l9layn0
+                                            </span>
+                                            <span
+                                              className="storeItemFormStoreCreated"
+                                            />
+                                          </div>
+                                        </ItemMeta>
+                                      </div>
+                                    </ItemContent>
+                                  </div>
+                                </Item>
+                              </div>
+                            </StoreDetails>
+                            <FormField>
+                              <div
+                                className="field"
+                              >
+                                <label>
+                                  Which Store to place the item in?
+                                </label>
+                                <StoreNameDropDown
+                                  dispatch={[Function]}
+                                  state={
+                                    Object {
+                                      "bonusVideoState": Object {
+                                        "currentBonusVideoData": Object {
+                                          "_id": "",
+                                          "createdAt": "",
+                                          "description": "",
+                                          "vimeoURL": "",
+                                          "youTubeURL": "",
+                                        },
+                                        "error": null,
+                                        "loadedBonusVideos": Array [],
+                                        "loading": false,
+                                        "responseMsg": "",
+                                      },
+                                      "productState": Object {
+                                        "currentProductData": Object {
+                                          "_id": "",
+                                          "createdAt": "",
+                                          "description": "",
+                                          "details": "",
+                                          "images": Array [],
+                                          "name": "",
+                                          "price": "",
+                                        },
+                                        "error": null,
+                                        "loadedProducts": Array [],
+                                        "loading": false,
+                                        "responseMsg": "",
+                                      },
+                                      "serviceState": Object {
+                                        "currentServiceData": Object {
+                                          "_id": "",
+                                          "createdAt": "",
+                                          "description": "",
+                                          "images": Array [],
+                                          "name": "",
+                                          "price": "",
+                                        },
+                                        "error": null,
+                                        "loadedServices": Array [],
+                                        "loading": false,
+                                        "responseMsg": "",
+                                      },
+                                      "storeItemState": Object {
+                                        "currentStoreItemData": Object {
+                                          "_id": "ks1jiz709z",
+                                          "categories": Array [
+                                            "mock",
+                                            "new",
+                                          ],
+                                          "createdAt": "Thu Sep 17 2020 09:44:49 GMT+0300 (Eastern European Summer Time)",
+                                          "description": "Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel.",
+                                          "details": "Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
+ 
+Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam.",
+                                          "images": Array [],
+                                          "name": "nihil",
+                                          "price": "88.00",
+                                          "storeId": "iz5l9layn0",
+                                          "storeName": "aut",
+                                        },
+                                        "error": null,
+                                        "loadedStoreItems": Array [],
+                                        "loading": false,
+                                        "numberOfItems": 10,
+                                        "responseMsg": "Ok",
+                                        "storeItemFormOpen": true,
+                                      },
+                                      "storeState": Object {
+                                        "currentStoreData": Object {
+                                          "_id": "",
+                                          "createdAt": "",
+                                          "description": "",
+                                          "images": Array [],
+                                          "title": "",
+                                        },
+                                        "error": null,
+                                        "loadedStores": Array [],
+                                        "loading": true,
+                                        "responseMsg": "",
+                                      },
+                                    }
+                                  }
+                                >
+                                  <Dropdown
+                                    additionLabel="Add "
+                                    additionPosition="top"
+                                    closeOnBlur={true}
+                                    closeOnEscape={true}
+                                    deburr={false}
+                                    disabled={true}
+                                    icon="dropdown"
+                                    minCharacters={1}
+                                    noResultsMessage="No results found."
+                                    onChange={[Function]}
+                                    openOnFocus={true}
+                                    options={Array []}
+                                    placeholder="Select a Store"
+                                    renderLabel={[Function]}
+                                    searchInput="text"
+                                    selectOnBlur={true}
+                                    selectOnNavigation={true}
+                                    selection={true}
+                                    wrapSelection={true}
+                                  >
+                                    <Ref
+                                      innerRef={
+                                        Object {
+                                          "current": <div
+                                            aria-disabled="true"
+                                            aria-expanded="false"
+                                            class="ui disabled selection dropdown"
+                                            role="listbox"
+                                            tabindex="-1"
+                                          >
+                                            <div
+                                              aria-atomic="true"
+                                              aria-live="polite"
+                                              class="default text"
+                                              role="alert"
+                                            >
+                                              Select a Store
+                                            </div>
+                                            <i
+                                              aria-hidden="true"
+                                              class="dropdown icon"
+                                            />
+                                            <div
+                                              class="menu transition"
+                                            />
+                                          </div>,
+                                        }
+                                      }
+                                    >
+                                      <RefFindNode
+                                        innerRef={
+                                          Object {
+                                            "current": <div
+                                              aria-disabled="true"
+                                              aria-expanded="false"
+                                              class="ui disabled selection dropdown"
+                                              role="listbox"
+                                              tabindex="-1"
+                                            >
+                                              <div
+                                                aria-atomic="true"
+                                                aria-live="polite"
+                                                class="default text"
+                                                role="alert"
+                                              >
+                                                Select a Store
+                                              </div>
+                                              <i
+                                                aria-hidden="true"
+                                                class="dropdown icon"
+                                              />
+                                              <div
+                                                class="menu transition"
+                                              />
+                                            </div>,
+                                          }
+                                        }
+                                      >
+                                        <div
+                                          aria-disabled={true}
+                                          aria-expanded={false}
+                                          className="ui disabled selection dropdown"
+                                          onBlur={[Function]}
+                                          onChange={[Function]}
+                                          onClick={[Function]}
+                                          onFocus={[Function]}
+                                          onMouseDown={[Function]}
+                                          role="listbox"
+                                          tabIndex={-1}
+                                        >
+                                          <div
+                                            aria-atomic={true}
+                                            aria-live="polite"
+                                            className="default text"
+                                            role="alert"
+                                          >
+                                            Select a Store
+                                          </div>
+                                          <Icon
+                                            as="i"
+                                            className=""
+                                            name="dropdown"
+                                            onClick={[Function]}
+                                          >
+                                            <i
+                                              aria-hidden="true"
+                                              className="dropdown icon"
+                                              onClick={[Function]}
+                                            />
+                                          </Icon>
+                                          <DropdownMenu>
+                                            <div
+                                              className="menu transition"
+                                            />
+                                          </DropdownMenu>
+                                        </div>
+                                      </RefFindNode>
+                                    </Ref>
+                                  </Dropdown>
+                                </StoreNameDropDown>
+                              </div>
+                            </FormField>
+                            <FormField>
+                              <div
+                                className="field"
+                              >
+                                <label>
+                                  Store Item name
+                                </label>
+                                <input
+                                  id="storeItemFormTitle"
+                                  onChange={[Function]}
+                                  placeholder="Store Item name here ..."
+                                  value="nihil"
+                                />
+                              </div>
+                            </FormField>
+                            <FormField>
+                              <div
+                                className="field"
+                              >
+                                <label>
+                                  Store Item price
+                                </label>
+                                <input
+                                  id="storeItemFormPrice"
+                                  onChange={[Function]}
+                                  placeholder="Store Item price here..."
+                                  value="88.00"
+                                />
+                              </div>
+                            </FormField>
+                            <FormField>
+                              <div
+                                className="field"
+                              >
+                                <label>
+                                  Categories
+                                </label>
+                                <StoreItemCategoriesSelection
+                                  _handleCategoryChange={[Function]}
+                                >
+                                  <Dropdown
+                                    additionLabel="Add "
+                                    additionPosition="top"
+                                    closeOnBlur={true}
+                                    closeOnEscape={true}
+                                    deburr={false}
+                                    fluid={true}
+                                    icon="dropdown"
+                                    minCharacters={1}
+                                    multiple={true}
+                                    noResultsMessage="No results found."
+                                    onChange={[Function]}
+                                    openOnFocus={true}
+                                    options={
+                                      Array [
+                                        Object {
+                                          "key": "sports",
+                                          "text": "Sports",
+                                          "value": "sports",
+                                        },
+                                        Object {
+                                          "key": "wood",
+                                          "text": "Wood",
+                                          "value": "wood",
+                                        },
+                                        Object {
+                                          "key": "outdoors",
+                                          "text": "Outdoors",
+                                          "value": "outdoors",
+                                        },
+                                        Object {
+                                          "key": "indoors",
+                                          "text": "Indoors",
+                                          "value": "indoors",
+                                        },
+                                        Object {
+                                          "key": "tools",
+                                          "text": "Tools",
+                                          "value": "tools",
+                                        },
+                                      ]
+                                    }
+                                    placeholder="Categories"
+                                    renderLabel={[Function]}
+                                    search={true}
+                                    searchInput="text"
+                                    selectOnBlur={true}
+                                    selectOnNavigation={true}
+                                    selection={true}
+                                    wrapSelection={true}
+                                  >
+                                    <Ref
+                                      innerRef={
+                                        Object {
+                                          "current": <div
+                                            aria-expanded="false"
+                                            class="ui fluid multiple search selection dropdown"
+                                            role="combobox"
+                                          >
+                                            <input
+                                              aria-autocomplete="list"
+                                              autocomplete="off"
+                                              class="search"
+                                              tabindex="0"
+                                              type="text"
+                                              value=""
+                                            />
+                                            <span
+                                              class="sizer"
+                                            />
+                                            <div
+                                              aria-atomic="true"
+                                              aria-live="polite"
+                                              class="default text"
+                                              role="alert"
+                                            >
+                                              Categories
+                                            </div>
+                                            <i
+                                              aria-hidden="true"
+                                              class="dropdown icon"
+                                            />
+                                            <div
+                                              aria-multiselectable="true"
+                                              class="menu transition"
+                                              role="listbox"
+                                            >
+                                              <div
+                                                aria-checked="false"
+                                                aria-selected="true"
+                                                class="selected item"
+                                                role="option"
+                                                style="pointer-events: all;"
+                                              >
+                                                <span
+                                                  class="text"
+                                                >
+                                                  Sports
+                                                </span>
+                                              </div>
+                                              <div
+                                                aria-checked="false"
+                                                aria-selected="false"
+                                                class="item"
+                                                role="option"
+                                                style="pointer-events: all;"
+                                              >
+                                                <span
+                                                  class="text"
+                                                >
+                                                  Wood
+                                                </span>
+                                              </div>
+                                              <div
+                                                aria-checked="false"
+                                                aria-selected="false"
+                                                class="item"
+                                                role="option"
+                                                style="pointer-events: all;"
+                                              >
+                                                <span
+                                                  class="text"
+                                                >
+                                                  Outdoors
+                                                </span>
+                                              </div>
+                                              <div
+                                                aria-checked="false"
+                                                aria-selected="false"
+                                                class="item"
+                                                role="option"
+                                                style="pointer-events: all;"
+                                              >
+                                                <span
+                                                  class="text"
+                                                >
+                                                  Indoors
+                                                </span>
+                                              </div>
+                                              <div
+                                                aria-checked="false"
+                                                aria-selected="false"
+                                                class="item"
+                                                role="option"
+                                                style="pointer-events: all;"
+                                              >
+                                                <span
+                                                  class="text"
+                                                >
+                                                  Tools
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>,
+                                        }
+                                      }
+                                    >
+                                      <RefFindNode
+                                        innerRef={
+                                          Object {
+                                            "current": <div
+                                              aria-expanded="false"
+                                              class="ui fluid multiple search selection dropdown"
+                                              role="combobox"
+                                            >
+                                              <input
+                                                aria-autocomplete="list"
+                                                autocomplete="off"
+                                                class="search"
+                                                tabindex="0"
+                                                type="text"
+                                                value=""
+                                              />
+                                              <span
+                                                class="sizer"
+                                              />
+                                              <div
+                                                aria-atomic="true"
+                                                aria-live="polite"
+                                                class="default text"
+                                                role="alert"
+                                              >
+                                                Categories
+                                              </div>
+                                              <i
+                                                aria-hidden="true"
+                                                class="dropdown icon"
+                                              />
+                                              <div
+                                                aria-multiselectable="true"
+                                                class="menu transition"
+                                                role="listbox"
+                                              >
+                                                <div
+                                                  aria-checked="false"
+                                                  aria-selected="true"
+                                                  class="selected item"
+                                                  role="option"
+                                                  style="pointer-events: all;"
+                                                >
+                                                  <span
+                                                    class="text"
+                                                  >
+                                                    Sports
+                                                  </span>
+                                                </div>
+                                                <div
+                                                  aria-checked="false"
+                                                  aria-selected="false"
+                                                  class="item"
+                                                  role="option"
+                                                  style="pointer-events: all;"
+                                                >
+                                                  <span
+                                                    class="text"
+                                                  >
+                                                    Wood
+                                                  </span>
+                                                </div>
+                                                <div
+                                                  aria-checked="false"
+                                                  aria-selected="false"
+                                                  class="item"
+                                                  role="option"
+                                                  style="pointer-events: all;"
+                                                >
+                                                  <span
+                                                    class="text"
+                                                  >
+                                                    Outdoors
+                                                  </span>
+                                                </div>
+                                                <div
+                                                  aria-checked="false"
+                                                  aria-selected="false"
+                                                  class="item"
+                                                  role="option"
+                                                  style="pointer-events: all;"
+                                                >
+                                                  <span
+                                                    class="text"
+                                                  >
+                                                    Indoors
+                                                  </span>
+                                                </div>
+                                                <div
+                                                  aria-checked="false"
+                                                  aria-selected="false"
+                                                  class="item"
+                                                  role="option"
+                                                  style="pointer-events: all;"
+                                                >
+                                                  <span
+                                                    class="text"
+                                                  >
+                                                    Tools
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>,
+                                          }
+                                        }
+                                      >
+                                        <div
+                                          aria-expanded={false}
+                                          className="ui fluid multiple search selection dropdown"
+                                          onBlur={[Function]}
+                                          onChange={[Function]}
+                                          onClick={[Function]}
+                                          onFocus={[Function]}
+                                          onMouseDown={[Function]}
+                                          role="combobox"
+                                        >
+                                          <Ref
+                                            innerRef={
+                                              Object {
+                                                "current": <input
+                                                  aria-autocomplete="list"
+                                                  autocomplete="off"
+                                                  class="search"
+                                                  tabindex="0"
+                                                  type="text"
+                                                  value=""
+                                                />,
+                                              }
+                                            }
+                                          >
+                                            <RefFindNode
+                                              innerRef={
+                                                Object {
+                                                  "current": <input
+                                                    aria-autocomplete="list"
+                                                    autocomplete="off"
+                                                    class="search"
+                                                    tabindex="0"
+                                                    type="text"
+                                                    value=""
+                                                  />,
+                                                }
+                                              }
+                                            >
+                                              <DropdownSearchInput
+                                                autoComplete="off"
+                                                key="text"
+                                                onChange={[Function]}
+                                                style={
+                                                  Object {
+                                                    "width": undefined,
+                                                  }
+                                                }
+                                                tabIndex={0}
+                                                type="text"
+                                                value=""
+                                              >
+                                                <input
+                                                  aria-autocomplete="list"
+                                                  autoComplete="off"
+                                                  className="search"
+                                                  onChange={[Function]}
+                                                  style={
+                                                    Object {
+                                                      "width": undefined,
+                                                    }
+                                                  }
+                                                  tabIndex={0}
+                                                  type="text"
+                                                  value=""
+                                                />
+                                              </DropdownSearchInput>
+                                            </RefFindNode>
+                                          </Ref>
+                                          <span
+                                            className="sizer"
+                                          />
+                                          <div
+                                            aria-atomic={true}
+                                            aria-live="polite"
+                                            className="default text"
+                                            role="alert"
+                                          >
+                                            Categories
+                                          </div>
+                                          <Icon
+                                            as="i"
+                                            className=""
+                                            name="dropdown"
+                                            onClick={[Function]}
+                                          >
+                                            <i
+                                              aria-hidden="true"
+                                              className="dropdown icon"
+                                              onClick={[Function]}
+                                            />
+                                          </Icon>
+                                          <DropdownMenu
+                                            aria-multiselectable={true}
+                                            role="listbox"
+                                          >
+                                            <div
+                                              aria-multiselectable={true}
+                                              className="menu transition"
+                                              role="listbox"
+                                            >
+                                              <DropdownItem
+                                                active={false}
+                                                key="sports"
+                                                onClick={[Function]}
+                                                selected={true}
+                                                style={
+                                                  Object {
+                                                    "pointerEvents": "all",
+                                                  }
+                                                }
+                                                text="Sports"
+                                                value="sports"
+                                              >
+                                                <div
+                                                  aria-checked={false}
+                                                  aria-selected={true}
+                                                  className="selected item"
+                                                  onClick={[Function]}
+                                                  role="option"
+                                                  style={
+                                                    Object {
+                                                      "pointerEvents": "all",
+                                                    }
+                                                  }
+                                                >
+                                                  <span
+                                                    className="text"
+                                                  >
+                                                    Sports
+                                                  </span>
+                                                </div>
+                                              </DropdownItem>
+                                              <DropdownItem
+                                                active={false}
+                                                key="wood"
+                                                onClick={[Function]}
+                                                selected={false}
+                                                style={
+                                                  Object {
+                                                    "pointerEvents": "all",
+                                                  }
+                                                }
+                                                text="Wood"
+                                                value="wood"
+                                              >
+                                                <div
+                                                  aria-checked={false}
+                                                  aria-selected={false}
+                                                  className="item"
+                                                  onClick={[Function]}
+                                                  role="option"
+                                                  style={
+                                                    Object {
+                                                      "pointerEvents": "all",
+                                                    }
+                                                  }
+                                                >
+                                                  <span
+                                                    className="text"
+                                                  >
+                                                    Wood
+                                                  </span>
+                                                </div>
+                                              </DropdownItem>
+                                              <DropdownItem
+                                                active={false}
+                                                key="outdoors"
+                                                onClick={[Function]}
+                                                selected={false}
+                                                style={
+                                                  Object {
+                                                    "pointerEvents": "all",
+                                                  }
+                                                }
+                                                text="Outdoors"
+                                                value="outdoors"
+                                              >
+                                                <div
+                                                  aria-checked={false}
+                                                  aria-selected={false}
+                                                  className="item"
+                                                  onClick={[Function]}
+                                                  role="option"
+                                                  style={
+                                                    Object {
+                                                      "pointerEvents": "all",
+                                                    }
+                                                  }
+                                                >
+                                                  <span
+                                                    className="text"
+                                                  >
+                                                    Outdoors
+                                                  </span>
+                                                </div>
+                                              </DropdownItem>
+                                              <DropdownItem
+                                                active={false}
+                                                key="indoors"
+                                                onClick={[Function]}
+                                                selected={false}
+                                                style={
+                                                  Object {
+                                                    "pointerEvents": "all",
+                                                  }
+                                                }
+                                                text="Indoors"
+                                                value="indoors"
+                                              >
+                                                <div
+                                                  aria-checked={false}
+                                                  aria-selected={false}
+                                                  className="item"
+                                                  onClick={[Function]}
+                                                  role="option"
+                                                  style={
+                                                    Object {
+                                                      "pointerEvents": "all",
+                                                    }
+                                                  }
+                                                >
+                                                  <span
+                                                    className="text"
+                                                  >
+                                                    Indoors
+                                                  </span>
+                                                </div>
+                                              </DropdownItem>
+                                              <DropdownItem
+                                                active={false}
+                                                key="tools"
+                                                onClick={[Function]}
+                                                selected={false}
+                                                style={
+                                                  Object {
+                                                    "pointerEvents": "all",
+                                                  }
+                                                }
+                                                text="Tools"
+                                                value="tools"
+                                              >
+                                                <div
+                                                  aria-checked={false}
+                                                  aria-selected={false}
+                                                  className="item"
+                                                  onClick={[Function]}
+                                                  role="option"
+                                                  style={
+                                                    Object {
+                                                      "pointerEvents": "all",
+                                                    }
+                                                  }
+                                                >
+                                                  <span
+                                                    className="text"
+                                                  >
+                                                    Tools
+                                                  </span>
+                                                </div>
+                                              </DropdownItem>
+                                            </div>
+                                          </DropdownMenu>
+                                        </div>
+                                      </RefFindNode>
+                                    </Ref>
+                                  </Dropdown>
+                                </StoreItemCategoriesSelection>
+                              </div>
+                            </FormField>
+                            <FormField
+                              control={[Function]}
+                              id="storeItemFormDetails"
+                              label="Store Item Details"
+                              onChange={[Function]}
+                              placeholder="Store Item details here..."
+                              value="Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
+ 
+Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam."
+                            >
+                              <div
+                                className="field"
+                              >
+                                <label
+                                  htmlFor="storeItemFormDetails"
+                                >
+                                  Store Item Details
+                                </label>
+                                <TextArea
+                                  aria-describedby={null}
+                                  as="textarea"
+                                  id="storeItemFormDetails"
+                                  onChange={[Function]}
+                                  placeholder="Store Item details here..."
+                                  rows={3}
+                                  value="Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
+ 
+Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam."
+                                >
+                                  <Ref
+                                    innerRef={
+                                      Object {
+                                        "current": <textarea
+                                          id="storeItemFormDetails"
+                                          placeholder="Store Item details here..."
+                                          rows="3"
+                                        >
+                                          Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
+ 
+Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam.
+                                        </textarea>,
+                                      }
+                                    }
+                                  >
+                                    <RefFindNode
+                                      innerRef={
+                                        Object {
+                                          "current": <textarea
+                                            id="storeItemFormDetails"
+                                            placeholder="Store Item details here..."
+                                            rows="3"
+                                          >
+                                            Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
+ 
+Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam.
+                                          </textarea>,
+                                        }
+                                      }
+                                    >
+                                      <textarea
+                                        aria-describedby={null}
+                                        id="storeItemFormDetails"
+                                        onChange={[Function]}
+                                        onInput={[Function]}
+                                        placeholder="Store Item details here..."
+                                        rows={3}
+                                        value="Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
+ 
+Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam."
+                                      />
+                                    </RefFindNode>
+                                  </Ref>
+                                </TextArea>
+                              </div>
+                            </FormField>
+                            <FormField
+                              control={[Function]}
+                              id="storeItemFormDescription"
+                              label="Store Item Description"
+                              onChange={[Function]}
+                              placeholder="Store Item description here..."
+                              value="Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel."
+                            >
+                              <div
+                                className="field"
+                              >
+                                <label
+                                  htmlFor="storeItemFormDescription"
+                                >
+                                  Store Item Description
+                                </label>
+                                <TextArea
+                                  aria-describedby={null}
+                                  as="textarea"
+                                  id="storeItemFormDescription"
+                                  onChange={[Function]}
+                                  placeholder="Store Item description here..."
+                                  rows={3}
+                                  value="Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel."
+                                >
+                                  <Ref
+                                    innerRef={
+                                      Object {
+                                        "current": <textarea
+                                          id="storeItemFormDescription"
+                                          placeholder="Store Item description here..."
+                                          rows="3"
+                                        >
+                                          Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel.
+                                        </textarea>,
+                                      }
+                                    }
+                                  >
+                                    <RefFindNode
+                                      innerRef={
+                                        Object {
+                                          "current": <textarea
+                                            id="storeItemFormDescription"
+                                            placeholder="Store Item description here..."
+                                            rows="3"
+                                          >
+                                            Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel.
+                                          </textarea>,
+                                        }
+                                      }
+                                    >
+                                      <textarea
+                                        aria-describedby={null}
+                                        id="storeItemFormDescription"
+                                        onChange={[Function]}
+                                        onInput={[Function]}
+                                        placeholder="Store Item description here..."
+                                        rows={3}
+                                        value="Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel."
+                                      />
+                                    </RefFindNode>
+                                  </Ref>
+                                </TextArea>
+                              </div>
+                            </FormField>
+                            <Button
+                              as="button"
+                              content="Update Store Item"
+                              id="adminStoreItemFormUpdate"
+                              onClick={[Function]}
+                              type="submit"
+                            >
+                              <Ref
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui button"
+                                      id="adminStoreItemFormUpdate"
+                                      type="submit"
+                                    >
+                                      Update Store Item
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <RefFindNode
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui button"
+                                        id="adminStoreItemFormUpdate"
+                                        type="submit"
+                                      >
+                                        Update Store Item
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <button
+                                    className="ui button"
+                                    id="adminStoreItemFormUpdate"
+                                    onClick={[Function]}
+                                    type="submit"
+                                  >
+                                    Update Store Item
+                                  </button>
+                                </RefFindNode>
+                              </Ref>
+                            </Button>
+                          </form>
+                        </Form>
+                      </div>
+                    </StoreItemForm>
+                  </div>
+                </GridColumn>
+              </div>
+            </GridRow>
+          </div>
+        </StoreItemFormHolder>
+      </withRouter(StoreItemFormHolder)>
+    </Component>
+  </Router>
+</MemoryRouter>
 `;

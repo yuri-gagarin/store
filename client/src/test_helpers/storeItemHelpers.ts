@@ -61,6 +61,7 @@ export const clearStoreItemState = (globalState: IGlobalAppState): void => {
     numberOfItems: 0,
     currentStoreItemData: emptyStoreItemData(),
     loadedStoreItems: [],
+    storeItemFormOpen: false,
     error: null
   };
 };
@@ -72,6 +73,7 @@ export const resetStoreItemState = (): IStoreItemState => {
     numberOfItems: 0,
     currentStoreItemData: emptyStoreItemData(),
     loadedStoreItems: [],
+    storeItemFormOpen: false,
     error: null
   };
 };
@@ -131,6 +133,7 @@ export const setMockStoreItemState = ( opts: SetMockStoreItemStateOpts): IGlobal
       numberOfItems: 10,
       currentStoreItemData: _storeItem ? _storeItem: emptyStoreItemData(),
       loadedStoreItems: _loadedStoreItems,
+      storeItemFormOpen: false,
       error: null
     },
     productState: resetProductState(),

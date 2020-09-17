@@ -8,7 +8,7 @@ import StoreItemFormHolder from "./forms/StoreItemFormHolder";
 // css imports //
 import "./css/storeItemsView.css";
 // routing //
-import { Route, Switch } from "react-router-dom";
+import { RouteComponentProps, Route, Switch, withRouter } from "react-router-dom";
 // state //
 import { Store } from "../../../state/Store";
 
@@ -33,7 +33,7 @@ const StoreItemsView: React.FC<{}> = (props): JSX.Element => {
         </Route>
         <Route path="/admin/home/store_items/create">
           <Spacer width="100%" height="100px" />
-          <StoreItemFormHolder state={state} dispatch={dispatch} />
+          <StoreItemFormHolder />
         </Route>
         <Route path="/admin/home/store_items/manage">
           <Spacer width="100%" height="100px"></Spacer>
@@ -44,4 +44,4 @@ const StoreItemsView: React.FC<{}> = (props): JSX.Element => {
   );
 };
 
-export default StoreItemsView;
+export default withRouter(StoreItemsView);
