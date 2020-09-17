@@ -46,12 +46,8 @@ const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   // const [ formOpen, setFormOpen ] = useState<boolean>(false);
   const [ newForm, setNewForm ] = useState<boolean>(true);
   
-  useEffect(() => {
-    console.log(storeItemFormOpen)
-  }, [storeItemFormOpen])
   // StoreItemForm toggle //
   const toggleForm = () => {
-    console.log("called toggle form")
     storeItemFormOpen ? closeStoreItemForm(dispatch) : openStoreItemForm(dispatch);
   };
   // API call handlers CREATE - EDIT //

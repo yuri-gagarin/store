@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`StoreItemFormHolder Component tests Form Holder state OPEN - WITH Current StoreItem Data - NO IMAGES Should Properly Mount Form Holder 1`] = `
+exports[`StoreItemFormHolder Component tests Default Form Holder state Should Properly Mount Form Holder 1`] = `
 <MemoryRouter>
   <Router
     history={
@@ -12,7 +12,7 @@ exports[`StoreItemFormHolder Component tests Form Holder state OPEN - WITH Curre
         "entries": Array [
           Object {
             "hash": "",
-            "key": "cggj0g",
+            "key": "1hjnzq",
             "pathname": "/",
             "search": "",
             "state": undefined,
@@ -26,7 +26,7 @@ exports[`StoreItemFormHolder Component tests Form Holder state OPEN - WITH Curre
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "cggj0g",
+          "key": "1hjnzq",
           "pathname": "/",
           "search": "",
           "state": undefined,
@@ -36,92 +36,164 @@ exports[`StoreItemFormHolder Component tests Form Holder state OPEN - WITH Curre
       }
     }
   >
-    <Component
-      mockState={
-        Object {
-          "bonusVideoState": Object {
-            "currentBonusVideoData": Object {
-              "_id": "",
-              "createdAt": "",
-              "description": "",
-              "vimeoURL": "",
-              "youTubeURL": "",
+    <withRouter(StoreItemFormHolder)>
+      <StoreItemFormHolder
+        history={
+          Object {
+            "action": "POP",
+            "block": [Function],
+            "canGo": [Function],
+            "createHref": [Function],
+            "entries": Array [
+              Object {
+                "hash": "",
+                "key": "1hjnzq",
+                "pathname": "/",
+                "search": "",
+                "state": undefined,
+              },
+            ],
+            "go": [Function],
+            "goBack": [Function],
+            "goForward": [Function],
+            "index": 0,
+            "length": 1,
+            "listen": [Function],
+            "location": Object {
+              "hash": "",
+              "key": "1hjnzq",
+              "pathname": "/",
+              "search": "",
+              "state": undefined,
             },
-            "error": null,
-            "loadedBonusVideos": Array [],
-            "loading": false,
-            "responseMsg": "",
-          },
-          "productState": Object {
-            "currentProductData": Object {
-              "_id": "",
-              "createdAt": "",
-              "description": "",
-              "details": "",
-              "images": Array [],
-              "name": "",
-              "price": "",
-            },
-            "error": null,
-            "loadedProducts": Array [],
-            "loading": false,
-            "responseMsg": "",
-          },
-          "serviceState": Object {
-            "currentServiceData": Object {
-              "_id": "",
-              "createdAt": "",
-              "description": "",
-              "images": Array [],
-              "name": "",
-              "price": "",
-            },
-            "error": null,
-            "loadedServices": Array [],
-            "loading": false,
-            "responseMsg": "",
-          },
-          "storeItemState": Object {
-            "currentStoreItemData": Object {
-              "_id": "ks1jiz709z",
-              "categories": Array [
-                "mock",
-                "new",
-              ],
-              "createdAt": "Thu Sep 17 2020 09:44:49 GMT+0300 (Eastern European Summer Time)",
-              "description": "Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel.",
-              "details": "Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
- 
-Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam.",
-              "images": Array [],
-              "name": "nihil",
-              "price": "88.00",
-              "storeId": "iz5l9layn0",
-              "storeName": "aut",
-            },
-            "error": null,
-            "loadedStoreItems": Array [],
-            "loading": false,
-            "numberOfItems": 10,
-            "responseMsg": "Ok",
-            "storeItemFormOpen": false,
-          },
-          "storeState": Object {
-            "currentStoreData": Object {
-              "_id": "",
-              "createdAt": "",
-              "description": "",
-              "images": Array [],
-              "title": "",
-            },
-            "error": null,
-            "loadedStores": Array [],
-            "loading": false,
-            "responseMsg": "",
-          },
+            "push": [Function],
+            "replace": [Function],
+          }
         }
+        location={
+          Object {
+            "hash": "",
+            "key": "1hjnzq",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          }
+        }
+        match={
+          Object {
+            "isExact": true,
+            "params": Object {},
+            "path": "/",
+            "url": "/",
+          }
+        }
+      >
+        <div
+          id="storeItemFormHolder"
+        >
+          <FormErrorComponent
+            error={null}
+          />
+          <GridRow>
+            <div
+              className="row"
+            >
+              <GridColumn
+                computer={14}
+                mobile={16}
+                tablet={15}
+              >
+                <div
+                  className="fourteen wide computer sixteen wide mobile fifteen wide tablet column"
+                >
+                  <Button
+                    as="button"
+                    content="Open Form"
+                    id="storeItemFormToggleBtn"
+                    onClick={[Function]}
+                  >
+                    <Ref
+                      innerRef={
+                        Object {
+                          "current": <button
+                            class="ui button"
+                            id="storeItemFormToggleBtn"
+                          >
+                            Open Form
+                          </button>,
+                        }
+                      }
+                    >
+                      <RefFindNode
+                        innerRef={
+                          Object {
+                            "current": <button
+                              class="ui button"
+                              id="storeItemFormToggleBtn"
+                            >
+                              Open Form
+                            </button>,
+                          }
+                        }
+                      >
+                        <button
+                          className="ui button"
+                          id="storeItemFormToggleBtn"
+                          onClick={[Function]}
+                        >
+                          Open Form
+                        </button>
+                      </RefFindNode>
+                    </Ref>
+                  </Button>
+                </div>
+              </GridColumn>
+            </div>
+          </GridRow>
+        </div>
+      </StoreItemFormHolder>
+    </withRouter(StoreItemFormHolder)>
+  </Router>
+</MemoryRouter>
+`;
+
+exports[`StoreItemFormHolder Component tests Form Holder state OPEN - NO Current StoreItem Data Should Properly Mount Form Holder, respond to '#storeItemFormToggleBtn' click 1`] = `
+<MemoryRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "canGo": [Function],
+        "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "key": "nquiyg",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+        ],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "index": 0,
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "key": "nquiyg",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
       }
-    >
+    }
+  >
+    <Component>
       <withRouter(StoreItemFormHolder)>
         <StoreItemFormHolder
           history={
@@ -133,7 +205,7 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
               "entries": Array [
                 Object {
                   "hash": "",
-                  "key": "cggj0g",
+                  "key": "nquiyg",
                   "pathname": "/",
                   "search": "",
                   "state": undefined,
@@ -147,7 +219,7 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
               "listen": [Function],
               "location": Object {
                 "hash": "",
-                "key": "cggj0g",
+                "key": "nquiyg",
                 "pathname": "/",
                 "search": "",
                 "state": undefined,
@@ -159,7 +231,7 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
           location={
             Object {
               "hash": "",
-              "key": "cggj0g",
+              "key": "nquiyg",
               "pathname": "/",
               "search": "",
               "state": undefined,
@@ -180,358 +252,6 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
             <FormErrorComponent
               error={null}
             />
-            <GridRow>
-              <div
-                className="row"
-              >
-                <GridColumn
-                  computer={14}
-                  mobile={16}
-                  tablet={14}
-                >
-                  <div
-                    className="fourteen wide computer sixteen wide mobile fourteen wide tablet column"
-                  >
-                    <h1>
-                      Details
-                    </h1>
-                    <div
-                      className="storeItemFormHolderDetails"
-                    >
-                      <h3>
-                        Store Item name:
-                      </h3>
-                      <p>
-                        nihil
-                      </p>
-                    </div>
-                    <div
-                      className="storeItemFormHolderPrice"
-                    >
-                      <h3>
-                        Store Item price:
-                      </h3>
-                      <p>
-                        88.00
-                      </p>
-                    </div>
-                    <div
-                      className="storeItemFormHolderDetails"
-                    >
-                      <h3>
-                        Store Item description:
-                      </h3>
-                      <p>
-                        Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel.
-                      </p>
-                    </div>
-                    <div
-                      className="storeItemFormHolderDetails"
-                    >
-                      <h3>
-                        Store Item details:
-                      </h3>
-                      <p>
-                        Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
- 
-Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam.
-                      </p>
-                    </div>
-                    <div
-                      className="storeItemFormHolderCategories"
-                    >
-                      <h3>
-                        Listed Store Item categories: 
-                      </h3>
-                      <List
-                        horizontal={true}
-                      >
-                        <div
-                          className="ui horizontal list"
-                          role="list"
-                        >
-                          <ListItem
-                            key="mock"
-                          >
-                            <div
-                              className="item"
-                              onClick={[Function]}
-                              role="listitem"
-                            >
-                              <ListContent>
-                                <div
-                                  className="content"
-                                >
-                                  <ListHeader>
-                                    <div
-                                      className="header"
-                                    >
-                                      mock
-                                    </div>
-                                  </ListHeader>
-                                </div>
-                              </ListContent>
-                            </div>
-                          </ListItem>
-                          <ListItem
-                            key="new"
-                          >
-                            <div
-                              className="item"
-                              onClick={[Function]}
-                              role="listitem"
-                            >
-                              <ListContent>
-                                <div
-                                  className="content"
-                                >
-                                  <ListHeader>
-                                    <div
-                                      className="header"
-                                    >
-                                      new
-                                    </div>
-                                  </ListHeader>
-                                </div>
-                              </ListContent>
-                            </div>
-                          </ListItem>
-                        </div>
-                      </List>
-                    </div>
-                    <div
-                      className="storeItemFormHolderTimestamps"
-                    >
-                      <span>
-                        Created At: 
-                        <strong>
-                          2020-Sep-17
-                        </strong>
-                      </span>
-                      <span>
-                        Edited At: 
-                        <strong>
-                          Not Available
-                        </strong>
-                      </span>
-                    </div>
-                  </div>
-                </GridColumn>
-              </div>
-            </GridRow>
-            <GridRow>
-              <div
-                className="row"
-              >
-                <GridColumn
-                  computer={14}
-                  mobile={16}
-                  tablet={14}
-                >
-                  <div
-                    className="fourteen wide computer sixteen wide mobile fourteen wide tablet column"
-                  >
-                    <StoreItemImgPreviewHolder
-                      dispatch={[Function]}
-                      state={
-                        Object {
-                          "bonusVideoState": Object {
-                            "currentBonusVideoData": Object {
-                              "_id": "",
-                              "createdAt": "",
-                              "description": "",
-                              "vimeoURL": "",
-                              "youTubeURL": "",
-                            },
-                            "error": null,
-                            "loadedBonusVideos": Array [],
-                            "loading": false,
-                            "responseMsg": "",
-                          },
-                          "productState": Object {
-                            "currentProductData": Object {
-                              "_id": "",
-                              "createdAt": "",
-                              "description": "",
-                              "details": "",
-                              "images": Array [],
-                              "name": "",
-                              "price": "",
-                            },
-                            "error": null,
-                            "loadedProducts": Array [],
-                            "loading": false,
-                            "responseMsg": "",
-                          },
-                          "serviceState": Object {
-                            "currentServiceData": Object {
-                              "_id": "",
-                              "createdAt": "",
-                              "description": "",
-                              "images": Array [],
-                              "name": "",
-                              "price": "",
-                            },
-                            "error": null,
-                            "loadedServices": Array [],
-                            "loading": false,
-                            "responseMsg": "",
-                          },
-                          "storeItemState": Object {
-                            "currentStoreItemData": Object {
-                              "_id": "ks1jiz709z",
-                              "categories": Array [
-                                "mock",
-                                "new",
-                              ],
-                              "createdAt": "Thu Sep 17 2020 09:44:49 GMT+0300 (Eastern European Summer Time)",
-                              "description": "Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel.",
-                              "details": "Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
- 
-Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam.",
-                              "images": Array [],
-                              "name": "nihil",
-                              "price": "88.00",
-                              "storeId": "iz5l9layn0",
-                              "storeName": "aut",
-                            },
-                            "error": null,
-                            "loadedStoreItems": Array [],
-                            "loading": false,
-                            "numberOfItems": 10,
-                            "responseMsg": "Ok",
-                            "storeItemFormOpen": true,
-                          },
-                          "storeState": Object {
-                            "currentStoreData": Object {
-                              "_id": "",
-                              "createdAt": "",
-                              "description": "",
-                              "images": Array [],
-                              "title": "",
-                            },
-                            "error": null,
-                            "loadedStores": Array [],
-                            "loading": true,
-                            "responseMsg": "",
-                          },
-                        }
-                      }
-                    >
-                      <div
-                        id="storeItemImgPreviewNone"
-                      >
-                        <h3>
-                          No images uploaded... you should upload some... 
-                        </h3>
-                      </div>
-                    </StoreItemImgPreviewHolder>
-                  </div>
-                </GridColumn>
-              </div>
-            </GridRow>
-            <StoreItemImageUplForm>
-              <div
-                id="storeItemImgUplFormHolder"
-              >
-                <div>
-                  <p>
-                    Image Uploader
-                  </p>
-                </div>
-                <Form
-                  as="form"
-                  id="storeItemImgUploadForm"
-                >
-                  <form
-                    className="ui form"
-                    id="storeItemImgUploadForm"
-                    onSubmit={[Function]}
-                  >
-                    <div
-                      id="storeItemImgInputControlls"
-                    >
-                      <Button
-                        as="label"
-                        content="Choose Image"
-                        htmlFor="storeItemImgFile"
-                        icon="file"
-                        id="selectStoreItemImgBtn"
-                        labelPosition="left"
-                        onClick={[Function]}
-                      >
-                        <Ref
-                          innerRef={
-                            Object {
-                              "current": <label
-                                class="ui icon left labeled button"
-                                for="storeItemImgFile"
-                                id="selectStoreItemImgBtn"
-                                role="button"
-                              >
-                                <i
-                                  aria-hidden="true"
-                                  class="file icon"
-                                />
-                                Choose Image
-                              </label>,
-                            }
-                          }
-                        >
-                          <RefFindNode
-                            innerRef={
-                              Object {
-                                "current": <label
-                                  class="ui icon left labeled button"
-                                  for="storeItemImgFile"
-                                  id="selectStoreItemImgBtn"
-                                  role="button"
-                                >
-                                  <i
-                                    aria-hidden="true"
-                                    class="file icon"
-                                  />
-                                  Choose Image
-                                </label>,
-                              }
-                            }
-                          >
-                            <label
-                              className="ui icon left labeled button"
-                              htmlFor="storeItemImgFile"
-                              id="selectStoreItemImgBtn"
-                              onClick={[Function]}
-                              role="button"
-                            >
-                              <Icon
-                                as="i"
-                                name="file"
-                              >
-                                <i
-                                  aria-hidden="true"
-                                  className="file icon"
-                                  onClick={[Function]}
-                                />
-                              </Icon>
-                              Choose Image
-                            </label>
-                          </RefFindNode>
-                        </Ref>
-                      </Button>
-                      <input
-                        hidden={true}
-                        id="storeItemImgFile"
-                        onChange={[Function]}
-                        type="file"
-                      />
-                    </div>
-                    <span>
-                      No File
-                    </span>
-                  </form>
-                </Form>
-              </div>
-            </StoreItemImageUplForm>
             <GridRow>
               <div
                 className="row"
@@ -634,27 +354,22 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
                           },
                           "storeItemState": Object {
                             "currentStoreItemData": Object {
-                              "_id": "ks1jiz709z",
-                              "categories": Array [
-                                "mock",
-                                "new",
-                              ],
-                              "createdAt": "Thu Sep 17 2020 09:44:49 GMT+0300 (Eastern European Summer Time)",
-                              "description": "Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel.",
-                              "details": "Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
- 
-Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam.",
+                              "_id": "",
+                              "categories": Array [],
+                              "createdAt": "",
+                              "description": "",
+                              "details": "",
                               "images": Array [],
-                              "name": "nihil",
-                              "price": "88.00",
-                              "storeId": "iz5l9layn0",
-                              "storeName": "aut",
+                              "name": "",
+                              "price": "",
+                              "storeId": "",
+                              "storeName": "",
                             },
                             "error": null,
                             "loadedStoreItems": Array [],
                             "loading": false,
-                            "numberOfItems": 10,
-                            "responseMsg": "Ok",
+                            "numberOfItems": 0,
+                            "responseMsg": "",
                             "storeItemFormOpen": true,
                           },
                           "storeState": Object {
@@ -674,21 +389,16 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
                       }
                       storeItem={
                         Object {
-                          "_id": "ks1jiz709z",
-                          "categories": Array [
-                            "mock",
-                            "new",
-                          ],
-                          "createdAt": "Thu Sep 17 2020 09:44:49 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel.",
-                          "details": "Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
- 
-Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam.",
+                          "_id": "",
+                          "categories": Array [],
+                          "createdAt": "",
+                          "description": "",
+                          "details": "",
                           "images": Array [],
-                          "name": "nihil",
-                          "price": "88.00",
-                          "storeId": "iz5l9layn0",
-                          "storeName": "aut",
+                          "name": "",
+                          "price": "",
+                          "storeId": "",
+                          "storeName": "",
                         }
                       }
                     >
@@ -704,67 +414,6 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
                             id="createStoreItemForm"
                             onSubmit={[Function]}
                           >
-                            <StoreDetails
-                              createdAt=""
-                              storeId="iz5l9layn0"
-                              storeName="aut"
-                            >
-                              <div>
-                                <Item>
-                                  <div
-                                    className="item"
-                                  >
-                                    <ItemImage
-                                      size="small"
-                                      src="https://react.semantic-ui.com/images/wireframe/image.png"
-                                    >
-                                      <Image
-                                        as="img"
-                                        size="small"
-                                        src="https://react.semantic-ui.com/images/wireframe/image.png"
-                                        ui={true}
-                                        wrapped={true}
-                                      >
-                                        <div
-                                          className="ui small image"
-                                        >
-                                          <img
-                                            src="https://react.semantic-ui.com/images/wireframe/image.png"
-                                          />
-                                        </div>
-                                      </Image>
-                                    </ItemImage>
-                                    <ItemContent>
-                                      <div
-                                        className="content"
-                                      >
-                                        <ItemHeader>
-                                          <div
-                                            className="header"
-                                          >
-                                            aut
-                                          </div>
-                                        </ItemHeader>
-                                        <ItemMeta>
-                                          <div
-                                            className="meta"
-                                          >
-                                            <span
-                                              className="storeItemFormStoreId"
-                                            >
-                                              iz5l9layn0
-                                            </span>
-                                            <span
-                                              className="storeItemFormStoreCreated"
-                                            />
-                                          </div>
-                                        </ItemMeta>
-                                      </div>
-                                    </ItemContent>
-                                  </div>
-                                </Item>
-                              </div>
-                            </StoreDetails>
                             <FormField>
                               <div
                                 className="field"
@@ -820,27 +469,22 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
                                       },
                                       "storeItemState": Object {
                                         "currentStoreItemData": Object {
-                                          "_id": "ks1jiz709z",
-                                          "categories": Array [
-                                            "mock",
-                                            "new",
-                                          ],
-                                          "createdAt": "Thu Sep 17 2020 09:44:49 GMT+0300 (Eastern European Summer Time)",
-                                          "description": "Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel.",
-                                          "details": "Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
- 
-Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam.",
+                                          "_id": "",
+                                          "categories": Array [],
+                                          "createdAt": "",
+                                          "description": "",
+                                          "details": "",
                                           "images": Array [],
-                                          "name": "nihil",
-                                          "price": "88.00",
-                                          "storeId": "iz5l9layn0",
-                                          "storeName": "aut",
+                                          "name": "",
+                                          "price": "",
+                                          "storeId": "",
+                                          "storeName": "",
                                         },
                                         "error": null,
                                         "loadedStoreItems": Array [],
                                         "loading": false,
-                                        "numberOfItems": 10,
-                                        "responseMsg": "Ok",
+                                        "numberOfItems": 0,
+                                        "responseMsg": "",
                                         "storeItemFormOpen": true,
                                       },
                                       "storeState": Object {
@@ -993,7 +637,7 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
                                   id="storeItemFormTitle"
                                   onChange={[Function]}
                                   placeholder="Store Item name here ..."
-                                  value="nihil"
+                                  value=""
                                 />
                               </div>
                             </FormField>
@@ -1008,7 +652,7 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
                                   id="storeItemFormPrice"
                                   onChange={[Function]}
                                   placeholder="Store Item price here..."
-                                  value="88.00"
+                                  value=""
                                 />
                               </div>
                             </FormField>
@@ -1560,9 +1204,7 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
                               label="Store Item Details"
                               onChange={[Function]}
                               placeholder="Store Item details here..."
-                              value="Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
- 
-Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam."
+                              value=""
                             >
                               <div
                                 className="field"
@@ -1579,9 +1221,7 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
                                   onChange={[Function]}
                                   placeholder="Store Item details here..."
                                   rows={3}
-                                  value="Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
- 
-Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam."
+                                  value=""
                                 >
                                   <Ref
                                     innerRef={
@@ -1590,11 +1230,7 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
                                           id="storeItemFormDetails"
                                           placeholder="Store Item details here..."
                                           rows="3"
-                                        >
-                                          Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
- 
-Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam.
-                                        </textarea>,
+                                        />,
                                       }
                                     }
                                   >
@@ -1605,11 +1241,7 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
                                             id="storeItemFormDetails"
                                             placeholder="Store Item details here..."
                                             rows="3"
-                                          >
-                                            Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
- 
-Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam.
-                                          </textarea>,
+                                          />,
                                         }
                                       }
                                     >
@@ -1620,9 +1252,7 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
                                         onInput={[Function]}
                                         placeholder="Store Item details here..."
                                         rows={3}
-                                        value="Vitae rerum quae optio ut repellendus ducimus. Voluptates non animi quis ea accusantium asperiores commodi. Aliquid dolores hic error eos. Dolorem qui voluptatum at officiis autem. Nemo aliquam libero commodi perferendis est aut sed.
- 
-Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Similique non rerum neque iusto fugit. Porro inventore alias dolores atque. Excepturi possimus dolorum aut sint maiores numquam. Id omnis velit blanditiis facere aliquam."
+                                        value=""
                                       />
                                     </RefFindNode>
                                   </Ref>
@@ -1635,7 +1265,7 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
                               label="Store Item Description"
                               onChange={[Function]}
                               placeholder="Store Item description here..."
-                              value="Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel."
+                              value=""
                             >
                               <div
                                 className="field"
@@ -1652,7 +1282,7 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
                                   onChange={[Function]}
                                   placeholder="Store Item description here..."
                                   rows={3}
-                                  value="Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel."
+                                  value=""
                                 >
                                   <Ref
                                     innerRef={
@@ -1661,9 +1291,7 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
                                           id="storeItemFormDescription"
                                           placeholder="Store Item description here..."
                                           rows="3"
-                                        >
-                                          Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel.
-                                        </textarea>,
+                                        />,
                                       }
                                     }
                                   >
@@ -1674,9 +1302,7 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
                                             id="storeItemFormDescription"
                                             placeholder="Store Item description here..."
                                             rows="3"
-                                          >
-                                            Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel.
-                                          </textarea>,
+                                          />,
                                         }
                                       }
                                     >
@@ -1687,7 +1313,7 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
                                         onInput={[Function]}
                                         placeholder="Store Item description here..."
                                         rows={3}
-                                        value="Iste totam pariatur sed dolorem minus recusandae. Temporibus quasi dolor eos placeat ut sapiente necessitatibus. Harum vero aperiam dicta explicabo. Dolorum dolorem et velit odit corrupti optio et in saepe. Quidem aliquid est veniam in dignissimos rerum tempora fuga vel."
+                                        value=""
                                       />
                                     </RefFindNode>
                                   </Ref>
@@ -1696,8 +1322,8 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
                             </FormField>
                             <Button
                               as="button"
-                              content="Update Store Item"
-                              id="adminStoreItemFormUpdate"
+                              content="Create  New Store Item"
+                              id="adminStoreItemFormCreate"
                               onClick={[Function]}
                               type="submit"
                             >
@@ -1706,10 +1332,10 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
                                   Object {
                                     "current": <button
                                       class="ui button"
-                                      id="adminStoreItemFormUpdate"
+                                      id="adminStoreItemFormCreate"
                                       type="submit"
                                     >
-                                      Update Store Item
+                                      Create  New Store Item
                                     </button>,
                                   }
                                 }
@@ -1719,21 +1345,21 @@ Et voluptatem aut molestiae aperiam voluptatem quod. Rerum aut accusantium. Simi
                                     Object {
                                       "current": <button
                                         class="ui button"
-                                        id="adminStoreItemFormUpdate"
+                                        id="adminStoreItemFormCreate"
                                         type="submit"
                                       >
-                                        Update Store Item
+                                        Create  New Store Item
                                       </button>,
                                     }
                                   }
                                 >
                                   <button
                                     className="ui button"
-                                    id="adminStoreItemFormUpdate"
+                                    id="adminStoreItemFormCreate"
                                     onClick={[Function]}
                                     type="submit"
                                   >
-                                    Update Store Item
+                                    Create  New Store Item
                                   </button>
                                 </RefFindNode>
                               </Ref>

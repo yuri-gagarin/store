@@ -15,10 +15,10 @@ export const clearCurrentStoreItem = (dispatch: Dispatch<StoreItemAction>): void
 };
 
 export const openStoreItemForm = (dispatch: Dispatch<StoreItemAction>): void => {
-  console.log("called open form action")
   dispatch({ type: "OPEN_STORE_ITEM_FORM", payload: { storeItemFormOpen: true } });
 };
 export const closeStoreItemForm = (dispatch: Dispatch<StoreItemAction>): void => {
+  dispatch({ type: "CLEAR_CURRENT_STORE_ITEM", payload: { error: null } });
   dispatch({ type: "CLOSE_STORE_ITEM_FORM", payload: { storeItemFormOpen: false } });
 };
 

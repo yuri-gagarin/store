@@ -27,7 +27,6 @@ export const initialStoreItemState: IStoreItemState = {
 const storeItemReducer = (state: IStoreItemState = initialStoreItemState, action: StoreItemAction): IStoreItemState => {
   switch (action.type) {
     case "OPEN_STORE_ITEM_FORM": 
-    console.log("called open form")
       return {
         ...state,
         storeItemFormOpen: action.payload.storeItemFormOpen

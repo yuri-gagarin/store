@@ -1,9 +1,11 @@
 import React from "react"
-import sinon from "sinon";
-import moxios from "moxios";
-import { createStoreItem } from "../../../../components/admin_components/store_items/actions/APIStoreItemActions"
-import { mount, shallow, ReactWrapper, ShallowWrapper } from "enzyme";
 import { Button } from "semantic-ui-react";
+// testing utils
+import { mount, ReactWrapper } from "enzyme";
+import moxios from "moxios";
+import { act } from "react-dom/test-utils";
+// client routing //
+import { MemoryRouter as Router } from "react-router-dom";
 // component imports //
 import StoreItemFormHolder from "../../../../components/admin_components/store_items/forms/StoreItemFormHolder";
 import StoreItemForm from "../../../../components/admin_components/store_items/forms/StoreItemForm";
@@ -11,35 +13,12 @@ import StoreItemImageUplForm from "../../../../components/admin_components/store
 import StoreItemImgPreviewHolder from "../../../../components/admin_components/store_items/image_preview/StoreItemImgPreviewHolder";
 import StoreItemImgPreviewThumb from "../../../../components/admin_components/store_items/image_preview/StoreItemImgThumb";
 import LoadingBar from "../../../../components/admin_components/miscelaneous/LoadingBar";
+// state React.Context //
+import { IGlobalAppState, StateProvider, TestStateProvider } from "../../../../state/Store";
 // helpers //
 import { createMockStoreItems, setMockStoreItemState } from "../../../../test_helpers/storeItemHelpers";
-import { IGlobalAppContext, IGlobalAppState, StateProvider, TestStateProvider } from "../../../../state/Store";
-import { act } from "react-dom/test-utils";
 import { createMockStores } from "../../../../test_helpers/storeHelpers";
-import { MemoryRouter as Router } from "react-router-dom";
 
-const extractContext = (): IGlobalAppContext => {
-  type WrapperProps = {
-    value: IGlobalAppContext;
-  }
-  let wrapper = shallow<WrapperProps>(<StateProvider />)
-  const { state, dispatch } = wrapper.props().value;
-  return {
-    state,
-    dispatch
-  };
-}
-const ConnectToContext = (component: React.Component): IGlobalAppContext => {
-  type WrapperProps = {
-    value: IGlobalAppContext;
-  }
-  let wrapper = shallow<WrapperProps>(<StateProvider />)
-  const { state, dispatch } = wrapper.props().value;
-  return {
-    state,
-    dispatch
-  };
-}
 describe("StoreItemFormHolder Component tests", () => {
   let wrapper: ReactWrapper; 
   
@@ -55,7 +34,7 @@ describe("StoreItemFormHolder Component tests", () => {
     });
 
     it("Should Properly Mount Form Holder", () => {
-      expect(wrapper.html()).toBeDefined();
+      expect(wrapper).toMatchSnapshot();
     });
     it("Form Should be closed by default", () => {
       const form = wrapper.find(StoreItemForm);
@@ -64,11 +43,13 @@ describe("StoreItemFormHolder Component tests", () => {
     it("Should have a Form toggle Button", () => {
       const toggleButton = wrapper.find(Button);
       expect(toggleButton.length).toEqual(1);
-    })
+    });
+
   });
-  /*
+  // TEST Form Holder state OPEN - NO Current StoreItem Data //
   describe("Form Holder state OPEN - NO Current StoreItem Data",  () => {
     let wrapper: ReactWrapper;
+
     beforeAll(() => {
       window.scrollTo = jest.fn();
       wrapper = mount(
@@ -80,13 +61,12 @@ describe("StoreItemFormHolder Component tests", () => {
       );
     });
 
-    it("Should Properly Mount Form Holder", () => {
+    it("Should Properly Mount Form Holder, respond to '#storeItemFormToggleBtn' click", () => {
       const toggleButton = wrapper.find("#storeItemFormToggleBtn");
       toggleButton.at(0).simulate("click")
       // open button clicked //
       //wrapper.update()
-     
-
+      expect(wrapper).toMatchSnapshot();
     });
     it("Should have a Form toggle Button", () => {
       const toggleButton = wrapper.render().find('#storeItemFormToggleBtn');
@@ -108,11 +88,12 @@ describe("StoreItemFormHolder Component tests", () => {
       const imgUploadForm = wrapper.find(StoreItemImageUplForm);
       expect(imgUploadForm.length).toEqual(0);
     });
-
   });
-  */
+   // END Form Holder state OPEN - NO Current StoreItem Data //
+   // TEST Form Holder state OPEN - WITH Current StoreItem Data - NO IMAGES //
   describe("Form Holder state OPEN - WITH Current StoreItem Data - NO IMAGES",  () => {
     let wrapper: ReactWrapper; let state: IGlobalAppState;
+
     beforeAll(() => {
       window.scrollTo = jest.fn();
       state = setMockStoreItemState({ currentStoreItem: true });
@@ -127,7 +108,7 @@ describe("StoreItemFormHolder Component tests", () => {
     });
 
     it("Should Properly Mount Form Holder", () => {
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.find("#storeItemFormHolder").length).toEqual(1);
     });
     it("Should have a Form toggle Button", () => {
       const toggleButton = wrapper.render().find('#storeItemFormToggleBtn');
@@ -153,19 +134,26 @@ describe("StoreItemFormHolder Component tests", () => {
       const imgUploadForm = wrapper.find(StoreItemImageUplForm);
       expect(imgUploadForm.length).toEqual(1);
     });
-
   });
-  /*
+  // END Form Holder state OPEN - WITH Current StoreItem Data - NO IMAGES //
+  // TEST Form Holder state OPEN - WITH Current StoreItem Data - WITH IMAGES //
   describe("Form Holder state OPEN - WITH Current StoreItem Data - WITH IMAGES",  () => {
-    let state: IGlobalAppState;
+    let state: IGlobalAppState; let wrapper: ReactWrapper;
+
     beforeAll(() => {
       window.scrollTo = jest.fn();
       state = setMockStoreItemState({ currentStoreItem: true, storeItemImages: 3 });
-      wrapper = mount(<StoreItemFormHolder />);
+      wrapper = mount(
+        <Router>
+          <TestStateProvider mockState={state}>
+            <StoreItemFormHolder />
+          </TestStateProvider>
+        </Router>
+      );
     });
 
     it("Should Properly Mount Form Holder", () => {
-      expect(wrapper.html()).toBeDefined();
+      expect(wrapper.find("#storeItemFormHolder").length).toEqual(1);
     });
     it("Should have a Form toggle Button", () => {
       const toggleButton = wrapper.render().find('#storeItemFormToggleBtn');
@@ -193,19 +181,20 @@ describe("StoreItemFormHolder Component tests", () => {
       expect(imgUploadForm.length).toEqual(1);
     });
   });
-
+  // END Form Holder state OPEN - WITH Current StoreItem Data - WITH IMAGES //
+  // TEST Form Holder state OPEN - MOCK Submit action //
   describe("Form Holder state OPEN - MOCK Submit action",  () => {
     let state: IGlobalAppState; let wrapper: ReactWrapper;
 
     beforeAll( async () => {
       window.scrollTo = jest.fn();
       moxios.install();
-
+      // mount and wait for '/api/stores mock API call //
       wrapper = mount(
         <Router initialEntries={["/admin/store_items/create"]} >
-          <StateProvider>
+          <TestStateProvider>
             <StoreItemFormHolder />
-          </StateProvider>
+          </TestStateProvider>
         </Router>
         
       );
@@ -221,13 +210,13 @@ describe("StoreItemFormHolder Component tests", () => {
       });
       moxios.uninstall()
     });
+
     it("Should have a submit button", () => {
       wrapper.update();
       wrapper.find("#storeItemFormToggleBtn").at(0).simulate("click").update();
       const adminStoreItemFormCreate = wrapper.find("#adminStoreItemFormCreate").at(0);
       expect(adminStoreItemFormCreate.length).toEqual(1)
-    })
-    
+    });
     it("Should handle the 'handleCreateStoreItemAction, show 'LoadingBar' Component", async () => {
       moxios.install();
       await act( async () => {
@@ -243,16 +232,15 @@ describe("StoreItemFormHolder Component tests", () => {
         //expect(wrapper.find(LoadingBar).length).toEqual(1);
       });
       // expect(sinon.spy(createStoreItem)).toHaveBeenCalled()
-
+      wrapper.update();
     });
     it("Should NOT show the 'LoadingBar' Component after successful API call", () => {
       expect(wrapper.find(LoadingBar).length).toEqual(0);
     });
-    
     it("Should NOT show the 'StoreItemForm' Component after successful API call", () => {
       expect(wrapper.find(StoreItemForm).length).toEqual(0);
     });
-    
+    // END Form Holder state OPEN - MOCK Submit action //
   });
-  */
+
 });
