@@ -23,6 +23,18 @@ type ClearCurrentProduct = {
   readonly type: "CLEAR_CURRENT_PRODUCT";
   payload: null;
 }
+type OpenProductForm = {
+  readonly type: "OPEN_PRODUCT_FORM";
+  payload: {
+    productFormOpen: boolean;
+  }
+}
+type CloseProductForm = {
+  readonly type: "CLOSE_PRODUCT_FORM",
+  payload: {
+    productFormOpen: boolean;
+  }
+}
 type GetProduct = {
   readonly type: "GET_PRODUCT";
   readonly payload: {
@@ -133,7 +145,8 @@ interface IProductState {
   loading: boolean;
   responseMsg: string;
   currentProductData: IProductData;
-  loadedProducts: IProductData[]
+  loadedProducts: IProductData[];
+  productFormOpen: boolean;
   error: null | Error;
 }
-type ProductAction = DispatchProductAPIRequest | GetAllProducts | GetProduct | SetCurrentProduct | ClearCurrentProduct | CreateProduct | EditProduct | DeleteProduct | SetProductError | ClearProductError | UploadNewProductImg | UpdateProductImgs | DeleteProductImg;
+type ProductAction = DispatchProductAPIRequest | GetAllProducts | GetProduct | SetCurrentProduct | ClearCurrentProduct | OpenProductForm | CloseProductForm | CreateProduct | EditProduct | DeleteProduct | SetProductError | ClearProductError | UploadNewProductImg | UpdateProductImgs | DeleteProductImg;

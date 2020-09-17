@@ -12,3 +12,12 @@ export const setCurrentProduct = (_id: string, dispatch: Dispatch<ProductAction>
 export const clearCurrentProduct = (dispatch: Dispatch<ProductAction>): void => {
   dispatch({ type: "CLEAR_CURRENT_PRODUCT", payload: null });
 };
+
+export const openProductForm = (dispatch: Dispatch<ProductAction>): void => {
+  dispatch({ type: "OPEN_PRODUCT_FORM", payload: { productFormOpen: true } });
+};
+export const closeProductForm = (dispatch: Dispatch<ProductAction>): void => {
+  dispatch({ type: "CLEAR_CURRENT_PRODUCT", payload: null });
+  dispatch({ type: "CLOSE_PRODUCT_FORM", payload: { productFormOpen: false } });
+};
+

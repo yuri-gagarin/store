@@ -49,6 +49,7 @@ export const clearProductState = (globalState: IGlobalAppState): void => {
     loading: false,
     currentProductData: emptyProductData(),
     loadedProducts: [],
+    productFormOpen: false,
     error: null
   };
 };
@@ -59,6 +60,7 @@ export const resetProductState = (): IProductState => {
     loading: false,
     currentProductData: emptyProductData(),
     loadedProducts: [],
+    productFormOpen: false,
     error: null
   };
 };
@@ -112,6 +114,7 @@ export const setMockProductState = ( opts: SetMockProductStateOpts): IGlobalAppS
       loading: false,
       currentProductData: _product ? _product : emptyProductData(),
       loadedProducts: _loadedProducts,
+      productFormOpen: false,
       error: null
     },
     serviceState: resetServiceState(),
