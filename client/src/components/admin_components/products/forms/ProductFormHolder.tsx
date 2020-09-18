@@ -39,7 +39,7 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const [ newForm, setNewForm ] = useState<boolean>(true);
 
   // ProductForm toggle //
-  const togglePrductForm = () => {
+  const toggleProductForm = () => {
     productFormOpen ? closeProductForm(dispatch) : openProductForm(dispatch);
   };
   // API call handlers CREATE - EDIT //
@@ -124,7 +124,7 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
         <Grid.Column mobile={16} tablet={15} computer={14}>
           <Button  
             id="productFormToggleBtn"
-            onClick={togglePrductForm} 
+            onClick={toggleProductForm} 
             content={ !productFormOpen ? "Open Form" : "Close Form"}
           />
           {
