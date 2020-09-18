@@ -87,13 +87,17 @@ const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   };
   // lifecycle hooks //
   useEffect(() => {
-    getAllStores(dispatch)
+    let mounted = true;
+    if (mounted) {
+      getAllStores(dispatch)
       .then((_) => {
         // handle success //
       })
       .catch((_) => {
         // handle error //
       });
+    }
+    return () => { mounted = false };
   }, []);
   useEffect(() => {
     if (!storeItemFormOpen) {
@@ -170,8 +174,8 @@ const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
         <Grid.Column mobile={16} tablet={15} computer={14}>
           <Button  id="storeItemFormToggleBtn" 
             onClick={toggleForm} 
-            content={ !storeItemFormOpen ? "Open Form" : "Close Form"}>
-          </Button>
+            content={ !storeItemFormOpen ? "Open Form" : "Close Form"}
+          />
           {
             storeItemFormOpen ? 
               <StoreItemForm 

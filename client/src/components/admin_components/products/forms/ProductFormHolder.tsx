@@ -1,23 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Grid } from "semantic-ui-react";
 // css imports //
 import "./css/productFormHolder.css";
 // additional components //
 import ProductForm from "./ProductForm";
 import ProductImgPreviewHolder from "../image_preview/ProductImgPreviewHolder";
+import LoadingBar from "../../miscelaneous/LoadingBar";
 import ProductImgUplForm from "./ProductImgUplForm";
 // state //
-import { IGlobalAppState, AppAction } from "../../../../state/Store";
+import { IGlobalAppState, AppAction, Store } from "../../../../state/Store";
 // api actions //
 import { createProduct, editProduct } from "../actions/APIProductActions";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
 // types 
 import { FormState } from "./ProductForm";
+import { RouteComponentProps, withRouter } from "react-router-dom";
+import { closeProductForm, openProductForm } from "../actions/UIProductActions";
 
-interface Props {
-  state: IGlobalAppState;
-  dispatch: React.Dispatch<AppAction>;
+
+interface Props extends RouteComponentProps {
+ 
 }
 
 type ProductData = {
@@ -27,16 +30,17 @@ type ProductData = {
   images: IProductImgData[];
 }
 
-const ProductFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
-  const { currentProductData } = state.productState;
+const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
+  const { state,dispatch } = useContext(Store);
+  const { loading, currentProductData, productFormOpen, error } = state.productState;
   const { name, description, price, createdAt, editedAt } = currentProductData;
   // local component state //
-  const [ formOpen, setFormOpen ] = useState<boolean>(false);
+  // const [ formOpen, setFormOpen ] = useState<boolean>(false);
   const [ newForm, setNewForm ] = useState<boolean>(true);
 
   // ProductForm toggle //
-  const handleFormOpen = () => {
-    setFormOpen(!formOpen);
+  const togglePrductForm = () => {
+    productFormOpen ? closeProductForm(dispatch) : openProductForm(dispatch);
   };
   // API call handlers CREATE - EDIT //
   const handleCreateProduct = ({ name, price, description }: FormState): void => {
@@ -49,7 +53,7 @@ const ProductFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
     createProduct(productData, dispatch)
       .then((_) => {
         // product created //
-        setFormOpen(false);
+        closeProductForm(dispatch);
       })
       .catch((_) => {
         // handle error or show modal //
@@ -61,7 +65,7 @@ const ProductFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
     };
     editProduct(currentProductData._id, productParams, dispatch, state)
       .then((_) => {
-        setFormOpen(false);
+        closeProductForm(dispatch)
       })
       .catch((_) => {
         // handle error show modal //
@@ -69,19 +73,20 @@ const ProductFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
   };
   // lifecycle hooks //
   useEffect(() => {
-    if (!formOpen) {
+    if (!productFormOpen) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }, [formOpen])
+  }, [ productFormOpen ]);
   useEffect(() => {
     if (name && description && price) {
       setNewForm(false);
-      setFormOpen(true);
+      openProductForm(dispatch);
     }
   }, [name, description, price]);
   // component return //
   return (
     <div id="productFormHolder">
+      { loading ? <LoadingBar /> : null }
       {
         !newForm ?
           <React.Fragment>
@@ -117,16 +122,21 @@ const ProductFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
       }
       <Grid.Row>
         <Grid.Column mobile={16} tablet={15} computer={14}>
-          <Button  id="productFormToggleBtn" onClick={handleFormOpen} content={ !formOpen ? "Open Form" : "Close Form"}></Button>
+          <Button  
+            id="productFormToggleBtn"
+            onClick={togglePrductForm} 
+            content={ !productFormOpen ? "Open Form" : "Close Form"}
+          />
           {
-            formOpen ? <ProductForm 
-                        name={name} 
-                        description={description} 
-                        price={price}
-                        handleCreateProduct={handleCreateProduct}
-                        handleUpdateProduct={handleUpdateProduct}
-                      /> 
-                      : null
+            productFormOpen ? 
+              <ProductForm 
+                name={name} 
+                description={description} 
+                price={price}
+                handleCreateProduct={handleCreateProduct}
+                handleUpdateProduct={handleUpdateProduct}
+              /> 
+            : null
           }
          
         </Grid.Column>
@@ -135,5 +145,5 @@ const ProductFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =>
   );
 };
 
-export default ProductFormHolder;
+export default withRouter(ProductFormHolder);
 

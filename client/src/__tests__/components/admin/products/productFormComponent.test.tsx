@@ -21,7 +21,6 @@ import { createMockStores } from "../../../../test_helpers/storeHelpers";
 
 describe("ProductFormHolder Component tests", () => {
   let wrapper: ReactWrapper; 
-  
   describe("Default Form Holder state",  () => {
 
     beforeAll(() => {
@@ -60,18 +59,18 @@ describe("ProductFormHolder Component tests", () => {
         </Router>
       );
     });
-
-    it("Should Properly Mount Form Holder, respond to '#storeItemFormToggleBtn' click", () => {
-      const toggleButton = wrapper.find("#storeItemFormToggleBtn");
+    it("Should have a Form toggle Button", () => {
+      const toggleButton = wrapper.render().find('#productFormToggleBtn');
+      expect(toggleButton.length).toEqual(1);
+    });
+    it("Should Properly Mount Form Holder, respond to '#productToggleBtn' click", () => {
+      const toggleButton = wrapper.find("#productFormToggleBtn");
       toggleButton.at(0).simulate("click")
       // open button clicked //
       //wrapper.update()
       expect(wrapper).toMatchSnapshot();
     });
-    it("Should have a Form toggle Button", () => {
-      const toggleButton = wrapper.render().find('#storeItemFormToggleBtn');
-      expect(toggleButton.length).toEqual(1);
-    });
+  
     it("Should have a Form Create Button", () => {
       const toggleButton = wrapper.render().find('#adminProductFormCreate');
       expect(toggleButton.length).toEqual(1);
@@ -89,8 +88,8 @@ describe("ProductFormHolder Component tests", () => {
       expect(imgUploadForm.length).toEqual(0);
     });
   });
-   // END Form Holder state OPEN - NO Current Product Data //
-   // TEST Form Holder state OPEN - WITH Current Product Data - NO IMAGES //
+  // END Form Holder state OPEN - NO Current Product Data //
+  // TEST Form Holder state OPEN - WITH Current Product Data - NO IMAGES //
   describe("Form Holder state OPEN - WITH Current Product Data - NO IMAGES",  () => {
     let wrapper: ReactWrapper; let state: IGlobalAppState;
 
@@ -108,10 +107,10 @@ describe("ProductFormHolder Component tests", () => {
     });
 
     it("Should Properly Mount Form Holder", () => {
-      expect(wrapper.find("#storeItemFormHolder").length).toEqual(1);
+      expect(wrapper.find("#productFormHolder").length).toEqual(1);
     });
     it("Should have a Form toggle Button", () => {
-      const toggleButton = wrapper.render().find('#storeItemFormToggleBtn');
+      const toggleButton = wrapper.render().find('#productFormToggleBtn');
       expect(toggleButton.length).toEqual(1);
     });
     it("Should have the Form rendered", () => {
@@ -142,7 +141,7 @@ describe("ProductFormHolder Component tests", () => {
 
     beforeAll(() => {
       window.scrollTo = jest.fn();
-      state = setMockProductState({ currentProduct: true, storeItemImages: 3 });
+      state = setMockProductState({ currentProduct: true, productImages: 3 });
       wrapper = mount(
         <Router>
           <TestStateProvider mockState={state}>
@@ -153,10 +152,10 @@ describe("ProductFormHolder Component tests", () => {
     });
 
     it("Should Properly Mount Form Holder", () => {
-      expect(wrapper.find("#storeItemFormHolder").length).toEqual(1);
+      expect(wrapper.find("#productFormHolder").length).toEqual(1);
     });
     it("Should have a Form toggle Button", () => {
-      const toggleButton = wrapper.render().find('#storeItemFormToggleBtn');
+      const toggleButton = wrapper.render().find('#productFormToggleBtn');
       expect(toggleButton.length).toEqual(1);
     });
     it("Should have the Form rendered", () => {
@@ -173,7 +172,7 @@ describe("ProductFormHolder Component tests", () => {
     });
     it("Should render a correct number of preview images", () => {
       const previewThumb = wrapper.find(ProductImgPreviewThumb);
-      const numberOfImages = state.storeItemState.currentProductData.images.length;
+      const numberOfImages = state.productState.currentProductData.images.length;
       expect(previewThumb.length).toEqual(numberOfImages);
     })
     it("Should have the Image Upload Form rendered", () => {
@@ -188,32 +187,19 @@ describe("ProductFormHolder Component tests", () => {
 
     beforeAll( async () => {
       window.scrollTo = jest.fn();
-      moxios.install();
-      // mount and wait for '/api/stores mock API call //
+      // mount and wait //
       wrapper = mount(
         <Router initialEntries={["/admin/products/create"]} >
           <TestStateProvider>
             <ProductFormHolder />
           </TestStateProvider>
         </Router>
-        
       );
-    
-      await act( async () => {
-        moxios.stubRequest("/api/stores", {
-          status: 200,
-          response: {
-            responseMsg: "OK",
-            stores: createMockStores(5)
-          }
-        });
-      });
-      moxios.uninstall()
     });
 
     it("Should have a submit button", () => {
       wrapper.update();
-      wrapper.find("#storeItemFormToggleBtn").at(0).simulate("click").update();
+      wrapper.find("#productFormToggleBtn").at(0).simulate("click").update();
       const adminProductFormCreate = wrapper.find("#adminProductFormCreate").at(0);
       expect(adminProductFormCreate.length).toEqual(1)
     });
@@ -242,5 +228,5 @@ describe("ProductFormHolder Component tests", () => {
     });
     // END Form Holder state OPEN - MOCK Submit action //
   });
-
+  
 });
