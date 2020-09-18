@@ -48,6 +48,7 @@ export const clearServiceState = (globalState: IGlobalAppState): void => {
       loading: false,
       currentServiceData: emptyServiceData(),
       loadedServices: [],
+      serviceFormOpen: false,
       error: null
     };
 };
@@ -58,6 +59,7 @@ export const resetServiceState = (): IServiceState => {
     loading: false,
     currentServiceData: emptyServiceData(),
     loadedServices: [],
+    serviceFormOpen: false,
     error: null
   };
 };
@@ -108,6 +110,7 @@ export const setMockServiceState = ( opts: SetMockServiceStateOpts): IGlobalAppS
       loading: false,
       currentServiceData: _service ? _service : emptyServiceData(),
       loadedServices: _loadedServices,
+      serviceFormOpen: false,
       error: null
     },
     storeItemState: resetStoreItemState(),

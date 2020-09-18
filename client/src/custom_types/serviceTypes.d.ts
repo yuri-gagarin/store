@@ -23,6 +23,18 @@ type ClearCurrentService = {
   readonly type: "CLEAR_CURRENT_SERVICE";
   payload: null;
 }
+type OpenServiceForm = {
+  readonly type: "OPEN_SERVICE_FORM",
+  readonly payload: {
+    serviceFormOpem: boolean;
+  }
+}
+type CloseServiceForm = {
+  readonly type: "CLOSE_SERVICE_FORM",
+  readonly payload: {
+    serviceFormOpen: boolean;
+  }
+}
 type GetService = {
   readonly type: "GET_SERVICE";
   readonly payload: {
@@ -132,7 +144,8 @@ interface IServiceState {
   loading: boolean;
   responseMsg: string;
   currentServiceData: IServiceData;
-  loadedServices: IServiceData[]
+  loadedServices: IServiceData[];
+  serviceFormOpen: boolean;
   error: null | Error | import("axios").AxiosError<Error>;
 }
-type ServiceAction = GetAllServices | DispatchServiceAPIRequest | GetService | SetCurrentService | ClearCurrentService | CreateService | EditService | DeleteService | SetServiceError | ClearServiceError | UploadNewServiceImg | UpdateServiceImgs | DeleteServiceImg;
+type ServiceAction = GetAllServices | DispatchServiceAPIRequest | GetService | SetCurrentService | ClearCurrentService | OpenServiceForm | CloseServiceForm |CreateService | EditService | DeleteService | SetServiceError | ClearServiceError | UploadNewServiceImg | UpdateServiceImgs | DeleteServiceImg;
