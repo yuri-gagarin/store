@@ -19,7 +19,7 @@ const StoreGeneralView: React.FC<{}> = (props): JSX.Element => {
       <Switch>
         <Route path="/admin/home/my_stores/all">
           <Spacer width="100%" height="100px" />
-          <StorePreviewHolder state={state} dispatch={dispatch} />
+          <StorePreviewHolder />
         </Route>
         <Route path="/admin/home/my_stores/create">
           <Spacer width="100%" height="100px"/>

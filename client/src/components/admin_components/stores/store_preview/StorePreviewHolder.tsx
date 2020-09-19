@@ -1,31 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // additional components //
 import StorePreview from "./StorePreview";
 import LoadingScreen from "../../miscelaneous/LoadingScreen";
 // actions and state //
 import { getAllStores } from "../actions/APIstoreActions";
-import { IGlobalAppState, AppAction } from "../../../../state/Store";
+import { Store } from "../../../../state/Store";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
-interface Props {
-  state: IGlobalAppState;
-  dispatch: React.Dispatch<AppAction>
+interface Props extends RouteComponentProps {
+  
 }
 
-const StorePreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
-  const { loadedStores } = state.storeState;
-  // local state //
-  const [ dataLoaded, setDataLoaded ] = useState<boolean>(false);
-
+const StorePreviewHolder: React.FC<Props> = ({ history }): JSX.Element => {
+  const { state, dispatch } = useContext(Store);
+  const { loading, loadedStores } = state.storeState;
+  
+  // lifecycle hook //
   useEffect(() => {
-    getAllStores(dispatch)
-      .then((success) => {
-        setDataLoaded(true);
-      });
-  }, [dispatch]);
-
+    let componentLoaded = true;
+    if (componentLoaded) {
+      getAllStores(dispatch)
+        .then((_) => {
+          // handle success //
+        })
+        .catch((_) => {
+          // handle an error, show an error ? //
+        });
+    }
+    return () => { componentLoaded = false };
+  }, [ dispatch ]);
+  // component render //
   return (
-    dataLoaded ?
-    <div>
+    loading ? 
+    <LoadingScreen />
+    :
+    <div id="adminStorePreviewHolder">
       {
         loadedStores.map((store) => {
           return (
@@ -42,9 +51,9 @@ const StorePreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element =
         })
       }
     </div>
-    : 
-    <LoadingScreen />
   );
 };
-
-export default StorePreviewHolder;
+// test export without the router //
+export { StorePreviewHolder };
+// default export //
+export default withRouter(StorePreviewHolder);
