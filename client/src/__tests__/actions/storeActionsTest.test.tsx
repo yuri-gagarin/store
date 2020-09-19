@@ -8,7 +8,7 @@ import * as moxios from "moxios";
 import { IGlobalAppState, IGlobalAppContext } from "../../state/Store";
 import { TestStateProvider } from "../../state/Store";
 // actions to test //
-import { setCurrentStore, clearCurrentStore } from "../../components/admin_components/stores/actions/uiStoreActions";
+import { setCurrentStore, clearCurrentStore, openStoreForm, closeStoreForm } from "../../components/admin_components/stores/actions/uiStoreActions";
 import { getAllStores, getStore, createStore, editStore, 
   deleteStore, uploadStoreImage, deleteStoreImage 
 } from "../../components/admin_components/stores/actions/APIstoreActions";
@@ -51,7 +51,7 @@ describe("Store Actions Tests", () => {
       });
       it("Should properly dispatch the action and set new state", () => {
         // expected state after action //
-        const expectedState = { ...state };
+        const expectedState: IGlobalAppState = { ...state };
         expectedState.storeState.currentStoreData = { ...state.storeState.loadedStores[0] };
         // fire off the action //
         const storeId = state.storeState.loadedStores[0]._id;
@@ -71,7 +71,8 @@ describe("Store Actions Tests", () => {
       });
       it("Should properly dispatch the action and set the new state", () => {
         // expected state after the action //
-        const expectedState = { ...state, storeState: { ...state.storeState, currentStoreData: emptyStoreData() } };
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState, currentStoreData: emptyStoreData() } };
+        // fire off the action //
         clearCurrentStore(dispatch);
         // get new state //
         const { state: newState } = getContextFromWrapper(wrapper);
@@ -83,8 +84,45 @@ describe("Store Actions Tests", () => {
       });
     });
 
-  })
-  
+    describe("Action: 'OPEN_STORE_FORM'", () => {
+      beforeAll(() => {
+        ({ dispatch, state } = getContextFromWrapper(wrapper));
+      });
+      it("Should properly dispatch the action and set new state", () => {
+        // expected state after the action //
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState, storeFormOpen: true } };
+        // fire off the action //
+        openStoreForm(dispatch);
+        // get new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState).to.eql(expectedState);
+      });
+      it("Should NOT have an Error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.storeState.error).to.eql(null);
+      });
+    });
+
+    describe("Action: 'CLOSE_STORE_FORM'", () => {
+      beforeAll(() => {
+        ({ dispatch, state } = getContextFromWrapper(wrapper));
+      });
+      it("Should properly dispatch the action and set the new state", () => {
+        // expected state after the action //
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState, storeFormOpen: false } };
+        // fire off the action //
+        closeStoreForm(dispatch);
+        // get new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState).to.eql(expectedState);
+      });
+      it("Should NOT have an Error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.storeState.error).to.eql(null);
+      });
+    });
+  });
+  // END TEST actions without API requests //
   // TEST actions with API requests - NO Error returned //
   describe("Mock requests with no API error", () => {
     let wrapper: ShallowWrapper;
@@ -99,57 +137,6 @@ describe("Store Actions Tests", () => {
     });
     afterEach(() => {
       moxios.uninstall();
-    });
-
-    describe("Action: 'SET_CURRENT_STORE'", () => {
-      let mockStores: IStoreData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
-
-      beforeAll(() => {
-        mockStores = createMockStores(10);
-      ({ state, dispatch } = getContextFromWrapper(wrapper));
-      });
-
-      it("Should properly dispatch the action", () => {
-        state.storeState.loadedStores = [ ...mockStores ];
-        const store = state.storeState.loadedStores[0];
-        setCurrentStore(store._id, dispatch, state);
-      });
-      it('Should return the correct new state', () => {
-        // expected state after action //
-        const expectedStoreState = { ...state.storeState };
-        expectedStoreState.currentStoreData = mockStores[0];
-        // retrieve new state //
-        const { state : newState } = getContextFromWrapper(wrapper);
-        expect(newState.storeState).to.eql(expectedStoreState);
-      });
-      it("Should NOT have an error", () => {
-        const { state } = getContextFromWrapper(wrapper);
-        expect(state.storeState.error).to.equal(null);
-      });
-    });
-
-    describe("Action: 'CLEAR_CURRENT_STORE'", () => {
-      let mockStores: IStoreData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
-      beforeAll(() => {
-        mockStores = createMockStores(10);
-        ({ state, dispatch } = getContextFromWrapper(wrapper));
-        state.storeState.currentStoreData = mockStores[0];
-      });
-      it("Should properly dispatch the action", () => {
-        clearCurrentStore(dispatch);
-      });
-      it("Should return the correct new state", () => {
-        // expected state after action //
-        const expectedStoreState = state.storeState;
-        expectedStoreState.currentStoreData = emptyStoreData();
-        // retrieve new state and compare //
-        const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.storeState).to.eql(expectedStoreState);
-      });
-      it("Should NOT have an error", () => {
-        const { state } = getContextFromWrapper(wrapper);
-        expect(state.storeState.error).to.equal(null);
-      });
     });
 
     describe("Action: 'GET_ALL_STORES'", () => {
@@ -188,12 +175,12 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedStoreState = { ...state.storeState };
-        expectedStoreState.responseMsg = "All Ok";
-        expectedStoreState.loadedStores = mockStores;
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.storeState.responseMsg = "All Ok";
+        expectedState.storeState.loadedStores = mockStores;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.storeState).to.eql(expectedStoreState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -237,12 +224,12 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedStoreState = { ...state.storeState };
-        expectedStoreState.responseMsg = "All Ok";
-        expectedStoreState.currentStoreData = mockStore;
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.storeState.responseMsg = "All Ok";
+        expectedState.storeState.currentStoreData = mockStore;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.storeState).to.eql(expectedStoreState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -299,13 +286,13 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedStoreState = { ...state.storeState };
-        expectedStoreState.responseMsg = "All Ok";
-        expectedStoreState.currentStoreData = createdStore;
-        expectedStoreState.loadedStores = [ ...expectedStoreState.loadedStores, createdStore ]
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.storeState.responseMsg = "All Ok";
+        expectedState.storeState.currentStoreData = createdStore;
+        expectedState.storeState.loadedStores = [ ...expectedState.storeState.loadedStores, createdStore ]
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.storeState).to.eql(expectedStoreState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -365,10 +352,10 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedStoreState = { ...state.storeState };
-        expectedStoreState.responseMsg = "All Ok";
-        expectedStoreState.currentStoreData = editedStore;
-        expectedStoreState.loadedStores = expectedStoreState.loadedStores.map((store) => {
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.storeState.responseMsg = "All Ok";
+        expectedState.storeState.currentStoreData = editedStore;
+        expectedState.storeState.loadedStores = expectedState.storeState.loadedStores.map((store) => {
           if (store._id === editedStore._id) {
             return editedStore;
           } else {
@@ -377,7 +364,7 @@ describe("Store Actions Tests", () => {
         })
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.storeState).to.eql(expectedStoreState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -421,13 +408,13 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedStoreState = { ...state.storeState };
-        expectedStoreState.responseMsg = "All Ok";
-        expectedStoreState.currentStoreData = emptyStoreData();
-        expectedStoreState.loadedStores = state.storeState.loadedStores.filter((store) => store._id !== deletedStore._id);
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.storeState.responseMsg = "All Ok";
+        expectedState.storeState.currentStoreData = emptyStoreData();
+        expectedState.storeState.loadedStores = state.storeState.loadedStores.filter((store) => store._id !== deletedStore._id);
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.storeState).to.eql(expectedStoreState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -479,10 +466,10 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedStoreState = { ...state.storeState };
-        expectedStoreState.responseMsg = "All Ok";
-        expectedStoreState.currentStoreData = updatedStore;
-        expectedStoreState.loadedStores = state.storeState.loadedStores.map((store) => {
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.storeState.responseMsg = "All Ok";
+        expectedState.storeState.currentStoreData = updatedStore;
+        expectedState.storeState.loadedStores = state.storeState.loadedStores.map((store) => {
           if (store._id === updatedStore._id) {
             return updatedStore;
           } else {
@@ -491,7 +478,7 @@ describe("Store Actions Tests", () => {
         });
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.storeState).to.eql(expectedStoreState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -540,10 +527,10 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedStoreState = { ...state.storeState };
-        expectedStoreState.responseMsg = "All Ok";
-        expectedStoreState.currentStoreData = updatedStore;
-        expectedStoreState.loadedStores = state.storeState.loadedStores.map((store) => {
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.storeState.responseMsg = "All Ok";
+        expectedState.storeState.currentStoreData = updatedStore;
+        expectedState.storeState.loadedStores = state.storeState.loadedStores.map((store) => {
           if (store._id === updatedStore._id) {
             return  {
               ...updatedStore,
@@ -555,7 +542,7 @@ describe("Store Actions Tests", () => {
         });
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.storeState).to.eql(expectedStoreState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -603,12 +590,12 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedStoreState = { ...state.storeState };
-        expectedStoreState.responseMsg = error.message;
-        expectedStoreState.error = error;
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.storeState.responseMsg = error.message;
+        expectedState.storeState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.storeState).to.eql(expectedStoreState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -677,12 +664,12 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedStoreState = { ...state.storeState };
-        expectedStoreState.responseMsg = error.message;
-        expectedStoreState.error = error;
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.storeState.responseMsg = error.message;
+        expectedState.storeState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.storeState).to.eql(expectedStoreState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -714,12 +701,12 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedStoreState = { ...state.storeState };
-        expectedStoreState.responseMsg = error.message;
-        expectedStoreState.error = error;
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.storeState.responseMsg = error.message;
+        expectedState.storeState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.storeState).to.eql(expectedStoreState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -751,12 +738,12 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedStoreState = { ...state.storeState };
-        expectedStoreState.responseMsg = error.message;
-        expectedStoreState.error = error;
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.storeState.responseMsg = error.message;
+        expectedState.storeState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.storeState).to.eql(expectedStoreState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -776,7 +763,7 @@ describe("Store Actions Tests", () => {
       it("Should properly dispatch the action", (done) => {
         moxios.wait(() => {
           let request = moxios.requests.mostRecent();
-          request.reject(error)
+          request.reject(error);
         });
         const mockImg = new FormData();
         uploadStoreImage(store._id, mockImg, state, dispatch)
@@ -789,12 +776,12 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedStoreState = { ...state.storeState };
-        expectedStoreState.responseMsg = error.message;
-        expectedStoreState.error = error;
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.storeState.responseMsg = error.message;
+        expectedState.storeState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.storeState).to.eql(expectedStoreState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -826,12 +813,12 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedStoreState = { ...state.storeState };
-        expectedStoreState.responseMsg = error.message;
-        expectedStoreState.error = error;
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.storeState.responseMsg = error.message;
+        expectedState.storeState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.storeState).to.eql(expectedStoreState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
