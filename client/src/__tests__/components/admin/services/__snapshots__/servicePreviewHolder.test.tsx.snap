@@ -1,0 +1,575 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' state Should correctly render 1`] = `
+<div
+  class="ui stackable padded two column grid"
+  id="adminServicePreviewHolder"
+>
+  <div
+    class="row"
+  >
+    <div
+      class="ten wide computer sixteen wide mobile eight wide tablet column"
+    >
+      <div
+        class="ui items"
+      >
+        <div
+          class="item servicePreviewItem"
+        >
+          <div
+            class="ui small image"
+          >
+            <img
+              src="https://react.semantic-ui.com/images/wireframe/image.png"
+            />
+          </div>
+          <div
+            class="content"
+          >
+            <div
+              class="meta"
+            >
+              Displayed name: 
+              <strong>
+                libero
+              </strong>
+            </div>
+            <div
+              class="meta"
+            >
+              <span
+                class="servicePrice"
+              >
+                Displayed Price: 
+                <strong>
+                  58.00
+                </strong>
+              </span>
+              <span
+                class="serviceCreated"
+              >
+                Created At: 
+                <strong>
+                  2020-Sep-19
+                </strong>
+              </span>
+            </div>
+            <div
+              class="description"
+            >
+              Sit necessitatibus eius et nemo reprehenderit doloremque consequatur est. Est ea laboriosam odio aut voluptatibus itaque assumenda. Voluptatum aut nihil earum voluptas. Illo dignissimos voluptas expli...
+            </div>
+            <button
+              class="ui green basic button"
+            >
+              View
+            </button>
+          </div>
+        </div>
+        <div
+          class="item servicePreviewItem"
+        >
+          <div
+            class="ui small image"
+          >
+            <img
+              src="https://react.semantic-ui.com/images/wireframe/image.png"
+            />
+          </div>
+          <div
+            class="content"
+          >
+            <div
+              class="meta"
+            >
+              Displayed name: 
+              <strong>
+                placeat
+              </strong>
+            </div>
+            <div
+              class="meta"
+            >
+              <span
+                class="servicePrice"
+              >
+                Displayed Price: 
+                <strong>
+                  68.00
+                </strong>
+              </span>
+              <span
+                class="serviceCreated"
+              >
+                Created At: 
+                <strong>
+                  2020-Sep-19
+                </strong>
+              </span>
+            </div>
+            <div
+              class="description"
+            >
+              Id voluptate alias sint inventore eius cum pariatur quis magnam. Ut voluptatem voluptatem dicta velit voluptatem. Dolorem accusamus aperiam et consequatur et dolorem nobis quia veniam. Quo nisi perspi...
+            </div>
+            <button
+              class="ui green basic button"
+            >
+              View
+            </button>
+          </div>
+        </div>
+        <div
+          class="item servicePreviewItem"
+        >
+          <div
+            class="ui small image"
+          >
+            <img
+              src="https://react.semantic-ui.com/images/wireframe/image.png"
+            />
+          </div>
+          <div
+            class="content"
+          >
+            <div
+              class="meta"
+            >
+              Displayed name: 
+              <strong>
+                dolores
+              </strong>
+            </div>
+            <div
+              class="meta"
+            >
+              <span
+                class="servicePrice"
+              >
+                Displayed Price: 
+                <strong>
+                  61.00
+                </strong>
+              </span>
+              <span
+                class="serviceCreated"
+              >
+                Created At: 
+                <strong>
+                  2020-Sep-19
+                </strong>
+              </span>
+            </div>
+            <div
+              class="description"
+            >
+              Vitae dolor voluptas et veritatis quaerat aspernatur atque. Et ut quisquam ut voluptatem aut dolor nihil. Sed cumque ducimus doloremque aut quae. A id omnis ipsam vel ea sequi nihil....
+            </div>
+            <button
+              class="ui green basic button"
+            >
+              View
+            </button>
+          </div>
+        </div>
+        <div
+          class="item servicePreviewItem"
+        >
+          <div
+            class="ui small image"
+          >
+            <img
+              src="https://react.semantic-ui.com/images/wireframe/image.png"
+            />
+          </div>
+          <div
+            class="content"
+          >
+            <div
+              class="meta"
+            >
+              Displayed name: 
+              <strong>
+                doloremque
+              </strong>
+            </div>
+            <div
+              class="meta"
+            >
+              <span
+                class="servicePrice"
+              >
+                Displayed Price: 
+                <strong>
+                  92.00
+                </strong>
+              </span>
+              <span
+                class="serviceCreated"
+              >
+                Created At: 
+                <strong>
+                  2020-Sep-19
+                </strong>
+              </span>
+            </div>
+            <div
+              class="description"
+            >
+              Praesentium enim qui eaque quidem molestias nemo. Vitae id in sit qui officiis earum sed sunt facere. Vel delectus animi doloremque cupiditate error eveniet praesentium deleniti perspiciatis. Debitis ...
+            </div>
+            <button
+              class="ui green basic button"
+            >
+              View
+            </button>
+          </div>
+        </div>
+        <div
+          class="item servicePreviewItem"
+        >
+          <div
+            class="ui small image"
+          >
+            <img
+              src="https://react.semantic-ui.com/images/wireframe/image.png"
+            />
+          </div>
+          <div
+            class="content"
+          >
+            <div
+              class="meta"
+            >
+              Displayed name: 
+              <strong>
+                exercitationem
+              </strong>
+            </div>
+            <div
+              class="meta"
+            >
+              <span
+                class="servicePrice"
+              >
+                Displayed Price: 
+                <strong>
+                  83.00
+                </strong>
+              </span>
+              <span
+                class="serviceCreated"
+              >
+                Created At: 
+                <strong>
+                  2020-Sep-19
+                </strong>
+              </span>
+            </div>
+            <div
+              class="description"
+            >
+              Sunt ea quia tenetur accusamus repudiandae doloribus illum. Quo placeat vel sit. Quia ipsam minima et. Velit quis vero voluptas commodi autem tenetur est....
+            </div>
+            <button
+              class="ui green basic button"
+            >
+              View
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="six wide computer sixteen wide mobile eight wide tablet column"
+    >
+      <div
+        class="adminServiceDetailsHolder"
+      >
+        <div
+          class="adminServiceDetailsTitle"
+        >
+          Service Details
+        </div>
+        <div
+          class="adminServiceDetails"
+        >
+          <div
+            class="adminServiceCounter"
+          >
+            <div>
+              Total Services:
+            </div>
+            <div
+              class="adminServicesCount"
+            >
+              5
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="popularServiceHolder"
+      >
+        <div
+          class="popServiceHolTitle"
+        >
+          Popular Services
+        </div>
+        <div
+          class="ui divided items"
+        >
+          <div
+            class="item"
+          >
+            <div
+              class="ui tiny image"
+            >
+              <img
+                src="https://react.semantic-ui.com/images/wireframe/image.png"
+              />
+            </div>
+            <div
+              class="content"
+            >
+              <div
+                class="header"
+              >
+                libero
+              </div>
+              <div
+                class="meta"
+              >
+                <span>
+                  Priced At: 
+                  <strong>
+                    58.00
+                  </strong>
+                </span>
+                <span>
+                  -
+                </span>
+                <span>
+                  Posted: 
+                  <strong>
+                    2020-Sep-19
+                  </strong>
+                </span>
+              </div>
+              <button
+                class="ui blue basic button"
+              >
+                More...
+              </button>
+            </div>
+          </div>
+          <div
+            class="item"
+          >
+            <div
+              class="ui tiny image"
+            >
+              <img
+                src="https://react.semantic-ui.com/images/wireframe/image.png"
+              />
+            </div>
+            <div
+              class="content"
+            >
+              <div
+                class="header"
+              >
+                placeat
+              </div>
+              <div
+                class="meta"
+              >
+                <span>
+                  Priced At: 
+                  <strong>
+                    68.00
+                  </strong>
+                </span>
+                <span>
+                  -
+                </span>
+                <span>
+                  Posted: 
+                  <strong>
+                    2020-Sep-19
+                  </strong>
+                </span>
+              </div>
+              <button
+                class="ui blue basic button"
+              >
+                More...
+              </button>
+            </div>
+          </div>
+          <div
+            class="item"
+          >
+            <div
+              class="ui tiny image"
+            >
+              <img
+                src="https://react.semantic-ui.com/images/wireframe/image.png"
+              />
+            </div>
+            <div
+              class="content"
+            >
+              <div
+                class="header"
+              >
+                dolores
+              </div>
+              <div
+                class="meta"
+              >
+                <span>
+                  Priced At: 
+                  <strong>
+                    61.00
+                  </strong>
+                </span>
+                <span>
+                  -
+                </span>
+                <span>
+                  Posted: 
+                  <strong>
+                    2020-Sep-19
+                  </strong>
+                </span>
+              </div>
+              <button
+                class="ui blue basic button"
+              >
+                More...
+              </button>
+            </div>
+          </div>
+          <div
+            class="item"
+          >
+            <div
+              class="ui tiny image"
+            >
+              <img
+                src="https://react.semantic-ui.com/images/wireframe/image.png"
+              />
+            </div>
+            <div
+              class="content"
+            >
+              <div
+                class="header"
+              >
+                doloremque
+              </div>
+              <div
+                class="meta"
+              >
+                <span>
+                  Priced At: 
+                  <strong>
+                    92.00
+                  </strong>
+                </span>
+                <span>
+                  -
+                </span>
+                <span>
+                  Posted: 
+                  <strong>
+                    2020-Sep-19
+                  </strong>
+                </span>
+              </div>
+              <button
+                class="ui blue basic button"
+              >
+                More...
+              </button>
+            </div>
+          </div>
+          <div
+            class="item"
+          >
+            <div
+              class="ui tiny image"
+            >
+              <img
+                src="https://react.semantic-ui.com/images/wireframe/image.png"
+              />
+            </div>
+            <div
+              class="content"
+            >
+              <div
+                class="header"
+              >
+                exercitationem
+              </div>
+              <div
+                class="meta"
+              >
+                <span>
+                  Priced At: 
+                  <strong>
+                    83.00
+                  </strong>
+                </span>
+                <span>
+                  -
+                </span>
+                <span>
+                  Posted: 
+                  <strong>
+                    2020-Sep-19
+                  </strong>
+                </span>
+              </div>
+              <button
+                class="ui blue basic button"
+              >
+                More...
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ServicePreviewHolder Component render tests ServicePreviewHolder in 'loading' state Should correctly render 1`] = `
+<div
+  id="generalLoadingScreen"
+  style="height: 100vh;"
+>
+  <div
+    class="ui segment"
+    style="height: 100vh;"
+  >
+    <div
+      class="ui active transition visible inverted dimmer"
+      style="display: flex;"
+    >
+      <div
+        class="content"
+      >
+        <div
+          class="ui text loader"
+        >
+          Please Wait
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

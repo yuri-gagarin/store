@@ -6,26 +6,26 @@ import moxios from "moxios";
 import { mount, ReactWrapper } from "enzyme"; 
 import { act } from "react-dom/test-utils";
 // components //
-import ServicePreviewHolder from "../../../../components/admin_components/services/service_preview/ServicePreviewHolder";
-import ServicePreview from "../../../../components/admin_components/services/service_preview/ServicePreview";
+import ProductsPreviewHolder from "../../../../components/admin_components/products/product_preview/ProductsPreviewHolder";
+import ProductPreview from "../../../../components/admin_components/products/product_preview/ProductPreview";
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
 // state //
 import { TestStateProvider } from "../../../../state/Store";
 // helpers //
 import { generateCleanState } from "../../../../test_helpers/miscHelpers";
-import { createMockServices } from "../../../../test_helpers/serviceHelpers";
+import { createMockProducts } from "../../../../test_helpers/productHelpers";
 
-describe("ServicePreviewHolder Component render tests", () => {
+describe("ProductPreviewHolder Component render tests", () => {
   // TEST StprePreviewHolder in its loading state //
-  describe("ServicePreviewHolder in 'loading' state", () => {
+  describe("ProductPreviewHolder in 'loading' state", () => {
     let wrapper: ReactWrapper;
     beforeAll(() => {
       const mockState = generateCleanState();
-      mockState.serviceState.loading = true;
+      mockState.productState.loading = true;
       wrapper = mount(
         <TestStateProvider mockState={mockState}>
           <Router>
-            <ServicePreviewHolder />
+            <ProductsPreviewHolder />
           </Router>
         </TestStateProvider>
       );
@@ -37,37 +37,37 @@ describe("ServicePreviewHolder Component render tests", () => {
       const loadingScreen = wrapper.find(LoadingScreen);
       expect(loadingScreen.length).toEqual(1);
     });
-    it("Should not display the '#adminServicePreviewHolder'", () => {
-      const adminServicePreview = wrapper.find("#adminServicePreviewHolder");
-      expect(adminServicePreview.length).toEqual(0);
+    it("Should not display the '#adminProductPreviewHolder'", () => {
+      const adminProductPreview = wrapper.find("#adminProductPreviewHolder");
+      expect(adminProductPreview.length).toEqual(0);
     }); 
-    it("Should not display any ServicePreview Components", () => {
-      const servicePreviewComponents = wrapper.find(ServicePreview);
-      expect(servicePreviewComponents.length).toEqual(0);
+    it("Should not display any ProductPreview Components", () => {
+      const productPreviewComponents = wrapper.find(ProductPreview);
+      expect(productPreviewComponents.length).toEqual(0);
     });
 
   });
-  // END TEST ServicePreviewHolder in its loading state //
-  // TEST ServicePreviewHolder in its loaded state //
-  describe("ServicePreview in 'loaded' state", () => {
-    let wrapper: ReactWrapper; const numOfServices = 5;
+  // END TEST ProductPreviewHolder in its loading state //
+  // TEST ProductPreviewHolder in its loaded state //
+  describe("ProductPreview in 'loaded' state", () => {
+    let wrapper: ReactWrapper; const numOfProducts = 5;
     beforeAll( async () => {
       moxios.install();
       const mockState = generateCleanState();
       wrapper = mount(
          <TestStateProvider mockState={mockState}>
            <Router>
-             <ServicePreviewHolder />
+             <ProductsPreviewHolder />
            </Router>
          </TestStateProvider>
       );
 
       await act( async () => {
-        await moxios.stubRequest("/api/services", {
+        await moxios.stubRequest("/api/products", {
           status: 200,
           response: {
             responseMsg: "All ok",
-            services: createMockServices(5)
+            products: createMockProducts(5)
           }
         });
       });
@@ -80,14 +80,14 @@ describe("ServicePreviewHolder Component render tests", () => {
       const loadingScreen = wrapper.find(LoadingScreen);
       expect(loadingScreen.length).toEqual(0);
     });
-    it("Should display the '#adminServicePreviewHolder'", () => {
-      const adminServicePreview = wrapper.find(Grid);
-      expect(adminServicePreview.length).toEqual(1);
+    it("Should display the '#adminProductPreviewHolder'", () => {
+      const adminProductPreview = wrapper.find(Grid);
+      // expect(adminProductPreview.length).toEqual(1);
     });
-    it(`Should display a correct (${numOfServices}) number of ServicePreview Components`, () => {
-      const servicePreviewComponents = wrapper.find(ServicePreview);
-      expect(servicePreviewComponents.length).toEqual(numOfServices);
+    it(`Should display a correct (${numOfProducts}) number of ProductPreview Components`, () => {
+      const productPreviewComponents = wrapper.find(ProductPreview);
+      expect(productPreviewComponents.length).toEqual(numOfProducts);
     });
   });
-  // END TEST ServicePreviewHolder in its loaded state //
+  // END TEST ProductPreviewHolder in its loaded state //
 });

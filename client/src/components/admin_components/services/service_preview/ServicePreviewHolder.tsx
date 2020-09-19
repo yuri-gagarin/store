@@ -1,36 +1,46 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Grid, Item } from "semantic-ui-react";
+// routing //
+import { withRouter, RouteComponentProps } from "react-router-dom";
 // additional components //
 import ServicePreview from "./ServicePreview";
 import ServicesDetails from "./ServicesDetails";
 import LoadingScreen from "../../miscelaneous/LoadingScreen";
+import PopularServiceHolder from "./popular_services/PopularServiceHolder";
 // types and interfaces //
-import { AppAction, IGlobalAppState } from "../../../../state/Store";
+import { Store } from "../../../../state/Store";
 // api actions //
 import { getAllServices } from "../actions/APIServiceActions";
-import PopularServiceHolder from "./popular_services/PopularServiceHolder";
 
-interface Props {
-  state: IGlobalAppState;
-  dispatch: React.Dispatch<AppAction>;
+interface Props extends RouteComponentProps {
+ 
 }
 
-const ServicePreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
-  const { loadedServices } = state.serviceState;
-  // local state //
-  const [ dataLoaded, setDataLoaded ] = useState<boolean>(false);
+const ServicePreviewHolder: React.FC<Props> = ({ history }): JSX.Element => {
+  const { state, dispatch } = useContext(Store);
+  const { loading, loadedServices } = state.serviceState;
 
+  // lifecycle hooks //
   useEffect(() => {
-    getAllServices(dispatch)
-      .then((success) => {
-        setDataLoaded(true);
+    let componentLoaded = true;
+    if (componentLoaded) {
+      getAllServices(dispatch)
+      .then((_) => {
+        // handle success //
+      })
+      .catch((_) => {
+        // handle possible error //
       });
-  }, []);
-
-  if (dataLoaded) {
-    return (
-      <Grid stackable padded columns={2}>
-        <Grid.Row>
+    }
+    return () => { componentLoaded = false };
+  }, [ dispatch ]);
+  // render component //
+  return (
+    loading ? 
+    <LoadingScreen />
+    :
+    <Grid id="adminServicePreviewHolder" stackable padded columns={2}>
+      <Grid.Row>
         <Grid.Column computer={10} tablet={8} mobile={16}>
           <Item.Group>
             {
@@ -49,17 +59,10 @@ const ServicePreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element
           <ServicesDetails totalServices={loadedServices.length} />
           <PopularServiceHolder popularServices={loadedServices}/>
         </Grid.Column>
-  
-        </Grid.Row>
-        
-      </Grid>
-    );
-  } else {
-    return (
-      <LoadingScreen />
-    );
-  }
+      </Grid.Row>
+    </Grid>
+  );
   
 };
 
-export default ServicePreviewHolder;
+export default withRouter(ServicePreviewHolder);
