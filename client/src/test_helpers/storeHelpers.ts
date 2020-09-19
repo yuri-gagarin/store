@@ -48,6 +48,7 @@ export const clearStoreState = (globalState: IGlobalAppState): void => {
     loading: false,
     currentStoreData: emptyStoreData(),
     loadedStores: [],
+    storeFormOpen: false,
     error: null
   };
 };
@@ -58,6 +59,7 @@ export const resetStoreState = (): IStoreState => {
     loading: false,
     currentStoreData: emptyStoreData(),
     loadedStores: [],
+    storeFormOpen: false,
     error: null
   };
 };
@@ -105,6 +107,7 @@ export const setMockStoreState = ( opts: SetMockStoreStateOpts): IGlobalAppState
       loading: false,
       currentStoreData: _store ? _store : emptyStoreData(),
       loadedStores: _loadedStores,
+      storeFormOpen: false,
       error: null
     },
     storeItemState: resetStoreItemState(),

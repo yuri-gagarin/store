@@ -12,6 +12,7 @@ import StoreImageUplForm from "./StoreImageUplForm";
 import { Store } from "../../../../state/Store";
 // api and ui actions //
 import { createStore, editStore } from "../actions/APIstoreActions";
+import { openStoreForm, closeStoreForm } from "../actions/uiStoreActions";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
 
@@ -110,13 +111,14 @@ const StoreFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
             content={ !storeFormOpen ? "Open Form" : "Close Form"}
           />
           {
-            formOpen ? <StoreForm 
-                        title={title} 
-                        description={description} 
-                        handleCreateStore={handleCreateStore}
-                        handleUpdateStore={handleUpdateStore}
-                      /> 
-                      : null
+            storeFormOpen ? 
+            <StoreForm 
+              title={title} 
+              description={description} 
+              handleCreateStore={handleCreateStore}
+              handleUpdateStore={handleUpdateStore}
+            /> 
+            : null
           }
          
         </Grid.Column>

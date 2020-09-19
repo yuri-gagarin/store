@@ -1,146 +1,452 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StoreFormHolder Component tests Default Form Holder state Should Properly Mount Form Holder 1`] = `
-<StoreFormHolder
-  dispatch={[MockFunction]}
-  state={
-    Object {
-      "bonusVideoState": Object {
-        "currentBonusVideoData": Object {
-          "_id": "",
-          "createdAt": "",
-          "description": "",
-          "vimeoURL": "",
-          "youTubeURL": "",
+<MemoryRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "canGo": [Function],
+        "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "key": "6e1kqm",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+        ],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "index": 0,
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "key": "6e1kqm",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
         },
-        "error": null,
-        "loadedBonusVideos": Array [],
-        "loading": false,
-        "responseMsg": "",
-      },
-      "productState": Object {
-        "currentProductData": Object {
-          "_id": "",
-          "createdAt": "",
-          "description": "",
-          "details": "",
-          "images": Array [],
-          "name": "",
-          "price": "",
-        },
-        "error": null,
-        "loadedProducts": Array [],
-        "loading": false,
-        "responseMsg": "",
-      },
-      "serviceState": Object {
-        "currentServiceData": Object {
-          "_id": "",
-          "createdAt": "",
-          "description": "",
-          "images": Array [],
-          "name": "",
-          "price": "",
-        },
-        "error": null,
-        "loadedServices": Array [],
-        "loading": false,
-        "responseMsg": "",
-      },
-      "storeItemState": Object {
-        "currentStoreItemData": Object {
-          "_id": "",
-          "categories": Array [],
-          "createdAt": "",
-          "description": "",
-          "details": "",
-          "images": Array [],
-          "name": "",
-          "price": "",
-          "storeId": "",
-          "storeName": "",
-        },
-        "error": null,
-        "loadedStoreItems": Array [],
-        "loading": false,
-        "numberOfItems": 0,
-        "responseMsg": "",
-      },
-      "storeState": Object {
-        "currentStoreData": Object {
-          "_id": "",
-          "createdAt": "",
-          "description": "",
-          "images": Array [],
-          "title": "",
-        },
-        "error": null,
-        "loadedStores": Array [],
-        "loading": false,
-        "responseMsg": "",
-      },
+        "push": [Function],
+        "replace": [Function],
+      }
     }
-  }
->
-  <div
-    id="storeFormHolder"
   >
-    <GridRow>
-      <div
-        className="row"
+    <withRouter(StoreFormHolder)>
+      <StoreFormHolder
+        history={
+          Object {
+            "action": "POP",
+            "block": [Function],
+            "canGo": [Function],
+            "createHref": [Function],
+            "entries": Array [
+              Object {
+                "hash": "",
+                "key": "6e1kqm",
+                "pathname": "/",
+                "search": "",
+                "state": undefined,
+              },
+            ],
+            "go": [Function],
+            "goBack": [Function],
+            "goForward": [Function],
+            "index": 0,
+            "length": 1,
+            "listen": [Function],
+            "location": Object {
+              "hash": "",
+              "key": "6e1kqm",
+              "pathname": "/",
+              "search": "",
+              "state": undefined,
+            },
+            "push": [Function],
+            "replace": [Function],
+          }
+        }
+        location={
+          Object {
+            "hash": "",
+            "key": "6e1kqm",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          }
+        }
+        match={
+          Object {
+            "isExact": true,
+            "params": Object {},
+            "path": "/",
+            "url": "/",
+          }
+        }
       >
-        <GridColumn
-          computer={14}
-          mobile={16}
-          tablet={15}
+        <div
+          id="storeFormHolder"
         >
-          <div
-            className="fourteen wide computer sixteen wide mobile fifteen wide tablet column"
-          >
-            <Button
-              as="button"
-              content="Open Form"
-              id="storeFormToggleBtn"
-              onClick={[Function]}
+          <GridRow>
+            <div
+              className="row"
             >
-              <Ref
-                innerRef={
-                  Object {
-                    "current": <button
-                      class="ui button"
-                      id="storeFormToggleBtn"
-                    >
-                      Open Form
-                    </button>,
-                  }
-                }
+              <GridColumn
+                computer={14}
+                mobile={16}
+                tablet={15}
               >
-                <RefFindNode
-                  innerRef={
-                    Object {
-                      "current": <button
-                        class="ui button"
-                        id="storeFormToggleBtn"
-                      >
-                        Open Form
-                      </button>,
-                    }
-                  }
+                <div
+                  className="fourteen wide computer sixteen wide mobile fifteen wide tablet column"
                 >
-                  <button
-                    className="ui button"
+                  <Button
+                    as="button"
+                    content="Open Form"
                     id="storeFormToggleBtn"
                     onClick={[Function]}
                   >
-                    Open Form
-                  </button>
-                </RefFindNode>
-              </Ref>
-            </Button>
+                    <Ref
+                      innerRef={
+                        Object {
+                          "current": <button
+                            class="ui button"
+                            id="storeFormToggleBtn"
+                          >
+                            Open Form
+                          </button>,
+                        }
+                      }
+                    >
+                      <RefFindNode
+                        innerRef={
+                          Object {
+                            "current": <button
+                              class="ui button"
+                              id="storeFormToggleBtn"
+                            >
+                              Open Form
+                            </button>,
+                          }
+                        }
+                      >
+                        <button
+                          className="ui button"
+                          id="storeFormToggleBtn"
+                          onClick={[Function]}
+                        >
+                          Open Form
+                        </button>
+                      </RefFindNode>
+                    </Ref>
+                  </Button>
+                </div>
+              </GridColumn>
+            </div>
+          </GridRow>
+        </div>
+      </StoreFormHolder>
+    </withRouter(StoreFormHolder)>
+  </Router>
+</MemoryRouter>
+`;
+
+exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Store Data Should Properly Mount Form Holder, respond to '#storeToggleBtn' click 1`] = `
+<MemoryRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "canGo": [Function],
+        "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "key": "4g122f",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+        ],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "index": 0,
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "key": "4g122f",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <Component>
+      <withRouter(StoreFormHolder)>
+        <StoreFormHolder
+          history={
+            Object {
+              "action": "POP",
+              "block": [Function],
+              "canGo": [Function],
+              "createHref": [Function],
+              "entries": Array [
+                Object {
+                  "hash": "",
+                  "key": "4g122f",
+                  "pathname": "/",
+                  "search": "",
+                  "state": undefined,
+                },
+              ],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "index": 0,
+              "length": 1,
+              "listen": [Function],
+              "location": Object {
+                "hash": "",
+                "key": "4g122f",
+                "pathname": "/",
+                "search": "",
+                "state": undefined,
+              },
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+          location={
+            Object {
+              "hash": "",
+              "key": "4g122f",
+              "pathname": "/",
+              "search": "",
+              "state": undefined,
+            }
+          }
+          match={
+            Object {
+              "isExact": true,
+              "params": Object {},
+              "path": "/",
+              "url": "/",
+            }
+          }
+        >
+          <div
+            id="storeFormHolder"
+          >
+            <GridRow>
+              <div
+                className="row"
+              >
+                <GridColumn
+                  computer={14}
+                  mobile={16}
+                  tablet={15}
+                >
+                  <div
+                    className="fourteen wide computer sixteen wide mobile fifteen wide tablet column"
+                  >
+                    <Button
+                      as="button"
+                      content="Close Form"
+                      id="storeFormToggleBtn"
+                      onClick={[Function]}
+                    >
+                      <Ref
+                        innerRef={
+                          Object {
+                            "current": <button
+                              class="ui button"
+                              id="storeFormToggleBtn"
+                            >
+                              Close Form
+                            </button>,
+                          }
+                        }
+                      >
+                        <RefFindNode
+                          innerRef={
+                            Object {
+                              "current": <button
+                                class="ui button"
+                                id="storeFormToggleBtn"
+                              >
+                                Close Form
+                              </button>,
+                            }
+                          }
+                        >
+                          <button
+                            className="ui button"
+                            id="storeFormToggleBtn"
+                            onClick={[Function]}
+                          >
+                            Close Form
+                          </button>
+                        </RefFindNode>
+                      </Ref>
+                    </Button>
+                    <StoreForm
+                      description=""
+                      handleCreateStore={[Function]}
+                      handleUpdateStore={[Function]}
+                      title=""
+                    >
+                      <div
+                        id="createStoreFormHolder"
+                      >
+                        <Form
+                          as="form"
+                          id="createStoreForm"
+                        >
+                          <form
+                            className="ui form"
+                            id="createStoreForm"
+                            onSubmit={[Function]}
+                          >
+                            <FormField>
+                              <div
+                                className="field"
+                              >
+                                <label>
+                                  Store title
+                                </label>
+                                <input
+                                  onChange={[Function]}
+                                  placeholder="Store title here ..."
+                                  value=""
+                                />
+                              </div>
+                            </FormField>
+                            <FormField
+                              control={[Function]}
+                              id="form-textarea-control-opinion"
+                              label="Store Description"
+                              onChange={[Function]}
+                              placeholder="Store description here..."
+                              value=""
+                            >
+                              <div
+                                className="field"
+                              >
+                                <label
+                                  htmlFor="form-textarea-control-opinion"
+                                >
+                                  Store Description
+                                </label>
+                                <TextArea
+                                  aria-describedby={null}
+                                  as="textarea"
+                                  id="form-textarea-control-opinion"
+                                  onChange={[Function]}
+                                  placeholder="Store description here..."
+                                  rows={3}
+                                  value=""
+                                >
+                                  <Ref
+                                    innerRef={
+                                      Object {
+                                        "current": <textarea
+                                          id="form-textarea-control-opinion"
+                                          placeholder="Store description here..."
+                                          rows="3"
+                                        />,
+                                      }
+                                    }
+                                  >
+                                    <RefFindNode
+                                      innerRef={
+                                        Object {
+                                          "current": <textarea
+                                            id="form-textarea-control-opinion"
+                                            placeholder="Store description here..."
+                                            rows="3"
+                                          />,
+                                        }
+                                      }
+                                    >
+                                      <textarea
+                                        aria-describedby={null}
+                                        id="form-textarea-control-opinion"
+                                        onChange={[Function]}
+                                        onInput={[Function]}
+                                        placeholder="Store description here..."
+                                        rows={3}
+                                        value=""
+                                      />
+                                    </RefFindNode>
+                                  </Ref>
+                                </TextArea>
+                              </div>
+                            </FormField>
+                            <Button
+                              as="button"
+                              content="Create Store"
+                              id="adminStoreFormCreate"
+                              onClick={[Function]}
+                              type="submit"
+                            >
+                              <Ref
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui button"
+                                      id="adminStoreFormCreate"
+                                      type="submit"
+                                    >
+                                      Create Store
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <RefFindNode
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui button"
+                                        id="adminStoreFormCreate"
+                                        type="submit"
+                                      >
+                                        Create Store
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <button
+                                    className="ui button"
+                                    id="adminStoreFormCreate"
+                                    onClick={[Function]}
+                                    type="submit"
+                                  >
+                                    Create Store
+                                  </button>
+                                </RefFindNode>
+                              </Ref>
+                            </Button>
+                          </form>
+                        </Form>
+                      </div>
+                    </StoreForm>
+                  </div>
+                </GridColumn>
+              </div>
+            </GridRow>
           </div>
-        </GridColumn>
-      </div>
-    </GridRow>
-  </div>
-</StoreFormHolder>
+        </StoreFormHolder>
+      </withRouter(StoreFormHolder)>
+    </Component>
+  </Router>
+</MemoryRouter>
 `;

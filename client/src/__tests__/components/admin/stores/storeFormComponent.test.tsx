@@ -9,9 +9,9 @@ import { MemoryRouter as Router } from "react-router-dom";
 // component imports //
 import StoreFormHolder from "../../../../components/admin_components/stores/forms/StoreFormHolder";
 import StoreForm from "../../../../components/admin_components/stores/forms/StoreForm";
-import StoreImageUplForm from "../../../../components/admin_components/stores/forms/StoreImgUplForm";
+import StoreImageUplForm from "../../../../components/admin_components/stores/forms/StoreImageUplForm";
 import StoreImgPreviewHolder from "../../../../components/admin_components/stores/image_preview/StoreImgPreviewHolder";
-import StoreImgPreviewThumb from "../../../../components/admin_components/stores/image_preview/StoreImgPreviewThumbs";
+import StoreImgPreviewThumb from "../../../../components/admin_components/stores/image_preview/StoreImgPreviewThumb";
 import LoadingBar from "../../../../components/admin_components/miscelaneous/LoadingBar";
 // state React.Context //
 import { IGlobalAppState, StateProvider, TestStateProvider } from "../../../../state/Store";

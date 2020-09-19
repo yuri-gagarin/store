@@ -15,13 +15,25 @@
   }
   type SetCurrentStore = {
     readonly type: "SET_CURRENT_STORE";
-    payload: {
+    readonly payload: {
       currentStoreData: IStoreData;
     }
   }
   type ClearCurrentStore = {
     readonly type: "CLEAR_CURRENT_STORE";
-    payload: null;
+    readonly payload: null;
+  }
+  type OpenStoreForm = {
+    readonly type: "OPEN_STORE_FORM";
+    readonly payload: {
+      storeFormOpen: boolean;
+    }
+  }
+  type CloseStoreform = {
+    readonly type: "CLOSE_STORE_FORM";
+    readonly payload: {
+      storeFormOpen: boolean;
+    }
   }
   type GetStore = {
     readonly type: "GET_STORE";
@@ -131,7 +143,8 @@
     loading: boolean;
     responseMsg: string;
     currentStoreData: IStoreData;
-    loadedStores: IStoreData[]
+    loadedStores: IStoreData[];
+    storeFormOpen: boolean;
     error: null | Error;
   }
-  type StoreAction = DispatchStoreAPIRequest | GetAllStores | GetStore | SetCurrentStore | ClearCurrentStore | CreateStore | EditStore | DeleteStore | SetStoreError | ClearStoreError | UploadNewStoreImg | UpdateStoreImgs | DeleteStoreImg;
+  type StoreAction = DispatchStoreAPIRequest | GetAllStores | GetStore | SetCurrentStore | ClearCurrentStore | OpenStoreForm | CloseStoreform | CreateStore | EditStore | DeleteStore | SetStoreError | ClearStoreError | UploadNewStoreImg | UpdateStoreImgs | DeleteStoreImg;
