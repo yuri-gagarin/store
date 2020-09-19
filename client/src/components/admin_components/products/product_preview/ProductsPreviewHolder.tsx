@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Grid, Item } from "semantic-ui-react";
 // css imports //
 import "./css/productsPreviewHolder.css";
@@ -7,59 +7,62 @@ import ProductPreview from "./ProductPreview";
 import ProductsControls from "./ProductsControls";
 import PopularProductsHolder from "./popular_products/PopularProductsHolder";
 import LoadingScreen from "../../miscelaneous/LoadingScreen";
-// types and interfaces //
-import { AppAction, IGlobalAppState } from "../../../../state/Store";
+// state - React.Context //
+import { Store } from "../../../../state/Store";
 // api actions //
 import { getAllProducts } from "../actions/APIProductActions";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
-interface Props {
-  state: IGlobalAppState;
-  dispatch: React.Dispatch<AppAction>;
+interface Props extends RouteComponentProps {
+  
 }
 
-const ProductsPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
-  const { loadedProducts } = state.productState;
-  // local state //
-  const [ dataLoaded, setDataLoaded ] = useState<boolean>(false);
-
+const ProductsPreviewHolder: React.FC<Props> = ({ history }): JSX.Element => {
+  const { state, dispatch } = useContext(Store);
+  const { loading, loadedProducts } = state.productState;
+  
+  // lifecycle hooks //
   useEffect(() => {
+    let componentLoaded = true;
     getAllProducts(dispatch)
-      .then((success) => {
-        if (success) {
-          setDataLoaded(true);
-        }
+      .then((_) => {
+        // handle success //
       })
-  }, []);
+      .catch((_) => {
+        // handle an error //
+      });
+    return () => { componentLoaded = false };
+  }, [ dispatch ]);
 
+  // component return //
   return (
-    dataLoaded ? 
+    loading ? 
+    <LoadingScreen />
+    :
     <Grid stackable padded columns={2}>
       <Grid.Row>
-      <Grid.Column computer={10} tablet={8} mobile={16}>
-        <Item.Group>
-          {
-            loadedProducts.map((product) => {
-              return (
-                <ProductPreview 
-                  key={product._id}
-                  product={product}
-                />
-              );
-            })
-          }
-        </Item.Group>
-      </Grid.Column>
-      <Grid.Column computer={6} tablet={8} mobile={16}>
-        <ProductsControls totalProducts={loadedProducts.length} />
-        <PopularProductsHolder popularProducts={loadedProducts}/>
-      </Grid.Column>
-
+        <Grid.Column computer={10} tablet={8} mobile={16}>
+          <Item.Group>
+            {
+              loadedProducts.map((product) => {
+                return (
+                  <ProductPreview 
+                    key={product._id}
+                    product={product}
+                  />
+                );
+              })
+            }
+          </Item.Group>
+        </Grid.Column>
+        <Grid.Column computer={6} tablet={8} mobile={16}>
+          <ProductsControls totalProducts={loadedProducts.length} />
+          <PopularProductsHolder popularProducts={loadedProducts}/>
+        </Grid.Column>
       </Grid.Row>
       
     </Grid>
-    :
-    <LoadingScreen />
-  )
+  );
 };
 
-export default ProductsPreviewHolder;
+export default withRouter(ProductsPreviewHolder);

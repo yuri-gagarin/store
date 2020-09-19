@@ -13,7 +13,7 @@ import { Route, Switch } from "react-router-dom";
 import { Store } from "../../../state/Store";
 
 const ProductsView: React.FC<{}> = (props): JSX.Element => {
-  const { state, dispatch } = useContext(Store);
+  const { dispatch } = useContext(Store);
   const [ popularProducts, setPopularProducts ] = useState<IProductData[]>([]);
 
   // set popular products -- to be added later -- maybe //
@@ -29,11 +29,11 @@ const ProductsView: React.FC<{}> = (props): JSX.Element => {
       <Switch>
         <Route path="/admin/home/my_products/all">
           <Spacer width="100%" height="100px"/>
-          <ProductsPreviewHolder state={state} dispatch={dispatch} />
+          <ProductsPreviewHolder />
         </Route>
         <Route path="/admin/home/my_products/create">
           <Spacer width="100%" height="100px" />
-          <ProductFormHolder state={state} dispatch={dispatch} />
+          <ProductFormHolder />
         </Route>
         <Route path="/admin/home/my_products/manage">
           <Spacer width="100%" height="100px"></Spacer>
