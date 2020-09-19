@@ -2,13 +2,11 @@ import React from "react";
 import faker from "faker";
 // test dependences
 import { expect } from "chai";
-import { shallow, ShallowWrapper } from "enzyme";
+import { shallow, ShallowWrapper, ReactWrapper } from "enzyme";
 import * as moxios from "moxios";
-// component dependencies //
-import StoreView from "../../components/admin_components/stores/StoreView";
 // state and React.context dependenies //
 import { IGlobalAppState, IGlobalAppContext } from "../../state/Store";
-import { StateProvider } from "../../state/Store";
+import { TestStateProvider } from "../../state/Store";
 // actions to test //
 import { setCurrentStore, clearCurrentStore } from "../../components/admin_components/stores/actions/uiStoreActions";
 import { getAllStores, getStore, createStore, editStore, 
@@ -19,6 +17,7 @@ import { emptyStoreData } from "../../state/reducers/storeReducer";
 import { createMockStores, createMockStoreImage, clearStoreState } from "../../test_helpers/storeHelpers";
 import { ClientStoreData } from "../../components/admin_components/stores/type_definitions/storeTypes";
 import { AxiosRequestConfig } from "axios";
+import { generateCleanState } from "../../test_helpers/miscHelpers";
 
 
 
@@ -33,18 +32,68 @@ const getContextFromWrapper = (wrapper: ShallowWrapper): IGlobalAppContext => {
 }
 
 describe("Store Actions Tests", () => {
-  let wrapper: ShallowWrapper;
   
-  beforeAll(() => {
-    wrapper = shallow(
-    <StateProvider>
-      <StoreView></StoreView>
-    </StateProvider>
-    );
-  });
+  describe("Non API Actions tests", () => {
+    let wrapper: ShallowWrapper;
+    let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
 
+    beforeAll(() => {
+      let testState = generateCleanState();
+      testState.storeState.loadedStores = [ ...createMockStores(5) ];
+      wrapper = shallow(
+        <TestStateProvider mockState={testState} />
+      );;
+      
+    });
+    describe("Action: 'SET_CURRENT_STORE'", () => {
+      beforeAll(() => {
+        ({ dispatch, state } = getContextFromWrapper(wrapper));
+      });
+      it("Should properly dispatch the action and set new state", () => {
+        // expected state after action //
+        const expectedState = { ...state };
+        expectedState.storeState.currentStoreData = { ...state.storeState.loadedStores[0] };
+        // fire off the action //
+        const storeId = state.storeState.loadedStores[0]._id;
+        setCurrentStore(storeId, dispatch, state);
+        // get new state //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState).to.eql(expectedState);
+      });
+      it("Should NOT have an error", () => {
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState.storeState.error).to.eq(null);
+      });
+    })
+    describe("Action: 'CLEAR_CURRENT_STORE'", () => {
+      beforeAll(() => {
+        ({ dispatch, state } = getContextFromWrapper(wrapper));
+      });
+      it("Should properly dispatch the action and set the new state", () => {
+        // expected state after the action //
+        const expectedState = { ...state, storeState: { ...state.storeState, currentStoreData: emptyStoreData() } };
+        clearCurrentStore(dispatch);
+        // get new state //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState).to.eql(expectedState);
+      });
+      it("Should NOT have an Error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.storeItemState.error).to.eql(null);
+      });
+    });
+
+  })
+  
+  // TEST actions with API requests - NO Error returned //
   describe("Mock requests with no API error", () => {
-
+    let wrapper: ShallowWrapper;
+  
+    beforeAll(() => {
+      wrapper = shallow(
+        <TestStateProvider />
+      );
+    });
     beforeEach(() => {
       moxios.install();
     });
@@ -514,10 +563,16 @@ describe("Store Actions Tests", () => {
       });
     });
   });
-
+  // END TEST actions with API requests - NO Error returned //
+  // TEST actions with API requests - Error returned //
   describe("Mock request with API error returned", () => {
     let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
-
+    let wrapper: ShallowWrapper;
+    beforeAll(() => {
+      wrapper = shallow(
+        <TestStateProvider />
+      )
+    })
     beforeEach(() => {
       moxios.install();
       clearStoreState(state);

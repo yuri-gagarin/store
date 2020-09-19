@@ -12,6 +12,7 @@ export const generateCleanState = (): IGlobalAppState => {
       loading: false,
       currentStoreData: emptyStoreData(),
       loadedStores: [],
+      storeFormOpen: false,
       error: null
     },
     storeItemState: {
@@ -20,6 +21,7 @@ export const generateCleanState = (): IGlobalAppState => {
       currentStoreItemData: emptyStoreItemData(),
       numberOfItems: 0,
       loadedStoreItems: [],
+      storeItemFormOpen: false,
       error: null
     },
     productState: {
@@ -27,6 +29,7 @@ export const generateCleanState = (): IGlobalAppState => {
       loading: false,
       currentProductData: emptyProductData(),
       loadedProducts: [],
+      productFormOpen: false,
       error: null
     },
     serviceState: {
@@ -34,6 +37,7 @@ export const generateCleanState = (): IGlobalAppState => {
       loading: false,
       currentServiceData: emptyServiceData(),
       loadedServices: [],
+      serviceFormOpen: false,
       error: null
     },
     bonusVideoState: {
