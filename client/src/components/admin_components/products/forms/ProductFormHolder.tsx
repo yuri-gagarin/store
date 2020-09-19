@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Button, Grid } from "semantic-ui-react";
+// client routing //
+import { RouteComponentProps, withRouter } from "react-router-dom";
 // css imports //
 import "./css/productFormHolder.css";
 // additional components //
@@ -8,15 +10,14 @@ import ProductImgPreviewHolder from "../image_preview/ProductImgPreviewHolder";
 import LoadingBar from "../../miscelaneous/LoadingBar";
 import ProductImgUplForm from "./ProductImgUplForm";
 // state //
-import { IGlobalAppState, AppAction, Store } from "../../../../state/Store";
-// api actions //
+import { Store } from "../../../../state/Store";
+// api and ui actions //
 import { createProduct, editProduct } from "../actions/APIProductActions";
+import { closeProductForm, openProductForm } from "../actions/UIProductActions";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
 // types 
 import { FormState } from "./ProductForm";
-import { RouteComponentProps, withRouter } from "react-router-dom";
-import { closeProductForm, openProductForm } from "../actions/UIProductActions";
 
 
 interface Props extends RouteComponentProps {

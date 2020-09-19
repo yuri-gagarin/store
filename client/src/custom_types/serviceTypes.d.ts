@@ -26,7 +26,7 @@ type ClearCurrentService = {
 type OpenServiceForm = {
   readonly type: "OPEN_SERVICE_FORM",
   readonly payload: {
-    serviceFormOpem: boolean;
+    serviceFormOpen: boolean;
   }
 }
 type CloseServiceForm = {

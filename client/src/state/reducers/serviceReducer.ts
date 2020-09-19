@@ -55,7 +55,7 @@ const serviceReducer = (state: IServiceState = initialServiceState, action: Serv
     case "OPEN_SERVICE_FORM": 
       return {
         ...state,
-        serviceFormOpen: action.payload.serviceFormOpem
+        serviceFormOpen: action.payload.serviceFormOpen
       };
     case "CLOSE_SERVICE_FORM": 
       return {

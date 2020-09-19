@@ -12,3 +12,12 @@ export const setCurrentService = (_id: string, dispatch: Dispatch<ServiceAction>
 export const clearCurrentService = (dispatch: Dispatch<ServiceAction>): void => {
   dispatch({ type: "CLEAR_CURRENT_SERVICE", payload: null });
 };
+
+export const openServiceForm = (dispatch: Dispatch<ServiceAction>): void => {
+  dispatch({ type: "OPEN_SERVICE_FORM", payload: { serviceFormOpen: true } });
+};
+export const closeServiceForm = (dispatch: Dispatch<ServiceAction>): void => {
+  dispatch({ type: "CLEAR_CURRENT_SERVICE", payload: null });
+  dispatch({ type: "CLOSE_SERVICE_FORM", payload: { serviceFormOpen: false } });
+};
+

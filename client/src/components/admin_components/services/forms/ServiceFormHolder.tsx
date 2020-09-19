@@ -1,21 +1,23 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Button, Grid } from "semantic-ui-react";
+// client routing //
+import { withRouter, RouteComponentProps } from "react-router-dom";
 // css imports //
 import "./css/serviceFormHolder.css";
 // additional components //
 import ServiceForm from "./ServiceForm";
 import ServiceImgPreviewHolder from "../image_preview/ServiceImgPreviewHolder";
 import ServiceImgUplForm from "./ServiceImgUplForm";
+import LoadingBar from "../../miscelaneous/LoadingBar";
 // state //
-import { IGlobalAppState, AppAction, Store } from "../../../../state/Store";
-// api actions //
+import { Store } from "../../../../state/Store";
+// api and ui actions //
 import { createService, editService } from "../actions/APIServiceActions";
+import { openServiceForm, closeServiceForm } from "../actions/UIServiceActions";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
 // types 
 import { FormState } from "./ServiceForm";
-import { withRouter, RouteComponentProps } from "react-router-dom";
-import LoadingBar from "../../miscelaneous/LoadingBar";
 interface Props extends RouteComponentProps {
   
 }
@@ -144,5 +146,5 @@ const ServiceFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   );
 };
 
-export default ServiceFormHolder;
+export default withRouter(ServiceFormHolder);
 
