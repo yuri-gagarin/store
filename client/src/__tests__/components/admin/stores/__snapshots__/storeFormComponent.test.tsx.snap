@@ -12,7 +12,7 @@ exports[`StoreFormHolder Component tests Default Form Holder state Should Proper
         "entries": Array [
           Object {
             "hash": "",
-            "key": "6e1kqm",
+            "key": "0gx6o9",
             "pathname": "/",
             "search": "",
             "state": undefined,
@@ -26,7 +26,7 @@ exports[`StoreFormHolder Component tests Default Form Holder state Should Proper
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "6e1kqm",
+          "key": "0gx6o9",
           "pathname": "/",
           "search": "",
           "state": undefined,
@@ -47,7 +47,7 @@ exports[`StoreFormHolder Component tests Default Form Holder state Should Proper
             "entries": Array [
               Object {
                 "hash": "",
-                "key": "6e1kqm",
+                "key": "0gx6o9",
                 "pathname": "/",
                 "search": "",
                 "state": undefined,
@@ -61,7 +61,7 @@ exports[`StoreFormHolder Component tests Default Form Holder state Should Proper
             "listen": [Function],
             "location": Object {
               "hash": "",
-              "key": "6e1kqm",
+              "key": "0gx6o9",
               "pathname": "/",
               "search": "",
               "state": undefined,
@@ -73,7 +73,7 @@ exports[`StoreFormHolder Component tests Default Form Holder state Should Proper
         location={
           Object {
             "hash": "",
-            "key": "6e1kqm",
+            "key": "0gx6o9",
             "pathname": "/",
             "search": "",
             "state": undefined,
@@ -166,7 +166,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
         "entries": Array [
           Object {
             "hash": "",
-            "key": "4g122f",
+            "key": "uov48j",
             "pathname": "/",
             "search": "",
             "state": undefined,
@@ -180,7 +180,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "4g122f",
+          "key": "uov48j",
           "pathname": "/",
           "search": "",
           "state": undefined,
@@ -202,7 +202,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
               "entries": Array [
                 Object {
                   "hash": "",
-                  "key": "4g122f",
+                  "key": "uov48j",
                   "pathname": "/",
                   "search": "",
                   "state": undefined,
@@ -216,7 +216,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
               "listen": [Function],
               "location": Object {
                 "hash": "",
-                "key": "4g122f",
+                "key": "uov48j",
                 "pathname": "/",
                 "search": "",
                 "state": undefined,
@@ -228,7 +228,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
           location={
             Object {
               "hash": "",
-              "key": "4g122f",
+              "key": "uov48j",
               "pathname": "/",
               "search": "",
               "state": undefined,
