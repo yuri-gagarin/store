@@ -7,14 +7,14 @@ import { mount, shallow, ReactWrapper , ShallowWrapper} from "enzyme";
 // component imports //
 import StoreViewComponent from "../../../../components/admin_components/stores/StoreView";
 import AdminStoreMenu from "../../../../components/admin_components/menus/AdminStoreMenu";
-import StorePreviewHolder from "../../../../components/admin_components/stores/store_preview/StorePreviewHolder";
+import { StorePreviewHolder } from "../../../../components/admin_components/stores/store_preview/StorePreviewHolder";
 import { StoreFormHolder } from "../../../../components/admin_components/stores/forms/StoreFormHolder";
 import { StoreManageHolder } from "../../../../components/admin_components/stores/store_manage/StoreManageHolder";
 // additional dependencies //
 
-describe("StoreView Component test", () => {
+describe("StoreView Component render tests", () => {
   // TEST StoreViewComponent render //
-  describe("StoreView Component render test", () => {
+  describe("StoreView Component default render test", () => {
     let component: ShallowWrapper;
     beforeAll(() => {
       component = shallow(
@@ -69,7 +69,6 @@ describe("StoreView Component test", () => {
     describe("AdminStoreMenu", () => {
 
       it("Should render Admin Store Menu", () => {
-        console.log(component.find("withRouter").length)
         expect(component.find("AdminStoreMenu")).toHaveLength(1);
       });
       it("Should have 3 main navigation links", () => {
@@ -82,6 +81,7 @@ describe("StoreView Component test", () => {
         const viewAllLink = component.find(AdminStoreMenu).find(Menu.Item).at(0);
         viewAllLink.simulate("click");
         component.update();
+        // assert updated component //
         expect(component.find(StorePreviewHolder).length).toEqual(1);
         expect(component.find(StoreFormHolder).length).toEqual(0);
         expect(component.find(StoreManageHolder).length).toEqual(0);
@@ -91,6 +91,7 @@ describe("StoreView Component test", () => {
         const viewAllLink = component.find(AdminStoreMenu).find(Menu.Item).at(1);
         viewAllLink.simulate("click");
         component.update();
+        // assert updated component //
         expect(component.find(StorePreviewHolder).length).toEqual(0);
         expect(component.find(StoreFormHolder).length).toEqual(1);
         expect(component.find(StoreManageHolder).length).toEqual(0);
@@ -100,6 +101,7 @@ describe("StoreView Component test", () => {
         const viewAllLink = component.find(AdminStoreMenu).find(Menu.Item).at(2);
         viewAllLink.simulate("click");
         component.update();
+        // assert updated component //
         expect(component.find(StorePreviewHolder).length).toEqual(0);
         expect(component.find(StoreFormHolder).length).toEqual(0);
         expect(component.find(StoreManageHolder).length).toEqual(1);

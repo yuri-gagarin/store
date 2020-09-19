@@ -1,31 +1,29 @@
 import React, { ReactElement } from "react";
-import { mount, ReactWrapper } from "enzyme";
 import { Menu } from "semantic-ui-react";
+// react router //
+import { MemoryRouter as Router, Switch } from "react-router-dom";
+// testing imports //
+import { mount, shallow, ReactWrapper, ShallowWrapper } from "enzyme";
 // component imports //
 import ProductsViewComponent from "../../../../components/admin_components/products/ProductsView";
 import AdminProductsMenu from "../../../../components/admin_components/menus/AdminProductsMenu";
-import ProductsPreviewHolder from "../../../../components/admin_components/products/product_preview/ProductsPreviewHolder";
-import ProductFormHolder from "../../../../components/admin_components/products/forms/ProductFormHolder";
+import { ProductsPreviewHolder } from "../../../../components/admin_components/products/product_preview/ProductsPreviewHolder";
+import { ProductFormHolder } from "../../../../components/admin_components/products/forms/ProductFormHolder";
 import { ProductsManageHolder } from "../../../../components/admin_components/products/product_manage/ProductsManageHolder";
 // additional dependencies //
-import { MemoryRouter as Router, Switch } from "react-router-dom";
 
 
-describe("ProductView Component test", () => {
-  let component: ReactWrapper;
-  beforeAll(() => {
-    component = mount<{}, typeof Router>(
-      <Router initialEntries={["/admin/home/my_products"]}>
+describe("ProductView Component render tests", () => {
+  // TEST ProductsView component render //
+  describe("ProductView Component default render test", () => {
+    let component: ShallowWrapper;
+    beforeAll(() => {
+      component = shallow(
         <ProductsViewComponent />
-      </Router>
-    );
-  });
-  describe("ProductView Component render test", () => {
+      );
+    });
     it("Should Properly render Products View", () => {
       expect(component).toMatchSnapshot();
-    });
-    it("Should render Admin Product Menu", () => {
-      expect(component.find(AdminProductsMenu)).toHaveLength(1);
     });
     it("Should render conditional routes", () => {
       expect(component.find("Switch")).toHaveLength(1);
@@ -55,8 +53,24 @@ describe("ProductView Component test", () => {
       expect(map["/admin/home/my_products/manage"]).toBe(ProductsManageHolder);
     });
   });
+  // END ProductViewComponent render tests //
+  // TEST AdminProductMenu within component and Link action tests //
   describe("ProductView Component button actions", () => {
+    let component: ReactWrapper;
+
+    beforeAll(() => {
+      component = mount(
+        <Router>
+          <ProductsViewComponent />
+        </Router>
+      );
+    });
+
     describe("AdminProductMenu", () => {
+
+      it("Should render Admin Product Menu", () => {
+        expect(component.find(AdminProductsMenu)).toHaveLength(1);
+      });
       it("Should have 4 main navigation links", () => {
         const wrapper = component.find(AdminProductsMenu);
         const links = wrapper.find(Menu.Item)
@@ -67,6 +81,7 @@ describe("ProductView Component test", () => {
         const viewAllLink = component.find(AdminProductsMenu).find(Menu.Item).at(0);
         viewAllLink.simulate("click");
         component.update();
+        // assert updated compnent //
         expect(component.find(ProductsPreviewHolder).length).toEqual(1);
         expect(component.find(ProductFormHolder).length).toEqual(0);
         expect(component.find(ProductsManageHolder).length).toEqual(0);
@@ -76,6 +91,7 @@ describe("ProductView Component test", () => {
         const viewAllLink = component.find(AdminProductsMenu).find(Menu.Item).at(1);
         viewAllLink.simulate("click");
         component.update();
+        // assert updated component //
         expect(component.find(ProductsPreviewHolder).length).toEqual(0);
         expect(component.find(ProductFormHolder).length).toEqual(1);
         expect(component.find(ProductsManageHolder).length).toEqual(0);
@@ -85,6 +101,7 @@ describe("ProductView Component test", () => {
         const viewAllLink = component.find(AdminProductsMenu).find(Menu.Item).at(2);
         viewAllLink.simulate("click");
         component.update();
+        // assert updated component //
         expect(component.find(ProductsPreviewHolder).length).toEqual(0);
         expect(component.find(ProductFormHolder).length).toEqual(0);
         expect(component.find(ProductsManageHolder).length).toEqual(1);

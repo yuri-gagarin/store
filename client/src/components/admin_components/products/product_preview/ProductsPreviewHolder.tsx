@@ -64,5 +64,7 @@ const ProductsPreviewHolder: React.FC<Props> = ({ history }): JSX.Element => {
     </Grid>
   );
 };
-
+// test export without the router //
+export { ProductsPreviewHolder };
+// default export //
 export default withRouter(ProductsPreviewHolder);

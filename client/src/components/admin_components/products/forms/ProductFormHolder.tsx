@@ -145,6 +145,8 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
     </div>
   );
 };
-
+// export without router for tests //
+export { ProductFormHolder };
+// default export //
 export default withRouter(ProductFormHolder);
 

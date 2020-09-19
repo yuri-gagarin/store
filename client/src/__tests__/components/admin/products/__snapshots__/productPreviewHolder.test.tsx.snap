@@ -1,0 +1,574 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' state Should correctly render 1`] = `
+<div
+  class="ui stackable padded two column grid"
+>
+  <div
+    class="row"
+  >
+    <div
+      class="ten wide computer sixteen wide mobile eight wide tablet column"
+    >
+      <div
+        class="ui items"
+      >
+        <div
+          class="item productPreviewItem"
+        >
+          <div
+            class="ui small image"
+          >
+            <img
+              src="https://react.semantic-ui.com/images/wireframe/image.png"
+            />
+          </div>
+          <div
+            class="content"
+          >
+            <div
+              class="meta"
+            >
+              Displayed name: 
+              <strong>
+                et
+              </strong>
+            </div>
+            <div
+              class="meta"
+            >
+              <span
+                class="productPrice"
+              >
+                Displayed Price: 
+                <strong>
+                  94.00
+                </strong>
+              </span>
+              <span
+                class="productCreated"
+              >
+                Created At: 
+                <strong>
+                  2020-Sep-19
+                </strong>
+              </span>
+            </div>
+            <div
+              class="description"
+            >
+              Qui dolore optio. Sunt praesentium quod. Voluptas optio illum voluptate accusamus tenetur veniam eligendi rerum quia. Ut eos facere et ipsam accusamus et quam tenetur atque. Alias delectus commodi. Do...
+            </div>
+            <button
+              class="ui green basic button"
+            >
+              View
+            </button>
+          </div>
+        </div>
+        <div
+          class="item productPreviewItem"
+        >
+          <div
+            class="ui small image"
+          >
+            <img
+              src="https://react.semantic-ui.com/images/wireframe/image.png"
+            />
+          </div>
+          <div
+            class="content"
+          >
+            <div
+              class="meta"
+            >
+              Displayed name: 
+              <strong>
+                error
+              </strong>
+            </div>
+            <div
+              class="meta"
+            >
+              <span
+                class="productPrice"
+              >
+                Displayed Price: 
+                <strong>
+                  38.00
+                </strong>
+              </span>
+              <span
+                class="productCreated"
+              >
+                Created At: 
+                <strong>
+                  2020-Sep-19
+                </strong>
+              </span>
+            </div>
+            <div
+              class="description"
+            >
+              Voluptatem odio sint dolor occaecati. Dolore explicabo pariatur et velit itaque perspiciatis quasi qui neque. Corporis nihil qui....
+            </div>
+            <button
+              class="ui green basic button"
+            >
+              View
+            </button>
+          </div>
+        </div>
+        <div
+          class="item productPreviewItem"
+        >
+          <div
+            class="ui small image"
+          >
+            <img
+              src="https://react.semantic-ui.com/images/wireframe/image.png"
+            />
+          </div>
+          <div
+            class="content"
+          >
+            <div
+              class="meta"
+            >
+              Displayed name: 
+              <strong>
+                rerum
+              </strong>
+            </div>
+            <div
+              class="meta"
+            >
+              <span
+                class="productPrice"
+              >
+                Displayed Price: 
+                <strong>
+                  24.00
+                </strong>
+              </span>
+              <span
+                class="productCreated"
+              >
+                Created At: 
+                <strong>
+                  2020-Sep-19
+                </strong>
+              </span>
+            </div>
+            <div
+              class="description"
+            >
+              Incidunt aspernatur atque. Dolor et iure vero qui quod ut. Ut expedita soluta. Esse in eveniet consequuntur omnis pariatur praesentium placeat assumenda....
+            </div>
+            <button
+              class="ui green basic button"
+            >
+              View
+            </button>
+          </div>
+        </div>
+        <div
+          class="item productPreviewItem"
+        >
+          <div
+            class="ui small image"
+          >
+            <img
+              src="https://react.semantic-ui.com/images/wireframe/image.png"
+            />
+          </div>
+          <div
+            class="content"
+          >
+            <div
+              class="meta"
+            >
+              Displayed name: 
+              <strong>
+                ut
+              </strong>
+            </div>
+            <div
+              class="meta"
+            >
+              <span
+                class="productPrice"
+              >
+                Displayed Price: 
+                <strong>
+                  60.00
+                </strong>
+              </span>
+              <span
+                class="productCreated"
+              >
+                Created At: 
+                <strong>
+                  2020-Sep-19
+                </strong>
+              </span>
+            </div>
+            <div
+              class="description"
+            >
+              Velit illo reiciendis quod autem minima. Non atque maxime quia aut ratione. Qui qui veniam. Reprehenderit et quidem necessitatibus animi velit. Incidunt cumque corporis nobis ea quo dolores inventore ...
+            </div>
+            <button
+              class="ui green basic button"
+            >
+              View
+            </button>
+          </div>
+        </div>
+        <div
+          class="item productPreviewItem"
+        >
+          <div
+            class="ui small image"
+          >
+            <img
+              src="https://react.semantic-ui.com/images/wireframe/image.png"
+            />
+          </div>
+          <div
+            class="content"
+          >
+            <div
+              class="meta"
+            >
+              Displayed name: 
+              <strong>
+                tempore
+              </strong>
+            </div>
+            <div
+              class="meta"
+            >
+              <span
+                class="productPrice"
+              >
+                Displayed Price: 
+                <strong>
+                  29.00
+                </strong>
+              </span>
+              <span
+                class="productCreated"
+              >
+                Created At: 
+                <strong>
+                  2020-Sep-19
+                </strong>
+              </span>
+            </div>
+            <div
+              class="description"
+            >
+              Porro iste tenetur. Cum ipsam et vel in. Qui ipsam dolore laborum libero....
+            </div>
+            <button
+              class="ui green basic button"
+            >
+              View
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="six wide computer sixteen wide mobile eight wide tablet column"
+    >
+      <div
+        class="adminProductControlsHolder"
+      >
+        <div
+          class="adminProductControlsTitle"
+        >
+          Product Controls
+        </div>
+        <div
+          class="adminProductControls"
+        >
+          <div
+            class="adminProductCounter"
+          >
+            <div>
+              Total Products:
+            </div>
+            <div
+              class="adminProductsCount"
+            >
+              5
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="popProductsHolder"
+      >
+        <div
+          class="popProductsHolTitle"
+        >
+          Popular Products
+        </div>
+        <div
+          class="ui divided items"
+        >
+          <div
+            class="item"
+          >
+            <div
+              class="ui tiny image"
+            >
+              <img
+                src="https://react.semantic-ui.com/images/wireframe/image.png"
+              />
+            </div>
+            <div
+              class="content"
+            >
+              <div
+                class="header"
+              >
+                et
+              </div>
+              <div
+                class="meta"
+              >
+                <span>
+                  Priced At: 
+                  <strong>
+                    94.00
+                  </strong>
+                </span>
+                <span>
+                  -
+                </span>
+                <span>
+                  Posted: 
+                  <strong>
+                    2020-Sep-19
+                  </strong>
+                </span>
+              </div>
+              <button
+                class="ui blue basic button"
+              >
+                More...
+              </button>
+            </div>
+          </div>
+          <div
+            class="item"
+          >
+            <div
+              class="ui tiny image"
+            >
+              <img
+                src="https://react.semantic-ui.com/images/wireframe/image.png"
+              />
+            </div>
+            <div
+              class="content"
+            >
+              <div
+                class="header"
+              >
+                error
+              </div>
+              <div
+                class="meta"
+              >
+                <span>
+                  Priced At: 
+                  <strong>
+                    38.00
+                  </strong>
+                </span>
+                <span>
+                  -
+                </span>
+                <span>
+                  Posted: 
+                  <strong>
+                    2020-Sep-19
+                  </strong>
+                </span>
+              </div>
+              <button
+                class="ui blue basic button"
+              >
+                More...
+              </button>
+            </div>
+          </div>
+          <div
+            class="item"
+          >
+            <div
+              class="ui tiny image"
+            >
+              <img
+                src="https://react.semantic-ui.com/images/wireframe/image.png"
+              />
+            </div>
+            <div
+              class="content"
+            >
+              <div
+                class="header"
+              >
+                rerum
+              </div>
+              <div
+                class="meta"
+              >
+                <span>
+                  Priced At: 
+                  <strong>
+                    24.00
+                  </strong>
+                </span>
+                <span>
+                  -
+                </span>
+                <span>
+                  Posted: 
+                  <strong>
+                    2020-Sep-19
+                  </strong>
+                </span>
+              </div>
+              <button
+                class="ui blue basic button"
+              >
+                More...
+              </button>
+            </div>
+          </div>
+          <div
+            class="item"
+          >
+            <div
+              class="ui tiny image"
+            >
+              <img
+                src="https://react.semantic-ui.com/images/wireframe/image.png"
+              />
+            </div>
+            <div
+              class="content"
+            >
+              <div
+                class="header"
+              >
+                ut
+              </div>
+              <div
+                class="meta"
+              >
+                <span>
+                  Priced At: 
+                  <strong>
+                    60.00
+                  </strong>
+                </span>
+                <span>
+                  -
+                </span>
+                <span>
+                  Posted: 
+                  <strong>
+                    2020-Sep-19
+                  </strong>
+                </span>
+              </div>
+              <button
+                class="ui blue basic button"
+              >
+                More...
+              </button>
+            </div>
+          </div>
+          <div
+            class="item"
+          >
+            <div
+              class="ui tiny image"
+            >
+              <img
+                src="https://react.semantic-ui.com/images/wireframe/image.png"
+              />
+            </div>
+            <div
+              class="content"
+            >
+              <div
+                class="header"
+              >
+                tempore
+              </div>
+              <div
+                class="meta"
+              >
+                <span>
+                  Priced At: 
+                  <strong>
+                    29.00
+                  </strong>
+                </span>
+                <span>
+                  -
+                </span>
+                <span>
+                  Posted: 
+                  <strong>
+                    2020-Sep-19
+                  </strong>
+                </span>
+              </div>
+              <button
+                class="ui blue basic button"
+              >
+                More...
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ProductPreviewHolder Component render tests ProductPreviewHolder in 'loading' state Should correctly render 1`] = `
+<div
+  id="generalLoadingScreen"
+  style="height: 100vh;"
+>
+  <div
+    class="ui segment"
+    style="height: 100vh;"
+  >
+    <div
+      class="ui active transition visible inverted dimmer"
+      style="display: flex;"
+    >
+      <div
+        class="content"
+      >
+        <div
+          class="ui text loader"
+        >
+          Please Wait
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

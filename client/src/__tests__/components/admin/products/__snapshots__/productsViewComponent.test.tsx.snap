@@ -1,176 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ProductView Component test ProductView Component render test Should Properly render Products View 1`] = `
-<MemoryRouter
-  initialEntries={
-    Array [
-      "/admin/home/my_products",
-    ]
-  }
+exports[`ProductView Component render tests ProductView Component default render test Should Properly render Products View 1`] = `
+<div
+  id="adminProductsViewHolder"
 >
-  <Router
-    history={
-      Object {
-        "action": "POP",
-        "block": [Function],
-        "canGo": [Function],
-        "createHref": [Function],
-        "entries": Array [
-          Object {
-            "hash": "",
-            "key": "0d0chg",
-            "pathname": "/admin/home/my_products",
-            "search": "",
-            "state": undefined,
-          },
-        ],
-        "go": [Function],
-        "goBack": [Function],
-        "goForward": [Function],
-        "index": 0,
-        "length": 1,
-        "listen": [Function],
-        "location": Object {
-          "hash": "",
-          "key": "0d0chg",
-          "pathname": "/admin/home/my_products",
-          "search": "",
-          "state": undefined,
-        },
-        "push": [Function],
-        "replace": [Function],
-      }
-    }
-  >
-    <ProductsView>
-      <div
-        id="adminProductsViewHolder"
-      >
-        <withRouter(AdminProductsMenu)
-          dispatch={[Function]}
-        >
-          <AdminProductsMenu
-            dispatch={[Function]}
-            history={
-              Object {
-                "action": "POP",
-                "block": [Function],
-                "canGo": [Function],
-                "createHref": [Function],
-                "entries": Array [
-                  Object {
-                    "hash": "",
-                    "key": "0d0chg",
-                    "pathname": "/admin/home/my_products",
-                    "search": "",
-                    "state": undefined,
-                  },
-                ],
-                "go": [Function],
-                "goBack": [Function],
-                "goForward": [Function],
-                "index": 0,
-                "length": 1,
-                "listen": [Function],
-                "location": Object {
-                  "hash": "",
-                  "key": "0d0chg",
-                  "pathname": "/admin/home/my_products",
-                  "search": "",
-                  "state": undefined,
-                },
-                "push": [Function],
-                "replace": [Function],
-              }
-            }
-            location={
-              Object {
-                "hash": "",
-                "key": "0d0chg",
-                "pathname": "/admin/home/my_products",
-                "search": "",
-                "state": undefined,
-              }
-            }
-            match={
-              Object {
-                "isExact": false,
-                "params": Object {},
-                "path": "/",
-                "url": "/",
-              }
-            }
-          >
-            <div
-              className="adminProductsMenuFixed"
-            >
-              <Menu
-                className="adminProductsMenu"
-                tabular={true}
-              >
-                <div
-                  className="ui tabular adminProductsMenu menu"
-                >
-                  <MenuItem
-                    active={true}
-                    content="View All Products"
-                    name="view_all"
-                    onClick={[Function]}
-                  >
-                    <a
-                      className="active item"
-                      onClick={[Function]}
-                    >
-                      View All Products
-                    </a>
-                  </MenuItem>
-                  <MenuItem
-                    active={false}
-                    content="Create New Product"
-                    name="create"
-                    onClick={[Function]}
-                  >
-                    <a
-                      className="item"
-                      onClick={[Function]}
-                    >
-                      Create New Product
-                    </a>
-                  </MenuItem>
-                  <MenuItem
-                    active={false}
-                    content="Manage Products"
-                    name="manage"
-                    onClick={[Function]}
-                  >
-                    <a
-                      className="item"
-                      onClick={[Function]}
-                    >
-                      Manage Products
-                    </a>
-                  </MenuItem>
-                  <MenuItem
-                    active={false}
-                    content="View Sorted Products"
-                    name="sorted"
-                    onClick={[Function]}
-                  >
-                    <a
-                      className="item"
-                      onClick={[Function]}
-                    >
-                      View Sorted Products
-                    </a>
-                  </MenuItem>
-                </div>
-              </Menu>
-            </div>
-          </AdminProductsMenu>
-        </withRouter(AdminProductsMenu)>
-        <Switch />
-      </div>
-    </ProductsView>
-  </Router>
-</MemoryRouter>
+  <withRouter(AdminProductsMenu)
+    dispatch={[Function]}
+  />
+  <Switch>
+    <Route
+      path="/admin/home/my_products/all"
+    >
+      <Component
+        height="100px"
+        width="100%"
+      />
+      <withRouter(ProductsPreviewHolder) />
+    </Route>
+    <Route
+      path="/admin/home/my_products/create"
+    >
+      <Component
+        height="100px"
+        width="100%"
+      />
+      <withRouter(ProductFormHolder) />
+    </Route>
+    <Route
+      path="/admin/home/my_products/manage"
+    >
+      <Component
+        height="100px"
+        width="100%"
+      />
+      <withRouter(ProductsManageHolder) />
+    </Route>
+  </Switch>
+</div>
 `;

@@ -1,5 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`StoreView Component render tests StoreView Component default render test Should Properly render StoreView 1`] = `
+<div
+  id="adminStoreViewHolder"
+>
+  <withRouter(AdminStoreMenu)
+    dispatch={[Function]}
+  />
+  <Switch>
+    <Route
+      path="/admin/home/my_stores/all"
+    >
+      <Component
+        height="100px"
+        width="100%"
+      />
+      <withRouter(StorePreviewHolder) />
+    </Route>
+    <Route
+      path="/admin/home/my_stores/create"
+    >
+      <Component
+        height="100px"
+        width="100%"
+      />
+      <withRouter(StoreFormHolder) />
+    </Route>
+    <Route
+      path="/admin/home/my_stores/manage"
+    >
+      <Component
+        height="100px"
+        width="100%"
+      />
+      <withRouter(StoreManageHolder) />
+    </Route>
+  </Switch>
+</div>
+`;
+
 exports[`StoreView Component test StoreView Component render test Should Properly render StoreView 1`] = `
 <div
   id="adminStoreViewHolder"
