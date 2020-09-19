@@ -1,30 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Grid } from "semantic-ui-react";
+// client routing //
+import { withRouter, RouteComponentProps } from "react-router-dom";
 // css imports //
 import "./css/storeFormHolder.css";
 // additional components //
 import StoreForm from "./StoreForm";
-import StoreImgPreviewHolder from "../image_preview/StoreImgPreviewThumbs";
+import StoreImgPreviewHolder from "../image_preview/StoreImgPreviewHolder";
 import StoreImageUplForm from "./StoreImageUplForm";
 // state //
-import { IGlobalAppState, AppAction } from "../../../../state/Store";
-// api actions //
+import { Store } from "../../../../state/Store";
+// api and ui actions //
 import { createStore, editStore } from "../actions/APIstoreActions";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
 
-interface Props {
-  state: IGlobalAppState;
-  dispatch: React.Dispatch<AppAction>;
+interface Props extends RouteComponentProps {
 }
 
-const StoreFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
-  const [ formOpen, setFormOpen ] = useState<boolean>(false);
+const StoreFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
+  const { state, dispatch } = useContext(Store);
+  const { loading, currentStoreData, storeFormOpen, error } = state.storeState;
+  const { _id: storeId, title, description, createdAt, editedAt} = currentStoreData;
+  // local component state //
   const [ newForm, setNewForm ] = useState<boolean>(true);
 
-  const { currentStoreData } = state.storeState;
-  const { title, description } = currentStoreData;
-
+  // Store form toggle //
+  const toggleStoreForm = () => {
+    storeFormOpen ? closeStoreForm(dispatch) : openStoreForm(dispatch);
+  }
+  // API call handlers CREATE - EDIT //
   const handleCreateStore = (title: string, description: string): void => {
     const storePams = {
       title,
@@ -32,48 +37,40 @@ const StoreFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
       images: currentStoreData.images
     };
     createStore(storePams, dispatch)
-      .then((success) => {
-        if (success) {
-          // store created //
-        } else {
-          console.error("error");
-        }
+      .then((_) => {
+        // handle create //
+        closeStoreForm(dispatch);
+      })
+      .catch((_) => {
+        // handle error, show modal ? //
       });
   };
 
   const handleUpdateStore = (title: string, description: string): void => {
     const storeParams = {
       title, description, images: currentStoreData.images
-    }
+    };
     editStore(currentStoreData._id, storeParams, dispatch, state)
-      .then((success) => {
-        if (success) {
-          setFormOpen(false);
-        }
+      .then((_) => {
+        closeStoreForm(dispatch);
       })
-  }
-
-  const handleFormOpen = () => {
-    setFormOpen(!formOpen);
+      .catch((_) => {
+        // handle error, show modal ? //
+      });
   };
-  /*
+  // lifecycle hooks //
   useEffect(() => {
-    console.log("form loaded")
-  }, []);
-  */
-  useEffect(() => {
-    if (!formOpen) {
+    if (!storeFormOpen) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }, [formOpen])
+  }, [ storeFormOpen ]);
   useEffect(() => {
-    if (title && description) {
+    if (storeId) {
       setNewForm(false);
-      setFormOpen(true);
+      openStoreForm(dispatch);
     }
-  }, [title, description]);
-
-
+  }, [ storeId ]);
+  // component render //
   return (
     <div id="storeFormHolder">
       {
@@ -84,15 +81,15 @@ const StoreFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
                 <h1>Details</h1>
                 <div className="storeFormHolderDetails">
                   <h3>Store title:</h3>
-                  <p>{currentStoreData.title}</p>
+                  <p>{title}</p>
                 </div>
                 <div className="storeFormHolderDetails">
                   <h3>Store description:</h3>
-                  <p>{currentStoreData.description}</p>
+                  <p>{description}</p>
                 </div>
                 <div className="storeFormHolderTimestamps">
-                  <span>Created At: {ConvertDate.international(currentStoreData.createdAt)}</span>
-                  <span>Edited At: {ConvertDate.international(currentStoreData.editedAt)}</span>
+                  <span>Created At: {ConvertDate.international(createdAt)}</span>
+                  <span>Edited At: {ConvertDate.international(editedAt)}</span>
                 </div>
               </Grid.Column>
             </Grid.Row>
@@ -107,7 +104,11 @@ const StoreFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
       }
       <Grid.Row>
         <Grid.Column mobile={16} tablet={15} computer={14}>
-          <Button  id="storeFormToggleBtn" onClick={handleFormOpen} content={ !formOpen ? "Open Form" : "Close Form"}></Button>
+          <Button  
+            id="storeFormToggleBtn" 
+            onClick={toggleStoreForm} 
+            content={ !storeFormOpen ? "Open Form" : "Close Form"}
+          />
           {
             formOpen ? <StoreForm 
                         title={title} 
@@ -124,5 +125,5 @@ const StoreFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   );
 }
 
-export default StoreFormHolder;
+export default withRouter(StoreFormHolder);
 

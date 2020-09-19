@@ -15,23 +15,3 @@
   text-align: center;
   height: 1.5em;
 }
-.storeImgPreviewThumb {
-  position: relative;
-  margin-right: 0.25em;
-  margin-bottom: 0.25em;
-  border: 2px solid white;
-  border-radius: 10px !important;
-  overflow: hidden;
-}
-.storeImgPreviewThumbDelete {
-  position: absolute;
-  top: 10%;
-  right: 5%;
-  font-size: 2em !important;
-  color: red;
-  cursor: pointer;
-}
-.storeImgPreviewThumbDelete:hover {
-  color: rgb(211, 72, 72);
-
-}
