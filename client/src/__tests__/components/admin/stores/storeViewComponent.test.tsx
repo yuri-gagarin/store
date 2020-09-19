@@ -1,30 +1,28 @@
-import React, { ReactElement, MenuHTMLAttributes } from "react";
-import { mount, ReactWrapper } from "enzyme";
+import React, { ReactElement } from "react";
+import { Menu } from "semantic-ui-react";
+// react router //
+import  { BrowserRouter as Router, Switch } from "react-router-dom";
+// testing imports //
+import { mount, shallow, ReactWrapper , ShallowWrapper} from "enzyme";
 // component imports //
 import StoreViewComponent from "../../../../components/admin_components/stores/StoreView";
-// additional dependencies //
-import  { BrowserRouter as Router, Switch } from "react-router-dom";
-import StorePreviewHolder from "../../../../components/admin_components/stores/store_preview/StorePreviewHolder";
-import StoreFormHolder from "../../../../components/admin_components/stores/forms/StoreFormHolder";
-import { StoreManageHolder } from "../../../../components/admin_components/stores/store_manage/StoreManageHolder";
 import AdminStoreMenu from "../../../../components/admin_components/menus/AdminStoreMenu";
-import { Menu, MenuItemProps } from "semantic-ui-react";
+import StorePreviewHolder from "../../../../components/admin_components/stores/store_preview/StorePreviewHolder";
+import { StoreFormHolder } from "../../../../components/admin_components/stores/forms/StoreFormHolder";
+import { StoreManageHolder } from "../../../../components/admin_components/stores/store_manage/StoreManageHolder";
+// additional dependencies //
 
 describe("StoreView Component test", () => {
-  let component: ReactWrapper;
-  beforeAll(() => {
-    component = mount<{}, typeof Router>(
-      <Router>
-        <StoreViewComponent />
-      </Router>
-    );
-  });
+  // TEST StoreViewComponent render //
   describe("StoreView Component render test", () => {
+    let component: ShallowWrapper;
+    beforeAll(() => {
+      component = shallow(
+        <StoreViewComponent />
+      );
+    });
     it("Should Properly render StoreView", () => {
       expect(component).toMatchSnapshot();
-    });
-    it("Should render Admin Store Menu", () => {
-      expect(component.find("AdminStoreMenu")).toHaveLength(1);
     });
     it("Should render conditional routes", () => {
       expect(component.find("Switch")).toHaveLength(1);
@@ -45,6 +43,7 @@ describe("StoreView Component test", () => {
         if (component.props.children[1].type.WrappedComponent) {
           // to check if a component is wrapped in a WithRouter() function //
           map[component.props.path as string] = component.props.children[1].type.WrappedComponent;
+
         } else {
           map[component.props.path as string] = component.props.children[1].type;
         }
@@ -54,8 +53,25 @@ describe("StoreView Component test", () => {
       expect(map["/admin/home/my_stores/manage"]).toBe(StoreManageHolder);
     });
   });
+  // END StoreViewComponent render tests //
+  // TEST AdminStoreMenu within component and Link button tests //
   describe("StoreView Component button actions", () => {
+    let component: ReactWrapper;
+
+    beforeAll(() => {
+      component = mount(
+        <Router>
+          <StoreViewComponent />
+        </Router>
+      );
+    });
+
     describe("AdminStoreMenu", () => {
+
+      it("Should render Admin Store Menu", () => {
+        console.log(component.find("withRouter").length)
+        expect(component.find("AdminStoreMenu")).toHaveLength(1);
+      });
       it("Should have 3 main navigation links", () => {
         const wrapper = component.find(AdminStoreMenu);
         const links = wrapper.find(Menu.Item)
@@ -88,7 +104,9 @@ describe("StoreView Component test", () => {
         expect(component.find(StoreFormHolder).length).toEqual(0);
         expect(component.find(StoreManageHolder).length).toEqual(1);
       });
+
     });
-    
   });
-})
+  // END AdminStoreMenu button tests //
+
+});

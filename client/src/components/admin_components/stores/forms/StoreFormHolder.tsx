@@ -126,6 +126,8 @@ const StoreFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
     </div>
   );
 }
-
+// export for unit tests - without Router //
+export { StoreFormHolder };
+// 
 export default withRouter(StoreFormHolder);
 

@@ -23,7 +23,7 @@ const StoreGeneralView: React.FC<{}> = (props): JSX.Element => {
         </Route>
         <Route path="/admin/home/my_stores/create">
           <Spacer width="100%" height="100px"/>
-          <StoreFormHolder state={state} dispatch={dispatch} />
+          <StoreFormHolder />
         </Route>
         <Route path="/admin/home/my_stores/manage">
           <Spacer width="100%" height="100px" />

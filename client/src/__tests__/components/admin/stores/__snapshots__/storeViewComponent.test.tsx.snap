@@ -1,135 +1,124 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StoreView Component test StoreView Component render test Should Properly render StoreView 1`] = `
-<BrowserRouter>
-  <Router
-    history={
-      Object {
-        "action": "POP",
-        "block": [Function],
-        "createHref": [Function],
-        "go": [Function],
-        "goBack": [Function],
-        "goForward": [Function],
-        "length": 1,
-        "listen": [Function],
-        "location": Object {
-          "hash": "",
-          "pathname": "/",
-          "search": "",
-          "state": undefined,
-        },
-        "push": [Function],
-        "replace": [Function],
-      }
-    }
-  >
-    <StoreGeneralView>
-      <div
-        id="adminStoreViewHolder"
-      >
-        <withRouter(AdminStoreMenu)
-          dispatch={[Function]}
-        >
-          <AdminStoreMenu
-            dispatch={[Function]}
-            history={
-              Object {
-                "action": "POP",
-                "block": [Function],
-                "createHref": [Function],
-                "go": [Function],
-                "goBack": [Function],
-                "goForward": [Function],
-                "length": 1,
-                "listen": [Function],
-                "location": Object {
-                  "hash": "",
-                  "pathname": "/",
-                  "search": "",
-                  "state": undefined,
-                },
-                "push": [Function],
-                "replace": [Function],
-              }
-            }
-            location={
-              Object {
-                "hash": "",
-                "pathname": "/",
-                "search": "",
-                "state": undefined,
-              }
-            }
-            match={
-              Object {
-                "isExact": true,
-                "params": Object {},
-                "path": "/",
-                "url": "/",
-              }
-            }
-          >
-            <div
-              className="adminStoreMenuFixed"
-            >
-              <Menu
-                className="adminStoreMenu"
-                tabular={true}
-              >
-                <div
-                  className="ui tabular adminStoreMenu menu"
-                >
-                  <MenuItem
-                    active={true}
-                    className="adminMenuLink"
-                    content="View All"
-                    name="view_all"
-                    onClick={[Function]}
-                  >
-                    <a
-                      className="active item adminMenuLink"
-                      onClick={[Function]}
-                    >
-                      View All
-                    </a>
-                  </MenuItem>
-                  <MenuItem
-                    active={false}
-                    className="adminMenuLink"
-                    content="Create Store"
-                    name="create"
-                    onClick={[Function]}
-                  >
-                    <a
-                      className="item adminMenuLink"
-                      onClick={[Function]}
-                    >
-                      Create Store
-                    </a>
-                  </MenuItem>
-                  <MenuItem
-                    active={false}
-                    className="adminMenuLink"
-                    content="Manage"
-                    name="manage"
-                    onClick={[Function]}
-                  >
-                    <a
-                      className="item adminMenuLink"
-                      onClick={[Function]}
-                    >
-                      Manage
-                    </a>
-                  </MenuItem>
-                </div>
-              </Menu>
-            </div>
-          </AdminStoreMenu>
-        </withRouter(AdminStoreMenu)>
-        <Switch />
-      </div>
-    </StoreGeneralView>
-  </Router>
-</BrowserRouter>
+<div
+  id="adminStoreViewHolder"
+>
+  <withRouter(AdminStoreMenu)
+    dispatch={[Function]}
+  />
+  <Switch>
+    <Route
+      path="/admin/home/my_stores/all"
+    >
+      <Component
+        height="100px"
+        width="100%"
+      />
+      <StorePreviewHolder
+        dispatch={[Function]}
+        state={
+          Object {
+            "bonusVideoState": Object {
+              "currentBonusVideoData": Object {
+                "_id": "",
+                "createdAt": "",
+                "description": "",
+                "vimeoURL": "",
+                "youTubeURL": "",
+              },
+              "error": null,
+              "loadedBonusVideos": Array [],
+              "loading": false,
+              "responseMsg": "",
+            },
+            "productState": Object {
+              "currentProductData": Object {
+                "_id": "",
+                "createdAt": "",
+                "description": "",
+                "details": "",
+                "images": Array [],
+                "name": "",
+                "price": "",
+              },
+              "error": null,
+              "loadedProducts": Array [],
+              "loading": false,
+              "productFormOpen": false,
+              "responseMsg": "",
+            },
+            "serviceState": Object {
+              "currentServiceData": Object {
+                "_id": "",
+                "createdAt": "",
+                "description": "",
+                "images": Array [],
+                "name": "",
+                "price": "",
+              },
+              "error": null,
+              "loadedServices": Array [],
+              "loading": false,
+              "responseMsg": "",
+              "serviceFormOpen": false,
+            },
+            "storeItemState": Object {
+              "currentStoreItemData": Object {
+                "_id": "",
+                "categories": Array [],
+                "createdAt": "",
+                "description": "",
+                "details": "",
+                "images": Array [],
+                "name": "",
+                "price": "",
+                "storeId": "",
+                "storeName": "",
+              },
+              "error": null,
+              "loadedStoreItems": Array [],
+              "loading": false,
+              "numberOfItems": 0,
+              "responseMsg": "",
+              "storeItemFormOpen": false,
+            },
+            "storeState": Object {
+              "currentStoreData": Object {
+                "_id": "",
+                "createdAt": "",
+                "description": "",
+                "images": Array [],
+                "title": "",
+              },
+              "error": null,
+              "loadedStores": Array [],
+              "loading": false,
+              "responseMsg": "",
+              "storeFormOpen": false,
+            },
+          }
+        }
+      />
+    </Route>
+    <Route
+      path="/admin/home/my_stores/create"
+    >
+      <Component
+        height="100px"
+        width="100%"
+      />
+      <withRouter(StoreFormHolder) />
+    </Route>
+    <Route
+      path="/admin/home/my_stores/manage"
+    >
+      <Component
+        height="100px"
+        width="100%"
+      />
+      <withRouter(StoreManageHolder) />
+    </Route>
+  </Switch>
+</div>
 `;
