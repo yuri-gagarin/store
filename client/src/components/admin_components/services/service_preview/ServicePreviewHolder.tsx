@@ -64,5 +64,7 @@ const ServicePreviewHolder: React.FC<Props> = ({ history }): JSX.Element => {
   );
   
 };
-
+// export for testing without router //
+export  { ServicePreviewHolder };
+// default export //
 export default withRouter(ServicePreviewHolder);

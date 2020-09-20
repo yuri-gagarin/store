@@ -1,34 +1,34 @@
 import React, { ReactElement } from "react";
-import { mount, ReactWrapper } from "enzyme";
 import { Menu } from "semantic-ui-react";
+// react router //
+import { MemoryRouter as Router, Switch } from "react-router-dom";
+// testing imports //
+import { mount, shallow, ReactWrapper, ShallowWrapper } from "enzyme";
 // component imports //
 import ServiceViewComponent from "../../../../components/admin_components/services/ServiceView";
 import AdminServiceMenu from "../../../../components/admin_components/menus/AdminServiceMenu";
-import ServicePreviewHolder from "../../../../components/admin_components/services/service_preview/ServicePreviewHolder";
-import ServiceFormHolder from "../../../../components/admin_components/services/forms/ServiceFormHolder";
+import { ServicePreviewHolder } from "../../../../components/admin_components/services/service_preview/ServicePreviewHolder";
+import { ServiceFormHolder } from "../../../../components/admin_components/services/forms/ServiceFormHolder";
 import { ServiceManageHolder } from "../../../../components/admin_components/services/service_manage/ServiceManageHolder";
 // additional dependencies //
-import { MemoryRouter as Router, Switch } from "react-router-dom";
 
 
-describe("ServiceView Component test", () => {
-  let component: ReactWrapper;
-  beforeAll(() => {
-    component = mount<{}, typeof Router>(
-      <Router initialEntries={["/admin/home/my_services"]}>
+describe("ServiceView Component render tests", () => {
+  // TEST ServiceView Component render //
+  describe("ServiceView Component default render test", () => {
+    let component: ShallowWrapper;
+
+    beforeAll(() => {
+      component = shallow(
         <ServiceViewComponent />
-      </Router>
-    );
-  });
-  describe("ServiceView Component render test", () => {
+      );
+    });
+
     it("Should Properly render Services View", () => {
       expect(component).toMatchSnapshot();
     });
-    it("Should render Admin Service Menu", () => {
-      expect(component.find("AdminServiceMenu")).toHaveLength(1);
-    });
     it("Should render conditional routes", () => {
-      expect(component.find("Switch")).toHaveLength(1);
+      expect(component.find(Switch)).toHaveLength(1);
     });
     it("Should have Render three children route componets", () => {
       const switchComponent = component.find(Switch);
@@ -55,8 +55,24 @@ describe("ServiceView Component test", () => {
       expect(map["/admin/home/my_services/manage"]).toBe(ServiceManageHolder);
     });
   });
+  // END ServicesViewComponent default render tests //
+  // TEST AdminServiceMenu within component and Link button tets //
   describe("ServiceView Component button actions", () => {
+    let component: ReactWrapper;
+
+    beforeAll(() => {
+      component = mount(
+        <Router initialEntries={ ["/admin/home/my_services"] }>
+          <ServiceViewComponent />
+        </Router>
+      );
+    });
+
     describe("AdminServiceMenu", () => {
+
+      it("Should render AdminServiceMenu component", () => {
+        expect(component.find(AdminServiceMenu)).toHaveLength(1);
+      });
       it("Should have 3 main navigation links", () => {
         const wrapper = component.find(AdminServiceMenu);
         const links = wrapper.find(Menu.Item)
@@ -67,6 +83,7 @@ describe("ServiceView Component test", () => {
         const viewAllLink = component.find(AdminServiceMenu).find(Menu.Item).at(0);
         viewAllLink.simulate("click");
         component.update();
+        // assert updated component //
         expect(component.find(ServicePreviewHolder).length).toEqual(1);
         expect(component.find(ServiceFormHolder).length).toEqual(0);
         expect(component.find(ServiceManageHolder).length).toEqual(0);
@@ -75,6 +92,7 @@ describe("ServiceView Component test", () => {
         window.scrollTo = jest.fn();
         const viewAllLink = component.find(AdminServiceMenu).find(Menu.Item).at(1);
         viewAllLink.simulate("click");
+        // assert updated component //
         component.update();
         expect(component.find(ServicePreviewHolder).length).toEqual(0);
         expect(component.find(ServiceFormHolder).length).toEqual(1);
@@ -85,11 +103,14 @@ describe("ServiceView Component test", () => {
         const viewAllLink = component.find(AdminServiceMenu).find(Menu.Item).at(2);
         viewAllLink.simulate("click");
         component.update();
+        // assert updated component //
         expect(component.find(ServicePreviewHolder).length).toEqual(0);
         expect(component.find(ServiceFormHolder).length).toEqual(0);
         expect(component.find(ServiceManageHolder).length).toEqual(1);
       });
+
     });
-    
   });
-})
+  // END AdminServiceMenu link tets //
+
+});

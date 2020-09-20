@@ -146,5 +146,8 @@ const ServiceFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   );
 };
 
+// export for testing withour router //
+export { ServiceFormHolder };
+// default export //
 export default withRouter(ServiceFormHolder);
 

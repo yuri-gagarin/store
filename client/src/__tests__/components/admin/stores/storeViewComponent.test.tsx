@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { Menu } from "semantic-ui-react";
 // react router //
-import  { BrowserRouter as Router, Switch } from "react-router-dom";
+import  { MemoryRouter as Router, Switch } from "react-router-dom";
 // testing imports //
 import { mount, shallow, ReactWrapper , ShallowWrapper} from "enzyme";
 // component imports //
@@ -60,7 +60,7 @@ describe("StoreView Component render tests", () => {
 
     beforeAll(() => {
       component = mount(
-        <Router>
+        <Router initialEntries={ ["/admin/home/my_stores"] }>
           <StoreViewComponent />
         </Router>
       );

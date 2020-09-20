@@ -4,22 +4,21 @@ import { Menu, MenuItemProps } from "semantic-ui-react";
 import { withRouter, RouteComponentProps, useRouteMatch } from "react-router-dom"
 // css imports //
 import "./css/adminServiceMenu.css";
-import { AppAction } from "../../../state/Store";
+// state and actions //
 
 interface Props extends RouteComponentProps {
-  dispatch: React.Dispatch<AppAction>
+  dispatch: React.Dispatch<ServiceAction>
 }
 const AdminServiceMenu: React.FC<Props> = ({ history, location, dispatch }): JSX.Element => {
   const [ scrolled, setScrolled ] = useState<boolean>(false);
   const [ activeItem, setActiveItem ] = useState<string>("view_all");
   const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
-
+  // route matching for correct links //
   const match = useRouteMatch("/admin/home/my_services");
   const adminServiceMenuRef = useRef<HTMLDivElement>(document.createElement("div"));
 
   const handleItemClick = (e: React.MouseEvent, { name }: MenuItemProps): void => {
     setActiveItem(String(name));
-
 
     switch (name) {
       case "view_all": 
@@ -46,9 +45,7 @@ const AdminServiceMenu: React.FC<Props> = ({ history, location, dispatch }): JSX
   // lifecycle hooks //
   useEffect(() => {
     const currentURL = location.pathname;
-    setTimeout(() => {
-      setMenuOpen(true);
-    }, 200);
+    
     if (currentURL.match(/all/)) {
       setActiveItem("view_all");
     } else if (currentURL.match(/create/)) {
