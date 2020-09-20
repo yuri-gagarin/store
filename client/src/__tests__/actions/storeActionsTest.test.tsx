@@ -52,7 +52,7 @@ describe("Store Actions Tests", () => {
 
       it("Should properly dispatch the action and set new state", () => {
         // expected state after action //
-        const expectedState: IGlobalAppState = { ...state };
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState } };
         expectedState.storeState.currentStoreData = { ...state.storeState.loadedStores[0] };
         // fire off the action //
         const storeId = state.storeState.loadedStores[0]._id;
@@ -181,7 +181,7 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState: IGlobalAppState = { ...state };
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState } };
         expectedState.storeState.responseMsg = "All Ok";
         expectedState.storeState.loadedStores = mockStores;
         // retrieve new state and compare //
@@ -230,7 +230,7 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState: IGlobalAppState = { ...state };
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState } };
         expectedState.storeState.responseMsg = "All Ok";
         expectedState.storeState.currentStoreData = mockStore;
         // retrieve new state and compare //
@@ -292,7 +292,7 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState: IGlobalAppState = { ...state };
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState } };
         expectedState.storeState.responseMsg = "All Ok";
         expectedState.storeState.currentStoreData = createdStore;
         expectedState.storeState.loadedStores = [ ...expectedState.storeState.loadedStores, createdStore ]
@@ -358,7 +358,7 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState: IGlobalAppState = { ...state };
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState } };
         expectedState.storeState.responseMsg = "All Ok";
         expectedState.storeState.currentStoreData = editedStore;
         expectedState.storeState.loadedStores = expectedState.storeState.loadedStores.map((store) => {
@@ -414,7 +414,7 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState: IGlobalAppState = { ...state };
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState } };
         expectedState.storeState.responseMsg = "All Ok";
         expectedState.storeState.currentStoreData = emptyStoreData();
         expectedState.storeState.loadedStores = state.storeState.loadedStores.filter((store) => store._id !== deletedStore._id);
@@ -472,7 +472,7 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState: IGlobalAppState = { ...state };
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState } };
         expectedState.storeState.responseMsg = "All Ok";
         expectedState.storeState.currentStoreData = updatedStore;
         expectedState.storeState.loadedStores = state.storeState.loadedStores.map((store) => {
@@ -533,7 +533,7 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState: IGlobalAppState = { ...state };
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState } };
         expectedState.storeState.responseMsg = "All Ok";
         expectedState.storeState.currentStoreData = updatedStore;
         expectedState.storeState.loadedStores = state.storeState.loadedStores.map((store) => {
@@ -597,7 +597,7 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState: IGlobalAppState = { ...state };
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState } };
         expectedState.storeState.responseMsg = error.message;
         expectedState.storeState.error = error;
         // retrieve new state and compare //
@@ -633,7 +633,7 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState: IGlobalAppState = { ...state };
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState } };
         expectedState.storeState.responseMsg = error.message;
         expectedState.storeState.error = error;
         // retrieve new state and compare //
@@ -669,7 +669,7 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState: IGlobalAppState = { ...state };
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState } };
         expectedState.storeState.responseMsg = error.message;
         expectedState.storeState.error = error;
         // retrieve new state and compare //
@@ -705,7 +705,7 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState: IGlobalAppState = { ...state };
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState } };
         expectedState.storeState.responseMsg = error.message;
         expectedState.storeState.error = error;
         // retrieve new state and compare //
@@ -741,7 +741,7 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState: IGlobalAppState = { ...state };
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState } };
         expectedState.storeState.responseMsg = error.message;
         expectedState.storeState.error = error;
         // retrieve new state and compare //
@@ -778,7 +778,7 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState: IGlobalAppState = { ...state };
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState } };
         expectedState.storeState.responseMsg = error.message;
         expectedState.storeState.error = error;
         // retrieve new state and compare //
@@ -814,7 +814,7 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState: IGlobalAppState = { ...state };
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState } };
         expectedState.storeState.responseMsg = error.message;
         expectedState.storeState.error = error;
         // retrieve new state and compare //
