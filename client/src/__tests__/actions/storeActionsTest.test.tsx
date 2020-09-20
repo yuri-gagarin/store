@@ -2,11 +2,11 @@ import React from "react";
 import faker from "faker";
 // test dependences
 import { expect } from "chai";
-import { shallow, ShallowWrapper, ReactWrapper } from "enzyme";
-import * as moxios from "moxios";
+import { shallow, ShallowWrapper } from "enzyme";
+import moxios from "moxios";
+import { AxiosRequestConfig } from "axios";
 // state and React.context dependenies //
-import { IGlobalAppState, IGlobalAppContext } from "../../state/Store";
-import { TestStateProvider } from "../../state/Store";
+import { IGlobalAppState, IGlobalAppContext, TestStateProvider } from "../../state/Store";
 // actions to test //
 import { setCurrentStore, clearCurrentStore, openStoreForm, closeStoreForm } from "../../components/admin_components/stores/actions/uiStoreActions";
 import { getAllStores, getStore, createStore, editStore, 
@@ -16,7 +16,6 @@ import { getAllStores, getStore, createStore, editStore,
 import { emptyStoreData } from "../../state/reducers/storeReducer";
 import { createMockStores, createMockStoreImage, clearStoreState } from "../../test_helpers/storeHelpers";
 import { ClientStoreData } from "../../components/admin_components/stores/type_definitions/storeTypes";
-import { AxiosRequestConfig } from "axios";
 import { generateCleanState } from "../../test_helpers/miscHelpers";
 
 
@@ -42,13 +41,15 @@ describe("Store Actions Tests", () => {
       testState.storeState.loadedStores = [ ...createMockStores(5) ];
       wrapper = shallow(
         <TestStateProvider mockState={testState} />
-      );;
-      
+      );
     });
+
     describe("Action: 'SET_CURRENT_STORE'", () => {
+
       beforeAll(() => {
         ({ dispatch, state } = getContextFromWrapper(wrapper));
       });
+
       it("Should properly dispatch the action and set new state", () => {
         // expected state after action //
         const expectedState: IGlobalAppState = { ...state };
@@ -64,11 +65,14 @@ describe("Store Actions Tests", () => {
         const { state: newState } = getContextFromWrapper(wrapper);
         expect(newState.storeState.error).to.eq(null);
       });
-    })
+    });
+
     describe("Action: 'CLEAR_CURRENT_STORE'", () => {
+
       beforeAll(() => {
         ({ dispatch, state } = getContextFromWrapper(wrapper));
       });
+
       it("Should properly dispatch the action and set the new state", () => {
         // expected state after the action //
         const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState, currentStoreData: emptyStoreData() } };
@@ -80,7 +84,7 @@ describe("Store Actions Tests", () => {
       });
       it("Should NOT have an Error", () => {
         const { state } = getContextFromWrapper(wrapper);
-        expect(state.storeItemState.error).to.eql(null);
+        expect(state.storeState.error).to.eql(null);
       });
     });
 
@@ -104,9 +108,11 @@ describe("Store Actions Tests", () => {
     });
 
     describe("Action: 'CLOSE_STORE_FORM'", () => {
+
       beforeAll(() => {
         ({ dispatch, state } = getContextFromWrapper(wrapper));
       });
+
       it("Should properly dispatch the action and set the new state", () => {
         // expected state after the action //
         const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState, storeFormOpen: false } };
@@ -555,11 +561,13 @@ describe("Store Actions Tests", () => {
   describe("Mock request with API error returned", () => {
     let state: IGlobalAppState; let dispatch: React.Dispatch<StoreAction>;
     let wrapper: ShallowWrapper;
+    const error = new Error("Error occured");
+
     beforeAll(() => {
       wrapper = shallow(
         <TestStateProvider />
-      )
-    })
+      );
+    });
     beforeEach(() => {
       moxios.install();
       clearStoreState(state);
@@ -569,7 +577,6 @@ describe("Store Actions Tests", () => {
     });
 
     describe("Action: 'GET_ALL_STORES'", () => {
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -605,7 +612,6 @@ describe("Store Actions Tests", () => {
 
     describe("Action: 'GET_STORE'", () => {
       let store: IStoreData;
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -642,7 +648,6 @@ describe("Store Actions Tests", () => {
 
     describe("Action: 'CREATE_STORE'", () => {
       let store: IStoreData;
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -679,7 +684,6 @@ describe("Store Actions Tests", () => {
 
     describe("Action: 'EDIT_STORE'", () => {
       let store: IStoreData;
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -716,7 +720,6 @@ describe("Store Actions Tests", () => {
 
     describe("Action: 'DELETE_STORE'", () => {
       let store: IStoreData;
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -753,7 +756,6 @@ describe("Store Actions Tests", () => {
 
     describe("Action: 'UPLOAD_STORE_IMAGE'", () => {
       let store: IStoreData;
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -791,7 +793,6 @@ describe("Store Actions Tests", () => {
 
     describe("Action: 'DELETE_STORE_IMAGE'", () => {
       let storeImage: IStoreImgData;
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -827,5 +828,6 @@ describe("Store Actions Tests", () => {
     });
 
   });
+  // END TEST actions with API requests - Error returned //
 
 });

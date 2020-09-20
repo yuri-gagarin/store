@@ -4,13 +4,11 @@ import faker from "faker";
 import { expect } from "chai";
 import { shallow, ShallowWrapper } from "enzyme";
 import moxios from "moxios";
-// component dependencies //
-import ServiceView from "../../components/admin_components/services/ServiceView";
+import { AxiosRequestConfig } from "axios";
 // state and React.context dependenies //
-import { IGlobalAppState, IGlobalAppContext } from "../../state/Store";
-import { StateProvider } from "../../state/Store";
+import { IGlobalAppState, IGlobalAppContext, TestStateProvider } from "../../state/Store";
 // actions to test //
-import { setCurrentService, clearCurrentService } from "../../components/admin_components/services/actions/UIServiceActions";
+import { setCurrentService, clearCurrentService, openServiceForm, closeServiceForm } from "../../components/admin_components/services/actions/UIServiceActions";
 import { getAllServices, getService, createService, editService, 
   deleteService, uploadServiceImage, deleteServiceImage 
 } from "../../components/admin_components/services/actions/APIServiceActions";
@@ -18,7 +16,7 @@ import { getAllServices, getService, createService, editService,
 import { emptyServiceData } from "../../state/reducers/serviceReducer";
 import { createMockServices, createMockServiceImage, clearServiceState } from "../../test_helpers/serviceHelpers";
 import { ClientServiceData } from "../../components/admin_components/services/type_definitions/serviceTypes";
-import { AxiosRequestConfig } from "axios";
+import { generateCleanState } from "../../test_helpers/miscHelpers";
 
 
 
@@ -33,76 +31,120 @@ const getContextFromWrapper = (wrapper: ShallowWrapper): IGlobalAppContext => {
 }
 
 describe("Service Actions Tests", () => {
-  let wrapper: ShallowWrapper;
 
-  beforeAll(() => {
-    wrapper = shallow(
-    <StateProvider>
-      <ServiceView></ServiceView>
-    </StateProvider>
-    );
-  })
-  
+  describe("NON API Actions tests", () => {
+    let wrapper: ShallowWrapper;
+    let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
+
+    beforeAll(() => {
+      let testState = generateCleanState();
+      testState.serviceState.loadedServices = [ ...createMockServices(10) ];
+      wrapper = shallow(
+        <TestStateProvider mockState={testState} />
+      );
+    });
+
+    describe(`Action: 'SET_CURRENT_SERVICE`, () => {
+
+      beforeAll(() => {
+        ({ dispatch, state } = getContextFromWrapper(wrapper));
+      });
+
+      it("Should properly dispatch the action and set new state", () => {
+        // expected state after action //
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.serviceState.currentServiceData = { ...state.serviceState.loadedServices[0] };
+        // fire off the action //
+        const serviceId = state.serviceState.loadedServices[0]._id;
+        setCurrentService(serviceId, dispatch, state);
+        // get new state //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState).to.eql(expectedState);
+      });
+      it("Should NOT have an error", () => {
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState.serviceState.error).to.eq(null);
+      });
+    });
+
+    describe("Action: 'CLEAR_CURRENT_SERVICE", () => {
+
+      beforeAll(() => {
+        ({ dispatch, state } = getContextFromWrapper(wrapper));
+      });
+
+      it("Should properly dispatch the action and set the new state", () => {
+        // expected state after the action //
+        const expectedState: IGlobalAppState = { ...state, serviceState: { ...state.serviceState, currentServiceData: emptyServiceData() } };
+        // fire off the action //
+        clearCurrentService(dispatch);
+        // get new state //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState).to.eql(expectedState);
+      });
+      it("Should NOT have an Error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.serviceState.error).to.eql(null);
+      });
+    });
+
+    describe("Action: 'OPEN_SERVICE_FORM'", () => {
+
+      beforeAll(() => {
+        ({ dispatch, state } = getContextFromWrapper(wrapper));
+      });
+
+      it("Should properly dispatch the action and set new state", () => {
+        // expected state after the action //
+        const expectedState: IGlobalAppState = { ...state, serviceState: { ...state.serviceState, serviceFormOpen: true } };
+        // fire off the action //
+        openServiceForm(dispatch);
+        // get new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState).to.eql(expectedState);
+      });
+      it("Should NOT have an Error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.serviceState.error).to.eql(null);
+      });
+    });
+
+    describe("Action: 'CLOSE_SERVICE_FORM'", () => {
+
+      beforeAll(() => {
+        ({ dispatch, state } = getContextFromWrapper(wrapper));
+      });
+
+      it("Should properly dispatch the action and set the new state", () => {
+        // expected state after the action //
+        const expectedState: IGlobalAppState = { ...state, serviceState: { ...state.serviceState, serviceFormOpen: false } };
+        // fire off the action //
+        closeServiceForm(dispatch);
+        // get new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState).to.eql(expectedState);
+      });
+      it("Should NOT have an Error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.serviceState.error).to.eql(null);
+      });
+    });
+  });
+  // END TEST actions without API requests //
+  // TEST actions with API requests - NO Error returned //
   describe("Mock requests witn no API error", () => {
+    let wrapper: ShallowWrapper;
 
+    beforeAll(() => {
+      wrapper = shallow(
+        <TestStateProvider />
+      );
+    });
     beforeEach(() => {
       moxios.install();
     });
     afterEach(() => {
       moxios.uninstall();
-    });
-
-    describe("Action: 'SET_CURRENT_SERVICE'", () => {
-      let mockServices: IServiceData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
-      
-      beforeAll(() => {
-        mockServices = createMockServices(10);
-      ({ state, dispatch } = getContextFromWrapper(wrapper));
-      });
-
-      it("Should properly dispatch the action", () => {
-        state.serviceState.loadedServices = [ ...mockServices ];
-        const service = state.serviceState.loadedServices[0];
-        setCurrentService(service._id, dispatch, state);
-      });
-      it('Should return the correct new state', () => {
-        // expected state after action //
-        const expectedServiceState = state.serviceState;
-        expectedServiceState.currentServiceData = mockServices[0];
-        // retrieve new state //
-        const { state : newState } = getContextFromWrapper(wrapper);
-        expect(newState.serviceState).to.eql(expectedServiceState);
-      });
-      it("Should NOT have an error", () => {
-        const { state } = getContextFromWrapper(wrapper);
-        expect(state.serviceState.error).to.equal(null);
-      });
-    });
-
-    describe("Action: 'CLEAR_CURRENT_SERVICE'", () => {
-      let mockServices: IServiceData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
-      
-      beforeAll(() => {
-        mockServices = createMockServices(10);
-        ({ state, dispatch } = getContextFromWrapper(wrapper));
-        state.serviceState.currentServiceData = mockServices[0];
-      });
-
-      it("Should properly dispatch the action", () => {
-        clearCurrentService(dispatch);
-      });
-      it("Should return the correct new state", () => {
-        // expected state after action //
-        const expectedServiceState = state.serviceState;
-        expectedServiceState.currentServiceData = emptyServiceData();
-        // retrieve new state and compare //
-        const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.serviceState).to.eql(expectedServiceState);
-      });
-      it("Should NOT have an error", () => {
-        const { state } = getContextFromWrapper(wrapper);
-        expect(state.serviceState.error).to.equal(null);
-      });
     });
 
     describe("Action: 'GET_ALL_SERVICES'", () => {
@@ -519,11 +561,18 @@ describe("Service Actions Tests", () => {
       });
     });
   });
-
+  // END TEST actions with  API requests - NO Error returned //
+  // TEST actions with API requests - Error returned //
   describe("Mock request with API error returned", () => {
     let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
+    let wrapper: ShallowWrapper;
     const error = new Error("Error occured");
 
+    beforeAll(() => {
+      wrapper = shallow(
+        <TestStateProvider />
+      );
+    });
     beforeEach(() => {
       moxios.install();
       clearServiceState(state);
@@ -553,12 +602,12 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedServiceState = { ...state.serviceState };
-        expectedServiceState.responseMsg = error.message;
-        expectedServiceState.error = error;
+        const expectedState = { ...state };
+        expectedState.serviceState.responseMsg = error.message;
+        expectedState.serviceState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.serviceState).to.eql(expectedServiceState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -589,12 +638,12 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedServiceState = { ...state.serviceState };
-        expectedServiceState.responseMsg = error.message;
-        expectedServiceState.error = error;
+        const expectedState = { ...state };
+        expectedState.serviceState.responseMsg = error.message;
+        expectedState.serviceState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.serviceState).to.eql(expectedServiceState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -625,12 +674,12 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedServiceState = { ...state.serviceState };
-        expectedServiceState.responseMsg = error.message;
-        expectedServiceState.error = error;
+        const expectedState = { ...state };
+        expectedState.serviceState.responseMsg = error.message;
+        expectedState.serviceState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.serviceState).to.eql(expectedServiceState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -661,12 +710,12 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedServiceState = { ...state.serviceState };
-        expectedServiceState.responseMsg = error.message;
-        expectedServiceState.error = error;
+        const expectedState = { ...state };
+        expectedState.serviceState.responseMsg = error.message;
+        expectedState.serviceState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.serviceState).to.eql(expectedServiceState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -697,12 +746,12 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedServiceState = { ...state.serviceState };
-        expectedServiceState.responseMsg = error.message;
-        expectedServiceState.error = error;
+        const expectedState = { ...state };
+        expectedState.serviceState.responseMsg = error.message;
+        expectedState.serviceState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.serviceState).to.eql(expectedServiceState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -734,12 +783,12 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedServiceState = { ...state.serviceState };
-        expectedServiceState.responseMsg = error.message;
-        expectedServiceState.error = error;
+        const expectedState = { ...state };
+        expectedState.serviceState.responseMsg = error.message;
+        expectedState.serviceState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.serviceState).to.eql(expectedServiceState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -770,12 +819,12 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedServiceState = { ...state.serviceState };
-        expectedServiceState.responseMsg = error.message;
-        expectedServiceState.error = error;
+        const expectedState = { ...state };
+        expectedState.serviceState.responseMsg = error.message;
+        expectedState.serviceState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.serviceState).to.eql(expectedServiceState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -784,5 +833,6 @@ describe("Service Actions Tests", () => {
     });
 
   });
+  // END TEST actions with API requests - Error returned //
 
 });
