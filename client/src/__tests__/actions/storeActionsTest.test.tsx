@@ -633,12 +633,12 @@ describe("Store Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedStoreState = { ...state.storeState };
-        expectedStoreState.responseMsg = error.message;
-        expectedStoreState.error = error;
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.storeState.responseMsg = error.message;
+        expectedState.storeState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.storeState).to.eql(expectedStoreState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
