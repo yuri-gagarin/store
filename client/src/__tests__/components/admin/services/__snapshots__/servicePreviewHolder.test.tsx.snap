@@ -32,7 +32,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
             >
               Displayed name: 
               <strong>
-                libero
+                expedita
               </strong>
             </div>
             <div
@@ -43,7 +43,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
               >
                 Displayed Price: 
                 <strong>
-                  58.00
+                  42.00
                 </strong>
               </span>
               <span
@@ -51,14 +51,14 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
               >
                 Created At: 
                 <strong>
-                  2020-Sep-19
+                  2020-Sep-20
                 </strong>
               </span>
             </div>
             <div
               class="description"
             >
-              Sit necessitatibus eius et nemo reprehenderit doloremque consequatur est. Est ea laboriosam odio aut voluptatibus itaque assumenda. Voluptatum aut nihil earum voluptas. Illo dignissimos voluptas expli...
+              Ea ea voluptatem ex autem iusto ad neque. Libero quis aut assumenda qui earum quia quam et aut. Repellendus sed eos repellat. Cupiditate repellendus modi. Eveniet asperiores corporis sed qui facilis f...
             </div>
             <button
               class="ui green basic button"
@@ -85,7 +85,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
             >
               Displayed name: 
               <strong>
-                placeat
+                ut
               </strong>
             </div>
             <div
@@ -96,7 +96,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
               >
                 Displayed Price: 
                 <strong>
-                  68.00
+                  84.00
                 </strong>
               </span>
               <span
@@ -111,7 +111,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
             <div
               class="description"
             >
-              Id voluptate alias sint inventore eius cum pariatur quis magnam. Ut voluptatem voluptatem dicta velit voluptatem. Dolorem accusamus aperiam et consequatur et dolorem nobis quia veniam. Quo nisi perspi...
+              Maxime adipisci dolorum iste asperiores fugit sint enim. Minus quisquam qui molestias ipsam. Repellendus nisi dolorem. Laudantium voluptas nostrum sit. Distinctio iusto atque. Cum odit debitis facilis...
             </div>
             <button
               class="ui green basic button"
@@ -138,7 +138,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
             >
               Displayed name: 
               <strong>
-                dolores
+                dolorem
               </strong>
             </div>
             <div
@@ -149,7 +149,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
               >
                 Displayed Price: 
                 <strong>
-                  61.00
+                  89.00
                 </strong>
               </span>
               <span
@@ -164,7 +164,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
             <div
               class="description"
             >
-              Vitae dolor voluptas et veritatis quaerat aspernatur atque. Et ut quisquam ut voluptatem aut dolor nihil. Sed cumque ducimus doloremque aut quae. A id omnis ipsam vel ea sequi nihil....
+              Omnis autem eos repudiandae et expedita quasi nihil. Officia sunt adipisci labore. Aut dicta beatae non a voluptatem voluptas ut et nihil. Quia minima laudantium id facere illum et. Dolorem omnis volu...
             </div>
             <button
               class="ui green basic button"
@@ -191,7 +191,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
             >
               Displayed name: 
               <strong>
-                doloremque
+                rerum
               </strong>
             </div>
             <div
@@ -202,7 +202,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
               >
                 Displayed Price: 
                 <strong>
-                  92.00
+                  29.00
                 </strong>
               </span>
               <span
@@ -210,14 +210,14 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
               >
                 Created At: 
                 <strong>
-                  2020-Sep-19
+                  2020-Sep-20
                 </strong>
               </span>
             </div>
             <div
               class="description"
             >
-              Praesentium enim qui eaque quidem molestias nemo. Vitae id in sit qui officiis earum sed sunt facere. Vel delectus animi doloremque cupiditate error eveniet praesentium deleniti perspiciatis. Debitis ...
+              Ut nulla eligendi excepturi rerum totam modi consequatur. Voluptas et praesentium exercitationem vitae distinctio nam. Totam est esse temporibus deleniti laudantium atque doloremque dolorem nemo. Volu...
             </div>
             <button
               class="ui green basic button"
@@ -244,7 +244,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
             >
               Displayed name: 
               <strong>
-                exercitationem
+                sed
               </strong>
             </div>
             <div
@@ -255,7 +255,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
               >
                 Displayed Price: 
                 <strong>
-                  83.00
+                  86.00
                 </strong>
               </span>
               <span
@@ -263,14 +263,14 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
               >
                 Created At: 
                 <strong>
-                  2020-Sep-19
+                  2020-Sep-20
                 </strong>
               </span>
             </div>
             <div
               class="description"
             >
-              Sunt ea quia tenetur accusamus repudiandae doloribus illum. Quo placeat vel sit. Quia ipsam minima et. Velit quis vero voluptas commodi autem tenetur est....
+              Et repellendus incidunt libero qui voluptatem nihil consequatur cum. Quia rerum est odit perferendis fugit et. Qui quis ea consectetur reprehenderit rerum temporibus optio tenetur unde. Debitis nesciu...
             </div>
             <button
               class="ui green basic button"
@@ -336,7 +336,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
               <div
                 class="header"
               >
-                libero
+                expedita
               </div>
               <div
                 class="meta"
@@ -344,7 +344,51 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
                 <span>
                   Priced At: 
                   <strong>
-                    58.00
+                    42.00
+                  </strong>
+                </span>
+                <span>
+                  -
+                </span>
+                <span>
+                  Posted: 
+                  <strong>
+                    2020-Sep-20
+                  </strong>
+                </span>
+              </div>
+              <button
+                class="ui blue basic button"
+              >
+                More...
+              </button>
+            </div>
+          </div>
+          <div
+            class="item"
+          >
+            <div
+              class="ui tiny image"
+            >
+              <img
+                src="https://react.semantic-ui.com/images/wireframe/image.png"
+              />
+            </div>
+            <div
+              class="content"
+            >
+              <div
+                class="header"
+              >
+                ut
+              </div>
+              <div
+                class="meta"
+              >
+                <span>
+                  Priced At: 
+                  <strong>
+                    84.00
                   </strong>
                 </span>
                 <span>
@@ -380,7 +424,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
               <div
                 class="header"
               >
-                placeat
+                dolorem
               </div>
               <div
                 class="meta"
@@ -388,7 +432,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
                 <span>
                   Priced At: 
                   <strong>
-                    68.00
+                    89.00
                   </strong>
                 </span>
                 <span>
@@ -424,7 +468,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
               <div
                 class="header"
               >
-                dolores
+                rerum
               </div>
               <div
                 class="meta"
@@ -432,7 +476,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
                 <span>
                   Priced At: 
                   <strong>
-                    61.00
+                    29.00
                   </strong>
                 </span>
                 <span>
@@ -441,7 +485,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
                 <span>
                   Posted: 
                   <strong>
-                    2020-Sep-19
+                    2020-Sep-20
                   </strong>
                 </span>
               </div>
@@ -468,7 +512,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
               <div
                 class="header"
               >
-                doloremque
+                sed
               </div>
               <div
                 class="meta"
@@ -476,7 +520,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
                 <span>
                   Priced At: 
                   <strong>
-                    92.00
+                    86.00
                   </strong>
                 </span>
                 <span>
@@ -485,51 +529,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
                 <span>
                   Posted: 
                   <strong>
-                    2020-Sep-19
-                  </strong>
-                </span>
-              </div>
-              <button
-                class="ui blue basic button"
-              >
-                More...
-              </button>
-            </div>
-          </div>
-          <div
-            class="item"
-          >
-            <div
-              class="ui tiny image"
-            >
-              <img
-                src="https://react.semantic-ui.com/images/wireframe/image.png"
-              />
-            </div>
-            <div
-              class="content"
-            >
-              <div
-                class="header"
-              >
-                exercitationem
-              </div>
-              <div
-                class="meta"
-              >
-                <span>
-                  Priced At: 
-                  <strong>
-                    83.00
-                  </strong>
-                </span>
-                <span>
-                  -
-                </span>
-                <span>
-                  Posted: 
-                  <strong>
-                    2020-Sep-19
+                    2020-Sep-20
                   </strong>
                 </span>
               </div>
