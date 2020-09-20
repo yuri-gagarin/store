@@ -31,7 +31,7 @@ const getContextFromWrapper = (wrapper: ShallowWrapper): IGlobalAppContext => {
 }
 
 describe("Service Actions Tests", () => {
-
+  // TEST NON API actions tests //
   describe("NON API Actions tests", () => {
     let wrapper: ShallowWrapper;
     let state: IGlobalAppState; let dispatch: React.Dispatch<ServiceAction>;
@@ -183,12 +183,12 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedServiceState = { ...state.serviceState };
-        expectedServiceState.responseMsg = "All Ok";
-        expectedServiceState.loadedServices = mockServices;
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.serviceState.responseMsg = "All Ok";
+        expectedState.serviceState.loadedServices = mockServices;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.serviceState).to.eql(expectedServiceState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -232,12 +232,12 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedServiceState = { ...state.serviceState };
-        expectedServiceState.responseMsg = "All Ok";
-        expectedServiceState.currentServiceData = mockService;
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.serviceState.responseMsg = "All Ok";
+        expectedState.serviceState.currentServiceData = mockService;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.serviceState).to.eql(expectedServiceState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -296,13 +296,13 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedServiceState = { ...state.serviceState };
-        expectedServiceState.responseMsg = "All Ok";
-        expectedServiceState.currentServiceData = createdService;
-        expectedServiceState.loadedServices = [ ...expectedServiceState.loadedServices, createdService ]
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.serviceState.responseMsg = "All Ok";
+        expectedState.serviceState.currentServiceData = createdService;
+        expectedState.serviceState.loadedServices = [ ...expectedState.serviceState.loadedServices, createdService ]
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.serviceState).to.eql(expectedServiceState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -363,19 +363,19 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedServiceState = { ...state.serviceState };
-        expectedServiceState.responseMsg = "All Ok";
-        expectedServiceState.currentServiceData = editedService;
-        expectedServiceState.loadedServices = expectedServiceState.loadedServices.map((service) => {
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.serviceState.responseMsg = "All Ok";
+        expectedState.serviceState.currentServiceData = editedService;
+        expectedState.serviceState.loadedServices = expectedState.serviceState.loadedServices.map((service) => {
           if (service._id === editedService._id) {
             return editedService;
           } else {
             return service;
           }
-        })
+        });
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.serviceState).to.eql(expectedServiceState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -419,13 +419,13 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedServiceState = { ...state.serviceState };
-        expectedServiceState.responseMsg = "All Ok";
-        expectedServiceState.currentServiceData = emptyServiceData();
-        expectedServiceState.loadedServices = state.serviceState.loadedServices.filter((service) => service._id !== deletedService._id);
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.serviceState.responseMsg = "All Ok";
+        expectedState.serviceState.currentServiceData = emptyServiceData();
+        expectedState.serviceState.loadedServices = state.serviceState.loadedServices.filter((service) => service._id !== deletedService._id);
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.serviceState).to.eql(expectedServiceState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -477,10 +477,10 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedServiceState = { ...state.serviceState };
-        expectedServiceState.responseMsg = "All Ok";
-        expectedServiceState.currentServiceData = updatedService;
-        expectedServiceState.loadedServices = state.serviceState.loadedServices.map((service) => {
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.serviceState.responseMsg = "All Ok";
+        expectedState.serviceState.currentServiceData = updatedService;
+        expectedState.serviceState.loadedServices = state.serviceState.loadedServices.map((service) => {
           if (service._id === updatedService._id) {
             return updatedService;
           } else {
@@ -489,7 +489,7 @@ describe("Service Actions Tests", () => {
         });
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.serviceState).to.eql(expectedServiceState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -538,10 +538,10 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedServiceState = { ...state.serviceState };
-        expectedServiceState.responseMsg = "All Ok";
-        expectedServiceState.currentServiceData = updatedService;
-        expectedServiceState.loadedServices = state.serviceState.loadedServices.map((service) => {
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.serviceState.responseMsg = "All Ok";
+        expectedState.serviceState.currentServiceData = updatedService;
+        expectedState.serviceState.loadedServices = state.serviceState.loadedServices.map((service) => {
           if (service._id === updatedService._id) {
             return  {
               ...updatedService,
@@ -553,7 +553,7 @@ describe("Service Actions Tests", () => {
         });
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.serviceState).to.eql(expectedServiceState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -602,7 +602,7 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState = { ...state };
+        const expectedState: IGlobalAppState = { ...state };
         expectedState.serviceState.responseMsg = error.message;
         expectedState.serviceState.error = error;
         // retrieve new state and compare //
@@ -638,7 +638,7 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState = { ...state };
+        const expectedState: IGlobalAppState = { ...state };
         expectedState.serviceState.responseMsg = error.message;
         expectedState.serviceState.error = error;
         // retrieve new state and compare //
@@ -674,7 +674,7 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState = { ...state };
+        const expectedState: IGlobalAppState = { ...state };
         expectedState.serviceState.responseMsg = error.message;
         expectedState.serviceState.error = error;
         // retrieve new state and compare //
@@ -710,7 +710,7 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState = { ...state };
+        const expectedState: IGlobalAppState = { ...state };
         expectedState.serviceState.responseMsg = error.message;
         expectedState.serviceState.error = error;
         // retrieve new state and compare //
@@ -746,7 +746,7 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState = { ...state };
+        const expectedState: IGlobalAppState = { ...state };
         expectedState.serviceState.responseMsg = error.message;
         expectedState.serviceState.error = error;
         // retrieve new state and compare //
@@ -783,7 +783,7 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState = { ...state };
+        const expectedState: IGlobalAppState = { ...state };
         expectedState.serviceState.responseMsg = error.message;
         expectedState.serviceState.error = error;
         // retrieve new state and compare //
@@ -819,7 +819,7 @@ describe("Service Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedState = { ...state };
+        const expectedState: IGlobalAppState = { ...state };
         expectedState.serviceState.responseMsg = error.message;
         expectedState.serviceState.error = error;
         // retrieve new state and compare //
