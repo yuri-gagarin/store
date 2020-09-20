@@ -4,13 +4,11 @@ import faker from "faker";
 import { expect } from "chai";
 import { shallow, ShallowWrapper } from "enzyme";
 import moxios from "moxios";
-// component dependencies //
-import ProductView from "../../components/admin_components/products/ProductsView";
+import { AxiosRequestConfig } from "axios";
 // state and React.context dependenies //
-import { IGlobalAppState, IGlobalAppContext } from "../../state/Store";
-import { StateProvider } from "../../state/Store";
+import { IGlobalAppState, IGlobalAppContext, TestStateProvider } from "../../state/Store";
 // actions to test //
-import { setCurrentProduct, clearCurrentProduct } from "../../components/admin_components/products/actions/UIProductActions";
+import { setCurrentProduct, clearCurrentProduct, openProductForm, closeProductForm } from "../../components/admin_components/products/actions/UIProductActions";
 import { getAllProducts, getProduct, createProduct, editProduct, 
   deleteProduct, uploadProductImage, deleteProductImage 
 } from "../../components/admin_components/products/actions/APIProductActions";
@@ -18,7 +16,7 @@ import { getAllProducts, getProduct, createProduct, editProduct,
 import { emptyProductData } from "../../state/reducers/productReducer";
 import { createMockProducts, createMockProductImage, clearProductState } from "../../test_helpers/productHelpers"
 import { ClientProductData } from "../../components/admin_components/products/type_definitions/productTypes";
-import { AxiosRequestConfig } from "axios";
+import { generateCleanState } from "../../test_helpers/miscHelpers";
 
 
 
@@ -33,74 +31,120 @@ const getContextFromWrapper = (wrapper: ShallowWrapper): IGlobalAppContext => {
 }
 
 describe("Product Actions Tests", () => {
-  let wrapper: ShallowWrapper; let error = new Error("An error");
+  // TEST Actions without API requests //
+  describe("NON API Actions tests", () => {
+    let wrapper: ShallowWrapper;
+    let state: IGlobalAppState; let dispatch: React.Dispatch<ProductAction>;
 
-  beforeAll(() => {
-    wrapper = shallow(
-      <StateProvider />
-    );
+    beforeAll(() => {
+      let testState = generateCleanState();
+      testState.productState.loadedProducts = [ ...createMockProducts(10) ];
+      wrapper = shallow(
+        <TestStateProvider mockState={testState} />
+      );
+    });
+
+    describe("Action: 'SET_CURRENT_PRODUCT'", () => {
+
+      beforeAll(() => {
+        ({ dispatch, state } = getContextFromWrapper(wrapper));
+      });
+
+      it("Should properly dispatch the action and set new state", () => {
+        // expected state after action //
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.productState.currentProductData = { ...state.productState.loadedProducts[0] };
+        // fire off the action //
+        const productId = state.productState.loadedProducts[0]._id;
+        setCurrentProduct(productId, dispatch, state);
+        // get new state //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState).to.eql(expectedState);
+      });
+      it("Should NOT have an error", () => {
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState.productState.error).to.eq(null);
+      });
+    });
+
+    describe("Action: 'CLEAR_CURRENT_PRODUCT'", () => {
+
+      beforeAll(() => {
+        ({ dispatch, state } = getContextFromWrapper(wrapper));
+      });
+
+      it("Should properly dispatch the action and set the new state", () => {
+        // expected state after the action //
+        const expectedState: IGlobalAppState = { ...state, productState: { ...state.productState, currentProductData: emptyProductData() } };
+        // fire off the action //
+        clearCurrentProduct(dispatch);
+        // get new state //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState).to.eql(expectedState);
+      });
+      it("Should NOT have an Error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.productState.error).to.eql(null);
+      });
+    });
+
+    describe("Action: 'OPEN_PRODUCT_FORM'", () => {
+
+      beforeAll(() => {
+        ({ dispatch, state } = getContextFromWrapper(wrapper));
+      });
+
+      it("Should properly dispatch the action and set new state", () => {
+        // expected state after the action //
+        const expectedState: IGlobalAppState = { ...state, productState: { ...state.productState, productFormOpen: true } };
+        // fire off the action //
+        openProductForm(dispatch);
+        // get new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState).to.eql(expectedState);
+      });
+      it("Should NOT have an Error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.productState.error).to.eql(null);
+      });
+    });
+
+    describe("Action: 'CLOSE_PRODUCT_FORM'", () => {
+
+      beforeAll(() => {
+        ({ dispatch, state } = getContextFromWrapper(wrapper));
+      });
+
+      it("Should properly dispatch the action and set the new state", () => {
+        // expected state after the action //
+        const expectedState: IGlobalAppState = { ...state, productState: { ...state.productState, productFormOpen: false } };
+        // fire off the action //
+        closeProductForm(dispatch);
+        // get new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState).to.eql(expectedState);
+      });
+      it("Should NOT have an Error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.productState.error).to.eql(null);
+      });
+    });
   });
-
+  // END TEST Actions without API requests //
+  // TEST actions with API requests - NO Error returned //
   describe("Mock requests witn no API error", () => {
+    let wrapper: ShallowWrapper;
 
+    beforeAll(() => {
+      wrapper = shallow(
+        <TestStateProvider />
+      );
+    });
     beforeEach(() => {
       moxios.install();
     });
     afterEach(() => {
       moxios.uninstall();
-    });
-
-    describe("Action: 'SET_CURRENT_PRODUCT'", () => {
-      let mockProducts: IProductData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<ProductAction>;
-      
-      beforeAll(() => {
-        mockProducts = createMockProducts(10);
-      ({ state, dispatch } = getContextFromWrapper(wrapper));
-      });
-
-      it("Should properly dispatch the action", () => {
-        state.productState.loadedProducts = [ ...mockProducts ];
-        const product = state.productState.loadedProducts[0];
-        setCurrentProduct(product._id, dispatch, state);
-      });
-      it('Should return the correct new state', () => {
-        // expected state after action //
-        const expectedProductState = state.productState;
-        expectedProductState.currentProductData = mockProducts[0];
-        // retrieve new state //
-        const { state : newState } = getContextFromWrapper(wrapper);
-        expect(newState.productState).to.eql(expectedProductState);
-      });
-      it("Should NOT have an error", () => {
-        const { state } = getContextFromWrapper(wrapper);
-        expect(state.productState.error).to.equal(null);
-      });
-    });
-
-    describe("Action: 'CLEAR_CURRENT_PRODUCT'", () => {
-      let mockProducts: IProductData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<ProductAction>;
-      
-      beforeAll(() => {
-        mockProducts = createMockProducts(10);
-        ({ state, dispatch } = getContextFromWrapper(wrapper));
-        state.productState.currentProductData = mockProducts[0];
-      });
-
-      it("Should properly dispatch the action", () => {
-        clearCurrentProduct(dispatch);
-      });
-      it("Should return the correct new state", () => {
-        // expected state after action //
-        const expectedProductState = state.productState;
-        expectedProductState.currentProductData = emptyProductData();
-        // retrieve new state and compare //
-        const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.productState).to.eql(expectedProductState);
-      });
-      it("Should NOT have an error", () => {
-        const { state } = getContextFromWrapper(wrapper);
-        expect(state.productState.error).to.equal(null);
-      });
     });
 
     describe("Action: 'GET_ALL_PRODUCTS'", () => {
@@ -139,12 +183,12 @@ describe("Product Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedProductState = { ...state.productState };
-        expectedProductState.responseMsg = "All Ok";
-        expectedProductState.loadedProducts = mockProducts;
+        const expectedState = { ...state };
+        expectedState.productState.responseMsg = "All Ok";
+        expectedState.productState.loadedProducts = mockProducts;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.productState).to.eql(expectedProductState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -188,12 +232,12 @@ describe("Product Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedProductState = { ...state.productState };
-        expectedProductState.responseMsg = "All Ok";
-        expectedProductState.currentProductData = mockProduct;
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.productState.responseMsg = "All Ok";
+        expectedState.productState.currentProductData = mockProduct;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.productState).to.eql(expectedProductState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -252,13 +296,13 @@ describe("Product Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedProductState = { ...state.productState };
-        expectedProductState.responseMsg = "All Ok";
-        expectedProductState.currentProductData = createdProduct;
-        expectedProductState.loadedProducts = [ ...expectedProductState.loadedProducts, createdProduct ]
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.productState.responseMsg = "All Ok";
+        expectedState.productState.currentProductData = createdProduct;
+        expectedState.productState.loadedProducts = [ ...state.productState.loadedProducts, createdProduct ]
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.productState).to.eql(expectedProductState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -319,10 +363,10 @@ describe("Product Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedProductState = { ...state.productState };
-        expectedProductState.responseMsg = "All Ok";
-        expectedProductState.currentProductData = editedProduct;
-        expectedProductState.loadedProducts = expectedProductState.loadedProducts.map((product) => {
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.productState.responseMsg = "All Ok";
+        expectedState.productState.currentProductData = editedProduct;
+        expectedState.productState.loadedProducts = expectedState.productState.loadedProducts.map((product) => {
           if (product._id === editedProduct._id) {
             return editedProduct;
           } else {
@@ -331,7 +375,7 @@ describe("Product Actions Tests", () => {
         })
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.productState).to.eql(expectedProductState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -375,13 +419,13 @@ describe("Product Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedProductState = { ...state.productState };
-        expectedProductState.responseMsg = "All Ok";
-        expectedProductState.currentProductData = emptyProductData();
-        expectedProductState.loadedProducts = state.productState.loadedProducts.filter((product) => product._id !== deletedProduct._id);
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.productState.responseMsg = "All Ok";
+        expectedState.productState.currentProductData = emptyProductData();
+        expectedState.productState.loadedProducts = state.productState.loadedProducts.filter((product) => product._id !== deletedProduct._id);
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.productState).to.eql(expectedProductState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -433,10 +477,10 @@ describe("Product Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedProductState = { ...state.productState };
-        expectedProductState.responseMsg = "All Ok";
-        expectedProductState.currentProductData = updatedProduct;
-        expectedProductState.loadedProducts = state.productState.loadedProducts.map((product) => {
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.productState.responseMsg = "All Ok";
+        expectedState.productState.currentProductData = updatedProduct;
+        expectedState.productState.loadedProducts = state.productState.loadedProducts.map((product) => {
           if (product._id === updatedProduct._id) {
             return updatedProduct;
           } else {
@@ -445,7 +489,7 @@ describe("Product Actions Tests", () => {
         });
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.productState).to.eql(expectedProductState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -491,10 +535,10 @@ describe("Product Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedProductState = { ...state.productState };
-        expectedProductState.responseMsg = "All Ok";
-        expectedProductState.currentProductData = updatedProduct;
-        expectedProductState.loadedProducts = state.productState.loadedProducts.map((product) => {
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.productState.responseMsg = "All Ok";
+        expectedState.productState.currentProductData = updatedProduct;
+        expectedState.productState.loadedProducts = state.productState.loadedProducts.map((product) => {
           if (product._id === updatedProduct._id) {
             return  {
               ...updatedProduct,
@@ -506,7 +550,7 @@ describe("Product Actions Tests", () => {
         });
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.productState).to.eql(expectedProductState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -514,10 +558,18 @@ describe("Product Actions Tests", () => {
       });
     });
   });
-
+  // END TEST actions with API requests - NO Error returned //
+  // TEST actions with API requests - WITH Error returned //
   describe("Mock request with API error returned", () => {
     let state: IGlobalAppState; let dispatch: React.Dispatch<ProductAction>;
+    let wrapper: ShallowWrapper;
+    const error: Error = new Error("An Error occured");
 
+    beforeAll(() => {
+      wrapper = shallow(
+        <TestStateProvider />
+      );
+    });
     beforeEach(() => {
       moxios.install();
       clearProductState(state);
@@ -527,7 +579,6 @@ describe("Product Actions Tests", () => {
     });
 
     describe("Action: 'GET_ALL_PRODUCTS'", () => {
-      // const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -548,12 +599,12 @@ describe("Product Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedProductState = { ...state.productState };
-        expectedProductState.responseMsg = error.message;
-        expectedProductState.error = error;
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.productState.responseMsg = error.message;
+        expectedState.productState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.productState).to.eql(expectedProductState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -563,7 +614,6 @@ describe("Product Actions Tests", () => {
 
     describe("Action: 'GET_PRODUCT'", () => {
       let product: IProductData;
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -585,12 +635,12 @@ describe("Product Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedProductState = { ...state.productState };
-        expectedProductState.responseMsg = error.message;
-        expectedProductState.error = error;
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.productState.responseMsg = error.message;
+        expectedState.productState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.productState).to.eql(expectedProductState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -600,7 +650,6 @@ describe("Product Actions Tests", () => {
 
     describe("Action: 'CREATE_PRODUCT'", () => {
       let product: IProductData;
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -622,12 +671,12 @@ describe("Product Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedProductState = { ...state.productState };
-        expectedProductState.responseMsg = error.message;
-        expectedProductState.error = error;
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.productState.responseMsg = error.message;
+        expectedState.productState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.productState).to.eql(expectedProductState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -637,7 +686,6 @@ describe("Product Actions Tests", () => {
 
     describe("Action: 'EDIT_PRODUCT'", () => {
       let product: IProductData;
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -659,12 +707,12 @@ describe("Product Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedProductState = { ...state.productState };
-        expectedProductState.responseMsg = error.message;
-        expectedProductState.error = error;
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.productState.responseMsg = error.message;
+        expectedState.productState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.productState).to.eql(expectedProductState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -696,12 +744,12 @@ describe("Product Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedProductState = { ...state.productState };
-        expectedProductState.responseMsg = error.message;
-        expectedProductState.error = error;
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.productState.responseMsg = error.message;
+        expectedState.productState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.productState).to.eql(expectedProductState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -734,12 +782,12 @@ describe("Product Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedProductState = { ...state.productState };
-        expectedProductState.responseMsg = error.message;
-        expectedProductState.error = error;
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.productState.responseMsg = error.message;
+        expectedState.productState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.productState).to.eql(expectedProductState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -771,18 +819,19 @@ describe("Product Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedProductState = { ...state.productState };
-        expectedProductState.responseMsg = error.message;
-        expectedProductState.error = error;
+        const expectedState: IGlobalAppState = { ...state };
+        expectedState.productState.responseMsg = error.message;
+        expectedState.productState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.productState).to.eql(expectedProductState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
         expect(state.productState.error).to.not.be.null;
       });
     });
-
   });
+  // END TEST actions with API requests - WITH Error returned //
+
 });
