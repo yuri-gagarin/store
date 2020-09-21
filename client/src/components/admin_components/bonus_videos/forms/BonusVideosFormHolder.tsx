@@ -75,7 +75,7 @@ const BonusVideoFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element
       {
         !newForm ?
           <React.Fragment>
-            <Grid.Row>
+            <Grid.Row id="bonusVideoFormDetails">
               <Grid.Column mobile={16} tablet={14} computer={14}>
                 <h1>Details</h1>
                 <div className="bonusVideoFormHolderDetails">
