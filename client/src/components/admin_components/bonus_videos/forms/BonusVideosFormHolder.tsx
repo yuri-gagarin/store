@@ -78,15 +78,15 @@ const BonusVideoFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element
             <Grid.Row id="bonusVideoFormDetails">
               <Grid.Column mobile={16} tablet={14} computer={14}>
                 <h1>Details</h1>
-                <div className="bonusVideoFormHolderDetails">
+                <div className="bonusVideoFormHolderYouTubeUrl">
                   <h3>Video youTube URL:</h3>
                   <p>{youTubeURL}</p>
                 </div>
-                <div className="bonusVideoFormHolderPrice">
+                <div className="bonusVideoFormHolderVimeoUrl">
                   <h3>Video vimeo URL:</h3>
                   <p>{vimeoURL}</p>
                 </div>
-                <div className="bonusVideoFormHolderDetails">
+                <div className="bonusVideoFormHolderDescription">
                   <h3>Video description:</h3>
                   <p>{description}</p>
                 </div>
@@ -106,14 +106,15 @@ const BonusVideoFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element
         <Grid.Column mobile={16} tablet={15} computer={14}>
           <Button  id="bonusVideoFormToggleBtn" onClick={handleFormOpen} content={ !formOpen ? "Open Form" : "Close Form"}></Button>
           {
-            formOpen ? <BonusVideoForm 
-                        description={description} 
-                        youTubeURL={youTubeURL}
-                        vimeoURL={vimeoURL}
-                        handleCreateBonusVideo={handleCreateBonusVideo}
-                        handleUpdateBonusVideo={handleUpdateBonusVideo}
-                      /> 
-                      : null
+            formOpen ? 
+            <BonusVideoForm 
+              description={description} 
+              youTubeURL={youTubeURL}
+              vimeoURL={vimeoURL}
+              handleCreateBonusVideo={handleCreateBonusVideo}
+              handleUpdateBonusVideo={handleUpdateBonusVideo}
+            /> 
+            : null
           }
          
         </Grid.Column>

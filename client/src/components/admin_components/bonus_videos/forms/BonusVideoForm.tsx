@@ -92,8 +92,8 @@ const BonusVideoForm: React.FC<Props> = ({ description, youTubeURL, vimeoURL, ha
          />
          {
            newForm 
-            ? <Button type='submit' onClick={handleSubmit} content= "Save New Bonus Video" />
-            : <Button type='submit' onClick={handleSubmit} content= "Update Bonus Video" />
+            ? <Button id="bonusVideoFormCreate" type='submit' onClick={handleSubmit} content= "Save New Bonus Video" />
+            : <Button id="bonusVideoFormUpdate" type='submit' onClick={handleSubmit} content= "Update Bonus Video" />
          }  
       </Form>
     </div>

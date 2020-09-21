@@ -1,7 +1,7 @@
 import React from "react"
 import { Button } from "semantic-ui-react";
 // testing utils
-import { mount, ReactWrapper } from "enzyme";
+import { shallow, mount, ReactWrapper, ShallowWrapper } from "enzyme";
 import moxios from "moxios";
 import { act } from "react-dom/test-utils";
 // client routing //
@@ -14,17 +14,17 @@ import LoadingBar from "../../../../components/admin_components/miscelaneous/Loa
 import { IGlobalAppState, StateProvider, TestStateProvider } from "../../../../state/Store";
 // helpers //
 import { createMockBonusVideos, setMockBonusVideoState } from "../../../../test_helpers/bonusVideoHelpers";
+import BonusVideoPreview from "../../../../components/admin_components/bonus_videos/bonus_videos_preview/BonusVideoPreview";
 
 describe("BonusVideoFormHolder Component tests", () => {
-  let wrapper: ReactWrapper; 
+  let wrapper: ShallowWrapper; 
+  // TEST default Form Holder state //
   describe("Default Form Holder state",  () => {
 
     beforeAll(() => {
       window.scrollTo = jest.fn();
-      wrapper = mount(
-        <Router>
-          <BonusVideoFormHolder />
-        </Router>
+      wrapper = shallow(
+        <BonusVideoFormHolder />
       );
     });
 
@@ -39,58 +39,66 @@ describe("BonusVideoFormHolder Component tests", () => {
       const toggleButton = wrapper.find(Button);
       expect(toggleButton.length).toEqual(1);
     });
-
+    it("Should not render'#bonusVideoFormDetails' for non-existing BonusVideo data", () => {
+      expect(wrapper.find(".bonusVideoFormHolderYouTubeUrl").length).toEqual(0);
+      expect(wrapper.find(".bonusVideoFormHolderVimeoUrl").length).toEqual(0);
+      expect(wrapper.find(".bonusVideoFormHolderDescription").length).toEqual(0);
+      expect(wrapper.find(".bonusVideoFormHolderTimestamps").length).toEqual(0);
+    });
+    it("Should not render 'BonusVideoPreview' Component", () => {
+      expect(wrapper.find(BonusVideoPreview).length).toEqual(0);
+    });
   });
-  // TEST Form Holder state OPEN - NO Current BonusVideo Data //
-  describe("Form Holder state OPEN - NO Current BonusVideo Data",  () => {
-    let wrapper: ReactWrapper;
-
+  // END default Form Holder State tests //
+  // TEST default Form Holder state - Form OPEN - NO BonusVideo data//
+  describe("Default Form Holder state - Form Open",  () => {
+    let wrapper: ShallowWrapper;
     beforeAll(() => {
       window.scrollTo = jest.fn();
-      wrapper = mount(
-        <Router>
-          <StateProvider>
-            <BonusVideoFormHolder />
-          </StateProvider>
-        </Router>
+      wrapper = shallow(
+        <BonusVideoFormHolder />
       );
+      wrapper.find(Button).simulate("click");
     });
-    it("Should have a Form toggle Button", () => {
-      const toggleButton = wrapper.render().find('#productFormToggleBtn');
-      expect(toggleButton.length).toEqual(1);
-    });
-    it("Should Properly Mount Form Holder, respond to '#productToggleBtn' click", () => {
-      const toggleButton = wrapper.find("#productFormToggleBtn");
-      toggleButton.at(0).simulate("click")
-      // open button clicked //
-      //wrapper.update()
+
+    it("Should Properly Mount Form Holder", () => {
       expect(wrapper).toMatchSnapshot();
     });
-  
-    it("Should have a Form Create Button", () => {
-      const toggleButton = wrapper.render().find('#adminBonusVideoFormCreate');
-      expect(toggleButton.length).toEqual(1);
-    });
-    it("Should have the Form rendered after toggle button", () => {
+    it("Form Should be open", () => {
       const form = wrapper.find(BonusVideoForm);
       expect(form.length).toEqual(1);
     });
-    
+    it("Should have a Form toggle Button", () => {
+      const toggleButton = wrapper.find(Button);
+      expect(toggleButton.length).toEqual(1);
+    });
+    it("Should not render'#bonusVideoFormDetails' for non-existing BonusVideo data", () => {
+      expect(wrapper.find(".bonusVideoFormHolderYouTubeUrl").length).toEqual(0);
+      expect(wrapper.find(".bonusVideoFormHolderVimeoUrl").length).toEqual(0);
+      expect(wrapper.find(".bonusVideoFormHolderDescription").length).toEqual(0);
+      expect(wrapper.find(".bonusVideoFormHolderTimestamps").length).toEqual(0);
+    });
+    it("Should not render 'BonusVideoPreview' Component", () => {
+      expect(wrapper.find(BonusVideoPreview).length).toEqual(0);
+    });
+    it("Should render a 'BonusVide0Form' Component", () => {
+      expect(wrapper.find(BonusVideoForm).length).toEqual(1);
+    });
   });
-  // END Form Holder state OPEN - NO Current BonusVideo Data //
-  // TEST Form Holder state OPEN - WITH Current BonusVideo Data - NO IMAGES //
-  describe("Form Holder state OPEN - WITH Current BonusVideo Data - NO IMAGES",  () => {
-    let wrapper: ReactWrapper; let state: IGlobalAppState;
+  // END default FormHolder state - Form OPEN - NO BonusVideo DATA //
+
+  
+  // TEST Form Holder state OPEN - WITH Current BonusVideo Data //
+  describe("Form Holder state OPEN - WITH Current BonusVideo Data",  () => {
+    let wrapper: ShallowWrapper; let state: IGlobalAppState;
 
     beforeAll(() => {
       window.scrollTo = jest.fn();
       state = setMockBonusVideoState({ currentBonusVideo: true });
-      wrapper = mount(
-        <Router>
-          <TestStateProvider mockState={state}>
-            <BonusVideoFormHolder />
-          </TestStateProvider>
-        </Router>
+      wrapper = shallow(
+        <TestStateProvider mockState={state}>
+          <BonusVideoFormHolder />
+        </TestStateProvider>
       );
       wrapper.update()
     });
@@ -101,11 +109,18 @@ describe("BonusVideoFormHolder Component tests", () => {
     it("Should have a Form toggle Button", () => {
       const toggleButton = wrapper.render().find('#productFormToggleBtn');
       expect(toggleButton.length).toEqual(1);
-    });
+    });/*
     it("Should have the Form rendered", () => {
       const form = wrapper.find(BonusVideoForm);
       expect(form.length).toEqual(1);
     });
+    */
+   it("Should render'#bonusVideoFormDetails'", () => {
+    expect(wrapper.find(".bonusVideoFormHolderYouTubeUrl").length).toEqual(0);
+    expect(wrapper.find(".bonusVideoFormHolderVimeoUrl").length).toEqual(0);
+    expect(wrapper.find(".bonusVideoFormHolderDescription").length).toEqual(0);
+    expect(wrapper.find(".bonusVideoFormHolderTimestamps").length).toEqual(0);
+  });
     it("Should have a Form Update Button", () => {
       const toggleButton = wrapper.render().find('#adminBonusVideoFormUpdate');
       expect(toggleButton.length).toEqual(1);
@@ -125,51 +140,7 @@ describe("BonusVideoFormHolder Component tests", () => {
   });
   // END Form Holder state OPEN - WITH Current BonusVideo Data - NO IMAGES //
   // TEST Form Holder state OPEN - WITH Current BonusVideo Data - WITH IMAGES //
-  describe("Form Holder state OPEN - WITH Current BonusVideo Data - WITH IMAGES",  () => {
-    let state: IGlobalAppState; let wrapper: ReactWrapper;
-
-    beforeAll(() => {
-      window.scrollTo = jest.fn();
-      state = setMockBonusVideoState({ currentBonusVideo: true, productImages: 3 });
-      wrapper = mount(
-        <Router>
-          <TestStateProvider mockState={state}>
-            <BonusVideoFormHolder />
-          </TestStateProvider>
-        </Router>
-      );
-    });
-
-    it("Should Properly Mount Form Holder", () => {
-      expect(wrapper.find("#productFormHolder").length).toEqual(1);
-    });
-    it("Should have a Form toggle Button", () => {
-      const toggleButton = wrapper.render().find('#productFormToggleBtn');
-      expect(toggleButton.length).toEqual(1);
-    });
-    it("Should have the Form rendered", () => {
-      const form = wrapper.find(BonusVideoForm);
-      expect(form.length).toEqual(1);
-    });
-    it("Should have a Form Update Button", () => {
-      const toggleButton = wrapper.render().find('#adminBonusVideoFormUpdate');
-      expect(toggleButton.length).toEqual(1);
-    });
-    it("Should have the Image Preview rendered", () => {
-      const imgPreviewHolder = wrapper.find(BonusVideoImgPreviewHolder);
-      expect(imgPreviewHolder.length).toEqual(1);
-    });
-    it("Should render a correct number of preview images", () => {
-      const previewThumb = wrapper.find(BonusVideoImgPreviewThumb);
-      const numberOfImages = state.productState.currentBonusVideoData.images.length;
-      expect(previewThumb.length).toEqual(numberOfImages);
-    })
-    it("Should have the Image Upload Form rendered", () => {
-      const imgUploadForm = wrapper.find(BonusVideoImageUplForm);
-      expect(imgUploadForm.length).toEqual(1);
-    });
-  });
-  // END Form Holder state OPEN - WITH Current BonusVideo Data - WITH IMAGES //
+  
   // TEST Form Holder state OPEN - MOCK Submit action //
   describe("Form Holder state OPEN - MOCK Submit action",  () => {
     let state: IGlobalAppState; let wrapper: ReactWrapper;
