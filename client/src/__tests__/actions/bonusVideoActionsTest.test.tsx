@@ -4,13 +4,11 @@ import faker from "faker";
 import { expect } from "chai";
 import { shallow, ShallowWrapper } from "enzyme";
 import moxios from "moxios";
-// component dependencies //
-import BonusVideoView from "../../components/admin_components/bonus_videos/BonusVideosView";
+import { AxiosRequestConfig } from "axios";
 // state and React.context dependenies //
-import { IGlobalAppState, IGlobalAppContext } from "../../state/Store";
-import { StateProvider } from "../../state/Store";
+import { IGlobalAppState, IGlobalAppContext, TestStateProvider } from "../../state/Store";
 // actions to test //
-import { setCurrentBonusVideo, clearCurrentBonusVideo } from "../../components/admin_components/bonus_videos/actions/UIBonusVideoActions";
+import { setCurrentBonusVideo, clearCurrentBonusVideo, openBonusVideoForm, closeBonusVideoForm } from "../../components/admin_components/bonus_videos/actions/UIBonusVideoActions";
 import { getAllBonusVideos, getBonusVideo, createBonusVideo, 
   editBonusVideo, deleteBonusVideo, 
 } from "../../components/admin_components/bonus_videos/actions/APIBonusVideoActions";
@@ -18,16 +16,13 @@ import { getAllBonusVideos, getBonusVideo, createBonusVideo,
 import { emptyBonusVideoData } from "../../state/reducers/bonusVideoReducer";
 import { createMockBonusVideos, clearBonusVideoState } from "../../test_helpers/bonusVideoHelpers"
 import { ClientBonusVideoData } from "../../components/admin_components/bonus_videos/type_definitions/bonusVideoTypes"
-import { AxiosRequestConfig } from "axios";
+import { generateCleanState } from "../../test_helpers/miscHelpers";
 
 
 
 type WrapperProps = {
   value: IGlobalAppContext;
 }
-
-
-
 const getContextFromWrapper = (wrapper: ShallowWrapper): IGlobalAppContext => {
   const props = wrapper.props() as WrapperProps;
   const globalAppContext = props.value;
@@ -35,77 +30,118 @@ const getContextFromWrapper = (wrapper: ShallowWrapper): IGlobalAppContext => {
 }
 
 describe("BonusVideo Actions Tests", () => {
-  let wrapper: ShallowWrapper;
+  // TEST Actions without API requests //
+  describe("Non API Actions Tests", () => {
+    let wrapper: ShallowWrapper;
+    let state: IGlobalAppState; let dispatch: React.Dispatch<BonusVideoAction>;
 
-  beforeAll(() => {
-    wrapper = shallow(
-    <StateProvider>
-      <BonusVideoView></BonusVideoView>
-    </StateProvider>
-    );
+    beforeAll(() => {
+      let testState = generateCleanState();
+      testState.bonusVideoState.loadedBonusVideos = [ ...createMockBonusVideos(5) ];
+      wrapper = shallow(
+        <TestStateProvider mockState={testState} />
+      );
+    });
+
+    describe("Action: 'SET_CURRENT_BONUS_VIDEO", () => {
+
+      beforeAll(() => {
+        ({ dispatch, state } = getContextFromWrapper(wrapper));
+      });
+
+      it("Should properly dispatch the action and set new state", () => {
+        // expected state after action //
+        const expectedState: IGlobalAppState = { ...state, bonusVideoState: { ...state.bonusVideoState } };
+        expectedState.bonusVideoState.currentBonusVideoData = { ...state.bonusVideoState.loadedBonusVideos[0] };
+        // fire off the action //
+        const bonusVideoId = state.bonusVideoState.loadedBonusVideos[0]._id;
+        setCurrentBonusVideo(bonusVideoId, dispatch, state);
+        // get new state //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState).to.eql(expectedState);
+      });
+      it("Should NOT have an error", () => {
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState.bonusVideoState.error).to.eq(null);
+      });
+    });
+
+    describe("Action: 'CLEAR_CURRENT_BONUS_VIDEO'", () => {
+
+      beforeAll(() => {
+        ({ dispatch, state } = getContextFromWrapper(wrapper));
+      });
+
+      it("Should properly dispatch the action and set the new state", () => {
+        // expected state after the action //
+        const expectedState: IGlobalAppState = { ...state, bonusVideoState: { ...state.bonusVideoState, currentBonusVideoData: emptyBonusVideoData() } };
+        // fire off the action //
+        clearCurrentBonusVideo(dispatch);
+        // get new state //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState).to.eql(expectedState);
+      });
+      it("Should NOT have an Error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.storeState.error).to.eql(null);
+      });
+    });
+
+    describe("Action: 'OPEN_BONUS_VIDEO_FORM'", () => {
+      beforeAll(() => {
+        ({ dispatch, state } = getContextFromWrapper(wrapper));
+      });
+      it("Should properly dispatch the action and set new state", () => {
+        // expected state after the action //
+        const expectedState: IGlobalAppState = { ...state, bonusVideoState: { ...state.bonusVideoState, bonusVideoFormOpen: true } };
+        // fire off the action //
+        openBonusVideoForm(dispatch);
+        // get new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState).to.eql(expectedState);
+      });
+      it("Should NOT have an Error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.storeState.error).to.eql(null);
+      });
+    });
+
+    describe("Action: 'CLOSE_BONUS_VIDEO_FORM'", () => {
+
+      beforeAll(() => {
+        ({ dispatch, state } = getContextFromWrapper(wrapper));
+      });
+
+      it("Should properly dispatch the action and set the new state", () => {
+        // expected state after the action //
+        const expectedState: IGlobalAppState = { ...state, bonusVideoState: { ...state.bonusVideoState, bonusVideoFormOpen: false } };
+        // fire off the action //
+        closeBonusVideoForm(dispatch);
+        // get new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState).to.eql(expectedState);
+      });
+      it("Should NOT have an Error", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        expect(state.storeState.error).to.eql(null);
+      });
+    });
   });
-
+  // END TEST actions without API requests //
+  // TEST actions with API requests - NO Error returned //
   describe("Mock requests with no errors", () => {
-    
+    let wrapper: ShallowWrapper;
+
+    beforeAll(() => {
+      wrapper = shallow(
+        <TestStateProvider />
+      )
+    })
     beforeEach(() => {
       moxios.install();
     });
     afterEach(() => {
       moxios.uninstall();
-    });
-
-    describe("Action: 'SET_CURRENT_BONUS_VIDEO'", () => {
-      let mockBonusVideos: IBonusVideoData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<BonusVideoAction>;
-      
-      beforeAll(() => {
-        mockBonusVideos = createMockBonusVideos(10);
-      ({ state, dispatch } = getContextFromWrapper(wrapper));
-      state.bonusVideoState.error = null;
-      });
-
-      it("Should properly dispatch the action", () => {
-        state.bonusVideoState.loadedBonusVideos = [ ...mockBonusVideos ];
-        const bonusVideo = state.bonusVideoState.loadedBonusVideos[0];
-        setCurrentBonusVideo(bonusVideo._id, dispatch, state);
-      });
-      it('Should return the correct new state', () => {
-        // expected state after action //
-        const expectedBonusVideoState = { ...state.bonusVideoState };
-        expectedBonusVideoState.currentBonusVideoData = mockBonusVideos[0];
-        // retrieve new state //
-        const { state : newState } = getContextFromWrapper(wrapper);
-        expect(newState.bonusVideoState).to.eql(expectedBonusVideoState);
-      });
-      it("Should NOT have an error", () => {
-        const { state } = getContextFromWrapper(wrapper);
-        expect(state.bonusVideoState.error).to.equal(null);
-      });
-    });
-
-    describe("Action: 'CLEAR_CURRENT_BONUS_VIDEO'", () => {
-      let mockBonusVideos: IBonusVideoData[]; let state: IGlobalAppState; let dispatch: React.Dispatch<BonusVideoAction>;
-      
-      beforeAll(() => {
-        mockBonusVideos = createMockBonusVideos(10);
-        ({ state, dispatch } = getContextFromWrapper(wrapper));
-        state.bonusVideoState.currentBonusVideoData = mockBonusVideos[0];
-      });
-
-      it("Should properly dispatch the action", () => {
-        clearCurrentBonusVideo(dispatch);
-      });
-      it("Should return the correct new state", () => {
-        // expected state after action //
-        const expectedBonusVideoState = { ...state.bonusVideoState };
-        expectedBonusVideoState.currentBonusVideoData = emptyBonusVideoData();
-        // retrieve new state and compare //
-        const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.bonusVideoState).to.eql(expectedBonusVideoState);
-      });
-      it("Should NOT have an error", () => {
-        const { state } = getContextFromWrapper(wrapper);
-        expect(state.bonusVideoState.error).to.equal(null);
-      });
     });
 
     describe("Action: 'GET_ALL_BONUS_VIDEOS'", () => {
@@ -144,19 +180,19 @@ describe("BonusVideo Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedBonusVideoState = { ...state.bonusVideoState };
-        expectedBonusVideoState.responseMsg = "All Ok";
-        expectedBonusVideoState.loadedBonusVideos = mockBonusVideos;
+        const expectedState: IGlobalAppState = { ...state, bonusVideoState: { ...state.bonusVideoState } };
+        expectedState.bonusVideoState.responseMsg = "All Ok";
+        expectedState.bonusVideoState.loadedBonusVideos = mockBonusVideos;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.bonusVideoState).to.eql(expectedBonusVideoState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
         expect(state.bonusVideoState.error).to.equal(null);
       });
     });
-
+    
     describe("Action: 'GET_BONUS_VIDEO'", () => {
       let mockBonusVideo: IBonusVideoData; let state: IGlobalAppState; let dispatch: React.Dispatch<BonusVideoAction>;
       let requestConfig: AxiosRequestConfig;
@@ -193,12 +229,12 @@ describe("BonusVideo Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedBonusVideoState = { ...state.bonusVideoState };
-        expectedBonusVideoState.responseMsg = "All Ok";
-        expectedBonusVideoState.currentBonusVideoData = mockBonusVideo;
+        const expectedState: IGlobalAppState = { ...state, bonusVideoState: { ...state.bonusVideoState } };
+        expectedState.bonusVideoState.responseMsg = "All Ok";
+        expectedState.bonusVideoState.currentBonusVideoData = mockBonusVideo;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.bonusVideoState).to.eql(expectedBonusVideoState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -253,13 +289,13 @@ describe("BonusVideo Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedBonusVideoState = { ...state.bonusVideoState };
-        expectedBonusVideoState.responseMsg = "All Ok";
-        expectedBonusVideoState.currentBonusVideoData = createdBonusVideo;
-        expectedBonusVideoState.loadedBonusVideos = [ ...expectedBonusVideoState.loadedBonusVideos, createdBonusVideo ]
+        const expectedState: IGlobalAppState = { ...state, bonusVideoState: { ...state.bonusVideoState } };
+        expectedState.bonusVideoState.responseMsg = "All Ok";
+        expectedState.bonusVideoState.currentBonusVideoData = createdBonusVideo;
+        expectedState.bonusVideoState.loadedBonusVideos = [ ...state.bonusVideoState.loadedBonusVideos, createdBonusVideo ]
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.bonusVideoState).to.eql(expectedBonusVideoState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -316,10 +352,10 @@ describe("BonusVideo Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedBonusVideoState = { ...state.bonusVideoState };
-        expectedBonusVideoState.responseMsg = "All Ok";
-        expectedBonusVideoState.currentBonusVideoData = editedBonusVideo;
-        expectedBonusVideoState.loadedBonusVideos = expectedBonusVideoState.loadedBonusVideos.map((bonusVideo) => {
+        const expectedState: IGlobalAppState = { ...state, bonusVideoState: { ...state.bonusVideoState } };
+        expectedState.bonusVideoState.responseMsg = "All Ok";
+        expectedState.bonusVideoState.currentBonusVideoData = editedBonusVideo;
+        expectedState.bonusVideoState.loadedBonusVideos = expectedState.bonusVideoState.loadedBonusVideos.map((bonusVideo) => {
           if (bonusVideo._id === editedBonusVideo._id) {
             return editedBonusVideo;
           } else {
@@ -328,7 +364,7 @@ describe("BonusVideo Actions Tests", () => {
         })
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.bonusVideoState).to.eql(expectedBonusVideoState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -372,13 +408,13 @@ describe("BonusVideo Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedBonusVideoState = { ...state.bonusVideoState };
-        expectedBonusVideoState.responseMsg = "All Ok";
-        expectedBonusVideoState.currentBonusVideoData = emptyBonusVideoData();
-        expectedBonusVideoState.loadedBonusVideos = state.bonusVideoState.loadedBonusVideos.filter((bonusVideo) => bonusVideo._id !== deletedBonusVideo._id);
+        const expectedState: IGlobalAppState = { ...state, bonusVideoState: { ...state.bonusVideoState } };
+        expectedState.bonusVideoState.responseMsg = "All Ok";
+        expectedState.bonusVideoState.currentBonusVideoData = emptyBonusVideoData();
+        expectedState.bonusVideoState.loadedBonusVideos = state.bonusVideoState.loadedBonusVideos.filter((bonusVideo) => bonusVideo._id !== deletedBonusVideo._id);
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.bonusVideoState).to.eql(expectedBonusVideoState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should NOT have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -386,10 +422,18 @@ describe("BonusVideo Actions Tests", () => {
       });
     });
   });
-
+  // END TEST Actions with API requests - no Error returned //
+  // TEST Actions with API requests - API Error returned //
   describe("Mock request with API error returned", () => {
     let state: IGlobalAppState; let dispatch: React.Dispatch<BonusVideoAction>;
+    let wrapper: ShallowWrapper;
+    const error = new Error("Error occured")
 
+    beforeAll(() => {
+      wrapper = shallow(
+        <TestStateProvider />
+      )
+    });
     beforeEach(() => {
       moxios.install();
       clearBonusVideoState(state);
@@ -399,7 +443,6 @@ describe("BonusVideo Actions Tests", () => {
     });
 
     describe("Action: 'GET_ALL_BONUS_VIDEOS'", () => {
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -420,12 +463,12 @@ describe("BonusVideo Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedBonusVideoState = { ...state.bonusVideoState };
-        expectedBonusVideoState.responseMsg = error.message;
-        expectedBonusVideoState.error = error;
+        const expectedState: IGlobalAppState = { ...state, bonusVideoState: { ...state.bonusVideoState } };
+        expectedState.bonusVideoState.responseMsg = error.message;
+        expectedState.bonusVideoState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.bonusVideoState).to.eql(expectedBonusVideoState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -435,7 +478,6 @@ describe("BonusVideo Actions Tests", () => {
 
     describe("Action: 'GET_BONUS_VIDEO'", () => {
       let bonusVideo: IBonusVideoData;
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -457,12 +499,12 @@ describe("BonusVideo Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedBonusVideoState = { ...state.bonusVideoState };
-        expectedBonusVideoState.responseMsg = error.message;
-        expectedBonusVideoState.error = error;
+        const expectedState: IGlobalAppState= { ...state, bonusVideoState: { ...state.bonusVideoState } };
+        expectedState.bonusVideoState.responseMsg = error.message;
+        expectedState.bonusVideoState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.bonusVideoState).to.eql(expectedBonusVideoState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -472,7 +514,6 @@ describe("BonusVideo Actions Tests", () => {
 
     describe("Action: 'CREATE_BONUS_VIDEO'", () => {
       let bonusVideo: IBonusVideoData;
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -494,12 +535,12 @@ describe("BonusVideo Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedBonusVideoState = { ...state.bonusVideoState };
-        expectedBonusVideoState.responseMsg = error.message;
-        expectedBonusVideoState.error = error;
+        const expectedState: IGlobalAppState = { ...state, bonusVideoState: { ...state.bonusVideoState } };
+        expectedState.bonusVideoState.responseMsg = error.message;
+        expectedState.bonusVideoState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.bonusVideoState).to.eql(expectedBonusVideoState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -509,7 +550,6 @@ describe("BonusVideo Actions Tests", () => {
 
     describe("Action: 'EDIT_BONUS_VIDEO'", () => {
       let bonusVideo: IBonusVideoData;
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -531,12 +571,12 @@ describe("BonusVideo Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedBonusVideoState = { ...state.bonusVideoState };
-        expectedBonusVideoState.responseMsg = error.message;
-        expectedBonusVideoState.error = error;
+        const expectedState: IGlobalAppState = { ...state, bonusVideoState: { ...state.bonusVideoState } };
+        expectedState.bonusVideoState.responseMsg = error.message;
+        expectedState.bonusVideoState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.bonusVideoState).to.eql(expectedBonusVideoState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -546,7 +586,6 @@ describe("BonusVideo Actions Tests", () => {
 
     describe("Action: 'DELETE_BONUS_VIDEO'", () => {
       let bonusVideo: IBonusVideoData;
-      const error = new Error("Error occured")
 
       beforeAll(() => {
         ({ state, dispatch } = getContextFromWrapper(wrapper));
@@ -568,12 +607,12 @@ describe("BonusVideo Actions Tests", () => {
       });
       it("Should return the correct new state", () => {
         // expected state after action //
-        const expectedBonusVideoState = { ...state.bonusVideoState };
-        expectedBonusVideoState.responseMsg = error.message;
-        expectedBonusVideoState.error = error;
+        const expectedState: IGlobalAppState = { ...state, bonusVideoState: { ...state.bonusVideoState } };
+        expectedState.bonusVideoState.responseMsg = error.message;
+        expectedState.bonusVideoState.error = error;
         // retrieve new state and compare //
         const { state: newState } = getContextFromWrapper(wrapper);
-        expect(newState.bonusVideoState).to.eql(expectedBonusVideoState);
+        expect(newState).to.eql(expectedState);
       });
       it("Should have an error", () => {
         const { state } = getContextFromWrapper(wrapper);
@@ -581,4 +620,5 @@ describe("BonusVideo Actions Tests", () => {
       });
     });
   });
+  // END TEST Actions with API requests - API Erorr returned //
 });
