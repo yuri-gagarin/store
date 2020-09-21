@@ -12,3 +12,12 @@ export const setCurrentBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoA
 export const clearCurrentBonusVideo = (dispatch: Dispatch<BonusVideoAction>): void => {
   dispatch({ type: "CLEAR_CURRENT_BONUS_VIDEO", payload: null });
 };
+
+export const openBonusVideoForm = (dispatch: Dispatch<BonusVideoAction>): void => {
+  dispatch({ type: "OPEN_BONUS_VIDEO_FORM", payload: { bonusVideoFormOpen: true } });
+};
+export const closeBonusVideoForm = (dispatch: Dispatch<BonusVideoAction>): void => {
+  dispatch({ type: "CLEAR_CURRENT_BONUS_VIDEO", payload: null });
+  dispatch({ type: "CLOSE_BONUS_VIDEO_FORM", payload: { bonusVideoFormOpen: false } });
+};
+

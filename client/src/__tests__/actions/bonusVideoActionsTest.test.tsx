@@ -149,7 +149,7 @@ describe("BonusVideo Actions Tests", () => {
       let requestConfig: AxiosRequestConfig;
 
       beforeAll(() => {
-        mockBonusVideos = createMockBonusVideos(10);
+        mockBonusVideos = createMockBonusVideos(2);
         ({ state, dispatch } = getContextFromWrapper(wrapper));
       });
 

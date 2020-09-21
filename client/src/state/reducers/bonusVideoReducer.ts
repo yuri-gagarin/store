@@ -14,6 +14,7 @@ export const initialBonusVideoState: IBonusVideoState = {
   responseMsg: "",
   currentBonusVideoData: emptyBonusVideoData(),
   loadedBonusVideos: [],
+  bonusVideoFormOpen: false,
   error: null
 };
 
@@ -34,6 +35,16 @@ const serviceReducer = (state: IBonusVideoState = initialBonusVideoState, action
         responseMsg: action.payload.responseMsg,
         currentBonusVideoData: { ...action.payload.currentBonusVideoData },
         error: action.payload.error
+      };
+    case "OPEN_BONUS_VIDEO_FORM":
+      return {
+        ...state,
+        bonusVideoFormOpen: action.payload.bonusVideoFormOpen
+      };
+    case "CLOSE_BONUS_VIDEO_FORM": 
+      return {
+        ...state,
+        bonusVideoFormOpen: action.payload.bonusVideoFormOpen
       };
     case "SET_CURRENT_BONUS_VIDEO": 
       return {

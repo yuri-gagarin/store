@@ -32,6 +32,7 @@ export const clearBonusVideoState = (globalState: IGlobalAppState): void => {
     loading: false,
     currentBonusVideoData: emptyBonusVideoData(),
     loadedBonusVideos: [],
+    bonusVideoFormOpen: false,
     error: null
   };
 };
@@ -42,6 +43,7 @@ export const resetBonusVideoState = (): IBonusVideoState => {
     loading: false,
     currentBonusVideoData: emptyBonusVideoData(),
     loadedBonusVideos: [],
+    bonusVideoFormOpen: false,
     error: null
   };
 };
