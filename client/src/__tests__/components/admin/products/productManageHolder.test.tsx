@@ -1,17 +1,18 @@
 import React from "react";
 import { Grid } from "semantic-ui-react";
-import { mount, ReactWrapper } from "enzyme";
+// test dependencies //
 import moxios from "moxios";
+import { mount, ReactWrapper } from "enzyme";
+import { act } from "react-dom/test-utils";
+// routing //
 import { MemoryRouter as Router } from "react-router-dom";
 // components //
-import ProductManageHolder from "../../../../components/admin_components/products/product_manage/ProductsManageHolder";
+import ProductsManageHolder from "../../../../components/admin_components/products/product_manage/ProductsManageHolder";
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
-import ErrorComponent from "../../../../components/admin_components/miscelaneous/ErrorScreen";
-import { act } from "react-dom/test-utils";
-import { createMockProducts } from "../../../../test_helpers/productHelpers";
-import { StateProvider } from "../../../../state/Store";
 import ProductCard from "../../../../components/admin_components/products/product_manage/ProductCard";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
+// helpers and state //
+import { TestStateProvider } from "../../../../state/Store";
 
 describe("Product Manage Holder Tests", () => {
   
@@ -22,9 +23,9 @@ describe("Product Manage Holder Tests", () => {
         moxios.install();
         component = mount(
           <Router keyLength={0} initialEntries={["/admin/home/my_products/manage"]}>
-            <StateProvider>
-              <ProductManageHolder />
-            </StateProvider>
+            <TestStateProvider>
+              <ProductsManageHolder />
+            </TestStateProvider>
           </Router>
         );
 
@@ -44,7 +45,7 @@ describe("Product Manage Holder Tests", () => {
       }); 
       
       it("Should correctly render", () => {
-        const manageHolder = component.find(ProductManageHolder);
+        const manageHolder = component.find(ProductsManageHolder);
         expect(manageHolder).toMatchSnapshot();
       });
       
@@ -74,9 +75,9 @@ describe("Product Manage Holder Tests", () => {
 
         component = mount(
           <Router keyLength={0} initialEntries={["/admin/home/my_products/manage"]}>
-            <StateProvider>
-              <ProductManageHolder />
-            </StateProvider>
+            <TestStateProvider>
+              <ProductsManageHolder />
+            </TestStateProvider>
           </Router>
         );
         
@@ -110,7 +111,7 @@ describe("Product Manage Holder Tests", () => {
       });
   
       it("Should render the correct ProductManageHolder Component", () => {
-        const productManageHolderComp = component.find(ProductManageHolder).find(Grid);
+        const productManageHolderComp = component.find(ProductsManageHolder).find(Grid);
         expect(productManageHolderComp.length).toEqual(1);
         expect(productManageHolderComp).toMatchSnapshot();
       });
@@ -131,9 +132,9 @@ describe("Product Manage Holder Tests", () => {
           moxios.install();
           component = await mount(
             <Router keyLength={0} initialEntries={["/admin/home/my_products/manage"]}>
-              <StateProvider>
-                <ProductManageHolder />
-              </StateProvider>
+              <TestStateProvider>
+                <ProductsManageHolder />
+              </TestStateProvider>
             </Router>
           );
           moxios.stubRequest("/api/products", {
@@ -163,7 +164,7 @@ describe("Product Manage Holder Tests", () => {
       });
       
       it("Should NOT render the ProductManageHolder Component", () => {
-        const productManageHolderComp = component.find(ProductManageHolder).find(Grid);
+        const productManageHolderComp = component.find(ProductsManageHolder).find(Grid);
         expect(productManageHolderComp.length).toEqual(0);
       });
     
@@ -203,7 +204,7 @@ describe("Product Manage Holder Tests", () => {
         });
         component.update()
         const errorScreen = component.find(ErrorScreen);
-        const productManageHolderComp = component.find(ProductManageHolder).find(Grid);
+        const productManageHolderComp = component.find(ProductsManageHolder).find(Grid);
         expect(errorScreen.length).toEqual(0);
         expect(productManageHolderComp.length).toEqual(1);
       });
