@@ -1,13 +1,13 @@
 import React from "react"
 // testing utils
-import { mount, ReactWrapper, ShallowWrapper } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 // component imports //
 import BonusVideoFormHolder from "../../../../components/admin_components/bonus_videos/forms/BonusVideosFormHolder";
 import BonusVideoForm from "../../../../components/admin_components/bonus_videos/forms/BonusVideoForm";
 import BonusVideoPreview from "../../../../components/admin_components/bonus_videos/bonus_videos_preview/BonusVideoPreview";
 import LoadingBar from "../../../../components/admin_components/miscelaneous/LoadingBar";
 // state React.Context //
-import { IGlobalAppState, TestStateProvider, IGlobalAppContext } from "../../../../state/Store";
+import { IGlobalAppState, TestStateProvider } from "../../../../state/Store";
 // helpers //
 import { setMockBonusVideoState } from "../../../../test_helpers/bonusVideoHelpers";
 

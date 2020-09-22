@@ -167,11 +167,11 @@ describe("BonusVideo Actions Tests", () => {
         });
         // mock action with moxios //
         getAllBonusVideos(dispatch)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
-          .catch((error) => {
-            done(error);
+          .catch((err) => {
+            done(err);
           });
       });
       it("Should send the correct API request", () => {
@@ -216,8 +216,8 @@ describe("BonusVideo Actions Tests", () => {
         });
         // mock action with moxios //
         getBonusVideo(mockBonusVideo._id, dispatch)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -269,8 +269,8 @@ describe("BonusVideo Actions Tests", () => {
         };
         // mock action with moxios //
         createBonusVideo(newBonusVideo, dispatch)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -332,8 +332,8 @@ describe("BonusVideo Actions Tests", () => {
         };
         // mock action with moxios //
         editBonusVideo(editedBonusVideo._id, bonusVideoUpdate, dispatch, state)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -395,8 +395,8 @@ describe("BonusVideo Actions Tests", () => {
         });
         // mock action with moxios //
         deleteBonusVideo(deletedBonusVideo._id, dispatch, state)
-          .then((success) => {
-            if (success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -454,8 +454,8 @@ describe("BonusVideo Actions Tests", () => {
           request.reject(error)
         });
         getAllBonusVideos(dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -490,8 +490,8 @@ describe("BonusVideo Actions Tests", () => {
           request.reject(error)
         });
         getBonusVideo(bonusVideo._id, dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -526,8 +526,8 @@ describe("BonusVideo Actions Tests", () => {
           request.reject(error)
         });
         createBonusVideo(bonusVideo, dispatch)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -562,8 +562,8 @@ describe("BonusVideo Actions Tests", () => {
           request.reject(error)
         });
         editBonusVideo(bonusVideo._id, bonusVideo, dispatch, state)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
@@ -598,8 +598,8 @@ describe("BonusVideo Actions Tests", () => {
           request.reject(error)
         });
         deleteBonusVideo(bonusVideo._id, dispatch, state)
-          .then((success) => {
-            if (!success) done();
+          .then((_) => {
+            done();
           })
           .catch((error) => {
             done(error);
