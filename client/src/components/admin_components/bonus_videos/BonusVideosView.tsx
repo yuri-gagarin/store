@@ -23,7 +23,7 @@ const BonusVideosGeneralView: React.FC<{}> = (props): JSX.Element => {
         </Route>
         <Route path="/admin/home/my_videos/create">
           <Spacer width="100%" height="100px"/>
-          <BonusVideosFormHolder state={state} dispatch={dispatch} />
+          <BonusVideosFormHolder />
         </Route>
         <Route path="/admin/home/my_videos/manage">
           <Spacer width="100%" height="100px" />

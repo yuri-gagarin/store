@@ -17,10 +17,9 @@ import { checkSetValues } from "../../../helpers/validationHelpers";
 import { BonusVideoData, FormState } from "../type_definitions/bonusVideoTypes"
 import { RouteComponentProps } from "react-router-dom";
 
-interface Props extends RouteComponentProps {
-}
+interface Props { }
 
-const BonusVideoFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
+const BonusVideoFormHolder: React.FC<Props> = ({ }): JSX.Element => {
   const { state, dispatch} = useContext(Store);
   // data for component //
   const { currentBonusVideoData, bonusVideoFormOpen } = state.bonusVideoState;
