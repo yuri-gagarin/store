@@ -4,7 +4,7 @@ import { Dispatch } from "react";
 import { IGlobalAppState } from "../../../../state/Store";
 import { IBonusVideoServerResData, IBonusVideoServerRes, ClientBonusVideoData } from "../type_definitions/bonusVideoTypes";
 
-export const getAllBonusVideos = (dispatch: Dispatch<BonusVideoAction>): Promise<boolean> => {
+export const getAllBonusVideos = (dispatch: Dispatch<BonusVideoAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/bonus_videos"
@@ -19,7 +19,7 @@ export const getAllBonusVideos = (dispatch: Dispatch<BonusVideoAction>): Promise
         loadedBonusVideos: bonusVideos ? bonusVideos : [],
         error: null
       }})
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_BONUS_VIDEO_ERROR", payload: {
@@ -27,11 +27,11 @@ export const getAllBonusVideos = (dispatch: Dispatch<BonusVideoAction>): Promise
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const getBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoAction>): Promise<boolean> => {
+export const getBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/bonus_videos/" + _id,
@@ -46,7 +46,7 @@ export const getBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoAction>)
         currentBonusVideoData: bonusVideo ? bonusVideo : {} as IBonusVideoData,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_BONUS_VIDEO_ERROR", payload: {
@@ -54,11 +54,11 @@ export const getBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoAction>)
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const createBonusVideo = ({ description, youTubeURL, vimeoURL }: ClientBonusVideoData, dispatch: Dispatch<BonusVideoAction>): Promise<boolean> => {
+export const createBonusVideo = ({ description, youTubeURL, vimeoURL }: ClientBonusVideoData, dispatch: Dispatch<BonusVideoAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/bonus_videos/create",
@@ -79,7 +79,7 @@ export const createBonusVideo = ({ description, youTubeURL, vimeoURL }: ClientBo
         newBonusVideo: newBonusVideo,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_BONUS_VIDEO_ERROR", payload: {
@@ -87,11 +87,11 @@ export const createBonusVideo = ({ description, youTubeURL, vimeoURL }: ClientBo
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const editBonusVideo = (_id: string, data: ClientBonusVideoData, dispatch: Dispatch<BonusVideoAction>, state: IGlobalAppState) => {
+export const editBonusVideo = (_id: string, data: ClientBonusVideoData, dispatch: Dispatch<BonusVideoAction>, state: IGlobalAppState): Promise<void> => {
   const { loadedBonusVideos } = state.bonusVideoState;
   const requestOptions: AxiosRequestConfig = {
     method: "patch",
@@ -117,7 +117,7 @@ export const editBonusVideo = (_id: string, data: ClientBonusVideoData, dispatch
         loadedBonusVideos: updatedBonusVideos,
         error: null
       }})
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_BONUS_VIDEO_ERROR", payload: {
@@ -125,10 +125,11 @@ export const editBonusVideo = (_id: string, data: ClientBonusVideoData, dispatch
         responseMsg: error.message,
         error: error
       }});
+      return Promise.reject();
     });
 };
 
-export const deleteBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoAction>, state: IGlobalAppState): Promise<boolean> => {
+export const deleteBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoAction>, state: IGlobalAppState): Promise<void> => {
   const { loadedBonusVideos } = state.bonusVideoState;
   const requestOptions: AxiosRequestConfig = {
     method: "delete",
@@ -148,7 +149,7 @@ export const deleteBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoActio
         loadedBonusVideos: updatedBonusVideos,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_BONUS_VIDEO_ERROR", payload: {
@@ -156,6 +157,6 @@ export const deleteBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoActio
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };

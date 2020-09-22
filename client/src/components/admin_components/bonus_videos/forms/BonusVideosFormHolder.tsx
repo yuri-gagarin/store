@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Grid } from "semantic-ui-react";
 // css imports //
 import "./css/bonusVideoFormHolder.css";
@@ -6,26 +6,31 @@ import "./css/bonusVideoFormHolder.css";
 import BonusVideoForm from "./BonusVideoForm";
 import BonusVideoPreview from "../bonus_videos_preview/BonusVideoPreview";
 // state //
-import { IGlobalAppState, AppAction } from "../../../../state/Store";
-// api actions //
+import { Store } from "../../../../state/Store";
+// api and ui actions //
 import { createBonusVideo, editBonusVideo } from "../actions/APIBonusVideoActions";
+import { closeBonusVideoForm, openBonusVideoForm } from "../actions/UIBonusVideoActions";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
+import { checkSetValues } from "../../../helpers/validationHelpers";
 // type definitions //
 import { BonusVideoData, FormState } from "../type_definitions/bonusVideoTypes"
+import { RouteComponentProps } from "react-router-dom";
 
-interface Props {
-  state: IGlobalAppState;
-  dispatch: React.Dispatch<BonusVideoAction>;
+interface Props extends RouteComponentProps {
 }
 
-const BonusVideoFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
-  const [ formOpen, setFormOpen ] = useState<boolean>(false);
-  const [ newForm, setNewForm ] = useState<boolean>(true);
-
-  const { currentBonusVideoData } = state.bonusVideoState;
+const BonusVideoFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
+  const { state, dispatch} = useContext(Store);
+  // data for component //
+  const { currentBonusVideoData, bonusVideoFormOpen } = state.bonusVideoState;
   const { description, youTubeURL, vimeoURL, createdAt, editedAt } = currentBonusVideoData;
 
+  // form toggle listener //
+  const toggleBonusVidform = () => {
+    bonusVideoFormOpen ? closeBonusVideoForm(dispatch) : openBonusVideoForm(dispatch);
+  }
+  // CREATE - EDIT methods //
   const handleCreateBonusVideo = ({ description, youTubeURL, vimeoURL }: FormState): void => {
     const bonusVideoData: BonusVideoData = {
       description,
@@ -34,11 +39,13 @@ const BonusVideoFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element
     };
 
     createBonusVideo(bonusVideoData, dispatch)
-      .then((success) => {
-       
+      .then((_) => {
+        closeBonusVideoForm(dispatch);
+      })
+      .catch((_) => {
+        // handle error show modal ? //
       });
   };
-
   const handleUpdateBonusVideo = ({ description, youTubeURL, vimeoURL }: FormState): void => {
     const bonusVideoParams: BonusVideoData = {
       description,
@@ -47,33 +54,24 @@ const BonusVideoFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element
     };
 
     editBonusVideo(currentBonusVideoData._id, bonusVideoParams, dispatch, state)
-      .then((success) => {
-        if (success) {
-          setFormOpen(false);
-        }
+      .then((_) => {
+          closeBonusVideoForm(dispatch)
       })
-  }
-
-  const handleFormOpen = () => {
-    setFormOpen(!formOpen);
+      .catch((_) => {
+        // handle an error or show a modal ? //
+      })
   };
-  
+  // lifecycle hooks //
   useEffect(() => {
-    if (!formOpen) {
+    if (!bonusVideoFormOpen) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }, [formOpen])
-  useEffect(() => {
-    if (description || vimeoURL || youTubeURL) {
-      setNewForm(false);
-    }
-  }, [description, vimeoURL, youTubeURL]);
-
-
+  }, [ bonusVideoFormOpen ]);
+  // component render //
   return (
     <div id="bonusVideoFormHolder">
       {
-        !newForm ?
+        checkSetValues<IBonusVideoData>(currentBonusVideoData) ?
           <React.Fragment>
             <Grid.Row id="bonusVideoFormDetails">
               <Grid.Column mobile={16} tablet={14} computer={14}>
@@ -104,9 +102,13 @@ const BonusVideoFormHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element
       }
       <Grid.Row>
         <Grid.Column mobile={16} tablet={15} computer={14}>
-          <Button  id="bonusVideoFormToggleBtn" onClick={handleFormOpen} content={ !formOpen ? "Open Form" : "Close Form"}></Button>
+          <Button  
+            id="bonusVideoFormToggleBtn" 
+            onClick={toggleBonusVidform} 
+            content={ bonusVideoFormOpen ? "Close Form" : "Open Form"}
+          />
           {
-            formOpen ? 
+            bonusVideoFormOpen ? 
             <BonusVideoForm 
               description={description} 
               youTubeURL={youTubeURL}
