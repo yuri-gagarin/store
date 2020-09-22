@@ -16,7 +16,6 @@ import { StateProvider } from "../../../../state/Store";
 import BonusVideosManageHolder from "../../../../components/admin_components/bonus_videos/bonus_video_manage/BonusVideosManageHolder";
 
 describe("BonusVideo Manage Holder Tests", () => {
-  
   describe("Default Component state at first render", () => {
     let component: ReactWrapper; let loadingScreen: ReactWrapper;
 
@@ -24,9 +23,9 @@ describe("BonusVideo Manage Holder Tests", () => {
       moxios.install();
 
       component = mount(
-        <Router key="testKey" initialEntries={["/admin/home/my_bonus_videos/manage"]}>
+        <Router keyLength={0} initialEntries={["/admin/home/my_bonus_videos/manage"]}>
           <StateProvider>
-            <BonusVideoManageHolder key="testKey"/>
+            <BonusVideoManageHolder />
           </StateProvider>
         </Router>
       );
@@ -55,11 +54,11 @@ describe("BonusVideo Manage Holder Tests", () => {
       expect(loadingScreen.length).toEqual(1)
     });
   });
-  /*
+  
   // mock successful API call render tests //
   describe("State after a successful API call", () => {
     let component: ReactWrapper; let loadingScreen: ReactWrapper;
-    let bonusVideos: IBonusVideoData[];
+    const  bonusVideos: IBonusVideoData[] = [];
 
     beforeAll( async () => {
       moxios.install();
@@ -69,10 +68,10 @@ describe("BonusVideo Manage Holder Tests", () => {
         vimeoURL: "url",
         description: "Something",
         createdAt: "1111"
-      }
+      };
       bonusVideos.push(vidData);
       component = mount(
-        <Router>
+        <Router keyLength={0} initialEntries={["/admin/home/my_bonus_videos/manage"]}>
           <StateProvider>
             <BonusVideoManageHolder />
           </StateProvider>
@@ -99,9 +98,7 @@ describe("BonusVideo Manage Holder Tests", () => {
       expect(loadingScreen.length).toEqual(1);
     });
     it("Should not render the initial Loading Screen after the API call", async () => {
-      act( () => {
-        component.update();
-      });
+      component.update();
       loadingScreen = component.find(LoadingScreen);
       expect(loadingScreen.length).toEqual(0);
     });
@@ -119,26 +116,25 @@ describe("BonusVideo Manage Holder Tests", () => {
       expect(bonusVideoCards.length).toEqual(bonusVideos.length);
     });
   });
-  /*
+  
   // END mock successfull API call render tests //
-    // mock ERROR API call render tests //
+  // TEST mock ERROR API call render tests //
+  
   describe("State after a Error in API call", () => {
     let component: ReactWrapper; let loadingScreen: ReactWrapper;
-    let bonusVideos: IBonusVideoData[];
+    const bonusVideos: IBonusVideoData[] = [];
 
     beforeAll(async () => {
+      moxios.install();
+      component = mount(
+        <Router keyLength={0} initialEntries={["/admin/home/my_bonus_videos/manage"]}>
+          <StateProvider>
+            <BonusVideoManageHolder />
+          </StateProvider>
+        </Router>
+      );
       await act(async () => {
-        moxios.install();
-
-        component = await mount(
-          <Router>
-            <StateProvider>
-              <BonusVideoManageHolder />
-            </StateProvider>
-          </Router>
-        );
-
-        moxios.stubRequest("/api/bonus_videos", {
+        await moxios.stubRequest("/api/bonus_videos", {
           status: 500,
           response: {
             responseMsg: "Error here",
@@ -147,10 +143,9 @@ describe("BonusVideo Manage Holder Tests", () => {
         });
       });
 
-      act(() => {
-        moxios.uninstall();
-      });
-
+    });
+    afterAll(() => {
+      moxios.uninstall();
     });
 
     it("Should correctly render the initial Loading Screen", () => {
@@ -158,9 +153,7 @@ describe("BonusVideo Manage Holder Tests", () => {
       expect(loadingScreen.length).toEqual(1);
     });
     it("Should not render the initial Loading Screen after an  API call", () => {
-      act( () => {
-        component.update();
-      });
+      component.update();
       loadingScreen = component.find(LoadingScreen);
       expect(loadingScreen.length).toEqual(0);
     });
@@ -180,12 +173,19 @@ describe("BonusVideo Manage Holder Tests", () => {
       const retryButton = component.find("#errorScreenRetryButton");
       expect(retryButton.length).toEqual(2);
     });
+    
     it("Should correctly re-dispatch the 'getBonusVideos' API request with the button click", async () => {
+      const vidData: IBonusVideoData = {
+        _id: "1",
+        youTubeURL: "url",
+        vimeoURL: "url",
+        description: "Something",
+        createdAt: "1111"
+      };
+      bonusVideos.push(vidData);
       await act( async () => {
-        bonusVideos = createMockBonusVideos(6);
-
         moxios.install();
-        moxios.stubRequest("/api/bonus_videos", {
+        await moxios.stubRequest("/api/bonus_videos", {
           status: 200,
           response: {
             responseMsg: "All Ok",
@@ -193,9 +193,13 @@ describe("BonusVideo Manage Holder Tests", () => {
           }
         });
 
-        const retryButton = component.find("#errorScreenRetryButton");
-        retryButton.at(0).simulate("click");
+        
       });
+      act(() => {
+        const retryButton = component.find("#errorScreenRetryButton");
+        retryButton.at(0).simulate("click");  
+      })
+      
       // update component and assert correct rendering //
       component.update();
       const errorScreen = component.find(ErrorScreen);
@@ -207,7 +211,8 @@ describe("BonusVideo Manage Holder Tests", () => {
       const bonusVideoCards = component.find(BonusVideoCard);
       expect(bonusVideoCards.length).toEqual(bonusVideos.length);
     });
+    
   });
-  */
+  
   // END mock successfull API call tests //
 });

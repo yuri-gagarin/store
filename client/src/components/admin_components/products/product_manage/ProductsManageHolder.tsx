@@ -49,7 +49,7 @@ const ProductsManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
 
   return (
     newDataLoaded ?
-    <Grid padded stackable columns={2}>
+    <Grid id="productsManageHolder" padded stackable columns={2}>
       <Route path={match?.url + "/edit"}> 
         <Grid.Row>
           <Grid.Column computer={12} tablet={6} mobile={16}>
