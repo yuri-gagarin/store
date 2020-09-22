@@ -9,6 +9,7 @@ export const getAllBonusVideos = (dispatch: Dispatch<BonusVideoAction>): Promise
     method: "get",
     url: "/api/bonus_videos"
   };
+  dispatch({ type: "BONUS_VIDEOS_API_REQUEST", payload: { loading: true } });
   return axios.request<IBonusVideoServerResData, IBonusVideoServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -36,6 +37,7 @@ export const getBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoAction>)
     method: "get",
     url: "/api/bonus_videos/" + _id,
   };
+  dispatch({ type: "BONUS_VIDEOS_API_REQUEST", payload: { loading: true } });
   return axios.request<IBonusVideoServerResData, IBonusVideoServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -68,7 +70,7 @@ export const createBonusVideo = ({ description, youTubeURL, vimeoURL }: ClientBo
       vimeoURL: vimeoURL
     }
   };
-
+  dispatch({ type: "BONUS_VIDEOS_API_REQUEST", payload: { loading: true } });
   return axios.request<IBonusVideoServerResData, IBonusVideoServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -98,6 +100,7 @@ export const editBonusVideo = (_id: string, data: ClientBonusVideoData, dispatch
     url: "/api/bonus_videos/update/" + _id,
     data: data
   };
+  dispatch({ type: "BONUS_VIDEOS_API_REQUEST", payload: { loading: true } });
   return axios.request<IBonusVideoServerResData, IBonusVideoServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -135,6 +138,7 @@ export const deleteBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoActio
     method: "delete",
     url: "/api/bonus_videos/delete/" + _id,
   };
+  dispatch({ type: "BONUS_VIDEOS_API_REQUEST", payload: { loading: true } });
   return axios.request<IBonusVideoServerResData, IBonusVideoServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;

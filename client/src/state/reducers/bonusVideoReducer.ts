@@ -20,6 +20,11 @@ export const initialBonusVideoState: IBonusVideoState = {
 
 const serviceReducer = (state: IBonusVideoState = initialBonusVideoState, action: BonusVideoAction): IBonusVideoState => {
   switch (action.type) {
+    case "BONUS_VIDEOS_API_REQUEST": 
+      return {
+        ...state,
+        loading: action.payload.loading
+      };
     case "GET_ALL_BONUS_VIDEOS": 
       return {
         ...state,

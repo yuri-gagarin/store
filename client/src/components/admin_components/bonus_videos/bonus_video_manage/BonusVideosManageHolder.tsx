@@ -1,31 +1,41 @@
-import React, { useEffect  } from "react";
+import React, { useEffect, useContext  } from "react";
 import { Button, Grid } from "semantic-ui-react";
 // additional components //
 import BonusVideoFormHolder from "../forms/BonusVideosFormHolder";
 import BonusVideoCard from "./BonusVideoCard";
+import LoadingScreen from "../../miscelaneous/LoadingScreen";
 // actions and state //
 import { getAllBonusVideos } from "../actions/APIBonusVideoActions";
-import { IGlobalAppState, AppAction } from "../../../../state/Store";
+import { Store } from "../../../../state/Store";
 // additional dependencies //
 import { withRouter, RouteComponentProps, useRouteMatch, Route } from "react-router-dom";
 
 interface Props extends RouteComponentProps {
-  state: IGlobalAppState;
-  dispatch: React.Dispatch<AppAction>;
 };
 
-const BonusVideosManageHolder: React.FC<Props> = ({ state, dispatch, history }): JSX.Element => {
-  const { loadedBonusVideos } = state.bonusVideoState;
+const BonusVideosManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
+  const { state, dispatch } = useContext(Store);
+  const { loading, loadedBonusVideos , error } = state.bonusVideoState;
+  // match route to conditionall render //
   const match = useRouteMatch("/admin/home/my_bonus_videos/manage");
 
   const handleBack = () => {
     history.goBack();
   };
   useEffect(() => {
-    getAllBonusVideos(dispatch);
+    getAllBonusVideos(dispatch)
+      .then((_) => {
+
+      })
+      .catch((_) => {
+        // handle an error ? //
+      })
   }, []); 
 
   return (
+    loading ? 
+    <LoadingScreen />
+    :
     <Grid padded stackable columns={2}>
       <Route path={match?.url + "/edit"}> 
         <Grid.Row>
@@ -34,7 +44,7 @@ const BonusVideosManageHolder: React.FC<Props> = ({ state, dispatch, history }):
             <Button inverted color="green" content="Back" onClick={handleBack}></Button>
           </Grid.Column>
         </Grid.Row>
-        <BonusVideoFormHolder state={state} dispatch={dispatch} />
+        <BonusVideoFormHolder />
       </Route>
       <Route exact path={match?.url}>
         <Grid.Row>

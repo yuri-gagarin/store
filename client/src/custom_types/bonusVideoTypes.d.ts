@@ -1,3 +1,9 @@
+type BonusVideosAPIRequest = {
+  readonly type: "BONUS_VIDEOS_API_REQUEST";
+  readonly payload: {
+    loading: boolean;
+  }
+}
 type GetAllBonusVideos = {
   readonly type: "GET_ALL_BONUS_VIDEOS";
   readonly payload: {
@@ -105,4 +111,4 @@ interface IBonusVideoState {
   bonusVideoFormOpen: boolean;
   error: null | Error;
 }
-type BonusVideoAction = GetAllBonusVideos | GetBonusVideo | OpenBonusVideoForm | CloseBonusVideoForm | SetCurrentBonusVideo | ClearCurrentBonusVideo | CreateBonusVideo | EditBonusVideo | DeleteBonusVideo | SetBonusVideoError | ClearBonusVideoError;
+type BonusVideoAction = BonusVideosAPIRequest | GetAllBonusVideos | GetBonusVideo | OpenBonusVideoForm | CloseBonusVideoForm | SetCurrentBonusVideo | ClearCurrentBonusVideo | CreateBonusVideo | EditBonusVideo | DeleteBonusVideo | SetBonusVideoError | ClearBonusVideoError;
