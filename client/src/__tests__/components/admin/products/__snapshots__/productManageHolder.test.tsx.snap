@@ -136,10 +136,11 @@ exports[`Product Manage Holder Tests State after a successful API call Should re
     id="productsManageHolder"
   >
     <Route
-      path="undefined/edit"
+      path="/admin/home/my_products/manage/edit"
     />
     <Route
       exact={true}
+      path="/admin/home/my_products/manage"
     >
       <GridRow>
         <div
@@ -273,7 +274,7 @@ exports[`Product Manage Holder Tests State after a successful API call Should re
                       "entries": Array [
                         Object {
                           "hash": "",
-                          "pathname": "/admin/home/my_products",
+                          "pathname": "/admin/home/my_products/manage",
                           "search": "",
                           "state": undefined,
                         },
@@ -286,7 +287,7 @@ exports[`Product Manage Holder Tests State after a successful API call Should re
                       "listen": [Function],
                       "location": Object {
                         "hash": "",
-                        "pathname": "/admin/home/my_products",
+                        "pathname": "/admin/home/my_products/manage",
                         "search": "",
                         "state": undefined,
                       },
@@ -298,17 +299,17 @@ exports[`Product Manage Holder Tests State after a successful API call Should re
                   location={
                     Object {
                       "hash": "",
-                      "pathname": "/admin/home/my_products",
+                      "pathname": "/admin/home/my_products/manage",
                       "search": "",
                       "state": undefined,
                     }
                   }
                   match={
                     Object {
-                      "isExact": false,
+                      "isExact": true,
                       "params": Object {},
-                      "path": "/",
-                      "url": "/",
+                      "path": "/admin/home/my_products/manage",
+                      "url": "/admin/home/my_products/manage",
                     }
                   }
                   product={

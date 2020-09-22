@@ -1,4 +1,5 @@
 import React from "react";
+import { Grid } from "semantic-ui-react";
 import { mount, ReactWrapper } from "enzyme";
 import moxios from "moxios";
 import { MemoryRouter as Router } from "react-router-dom";
@@ -11,7 +12,6 @@ import { createMockProducts } from "../../../../test_helpers/productHelpers";
 import { StateProvider } from "../../../../state/Store";
 import ProductCard from "../../../../components/admin_components/products/product_manage/ProductCard";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
-import { Grid } from "semantic-ui-react";
 
 describe("Product Manage Holder Tests", () => {
   
@@ -73,7 +73,7 @@ describe("Product Manage Holder Tests", () => {
         products.push(productData);
 
         component = mount(
-          <Router keyLength={0} initialEntries={["/admin/home/my_products"]}>
+          <Router keyLength={0} initialEntries={["/admin/home/my_products/manage"]}>
             <StateProvider>
               <ProductManageHolder />
             </StateProvider>
@@ -124,13 +124,13 @@ describe("Product Manage Holder Tests", () => {
     // mock ERROR API call render tests //
     describe("State after a Error in API call", () => {
       let component: ReactWrapper; let loadingScreen: ReactWrapper;
-      let products: IProductData[];
+      const products: IProductData[] = [];
 
       beforeAll(async () => {
         await act(async () => {
           moxios.install();
           component = await mount(
-            <Router keyLength={0} initialEntries={["/admin/home/my_products"]}>
+            <Router keyLength={0} initialEntries={["/admin/home/my_products/manage"]}>
               <StateProvider>
                 <ProductManageHolder />
               </StateProvider>
@@ -153,9 +153,7 @@ describe("Product Manage Holder Tests", () => {
       });
 
       it("Should not render the initial Loading Screen after an  API call", () => {
-        act( () => {
-          component.update();
-        });
+        component.update();
         loadingScreen = component.find(LoadingScreen);
         expect(loadingScreen.length).toEqual(0);
       });
@@ -181,8 +179,17 @@ describe("Product Manage Holder Tests", () => {
       
       
       it("Should correctly re-dispatch the 'getProducts' API request with the button click", async () => {
+        const prodData: IProductData = {
+          _id: "1111",
+          name: "name",
+          price: "100",
+          details: "details",
+          description: "description",
+          images: [],
+          createdAt: "now"
+        };
+        products.push(prodData);
         await act( async () => {
-          products = createMockProducts(6);
           moxios.install();
           moxios.stubRequest("/api/products", {
             status: 200,
@@ -196,7 +203,7 @@ describe("Product Manage Holder Tests", () => {
         });
         component.update()
         const errorScreen = component.find(ErrorScreen);
-        const productManageHolderComp = component.find(ProductManageHolder);
+        const productManageHolderComp = component.find(ProductManageHolder).find(Grid);
         expect(errorScreen.length).toEqual(0);
         expect(productManageHolderComp.length).toEqual(1);
       });

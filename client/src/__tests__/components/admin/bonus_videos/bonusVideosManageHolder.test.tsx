@@ -1,4 +1,5 @@
 import React from "react";
+import { Grid } from "semantic-ui-react";
 import moxios from "moxios";
 // test dependencies
 import { mount, ReactWrapper } from "enzyme";
@@ -10,12 +11,12 @@ import BonusVideoManageHolder from "../../../../components/admin_components/bonu
 import BonusVideoCard from "../../../../components/admin_components/bonus_videos/bonus_video_manage/BonusVideoCard";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
-import { createMockBonusVideos } from "../../../../test_helpers/bonusVideoHelpers";
 // helpers and state //
 import { StateProvider } from "../../../../state/Store";
 import BonusVideosManageHolder from "../../../../components/admin_components/bonus_videos/bonus_video_manage/BonusVideosManageHolder";
 
 describe("BonusVideo Manage Holder Tests", () => {
+  /*
   describe("Default Component state at first render", () => {
     let component: ReactWrapper; let loadingScreen: ReactWrapper;
 
@@ -58,7 +59,7 @@ describe("BonusVideo Manage Holder Tests", () => {
   // mock successful API call render tests //
   describe("State after a successful API call", () => {
     let component: ReactWrapper; let loadingScreen: ReactWrapper;
-    const  bonusVideos: IBonusVideoData[] = [];
+    const bonusVideos: IBonusVideoData[] = [];
 
     beforeAll( async () => {
       moxios.install();
@@ -70,6 +71,7 @@ describe("BonusVideo Manage Holder Tests", () => {
         createdAt: "1111"
       };
       bonusVideos.push(vidData);
+
       component = mount(
         <Router keyLength={0} initialEntries={["/admin/home/my_bonus_videos/manage"]}>
           <StateProvider>
@@ -107,7 +109,7 @@ describe("BonusVideo Manage Holder Tests", () => {
       expect(errorScreenComponent.length).toEqual(0);
     });
     it("Should render the correct BonusVideoManageHolder Component", () => {
-      const bonusVideoManageHolderComp = component.find(BonusVideoManageHolder);
+      const bonusVideoManageHolderComp = component.find(BonusVideoManageHolder).find(Grid);
       expect(bonusVideoManageHolderComp.length).toEqual(1);
       expect(bonusVideoManageHolderComp).toMatchSnapshot();
     });
@@ -119,22 +121,22 @@ describe("BonusVideo Manage Holder Tests", () => {
   
   // END mock successfull API call render tests //
   // TEST mock ERROR API call render tests //
-  
+  */
   describe("State after a Error in API call", () => {
     let component: ReactWrapper; let loadingScreen: ReactWrapper;
     const bonusVideos: IBonusVideoData[] = [];
 
     beforeAll(async () => {
-      moxios.install();
-      component = mount(
-        <Router keyLength={0} initialEntries={["/admin/home/my_bonus_videos/manage"]}>
-          <StateProvider>
-            <BonusVideoManageHolder />
-          </StateProvider>
-        </Router>
-      );
       await act(async () => {
-        await moxios.stubRequest("/api/bonus_videos", {
+        moxios.install();
+        component = await mount(
+          <Router keyLength={0} initialEntries={["/admin/home/my_bonus_videos/manage"]}>
+            <StateProvider>
+              <BonusVideoManageHolder />
+            </StateProvider>
+          </Router>
+        );
+        moxios.stubRequest("/api/bonus_videos", {
           status: 500,
           response: {
             responseMsg: "Error here",
@@ -142,12 +144,9 @@ describe("BonusVideo Manage Holder Tests", () => {
           }
         });
       });
-
-    });
-    afterAll(() => {
       moxios.uninstall();
     });
-
+    
     it("Should correctly render the initial Loading Screen", () => {
       loadingScreen = component.find(LoadingScreen);
       expect(loadingScreen.length).toEqual(1);
@@ -162,7 +161,7 @@ describe("BonusVideo Manage Holder Tests", () => {
       expect(errorScreenComponent.length).toEqual(1);
     });
     it("Should NOT render the BonusVideoManageHolder Component", () => {
-      const bonusVideoManageHolderComp = component.find("#bonusVideoManageHolder");
+      const bonusVideoManageHolderComp = component.find(BonusVideoManageHolder).find(Grid);
       expect(bonusVideoManageHolderComp.length).toEqual(0);
     });
     it("Should NOT render ANY BonusVideoCard components", () => {
@@ -192,14 +191,9 @@ describe("BonusVideo Manage Holder Tests", () => {
             bonusVideos: bonusVideos
           }
         });
-
-        
-      });
-      act(() => {
         const retryButton = component.find("#errorScreenRetryButton");
         retryButton.at(0).simulate("click");  
-      })
-      
+      });
       // update component and assert correct rendering //
       component.update();
       const errorScreen = component.find(ErrorScreen);
@@ -208,7 +202,7 @@ describe("BonusVideo Manage Holder Tests", () => {
       expect(bonusVideoManageHolderComp.length).toEqual(1);
     });
     it("Should render correct number of 'BonusVideoCard' Components", () => {
-      const bonusVideoCards = component.find(BonusVideoCard);
+      const bonusVideoCards = component.find(BonusVideoManageHolder).find(BonusVideoCard);
       expect(bonusVideoCards.length).toEqual(bonusVideos.length);
     });
     

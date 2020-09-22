@@ -31,12 +31,12 @@ const ProductsManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
     let isMounted = true;
     if (isMounted) {
       getAllProducts(dispatch)
-      .then(_ => {
-        setNewDataLoaded(true);
-      })
-      .catch((error) => {
-        setNewDataLoaded(false);
-      });
+        .then(_ => {
+          setNewDataLoaded(true);
+        })
+        .catch((error) => {
+          setNewDataLoaded(false);
+        });
     }
     return () => { isMounted = false };
   }, [ dispatch ]); 
@@ -86,7 +86,7 @@ const ProductsManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
     ( 
       error ? <ErrorScreen lastRequest={ () => getAllProducts(dispatch) }/> : <LoadingScreen /> 
     )
-  )
+  );
 };
 
 // export for testing //
