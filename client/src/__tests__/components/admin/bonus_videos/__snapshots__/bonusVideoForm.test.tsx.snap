@@ -1,0 +1,335 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BonusVideo Form Component render tests Empty Form render tests Should properly mount 1`] = `
+<BonusVideoForm
+  bonusVideoData={
+    Object {
+      "_id": "",
+      "createdAt": "",
+      "description": "",
+      "vimeoURL": "",
+      "youTubeURL": "",
+    }
+  }
+  handleCreateBonusVideo={[Function]}
+  handleUpdateBonusVideo={[Function]}
+>
+  <div
+    id="createBonusVideoForm"
+  >
+    <Form
+      as="form"
+    >
+      <form
+        className="ui form"
+        onSubmit={[Function]}
+      >
+        <FormField>
+          <div
+            className="field"
+          >
+            <label>
+              Video YouTube URL:
+            </label>
+            <input
+              id="bonusVideoYoutubeInput"
+              onChange={[Function]}
+              placeholder="YouTube URL here ..."
+              value=""
+            />
+          </div>
+        </FormField>
+        <FormField>
+          <div
+            className="field"
+          >
+            <label>
+              Video Vimeo URL:
+            </label>
+            <input
+              id="bonusVideoVimeoInput"
+              onChange={[Function]}
+              placeholder="Vimeo URL here..."
+              value=""
+            />
+          </div>
+        </FormField>
+        <FormField
+          control={[Function]}
+          id="bonusVideoDescInput"
+          label="Video Description"
+          onChange={[Function]}
+          placeholder="Video description here..."
+          value=""
+        >
+          <div
+            className="field"
+          >
+            <label
+              htmlFor="bonusVideoDescInput"
+            >
+              Video Description
+            </label>
+            <TextArea
+              aria-describedby={null}
+              as="textarea"
+              id="bonusVideoDescInput"
+              onChange={[Function]}
+              placeholder="Video description here..."
+              rows={3}
+              value=""
+            >
+              <Ref
+                innerRef={
+                  Object {
+                    "current": <textarea
+                      id="bonusVideoDescInput"
+                      placeholder="Video description here..."
+                      rows="3"
+                    />,
+                  }
+                }
+              >
+                <RefFindNode
+                  innerRef={
+                    Object {
+                      "current": <textarea
+                        id="bonusVideoDescInput"
+                        placeholder="Video description here..."
+                        rows="3"
+                      />,
+                    }
+                  }
+                >
+                  <textarea
+                    aria-describedby={null}
+                    id="bonusVideoDescInput"
+                    onChange={[Function]}
+                    onInput={[Function]}
+                    placeholder="Video description here..."
+                    rows={3}
+                    value=""
+                  />
+                </RefFindNode>
+              </Ref>
+            </TextArea>
+          </div>
+        </FormField>
+        <Button
+          as="button"
+          content="Save New Bonus Video"
+          id="bonusVideoFormCreate"
+          onClick={[Function]}
+          type="submit"
+        >
+          <Ref
+            innerRef={
+              Object {
+                "current": <button
+                  class="ui button"
+                  id="bonusVideoFormCreate"
+                  type="submit"
+                >
+                  Save New Bonus Video
+                </button>,
+              }
+            }
+          >
+            <RefFindNode
+              innerRef={
+                Object {
+                  "current": <button
+                    class="ui button"
+                    id="bonusVideoFormCreate"
+                    type="submit"
+                  >
+                    Save New Bonus Video
+                  </button>,
+                }
+              }
+            >
+              <button
+                className="ui button"
+                id="bonusVideoFormCreate"
+                onClick={[Function]}
+                type="submit"
+              >
+                Save New Bonus Video
+              </button>
+            </RefFindNode>
+          </Ref>
+        </Button>
+      </form>
+    </Form>
+  </div>
+</BonusVideoForm>
+`;
+
+exports[`BonusVideo Form Component render tests Form with valid data render tests Should properly mount 1`] = `
+<BonusVideoForm
+  bonusVideoData={
+    Object {
+      "_id": "1111",
+      "createdAt": "now",
+      "description": "desc",
+      "vimeoURL": "url",
+      "youTubeURL": "url",
+    }
+  }
+  handleCreateBonusVideo={[Function]}
+  handleUpdateBonusVideo={[Function]}
+>
+  <div
+    id="createBonusVideoForm"
+  >
+    <Form
+      as="form"
+    >
+      <form
+        className="ui form"
+        onSubmit={[Function]}
+      >
+        <FormField>
+          <div
+            className="field"
+          >
+            <label>
+              Video YouTube URL:
+            </label>
+            <input
+              id="bonusVideoYoutubeInput"
+              onChange={[Function]}
+              placeholder="YouTube URL here ..."
+              value="url"
+            />
+          </div>
+        </FormField>
+        <FormField>
+          <div
+            className="field"
+          >
+            <label>
+              Video Vimeo URL:
+            </label>
+            <input
+              id="bonusVideoVimeoInput"
+              onChange={[Function]}
+              placeholder="Vimeo URL here..."
+              value="url"
+            />
+          </div>
+        </FormField>
+        <FormField
+          control={[Function]}
+          id="bonusVideoDescInput"
+          label="Video Description"
+          onChange={[Function]}
+          placeholder="Video description here..."
+          value="desc"
+        >
+          <div
+            className="field"
+          >
+            <label
+              htmlFor="bonusVideoDescInput"
+            >
+              Video Description
+            </label>
+            <TextArea
+              aria-describedby={null}
+              as="textarea"
+              id="bonusVideoDescInput"
+              onChange={[Function]}
+              placeholder="Video description here..."
+              rows={3}
+              value="desc"
+            >
+              <Ref
+                innerRef={
+                  Object {
+                    "current": <textarea
+                      id="bonusVideoDescInput"
+                      placeholder="Video description here..."
+                      rows="3"
+                    >
+                      desc
+                    </textarea>,
+                  }
+                }
+              >
+                <RefFindNode
+                  innerRef={
+                    Object {
+                      "current": <textarea
+                        id="bonusVideoDescInput"
+                        placeholder="Video description here..."
+                        rows="3"
+                      >
+                        desc
+                      </textarea>,
+                    }
+                  }
+                >
+                  <textarea
+                    aria-describedby={null}
+                    id="bonusVideoDescInput"
+                    onChange={[Function]}
+                    onInput={[Function]}
+                    placeholder="Video description here..."
+                    rows={3}
+                    value="desc"
+                  />
+                </RefFindNode>
+              </Ref>
+            </TextArea>
+          </div>
+        </FormField>
+        <Button
+          as="button"
+          content="Update Bonus Video"
+          id="bonusVideoFormUpdate"
+          onClick={[Function]}
+          type="submit"
+        >
+          <Ref
+            innerRef={
+              Object {
+                "current": <button
+                  class="ui button"
+                  id="bonusVideoFormUpdate"
+                  type="submit"
+                >
+                  Update Bonus Video
+                </button>,
+              }
+            }
+          >
+            <RefFindNode
+              innerRef={
+                Object {
+                  "current": <button
+                    class="ui button"
+                    id="bonusVideoFormUpdate"
+                    type="submit"
+                  >
+                    Update Bonus Video
+                  </button>,
+                }
+              }
+            >
+              <button
+                className="ui button"
+                id="bonusVideoFormUpdate"
+                onClick={[Function]}
+                type="submit"
+              >
+                Update Bonus Video
+              </button>
+            </RefFindNode>
+          </Ref>
+        </Button>
+      </form>
+    </Form>
+  </div>
+</BonusVideoForm>
+`;
