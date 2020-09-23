@@ -132,6 +132,7 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
                 name={name} 
                 description={description} 
                 price={price}
+                newForm={newForm}
                 handleCreateProduct={handleCreateProduct}
                 handleUpdateProduct={handleUpdateProduct}
               /> 

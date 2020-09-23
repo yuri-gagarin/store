@@ -22,7 +22,11 @@ describe("PRoduct Form Component render tests", () => {
       // mount form //
       wrapper = mount(
         <ProductForm  
-          productData={productData} 
+          name={productData.name}
+          price={productData.price}
+          description={productData.description}
+          newForm={true}
+          details={productData.details}
           handleCreateProduct={jest.fn}
           handleUpdateProduct={jest.fn}
         />
@@ -44,11 +48,11 @@ describe("PRoduct Form Component render tests", () => {
     it("Should render '#productFormDetailsInput'", () => {
       expect(wrapper.render().find("#productFormDetailsInput").length).toEqual(1);
     });
-    it("Should render '#productFormCreate' Button", () => {
-      expect(wrapper.render().find("#productFormCreate").length).toEqual(1);
+    it("Should render '#adminProductFormCreate' Button", () => {
+      expect(wrapper.render().find("#adminProductFormCreate").length).toEqual(1);
     });
-    it("Should NOT render '#productFormUpdate' Button'", () => {
-      expect(wrapper.render().find("#productFormUpdate").length).toEqual(0);
+    it("Should NOT render '#adminProductFormUpdate' Button'", () => {
+      expect(wrapper.render().find("#adminProductFormUpdate").length).toEqual(0);
     });
   });
   
@@ -70,9 +74,13 @@ describe("PRoduct Form Component render tests", () => {
 
       wrapper = mount(
         <ProductForm 
-          productData={mockData}
-          handleCreatePRoduct={jest.fn}
-          handleUpdatePRoduct={jest.fn}
+          name={mockData.name}
+          price={mockData.price}
+          description={mockData.description}
+          newForm={false}
+          details={mockData.details}
+          handleCreateProduct={jest.fn}
+          handleUpdateProduct={jest.fn}
         />
       );
     });
@@ -108,11 +116,11 @@ describe("PRoduct Form Component render tests", () => {
       const input = wrapper.render().find("#productFormDetailsInput");
       expect(input.val()).toEqual(mockData.details);
     });
-    it("Should render '#productFormUpdate' Button'", () => {
-      expect(wrapper.render().find("#productFormUpdate").length).toEqual(1);
+    it("Should render '#adminProductFormUpdate' Button'", () => {
+      expect(wrapper.render().find("#adminProductFormUpdate").length).toEqual(1);
     });
-    it("Should NOT render '#productFormCreate' Button", () => {
-      expect(wrapper.render().find("#productFormCreate").length).toEqual(0);
+    it("Should NOT render '#adminProductFormCreate' Button", () => {
+      expect(wrapper.render().find("#adminProductFormCreate").length).toEqual(0);
     });
   });
 })

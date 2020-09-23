@@ -1,27 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BonusVideo Form Component render tests Empty Form render tests Should properly mount 1`] = `
-<BonusVideoForm
-  bonusVideoData={
-    Object {
-      "_id": "",
-      "createdAt": "",
-      "description": "",
-      "vimeoURL": "",
-      "youTubeURL": "",
-    }
-  }
-  handleCreateBonusVideo={[Function]}
-  handleUpdateBonusVideo={[Function]}
+exports[`PRoduct Form Component render tests Empty Form render tests Should properly mount 1`] = `
+<ProductForm
+  description=""
+  details=""
+  handleCreateProduct={[Function]}
+  handleUpdateProduct={[Function]}
+  name=""
+  newForm={true}
+  price=""
 >
   <div
-    id="createBonusVideoForm"
+    className="productFormDiv"
   >
     <Form
       as="form"
+      id="productForm"
     >
       <form
         className="ui form"
+        id="productForm"
         onSubmit={[Function]}
       >
         <FormField>
@@ -29,12 +27,12 @@ exports[`BonusVideo Form Component render tests Empty Form render tests Should p
             className="field"
           >
             <label>
-              Video YouTube URL:
+              Product name
             </label>
             <input
-              id="bonusVideoYoutubeInput"
+              id="productFormNameInput"
               onChange={[Function]}
-              placeholder="YouTube URL here ..."
+              placeholder="Product name here ..."
               value=""
             />
           </div>
@@ -44,38 +42,38 @@ exports[`BonusVideo Form Component render tests Empty Form render tests Should p
             className="field"
           >
             <label>
-              Video Vimeo URL:
+              Product price
             </label>
             <input
-              id="bonusVideoVimeoInput"
+              id="productFormPriceInput"
               onChange={[Function]}
-              placeholder="Vimeo URL here..."
+              placeholder="Product price here..."
               value=""
             />
           </div>
         </FormField>
         <FormField
           control={[Function]}
-          id="bonusVideoDescInput"
-          label="Video Description"
+          id="productFormDescInput"
+          label="Product Description"
           onChange={[Function]}
-          placeholder="Video description here..."
+          placeholder="Product description here..."
           value=""
         >
           <div
             className="field"
           >
             <label
-              htmlFor="bonusVideoDescInput"
+              htmlFor="productFormDescInput"
             >
-              Video Description
+              Product Description
             </label>
             <TextArea
               aria-describedby={null}
               as="textarea"
-              id="bonusVideoDescInput"
+              id="productFormDescInput"
               onChange={[Function]}
-              placeholder="Video description here..."
+              placeholder="Product description here..."
               rows={3}
               value=""
             >
@@ -83,8 +81,8 @@ exports[`BonusVideo Form Component render tests Empty Form render tests Should p
                 innerRef={
                   Object {
                     "current": <textarea
-                      id="bonusVideoDescInput"
-                      placeholder="Video description here..."
+                      id="productFormDescInput"
+                      placeholder="Product description here..."
                       rows="3"
                     />,
                   }
@@ -94,8 +92,8 @@ exports[`BonusVideo Form Component render tests Empty Form render tests Should p
                   innerRef={
                     Object {
                       "current": <textarea
-                        id="bonusVideoDescInput"
-                        placeholder="Video description here..."
+                        id="productFormDescInput"
+                        placeholder="Product description here..."
                         rows="3"
                       />,
                     }
@@ -103,10 +101,71 @@ exports[`BonusVideo Form Component render tests Empty Form render tests Should p
                 >
                   <textarea
                     aria-describedby={null}
-                    id="bonusVideoDescInput"
+                    id="productFormDescInput"
                     onChange={[Function]}
                     onInput={[Function]}
-                    placeholder="Video description here..."
+                    placeholder="Product description here..."
+                    rows={3}
+                    value=""
+                  />
+                </RefFindNode>
+              </Ref>
+            </TextArea>
+          </div>
+        </FormField>
+        <FormField
+          control={[Function]}
+          id="productFormDetailsInput"
+          label="Product Details"
+          onChange={[Function]}
+          placeholder="Product details here..."
+          value=""
+        >
+          <div
+            className="field"
+          >
+            <label
+              htmlFor="productFormDetailsInput"
+            >
+              Product Details
+            </label>
+            <TextArea
+              aria-describedby={null}
+              as="textarea"
+              id="productFormDetailsInput"
+              onChange={[Function]}
+              placeholder="Product details here..."
+              rows={3}
+              value=""
+            >
+              <Ref
+                innerRef={
+                  Object {
+                    "current": <textarea
+                      id="productFormDetailsInput"
+                      placeholder="Product details here..."
+                      rows="3"
+                    />,
+                  }
+                }
+              >
+                <RefFindNode
+                  innerRef={
+                    Object {
+                      "current": <textarea
+                        id="productFormDetailsInput"
+                        placeholder="Product details here..."
+                        rows="3"
+                      />,
+                    }
+                  }
+                >
+                  <textarea
+                    aria-describedby={null}
+                    id="productFormDetailsInput"
+                    onChange={[Function]}
+                    onInput={[Function]}
+                    placeholder="Product details here..."
                     rows={3}
                     value=""
                   />
@@ -117,8 +176,8 @@ exports[`BonusVideo Form Component render tests Empty Form render tests Should p
         </FormField>
         <Button
           as="button"
-          content="Save New Bonus Video"
-          id="bonusVideoFormCreate"
+          content="Create  New Product"
+          id="adminProductFormCreate"
           onClick={[Function]}
           type="submit"
         >
@@ -127,10 +186,10 @@ exports[`BonusVideo Form Component render tests Empty Form render tests Should p
               Object {
                 "current": <button
                   class="ui button"
-                  id="bonusVideoFormCreate"
+                  id="adminProductFormCreate"
                   type="submit"
                 >
-                  Save New Bonus Video
+                  Create  New Product
                 </button>,
               }
             }
@@ -140,21 +199,21 @@ exports[`BonusVideo Form Component render tests Empty Form render tests Should p
                 Object {
                   "current": <button
                     class="ui button"
-                    id="bonusVideoFormCreate"
+                    id="adminProductFormCreate"
                     type="submit"
                   >
-                    Save New Bonus Video
+                    Create  New Product
                   </button>,
                 }
               }
             >
               <button
                 className="ui button"
-                id="bonusVideoFormCreate"
+                id="adminProductFormCreate"
                 onClick={[Function]}
                 type="submit"
               >
-                Save New Bonus Video
+                Create  New Product
               </button>
             </RefFindNode>
           </Ref>
@@ -162,31 +221,29 @@ exports[`BonusVideo Form Component render tests Empty Form render tests Should p
       </form>
     </Form>
   </div>
-</BonusVideoForm>
+</ProductForm>
 `;
 
-exports[`BonusVideo Form Component render tests Form with valid data render tests Should properly mount 1`] = `
-<BonusVideoForm
-  bonusVideoData={
-    Object {
-      "_id": "1111",
-      "createdAt": "now",
-      "description": "desc",
-      "vimeoURL": "url",
-      "youTubeURL": "url",
-    }
-  }
-  handleCreateBonusVideo={[Function]}
-  handleUpdateBonusVideo={[Function]}
+exports[`PRoduct Form Component render tests Form with valid data render tests Should properly mount 1`] = `
+<ProductForm
+  description="description"
+  details="details"
+  handleCreateProduct={[Function]}
+  handleUpdateProduct={[Function]}
+  name="name"
+  newForm={false}
+  price="100"
 >
   <div
-    id="createBonusVideoForm"
+    className="productFormDiv"
   >
     <Form
       as="form"
+      id="productForm"
     >
       <form
         className="ui form"
+        id="productForm"
         onSubmit={[Function]}
       >
         <FormField>
@@ -194,13 +251,13 @@ exports[`BonusVideo Form Component render tests Form with valid data render test
             className="field"
           >
             <label>
-              Video YouTube URL:
+              Product name
             </label>
             <input
-              id="bonusVideoYoutubeInput"
+              id="productFormNameInput"
               onChange={[Function]}
-              placeholder="YouTube URL here ..."
-              value="url"
+              placeholder="Product name here ..."
+              value="name"
             />
           </div>
         </FormField>
@@ -209,50 +266,50 @@ exports[`BonusVideo Form Component render tests Form with valid data render test
             className="field"
           >
             <label>
-              Video Vimeo URL:
+              Product price
             </label>
             <input
-              id="bonusVideoVimeoInput"
+              id="productFormPriceInput"
               onChange={[Function]}
-              placeholder="Vimeo URL here..."
-              value="url"
+              placeholder="Product price here..."
+              value="100"
             />
           </div>
         </FormField>
         <FormField
           control={[Function]}
-          id="bonusVideoDescInput"
-          label="Video Description"
+          id="productFormDescInput"
+          label="Product Description"
           onChange={[Function]}
-          placeholder="Video description here..."
-          value="desc"
+          placeholder="Product description here..."
+          value="description"
         >
           <div
             className="field"
           >
             <label
-              htmlFor="bonusVideoDescInput"
+              htmlFor="productFormDescInput"
             >
-              Video Description
+              Product Description
             </label>
             <TextArea
               aria-describedby={null}
               as="textarea"
-              id="bonusVideoDescInput"
+              id="productFormDescInput"
               onChange={[Function]}
-              placeholder="Video description here..."
+              placeholder="Product description here..."
               rows={3}
-              value="desc"
+              value="description"
             >
               <Ref
                 innerRef={
                   Object {
                     "current": <textarea
-                      id="bonusVideoDescInput"
-                      placeholder="Video description here..."
+                      id="productFormDescInput"
+                      placeholder="Product description here..."
                       rows="3"
                     >
-                      desc
+                      description
                     </textarea>,
                   }
                 }
@@ -261,23 +318,88 @@ exports[`BonusVideo Form Component render tests Form with valid data render test
                   innerRef={
                     Object {
                       "current": <textarea
-                        id="bonusVideoDescInput"
-                        placeholder="Video description here..."
+                        id="productFormDescInput"
+                        placeholder="Product description here..."
                         rows="3"
                       >
-                        desc
+                        description
                       </textarea>,
                     }
                   }
                 >
                   <textarea
                     aria-describedby={null}
-                    id="bonusVideoDescInput"
+                    id="productFormDescInput"
                     onChange={[Function]}
                     onInput={[Function]}
-                    placeholder="Video description here..."
+                    placeholder="Product description here..."
                     rows={3}
-                    value="desc"
+                    value="description"
+                  />
+                </RefFindNode>
+              </Ref>
+            </TextArea>
+          </div>
+        </FormField>
+        <FormField
+          control={[Function]}
+          id="productFormDetailsInput"
+          label="Product Details"
+          onChange={[Function]}
+          placeholder="Product details here..."
+          value="details"
+        >
+          <div
+            className="field"
+          >
+            <label
+              htmlFor="productFormDetailsInput"
+            >
+              Product Details
+            </label>
+            <TextArea
+              aria-describedby={null}
+              as="textarea"
+              id="productFormDetailsInput"
+              onChange={[Function]}
+              placeholder="Product details here..."
+              rows={3}
+              value="details"
+            >
+              <Ref
+                innerRef={
+                  Object {
+                    "current": <textarea
+                      id="productFormDetailsInput"
+                      placeholder="Product details here..."
+                      rows="3"
+                    >
+                      details
+                    </textarea>,
+                  }
+                }
+              >
+                <RefFindNode
+                  innerRef={
+                    Object {
+                      "current": <textarea
+                        id="productFormDetailsInput"
+                        placeholder="Product details here..."
+                        rows="3"
+                      >
+                        details
+                      </textarea>,
+                    }
+                  }
+                >
+                  <textarea
+                    aria-describedby={null}
+                    id="productFormDetailsInput"
+                    onChange={[Function]}
+                    onInput={[Function]}
+                    placeholder="Product details here..."
+                    rows={3}
+                    value="details"
                   />
                 </RefFindNode>
               </Ref>
@@ -286,8 +408,8 @@ exports[`BonusVideo Form Component render tests Form with valid data render test
         </FormField>
         <Button
           as="button"
-          content="Update Bonus Video"
-          id="bonusVideoFormUpdate"
+          content="Update Product"
+          id="adminProductFormUpdate"
           onClick={[Function]}
           type="submit"
         >
@@ -296,10 +418,10 @@ exports[`BonusVideo Form Component render tests Form with valid data render test
               Object {
                 "current": <button
                   class="ui button"
-                  id="bonusVideoFormUpdate"
+                  id="adminProductFormUpdate"
                   type="submit"
                 >
-                  Update Bonus Video
+                  Update Product
                 </button>,
               }
             }
@@ -309,21 +431,21 @@ exports[`BonusVideo Form Component render tests Form with valid data render test
                 Object {
                   "current": <button
                     class="ui button"
-                    id="bonusVideoFormUpdate"
+                    id="adminProductFormUpdate"
                     type="submit"
                   >
-                    Update Bonus Video
+                    Update Product
                   </button>,
                 }
               }
             >
               <button
                 className="ui button"
-                id="bonusVideoFormUpdate"
+                id="adminProductFormUpdate"
                 onClick={[Function]}
                 type="submit"
               >
-                Update Bonus Video
+                Update Product
               </button>
             </RefFindNode>
           </Ref>
@@ -331,5 +453,5 @@ exports[`BonusVideo Form Component render tests Form with valid data render test
       </form>
     </Form>
   </div>
-</BonusVideoForm>
+</ProductForm>
 `;

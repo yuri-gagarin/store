@@ -4,34 +4,30 @@ import { Button, Form, TextArea } from "semantic-ui-react";
 export type FormState = {
   name: string;
   description: string;
+  details: string;
   price: string;
 }
 
 interface Props {
   name: string;
-  description: string;
   price: string;
+  description: string;
+  details: string;
+  newForm: boolean;
   handleCreateProduct(data: FormState): void;
   handleUpdateProduct(data: FormState): void;
 }
-
-
-const ProductForm: React.FC<Props> = ({ name, description, price, handleCreateProduct, handleUpdateProduct }): JSX.Element => {
-  
-  const [ newForm, setNewForm ] = useState<boolean>(true)
-  const [ formState, setFormState ] = useState<FormState>({ name, description, price });
+const ProductForm: React.FC<Props> = ({ name, price, description, details, newForm, handleCreateProduct, handleUpdateProduct }): JSX.Element => {
+  // local form state //
+  const [ formState, setFormState ] = useState<FormState>({ name, price, description, details });
+  // form ref //
   const productFormRef = useRef<HTMLDivElement>(document.createElement("div"));
   
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
+  // form state changes listeners //
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
     setFormState({
       ...formState,
       name: e.target.value
-    });
-  };
-  const hadnleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setFormState({
-      ...formState,
-      description: e.target.value
     });
   };
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -40,7 +36,19 @@ const ProductForm: React.FC<Props> = ({ name, description, price, handleCreatePr
       price: e.target.value
     });
   };
-
+  const hadnleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setFormState({
+      ...formState,
+      description: e.target.value
+    });
+  };
+  const handleDetailsChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setFormState({
+      ...formState,
+      details: e.target.value
+    });
+  };
+  // submit action //
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (newForm) {
@@ -49,15 +57,7 @@ const ProductForm: React.FC<Props> = ({ name, description, price, handleCreatePr
       handleUpdateProduct(formState);
     }
   };
-
-  useEffect(() => {
-    if (name && description && price) {
-      setNewForm(false);
-    } else {
-      setNewForm(true);
-    }
-  },  [name, description, price]);
-
+  // lifecycle hooks //
   useEffect(() => {
     if (productFormRef.current) {
       const elem = productFormRef.current.getBoundingClientRect();
@@ -74,7 +74,8 @@ const ProductForm: React.FC<Props> = ({ name, description, price, handleCreatePr
         <Form.Field>
           <label>Product name</label>
           <input 
-            onChange={handleTitleChange} 
+            id="productFormNameInput"
+            onChange={handleNameChange} 
             placeholder="Product name here ..." 
             value={formState.name}
           />
@@ -82,23 +83,42 @@ const ProductForm: React.FC<Props> = ({ name, description, price, handleCreatePr
         <Form.Field>
           <label>Product price</label>
           <input 
+            id="productFormPriceInput"
             onChange={handlePriceChange} 
             placeholder="Product price here..." 
             value={formState.price}
           />
         </Form.Field>
         <Form.Field
-          id='form-textarea-control-opinion'
+          id='productFormDescInput'
           control={TextArea}
-          label='Store Description'
+          label='Product Description'
           onChange={hadnleDescriptionChange}
           placeholder='Product description here...'
           value={formState.description}
          />
+         <Form.Field
+          id='productFormDetailsInput'
+          control={TextArea}
+          label='Product Details'
+          onChange={handleDetailsChange}
+          placeholder='Product details here...'
+          value={formState.details}
+         />
          {
            newForm 
-            ? <Button id="adminProductFormCreate" type='submit' onClick={handleSubmit} content= "Create  New Product" />
-            : <Button id="adminProductFormUpdate" type='submit' onClick={handleSubmit} content= "Update Product" />
+            ? <Button 
+                id="adminProductFormCreate" 
+                type='submit' 
+                onClick={handleSubmit} 
+                content= "Create  New Product" 
+              />
+            : <Button 
+              id="adminProductFormUpdate" 
+              type='submit' 
+              onClick={handleSubmit} 
+              content="Update Product" 
+            />
          }  
       </Form>
     </div>
