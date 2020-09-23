@@ -69,8 +69,8 @@ const ProductForm: React.FC<Props> = ({ name, description, price, handleCreatePr
   }, [productFormRef]);
   
   return (
-    <div className="createProductFormHolder" ref={productFormRef}>
-      <Form id="createProductForm">
+    <div className="productFormDiv" ref={productFormRef}>
+      <Form id="productForm">
         <Form.Field>
           <label>Product name</label>
           <input 

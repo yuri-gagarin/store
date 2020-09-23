@@ -16,6 +16,7 @@ import { createProduct, editProduct } from "../actions/APIProductActions";
 import { closeProductForm, openProductForm } from "../actions/UIProductActions";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
+import { checkSetValues } from "../../../helpers/validationHelpers";
 // types 
 import { FormState } from "./ProductForm";
 
@@ -79,11 +80,8 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
     }
   }, [ productFormOpen ]);
   useEffect(() => {
-    if (name && description && price) {
-      setNewForm(false);
-      openProductForm(dispatch);
-    }
-  }, [name, description, price]);
+    checkSetValues(currentProductData) ? setNewForm(false) : setNewForm(true);
+  }, [ currentProductData ]);
   // component return //
   return (
     <div id="productFormHolder">
@@ -91,18 +89,18 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
       {
         !newForm ?
           <React.Fragment>
-            <Grid.Row>
+            <Grid.Row id={"productFormHolderDetails"}> 
               <Grid.Column mobile={16} tablet={14} computer={14}>
                 <h1>Details</h1>
-                <div className="productFormHolderDetails">
+                <div className="productFormHolderDetailsItem">
                   <h3>Product name:</h3>
                   <p>{name}</p>
                 </div>
-                <div className="productFormHolderPrice">
+                <div className="productFormHolderDetailsItem">
                   <h3>Product price:</h3>
                   <p>{price}</p>
                 </div>
-                <div className="productFormHolderDetails">
+                <div className="productFormHolderDetailsItem">
                   <h3>Product description:</h3>
                   <p>{description}</p>
                 </div>
