@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Grid, Item } from "semantic-ui-react";
+// routing //
+import { withRouter, RouteComponentProps } from "react-router-dom";
 // css imports //
 import "./css/productsPreviewHolder.css";
 // additional components //
@@ -11,7 +13,6 @@ import LoadingScreen from "../../miscelaneous/LoadingScreen";
 import { Store } from "../../../../state/Store";
 // api actions //
 import { getAllProducts } from "../actions/APIProductActions";
-import { withRouter, RouteComponentProps } from "react-router-dom";
 
 interface Props extends RouteComponentProps {
   
@@ -24,13 +25,15 @@ const ProductsPreviewHolder: React.FC<Props> = ({ history }): JSX.Element => {
   // lifecycle hooks //
   useEffect(() => {
     let componentLoaded = true;
-    getAllProducts(dispatch)
-      .then((_) => {
-        // handle success //
-      })
-      .catch((_) => {
-        // handle an error //
-      });
+    if (componentLoaded) {
+      getAllProducts(dispatch)
+        .then((_) => {
+          // handle success //
+        })
+        .catch((_) => {
+          // handle an error //
+        });
+    }
     return () => { componentLoaded = false };
   }, [ dispatch ]);
 

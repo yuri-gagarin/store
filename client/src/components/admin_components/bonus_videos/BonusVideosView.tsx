@@ -12,14 +12,14 @@ import Spacer from "../miscelaneous/Spacer";
 import { Store } from "../../../state/Store";
 
 const BonusVideosGeneralView: React.FC<{}> = (props): JSX.Element => {
-  const { state, dispatch } = useContext(Store);
+  const { dispatch } = useContext(Store);
   return (
     <div id="adminBonusVideoViewHolder">
       <AdminBonusVideoMenu  dispatch={dispatch} />
       <Switch>
         <Route path="/admin/home/my_videos/all">
           <Spacer width="100%" height="100px" />
-          <BonusVideosPreviewHolder state={state} dispatch={dispatch} />
+          <BonusVideosPreviewHolder />
         </Route>
         <Route path="/admin/home/my_videos/create">
           <Spacer width="100%" height="100px"/>
@@ -27,7 +27,7 @@ const BonusVideosGeneralView: React.FC<{}> = (props): JSX.Element => {
         </Route>
         <Route path="/admin/home/my_videos/manage">
           <Spacer width="100%" height="100px" />
-          <BonusVideosManageHolder state={state} dispatch={dispatch} />
+          <BonusVideosManageHolder />
         </Route>
       </Switch>
      

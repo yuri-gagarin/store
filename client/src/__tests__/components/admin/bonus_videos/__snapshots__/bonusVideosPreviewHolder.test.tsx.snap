@@ -1,0 +1,299 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BonusVideoPreviewHolder Component render tests BonusVideoPreview in 'loaded' state Should correctly render 1`] = `
+<withRouter(BonusVideosPreviewHolder)>
+  <BonusVideosPreviewHolder
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+    location={
+      Object {
+        "hash": "",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      }
+    }
+    match={
+      Object {
+        "isExact": true,
+        "params": Object {},
+        "path": "/",
+        "url": "/",
+      }
+    }
+  >
+    <Grid
+      columns={2}
+      id="adminBonusVideosPreviewHolder"
+      padded={true}
+      stackable={true}
+    >
+      <div
+        className="ui stackable padded two column grid"
+        id="adminBonusVideosPreviewHolder"
+      >
+        <GridRow>
+          <div
+            className="row"
+          >
+            <GridColumn
+              computer={10}
+              mobile={16}
+              tablet={8}
+            >
+              <div
+                className="ten wide computer sixteen wide mobile eight wide tablet column"
+              >
+                <ItemGroup>
+                  <div
+                    className="ui items"
+                  >
+                    <BonusVideoPreview
+                      bonusVideo={
+                        Object {
+                          "_id": "1111",
+                          "createdAt": "now",
+                          "description": "description",
+                          "vimeoURL": "url",
+                          "youTubeURL": "url",
+                        }
+                      }
+                      key="1111"
+                    >
+                      <div
+                        className="youtubeBonusVideo"
+                      >
+                        <Embed
+                          url="url"
+                        >
+                          <div
+                            className="ui embed"
+                            onClick={[Function]}
+                          >
+                            <Icon
+                              as="i"
+                              name="video play"
+                            >
+                              <i
+                                aria-hidden="true"
+                                className="video play icon"
+                                onClick={[Function]}
+                              />
+                            </Icon>
+                          </div>
+                        </Embed>
+                        <div
+                          className="bonusVideoDesc"
+                        >
+                          description
+                        </div>
+                      </div>
+                    </BonusVideoPreview>
+                  </div>
+                </ItemGroup>
+              </div>
+            </GridColumn>
+            <GridColumn
+              computer={6}
+              mobile={16}
+              tablet={8}
+            >
+              <div
+                className="six wide computer sixteen wide mobile eight wide tablet column"
+              >
+                <BonusVideossControls
+                  totalBonusVideos={1}
+                >
+                  <div
+                    className="adminBonusVideosControlsHolder"
+                  >
+                    <div
+                      className="adminBonusVideosControlsTitle"
+                    >
+                      My Videos Controls
+                    </div>
+                    <div
+                      className="adminBonusVideosControls"
+                    >
+                      <div
+                        className="adminBonusVideosCounter"
+                      >
+                        <div>
+                          Total Linked Videos:
+                        </div>
+                        <div
+                          className="adminBonusVideosCount"
+                        >
+                          1
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </BonusVideossControls>
+              </div>
+            </GridColumn>
+          </div>
+        </GridRow>
+      </div>
+    </Grid>
+  </BonusVideosPreviewHolder>
+</withRouter(BonusVideosPreviewHolder)>
+`;
+
+exports[`BonusVideoPreviewHolder Component render tests BonusVideoPreviewHolder in 'loading' state Should correctly render 1`] = `
+<withRouter(BonusVideosPreviewHolder)>
+  <BonusVideosPreviewHolder
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+    location={
+      Object {
+        "hash": "",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      }
+    }
+    match={
+      Object {
+        "isExact": true,
+        "params": Object {},
+        "path": "/",
+        "url": "/",
+      }
+    }
+  >
+    <LoaderExampleText>
+      <div
+        id="generalLoadingScreen"
+        style={
+          Object {
+            "height": "100vh",
+          }
+        }
+      >
+        <Segment
+          style={
+            Object {
+              "height": "100vh",
+            }
+          }
+        >
+          <div
+            className="ui segment"
+            style={
+              Object {
+                "height": "100vh",
+              }
+            }
+          >
+            <Dimmer
+              active={true}
+              inverted={true}
+            >
+              <DimmerInner
+                active={true}
+                inverted={true}
+              >
+                <Ref
+                  innerRef={
+                    Object {
+                      "current": <div
+                        class="ui active transition visible inverted dimmer"
+                        style="display: flex;"
+                      >
+                        <div
+                          class="content"
+                        >
+                          <div
+                            class="ui text loader"
+                          >
+                            Please Wait
+                          </div>
+                        </div>
+                      </div>,
+                    }
+                  }
+                >
+                  <RefFindNode
+                    innerRef={
+                      Object {
+                        "current": <div
+                          class="ui active transition visible inverted dimmer"
+                          style="display: flex;"
+                        >
+                          <div
+                            class="content"
+                          >
+                            <div
+                              class="ui text loader"
+                            >
+                              Please Wait
+                            </div>
+                          </div>
+                        </div>,
+                      }
+                    }
+                  >
+                    <div
+                      className="ui active transition visible inverted dimmer"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="content"
+                      >
+                        <Loader>
+                          <div
+                            className="ui text loader"
+                          >
+                            Please Wait
+                          </div>
+                        </Loader>
+                      </div>
+                    </div>
+                  </RefFindNode>
+                </Ref>
+              </DimmerInner>
+            </Dimmer>
+          </div>
+        </Segment>
+      </div>
+    </LoaderExampleText>
+  </BonusVideosPreviewHolder>
+</withRouter(BonusVideosPreviewHolder)>
+`;

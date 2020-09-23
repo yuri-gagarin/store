@@ -88,5 +88,7 @@ const BonusVideosManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
     )
   )
 };
-
+// export without router for tests //
+export { BonusVideosManageHolder };
+// default export //
 export default withRouter(BonusVideosManageHolder);

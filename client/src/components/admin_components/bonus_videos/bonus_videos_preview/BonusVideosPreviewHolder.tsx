@@ -1,28 +1,52 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Grid, Item } from "semantic-ui-react";
+// routing //
+import { withRouter, RouteComponentProps } from "react-router-dom";
 // css imports //
 import "./css/bonusVideosPreviewHolder.css";
 // additional components //
 import BonusVideoPreview from "./BonusVideoPreview";
 import BonusVideosControls from "./BonusVideoControls";
+import LoadingScreen from "../../miscelaneous/LoadingScreen";
 // types and interfaces //
-import { AppAction, IGlobalAppState } from "../../../../state/Store";
+import { Store} from "../../../../state/Store";
 // api actions //
 import { getAllBonusVideos } from "../actions/APIBonusVideoActions";
 
-interface Props {
-  state: IGlobalAppState;
-  dispatch: React.Dispatch<AppAction>;
+interface Props extends RouteComponentProps {
+  
 }
 
-const BonusVideosPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
-  const { loadedBonusVideos } = state.bonusVideoState;
-  useEffect(() => {
-    getAllBonusVideos(dispatch);
-  }, [dispatch]);
+const BonusVideosPreviewHolder: React.FC<Props> = ({ history }): JSX.Element => {
+  const { state, dispatch } = useContext(Store);
+  const { loading, loadedBonusVideos } = state.bonusVideoState;
 
+  // lifecycle hooks //
+  useEffect(() => {
+    let componentLoaded = true;
+    if (componentLoaded) {
+      getAllBonusVideos(dispatch)
+        .then((_) => {
+          // handle success //
+        })
+        .catch((_) => {
+          // handle error //
+        });
+    }
+    return () => { componentLoaded = false };
+  }, [ dispatch ]);
+
+  // compnent return //
   return (
-    <Grid stackable padded columns={2}>
+    loading ? 
+    <LoadingScreen />
+    :
+    <Grid 
+      id={"adminBonusVideosPreviewHolder"}
+      stackable 
+      padded 
+      columns={2}
+    >
       <Grid.Row>
       <Grid.Column computer={10} tablet={8} mobile={16}>
         <Item.Group>
@@ -45,7 +69,9 @@ const BonusVideosPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Ele
       </Grid.Row>
       
     </Grid>
-  )
+  );
 };
-
-export default BonusVideosPreviewHolder;
+// test export without the router //
+export { BonusVideosPreviewHolder };
+// default export //
+export default withRouter(BonusVideosPreviewHolder);

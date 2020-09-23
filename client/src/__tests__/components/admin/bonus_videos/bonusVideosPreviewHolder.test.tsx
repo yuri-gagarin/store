@@ -13,12 +13,13 @@ import LoadingScreen from "../../../../components/admin_components/miscelaneous/
 import { TestStateProvider } from "../../../../state/Store";
 // helpers //
 import { generateCleanState } from "../../../../test_helpers/miscHelpers";
-import { createMockBonusVideos } from "../../../../test_helpers/bonusVideoHelpers";
+import BonusVideossControls from "../../../../components/admin_components/bonus_videos/bonus_videos_preview/BonusVideoControls";
 
 describe("BonusVideoPreviewHolder Component render tests", () => {
   // TEST StprePreviewHolder in its loading state //
   describe("BonusVideoPreviewHolder in 'loading' state", () => {
     let wrapper: ReactWrapper;
+
     beforeAll(() => {
       const mockState = generateCleanState();
       mockState.bonusVideoState.loading = true;
@@ -31,17 +32,18 @@ describe("BonusVideoPreviewHolder Component render tests", () => {
       );
     });
     it("Should correctly render", () => {
-      expect(wrapper.render()).toMatchSnapshot();
+      const component = wrapper.find(BonusVideosPreviewHolder)
+      expect(component).toMatchSnapshot();
     });
     it("Should have a LoadingScreen while 'loading == true'", () => {
       const loadingScreen = wrapper.find(LoadingScreen);
       expect(loadingScreen.length).toEqual(1);
     });
-    it("Should not display the '#adminBonusVideoPreviewHolder'", () => {
-      const adminBonusVideoPreview = wrapper.find("#adminBonusVideoPreviewHolder");
+    it("Should not render the '#adminBonusVideoPreviewHolder'", () => {
+      const adminBonusVideoPreview = wrapper.find(Grid);
       expect(adminBonusVideoPreview.length).toEqual(0);
     }); 
-    it("Should not display any BonusVideoPreview Components", () => {
+    it("Should not render any BonusVideoPreview Components", () => {
       const bonus_videoPreviewComponents = wrapper.find(BonusVideoPreview);
       expect(bonus_videoPreviewComponents.length).toEqual(0);
     });
@@ -50,8 +52,18 @@ describe("BonusVideoPreviewHolder Component render tests", () => {
   // END TEST BonusVideoPreviewHolder in its loading state //
   // TEST BonusVideoPreviewHolder in its loaded state //
   describe("BonusVideoPreview in 'loaded' state", () => {
-    let wrapper: ReactWrapper; const numOfBonusVideos = 5;
+    let wrapper: ReactWrapper; const bonusVideos: IBonusVideoData[] = [];
     beforeAll( async () => {
+      // mock data
+      const vidData: IBonusVideoData = {
+        _id: "1111",
+        youTubeURL: "url",
+        vimeoURL: "url",
+        description: "description",
+        createdAt: "now"
+      };
+      bonusVideos.push(vidData);
+      // moxios and component mount //
       moxios.install();
       const mockState = generateCleanState();
       wrapper = mount(
@@ -67,26 +79,31 @@ describe("BonusVideoPreviewHolder Component render tests", () => {
           status: 200,
           response: {
             responseMsg: "All ok",
-            bonus_videos: createMockBonusVideos(5)
+            bonusVideos: bonusVideos
           }
         });
       });
       wrapper.update();
     });
     it("Should correctly render", () => {
-      expect(wrapper.render()).toMatchSnapshot();
+      const comp = wrapper.find(BonusVideosPreviewHolder);
+      expect(comp).toMatchSnapshot();
     });
     it("Should NOT have a LoadingScreen while 'loading == false'", () => {
       const loadingScreen = wrapper.find(LoadingScreen);
       expect(loadingScreen.length).toEqual(0);
     });
-    it("Should display the '#adminBonusVideoPreviewHolder'", () => {
+    it("Should render the '#adminBonusVideoPreviewHolder'", () => {
       const adminBonusVideoPreview = wrapper.find(Grid);
-      // expect(adminBonusVideoPreview.length).toEqual(1);
+      expect(adminBonusVideoPreview.length).toEqual(1);
     });
-    it(`Should display a correct (${numOfBonusVideos}) number of BonusVideoPreview Components`, () => {
+    it("Should render the 'BonusVideosControls' component", () => {
+      const bonusVidControlsComp = wrapper.find(BonusVideossControls);
+      expect(bonusVidControlsComp.length).toEqual(1);
+    });
+    it(`Should render a correct (${bonusVideos.length}) number of BonusVideoPreview Components`, () => {
       const bonus_videoPreviewComponents = wrapper.find(BonusVideoPreview);
-      expect(bonus_videoPreviewComponents.length).toEqual(numOfBonusVideos);
+      expect(bonus_videoPreviewComponents.length).toEqual(bonusVideos.length);
     });
   });
   // END TEST BonusVideoPreviewHolder in its loaded state //
