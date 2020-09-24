@@ -11,24 +11,24 @@ interface Props {
   name: string;
   description: string;
   price: string;
+  newForm: boolean;
   handleCreateService(data: FormState): void;
   handleUpdateService(data: FormState): void;
 }
 
 
-const ServiceForm: React.FC<Props> = ({ name, description, price, handleCreateService, handleUpdateService }): JSX.Element => {
-  
-  const [ newForm, setNewForm ] = useState<boolean>(true)
+const ServiceForm: React.FC<Props> = ({ name, description, price, newForm, handleCreateService, handleUpdateService }): JSX.Element => {
+  // local form state and ref //
   const [ formState, setFormState ] = useState<FormState>({ name, description, price });
   const serviceFormRef = useRef<HTMLDivElement>(document.createElement("div"));
-  
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
+  // input change listeners //
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
     setFormState({
       ...formState,
       name: e.target.value
     });
   };
-  const hadnleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setFormState({
       ...formState,
       description: e.target.value
@@ -40,7 +40,7 @@ const ServiceForm: React.FC<Props> = ({ name, description, price, handleCreateSe
       price: e.target.value
     });
   };
-
+  // submit listener //
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (newForm) {
@@ -49,15 +49,7 @@ const ServiceForm: React.FC<Props> = ({ name, description, price, handleCreateSe
       handleUpdateService(formState);
     }
   };
-
-  useEffect(() => {
-    if (name && description && price) {
-      setNewForm(false);
-    } else {
-      setNewForm(true);
-    }
-  },  [name, description, price]);
-
+  // lifecycle hooks //
   useEffect(() => {
     if (serviceFormRef.current) {
       const elem = serviceFormRef.current.getBoundingClientRect();
@@ -69,12 +61,13 @@ const ServiceForm: React.FC<Props> = ({ name, description, price, handleCreateSe
   }, [serviceFormRef]);
   
   return (
-    <div className="createServiceFormHolder" ref={serviceFormRef}>
-      <Form id="createServiceForm">
+    <div className="serviceFormDiv" ref={serviceFormRef}>
+      <Form id="serviceForm">
         <Form.Field>
           <label>Service name</label>
           <input 
-            onChange={handleTitleChange} 
+            id="serviceFormNameInput"
+            onChange={handleNameChange} 
             placeholder="Service name here ..." 
             value={formState.name}
           />
@@ -82,16 +75,17 @@ const ServiceForm: React.FC<Props> = ({ name, description, price, handleCreateSe
         <Form.Field>
           <label>Service price</label>
           <input 
+            id="serviceFormPriceInput"
             onChange={handlePriceChange} 
             placeholder="Service price here..." 
             value={formState.price}
           />
         </Form.Field>
         <Form.Field
-          id='form-textarea-control-opinion'
+          id='serviceFormDescInput'
           control={TextArea}
           label='Store Description'
-          onChange={hadnleDescriptionChange}
+          onChange={handleDescriptionChange}
           placeholder='Service description here...'
           value={formState.description}
          />

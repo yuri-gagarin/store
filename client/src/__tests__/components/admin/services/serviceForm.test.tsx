@@ -3,7 +3,7 @@ import ServiceForm from "../../../../components/admin_components/services/forms/
 import { mount, ReactWrapper } from "enzyme";
 // helpers //
 
-describe("PRoduct Form Component render tests", () => {
+describe("Service Form Component render tests", () => {
   describe("Empty Form render tests", () => {
     let wrapper: ReactWrapper;
 

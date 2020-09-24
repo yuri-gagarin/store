@@ -1,0 +1,329 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Service Form Component render tests Empty Form render tests Should properly mount 1`] = `
+<ServiceForm
+  description=""
+  handleCreateService={[Function]}
+  handleUpdateService={[Function]}
+  name=""
+  newForm={true}
+  price=""
+>
+  <div
+    className="serviceFormDiv"
+  >
+    <Form
+      as="form"
+      id="serviceForm"
+    >
+      <form
+        className="ui form"
+        id="serviceForm"
+        onSubmit={[Function]}
+      >
+        <FormField>
+          <div
+            className="field"
+          >
+            <label>
+              Service name
+            </label>
+            <input
+              id="serviceFormNameInput"
+              onChange={[Function]}
+              placeholder="Service name here ..."
+              value=""
+            />
+          </div>
+        </FormField>
+        <FormField>
+          <div
+            className="field"
+          >
+            <label>
+              Service price
+            </label>
+            <input
+              id="serviceFormPriceInput"
+              onChange={[Function]}
+              placeholder="Service price here..."
+              value=""
+            />
+          </div>
+        </FormField>
+        <FormField
+          control={[Function]}
+          id="serviceFormDescInput"
+          label="Store Description"
+          onChange={[Function]}
+          placeholder="Service description here..."
+          value=""
+        >
+          <div
+            className="field"
+          >
+            <label
+              htmlFor="serviceFormDescInput"
+            >
+              Store Description
+            </label>
+            <TextArea
+              aria-describedby={null}
+              as="textarea"
+              id="serviceFormDescInput"
+              onChange={[Function]}
+              placeholder="Service description here..."
+              rows={3}
+              value=""
+            >
+              <Ref
+                innerRef={
+                  Object {
+                    "current": <textarea
+                      id="serviceFormDescInput"
+                      placeholder="Service description here..."
+                      rows="3"
+                    />,
+                  }
+                }
+              >
+                <RefFindNode
+                  innerRef={
+                    Object {
+                      "current": <textarea
+                        id="serviceFormDescInput"
+                        placeholder="Service description here..."
+                        rows="3"
+                      />,
+                    }
+                  }
+                >
+                  <textarea
+                    aria-describedby={null}
+                    id="serviceFormDescInput"
+                    onChange={[Function]}
+                    onInput={[Function]}
+                    placeholder="Service description here..."
+                    rows={3}
+                    value=""
+                  />
+                </RefFindNode>
+              </Ref>
+            </TextArea>
+          </div>
+        </FormField>
+        <Button
+          as="button"
+          content="Create  New Service"
+          id="adminServiceFormCreate"
+          onClick={[Function]}
+          type="submit"
+        >
+          <Ref
+            innerRef={
+              Object {
+                "current": <button
+                  class="ui button"
+                  id="adminServiceFormCreate"
+                  type="submit"
+                >
+                  Create  New Service
+                </button>,
+              }
+            }
+          >
+            <RefFindNode
+              innerRef={
+                Object {
+                  "current": <button
+                    class="ui button"
+                    id="adminServiceFormCreate"
+                    type="submit"
+                  >
+                    Create  New Service
+                  </button>,
+                }
+              }
+            >
+              <button
+                className="ui button"
+                id="adminServiceFormCreate"
+                onClick={[Function]}
+                type="submit"
+              >
+                Create  New Service
+              </button>
+            </RefFindNode>
+          </Ref>
+        </Button>
+      </form>
+    </Form>
+  </div>
+</ServiceForm>
+`;
+
+exports[`Service Form Component render tests Form with valid data render tests Should properly mount 1`] = `
+<ServiceForm
+  description="description"
+  handleCreateService={[Function]}
+  handleUpdateService={[Function]}
+  name="name"
+  newForm={false}
+  price="100"
+>
+  <div
+    className="serviceFormDiv"
+  >
+    <Form
+      as="form"
+      id="serviceForm"
+    >
+      <form
+        className="ui form"
+        id="serviceForm"
+        onSubmit={[Function]}
+      >
+        <FormField>
+          <div
+            className="field"
+          >
+            <label>
+              Service name
+            </label>
+            <input
+              id="serviceFormNameInput"
+              onChange={[Function]}
+              placeholder="Service name here ..."
+              value="name"
+            />
+          </div>
+        </FormField>
+        <FormField>
+          <div
+            className="field"
+          >
+            <label>
+              Service price
+            </label>
+            <input
+              id="serviceFormPriceInput"
+              onChange={[Function]}
+              placeholder="Service price here..."
+              value="100"
+            />
+          </div>
+        </FormField>
+        <FormField
+          control={[Function]}
+          id="serviceFormDescInput"
+          label="Store Description"
+          onChange={[Function]}
+          placeholder="Service description here..."
+          value="description"
+        >
+          <div
+            className="field"
+          >
+            <label
+              htmlFor="serviceFormDescInput"
+            >
+              Store Description
+            </label>
+            <TextArea
+              aria-describedby={null}
+              as="textarea"
+              id="serviceFormDescInput"
+              onChange={[Function]}
+              placeholder="Service description here..."
+              rows={3}
+              value="description"
+            >
+              <Ref
+                innerRef={
+                  Object {
+                    "current": <textarea
+                      id="serviceFormDescInput"
+                      placeholder="Service description here..."
+                      rows="3"
+                    >
+                      description
+                    </textarea>,
+                  }
+                }
+              >
+                <RefFindNode
+                  innerRef={
+                    Object {
+                      "current": <textarea
+                        id="serviceFormDescInput"
+                        placeholder="Service description here..."
+                        rows="3"
+                      >
+                        description
+                      </textarea>,
+                    }
+                  }
+                >
+                  <textarea
+                    aria-describedby={null}
+                    id="serviceFormDescInput"
+                    onChange={[Function]}
+                    onInput={[Function]}
+                    placeholder="Service description here..."
+                    rows={3}
+                    value="description"
+                  />
+                </RefFindNode>
+              </Ref>
+            </TextArea>
+          </div>
+        </FormField>
+        <Button
+          as="button"
+          content="Update Service"
+          id="adminServiceFormUpdate"
+          onClick={[Function]}
+          type="submit"
+        >
+          <Ref
+            innerRef={
+              Object {
+                "current": <button
+                  class="ui button"
+                  id="adminServiceFormUpdate"
+                  type="submit"
+                >
+                  Update Service
+                </button>,
+              }
+            }
+          >
+            <RefFindNode
+              innerRef={
+                Object {
+                  "current": <button
+                    class="ui button"
+                    id="adminServiceFormUpdate"
+                    type="submit"
+                  >
+                    Update Service
+                  </button>,
+                }
+              }
+            >
+              <button
+                className="ui button"
+                id="adminServiceFormUpdate"
+                onClick={[Function]}
+                type="submit"
+              >
+                Update Service
+              </button>
+            </RefFindNode>
+          </Ref>
+        </Button>
+      </form>
+    </Form>
+  </div>
+</ServiceForm>
+`;

@@ -134,6 +134,7 @@ const ServiceFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
                 name={name} 
                 description={description} 
                 price={price}
+                newForm={newForm}
                 handleCreateService={handleCreateService}
                 handleUpdateService={handleUpdateService}
               /> 
