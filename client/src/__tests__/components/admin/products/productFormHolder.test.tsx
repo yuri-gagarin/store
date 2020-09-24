@@ -198,7 +198,7 @@ describe("ProductFormHolder Component tests", () => {
             fileName: "img",
             imagePath: "imgPath",
             createdAt: "now"
-          },
+          }
         ],
         createdAt: "1111"
       };

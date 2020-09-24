@@ -47,13 +47,10 @@ describe("BonusVideosView Component test", () => {
         if (component.props.children[1].type.WrappedComponent) {
           // to check if a component is wrapped in a WithRouter() function //
           map[component.props.path as string] = component.props.children[1].type.WrappedComponent;
-          console.log(component.props.children[1].type.WrappedComponent)
         } else {
           map[component.props.path as string] = component.props.children[1].type;
-          console.log(component.props.children[1].type)
         }
       }
-      console.log(map)
       expect(map["/admin/home/my_videos/all"]).toBe(BonusVideosPreviewHolder);
       expect(map["/admin/home/my_videos/create"]).toBe(BonusVideosFormHolder);
       expect(map["/admin/home/my_videos/manage"]).toBe(BonusVideosManageHolder);
