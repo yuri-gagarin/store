@@ -62,7 +62,7 @@ describe("ServiceView Component render tests", () => {
 
     beforeAll(() => {
       component = mount(
-        <Router initialEntries={ ["/admin/home/my_services"] }>
+        <Router keyLength={0} initialEntries={ ["/admin/home/my_services"] }>
           <ServiceViewComponent />
         </Router>
       );

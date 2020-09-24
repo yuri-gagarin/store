@@ -30,11 +30,11 @@ const ServiceView: React.FC<{}> = (props): JSX.Element => {
       <Switch>
         <Route path="/admin/home/my_services/all">
           <Spacer width="100%" height="100px"/>
-          <ServicePreviewHolder state={state} dispatch={dispatch} />
+          <ServicePreviewHolder />
         </Route>
         <Route path="/admin/home/my_services/create">
           <Spacer width="100%" height="100px" />
-          <ServiceFormHolder state={state} dispatch={dispatch} />
+          <ServiceFormHolder />
         </Route>
         <Route path="/admin/home/my_services/manage">
           <Spacer width="100%" height="100px"></Spacer>

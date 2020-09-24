@@ -24,14 +24,14 @@ describe("ServicePreviewHolder Component render tests", () => {
       mockState.serviceState.loading = true;
       wrapper = mount(
         <TestStateProvider mockState={mockState}>
-          <Router>
+          <Router keyLength={0}>
             <ServicePreviewHolder />
           </Router>
         </TestStateProvider>
       );
     });
     it("Should correctly render", () => {
-      expect(wrapper.render()).toMatchSnapshot();
+      expect(wrapper.find(ServicePreviewHolder)).toMatchSnapshot();
     });
     it("Should have a LoadingScreen while 'loading == true'", () => {
       const loadingScreen = wrapper.find(LoadingScreen);
@@ -51,12 +51,33 @@ describe("ServicePreviewHolder Component render tests", () => {
   // TEST ServicePreviewHolder in its loaded state //
   describe("ServicePreview in 'loaded' state", () => {
     let wrapper: ReactWrapper; const numOfServices = 5;
+    let mockServices: IServiceData[] = [];
+
     beforeAll( async () => {
+      mockServices = [
+        {
+          _id: "1",
+          name: "name",
+          price: "price",
+          description: "description",
+          images: [],
+          createdAt: "now"
+        },
+        {
+          _id: "2",
+          name: "name",
+          price: "price",
+          description: "description",
+          images: [],
+          createdAt: "now"
+        }
+      ];
+
       moxios.install();
       const mockState = generateCleanState();
       wrapper = mount(
          <TestStateProvider mockState={mockState}>
-           <Router>
+           <Router keyLength={0}>
              <ServicePreviewHolder />
            </Router>
          </TestStateProvider>
@@ -67,14 +88,14 @@ describe("ServicePreviewHolder Component render tests", () => {
           status: 200,
           response: {
             responseMsg: "All ok",
-            services: createMockServices(5)
+            services: mockServices
           }
         });
       });
       wrapper.update();
     });
     it("Should correctly render", () => {
-      expect(wrapper.render()).toMatchSnapshot();
+      expect(wrapper.find(ServicePreviewHolder)).toMatchSnapshot();
     });
     it("Should NOT have a LoadingScreen while 'loading == false'", () => {
       const loadingScreen = wrapper.find(LoadingScreen);
@@ -84,9 +105,9 @@ describe("ServicePreviewHolder Component render tests", () => {
       const adminServicePreview = wrapper.find(Grid);
       expect(adminServicePreview.length).toEqual(1);
     });
-    it(`Should display a correct (${numOfServices}) number of ServicePreview Components`, () => {
+    it(`Should display a correct number of ServicePreview Components`, () => {
       const servicePreviewComponents = wrapper.find(ServicePreview);
-      expect(servicePreviewComponents.length).toEqual(numOfServices);
+      expect(servicePreviewComponents.length).toEqual(mockServices.length);
     });
   });
   // END TEST ServicePreviewHolder in its loaded state //

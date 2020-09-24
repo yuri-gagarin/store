@@ -1,575 +1,768 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' state Should correctly render 1`] = `
-<div
-  class="ui stackable padded two column grid"
-  id="adminServicePreviewHolder"
->
-  <div
-    class="row"
+<withRouter(ServicePreviewHolder)>
+  <ServicePreviewHolder
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+    location={
+      Object {
+        "hash": "",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      }
+    }
+    match={
+      Object {
+        "isExact": true,
+        "params": Object {},
+        "path": "/",
+        "url": "/",
+      }
+    }
   >
-    <div
-      class="ten wide computer sixteen wide mobile eight wide tablet column"
+    <Grid
+      columns={2}
+      id="adminServicePreviewHolder"
+      padded={true}
+      stackable={true}
     >
       <div
-        class="ui items"
+        className="ui stackable padded two column grid"
+        id="adminServicePreviewHolder"
       >
-        <div
-          class="item servicePreviewItem"
-        >
+        <GridRow>
           <div
-            class="ui small image"
+            className="row"
           >
-            <img
-              src="https://react.semantic-ui.com/images/wireframe/image.png"
-            />
-          </div>
-          <div
-            class="content"
-          >
-            <div
-              class="meta"
+            <GridColumn
+              computer={10}
+              mobile={16}
+              tablet={8}
             >
-              Displayed name: 
-              <strong>
-                expedita
-              </strong>
-            </div>
-            <div
-              class="meta"
-            >
-              <span
-                class="servicePrice"
+              <div
+                className="ten wide computer sixteen wide mobile eight wide tablet column"
               >
-                Displayed Price: 
-                <strong>
-                  42.00
-                </strong>
-              </span>
-              <span
-                class="serviceCreated"
+                <ItemGroup>
+                  <div
+                    className="ui items"
+                  >
+                    <ServicePreview
+                      key="1"
+                      service={
+                        Object {
+                          "_id": "1",
+                          "createdAt": "now",
+                          "description": "description",
+                          "images": Array [],
+                          "name": "name",
+                          "price": "price",
+                        }
+                      }
+                    >
+                      <Item
+                        className="servicePreviewItem"
+                      >
+                        <div
+                          className="item servicePreviewItem"
+                        >
+                          <ItemImage
+                            size="small"
+                            src="https://react.semantic-ui.com/images/wireframe/image.png"
+                          >
+                            <Image
+                              as="img"
+                              size="small"
+                              src="https://react.semantic-ui.com/images/wireframe/image.png"
+                              ui={true}
+                              wrapped={true}
+                            >
+                              <div
+                                className="ui small image"
+                              >
+                                <img
+                                  src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                />
+                              </div>
+                            </Image>
+                          </ItemImage>
+                          <ItemContent>
+                            <div
+                              className="content"
+                            >
+                              <ItemMeta>
+                                <div
+                                  className="meta"
+                                >
+                                  Displayed name: 
+                                  <strong>
+                                    name
+                                  </strong>
+                                </div>
+                              </ItemMeta>
+                              <ItemMeta>
+                                <div
+                                  className="meta"
+                                >
+                                  <span
+                                    className="servicePrice"
+                                  >
+                                    Displayed Price: 
+                                    <strong>
+                                      price
+                                    </strong>
+                                  </span>
+                                  <span
+                                    className="serviceCreated"
+                                  >
+                                    Created At: 
+                                    <strong>
+                                      NaN-undefined-NaN
+                                    </strong>
+                                  </span>
+                                </div>
+                              </ItemMeta>
+                              <ItemDescription>
+                                <div
+                                  className="description"
+                                >
+                                  description...
+                                </div>
+                              </ItemDescription>
+                              <Button
+                                as="button"
+                                basic={true}
+                                color="green"
+                                content="View"
+                              >
+                                <Ref
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui green basic button"
+                                      >
+                                        View
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <RefFindNode
+                                    innerRef={
+                                      Object {
+                                        "current": <button
+                                          class="ui green basic button"
+                                        >
+                                          View
+                                        </button>,
+                                      }
+                                    }
+                                  >
+                                    <button
+                                      className="ui green basic button"
+                                      onClick={[Function]}
+                                    >
+                                      View
+                                    </button>
+                                  </RefFindNode>
+                                </Ref>
+                              </Button>
+                            </div>
+                          </ItemContent>
+                        </div>
+                      </Item>
+                    </ServicePreview>
+                    <ServicePreview
+                      key="2"
+                      service={
+                        Object {
+                          "_id": "2",
+                          "createdAt": "now",
+                          "description": "description",
+                          "images": Array [],
+                          "name": "name",
+                          "price": "price",
+                        }
+                      }
+                    >
+                      <Item
+                        className="servicePreviewItem"
+                      >
+                        <div
+                          className="item servicePreviewItem"
+                        >
+                          <ItemImage
+                            size="small"
+                            src="https://react.semantic-ui.com/images/wireframe/image.png"
+                          >
+                            <Image
+                              as="img"
+                              size="small"
+                              src="https://react.semantic-ui.com/images/wireframe/image.png"
+                              ui={true}
+                              wrapped={true}
+                            >
+                              <div
+                                className="ui small image"
+                              >
+                                <img
+                                  src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                />
+                              </div>
+                            </Image>
+                          </ItemImage>
+                          <ItemContent>
+                            <div
+                              className="content"
+                            >
+                              <ItemMeta>
+                                <div
+                                  className="meta"
+                                >
+                                  Displayed name: 
+                                  <strong>
+                                    name
+                                  </strong>
+                                </div>
+                              </ItemMeta>
+                              <ItemMeta>
+                                <div
+                                  className="meta"
+                                >
+                                  <span
+                                    className="servicePrice"
+                                  >
+                                    Displayed Price: 
+                                    <strong>
+                                      price
+                                    </strong>
+                                  </span>
+                                  <span
+                                    className="serviceCreated"
+                                  >
+                                    Created At: 
+                                    <strong>
+                                      NaN-undefined-NaN
+                                    </strong>
+                                  </span>
+                                </div>
+                              </ItemMeta>
+                              <ItemDescription>
+                                <div
+                                  className="description"
+                                >
+                                  description...
+                                </div>
+                              </ItemDescription>
+                              <Button
+                                as="button"
+                                basic={true}
+                                color="green"
+                                content="View"
+                              >
+                                <Ref
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui green basic button"
+                                      >
+                                        View
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <RefFindNode
+                                    innerRef={
+                                      Object {
+                                        "current": <button
+                                          class="ui green basic button"
+                                        >
+                                          View
+                                        </button>,
+                                      }
+                                    }
+                                  >
+                                    <button
+                                      className="ui green basic button"
+                                      onClick={[Function]}
+                                    >
+                                      View
+                                    </button>
+                                  </RefFindNode>
+                                </Ref>
+                              </Button>
+                            </div>
+                          </ItemContent>
+                        </div>
+                      </Item>
+                    </ServicePreview>
+                  </div>
+                </ItemGroup>
+              </div>
+            </GridColumn>
+            <GridColumn
+              computer={6}
+              mobile={16}
+              tablet={8}
+            >
+              <div
+                className="six wide computer sixteen wide mobile eight wide tablet column"
               >
-                Created At: 
-                <strong>
-                  2020-Sep-20
-                </strong>
-              </span>
-            </div>
-            <div
-              class="description"
-            >
-              Ea ea voluptatem ex autem iusto ad neque. Libero quis aut assumenda qui earum quia quam et aut. Repellendus sed eos repellat. Cupiditate repellendus modi. Eveniet asperiores corporis sed qui facilis f...
-            </div>
-            <button
-              class="ui green basic button"
-            >
-              View
-            </button>
+                <ServicesDetails
+                  totalServices={2}
+                >
+                  <div
+                    className="adminServiceDetailsHolder"
+                  >
+                    <div
+                      className="adminServiceDetailsTitle"
+                    >
+                      Service Details
+                    </div>
+                    <div
+                      className="adminServiceDetails"
+                    >
+                      <div
+                        className="adminServiceCounter"
+                      >
+                        <div>
+                          Total Services:
+                        </div>
+                        <div
+                          className="adminServicesCount"
+                        >
+                          2
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ServicesDetails>
+                <PopularServiceHolder
+                  popularServices={
+                    Array [
+                      Object {
+                        "_id": "1",
+                        "createdAt": "now",
+                        "description": "description",
+                        "images": Array [],
+                        "name": "name",
+                        "price": "price",
+                      },
+                      Object {
+                        "_id": "2",
+                        "createdAt": "now",
+                        "description": "description",
+                        "images": Array [],
+                        "name": "name",
+                        "price": "price",
+                      },
+                    ]
+                  }
+                >
+                  <div
+                    className="popularServiceHolder"
+                  >
+                    <div
+                      className="popServiceHolTitle"
+                    >
+                      Popular Services
+                    </div>
+                    <ItemGroup
+                      divided={true}
+                    >
+                      <div
+                        className="ui divided items"
+                      >
+                        <PopularService
+                          key="1"
+                          popularService={
+                            Object {
+                              "_id": "1",
+                              "createdAt": "now",
+                              "description": "description",
+                              "images": Array [],
+                              "name": "name",
+                              "price": "price",
+                            }
+                          }
+                        >
+                          <Item>
+                            <div
+                              className="item"
+                            >
+                              <ItemImage
+                                size="tiny"
+                                src="https://react.semantic-ui.com/images/wireframe/image.png"
+                              >
+                                <Image
+                                  as="img"
+                                  size="tiny"
+                                  src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                  ui={true}
+                                  wrapped={true}
+                                >
+                                  <div
+                                    className="ui tiny image"
+                                  >
+                                    <img
+                                      src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                    />
+                                  </div>
+                                </Image>
+                              </ItemImage>
+                              <ItemContent>
+                                <div
+                                  className="content"
+                                >
+                                  <ItemHeader>
+                                    <div
+                                      className="header"
+                                    >
+                                      name
+                                    </div>
+                                  </ItemHeader>
+                                  <ItemMeta>
+                                    <div
+                                      className="meta"
+                                    >
+                                      <span>
+                                        Priced At: 
+                                        <strong>
+                                          price
+                                        </strong>
+                                      </span>
+                                      <span>
+                                        -
+                                      </span>
+                                      <span>
+                                        Posted: 
+                                        <strong>
+                                          NaN-undefined-NaN
+                                        </strong>
+                                      </span>
+                                    </div>
+                                  </ItemMeta>
+                                  <Button
+                                    as="button"
+                                    basic={true}
+                                    color="blue"
+                                    content="More..."
+                                  >
+                                    <Ref
+                                      innerRef={
+                                        Object {
+                                          "current": <button
+                                            class="ui blue basic button"
+                                          >
+                                            More...
+                                          </button>,
+                                        }
+                                      }
+                                    >
+                                      <RefFindNode
+                                        innerRef={
+                                          Object {
+                                            "current": <button
+                                              class="ui blue basic button"
+                                            >
+                                              More...
+                                            </button>,
+                                          }
+                                        }
+                                      >
+                                        <button
+                                          className="ui blue basic button"
+                                          onClick={[Function]}
+                                        >
+                                          More...
+                                        </button>
+                                      </RefFindNode>
+                                    </Ref>
+                                  </Button>
+                                </div>
+                              </ItemContent>
+                            </div>
+                          </Item>
+                        </PopularService>
+                        <PopularService
+                          key="2"
+                          popularService={
+                            Object {
+                              "_id": "2",
+                              "createdAt": "now",
+                              "description": "description",
+                              "images": Array [],
+                              "name": "name",
+                              "price": "price",
+                            }
+                          }
+                        >
+                          <Item>
+                            <div
+                              className="item"
+                            >
+                              <ItemImage
+                                size="tiny"
+                                src="https://react.semantic-ui.com/images/wireframe/image.png"
+                              >
+                                <Image
+                                  as="img"
+                                  size="tiny"
+                                  src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                  ui={true}
+                                  wrapped={true}
+                                >
+                                  <div
+                                    className="ui tiny image"
+                                  >
+                                    <img
+                                      src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                    />
+                                  </div>
+                                </Image>
+                              </ItemImage>
+                              <ItemContent>
+                                <div
+                                  className="content"
+                                >
+                                  <ItemHeader>
+                                    <div
+                                      className="header"
+                                    >
+                                      name
+                                    </div>
+                                  </ItemHeader>
+                                  <ItemMeta>
+                                    <div
+                                      className="meta"
+                                    >
+                                      <span>
+                                        Priced At: 
+                                        <strong>
+                                          price
+                                        </strong>
+                                      </span>
+                                      <span>
+                                        -
+                                      </span>
+                                      <span>
+                                        Posted: 
+                                        <strong>
+                                          NaN-undefined-NaN
+                                        </strong>
+                                      </span>
+                                    </div>
+                                  </ItemMeta>
+                                  <Button
+                                    as="button"
+                                    basic={true}
+                                    color="blue"
+                                    content="More..."
+                                  >
+                                    <Ref
+                                      innerRef={
+                                        Object {
+                                          "current": <button
+                                            class="ui blue basic button"
+                                          >
+                                            More...
+                                          </button>,
+                                        }
+                                      }
+                                    >
+                                      <RefFindNode
+                                        innerRef={
+                                          Object {
+                                            "current": <button
+                                              class="ui blue basic button"
+                                            >
+                                              More...
+                                            </button>,
+                                          }
+                                        }
+                                      >
+                                        <button
+                                          className="ui blue basic button"
+                                          onClick={[Function]}
+                                        >
+                                          More...
+                                        </button>
+                                      </RefFindNode>
+                                    </Ref>
+                                  </Button>
+                                </div>
+                              </ItemContent>
+                            </div>
+                          </Item>
+                        </PopularService>
+                      </div>
+                    </ItemGroup>
+                  </div>
+                </PopularServiceHolder>
+              </div>
+            </GridColumn>
           </div>
-        </div>
-        <div
-          class="item servicePreviewItem"
-        >
-          <div
-            class="ui small image"
-          >
-            <img
-              src="https://react.semantic-ui.com/images/wireframe/image.png"
-            />
-          </div>
-          <div
-            class="content"
-          >
-            <div
-              class="meta"
-            >
-              Displayed name: 
-              <strong>
-                ut
-              </strong>
-            </div>
-            <div
-              class="meta"
-            >
-              <span
-                class="servicePrice"
-              >
-                Displayed Price: 
-                <strong>
-                  84.00
-                </strong>
-              </span>
-              <span
-                class="serviceCreated"
-              >
-                Created At: 
-                <strong>
-                  2020-Sep-19
-                </strong>
-              </span>
-            </div>
-            <div
-              class="description"
-            >
-              Maxime adipisci dolorum iste asperiores fugit sint enim. Minus quisquam qui molestias ipsam. Repellendus nisi dolorem. Laudantium voluptas nostrum sit. Distinctio iusto atque. Cum odit debitis facilis...
-            </div>
-            <button
-              class="ui green basic button"
-            >
-              View
-            </button>
-          </div>
-        </div>
-        <div
-          class="item servicePreviewItem"
-        >
-          <div
-            class="ui small image"
-          >
-            <img
-              src="https://react.semantic-ui.com/images/wireframe/image.png"
-            />
-          </div>
-          <div
-            class="content"
-          >
-            <div
-              class="meta"
-            >
-              Displayed name: 
-              <strong>
-                dolorem
-              </strong>
-            </div>
-            <div
-              class="meta"
-            >
-              <span
-                class="servicePrice"
-              >
-                Displayed Price: 
-                <strong>
-                  89.00
-                </strong>
-              </span>
-              <span
-                class="serviceCreated"
-              >
-                Created At: 
-                <strong>
-                  2020-Sep-19
-                </strong>
-              </span>
-            </div>
-            <div
-              class="description"
-            >
-              Omnis autem eos repudiandae et expedita quasi nihil. Officia sunt adipisci labore. Aut dicta beatae non a voluptatem voluptas ut et nihil. Quia minima laudantium id facere illum et. Dolorem omnis volu...
-            </div>
-            <button
-              class="ui green basic button"
-            >
-              View
-            </button>
-          </div>
-        </div>
-        <div
-          class="item servicePreviewItem"
-        >
-          <div
-            class="ui small image"
-          >
-            <img
-              src="https://react.semantic-ui.com/images/wireframe/image.png"
-            />
-          </div>
-          <div
-            class="content"
-          >
-            <div
-              class="meta"
-            >
-              Displayed name: 
-              <strong>
-                rerum
-              </strong>
-            </div>
-            <div
-              class="meta"
-            >
-              <span
-                class="servicePrice"
-              >
-                Displayed Price: 
-                <strong>
-                  29.00
-                </strong>
-              </span>
-              <span
-                class="serviceCreated"
-              >
-                Created At: 
-                <strong>
-                  2020-Sep-20
-                </strong>
-              </span>
-            </div>
-            <div
-              class="description"
-            >
-              Ut nulla eligendi excepturi rerum totam modi consequatur. Voluptas et praesentium exercitationem vitae distinctio nam. Totam est esse temporibus deleniti laudantium atque doloremque dolorem nemo. Volu...
-            </div>
-            <button
-              class="ui green basic button"
-            >
-              View
-            </button>
-          </div>
-        </div>
-        <div
-          class="item servicePreviewItem"
-        >
-          <div
-            class="ui small image"
-          >
-            <img
-              src="https://react.semantic-ui.com/images/wireframe/image.png"
-            />
-          </div>
-          <div
-            class="content"
-          >
-            <div
-              class="meta"
-            >
-              Displayed name: 
-              <strong>
-                sed
-              </strong>
-            </div>
-            <div
-              class="meta"
-            >
-              <span
-                class="servicePrice"
-              >
-                Displayed Price: 
-                <strong>
-                  86.00
-                </strong>
-              </span>
-              <span
-                class="serviceCreated"
-              >
-                Created At: 
-                <strong>
-                  2020-Sep-20
-                </strong>
-              </span>
-            </div>
-            <div
-              class="description"
-            >
-              Et repellendus incidunt libero qui voluptatem nihil consequatur cum. Quia rerum est odit perferendis fugit et. Qui quis ea consectetur reprehenderit rerum temporibus optio tenetur unde. Debitis nesciu...
-            </div>
-            <button
-              class="ui green basic button"
-            >
-              View
-            </button>
-          </div>
-        </div>
+        </GridRow>
       </div>
-    </div>
-    <div
-      class="six wide computer sixteen wide mobile eight wide tablet column"
-    >
-      <div
-        class="adminServiceDetailsHolder"
-      >
-        <div
-          class="adminServiceDetailsTitle"
-        >
-          Service Details
-        </div>
-        <div
-          class="adminServiceDetails"
-        >
-          <div
-            class="adminServiceCounter"
-          >
-            <div>
-              Total Services:
-            </div>
-            <div
-              class="adminServicesCount"
-            >
-              5
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="popularServiceHolder"
-      >
-        <div
-          class="popServiceHolTitle"
-        >
-          Popular Services
-        </div>
-        <div
-          class="ui divided items"
-        >
-          <div
-            class="item"
-          >
-            <div
-              class="ui tiny image"
-            >
-              <img
-                src="https://react.semantic-ui.com/images/wireframe/image.png"
-              />
-            </div>
-            <div
-              class="content"
-            >
-              <div
-                class="header"
-              >
-                expedita
-              </div>
-              <div
-                class="meta"
-              >
-                <span>
-                  Priced At: 
-                  <strong>
-                    42.00
-                  </strong>
-                </span>
-                <span>
-                  -
-                </span>
-                <span>
-                  Posted: 
-                  <strong>
-                    2020-Sep-20
-                  </strong>
-                </span>
-              </div>
-              <button
-                class="ui blue basic button"
-              >
-                More...
-              </button>
-            </div>
-          </div>
-          <div
-            class="item"
-          >
-            <div
-              class="ui tiny image"
-            >
-              <img
-                src="https://react.semantic-ui.com/images/wireframe/image.png"
-              />
-            </div>
-            <div
-              class="content"
-            >
-              <div
-                class="header"
-              >
-                ut
-              </div>
-              <div
-                class="meta"
-              >
-                <span>
-                  Priced At: 
-                  <strong>
-                    84.00
-                  </strong>
-                </span>
-                <span>
-                  -
-                </span>
-                <span>
-                  Posted: 
-                  <strong>
-                    2020-Sep-19
-                  </strong>
-                </span>
-              </div>
-              <button
-                class="ui blue basic button"
-              >
-                More...
-              </button>
-            </div>
-          </div>
-          <div
-            class="item"
-          >
-            <div
-              class="ui tiny image"
-            >
-              <img
-                src="https://react.semantic-ui.com/images/wireframe/image.png"
-              />
-            </div>
-            <div
-              class="content"
-            >
-              <div
-                class="header"
-              >
-                dolorem
-              </div>
-              <div
-                class="meta"
-              >
-                <span>
-                  Priced At: 
-                  <strong>
-                    89.00
-                  </strong>
-                </span>
-                <span>
-                  -
-                </span>
-                <span>
-                  Posted: 
-                  <strong>
-                    2020-Sep-19
-                  </strong>
-                </span>
-              </div>
-              <button
-                class="ui blue basic button"
-              >
-                More...
-              </button>
-            </div>
-          </div>
-          <div
-            class="item"
-          >
-            <div
-              class="ui tiny image"
-            >
-              <img
-                src="https://react.semantic-ui.com/images/wireframe/image.png"
-              />
-            </div>
-            <div
-              class="content"
-            >
-              <div
-                class="header"
-              >
-                rerum
-              </div>
-              <div
-                class="meta"
-              >
-                <span>
-                  Priced At: 
-                  <strong>
-                    29.00
-                  </strong>
-                </span>
-                <span>
-                  -
-                </span>
-                <span>
-                  Posted: 
-                  <strong>
-                    2020-Sep-20
-                  </strong>
-                </span>
-              </div>
-              <button
-                class="ui blue basic button"
-              >
-                More...
-              </button>
-            </div>
-          </div>
-          <div
-            class="item"
-          >
-            <div
-              class="ui tiny image"
-            >
-              <img
-                src="https://react.semantic-ui.com/images/wireframe/image.png"
-              />
-            </div>
-            <div
-              class="content"
-            >
-              <div
-                class="header"
-              >
-                sed
-              </div>
-              <div
-                class="meta"
-              >
-                <span>
-                  Priced At: 
-                  <strong>
-                    86.00
-                  </strong>
-                </span>
-                <span>
-                  -
-                </span>
-                <span>
-                  Posted: 
-                  <strong>
-                    2020-Sep-20
-                  </strong>
-                </span>
-              </div>
-              <button
-                class="ui blue basic button"
-              >
-                More...
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    </Grid>
+  </ServicePreviewHolder>
+</withRouter(ServicePreviewHolder)>
 `;
 
 exports[`ServicePreviewHolder Component render tests ServicePreviewHolder in 'loading' state Should correctly render 1`] = `
-<div
-  id="generalLoadingScreen"
-  style="height: 100vh;"
->
-  <div
-    class="ui segment"
-    style="height: 100vh;"
+<withRouter(ServicePreviewHolder)>
+  <ServicePreviewHolder
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+    location={
+      Object {
+        "hash": "",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      }
+    }
+    match={
+      Object {
+        "isExact": true,
+        "params": Object {},
+        "path": "/",
+        "url": "/",
+      }
+    }
   >
-    <div
-      class="ui active transition visible inverted dimmer"
-      style="display: flex;"
-    >
+    <LoaderExampleText>
       <div
-        class="content"
+        id="generalLoadingScreen"
+        style={
+          Object {
+            "height": "100vh",
+          }
+        }
       >
-        <div
-          class="ui text loader"
+        <Segment
+          style={
+            Object {
+              "height": "100vh",
+            }
+          }
         >
-          Please Wait
-        </div>
+          <div
+            className="ui segment"
+            style={
+              Object {
+                "height": "100vh",
+              }
+            }
+          >
+            <Dimmer
+              active={true}
+              inverted={true}
+            >
+              <DimmerInner
+                active={true}
+                inverted={true}
+              >
+                <Ref
+                  innerRef={
+                    Object {
+                      "current": <div
+                        class="ui active transition visible inverted dimmer"
+                        style="display: flex;"
+                      >
+                        <div
+                          class="content"
+                        >
+                          <div
+                            class="ui text loader"
+                          >
+                            Please Wait
+                          </div>
+                        </div>
+                      </div>,
+                    }
+                  }
+                >
+                  <RefFindNode
+                    innerRef={
+                      Object {
+                        "current": <div
+                          class="ui active transition visible inverted dimmer"
+                          style="display: flex;"
+                        >
+                          <div
+                            class="content"
+                          >
+                            <div
+                              class="ui text loader"
+                            >
+                              Please Wait
+                            </div>
+                          </div>
+                        </div>,
+                      }
+                    }
+                  >
+                    <div
+                      className="ui active transition visible inverted dimmer"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="content"
+                      >
+                        <Loader>
+                          <div
+                            className="ui text loader"
+                          >
+                            Please Wait
+                          </div>
+                        </Loader>
+                      </div>
+                    </div>
+                  </RefFindNode>
+                </Ref>
+              </DimmerInner>
+            </Dimmer>
+          </div>
+        </Segment>
       </div>
-    </div>
-  </div>
-</div>
+    </LoaderExampleText>
+  </ServicePreviewHolder>
+</withRouter(ServicePreviewHolder)>
 `;
