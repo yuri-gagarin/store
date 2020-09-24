@@ -3,18 +3,18 @@ import { Button, Form, TextArea } from "semantic-ui-react";
 // type definitions //
 import { FormState } from "../type_definitions/bonusVideoTypes";
 // helpers //
-import { checkSetValues } from "../../../helpers/validationHelpers";
 
 interface Props {
-  bonusVideoData: IBonusVideoData;
+  description?: string;
+  youTubeURL?: string;
+  vimeoURL?: string;
+  newForm: boolean;
   handleCreateBonusVideo(data: FormState): void;
   handleUpdateBonusVideo(data: FormState): void;
 }
 
-const BonusVideoForm: React.FC<Props> = ({ bonusVideoData, handleCreateBonusVideo, handleUpdateBonusVideo }): JSX.Element => {
-  const { description, youTubeURL, vimeoURL } = bonusVideoData;
+const BonusVideoForm: React.FC<Props> = ({ description, youTubeURL, vimeoURL, newForm, handleCreateBonusVideo, handleUpdateBonusVideo }): JSX.Element => {
   // local form state //
-  const [ newForm, setNewForm ] = useState<boolean>(true)
   const [ formState, setFormState ] = useState<FormState>({ description, youTubeURL, vimeoURL });
   // form ref //
   const bonusVideoFormRef = useRef<HTMLDivElement>(document.createElement("div"));
@@ -46,11 +46,7 @@ const BonusVideoForm: React.FC<Props> = ({ bonusVideoData, handleCreateBonusVide
       handleUpdateBonusVideo(formState);
     }
   };
-
-  useEffect(() => {
-    checkSetValues(bonusVideoData) ? setNewForm(false) : setNewForm(true);
-  },  [ bonusVideoData ]);
-
+  // lifecycle hooks //
   useEffect(() => {
     if (bonusVideoFormRef.current) {
       const elem = bonusVideoFormRef.current.getBoundingClientRect();

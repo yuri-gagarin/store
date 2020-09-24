@@ -2,17 +2,12 @@
 
 exports[`BonusVideo Form Component render tests Empty Form render tests Should properly mount 1`] = `
 <BonusVideoForm
-  bonusVideoData={
-    Object {
-      "_id": "",
-      "createdAt": "",
-      "description": "",
-      "vimeoURL": "",
-      "youTubeURL": "",
-    }
-  }
+  description=""
   handleCreateBonusVideo={[Function]}
   handleUpdateBonusVideo={[Function]}
+  newForm={true}
+  vimeoURL=""
+  youTubeURL=""
 >
   <div
     id="createBonusVideoForm"
@@ -167,17 +162,12 @@ exports[`BonusVideo Form Component render tests Empty Form render tests Should p
 
 exports[`BonusVideo Form Component render tests Form with valid data render tests Should properly mount 1`] = `
 <BonusVideoForm
-  bonusVideoData={
-    Object {
-      "_id": "1111",
-      "createdAt": "now",
-      "description": "desc",
-      "vimeoURL": "url",
-      "youTubeURL": "url",
-    }
-  }
+  description="desc"
   handleCreateBonusVideo={[Function]}
   handleUpdateBonusVideo={[Function]}
+  newForm={false}
+  vimeoURL="url"
+  youTubeURL="url"
 >
   <div
     id="createBonusVideoForm"

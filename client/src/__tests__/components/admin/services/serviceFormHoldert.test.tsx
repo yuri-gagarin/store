@@ -17,6 +17,7 @@ import LoadingBar from "../../../../components/admin_components/miscelaneous/Loa
 import { IGlobalAppState, StateProvider, TestStateProvider } from "../../../../state/Store";
 // helpers //
 import { createMockServices, setMockServiceState } from "../../../../test_helpers/serviceHelpers";
+import { generateCleanState } from "../../../../test_helpers/miscHelpers";
 
 describe("ServiceFormHolder Component tests", () => {
   let wrapper: ReactWrapper; 
@@ -25,25 +26,26 @@ describe("ServiceFormHolder Component tests", () => {
     beforeAll(() => {
       window.scrollTo = jest.fn();
       wrapper = mount(
-        <Router>
+        <Router keyLength={0}>
           <ServiceFormHolder />
         </Router>
       );
     });
 
     it("Should Properly Mount Form Holder", () => {
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.find(ServiceFormHolder)).toMatchSnapshot();
     });
     it("Form Should be closed by default", () => {
       const form = wrapper.find(ServiceForm);
       expect(form.length).toEqual(0);
     });
     it("Should have a Form toggle Button", () => {
-      const toggleButton = wrapper.find(Button);
+      const toggleButton = wrapper.find(ServiceFormHolder).render().find("#serviceFormToggleBtn");
       expect(toggleButton.length).toEqual(1);
     });
 
   });
+  
   // TEST Form Holder state OPEN - NO Current Service Data //
   describe("Form Holder state OPEN - NO Current Service Data",  () => {
     let wrapper: ReactWrapper;
@@ -51,27 +53,29 @@ describe("ServiceFormHolder Component tests", () => {
     beforeAll(() => {
       window.scrollTo = jest.fn();
       wrapper = mount(
-        <Router>
+        <Router keyLength={0}>
           <StateProvider>
             <ServiceFormHolder />
           </StateProvider>
         </Router>
       );
+      wrapper.find(ServiceFormHolder).find("#serviceFormToggleBtn").at(0).simulate("click");
     });
     it("Should have a Form toggle Button", () => {
-      const toggleButton = wrapper.render().find('#serviceFormToggleBtn');
+      const toggleButton = wrapper.find(ServiceFormHolder).render().find('#serviceFormToggleBtn');
       expect(toggleButton.length).toEqual(1);
     });
-    it("Should Properly Mount Form Holder, respond to '#serviceToggleBtn' click", () => {
-      const toggleButton = wrapper.find("#serviceFormToggleBtn");
-      toggleButton.at(0).simulate("click")
+    it("Should NOT render '#serviceFormHolderDetails'", () => {
+      const formDetails = wrapper.find(ServiceFormHolder).render().find("#serviceFormHolderDetails");
+      expect(formDetails.length).toEqual(0);
+    })
+    it("Should properly render FormHolder, respond to '#serviceToggleBtn' click", () => {
       // open button clicked //
-      //wrapper.update()
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.find(ServiceFormHolder)).toMatchSnapshot();
     });
   
     it("Should have a Form Create Button", () => {
-      const toggleButton = wrapper.render().find('#adminServiceFormCreate');
+      const toggleButton = wrapper.find(ServiceFormHolder).render().find('#adminServiceFormCreate');
       expect(toggleButton.length).toEqual(1);
     });
     it("Should have the Form rendered after toggle button", () => {
@@ -87,25 +91,38 @@ describe("ServiceFormHolder Component tests", () => {
       expect(imgUploadForm.length).toEqual(0);
     });
   });
+  
   // END Form Holder state OPEN - NO Current Service Data //
   // TEST Form Holder state OPEN - WITH Current Service Data - NO IMAGES //
   describe("Form Holder state OPEN - WITH Current Service Data - NO IMAGES",  () => {
     let wrapper: ReactWrapper; let state: IGlobalAppState;
+    let mockService: IServiceData;
 
     beforeAll(() => {
       window.scrollTo = jest.fn();
-      state = setMockServiceState({ currentService: true });
+      state = generateCleanState();
+      mockService = {
+        _id: "1",
+        name: "name",
+        price: "100",
+        description: "description",
+        images: [],
+        createdAt: "now"
+      };
+      state.serviceState.currentServiceData = mockService;
+      // mount and open form // 
       wrapper = mount(
-        <Router>
+        <Router keyLength={0}>
           <TestStateProvider mockState={state}>
             <ServiceFormHolder />
           </TestStateProvider>
         </Router>
       );
-      wrapper.update()
+      wrapper.find(ServiceFormHolder).find("#serviceFormToggleBtn").at(0).simulate("click");
     });
 
-    it("Should Properly Mount Form Holder", () => {
+    it("Should properly render ServiceFormHolder component", () => {
+      expect(wrapper.find(ServiceFormHolder)).toMatchSnapshot();
       expect(wrapper.find("#serviceFormHolder").length).toEqual(1);
     });
     it("Should have a Form toggle Button", () => {
@@ -116,6 +133,14 @@ describe("ServiceFormHolder Component tests", () => {
       const form = wrapper.find(ServiceForm);
       expect(form.length).toEqual(1);
     });
+    it("Should render '#serviceFormDetails'", () => {
+      const serviceFormDetails = wrapper.find(ServiceFormHolder).render().find("#serviceFormHolderDetails");
+      expect(serviceFormDetails.length).toEqual(1);
+    });
+    it("Should correctly render '.serviceFormHolderDetailsName'", () => {
+      const serviceDetail = wrapper.find(ServiceFormHolder).render().find(".serviceFormHolderDetailsName");
+      expect(serviceDetail).toEqual(1);
+    })
     it("Should have a Form Update Button", () => {
       const toggleButton = wrapper.render().find('#adminServiceFormUpdate');
       expect(toggleButton.length).toEqual(1);
@@ -133,6 +158,7 @@ describe("ServiceFormHolder Component tests", () => {
       expect(imgUploadForm.length).toEqual(1);
     });
   });
+  /*
   // END Form Holder state OPEN - WITH Current Service Data - NO IMAGES //
   // TEST Form Holder state OPEN - WITH Current Service Data - WITH IMAGES //
   describe("Form Holder state OPEN - WITH Current Service Data - WITH IMAGES",  () => {
@@ -227,5 +253,5 @@ describe("ServiceFormHolder Component tests", () => {
     });
     // END Form Holder state OPEN - MOCK Submit action //
   });
-  
+  */
 });

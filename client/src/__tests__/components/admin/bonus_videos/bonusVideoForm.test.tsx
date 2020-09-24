@@ -20,7 +20,10 @@ describe("BonusVideo Form Component render tests", () => {
       // mount form //
       wrapper = mount(
         <BonusVideoForm  
-          bonusVideoData={bonusVideoData} 
+          youTubeURL={bonusVideoData.youTubeURL}
+          vimeoURL={bonusVideoData.vimeoURL}
+          description={bonusVideoData.description}
+          newForm={true}
           handleCreateBonusVideo={jest.fn}
           handleUpdateBonusVideo={jest.fn}
         />
@@ -63,7 +66,10 @@ describe("BonusVideo Form Component render tests", () => {
 
       wrapper = mount(
         <BonusVideoForm 
-          bonusVideoData={mockData}
+          youTubeURL={mockData.youTubeURL}
+          vimeoURL={mockData.vimeoURL}
+          description={mockData.description}
+          newForm={false}
           handleCreateBonusVideo={jest.fn}
           handleUpdateBonusVideo={jest.fn}
         />

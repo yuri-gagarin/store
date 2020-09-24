@@ -10,6 +10,7 @@ import LoadingBar from "../../../../components/admin_components/miscelaneous/Loa
 import { IGlobalAppState, TestStateProvider } from "../../../../state/Store";
 // helpers //
 import { setMockBonusVideoState } from "../../../../test_helpers/bonusVideoHelpers";
+import { generateCleanState } from "../../../../test_helpers/miscHelpers";
 
 describe("BonusVideoFormHolder Component tests", () => {
   // TEST default Form Holder state //
@@ -57,7 +58,7 @@ describe("BonusVideoFormHolder Component tests", () => {
       wrapper.find(BonusVideoFormHolder).find("#bonusVideoFormToggleBtn").at(0).simulate("click");
     });
 
-    it("Should Properly Mount Form Holder", () => {
+    it("Should Properly render FormHolder", () => {
       expect(wrapper.find(BonusVideoFormHolder)).toMatchSnapshot();
     });
     it("Form Should be open", () => {
@@ -86,10 +87,20 @@ describe("BonusVideoFormHolder Component tests", () => {
   // TEST Form Holder state OPEN - WITH Current BonusVideo Data //
   describe("Form Holder state OPEN - WITH Current BonusVideo Data",  () => {
     let wrapper: ReactWrapper; let state: IGlobalAppState;
+    let mockBonVidData: IBonusVideoData;
 
     beforeAll(() => {
       window.scrollTo = jest.fn();
-      state = setMockBonusVideoState({ currentBonusVideo: true });
+      state = generateCleanState();
+      mockBonVidData = {
+        _id: "1",
+        youTubeURL: "url",
+        vimeoURL: "url",
+        description: "description",
+        createdAt: "now"
+      };
+      state.bonusVideoState.currentBonusVideoData = mockBonVidData;
+      // mount and open form //
       wrapper = mount(
         <TestStateProvider mockState={state}>
           <BonusVideoFormHolder />
@@ -98,8 +109,12 @@ describe("BonusVideoFormHolder Component tests", () => {
       wrapper.find(BonusVideoFormHolder).find("#bonusVideoFormToggleBtn").at(0).simulate("click");
     });
 
+    it("Should properly render BonusVideoFormHolder component", () => {
+      expect(wrapper.find(BonusVideoFormHolder)).toMatchSnapshot();
+      expect(wrapper.find("#bonusVideoFormHolder").length).toEqual(1);
+    })
     it("Should have a Form toggle Button", () => {
-      const toggleButton = wrapper.render().find('#bonusVideoFormToggleBtn');
+      const toggleButton = wrapper.find(BonusVideoFormHolder).render().find('#bonusVideoFormToggleBtn');
       expect(toggleButton.length).toEqual(1);
     });
     it("Should render 'BonusVideoPreview' Component", () => {
@@ -114,7 +129,7 @@ describe("BonusVideoFormHolder Component tests", () => {
       const toggleButton = wrapper.find(BonusVideoFormHolder).render().find("#bonusVideoFormUpdate");
       expect(toggleButton.length).toEqual(1);
     });
-    it("Should render'#bonusVideoFormDetails'", () => {
+    it("Should render '#bonusVideoFormDetails'", () => {
       const bonusVideFormDetails = wrapper.find(BonusVideoFormHolder).render().find("#bonusVideoFormDetails");
       expect(bonusVideFormDetails.length).toEqual(1);
     });

@@ -16,6 +16,7 @@ import { createService, editService } from "../actions/APIServiceActions";
 import { openServiceForm, closeServiceForm } from "../actions/UIServiceActions";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
+import { checkSetValues } from "../../../helpers/validationHelpers";
 // types 
 import { FormState } from "./ServiceForm";
 interface Props extends RouteComponentProps {
@@ -79,11 +80,8 @@ const ServiceFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   }, [ serviceFormOpen ]);
   // set correct data if a service is loaded //
   useEffect(() => {
-    if (serviceId) {
-      setNewForm(false);
-      openServiceForm(dispatch);
-    }
-  }, [ serviceId ]);
+      checkSetValues(currentServiceData) ? setNewForm(false) : setNewForm(true);
+  }, [ currentServiceData ]);
   // component return //
   return (
     <div id="serviceFormHolder">
@@ -91,18 +89,18 @@ const ServiceFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
       {
         !newForm ?
           <React.Fragment>
-            <Grid.Row>
+            <Grid.Row id="serviceFormHolderDetails">
               <Grid.Column mobile={16} tablet={14} computer={14}>
                 <h1>Details</h1>
-                <div className="serviceFormHolderDetails">
+                <div className="serviceFormHolderDetailsName">
                   <h3>Service name:</h3>
                   <p>{name}</p>
                 </div>
-                <div className="serviceFormHolderPrice">
+                <div className="serviceFormHolderDetailsPrice">
                   <h3>Service price:</h3>
                   <p>{price}</p>
                 </div>
-                <div className="serviceFormHolderDetails">
+                <div className="serviceFormHolderDetailsDesc">
                   <h3>Service description:</h3>
                   <p>{description}</p>
                 </div>

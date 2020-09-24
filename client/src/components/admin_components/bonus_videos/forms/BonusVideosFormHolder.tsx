@@ -24,7 +24,8 @@ const BonusVideoFormHolder: React.FC<Props> = ({ }): JSX.Element => {
   // data for component //
   const { currentBonusVideoData, bonusVideoFormOpen } = state.bonusVideoState;
   const { description, youTubeURL, vimeoURL, createdAt, editedAt } = currentBonusVideoData;
-
+  // local state //
+  const [ newForm, setNewForm ] = useState(true);
   // form toggle listener //
   const toggleBonusVidform = () => {
     bonusVideoFormOpen ? closeBonusVideoForm(dispatch) : openBonusVideoForm(dispatch);
@@ -62,6 +63,9 @@ const BonusVideoFormHolder: React.FC<Props> = ({ }): JSX.Element => {
   };
   // lifecycle hooks //
   useEffect(() => {
+    checkSetValues<IBonusVideoData>(currentBonusVideoData) ? setNewForm(false) : setNewForm(true);
+  }, [ currentBonusVideoData ]);
+  useEffect(() => {
     if (!bonusVideoFormOpen) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -70,7 +74,7 @@ const BonusVideoFormHolder: React.FC<Props> = ({ }): JSX.Element => {
   return (
     <div id="bonusVideoFormHolder">
       {
-        checkSetValues<IBonusVideoData>(currentBonusVideoData) ?
+        !newForm ?
           <React.Fragment>
             <Grid.Row id="bonusVideoFormDetails">
               <Grid.Column mobile={16} tablet={14} computer={14}>
@@ -112,6 +116,7 @@ const BonusVideoFormHolder: React.FC<Props> = ({ }): JSX.Element => {
               description={description} 
               youTubeURL={youTubeURL}
               vimeoURL={vimeoURL}
+              newForm={newForm}
               handleCreateBonusVideo={handleCreateBonusVideo}
               handleUpdateBonusVideo={handleUpdateBonusVideo}
             /> 
