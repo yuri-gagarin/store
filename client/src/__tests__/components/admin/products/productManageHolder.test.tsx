@@ -62,7 +62,7 @@ describe("Product Manage Holder Tests", () => {
         });
       });
     });
-      afterAll(() => {
+    afterAll(() => {
       moxios.uninstall();
     }); 
     

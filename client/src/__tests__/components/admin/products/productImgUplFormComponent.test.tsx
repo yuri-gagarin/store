@@ -15,10 +15,10 @@ import { createMockProducts } from "../../../../test_helpers/productHelpers";
 describe("Product Image Upload Form Tests", () => {
 
   describe("Render tests without any Image data", () => {
-    let component: ShallowWrapper<React.FC>;
+    let component: ShallowWrapper;
 
     beforeAll(() => {
-      component = shallow<React.FC<{}>, {}>(<ProductImgUplForm />)
+      component = shallow(<ProductImgUplForm />)
      });
 
     it("Should properly render", () => {
@@ -35,11 +35,11 @@ describe("Product Image Upload Form Tests", () => {
   });
   
   describe("Render tests with an Image file present", () => {
-    let component: ShallowWrapper<React.FC>;
+    let component: ShallowWrapper;
     let input: ShallowWrapper;
 
     beforeAll(() => {
-      component = shallow<React.FC<{}>, {}>(<ProductImgUplForm />);
+      component = shallow(<ProductImgUplForm />);
       const file: File = MockFile.create("test", 1024, { type: "image/jpeg" });
       input = component.find("input");
       input.simulate("change", { target: { files: [ file ] } });
@@ -66,11 +66,11 @@ describe("Product Image Upload Form Tests", () => {
   });
   // MOCK Successful Image upload tests //
   describe("'#productImgUploadBtn' functionality and successful upload and local state changes", () => {
-    let component: ReactWrapper<typeof ProductImgUplForm, {}, {}>;
+    let component: ReactWrapper;
     let input: ReactWrapper;
 
     beforeAll(() => {
-      component = mount<React.FC<{}>, {}>(
+      component = mount(
         <StateProvider>
           <ProductImgUplForm />
         </StateProvider>
@@ -112,26 +112,26 @@ describe("Product Image Upload Form Tests", () => {
       });
     });
     it("Should correctly render Select Image button after 'successful upload", () => {
-      const selectImgBtn = component.find("#selectProductImgBtn");
-      expect(selectImgBtn.length).toEqual(2);
+      const selectImgBtn = component.find(ProductImgUplForm).render().find("#selectProductImgBtn");
+      expect(selectImgBtn.length).toEqual(1);
     });
     it("Should NOT render Image Upload button after 'successful upload", () => {
-      const imgUpoadBtn = component.find("#productImgUploadBtn");
+      const imgUpoadBtn = component.find(ProductImgUplForm).render().find("#productImgUploadBtn");
       expect(imgUpoadBtn.length).toEqual(0);
     });
     it("Should NOT render Cancel Upload button after 'successful upload", () => {
-      const imgUpoadBtn = component.find("#productImgUploadBtn");
+      const imgUpoadBtn = component.find(ProductImgUplForm).render().find("#productImgUploadBtn");
       expect(imgUpoadBtn.length).toEqual(0);
     });
   });
   // END Mock successful Image upload tests //
   // MOCK unsuccessful Image upload tests //
   describe("'#cancelProductImgUploadBtn' functionality and a failed upload", () => {
-    let component: ReactWrapper<React.FC>;
+    let component: ReactWrapper;
     let input: ReactWrapper;
 
     beforeAll(() => {
-      component = mount<React.FC<{}>, {}>(
+      component = mount(
         <StateProvider>
           <ProductImgUplForm />
         </StateProvider>
@@ -173,16 +173,16 @@ describe("Product Image Upload Form Tests", () => {
       });
     });
     it("Should NOT render Select Image button after a 'failed' upload", () => {
-      const selectImgBtn = component.find("#selectProductImgBtn");
+      const selectImgBtn = component.find(ProductImgUplForm).render().find("#selectProductImgBtn");
       expect(selectImgBtn.length).toEqual(0);
     });
     it("Should render Image Upload button after a 'failed' upload", () => {
-      const imgUpoadBtn = component.find("#productImgUploadBtn");
-      expect(imgUpoadBtn.length).toEqual(2);
+      const imgUpoadBtn = component.find(ProductImgUplForm).render().find("#productImgUploadBtn");
+      expect(imgUpoadBtn.length).toEqual(1);
     })
     it("Should render Cancel Upload button after a 'failed' upload", () => {
-      const imgUpoadBtn = component.find("#productImgUploadBtn");
-      expect(imgUpoadBtn.length).toEqual(2);
+      const imgUpoadBtn = component.find(ProductImgUplForm).render().find("#productImgUploadBtn");
+      expect(imgUpoadBtn.length).toEqual(1);
     });
   });
   // END Mock unsuccessful Image upload tests //
