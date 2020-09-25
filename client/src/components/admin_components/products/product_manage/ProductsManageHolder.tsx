@@ -31,10 +31,10 @@ const ProductsManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
     let isMounted = true;
     if (isMounted) {
       getAllProducts(dispatch)
-        .then(_ => {
+        .then((_) => {
           setNewDataLoaded(true);
         })
-        .catch((error) => {
+        .catch((_) => {
           setNewDataLoaded(false);
         });
     }
@@ -91,5 +91,5 @@ const ProductsManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
 
 // export for testing //
 export { ProductsManageHolder };
-//
+// default export //
 export default withRouter(ProductsManageHolder);

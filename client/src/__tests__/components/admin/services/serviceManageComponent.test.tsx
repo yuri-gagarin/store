@@ -1,17 +1,17 @@
 import React from "react";
-import { mount, ReactWrapper } from "enzyme";
+import { Grid } from "semantic-ui-react";
+// test dependencies //
 import moxios from "moxios";
+import { mount, ReactWrapper } from "enzyme";
+import { act } from "react-dom/test-utils";
 import { MemoryRouter as Router } from "react-router-dom";
 // components //
 import ServiceManageHolder from "../../../../components/admin_components/services/service_manage/ServiceManageHolder";
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
-import ErrorComponent from "../../../../components/admin_components/miscelaneous/ErrorScreen";
-import { act } from "react-dom/test-utils";
-import { createMockServices } from "../../../../test_helpers/serviceHelpers";
-import { StateProvider } from "../../../../state/Store";
 import ServiceCard from "../../../../components/admin_components/services/service_manage/ServiceCard";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
-import { Grid } from "semantic-ui-react";
+// helpers and state //
+import { TestStateProvider } from "../../../../state/Store";
 
 describe("Service Manage Holder Tests", () => {
   let services: IServiceData[];
@@ -44,9 +44,9 @@ describe("Service Manage Holder Tests", () => {
       moxios.install();
       component = mount(
         <Router keyLength={0} initialEntries={["/admin/home/my_services/manage"]}>
-          <StateProvider>
+          <TestStateProvider>
             <ServiceManageHolder />
-          </StateProvider>
+          </TestStateProvider>
         </Router>
       );
 
@@ -84,9 +84,9 @@ describe("Service Manage Holder Tests", () => {
       
       component = mount(
         <Router keyLength={0} initialEntries={["/admin/home/my_services/manage"]}>
-          <StateProvider>
+          <TestStateProvider>
             <ServiceManageHolder />
-          </StateProvider>
+          </TestStateProvider>
         </Router>
       );
       
@@ -141,9 +141,9 @@ describe("Service Manage Holder Tests", () => {
         moxios.install();
         component = await mount(
           <Router keyLength={0} initialEntries={["/admin/home/my_services/manage"]}>
-            <StateProvider>
+            <TestStateProvider>
               <ServiceManageHolder />
-            </StateProvider>
+            </TestStateProvider>
           </Router>
         );
         moxios.stubRequest("/api/services", {
@@ -216,6 +216,4 @@ describe("Service Manage Holder Tests", () => {
     });
   });
   // END mock successfull API call tests //
-    
-  
 });

@@ -125,481 +125,1000 @@ exports[`Product Manage Holder Tests Default Component state at first render Sho
 `;
 
 exports[`Product Manage Holder Tests State after a successful API call Should render the correct ProductManageHolder Component 1`] = `
-<Grid
-  columns={2}
-  id="productsManageHolder"
-  padded={true}
-  stackable={true}
->
-  <div
-    className="ui stackable padded two column grid"
-    id="productsManageHolder"
+<withRouter(ProductsManageHolder)>
+  <ProductsManageHolder
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "canGo": [Function],
+        "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "pathname": "/admin/home/my_products/manage",
+            "search": "",
+            "state": undefined,
+          },
+        ],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "index": 0,
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/admin/home/my_products/manage",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+    location={
+      Object {
+        "hash": "",
+        "pathname": "/admin/home/my_products/manage",
+        "search": "",
+        "state": undefined,
+      }
+    }
+    match={
+      Object {
+        "isExact": false,
+        "params": Object {},
+        "path": "/",
+        "url": "/",
+      }
+    }
   >
-    <Route
-      path="/admin/home/my_products/manage/edit"
-    />
-    <Route
-      exact={true}
-      path="/admin/home/my_products/manage"
+    <Grid
+      columns={2}
+      id="productsManageHolder"
+      padded={true}
+      stackable={true}
     >
-      <GridRow>
-        <div
-          className="row"
+      <div
+        className="ui stackable padded two column grid"
+        id="productsManageHolder"
+      >
+        <Route
+          path="/admin/home/my_products/manage/edit"
+        />
+        <Route
+          exact={true}
+          path="/admin/home/my_products/manage"
         >
-          <GridColumn
-            computer={12}
-            mobile={16}
-            tablet={8}
-          >
+          <GridRow>
             <div
-              className="twelve wide computer sixteen wide mobile eight wide tablet column"
+              className="row"
             >
-              <withRouter(ProductCard)
-                dispatch={[Function]}
-                imageCount={0}
-                key="1"
-                product={
-                  Object {
-                    "_id": "1",
-                    "createdAt": "1111",
-                    "description": "description",
-                    "details": "details",
-                    "images": Array [],
-                    "name": "name",
-                    "price": "100",
-                  }
-                }
-                state={
-                  Object {
-                    "bonusVideoState": Object {
-                      "bonusVideoFormOpen": false,
-                      "currentBonusVideoData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "vimeoURL": "",
-                        "youTubeURL": "",
-                      },
-                      "error": null,
-                      "loadedBonusVideos": Array [],
-                      "loading": false,
-                      "responseMsg": "",
-                    },
-                    "productState": Object {
-                      "currentProductData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "details": "",
-                        "images": Array [],
-                        "name": "",
-                        "price": "",
-                      },
-                      "error": null,
-                      "loadedProducts": Array [
-                        Object {
-                          "_id": "1",
-                          "createdAt": "1111",
-                          "description": "description",
-                          "details": "details",
-                          "images": Array [],
-                          "name": "name",
-                          "price": "100",
-                        },
-                      ],
-                      "loading": false,
-                      "productFormOpen": false,
-                      "responseMsg": "All Ok",
-                    },
-                    "serviceState": Object {
-                      "currentServiceData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "images": Array [],
-                        "name": "",
-                        "price": "",
-                      },
-                      "error": null,
-                      "loadedServices": Array [],
-                      "loading": false,
-                      "responseMsg": "",
-                      "serviceFormOpen": false,
-                    },
-                    "storeItemState": Object {
-                      "currentStoreItemData": Object {
-                        "_id": "",
-                        "categories": Array [],
-                        "createdAt": "",
-                        "description": "",
-                        "details": "",
-                        "images": Array [],
-                        "name": "",
-                        "price": "",
-                        "storeId": "",
-                        "storeName": "",
-                      },
-                      "error": null,
-                      "loadedStoreItems": Array [],
-                      "loading": false,
-                      "numberOfItems": 0,
-                      "responseMsg": "",
-                      "storeItemFormOpen": false,
-                    },
-                    "storeState": Object {
-                      "currentStoreData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "images": Array [],
-                        "title": "",
-                      },
-                      "error": null,
-                      "loadedStores": Array [],
-                      "loading": false,
-                      "responseMsg": "",
-                      "storeFormOpen": false,
-                    },
-                  }
-                }
+              <GridColumn
+                computer={12}
+                mobile={16}
+                tablet={8}
               >
-                <ProductCard
-                  dispatch={[Function]}
-                  history={
-                    Object {
-                      "action": "POP",
-                      "block": [Function],
-                      "canGo": [Function],
-                      "createHref": [Function],
-                      "entries": Array [
+                <div
+                  className="twelve wide computer sixteen wide mobile eight wide tablet column"
+                >
+                  <withRouter(ProductCard)
+                    dispatch={[Function]}
+                    imageCount={0}
+                    key="1"
+                    product={
+                      Object {
+                        "_id": "1",
+                        "createdAt": "now",
+                        "description": "description",
+                        "details": "details",
+                        "images": Array [],
+                        "name": "name",
+                        "price": "100",
+                      }
+                    }
+                    state={
+                      Object {
+                        "bonusVideoState": Object {
+                          "bonusVideoFormOpen": false,
+                          "currentBonusVideoData": Object {
+                            "_id": "",
+                            "createdAt": "",
+                            "description": "",
+                            "vimeoURL": "",
+                            "youTubeURL": "",
+                          },
+                          "error": null,
+                          "loadedBonusVideos": Array [],
+                          "loading": false,
+                          "responseMsg": "",
+                        },
+                        "productState": Object {
+                          "currentProductData": Object {
+                            "_id": "",
+                            "createdAt": "",
+                            "description": "",
+                            "details": "",
+                            "images": Array [],
+                            "name": "",
+                            "price": "",
+                          },
+                          "error": null,
+                          "loadedProducts": Array [
+                            Object {
+                              "_id": "1",
+                              "createdAt": "now",
+                              "description": "description",
+                              "details": "details",
+                              "images": Array [],
+                              "name": "name",
+                              "price": "100",
+                            },
+                            Object {
+                              "_id": "2",
+                              "createdAt": "now",
+                              "description": "description",
+                              "details": "details",
+                              "images": Array [],
+                              "name": "name",
+                              "price": "200",
+                            },
+                          ],
+                          "loading": false,
+                          "productFormOpen": false,
+                          "responseMsg": "All Ok",
+                        },
+                        "serviceState": Object {
+                          "currentServiceData": Object {
+                            "_id": "",
+                            "createdAt": "",
+                            "description": "",
+                            "images": Array [],
+                            "name": "",
+                            "price": "",
+                          },
+                          "error": null,
+                          "loadedServices": Array [],
+                          "loading": false,
+                          "responseMsg": "",
+                          "serviceFormOpen": false,
+                        },
+                        "storeItemState": Object {
+                          "currentStoreItemData": Object {
+                            "_id": "",
+                            "categories": Array [],
+                            "createdAt": "",
+                            "description": "",
+                            "details": "",
+                            "images": Array [],
+                            "name": "",
+                            "price": "",
+                            "storeId": "",
+                            "storeName": "",
+                          },
+                          "error": null,
+                          "loadedStoreItems": Array [],
+                          "loading": false,
+                          "numberOfItems": 0,
+                          "responseMsg": "",
+                          "storeItemFormOpen": false,
+                        },
+                        "storeState": Object {
+                          "currentStoreData": Object {
+                            "_id": "",
+                            "createdAt": "",
+                            "description": "",
+                            "images": Array [],
+                            "title": "",
+                          },
+                          "error": null,
+                          "loadedStores": Array [],
+                          "loading": false,
+                          "responseMsg": "",
+                          "storeFormOpen": false,
+                        },
+                      }
+                    }
+                  >
+                    <ProductCard
+                      dispatch={[Function]}
+                      history={
+                        Object {
+                          "action": "POP",
+                          "block": [Function],
+                          "canGo": [Function],
+                          "createHref": [Function],
+                          "entries": Array [
+                            Object {
+                              "hash": "",
+                              "pathname": "/admin/home/my_products/manage",
+                              "search": "",
+                              "state": undefined,
+                            },
+                          ],
+                          "go": [Function],
+                          "goBack": [Function],
+                          "goForward": [Function],
+                          "index": 0,
+                          "length": 1,
+                          "listen": [Function],
+                          "location": Object {
+                            "hash": "",
+                            "pathname": "/admin/home/my_products/manage",
+                            "search": "",
+                            "state": undefined,
+                          },
+                          "push": [Function],
+                          "replace": [Function],
+                        }
+                      }
+                      imageCount={0}
+                      location={
                         Object {
                           "hash": "",
                           "pathname": "/admin/home/my_products/manage",
                           "search": "",
                           "state": undefined,
-                        },
-                      ],
-                      "go": [Function],
-                      "goBack": [Function],
-                      "goForward": [Function],
-                      "index": 0,
-                      "length": 1,
-                      "listen": [Function],
-                      "location": Object {
-                        "hash": "",
-                        "pathname": "/admin/home/my_products/manage",
-                        "search": "",
-                        "state": undefined,
-                      },
-                      "push": [Function],
-                      "replace": [Function],
-                    }
-                  }
-                  imageCount={0}
-                  location={
-                    Object {
-                      "hash": "",
-                      "pathname": "/admin/home/my_products/manage",
-                      "search": "",
-                      "state": undefined,
-                    }
-                  }
-                  match={
-                    Object {
-                      "isExact": true,
-                      "params": Object {},
-                      "path": "/admin/home/my_products/manage",
-                      "url": "/admin/home/my_products/manage",
-                    }
-                  }
-                  product={
-                    Object {
-                      "_id": "1",
-                      "createdAt": "1111",
-                      "description": "description",
-                      "details": "details",
-                      "images": Array [],
-                      "name": "name",
-                      "price": "100",
-                    }
-                  }
-                  state={
-                    Object {
-                      "bonusVideoState": Object {
-                        "bonusVideoFormOpen": false,
-                        "currentBonusVideoData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "vimeoURL": "",
-                          "youTubeURL": "",
-                        },
-                        "error": null,
-                        "loadedBonusVideos": Array [],
-                        "loading": false,
-                        "responseMsg": "",
-                      },
-                      "productState": Object {
-                        "currentProductData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "details": "",
-                          "images": Array [],
-                          "name": "",
-                          "price": "",
-                        },
-                        "error": null,
-                        "loadedProducts": Array [
-                          Object {
-                            "_id": "1",
-                            "createdAt": "1111",
-                            "description": "description",
-                            "details": "details",
-                            "images": Array [],
-                            "name": "name",
-                            "price": "100",
-                          },
-                        ],
-                        "loading": false,
-                        "productFormOpen": false,
-                        "responseMsg": "All Ok",
-                      },
-                      "serviceState": Object {
-                        "currentServiceData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "images": Array [],
-                          "name": "",
-                          "price": "",
-                        },
-                        "error": null,
-                        "loadedServices": Array [],
-                        "loading": false,
-                        "responseMsg": "",
-                        "serviceFormOpen": false,
-                      },
-                      "storeItemState": Object {
-                        "currentStoreItemData": Object {
-                          "_id": "",
-                          "categories": Array [],
-                          "createdAt": "",
-                          "description": "",
-                          "details": "",
-                          "images": Array [],
-                          "name": "",
-                          "price": "",
-                          "storeId": "",
-                          "storeName": "",
-                        },
-                        "error": null,
-                        "loadedStoreItems": Array [],
-                        "loading": false,
-                        "numberOfItems": 0,
-                        "responseMsg": "",
-                        "storeItemFormOpen": false,
-                      },
-                      "storeState": Object {
-                        "currentStoreData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "images": Array [],
-                          "title": "",
-                        },
-                        "error": null,
-                        "loadedStores": Array [],
-                        "loading": false,
-                        "responseMsg": "",
-                        "storeFormOpen": false,
-                      },
-                    }
-                  }
-                >
-                  <GridRow
-                    style={
-                      Object {
-                        "marginTop": "1em",
-                        "padding": "0.5em",
+                        }
                       }
-                    }
-                  >
-                    <div
-                      className="row"
-                      style={
+                      match={
                         Object {
-                          "marginTop": "1em",
-                          "padding": "0.5em",
+                          "isExact": true,
+                          "params": Object {},
+                          "path": "/admin/home/my_products/manage",
+                          "url": "/admin/home/my_products/manage",
+                        }
+                      }
+                      product={
+                        Object {
+                          "_id": "1",
+                          "createdAt": "now",
+                          "description": "description",
+                          "details": "details",
+                          "images": Array [],
+                          "name": "name",
+                          "price": "100",
+                        }
+                      }
+                      state={
+                        Object {
+                          "bonusVideoState": Object {
+                            "bonusVideoFormOpen": false,
+                            "currentBonusVideoData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "vimeoURL": "",
+                              "youTubeURL": "",
+                            },
+                            "error": null,
+                            "loadedBonusVideos": Array [],
+                            "loading": false,
+                            "responseMsg": "",
+                          },
+                          "productState": Object {
+                            "currentProductData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "details": "",
+                              "images": Array [],
+                              "name": "",
+                              "price": "",
+                            },
+                            "error": null,
+                            "loadedProducts": Array [
+                              Object {
+                                "_id": "1",
+                                "createdAt": "now",
+                                "description": "description",
+                                "details": "details",
+                                "images": Array [],
+                                "name": "name",
+                                "price": "100",
+                              },
+                              Object {
+                                "_id": "2",
+                                "createdAt": "now",
+                                "description": "description",
+                                "details": "details",
+                                "images": Array [],
+                                "name": "name",
+                                "price": "200",
+                              },
+                            ],
+                            "loading": false,
+                            "productFormOpen": false,
+                            "responseMsg": "All Ok",
+                          },
+                          "serviceState": Object {
+                            "currentServiceData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "images": Array [],
+                              "name": "",
+                              "price": "",
+                            },
+                            "error": null,
+                            "loadedServices": Array [],
+                            "loading": false,
+                            "responseMsg": "",
+                            "serviceFormOpen": false,
+                          },
+                          "storeItemState": Object {
+                            "currentStoreItemData": Object {
+                              "_id": "",
+                              "categories": Array [],
+                              "createdAt": "",
+                              "description": "",
+                              "details": "",
+                              "images": Array [],
+                              "name": "",
+                              "price": "",
+                              "storeId": "",
+                              "storeName": "",
+                            },
+                            "error": null,
+                            "loadedStoreItems": Array [],
+                            "loading": false,
+                            "numberOfItems": 0,
+                            "responseMsg": "",
+                            "storeItemFormOpen": false,
+                          },
+                          "storeState": Object {
+                            "currentStoreData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "images": Array [],
+                              "title": "",
+                            },
+                            "error": null,
+                            "loadedStores": Array [],
+                            "loading": false,
+                            "responseMsg": "",
+                            "storeFormOpen": false,
+                          },
                         }
                       }
                     >
-                      <div
-                        className="productManageDesc"
+                      <GridRow
+                        style={
+                          Object {
+                            "marginTop": "1em",
+                            "padding": "0.5em",
+                          }
+                        }
                       >
-                        <h3>
-                          Name: 
-                          name
-                        </h3>
-                        <p>
-                          <strong>
-                            Description:
-                          </strong>
-                           
-                          description
-                        </p>
-                        <span>
-                          Number of Images: 
-                          <strong>
-                            0
-                          </strong>
-                        </span>
-                        <p>
-                          <span>
-                            Created At: 
-                          </span>
-                          1111-Jan-1
-                        </p>
-                      </div>
-                      <div
-                        className="productManageCtrls"
-                      >
-                        <Button
-                          as="button"
-                          className="productCardBtn"
-                          color="green"
-                          content="Open"
-                          inverted={true}
-                          onClick={[Function]}
-                        >
-                          <Ref
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui green inverted button productCardBtn"
-                                >
-                                  Open
-                                </button>,
-                              }
+                        <div
+                          className="row"
+                          style={
+                            Object {
+                              "marginTop": "1em",
+                              "padding": "0.5em",
                             }
+                          }
+                        >
+                          <div
+                            className="productManageDesc"
                           >
-                            <RefFindNode
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui green inverted button productCardBtn"
+                            <h3>
+                              Name: 
+                              name
+                            </h3>
+                            <p>
+                              <strong>
+                                Description:
+                              </strong>
+                               
+                              description
+                            </p>
+                            <span>
+                              Number of Images: 
+                              <strong>
+                                0
+                              </strong>
+                            </span>
+                            <p>
+                              <span>
+                                Created At: 
+                              </span>
+                              NaN-undefined-NaN
+                            </p>
+                          </div>
+                          <div
+                            className="productManageCtrls"
+                          >
+                            <Button
+                              as="button"
+                              className="productCardBtn"
+                              color="green"
+                              content="Open"
+                              inverted={true}
+                              onClick={[Function]}
+                            >
+                              <Ref
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui green inverted button productCardBtn"
+                                    >
+                                      Open
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <RefFindNode
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui green inverted button productCardBtn"
+                                      >
+                                        Open
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <button
+                                    className="ui green inverted button productCardBtn"
+                                    onClick={[Function]}
                                   >
                                     Open
-                                  </button>,
-                                }
-                              }
+                                  </button>
+                                </RefFindNode>
+                              </Ref>
+                            </Button>
+                            <Button
+                              as="button"
+                              className="productCardBtn"
+                              color="orange"
+                              content="Edit"
+                              inverted={true}
+                              onClick={[Function]}
                             >
-                              <button
-                                className="ui green inverted button productCardBtn"
-                                onClick={[Function]}
+                              <Ref
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui orange inverted button productCardBtn"
+                                    >
+                                      Edit
+                                    </button>,
+                                  }
+                                }
                               >
-                                Open
-                              </button>
-                            </RefFindNode>
-                          </Ref>
-                        </Button>
-                        <Button
-                          as="button"
-                          className="productCardBtn"
-                          color="orange"
-                          content="Edit"
-                          inverted={true}
-                          onClick={[Function]}
-                        >
-                          <Ref
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui orange inverted button productCardBtn"
+                                <RefFindNode
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui orange inverted button productCardBtn"
+                                      >
+                                        Edit
+                                      </button>,
+                                    }
+                                  }
                                 >
-                                  Edit
-                                </button>,
-                              }
-                            }
-                          >
-                            <RefFindNode
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui orange inverted button productCardBtn"
+                                  <button
+                                    className="ui orange inverted button productCardBtn"
+                                    onClick={[Function]}
                                   >
                                     Edit
-                                  </button>,
-                                }
-                              }
+                                  </button>
+                                </RefFindNode>
+                              </Ref>
+                            </Button>
+                            <Button
+                              as="button"
+                              className="productCardBtn"
+                              color="red"
+                              content="Delete"
+                              inverted={true}
+                              onClick={[Function]}
                             >
-                              <button
-                                className="ui orange inverted button productCardBtn"
-                                onClick={[Function]}
+                              <Ref
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui red inverted button productCardBtn"
+                                    >
+                                      Delete
+                                    </button>,
+                                  }
+                                }
                               >
-                                Edit
-                              </button>
-                            </RefFindNode>
-                          </Ref>
-                        </Button>
-                        <Button
-                          as="button"
-                          className="productCardBtn"
-                          color="red"
-                          content="Delete"
-                          inverted={true}
-                          onClick={[Function]}
-                        >
-                          <Ref
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui red inverted button productCardBtn"
+                                <RefFindNode
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui red inverted button productCardBtn"
+                                      >
+                                        Delete
+                                      </button>,
+                                    }
+                                  }
                                 >
-                                  Delete
-                                </button>,
-                              }
-                            }
-                          >
-                            <RefFindNode
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui red inverted button productCardBtn"
+                                  <button
+                                    className="ui red inverted button productCardBtn"
+                                    onClick={[Function]}
                                   >
                                     Delete
-                                  </button>,
-                                }
-                              }
+                                  </button>
+                                </RefFindNode>
+                              </Ref>
+                            </Button>
+                          </div>
+                        </div>
+                      </GridRow>
+                    </ProductCard>
+                  </withRouter(ProductCard)>
+                  <withRouter(ProductCard)
+                    dispatch={[Function]}
+                    imageCount={0}
+                    key="2"
+                    product={
+                      Object {
+                        "_id": "2",
+                        "createdAt": "now",
+                        "description": "description",
+                        "details": "details",
+                        "images": Array [],
+                        "name": "name",
+                        "price": "200",
+                      }
+                    }
+                    state={
+                      Object {
+                        "bonusVideoState": Object {
+                          "bonusVideoFormOpen": false,
+                          "currentBonusVideoData": Object {
+                            "_id": "",
+                            "createdAt": "",
+                            "description": "",
+                            "vimeoURL": "",
+                            "youTubeURL": "",
+                          },
+                          "error": null,
+                          "loadedBonusVideos": Array [],
+                          "loading": false,
+                          "responseMsg": "",
+                        },
+                        "productState": Object {
+                          "currentProductData": Object {
+                            "_id": "",
+                            "createdAt": "",
+                            "description": "",
+                            "details": "",
+                            "images": Array [],
+                            "name": "",
+                            "price": "",
+                          },
+                          "error": null,
+                          "loadedProducts": Array [
+                            Object {
+                              "_id": "1",
+                              "createdAt": "now",
+                              "description": "description",
+                              "details": "details",
+                              "images": Array [],
+                              "name": "name",
+                              "price": "100",
+                            },
+                            Object {
+                              "_id": "2",
+                              "createdAt": "now",
+                              "description": "description",
+                              "details": "details",
+                              "images": Array [],
+                              "name": "name",
+                              "price": "200",
+                            },
+                          ],
+                          "loading": false,
+                          "productFormOpen": false,
+                          "responseMsg": "All Ok",
+                        },
+                        "serviceState": Object {
+                          "currentServiceData": Object {
+                            "_id": "",
+                            "createdAt": "",
+                            "description": "",
+                            "images": Array [],
+                            "name": "",
+                            "price": "",
+                          },
+                          "error": null,
+                          "loadedServices": Array [],
+                          "loading": false,
+                          "responseMsg": "",
+                          "serviceFormOpen": false,
+                        },
+                        "storeItemState": Object {
+                          "currentStoreItemData": Object {
+                            "_id": "",
+                            "categories": Array [],
+                            "createdAt": "",
+                            "description": "",
+                            "details": "",
+                            "images": Array [],
+                            "name": "",
+                            "price": "",
+                            "storeId": "",
+                            "storeName": "",
+                          },
+                          "error": null,
+                          "loadedStoreItems": Array [],
+                          "loading": false,
+                          "numberOfItems": 0,
+                          "responseMsg": "",
+                          "storeItemFormOpen": false,
+                        },
+                        "storeState": Object {
+                          "currentStoreData": Object {
+                            "_id": "",
+                            "createdAt": "",
+                            "description": "",
+                            "images": Array [],
+                            "title": "",
+                          },
+                          "error": null,
+                          "loadedStores": Array [],
+                          "loading": false,
+                          "responseMsg": "",
+                          "storeFormOpen": false,
+                        },
+                      }
+                    }
+                  >
+                    <ProductCard
+                      dispatch={[Function]}
+                      history={
+                        Object {
+                          "action": "POP",
+                          "block": [Function],
+                          "canGo": [Function],
+                          "createHref": [Function],
+                          "entries": Array [
+                            Object {
+                              "hash": "",
+                              "pathname": "/admin/home/my_products/manage",
+                              "search": "",
+                              "state": undefined,
+                            },
+                          ],
+                          "go": [Function],
+                          "goBack": [Function],
+                          "goForward": [Function],
+                          "index": 0,
+                          "length": 1,
+                          "listen": [Function],
+                          "location": Object {
+                            "hash": "",
+                            "pathname": "/admin/home/my_products/manage",
+                            "search": "",
+                            "state": undefined,
+                          },
+                          "push": [Function],
+                          "replace": [Function],
+                        }
+                      }
+                      imageCount={0}
+                      location={
+                        Object {
+                          "hash": "",
+                          "pathname": "/admin/home/my_products/manage",
+                          "search": "",
+                          "state": undefined,
+                        }
+                      }
+                      match={
+                        Object {
+                          "isExact": true,
+                          "params": Object {},
+                          "path": "/admin/home/my_products/manage",
+                          "url": "/admin/home/my_products/manage",
+                        }
+                      }
+                      product={
+                        Object {
+                          "_id": "2",
+                          "createdAt": "now",
+                          "description": "description",
+                          "details": "details",
+                          "images": Array [],
+                          "name": "name",
+                          "price": "200",
+                        }
+                      }
+                      state={
+                        Object {
+                          "bonusVideoState": Object {
+                            "bonusVideoFormOpen": false,
+                            "currentBonusVideoData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "vimeoURL": "",
+                              "youTubeURL": "",
+                            },
+                            "error": null,
+                            "loadedBonusVideos": Array [],
+                            "loading": false,
+                            "responseMsg": "",
+                          },
+                          "productState": Object {
+                            "currentProductData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "details": "",
+                              "images": Array [],
+                              "name": "",
+                              "price": "",
+                            },
+                            "error": null,
+                            "loadedProducts": Array [
+                              Object {
+                                "_id": "1",
+                                "createdAt": "now",
+                                "description": "description",
+                                "details": "details",
+                                "images": Array [],
+                                "name": "name",
+                                "price": "100",
+                              },
+                              Object {
+                                "_id": "2",
+                                "createdAt": "now",
+                                "description": "description",
+                                "details": "details",
+                                "images": Array [],
+                                "name": "name",
+                                "price": "200",
+                              },
+                            ],
+                            "loading": false,
+                            "productFormOpen": false,
+                            "responseMsg": "All Ok",
+                          },
+                          "serviceState": Object {
+                            "currentServiceData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "images": Array [],
+                              "name": "",
+                              "price": "",
+                            },
+                            "error": null,
+                            "loadedServices": Array [],
+                            "loading": false,
+                            "responseMsg": "",
+                            "serviceFormOpen": false,
+                          },
+                          "storeItemState": Object {
+                            "currentStoreItemData": Object {
+                              "_id": "",
+                              "categories": Array [],
+                              "createdAt": "",
+                              "description": "",
+                              "details": "",
+                              "images": Array [],
+                              "name": "",
+                              "price": "",
+                              "storeId": "",
+                              "storeName": "",
+                            },
+                            "error": null,
+                            "loadedStoreItems": Array [],
+                            "loading": false,
+                            "numberOfItems": 0,
+                            "responseMsg": "",
+                            "storeItemFormOpen": false,
+                          },
+                          "storeState": Object {
+                            "currentStoreData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "images": Array [],
+                              "title": "",
+                            },
+                            "error": null,
+                            "loadedStores": Array [],
+                            "loading": false,
+                            "responseMsg": "",
+                            "storeFormOpen": false,
+                          },
+                        }
+                      }
+                    >
+                      <GridRow
+                        style={
+                          Object {
+                            "marginTop": "1em",
+                            "padding": "0.5em",
+                          }
+                        }
+                      >
+                        <div
+                          className="row"
+                          style={
+                            Object {
+                              "marginTop": "1em",
+                              "padding": "0.5em",
+                            }
+                          }
+                        >
+                          <div
+                            className="productManageDesc"
+                          >
+                            <h3>
+                              Name: 
+                              name
+                            </h3>
+                            <p>
+                              <strong>
+                                Description:
+                              </strong>
+                               
+                              description
+                            </p>
+                            <span>
+                              Number of Images: 
+                              <strong>
+                                0
+                              </strong>
+                            </span>
+                            <p>
+                              <span>
+                                Created At: 
+                              </span>
+                              NaN-undefined-NaN
+                            </p>
+                          </div>
+                          <div
+                            className="productManageCtrls"
+                          >
+                            <Button
+                              as="button"
+                              className="productCardBtn"
+                              color="green"
+                              content="Open"
+                              inverted={true}
+                              onClick={[Function]}
                             >
-                              <button
-                                className="ui red inverted button productCardBtn"
-                                onClick={[Function]}
+                              <Ref
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui green inverted button productCardBtn"
+                                    >
+                                      Open
+                                    </button>,
+                                  }
+                                }
                               >
-                                Delete
-                              </button>
-                            </RefFindNode>
-                          </Ref>
-                        </Button>
-                      </div>
-                    </div>
-                  </GridRow>
-                </ProductCard>
-              </withRouter(ProductCard)>
+                                <RefFindNode
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui green inverted button productCardBtn"
+                                      >
+                                        Open
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <button
+                                    className="ui green inverted button productCardBtn"
+                                    onClick={[Function]}
+                                  >
+                                    Open
+                                  </button>
+                                </RefFindNode>
+                              </Ref>
+                            </Button>
+                            <Button
+                              as="button"
+                              className="productCardBtn"
+                              color="orange"
+                              content="Edit"
+                              inverted={true}
+                              onClick={[Function]}
+                            >
+                              <Ref
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui orange inverted button productCardBtn"
+                                    >
+                                      Edit
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <RefFindNode
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui orange inverted button productCardBtn"
+                                      >
+                                        Edit
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <button
+                                    className="ui orange inverted button productCardBtn"
+                                    onClick={[Function]}
+                                  >
+                                    Edit
+                                  </button>
+                                </RefFindNode>
+                              </Ref>
+                            </Button>
+                            <Button
+                              as="button"
+                              className="productCardBtn"
+                              color="red"
+                              content="Delete"
+                              inverted={true}
+                              onClick={[Function]}
+                            >
+                              <Ref
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui red inverted button productCardBtn"
+                                    >
+                                      Delete
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <RefFindNode
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui red inverted button productCardBtn"
+                                      >
+                                        Delete
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <button
+                                    className="ui red inverted button productCardBtn"
+                                    onClick={[Function]}
+                                  >
+                                    Delete
+                                  </button>
+                                </RefFindNode>
+                              </Ref>
+                            </Button>
+                          </div>
+                        </div>
+                      </GridRow>
+                    </ProductCard>
+                  </withRouter(ProductCard)>
+                </div>
+              </GridColumn>
+              <GridColumn
+                computer={4}
+                mobile={16}
+                tablet={8}
+              >
+                <div
+                  className="four wide computer sixteen wide mobile eight wide tablet column"
+                />
+              </GridColumn>
             </div>
-          </GridColumn>
-          <GridColumn
-            computer={4}
-            mobile={16}
-            tablet={8}
-          >
-            <div
-              className="four wide computer sixteen wide mobile eight wide tablet column"
-            />
-          </GridColumn>
-        </div>
-      </GridRow>
-    </Route>
-  </div>
-</Grid>
+          </GridRow>
+        </Route>
+      </div>
+    </Grid>
+  </ProductsManageHolder>
+</withRouter(ProductsManageHolder)>
 `;
