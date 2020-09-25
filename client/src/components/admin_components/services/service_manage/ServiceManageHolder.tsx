@@ -56,7 +56,7 @@ const ServiceManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
             <Button inverted color="green" content="Back" onClick={handleBack}></Button>
           </Grid.Column>
         </Grid.Row>
-        <ServiceFormHolder state={state} dispatch={dispatch} />
+        <ServiceFormHolder />
       </Route>
       <Route exact path={match?.url}>
         <Grid.Row>

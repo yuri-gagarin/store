@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Service Manage Holder Tests Default Component state at first render Should correctly render 1`] = `
-<MemoryRouter>
-  <Router
+<withRouter(ServiceManageHolder)>
+  <ServiceManageHolder
     history={
       Object {
         "action": "POP",
@@ -12,8 +12,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
         "entries": Array [
           Object {
             "hash": "",
-            "key": "9pihnw",
-            "pathname": "/",
+            "pathname": "/admin/home/my_services/manage",
             "search": "",
             "state": undefined,
           },
@@ -26,8 +25,7 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "9pihnw",
-          "pathname": "/",
+          "pathname": "/admin/home/my_services/manage",
           "search": "",
           "state": undefined,
         },
@@ -35,2645 +33,1080 @@ exports[`Service Manage Holder Tests Default Component state at first render Sho
         "replace": [Function],
       }
     }
+    location={
+      Object {
+        "hash": "",
+        "pathname": "/admin/home/my_services/manage",
+        "search": "",
+        "state": undefined,
+      }
+    }
+    match={
+      Object {
+        "isExact": false,
+        "params": Object {},
+        "path": "/",
+        "url": "/",
+      }
+    }
   >
-    <Component>
-      <withRouter(ServiceManageHolder)>
-        <ServiceManageHolder
-          history={
-            Object {
-              "action": "POP",
-              "block": [Function],
-              "canGo": [Function],
-              "createHref": [Function],
-              "entries": Array [
-                Object {
-                  "hash": "",
-                  "key": "9pihnw",
-                  "pathname": "/",
-                  "search": "",
-                  "state": undefined,
-                },
-              ],
-              "go": [Function],
-              "goBack": [Function],
-              "goForward": [Function],
-              "index": 0,
-              "length": 1,
-              "listen": [Function],
-              "location": Object {
-                "hash": "",
-                "key": "9pihnw",
-                "pathname": "/",
-                "search": "",
-                "state": undefined,
-              },
-              "push": [Function],
-              "replace": [Function],
-            }
+    <LoaderExampleText>
+      <div
+        id="generalLoadingScreen"
+        style={
+          Object {
+            "height": "100vh",
           }
-          location={
+        }
+      >
+        <Segment
+          style={
             Object {
-              "hash": "",
-              "key": "9pihnw",
-              "pathname": "/",
-              "search": "",
-              "state": undefined,
-            }
-          }
-          match={
-            Object {
-              "isExact": true,
-              "params": Object {},
-              "path": "/",
-              "url": "/",
+              "height": "100vh",
             }
           }
         >
-          <LoaderExampleText>
-            <div
-              id="generalLoadingScreen"
-              style={
-                Object {
-                  "height": "100vh",
-                }
+          <div
+            className="ui segment"
+            style={
+              Object {
+                "height": "100vh",
               }
+            }
+          >
+            <Dimmer
+              active={true}
+              inverted={true}
             >
-              <Segment
-                style={
-                  Object {
-                    "height": "100vh",
-                  }
-                }
+              <DimmerInner
+                active={true}
+                inverted={true}
               >
-                <div
-                  className="ui segment"
-                  style={
+                <Ref
+                  innerRef={
                     Object {
-                      "height": "100vh",
+                      "current": null,
                     }
                   }
                 >
-                  <Dimmer
-                    active={true}
-                    inverted={true}
+                  <RefFindNode
+                    innerRef={
+                      Object {
+                        "current": null,
+                      }
+                    }
                   >
-                    <DimmerInner
-                      active={true}
-                      inverted={true}
+                    <div
+                      className="ui active transition visible inverted dimmer"
+                      onClick={[Function]}
                     >
-                      <Ref
-                        innerRef={
+                      <div
+                        className="content"
+                      >
+                        <Loader>
+                          <div
+                            className="ui text loader"
+                          >
+                            Please Wait
+                          </div>
+                        </Loader>
+                      </div>
+                    </div>
+                  </RefFindNode>
+                </Ref>
+              </DimmerInner>
+            </Dimmer>
+          </div>
+        </Segment>
+      </div>
+    </LoaderExampleText>
+  </ServiceManageHolder>
+</withRouter(ServiceManageHolder)>
+`;
+
+exports[`Service Manage Holder Tests State after a successful API call Should render the correct ServiceManageHolder Component 1`] = `
+<withRouter(ServiceManageHolder)>
+  <ServiceManageHolder
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "canGo": [Function],
+        "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "pathname": "/admin/home/my_services/manage",
+            "search": "",
+            "state": undefined,
+          },
+        ],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "index": 0,
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/admin/home/my_services/manage",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+    location={
+      Object {
+        "hash": "",
+        "pathname": "/admin/home/my_services/manage",
+        "search": "",
+        "state": undefined,
+      }
+    }
+    match={
+      Object {
+        "isExact": false,
+        "params": Object {},
+        "path": "/",
+        "url": "/",
+      }
+    }
+  >
+    <Grid
+      columns={2}
+      id="serviceManageHolder"
+      padded={true}
+      stackable={true}
+    >
+      <div
+        className="ui stackable padded two column grid"
+        id="serviceManageHolder"
+      >
+        <Route
+          path="/admin/home/my_services/manage/edit"
+        />
+        <Route
+          exact={true}
+          path="/admin/home/my_services/manage"
+        >
+          <GridRow>
+            <div
+              className="row"
+            >
+              <GridColumn
+                computer={12}
+                mobile={16}
+                tablet={8}
+              >
+                <div
+                  className="twelve wide computer sixteen wide mobile eight wide tablet column"
+                >
+                  <withRouter(ServiceCard)
+                    dispatch={[Function]}
+                    imageCount={0}
+                    key="1"
+                    service={
+                      Object {
+                        "_id": "1",
+                        "createdAt": "now",
+                        "description": "description",
+                        "images": Array [],
+                        "name": "name",
+                        "price": "100",
+                      }
+                    }
+                    state={
+                      Object {
+                        "bonusVideoState": Object {
+                          "bonusVideoFormOpen": false,
+                          "currentBonusVideoData": Object {
+                            "_id": "",
+                            "createdAt": "",
+                            "description": "",
+                            "vimeoURL": "",
+                            "youTubeURL": "",
+                          },
+                          "error": null,
+                          "loadedBonusVideos": Array [],
+                          "loading": false,
+                          "responseMsg": "",
+                        },
+                        "productState": Object {
+                          "currentProductData": Object {
+                            "_id": "",
+                            "createdAt": "",
+                            "description": "",
+                            "details": "",
+                            "images": Array [],
+                            "name": "",
+                            "price": "",
+                          },
+                          "error": null,
+                          "loadedProducts": Array [],
+                          "loading": false,
+                          "productFormOpen": false,
+                          "responseMsg": "",
+                        },
+                        "serviceState": Object {
+                          "currentServiceData": Object {
+                            "_id": "",
+                            "createdAt": "",
+                            "description": "",
+                            "images": Array [],
+                            "name": "",
+                            "price": "",
+                          },
+                          "error": null,
+                          "loadedServices": Array [
+                            Object {
+                              "_id": "1",
+                              "createdAt": "now",
+                              "description": "description",
+                              "images": Array [],
+                              "name": "name",
+                              "price": "100",
+                            },
+                            Object {
+                              "_id": "2",
+                              "createdAt": "now",
+                              "description": "description",
+                              "images": Array [],
+                              "name": "name",
+                              "price": "200",
+                            },
+                          ],
+                          "loading": false,
+                          "responseMsg": "All Ok",
+                          "serviceFormOpen": false,
+                        },
+                        "storeItemState": Object {
+                          "currentStoreItemData": Object {
+                            "_id": "",
+                            "categories": Array [],
+                            "createdAt": "",
+                            "description": "",
+                            "details": "",
+                            "images": Array [],
+                            "name": "",
+                            "price": "",
+                            "storeId": "",
+                            "storeName": "",
+                          },
+                          "error": null,
+                          "loadedStoreItems": Array [],
+                          "loading": false,
+                          "numberOfItems": 0,
+                          "responseMsg": "",
+                          "storeItemFormOpen": false,
+                        },
+                        "storeState": Object {
+                          "currentStoreData": Object {
+                            "_id": "",
+                            "createdAt": "",
+                            "description": "",
+                            "images": Array [],
+                            "title": "",
+                          },
+                          "error": null,
+                          "loadedStores": Array [],
+                          "loading": false,
+                          "responseMsg": "",
+                          "storeFormOpen": false,
+                        },
+                      }
+                    }
+                  >
+                    <ServiceCard
+                      dispatch={[Function]}
+                      history={
+                        Object {
+                          "action": "POP",
+                          "block": [Function],
+                          "canGo": [Function],
+                          "createHref": [Function],
+                          "entries": Array [
+                            Object {
+                              "hash": "",
+                              "pathname": "/admin/home/my_services/manage",
+                              "search": "",
+                              "state": undefined,
+                            },
+                          ],
+                          "go": [Function],
+                          "goBack": [Function],
+                          "goForward": [Function],
+                          "index": 0,
+                          "length": 1,
+                          "listen": [Function],
+                          "location": Object {
+                            "hash": "",
+                            "pathname": "/admin/home/my_services/manage",
+                            "search": "",
+                            "state": undefined,
+                          },
+                          "push": [Function],
+                          "replace": [Function],
+                        }
+                      }
+                      imageCount={0}
+                      location={
+                        Object {
+                          "hash": "",
+                          "pathname": "/admin/home/my_services/manage",
+                          "search": "",
+                          "state": undefined,
+                        }
+                      }
+                      match={
+                        Object {
+                          "isExact": true,
+                          "params": Object {},
+                          "path": "/admin/home/my_services/manage",
+                          "url": "/admin/home/my_services/manage",
+                        }
+                      }
+                      service={
+                        Object {
+                          "_id": "1",
+                          "createdAt": "now",
+                          "description": "description",
+                          "images": Array [],
+                          "name": "name",
+                          "price": "100",
+                        }
+                      }
+                      state={
+                        Object {
+                          "bonusVideoState": Object {
+                            "bonusVideoFormOpen": false,
+                            "currentBonusVideoData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "vimeoURL": "",
+                              "youTubeURL": "",
+                            },
+                            "error": null,
+                            "loadedBonusVideos": Array [],
+                            "loading": false,
+                            "responseMsg": "",
+                          },
+                          "productState": Object {
+                            "currentProductData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "details": "",
+                              "images": Array [],
+                              "name": "",
+                              "price": "",
+                            },
+                            "error": null,
+                            "loadedProducts": Array [],
+                            "loading": false,
+                            "productFormOpen": false,
+                            "responseMsg": "",
+                          },
+                          "serviceState": Object {
+                            "currentServiceData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "images": Array [],
+                              "name": "",
+                              "price": "",
+                            },
+                            "error": null,
+                            "loadedServices": Array [
+                              Object {
+                                "_id": "1",
+                                "createdAt": "now",
+                                "description": "description",
+                                "images": Array [],
+                                "name": "name",
+                                "price": "100",
+                              },
+                              Object {
+                                "_id": "2",
+                                "createdAt": "now",
+                                "description": "description",
+                                "images": Array [],
+                                "name": "name",
+                                "price": "200",
+                              },
+                            ],
+                            "loading": false,
+                            "responseMsg": "All Ok",
+                            "serviceFormOpen": false,
+                          },
+                          "storeItemState": Object {
+                            "currentStoreItemData": Object {
+                              "_id": "",
+                              "categories": Array [],
+                              "createdAt": "",
+                              "description": "",
+                              "details": "",
+                              "images": Array [],
+                              "name": "",
+                              "price": "",
+                              "storeId": "",
+                              "storeName": "",
+                            },
+                            "error": null,
+                            "loadedStoreItems": Array [],
+                            "loading": false,
+                            "numberOfItems": 0,
+                            "responseMsg": "",
+                            "storeItemFormOpen": false,
+                          },
+                          "storeState": Object {
+                            "currentStoreData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "images": Array [],
+                              "title": "",
+                            },
+                            "error": null,
+                            "loadedStores": Array [],
+                            "loading": false,
+                            "responseMsg": "",
+                            "storeFormOpen": false,
+                          },
+                        }
+                      }
+                    >
+                      <GridRow
+                        style={
                           Object {
-                            "current": null,
+                            "marginTop": "1em",
+                            "padding": "0.5em",
                           }
                         }
                       >
-                        <RefFindNode
-                          innerRef={
+                        <div
+                          className="row"
+                          style={
                             Object {
-                              "current": null,
+                              "marginTop": "1em",
+                              "padding": "0.5em",
                             }
                           }
                         >
                           <div
-                            className="ui active transition visible inverted dimmer"
-                            onClick={[Function]}
+                            className="serviceManageDesc"
                           >
-                            <div
-                              className="content"
-                            >
-                              <Loader>
-                                <div
-                                  className="ui text loader"
-                                >
-                                  Please Wait
-                                </div>
-                              </Loader>
-                            </div>
+                            <h3>
+                              Name: 
+                              name
+                            </h3>
+                            <p>
+                              <strong>
+                                Description:
+                              </strong>
+                               
+                              description
+                            </p>
+                            <span>
+                              Number of Images: 
+                              <strong>
+                                0
+                              </strong>
+                            </span>
+                            <p>
+                              <span>
+                                Created At: 
+                              </span>
+                              NaN-undefined-NaN
+                            </p>
                           </div>
-                        </RefFindNode>
-                      </Ref>
-                    </DimmerInner>
-                  </Dimmer>
+                          <div
+                            className="serviceManageCtrls"
+                          >
+                            <Button
+                              as="button"
+                              className="serviceCardBtn"
+                              color="green"
+                              content="Open"
+                              inverted={true}
+                              onClick={[Function]}
+                            >
+                              <Ref
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui green inverted button serviceCardBtn"
+                                    >
+                                      Open
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <RefFindNode
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui green inverted button serviceCardBtn"
+                                      >
+                                        Open
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <button
+                                    className="ui green inverted button serviceCardBtn"
+                                    onClick={[Function]}
+                                  >
+                                    Open
+                                  </button>
+                                </RefFindNode>
+                              </Ref>
+                            </Button>
+                            <Button
+                              as="button"
+                              className="serviceCardBtn"
+                              color="orange"
+                              content="Edit"
+                              inverted={true}
+                              onClick={[Function]}
+                            >
+                              <Ref
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui orange inverted button serviceCardBtn"
+                                    >
+                                      Edit
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <RefFindNode
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui orange inverted button serviceCardBtn"
+                                      >
+                                        Edit
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <button
+                                    className="ui orange inverted button serviceCardBtn"
+                                    onClick={[Function]}
+                                  >
+                                    Edit
+                                  </button>
+                                </RefFindNode>
+                              </Ref>
+                            </Button>
+                            <Button
+                              as="button"
+                              className="serviceCardBtn"
+                              color="red"
+                              content="Delete"
+                              inverted={true}
+                              onClick={[Function]}
+                            >
+                              <Ref
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui red inverted button serviceCardBtn"
+                                    >
+                                      Delete
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <RefFindNode
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui red inverted button serviceCardBtn"
+                                      >
+                                        Delete
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <button
+                                    className="ui red inverted button serviceCardBtn"
+                                    onClick={[Function]}
+                                  >
+                                    Delete
+                                  </button>
+                                </RefFindNode>
+                              </Ref>
+                            </Button>
+                          </div>
+                        </div>
+                      </GridRow>
+                    </ServiceCard>
+                  </withRouter(ServiceCard)>
+                  <withRouter(ServiceCard)
+                    dispatch={[Function]}
+                    imageCount={0}
+                    key="2"
+                    service={
+                      Object {
+                        "_id": "2",
+                        "createdAt": "now",
+                        "description": "description",
+                        "images": Array [],
+                        "name": "name",
+                        "price": "200",
+                      }
+                    }
+                    state={
+                      Object {
+                        "bonusVideoState": Object {
+                          "bonusVideoFormOpen": false,
+                          "currentBonusVideoData": Object {
+                            "_id": "",
+                            "createdAt": "",
+                            "description": "",
+                            "vimeoURL": "",
+                            "youTubeURL": "",
+                          },
+                          "error": null,
+                          "loadedBonusVideos": Array [],
+                          "loading": false,
+                          "responseMsg": "",
+                        },
+                        "productState": Object {
+                          "currentProductData": Object {
+                            "_id": "",
+                            "createdAt": "",
+                            "description": "",
+                            "details": "",
+                            "images": Array [],
+                            "name": "",
+                            "price": "",
+                          },
+                          "error": null,
+                          "loadedProducts": Array [],
+                          "loading": false,
+                          "productFormOpen": false,
+                          "responseMsg": "",
+                        },
+                        "serviceState": Object {
+                          "currentServiceData": Object {
+                            "_id": "",
+                            "createdAt": "",
+                            "description": "",
+                            "images": Array [],
+                            "name": "",
+                            "price": "",
+                          },
+                          "error": null,
+                          "loadedServices": Array [
+                            Object {
+                              "_id": "1",
+                              "createdAt": "now",
+                              "description": "description",
+                              "images": Array [],
+                              "name": "name",
+                              "price": "100",
+                            },
+                            Object {
+                              "_id": "2",
+                              "createdAt": "now",
+                              "description": "description",
+                              "images": Array [],
+                              "name": "name",
+                              "price": "200",
+                            },
+                          ],
+                          "loading": false,
+                          "responseMsg": "All Ok",
+                          "serviceFormOpen": false,
+                        },
+                        "storeItemState": Object {
+                          "currentStoreItemData": Object {
+                            "_id": "",
+                            "categories": Array [],
+                            "createdAt": "",
+                            "description": "",
+                            "details": "",
+                            "images": Array [],
+                            "name": "",
+                            "price": "",
+                            "storeId": "",
+                            "storeName": "",
+                          },
+                          "error": null,
+                          "loadedStoreItems": Array [],
+                          "loading": false,
+                          "numberOfItems": 0,
+                          "responseMsg": "",
+                          "storeItemFormOpen": false,
+                        },
+                        "storeState": Object {
+                          "currentStoreData": Object {
+                            "_id": "",
+                            "createdAt": "",
+                            "description": "",
+                            "images": Array [],
+                            "title": "",
+                          },
+                          "error": null,
+                          "loadedStores": Array [],
+                          "loading": false,
+                          "responseMsg": "",
+                          "storeFormOpen": false,
+                        },
+                      }
+                    }
+                  >
+                    <ServiceCard
+                      dispatch={[Function]}
+                      history={
+                        Object {
+                          "action": "POP",
+                          "block": [Function],
+                          "canGo": [Function],
+                          "createHref": [Function],
+                          "entries": Array [
+                            Object {
+                              "hash": "",
+                              "pathname": "/admin/home/my_services/manage",
+                              "search": "",
+                              "state": undefined,
+                            },
+                          ],
+                          "go": [Function],
+                          "goBack": [Function],
+                          "goForward": [Function],
+                          "index": 0,
+                          "length": 1,
+                          "listen": [Function],
+                          "location": Object {
+                            "hash": "",
+                            "pathname": "/admin/home/my_services/manage",
+                            "search": "",
+                            "state": undefined,
+                          },
+                          "push": [Function],
+                          "replace": [Function],
+                        }
+                      }
+                      imageCount={0}
+                      location={
+                        Object {
+                          "hash": "",
+                          "pathname": "/admin/home/my_services/manage",
+                          "search": "",
+                          "state": undefined,
+                        }
+                      }
+                      match={
+                        Object {
+                          "isExact": true,
+                          "params": Object {},
+                          "path": "/admin/home/my_services/manage",
+                          "url": "/admin/home/my_services/manage",
+                        }
+                      }
+                      service={
+                        Object {
+                          "_id": "2",
+                          "createdAt": "now",
+                          "description": "description",
+                          "images": Array [],
+                          "name": "name",
+                          "price": "200",
+                        }
+                      }
+                      state={
+                        Object {
+                          "bonusVideoState": Object {
+                            "bonusVideoFormOpen": false,
+                            "currentBonusVideoData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "vimeoURL": "",
+                              "youTubeURL": "",
+                            },
+                            "error": null,
+                            "loadedBonusVideos": Array [],
+                            "loading": false,
+                            "responseMsg": "",
+                          },
+                          "productState": Object {
+                            "currentProductData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "details": "",
+                              "images": Array [],
+                              "name": "",
+                              "price": "",
+                            },
+                            "error": null,
+                            "loadedProducts": Array [],
+                            "loading": false,
+                            "productFormOpen": false,
+                            "responseMsg": "",
+                          },
+                          "serviceState": Object {
+                            "currentServiceData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "images": Array [],
+                              "name": "",
+                              "price": "",
+                            },
+                            "error": null,
+                            "loadedServices": Array [
+                              Object {
+                                "_id": "1",
+                                "createdAt": "now",
+                                "description": "description",
+                                "images": Array [],
+                                "name": "name",
+                                "price": "100",
+                              },
+                              Object {
+                                "_id": "2",
+                                "createdAt": "now",
+                                "description": "description",
+                                "images": Array [],
+                                "name": "name",
+                                "price": "200",
+                              },
+                            ],
+                            "loading": false,
+                            "responseMsg": "All Ok",
+                            "serviceFormOpen": false,
+                          },
+                          "storeItemState": Object {
+                            "currentStoreItemData": Object {
+                              "_id": "",
+                              "categories": Array [],
+                              "createdAt": "",
+                              "description": "",
+                              "details": "",
+                              "images": Array [],
+                              "name": "",
+                              "price": "",
+                              "storeId": "",
+                              "storeName": "",
+                            },
+                            "error": null,
+                            "loadedStoreItems": Array [],
+                            "loading": false,
+                            "numberOfItems": 0,
+                            "responseMsg": "",
+                            "storeItemFormOpen": false,
+                          },
+                          "storeState": Object {
+                            "currentStoreData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "images": Array [],
+                              "title": "",
+                            },
+                            "error": null,
+                            "loadedStores": Array [],
+                            "loading": false,
+                            "responseMsg": "",
+                            "storeFormOpen": false,
+                          },
+                        }
+                      }
+                    >
+                      <GridRow
+                        style={
+                          Object {
+                            "marginTop": "1em",
+                            "padding": "0.5em",
+                          }
+                        }
+                      >
+                        <div
+                          className="row"
+                          style={
+                            Object {
+                              "marginTop": "1em",
+                              "padding": "0.5em",
+                            }
+                          }
+                        >
+                          <div
+                            className="serviceManageDesc"
+                          >
+                            <h3>
+                              Name: 
+                              name
+                            </h3>
+                            <p>
+                              <strong>
+                                Description:
+                              </strong>
+                               
+                              description
+                            </p>
+                            <span>
+                              Number of Images: 
+                              <strong>
+                                0
+                              </strong>
+                            </span>
+                            <p>
+                              <span>
+                                Created At: 
+                              </span>
+                              NaN-undefined-NaN
+                            </p>
+                          </div>
+                          <div
+                            className="serviceManageCtrls"
+                          >
+                            <Button
+                              as="button"
+                              className="serviceCardBtn"
+                              color="green"
+                              content="Open"
+                              inverted={true}
+                              onClick={[Function]}
+                            >
+                              <Ref
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui green inverted button serviceCardBtn"
+                                    >
+                                      Open
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <RefFindNode
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui green inverted button serviceCardBtn"
+                                      >
+                                        Open
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <button
+                                    className="ui green inverted button serviceCardBtn"
+                                    onClick={[Function]}
+                                  >
+                                    Open
+                                  </button>
+                                </RefFindNode>
+                              </Ref>
+                            </Button>
+                            <Button
+                              as="button"
+                              className="serviceCardBtn"
+                              color="orange"
+                              content="Edit"
+                              inverted={true}
+                              onClick={[Function]}
+                            >
+                              <Ref
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui orange inverted button serviceCardBtn"
+                                    >
+                                      Edit
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <RefFindNode
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui orange inverted button serviceCardBtn"
+                                      >
+                                        Edit
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <button
+                                    className="ui orange inverted button serviceCardBtn"
+                                    onClick={[Function]}
+                                  >
+                                    Edit
+                                  </button>
+                                </RefFindNode>
+                              </Ref>
+                            </Button>
+                            <Button
+                              as="button"
+                              className="serviceCardBtn"
+                              color="red"
+                              content="Delete"
+                              inverted={true}
+                              onClick={[Function]}
+                            >
+                              <Ref
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui red inverted button serviceCardBtn"
+                                    >
+                                      Delete
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <RefFindNode
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui red inverted button serviceCardBtn"
+                                      >
+                                        Delete
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <button
+                                    className="ui red inverted button serviceCardBtn"
+                                    onClick={[Function]}
+                                  >
+                                    Delete
+                                  </button>
+                                </RefFindNode>
+                              </Ref>
+                            </Button>
+                          </div>
+                        </div>
+                      </GridRow>
+                    </ServiceCard>
+                  </withRouter(ServiceCard)>
                 </div>
-              </Segment>
+              </GridColumn>
+              <GridColumn
+                computer={4}
+                mobile={16}
+                tablet={8}
+              >
+                <div
+                  className="four wide computer sixteen wide mobile eight wide tablet column"
+                />
+              </GridColumn>
             </div>
-          </LoaderExampleText>
-        </ServiceManageHolder>
-      </withRouter(ServiceManageHolder)>
-    </Component>
-  </Router>
-</MemoryRouter>
-`;
-
-exports[`Service Manage Holder Tests State after a successful API call Should render the correct ServiceManageHolder Component 1`] = `
-<Grid
-  columns={2}
-  id="serviceManageHolder"
-  padded={true}
-  stackable={true}
->
-  <div
-    className="ui stackable padded two column grid"
-    id="serviceManageHolder"
-  >
-    <Route
-      path="undefined/edit"
-    />
-    <Route
-      exact={true}
-    >
-      <GridRow>
-        <div
-          className="row"
-        >
-          <GridColumn
-            computer={12}
-            mobile={16}
-            tablet={8}
-          >
-            <div
-              className="twelve wide computer sixteen wide mobile eight wide tablet column"
-            >
-              <withRouter(ServiceCard)
-                dispatch={[Function]}
-                imageCount={0}
-                key="ory7ezbsb6"
-                service={
-                  Object {
-                    "_id": "ory7ezbsb6",
-                    "createdAt": "Sun Sep 20 2020 05:13:51 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Et sit impedit sint. Ipsam quaerat quis doloremque commodi cum. Ipsam qui molestias eos saepe repellat laboriosam sit sed aut. Sunt illum vel eos ea sunt necessitatibus est amet velit. Unde ut quisquam saepe nemo cupiditate qui architecto dolor vel.",
-                    "images": Array [],
-                    "name": "corrupti",
-                    "price": "87.00",
-                  }
-                }
-                state={
-                  Object {
-                    "bonusVideoState": Object {
-                      "currentBonusVideoData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "vimeoURL": "",
-                        "youTubeURL": "",
-                      },
-                      "error": null,
-                      "loadedBonusVideos": Array [],
-                      "loading": false,
-                      "responseMsg": "",
-                    },
-                    "productState": Object {
-                      "currentProductData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "details": "",
-                        "images": Array [],
-                        "name": "",
-                        "price": "",
-                      },
-                      "error": null,
-                      "loadedProducts": Array [],
-                      "loading": false,
-                      "productFormOpen": false,
-                      "responseMsg": "",
-                    },
-                    "serviceState": Object {
-                      "currentServiceData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "images": Array [],
-                        "name": "",
-                        "price": "",
-                      },
-                      "error": null,
-                      "loadedServices": Array [
-                        Object {
-                          "_id": "ory7ezbsb6",
-                          "createdAt": "Sun Sep 20 2020 05:13:51 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Et sit impedit sint. Ipsam quaerat quis doloremque commodi cum. Ipsam qui molestias eos saepe repellat laboriosam sit sed aut. Sunt illum vel eos ea sunt necessitatibus est amet velit. Unde ut quisquam saepe nemo cupiditate qui architecto dolor vel.",
-                          "images": Array [],
-                          "name": "corrupti",
-                          "price": "87.00",
-                        },
-                        Object {
-                          "_id": "t2qzxvapjs",
-                          "createdAt": "Sat Sep 19 2020 18:11:47 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Totam nam consequuntur consectetur quia sint repellat est quam. In doloremque repellat quis et fugiat reprehenderit placeat dolor. Eos magnam qui sunt numquam voluptatibus molestiae. Dolorum suscipit incidunt et ut.",
-                          "images": Array [],
-                          "name": "ut",
-                          "price": "43.00",
-                        },
-                        Object {
-                          "_id": "7govmem7hh",
-                          "createdAt": "Sun Sep 20 2020 03:24:54 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Consequatur earum eos et quo harum laborum cupiditate ipsa. Qui est in sed et nulla. Voluptas laborum impedit. Ut repellat a tempora tempora. Consequatur facere repudiandae sed sit qui aut facilis aut nihil. Dolores perferendis sit non a laborum repellat.",
-                          "images": Array [],
-                          "name": "sapiente",
-                          "price": "93.00",
-                        },
-                        Object {
-                          "_id": "970irdpvjb",
-                          "createdAt": "Sun Sep 20 2020 13:18:55 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Qui minus vel non temporibus quos. Ut et voluptatem doloribus natus nulla est. Earum quis non dolorem eum quaerat iure quia. Et et et aut temporibus aut voluptas quis cupiditate. Consequatur recusandae iure fuga et quis ratione autem officiis. Nesciunt et in consequatur nisi ut.",
-                          "images": Array [],
-                          "name": "deleniti",
-                          "price": "63.00",
-                        },
-                        Object {
-                          "_id": "414ujj4wjl",
-                          "createdAt": "Sun Sep 20 2020 11:56:37 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Iure consequatur nobis enim et sit. Qui perspiciatis et earum doloremque nihil provident perspiciatis animi. Assumenda illo quia officiis sed est est qui beatae.",
-                          "images": Array [],
-                          "name": "et",
-                          "price": "50.00",
-                        },
-                      ],
-                      "loading": false,
-                      "responseMsg": "All Ok",
-                      "serviceFormOpen": false,
-                    },
-                    "storeItemState": Object {
-                      "currentStoreItemData": Object {
-                        "_id": "",
-                        "categories": Array [],
-                        "createdAt": "",
-                        "description": "",
-                        "details": "",
-                        "images": Array [],
-                        "name": "",
-                        "price": "",
-                        "storeId": "",
-                        "storeName": "",
-                      },
-                      "error": null,
-                      "loadedStoreItems": Array [],
-                      "loading": false,
-                      "numberOfItems": 0,
-                      "responseMsg": "",
-                      "storeItemFormOpen": false,
-                    },
-                    "storeState": Object {
-                      "currentStoreData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "images": Array [],
-                        "title": "",
-                      },
-                      "error": null,
-                      "loadedStores": Array [],
-                      "loading": false,
-                      "responseMsg": "",
-                      "storeFormOpen": false,
-                    },
-                  }
-                }
-              >
-                <ServiceCard
-                  dispatch={[Function]}
-                  history={
-                    Object {
-                      "action": "POP",
-                      "block": [Function],
-                      "canGo": [Function],
-                      "createHref": [Function],
-                      "entries": Array [
-                        Object {
-                          "hash": "",
-                          "key": "ca4qif",
-                          "pathname": "/",
-                          "search": "",
-                          "state": undefined,
-                        },
-                      ],
-                      "go": [Function],
-                      "goBack": [Function],
-                      "goForward": [Function],
-                      "index": 0,
-                      "length": 1,
-                      "listen": [Function],
-                      "location": Object {
-                        "hash": "",
-                        "key": "ca4qif",
-                        "pathname": "/",
-                        "search": "",
-                        "state": undefined,
-                      },
-                      "push": [Function],
-                      "replace": [Function],
-                    }
-                  }
-                  imageCount={0}
-                  location={
-                    Object {
-                      "hash": "",
-                      "key": "ca4qif",
-                      "pathname": "/",
-                      "search": "",
-                      "state": undefined,
-                    }
-                  }
-                  match={
-                    Object {
-                      "isExact": true,
-                      "params": Object {},
-                      "path": "/",
-                      "url": "/",
-                    }
-                  }
-                  service={
-                    Object {
-                      "_id": "ory7ezbsb6",
-                      "createdAt": "Sun Sep 20 2020 05:13:51 GMT+0300 (Eastern European Summer Time)",
-                      "description": "Et sit impedit sint. Ipsam quaerat quis doloremque commodi cum. Ipsam qui molestias eos saepe repellat laboriosam sit sed aut. Sunt illum vel eos ea sunt necessitatibus est amet velit. Unde ut quisquam saepe nemo cupiditate qui architecto dolor vel.",
-                      "images": Array [],
-                      "name": "corrupti",
-                      "price": "87.00",
-                    }
-                  }
-                  state={
-                    Object {
-                      "bonusVideoState": Object {
-                        "currentBonusVideoData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "vimeoURL": "",
-                          "youTubeURL": "",
-                        },
-                        "error": null,
-                        "loadedBonusVideos": Array [],
-                        "loading": false,
-                        "responseMsg": "",
-                      },
-                      "productState": Object {
-                        "currentProductData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "details": "",
-                          "images": Array [],
-                          "name": "",
-                          "price": "",
-                        },
-                        "error": null,
-                        "loadedProducts": Array [],
-                        "loading": false,
-                        "productFormOpen": false,
-                        "responseMsg": "",
-                      },
-                      "serviceState": Object {
-                        "currentServiceData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "images": Array [],
-                          "name": "",
-                          "price": "",
-                        },
-                        "error": null,
-                        "loadedServices": Array [
-                          Object {
-                            "_id": "ory7ezbsb6",
-                            "createdAt": "Sun Sep 20 2020 05:13:51 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Et sit impedit sint. Ipsam quaerat quis doloremque commodi cum. Ipsam qui molestias eos saepe repellat laboriosam sit sed aut. Sunt illum vel eos ea sunt necessitatibus est amet velit. Unde ut quisquam saepe nemo cupiditate qui architecto dolor vel.",
-                            "images": Array [],
-                            "name": "corrupti",
-                            "price": "87.00",
-                          },
-                          Object {
-                            "_id": "t2qzxvapjs",
-                            "createdAt": "Sat Sep 19 2020 18:11:47 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Totam nam consequuntur consectetur quia sint repellat est quam. In doloremque repellat quis et fugiat reprehenderit placeat dolor. Eos magnam qui sunt numquam voluptatibus molestiae. Dolorum suscipit incidunt et ut.",
-                            "images": Array [],
-                            "name": "ut",
-                            "price": "43.00",
-                          },
-                          Object {
-                            "_id": "7govmem7hh",
-                            "createdAt": "Sun Sep 20 2020 03:24:54 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Consequatur earum eos et quo harum laborum cupiditate ipsa. Qui est in sed et nulla. Voluptas laborum impedit. Ut repellat a tempora tempora. Consequatur facere repudiandae sed sit qui aut facilis aut nihil. Dolores perferendis sit non a laborum repellat.",
-                            "images": Array [],
-                            "name": "sapiente",
-                            "price": "93.00",
-                          },
-                          Object {
-                            "_id": "970irdpvjb",
-                            "createdAt": "Sun Sep 20 2020 13:18:55 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Qui minus vel non temporibus quos. Ut et voluptatem doloribus natus nulla est. Earum quis non dolorem eum quaerat iure quia. Et et et aut temporibus aut voluptas quis cupiditate. Consequatur recusandae iure fuga et quis ratione autem officiis. Nesciunt et in consequatur nisi ut.",
-                            "images": Array [],
-                            "name": "deleniti",
-                            "price": "63.00",
-                          },
-                          Object {
-                            "_id": "414ujj4wjl",
-                            "createdAt": "Sun Sep 20 2020 11:56:37 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Iure consequatur nobis enim et sit. Qui perspiciatis et earum doloremque nihil provident perspiciatis animi. Assumenda illo quia officiis sed est est qui beatae.",
-                            "images": Array [],
-                            "name": "et",
-                            "price": "50.00",
-                          },
-                        ],
-                        "loading": false,
-                        "responseMsg": "All Ok",
-                        "serviceFormOpen": false,
-                      },
-                      "storeItemState": Object {
-                        "currentStoreItemData": Object {
-                          "_id": "",
-                          "categories": Array [],
-                          "createdAt": "",
-                          "description": "",
-                          "details": "",
-                          "images": Array [],
-                          "name": "",
-                          "price": "",
-                          "storeId": "",
-                          "storeName": "",
-                        },
-                        "error": null,
-                        "loadedStoreItems": Array [],
-                        "loading": false,
-                        "numberOfItems": 0,
-                        "responseMsg": "",
-                        "storeItemFormOpen": false,
-                      },
-                      "storeState": Object {
-                        "currentStoreData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "images": Array [],
-                          "title": "",
-                        },
-                        "error": null,
-                        "loadedStores": Array [],
-                        "loading": false,
-                        "responseMsg": "",
-                        "storeFormOpen": false,
-                      },
-                    }
-                  }
-                >
-                  <GridRow
-                    style={
-                      Object {
-                        "marginTop": "1em",
-                        "padding": "0.5em",
-                      }
-                    }
-                  >
-                    <div
-                      className="row"
-                      style={
-                        Object {
-                          "marginTop": "1em",
-                          "padding": "0.5em",
-                        }
-                      }
-                    >
-                      <div
-                        className="serviceManageDesc"
-                      >
-                        <h3>
-                          Name: 
-                          corrupti
-                        </h3>
-                        <p>
-                          <strong>
-                            Description:
-                          </strong>
-                           
-                          Et sit impedit sint. Ipsam quaerat quis doloremque commodi cum. Ipsam qui molestias eos saepe repellat laboriosam sit sed aut. Sunt illum vel eos ea sunt necessitatibus est amet velit. Unde ut quisquam saepe nemo cupiditate qui architecto dolor vel.
-                        </p>
-                        <span>
-                          Number of Images: 
-                          <strong>
-                            0
-                          </strong>
-                        </span>
-                        <p>
-                          <span>
-                            Created At: 
-                          </span>
-                          2020-Sep-20
-                        </p>
-                      </div>
-                      <div
-                        className="serviceManageCtrls"
-                      >
-                        <Button
-                          as="button"
-                          className="serviceCardBtn"
-                          color="green"
-                          content="Open"
-                          inverted={true}
-                          onClick={[Function]}
-                        >
-                          <Ref
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui green inverted button serviceCardBtn"
-                                >
-                                  Open
-                                </button>,
-                              }
-                            }
-                          >
-                            <RefFindNode
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui green inverted button serviceCardBtn"
-                                  >
-                                    Open
-                                  </button>,
-                                }
-                              }
-                            >
-                              <button
-                                className="ui green inverted button serviceCardBtn"
-                                onClick={[Function]}
-                              >
-                                Open
-                              </button>
-                            </RefFindNode>
-                          </Ref>
-                        </Button>
-                        <Button
-                          as="button"
-                          className="serviceCardBtn"
-                          color="orange"
-                          content="Edit"
-                          inverted={true}
-                          onClick={[Function]}
-                        >
-                          <Ref
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui orange inverted button serviceCardBtn"
-                                >
-                                  Edit
-                                </button>,
-                              }
-                            }
-                          >
-                            <RefFindNode
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui orange inverted button serviceCardBtn"
-                                  >
-                                    Edit
-                                  </button>,
-                                }
-                              }
-                            >
-                              <button
-                                className="ui orange inverted button serviceCardBtn"
-                                onClick={[Function]}
-                              >
-                                Edit
-                              </button>
-                            </RefFindNode>
-                          </Ref>
-                        </Button>
-                        <Button
-                          as="button"
-                          className="serviceCardBtn"
-                          color="red"
-                          content="Delete"
-                          inverted={true}
-                          onClick={[Function]}
-                        >
-                          <Ref
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui red inverted button serviceCardBtn"
-                                >
-                                  Delete
-                                </button>,
-                              }
-                            }
-                          >
-                            <RefFindNode
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui red inverted button serviceCardBtn"
-                                  >
-                                    Delete
-                                  </button>,
-                                }
-                              }
-                            >
-                              <button
-                                className="ui red inverted button serviceCardBtn"
-                                onClick={[Function]}
-                              >
-                                Delete
-                              </button>
-                            </RefFindNode>
-                          </Ref>
-                        </Button>
-                      </div>
-                    </div>
-                  </GridRow>
-                </ServiceCard>
-              </withRouter(ServiceCard)>
-              <withRouter(ServiceCard)
-                dispatch={[Function]}
-                imageCount={0}
-                key="t2qzxvapjs"
-                service={
-                  Object {
-                    "_id": "t2qzxvapjs",
-                    "createdAt": "Sat Sep 19 2020 18:11:47 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Totam nam consequuntur consectetur quia sint repellat est quam. In doloremque repellat quis et fugiat reprehenderit placeat dolor. Eos magnam qui sunt numquam voluptatibus molestiae. Dolorum suscipit incidunt et ut.",
-                    "images": Array [],
-                    "name": "ut",
-                    "price": "43.00",
-                  }
-                }
-                state={
-                  Object {
-                    "bonusVideoState": Object {
-                      "currentBonusVideoData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "vimeoURL": "",
-                        "youTubeURL": "",
-                      },
-                      "error": null,
-                      "loadedBonusVideos": Array [],
-                      "loading": false,
-                      "responseMsg": "",
-                    },
-                    "productState": Object {
-                      "currentProductData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "details": "",
-                        "images": Array [],
-                        "name": "",
-                        "price": "",
-                      },
-                      "error": null,
-                      "loadedProducts": Array [],
-                      "loading": false,
-                      "productFormOpen": false,
-                      "responseMsg": "",
-                    },
-                    "serviceState": Object {
-                      "currentServiceData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "images": Array [],
-                        "name": "",
-                        "price": "",
-                      },
-                      "error": null,
-                      "loadedServices": Array [
-                        Object {
-                          "_id": "ory7ezbsb6",
-                          "createdAt": "Sun Sep 20 2020 05:13:51 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Et sit impedit sint. Ipsam quaerat quis doloremque commodi cum. Ipsam qui molestias eos saepe repellat laboriosam sit sed aut. Sunt illum vel eos ea sunt necessitatibus est amet velit. Unde ut quisquam saepe nemo cupiditate qui architecto dolor vel.",
-                          "images": Array [],
-                          "name": "corrupti",
-                          "price": "87.00",
-                        },
-                        Object {
-                          "_id": "t2qzxvapjs",
-                          "createdAt": "Sat Sep 19 2020 18:11:47 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Totam nam consequuntur consectetur quia sint repellat est quam. In doloremque repellat quis et fugiat reprehenderit placeat dolor. Eos magnam qui sunt numquam voluptatibus molestiae. Dolorum suscipit incidunt et ut.",
-                          "images": Array [],
-                          "name": "ut",
-                          "price": "43.00",
-                        },
-                        Object {
-                          "_id": "7govmem7hh",
-                          "createdAt": "Sun Sep 20 2020 03:24:54 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Consequatur earum eos et quo harum laborum cupiditate ipsa. Qui est in sed et nulla. Voluptas laborum impedit. Ut repellat a tempora tempora. Consequatur facere repudiandae sed sit qui aut facilis aut nihil. Dolores perferendis sit non a laborum repellat.",
-                          "images": Array [],
-                          "name": "sapiente",
-                          "price": "93.00",
-                        },
-                        Object {
-                          "_id": "970irdpvjb",
-                          "createdAt": "Sun Sep 20 2020 13:18:55 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Qui minus vel non temporibus quos. Ut et voluptatem doloribus natus nulla est. Earum quis non dolorem eum quaerat iure quia. Et et et aut temporibus aut voluptas quis cupiditate. Consequatur recusandae iure fuga et quis ratione autem officiis. Nesciunt et in consequatur nisi ut.",
-                          "images": Array [],
-                          "name": "deleniti",
-                          "price": "63.00",
-                        },
-                        Object {
-                          "_id": "414ujj4wjl",
-                          "createdAt": "Sun Sep 20 2020 11:56:37 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Iure consequatur nobis enim et sit. Qui perspiciatis et earum doloremque nihil provident perspiciatis animi. Assumenda illo quia officiis sed est est qui beatae.",
-                          "images": Array [],
-                          "name": "et",
-                          "price": "50.00",
-                        },
-                      ],
-                      "loading": false,
-                      "responseMsg": "All Ok",
-                      "serviceFormOpen": false,
-                    },
-                    "storeItemState": Object {
-                      "currentStoreItemData": Object {
-                        "_id": "",
-                        "categories": Array [],
-                        "createdAt": "",
-                        "description": "",
-                        "details": "",
-                        "images": Array [],
-                        "name": "",
-                        "price": "",
-                        "storeId": "",
-                        "storeName": "",
-                      },
-                      "error": null,
-                      "loadedStoreItems": Array [],
-                      "loading": false,
-                      "numberOfItems": 0,
-                      "responseMsg": "",
-                      "storeItemFormOpen": false,
-                    },
-                    "storeState": Object {
-                      "currentStoreData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "images": Array [],
-                        "title": "",
-                      },
-                      "error": null,
-                      "loadedStores": Array [],
-                      "loading": false,
-                      "responseMsg": "",
-                      "storeFormOpen": false,
-                    },
-                  }
-                }
-              >
-                <ServiceCard
-                  dispatch={[Function]}
-                  history={
-                    Object {
-                      "action": "POP",
-                      "block": [Function],
-                      "canGo": [Function],
-                      "createHref": [Function],
-                      "entries": Array [
-                        Object {
-                          "hash": "",
-                          "key": "ca4qif",
-                          "pathname": "/",
-                          "search": "",
-                          "state": undefined,
-                        },
-                      ],
-                      "go": [Function],
-                      "goBack": [Function],
-                      "goForward": [Function],
-                      "index": 0,
-                      "length": 1,
-                      "listen": [Function],
-                      "location": Object {
-                        "hash": "",
-                        "key": "ca4qif",
-                        "pathname": "/",
-                        "search": "",
-                        "state": undefined,
-                      },
-                      "push": [Function],
-                      "replace": [Function],
-                    }
-                  }
-                  imageCount={0}
-                  location={
-                    Object {
-                      "hash": "",
-                      "key": "ca4qif",
-                      "pathname": "/",
-                      "search": "",
-                      "state": undefined,
-                    }
-                  }
-                  match={
-                    Object {
-                      "isExact": true,
-                      "params": Object {},
-                      "path": "/",
-                      "url": "/",
-                    }
-                  }
-                  service={
-                    Object {
-                      "_id": "t2qzxvapjs",
-                      "createdAt": "Sat Sep 19 2020 18:11:47 GMT+0300 (Eastern European Summer Time)",
-                      "description": "Totam nam consequuntur consectetur quia sint repellat est quam. In doloremque repellat quis et fugiat reprehenderit placeat dolor. Eos magnam qui sunt numquam voluptatibus molestiae. Dolorum suscipit incidunt et ut.",
-                      "images": Array [],
-                      "name": "ut",
-                      "price": "43.00",
-                    }
-                  }
-                  state={
-                    Object {
-                      "bonusVideoState": Object {
-                        "currentBonusVideoData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "vimeoURL": "",
-                          "youTubeURL": "",
-                        },
-                        "error": null,
-                        "loadedBonusVideos": Array [],
-                        "loading": false,
-                        "responseMsg": "",
-                      },
-                      "productState": Object {
-                        "currentProductData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "details": "",
-                          "images": Array [],
-                          "name": "",
-                          "price": "",
-                        },
-                        "error": null,
-                        "loadedProducts": Array [],
-                        "loading": false,
-                        "productFormOpen": false,
-                        "responseMsg": "",
-                      },
-                      "serviceState": Object {
-                        "currentServiceData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "images": Array [],
-                          "name": "",
-                          "price": "",
-                        },
-                        "error": null,
-                        "loadedServices": Array [
-                          Object {
-                            "_id": "ory7ezbsb6",
-                            "createdAt": "Sun Sep 20 2020 05:13:51 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Et sit impedit sint. Ipsam quaerat quis doloremque commodi cum. Ipsam qui molestias eos saepe repellat laboriosam sit sed aut. Sunt illum vel eos ea sunt necessitatibus est amet velit. Unde ut quisquam saepe nemo cupiditate qui architecto dolor vel.",
-                            "images": Array [],
-                            "name": "corrupti",
-                            "price": "87.00",
-                          },
-                          Object {
-                            "_id": "t2qzxvapjs",
-                            "createdAt": "Sat Sep 19 2020 18:11:47 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Totam nam consequuntur consectetur quia sint repellat est quam. In doloremque repellat quis et fugiat reprehenderit placeat dolor. Eos magnam qui sunt numquam voluptatibus molestiae. Dolorum suscipit incidunt et ut.",
-                            "images": Array [],
-                            "name": "ut",
-                            "price": "43.00",
-                          },
-                          Object {
-                            "_id": "7govmem7hh",
-                            "createdAt": "Sun Sep 20 2020 03:24:54 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Consequatur earum eos et quo harum laborum cupiditate ipsa. Qui est in sed et nulla. Voluptas laborum impedit. Ut repellat a tempora tempora. Consequatur facere repudiandae sed sit qui aut facilis aut nihil. Dolores perferendis sit non a laborum repellat.",
-                            "images": Array [],
-                            "name": "sapiente",
-                            "price": "93.00",
-                          },
-                          Object {
-                            "_id": "970irdpvjb",
-                            "createdAt": "Sun Sep 20 2020 13:18:55 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Qui minus vel non temporibus quos. Ut et voluptatem doloribus natus nulla est. Earum quis non dolorem eum quaerat iure quia. Et et et aut temporibus aut voluptas quis cupiditate. Consequatur recusandae iure fuga et quis ratione autem officiis. Nesciunt et in consequatur nisi ut.",
-                            "images": Array [],
-                            "name": "deleniti",
-                            "price": "63.00",
-                          },
-                          Object {
-                            "_id": "414ujj4wjl",
-                            "createdAt": "Sun Sep 20 2020 11:56:37 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Iure consequatur nobis enim et sit. Qui perspiciatis et earum doloremque nihil provident perspiciatis animi. Assumenda illo quia officiis sed est est qui beatae.",
-                            "images": Array [],
-                            "name": "et",
-                            "price": "50.00",
-                          },
-                        ],
-                        "loading": false,
-                        "responseMsg": "All Ok",
-                        "serviceFormOpen": false,
-                      },
-                      "storeItemState": Object {
-                        "currentStoreItemData": Object {
-                          "_id": "",
-                          "categories": Array [],
-                          "createdAt": "",
-                          "description": "",
-                          "details": "",
-                          "images": Array [],
-                          "name": "",
-                          "price": "",
-                          "storeId": "",
-                          "storeName": "",
-                        },
-                        "error": null,
-                        "loadedStoreItems": Array [],
-                        "loading": false,
-                        "numberOfItems": 0,
-                        "responseMsg": "",
-                        "storeItemFormOpen": false,
-                      },
-                      "storeState": Object {
-                        "currentStoreData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "images": Array [],
-                          "title": "",
-                        },
-                        "error": null,
-                        "loadedStores": Array [],
-                        "loading": false,
-                        "responseMsg": "",
-                        "storeFormOpen": false,
-                      },
-                    }
-                  }
-                >
-                  <GridRow
-                    style={
-                      Object {
-                        "marginTop": "1em",
-                        "padding": "0.5em",
-                      }
-                    }
-                  >
-                    <div
-                      className="row"
-                      style={
-                        Object {
-                          "marginTop": "1em",
-                          "padding": "0.5em",
-                        }
-                      }
-                    >
-                      <div
-                        className="serviceManageDesc"
-                      >
-                        <h3>
-                          Name: 
-                          ut
-                        </h3>
-                        <p>
-                          <strong>
-                            Description:
-                          </strong>
-                           
-                          Totam nam consequuntur consectetur quia sint repellat est quam. In doloremque repellat quis et fugiat reprehenderit placeat dolor. Eos magnam qui sunt numquam voluptatibus molestiae. Dolorum suscipit incidunt et ut.
-                        </p>
-                        <span>
-                          Number of Images: 
-                          <strong>
-                            0
-                          </strong>
-                        </span>
-                        <p>
-                          <span>
-                            Created At: 
-                          </span>
-                          2020-Sep-19
-                        </p>
-                      </div>
-                      <div
-                        className="serviceManageCtrls"
-                      >
-                        <Button
-                          as="button"
-                          className="serviceCardBtn"
-                          color="green"
-                          content="Open"
-                          inverted={true}
-                          onClick={[Function]}
-                        >
-                          <Ref
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui green inverted button serviceCardBtn"
-                                >
-                                  Open
-                                </button>,
-                              }
-                            }
-                          >
-                            <RefFindNode
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui green inverted button serviceCardBtn"
-                                  >
-                                    Open
-                                  </button>,
-                                }
-                              }
-                            >
-                              <button
-                                className="ui green inverted button serviceCardBtn"
-                                onClick={[Function]}
-                              >
-                                Open
-                              </button>
-                            </RefFindNode>
-                          </Ref>
-                        </Button>
-                        <Button
-                          as="button"
-                          className="serviceCardBtn"
-                          color="orange"
-                          content="Edit"
-                          inverted={true}
-                          onClick={[Function]}
-                        >
-                          <Ref
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui orange inverted button serviceCardBtn"
-                                >
-                                  Edit
-                                </button>,
-                              }
-                            }
-                          >
-                            <RefFindNode
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui orange inverted button serviceCardBtn"
-                                  >
-                                    Edit
-                                  </button>,
-                                }
-                              }
-                            >
-                              <button
-                                className="ui orange inverted button serviceCardBtn"
-                                onClick={[Function]}
-                              >
-                                Edit
-                              </button>
-                            </RefFindNode>
-                          </Ref>
-                        </Button>
-                        <Button
-                          as="button"
-                          className="serviceCardBtn"
-                          color="red"
-                          content="Delete"
-                          inverted={true}
-                          onClick={[Function]}
-                        >
-                          <Ref
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui red inverted button serviceCardBtn"
-                                >
-                                  Delete
-                                </button>,
-                              }
-                            }
-                          >
-                            <RefFindNode
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui red inverted button serviceCardBtn"
-                                  >
-                                    Delete
-                                  </button>,
-                                }
-                              }
-                            >
-                              <button
-                                className="ui red inverted button serviceCardBtn"
-                                onClick={[Function]}
-                              >
-                                Delete
-                              </button>
-                            </RefFindNode>
-                          </Ref>
-                        </Button>
-                      </div>
-                    </div>
-                  </GridRow>
-                </ServiceCard>
-              </withRouter(ServiceCard)>
-              <withRouter(ServiceCard)
-                dispatch={[Function]}
-                imageCount={0}
-                key="7govmem7hh"
-                service={
-                  Object {
-                    "_id": "7govmem7hh",
-                    "createdAt": "Sun Sep 20 2020 03:24:54 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Consequatur earum eos et quo harum laborum cupiditate ipsa. Qui est in sed et nulla. Voluptas laborum impedit. Ut repellat a tempora tempora. Consequatur facere repudiandae sed sit qui aut facilis aut nihil. Dolores perferendis sit non a laborum repellat.",
-                    "images": Array [],
-                    "name": "sapiente",
-                    "price": "93.00",
-                  }
-                }
-                state={
-                  Object {
-                    "bonusVideoState": Object {
-                      "currentBonusVideoData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "vimeoURL": "",
-                        "youTubeURL": "",
-                      },
-                      "error": null,
-                      "loadedBonusVideos": Array [],
-                      "loading": false,
-                      "responseMsg": "",
-                    },
-                    "productState": Object {
-                      "currentProductData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "details": "",
-                        "images": Array [],
-                        "name": "",
-                        "price": "",
-                      },
-                      "error": null,
-                      "loadedProducts": Array [],
-                      "loading": false,
-                      "productFormOpen": false,
-                      "responseMsg": "",
-                    },
-                    "serviceState": Object {
-                      "currentServiceData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "images": Array [],
-                        "name": "",
-                        "price": "",
-                      },
-                      "error": null,
-                      "loadedServices": Array [
-                        Object {
-                          "_id": "ory7ezbsb6",
-                          "createdAt": "Sun Sep 20 2020 05:13:51 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Et sit impedit sint. Ipsam quaerat quis doloremque commodi cum. Ipsam qui molestias eos saepe repellat laboriosam sit sed aut. Sunt illum vel eos ea sunt necessitatibus est amet velit. Unde ut quisquam saepe nemo cupiditate qui architecto dolor vel.",
-                          "images": Array [],
-                          "name": "corrupti",
-                          "price": "87.00",
-                        },
-                        Object {
-                          "_id": "t2qzxvapjs",
-                          "createdAt": "Sat Sep 19 2020 18:11:47 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Totam nam consequuntur consectetur quia sint repellat est quam. In doloremque repellat quis et fugiat reprehenderit placeat dolor. Eos magnam qui sunt numquam voluptatibus molestiae. Dolorum suscipit incidunt et ut.",
-                          "images": Array [],
-                          "name": "ut",
-                          "price": "43.00",
-                        },
-                        Object {
-                          "_id": "7govmem7hh",
-                          "createdAt": "Sun Sep 20 2020 03:24:54 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Consequatur earum eos et quo harum laborum cupiditate ipsa. Qui est in sed et nulla. Voluptas laborum impedit. Ut repellat a tempora tempora. Consequatur facere repudiandae sed sit qui aut facilis aut nihil. Dolores perferendis sit non a laborum repellat.",
-                          "images": Array [],
-                          "name": "sapiente",
-                          "price": "93.00",
-                        },
-                        Object {
-                          "_id": "970irdpvjb",
-                          "createdAt": "Sun Sep 20 2020 13:18:55 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Qui minus vel non temporibus quos. Ut et voluptatem doloribus natus nulla est. Earum quis non dolorem eum quaerat iure quia. Et et et aut temporibus aut voluptas quis cupiditate. Consequatur recusandae iure fuga et quis ratione autem officiis. Nesciunt et in consequatur nisi ut.",
-                          "images": Array [],
-                          "name": "deleniti",
-                          "price": "63.00",
-                        },
-                        Object {
-                          "_id": "414ujj4wjl",
-                          "createdAt": "Sun Sep 20 2020 11:56:37 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Iure consequatur nobis enim et sit. Qui perspiciatis et earum doloremque nihil provident perspiciatis animi. Assumenda illo quia officiis sed est est qui beatae.",
-                          "images": Array [],
-                          "name": "et",
-                          "price": "50.00",
-                        },
-                      ],
-                      "loading": false,
-                      "responseMsg": "All Ok",
-                      "serviceFormOpen": false,
-                    },
-                    "storeItemState": Object {
-                      "currentStoreItemData": Object {
-                        "_id": "",
-                        "categories": Array [],
-                        "createdAt": "",
-                        "description": "",
-                        "details": "",
-                        "images": Array [],
-                        "name": "",
-                        "price": "",
-                        "storeId": "",
-                        "storeName": "",
-                      },
-                      "error": null,
-                      "loadedStoreItems": Array [],
-                      "loading": false,
-                      "numberOfItems": 0,
-                      "responseMsg": "",
-                      "storeItemFormOpen": false,
-                    },
-                    "storeState": Object {
-                      "currentStoreData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "images": Array [],
-                        "title": "",
-                      },
-                      "error": null,
-                      "loadedStores": Array [],
-                      "loading": false,
-                      "responseMsg": "",
-                      "storeFormOpen": false,
-                    },
-                  }
-                }
-              >
-                <ServiceCard
-                  dispatch={[Function]}
-                  history={
-                    Object {
-                      "action": "POP",
-                      "block": [Function],
-                      "canGo": [Function],
-                      "createHref": [Function],
-                      "entries": Array [
-                        Object {
-                          "hash": "",
-                          "key": "ca4qif",
-                          "pathname": "/",
-                          "search": "",
-                          "state": undefined,
-                        },
-                      ],
-                      "go": [Function],
-                      "goBack": [Function],
-                      "goForward": [Function],
-                      "index": 0,
-                      "length": 1,
-                      "listen": [Function],
-                      "location": Object {
-                        "hash": "",
-                        "key": "ca4qif",
-                        "pathname": "/",
-                        "search": "",
-                        "state": undefined,
-                      },
-                      "push": [Function],
-                      "replace": [Function],
-                    }
-                  }
-                  imageCount={0}
-                  location={
-                    Object {
-                      "hash": "",
-                      "key": "ca4qif",
-                      "pathname": "/",
-                      "search": "",
-                      "state": undefined,
-                    }
-                  }
-                  match={
-                    Object {
-                      "isExact": true,
-                      "params": Object {},
-                      "path": "/",
-                      "url": "/",
-                    }
-                  }
-                  service={
-                    Object {
-                      "_id": "7govmem7hh",
-                      "createdAt": "Sun Sep 20 2020 03:24:54 GMT+0300 (Eastern European Summer Time)",
-                      "description": "Consequatur earum eos et quo harum laborum cupiditate ipsa. Qui est in sed et nulla. Voluptas laborum impedit. Ut repellat a tempora tempora. Consequatur facere repudiandae sed sit qui aut facilis aut nihil. Dolores perferendis sit non a laborum repellat.",
-                      "images": Array [],
-                      "name": "sapiente",
-                      "price": "93.00",
-                    }
-                  }
-                  state={
-                    Object {
-                      "bonusVideoState": Object {
-                        "currentBonusVideoData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "vimeoURL": "",
-                          "youTubeURL": "",
-                        },
-                        "error": null,
-                        "loadedBonusVideos": Array [],
-                        "loading": false,
-                        "responseMsg": "",
-                      },
-                      "productState": Object {
-                        "currentProductData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "details": "",
-                          "images": Array [],
-                          "name": "",
-                          "price": "",
-                        },
-                        "error": null,
-                        "loadedProducts": Array [],
-                        "loading": false,
-                        "productFormOpen": false,
-                        "responseMsg": "",
-                      },
-                      "serviceState": Object {
-                        "currentServiceData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "images": Array [],
-                          "name": "",
-                          "price": "",
-                        },
-                        "error": null,
-                        "loadedServices": Array [
-                          Object {
-                            "_id": "ory7ezbsb6",
-                            "createdAt": "Sun Sep 20 2020 05:13:51 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Et sit impedit sint. Ipsam quaerat quis doloremque commodi cum. Ipsam qui molestias eos saepe repellat laboriosam sit sed aut. Sunt illum vel eos ea sunt necessitatibus est amet velit. Unde ut quisquam saepe nemo cupiditate qui architecto dolor vel.",
-                            "images": Array [],
-                            "name": "corrupti",
-                            "price": "87.00",
-                          },
-                          Object {
-                            "_id": "t2qzxvapjs",
-                            "createdAt": "Sat Sep 19 2020 18:11:47 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Totam nam consequuntur consectetur quia sint repellat est quam. In doloremque repellat quis et fugiat reprehenderit placeat dolor. Eos magnam qui sunt numquam voluptatibus molestiae. Dolorum suscipit incidunt et ut.",
-                            "images": Array [],
-                            "name": "ut",
-                            "price": "43.00",
-                          },
-                          Object {
-                            "_id": "7govmem7hh",
-                            "createdAt": "Sun Sep 20 2020 03:24:54 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Consequatur earum eos et quo harum laborum cupiditate ipsa. Qui est in sed et nulla. Voluptas laborum impedit. Ut repellat a tempora tempora. Consequatur facere repudiandae sed sit qui aut facilis aut nihil. Dolores perferendis sit non a laborum repellat.",
-                            "images": Array [],
-                            "name": "sapiente",
-                            "price": "93.00",
-                          },
-                          Object {
-                            "_id": "970irdpvjb",
-                            "createdAt": "Sun Sep 20 2020 13:18:55 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Qui minus vel non temporibus quos. Ut et voluptatem doloribus natus nulla est. Earum quis non dolorem eum quaerat iure quia. Et et et aut temporibus aut voluptas quis cupiditate. Consequatur recusandae iure fuga et quis ratione autem officiis. Nesciunt et in consequatur nisi ut.",
-                            "images": Array [],
-                            "name": "deleniti",
-                            "price": "63.00",
-                          },
-                          Object {
-                            "_id": "414ujj4wjl",
-                            "createdAt": "Sun Sep 20 2020 11:56:37 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Iure consequatur nobis enim et sit. Qui perspiciatis et earum doloremque nihil provident perspiciatis animi. Assumenda illo quia officiis sed est est qui beatae.",
-                            "images": Array [],
-                            "name": "et",
-                            "price": "50.00",
-                          },
-                        ],
-                        "loading": false,
-                        "responseMsg": "All Ok",
-                        "serviceFormOpen": false,
-                      },
-                      "storeItemState": Object {
-                        "currentStoreItemData": Object {
-                          "_id": "",
-                          "categories": Array [],
-                          "createdAt": "",
-                          "description": "",
-                          "details": "",
-                          "images": Array [],
-                          "name": "",
-                          "price": "",
-                          "storeId": "",
-                          "storeName": "",
-                        },
-                        "error": null,
-                        "loadedStoreItems": Array [],
-                        "loading": false,
-                        "numberOfItems": 0,
-                        "responseMsg": "",
-                        "storeItemFormOpen": false,
-                      },
-                      "storeState": Object {
-                        "currentStoreData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "images": Array [],
-                          "title": "",
-                        },
-                        "error": null,
-                        "loadedStores": Array [],
-                        "loading": false,
-                        "responseMsg": "",
-                        "storeFormOpen": false,
-                      },
-                    }
-                  }
-                >
-                  <GridRow
-                    style={
-                      Object {
-                        "marginTop": "1em",
-                        "padding": "0.5em",
-                      }
-                    }
-                  >
-                    <div
-                      className="row"
-                      style={
-                        Object {
-                          "marginTop": "1em",
-                          "padding": "0.5em",
-                        }
-                      }
-                    >
-                      <div
-                        className="serviceManageDesc"
-                      >
-                        <h3>
-                          Name: 
-                          sapiente
-                        </h3>
-                        <p>
-                          <strong>
-                            Description:
-                          </strong>
-                           
-                          Consequatur earum eos et quo harum laborum cupiditate ipsa. Qui est in sed et nulla. Voluptas laborum impedit. Ut repellat a tempora tempora. Consequatur facere repudiandae sed sit qui aut facilis aut nihil. Dolores perferendis sit non a laborum repellat.
-                        </p>
-                        <span>
-                          Number of Images: 
-                          <strong>
-                            0
-                          </strong>
-                        </span>
-                        <p>
-                          <span>
-                            Created At: 
-                          </span>
-                          2020-Sep-20
-                        </p>
-                      </div>
-                      <div
-                        className="serviceManageCtrls"
-                      >
-                        <Button
-                          as="button"
-                          className="serviceCardBtn"
-                          color="green"
-                          content="Open"
-                          inverted={true}
-                          onClick={[Function]}
-                        >
-                          <Ref
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui green inverted button serviceCardBtn"
-                                >
-                                  Open
-                                </button>,
-                              }
-                            }
-                          >
-                            <RefFindNode
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui green inverted button serviceCardBtn"
-                                  >
-                                    Open
-                                  </button>,
-                                }
-                              }
-                            >
-                              <button
-                                className="ui green inverted button serviceCardBtn"
-                                onClick={[Function]}
-                              >
-                                Open
-                              </button>
-                            </RefFindNode>
-                          </Ref>
-                        </Button>
-                        <Button
-                          as="button"
-                          className="serviceCardBtn"
-                          color="orange"
-                          content="Edit"
-                          inverted={true}
-                          onClick={[Function]}
-                        >
-                          <Ref
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui orange inverted button serviceCardBtn"
-                                >
-                                  Edit
-                                </button>,
-                              }
-                            }
-                          >
-                            <RefFindNode
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui orange inverted button serviceCardBtn"
-                                  >
-                                    Edit
-                                  </button>,
-                                }
-                              }
-                            >
-                              <button
-                                className="ui orange inverted button serviceCardBtn"
-                                onClick={[Function]}
-                              >
-                                Edit
-                              </button>
-                            </RefFindNode>
-                          </Ref>
-                        </Button>
-                        <Button
-                          as="button"
-                          className="serviceCardBtn"
-                          color="red"
-                          content="Delete"
-                          inverted={true}
-                          onClick={[Function]}
-                        >
-                          <Ref
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui red inverted button serviceCardBtn"
-                                >
-                                  Delete
-                                </button>,
-                              }
-                            }
-                          >
-                            <RefFindNode
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui red inverted button serviceCardBtn"
-                                  >
-                                    Delete
-                                  </button>,
-                                }
-                              }
-                            >
-                              <button
-                                className="ui red inverted button serviceCardBtn"
-                                onClick={[Function]}
-                              >
-                                Delete
-                              </button>
-                            </RefFindNode>
-                          </Ref>
-                        </Button>
-                      </div>
-                    </div>
-                  </GridRow>
-                </ServiceCard>
-              </withRouter(ServiceCard)>
-              <withRouter(ServiceCard)
-                dispatch={[Function]}
-                imageCount={0}
-                key="970irdpvjb"
-                service={
-                  Object {
-                    "_id": "970irdpvjb",
-                    "createdAt": "Sun Sep 20 2020 13:18:55 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Qui minus vel non temporibus quos. Ut et voluptatem doloribus natus nulla est. Earum quis non dolorem eum quaerat iure quia. Et et et aut temporibus aut voluptas quis cupiditate. Consequatur recusandae iure fuga et quis ratione autem officiis. Nesciunt et in consequatur nisi ut.",
-                    "images": Array [],
-                    "name": "deleniti",
-                    "price": "63.00",
-                  }
-                }
-                state={
-                  Object {
-                    "bonusVideoState": Object {
-                      "currentBonusVideoData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "vimeoURL": "",
-                        "youTubeURL": "",
-                      },
-                      "error": null,
-                      "loadedBonusVideos": Array [],
-                      "loading": false,
-                      "responseMsg": "",
-                    },
-                    "productState": Object {
-                      "currentProductData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "details": "",
-                        "images": Array [],
-                        "name": "",
-                        "price": "",
-                      },
-                      "error": null,
-                      "loadedProducts": Array [],
-                      "loading": false,
-                      "productFormOpen": false,
-                      "responseMsg": "",
-                    },
-                    "serviceState": Object {
-                      "currentServiceData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "images": Array [],
-                        "name": "",
-                        "price": "",
-                      },
-                      "error": null,
-                      "loadedServices": Array [
-                        Object {
-                          "_id": "ory7ezbsb6",
-                          "createdAt": "Sun Sep 20 2020 05:13:51 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Et sit impedit sint. Ipsam quaerat quis doloremque commodi cum. Ipsam qui molestias eos saepe repellat laboriosam sit sed aut. Sunt illum vel eos ea sunt necessitatibus est amet velit. Unde ut quisquam saepe nemo cupiditate qui architecto dolor vel.",
-                          "images": Array [],
-                          "name": "corrupti",
-                          "price": "87.00",
-                        },
-                        Object {
-                          "_id": "t2qzxvapjs",
-                          "createdAt": "Sat Sep 19 2020 18:11:47 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Totam nam consequuntur consectetur quia sint repellat est quam. In doloremque repellat quis et fugiat reprehenderit placeat dolor. Eos magnam qui sunt numquam voluptatibus molestiae. Dolorum suscipit incidunt et ut.",
-                          "images": Array [],
-                          "name": "ut",
-                          "price": "43.00",
-                        },
-                        Object {
-                          "_id": "7govmem7hh",
-                          "createdAt": "Sun Sep 20 2020 03:24:54 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Consequatur earum eos et quo harum laborum cupiditate ipsa. Qui est in sed et nulla. Voluptas laborum impedit. Ut repellat a tempora tempora. Consequatur facere repudiandae sed sit qui aut facilis aut nihil. Dolores perferendis sit non a laborum repellat.",
-                          "images": Array [],
-                          "name": "sapiente",
-                          "price": "93.00",
-                        },
-                        Object {
-                          "_id": "970irdpvjb",
-                          "createdAt": "Sun Sep 20 2020 13:18:55 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Qui minus vel non temporibus quos. Ut et voluptatem doloribus natus nulla est. Earum quis non dolorem eum quaerat iure quia. Et et et aut temporibus aut voluptas quis cupiditate. Consequatur recusandae iure fuga et quis ratione autem officiis. Nesciunt et in consequatur nisi ut.",
-                          "images": Array [],
-                          "name": "deleniti",
-                          "price": "63.00",
-                        },
-                        Object {
-                          "_id": "414ujj4wjl",
-                          "createdAt": "Sun Sep 20 2020 11:56:37 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Iure consequatur nobis enim et sit. Qui perspiciatis et earum doloremque nihil provident perspiciatis animi. Assumenda illo quia officiis sed est est qui beatae.",
-                          "images": Array [],
-                          "name": "et",
-                          "price": "50.00",
-                        },
-                      ],
-                      "loading": false,
-                      "responseMsg": "All Ok",
-                      "serviceFormOpen": false,
-                    },
-                    "storeItemState": Object {
-                      "currentStoreItemData": Object {
-                        "_id": "",
-                        "categories": Array [],
-                        "createdAt": "",
-                        "description": "",
-                        "details": "",
-                        "images": Array [],
-                        "name": "",
-                        "price": "",
-                        "storeId": "",
-                        "storeName": "",
-                      },
-                      "error": null,
-                      "loadedStoreItems": Array [],
-                      "loading": false,
-                      "numberOfItems": 0,
-                      "responseMsg": "",
-                      "storeItemFormOpen": false,
-                    },
-                    "storeState": Object {
-                      "currentStoreData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "images": Array [],
-                        "title": "",
-                      },
-                      "error": null,
-                      "loadedStores": Array [],
-                      "loading": false,
-                      "responseMsg": "",
-                      "storeFormOpen": false,
-                    },
-                  }
-                }
-              >
-                <ServiceCard
-                  dispatch={[Function]}
-                  history={
-                    Object {
-                      "action": "POP",
-                      "block": [Function],
-                      "canGo": [Function],
-                      "createHref": [Function],
-                      "entries": Array [
-                        Object {
-                          "hash": "",
-                          "key": "ca4qif",
-                          "pathname": "/",
-                          "search": "",
-                          "state": undefined,
-                        },
-                      ],
-                      "go": [Function],
-                      "goBack": [Function],
-                      "goForward": [Function],
-                      "index": 0,
-                      "length": 1,
-                      "listen": [Function],
-                      "location": Object {
-                        "hash": "",
-                        "key": "ca4qif",
-                        "pathname": "/",
-                        "search": "",
-                        "state": undefined,
-                      },
-                      "push": [Function],
-                      "replace": [Function],
-                    }
-                  }
-                  imageCount={0}
-                  location={
-                    Object {
-                      "hash": "",
-                      "key": "ca4qif",
-                      "pathname": "/",
-                      "search": "",
-                      "state": undefined,
-                    }
-                  }
-                  match={
-                    Object {
-                      "isExact": true,
-                      "params": Object {},
-                      "path": "/",
-                      "url": "/",
-                    }
-                  }
-                  service={
-                    Object {
-                      "_id": "970irdpvjb",
-                      "createdAt": "Sun Sep 20 2020 13:18:55 GMT+0300 (Eastern European Summer Time)",
-                      "description": "Qui minus vel non temporibus quos. Ut et voluptatem doloribus natus nulla est. Earum quis non dolorem eum quaerat iure quia. Et et et aut temporibus aut voluptas quis cupiditate. Consequatur recusandae iure fuga et quis ratione autem officiis. Nesciunt et in consequatur nisi ut.",
-                      "images": Array [],
-                      "name": "deleniti",
-                      "price": "63.00",
-                    }
-                  }
-                  state={
-                    Object {
-                      "bonusVideoState": Object {
-                        "currentBonusVideoData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "vimeoURL": "",
-                          "youTubeURL": "",
-                        },
-                        "error": null,
-                        "loadedBonusVideos": Array [],
-                        "loading": false,
-                        "responseMsg": "",
-                      },
-                      "productState": Object {
-                        "currentProductData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "details": "",
-                          "images": Array [],
-                          "name": "",
-                          "price": "",
-                        },
-                        "error": null,
-                        "loadedProducts": Array [],
-                        "loading": false,
-                        "productFormOpen": false,
-                        "responseMsg": "",
-                      },
-                      "serviceState": Object {
-                        "currentServiceData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "images": Array [],
-                          "name": "",
-                          "price": "",
-                        },
-                        "error": null,
-                        "loadedServices": Array [
-                          Object {
-                            "_id": "ory7ezbsb6",
-                            "createdAt": "Sun Sep 20 2020 05:13:51 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Et sit impedit sint. Ipsam quaerat quis doloremque commodi cum. Ipsam qui molestias eos saepe repellat laboriosam sit sed aut. Sunt illum vel eos ea sunt necessitatibus est amet velit. Unde ut quisquam saepe nemo cupiditate qui architecto dolor vel.",
-                            "images": Array [],
-                            "name": "corrupti",
-                            "price": "87.00",
-                          },
-                          Object {
-                            "_id": "t2qzxvapjs",
-                            "createdAt": "Sat Sep 19 2020 18:11:47 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Totam nam consequuntur consectetur quia sint repellat est quam. In doloremque repellat quis et fugiat reprehenderit placeat dolor. Eos magnam qui sunt numquam voluptatibus molestiae. Dolorum suscipit incidunt et ut.",
-                            "images": Array [],
-                            "name": "ut",
-                            "price": "43.00",
-                          },
-                          Object {
-                            "_id": "7govmem7hh",
-                            "createdAt": "Sun Sep 20 2020 03:24:54 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Consequatur earum eos et quo harum laborum cupiditate ipsa. Qui est in sed et nulla. Voluptas laborum impedit. Ut repellat a tempora tempora. Consequatur facere repudiandae sed sit qui aut facilis aut nihil. Dolores perferendis sit non a laborum repellat.",
-                            "images": Array [],
-                            "name": "sapiente",
-                            "price": "93.00",
-                          },
-                          Object {
-                            "_id": "970irdpvjb",
-                            "createdAt": "Sun Sep 20 2020 13:18:55 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Qui minus vel non temporibus quos. Ut et voluptatem doloribus natus nulla est. Earum quis non dolorem eum quaerat iure quia. Et et et aut temporibus aut voluptas quis cupiditate. Consequatur recusandae iure fuga et quis ratione autem officiis. Nesciunt et in consequatur nisi ut.",
-                            "images": Array [],
-                            "name": "deleniti",
-                            "price": "63.00",
-                          },
-                          Object {
-                            "_id": "414ujj4wjl",
-                            "createdAt": "Sun Sep 20 2020 11:56:37 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Iure consequatur nobis enim et sit. Qui perspiciatis et earum doloremque nihil provident perspiciatis animi. Assumenda illo quia officiis sed est est qui beatae.",
-                            "images": Array [],
-                            "name": "et",
-                            "price": "50.00",
-                          },
-                        ],
-                        "loading": false,
-                        "responseMsg": "All Ok",
-                        "serviceFormOpen": false,
-                      },
-                      "storeItemState": Object {
-                        "currentStoreItemData": Object {
-                          "_id": "",
-                          "categories": Array [],
-                          "createdAt": "",
-                          "description": "",
-                          "details": "",
-                          "images": Array [],
-                          "name": "",
-                          "price": "",
-                          "storeId": "",
-                          "storeName": "",
-                        },
-                        "error": null,
-                        "loadedStoreItems": Array [],
-                        "loading": false,
-                        "numberOfItems": 0,
-                        "responseMsg": "",
-                        "storeItemFormOpen": false,
-                      },
-                      "storeState": Object {
-                        "currentStoreData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "images": Array [],
-                          "title": "",
-                        },
-                        "error": null,
-                        "loadedStores": Array [],
-                        "loading": false,
-                        "responseMsg": "",
-                        "storeFormOpen": false,
-                      },
-                    }
-                  }
-                >
-                  <GridRow
-                    style={
-                      Object {
-                        "marginTop": "1em",
-                        "padding": "0.5em",
-                      }
-                    }
-                  >
-                    <div
-                      className="row"
-                      style={
-                        Object {
-                          "marginTop": "1em",
-                          "padding": "0.5em",
-                        }
-                      }
-                    >
-                      <div
-                        className="serviceManageDesc"
-                      >
-                        <h3>
-                          Name: 
-                          deleniti
-                        </h3>
-                        <p>
-                          <strong>
-                            Description:
-                          </strong>
-                           
-                          Qui minus vel non temporibus quos. Ut et voluptatem doloribus natus nulla est. Earum quis non dolorem eum quaerat iure quia. Et et et aut temporibus aut voluptas quis cupiditate. Consequatur recusandae iure fuga et quis ratione autem officiis. Nesciunt et in consequatur nisi ut.
-                        </p>
-                        <span>
-                          Number of Images: 
-                          <strong>
-                            0
-                          </strong>
-                        </span>
-                        <p>
-                          <span>
-                            Created At: 
-                          </span>
-                          2020-Sep-20
-                        </p>
-                      </div>
-                      <div
-                        className="serviceManageCtrls"
-                      >
-                        <Button
-                          as="button"
-                          className="serviceCardBtn"
-                          color="green"
-                          content="Open"
-                          inverted={true}
-                          onClick={[Function]}
-                        >
-                          <Ref
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui green inverted button serviceCardBtn"
-                                >
-                                  Open
-                                </button>,
-                              }
-                            }
-                          >
-                            <RefFindNode
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui green inverted button serviceCardBtn"
-                                  >
-                                    Open
-                                  </button>,
-                                }
-                              }
-                            >
-                              <button
-                                className="ui green inverted button serviceCardBtn"
-                                onClick={[Function]}
-                              >
-                                Open
-                              </button>
-                            </RefFindNode>
-                          </Ref>
-                        </Button>
-                        <Button
-                          as="button"
-                          className="serviceCardBtn"
-                          color="orange"
-                          content="Edit"
-                          inverted={true}
-                          onClick={[Function]}
-                        >
-                          <Ref
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui orange inverted button serviceCardBtn"
-                                >
-                                  Edit
-                                </button>,
-                              }
-                            }
-                          >
-                            <RefFindNode
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui orange inverted button serviceCardBtn"
-                                  >
-                                    Edit
-                                  </button>,
-                                }
-                              }
-                            >
-                              <button
-                                className="ui orange inverted button serviceCardBtn"
-                                onClick={[Function]}
-                              >
-                                Edit
-                              </button>
-                            </RefFindNode>
-                          </Ref>
-                        </Button>
-                        <Button
-                          as="button"
-                          className="serviceCardBtn"
-                          color="red"
-                          content="Delete"
-                          inverted={true}
-                          onClick={[Function]}
-                        >
-                          <Ref
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui red inverted button serviceCardBtn"
-                                >
-                                  Delete
-                                </button>,
-                              }
-                            }
-                          >
-                            <RefFindNode
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui red inverted button serviceCardBtn"
-                                  >
-                                    Delete
-                                  </button>,
-                                }
-                              }
-                            >
-                              <button
-                                className="ui red inverted button serviceCardBtn"
-                                onClick={[Function]}
-                              >
-                                Delete
-                              </button>
-                            </RefFindNode>
-                          </Ref>
-                        </Button>
-                      </div>
-                    </div>
-                  </GridRow>
-                </ServiceCard>
-              </withRouter(ServiceCard)>
-              <withRouter(ServiceCard)
-                dispatch={[Function]}
-                imageCount={0}
-                key="414ujj4wjl"
-                service={
-                  Object {
-                    "_id": "414ujj4wjl",
-                    "createdAt": "Sun Sep 20 2020 11:56:37 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Iure consequatur nobis enim et sit. Qui perspiciatis et earum doloremque nihil provident perspiciatis animi. Assumenda illo quia officiis sed est est qui beatae.",
-                    "images": Array [],
-                    "name": "et",
-                    "price": "50.00",
-                  }
-                }
-                state={
-                  Object {
-                    "bonusVideoState": Object {
-                      "currentBonusVideoData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "vimeoURL": "",
-                        "youTubeURL": "",
-                      },
-                      "error": null,
-                      "loadedBonusVideos": Array [],
-                      "loading": false,
-                      "responseMsg": "",
-                    },
-                    "productState": Object {
-                      "currentProductData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "details": "",
-                        "images": Array [],
-                        "name": "",
-                        "price": "",
-                      },
-                      "error": null,
-                      "loadedProducts": Array [],
-                      "loading": false,
-                      "productFormOpen": false,
-                      "responseMsg": "",
-                    },
-                    "serviceState": Object {
-                      "currentServiceData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "images": Array [],
-                        "name": "",
-                        "price": "",
-                      },
-                      "error": null,
-                      "loadedServices": Array [
-                        Object {
-                          "_id": "ory7ezbsb6",
-                          "createdAt": "Sun Sep 20 2020 05:13:51 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Et sit impedit sint. Ipsam quaerat quis doloremque commodi cum. Ipsam qui molestias eos saepe repellat laboriosam sit sed aut. Sunt illum vel eos ea sunt necessitatibus est amet velit. Unde ut quisquam saepe nemo cupiditate qui architecto dolor vel.",
-                          "images": Array [],
-                          "name": "corrupti",
-                          "price": "87.00",
-                        },
-                        Object {
-                          "_id": "t2qzxvapjs",
-                          "createdAt": "Sat Sep 19 2020 18:11:47 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Totam nam consequuntur consectetur quia sint repellat est quam. In doloremque repellat quis et fugiat reprehenderit placeat dolor. Eos magnam qui sunt numquam voluptatibus molestiae. Dolorum suscipit incidunt et ut.",
-                          "images": Array [],
-                          "name": "ut",
-                          "price": "43.00",
-                        },
-                        Object {
-                          "_id": "7govmem7hh",
-                          "createdAt": "Sun Sep 20 2020 03:24:54 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Consequatur earum eos et quo harum laborum cupiditate ipsa. Qui est in sed et nulla. Voluptas laborum impedit. Ut repellat a tempora tempora. Consequatur facere repudiandae sed sit qui aut facilis aut nihil. Dolores perferendis sit non a laborum repellat.",
-                          "images": Array [],
-                          "name": "sapiente",
-                          "price": "93.00",
-                        },
-                        Object {
-                          "_id": "970irdpvjb",
-                          "createdAt": "Sun Sep 20 2020 13:18:55 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Qui minus vel non temporibus quos. Ut et voluptatem doloribus natus nulla est. Earum quis non dolorem eum quaerat iure quia. Et et et aut temporibus aut voluptas quis cupiditate. Consequatur recusandae iure fuga et quis ratione autem officiis. Nesciunt et in consequatur nisi ut.",
-                          "images": Array [],
-                          "name": "deleniti",
-                          "price": "63.00",
-                        },
-                        Object {
-                          "_id": "414ujj4wjl",
-                          "createdAt": "Sun Sep 20 2020 11:56:37 GMT+0300 (Eastern European Summer Time)",
-                          "description": "Iure consequatur nobis enim et sit. Qui perspiciatis et earum doloremque nihil provident perspiciatis animi. Assumenda illo quia officiis sed est est qui beatae.",
-                          "images": Array [],
-                          "name": "et",
-                          "price": "50.00",
-                        },
-                      ],
-                      "loading": false,
-                      "responseMsg": "All Ok",
-                      "serviceFormOpen": false,
-                    },
-                    "storeItemState": Object {
-                      "currentStoreItemData": Object {
-                        "_id": "",
-                        "categories": Array [],
-                        "createdAt": "",
-                        "description": "",
-                        "details": "",
-                        "images": Array [],
-                        "name": "",
-                        "price": "",
-                        "storeId": "",
-                        "storeName": "",
-                      },
-                      "error": null,
-                      "loadedStoreItems": Array [],
-                      "loading": false,
-                      "numberOfItems": 0,
-                      "responseMsg": "",
-                      "storeItemFormOpen": false,
-                    },
-                    "storeState": Object {
-                      "currentStoreData": Object {
-                        "_id": "",
-                        "createdAt": "",
-                        "description": "",
-                        "images": Array [],
-                        "title": "",
-                      },
-                      "error": null,
-                      "loadedStores": Array [],
-                      "loading": false,
-                      "responseMsg": "",
-                      "storeFormOpen": false,
-                    },
-                  }
-                }
-              >
-                <ServiceCard
-                  dispatch={[Function]}
-                  history={
-                    Object {
-                      "action": "POP",
-                      "block": [Function],
-                      "canGo": [Function],
-                      "createHref": [Function],
-                      "entries": Array [
-                        Object {
-                          "hash": "",
-                          "key": "ca4qif",
-                          "pathname": "/",
-                          "search": "",
-                          "state": undefined,
-                        },
-                      ],
-                      "go": [Function],
-                      "goBack": [Function],
-                      "goForward": [Function],
-                      "index": 0,
-                      "length": 1,
-                      "listen": [Function],
-                      "location": Object {
-                        "hash": "",
-                        "key": "ca4qif",
-                        "pathname": "/",
-                        "search": "",
-                        "state": undefined,
-                      },
-                      "push": [Function],
-                      "replace": [Function],
-                    }
-                  }
-                  imageCount={0}
-                  location={
-                    Object {
-                      "hash": "",
-                      "key": "ca4qif",
-                      "pathname": "/",
-                      "search": "",
-                      "state": undefined,
-                    }
-                  }
-                  match={
-                    Object {
-                      "isExact": true,
-                      "params": Object {},
-                      "path": "/",
-                      "url": "/",
-                    }
-                  }
-                  service={
-                    Object {
-                      "_id": "414ujj4wjl",
-                      "createdAt": "Sun Sep 20 2020 11:56:37 GMT+0300 (Eastern European Summer Time)",
-                      "description": "Iure consequatur nobis enim et sit. Qui perspiciatis et earum doloremque nihil provident perspiciatis animi. Assumenda illo quia officiis sed est est qui beatae.",
-                      "images": Array [],
-                      "name": "et",
-                      "price": "50.00",
-                    }
-                  }
-                  state={
-                    Object {
-                      "bonusVideoState": Object {
-                        "currentBonusVideoData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "vimeoURL": "",
-                          "youTubeURL": "",
-                        },
-                        "error": null,
-                        "loadedBonusVideos": Array [],
-                        "loading": false,
-                        "responseMsg": "",
-                      },
-                      "productState": Object {
-                        "currentProductData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "details": "",
-                          "images": Array [],
-                          "name": "",
-                          "price": "",
-                        },
-                        "error": null,
-                        "loadedProducts": Array [],
-                        "loading": false,
-                        "productFormOpen": false,
-                        "responseMsg": "",
-                      },
-                      "serviceState": Object {
-                        "currentServiceData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "images": Array [],
-                          "name": "",
-                          "price": "",
-                        },
-                        "error": null,
-                        "loadedServices": Array [
-                          Object {
-                            "_id": "ory7ezbsb6",
-                            "createdAt": "Sun Sep 20 2020 05:13:51 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Et sit impedit sint. Ipsam quaerat quis doloremque commodi cum. Ipsam qui molestias eos saepe repellat laboriosam sit sed aut. Sunt illum vel eos ea sunt necessitatibus est amet velit. Unde ut quisquam saepe nemo cupiditate qui architecto dolor vel.",
-                            "images": Array [],
-                            "name": "corrupti",
-                            "price": "87.00",
-                          },
-                          Object {
-                            "_id": "t2qzxvapjs",
-                            "createdAt": "Sat Sep 19 2020 18:11:47 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Totam nam consequuntur consectetur quia sint repellat est quam. In doloremque repellat quis et fugiat reprehenderit placeat dolor. Eos magnam qui sunt numquam voluptatibus molestiae. Dolorum suscipit incidunt et ut.",
-                            "images": Array [],
-                            "name": "ut",
-                            "price": "43.00",
-                          },
-                          Object {
-                            "_id": "7govmem7hh",
-                            "createdAt": "Sun Sep 20 2020 03:24:54 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Consequatur earum eos et quo harum laborum cupiditate ipsa. Qui est in sed et nulla. Voluptas laborum impedit. Ut repellat a tempora tempora. Consequatur facere repudiandae sed sit qui aut facilis aut nihil. Dolores perferendis sit non a laborum repellat.",
-                            "images": Array [],
-                            "name": "sapiente",
-                            "price": "93.00",
-                          },
-                          Object {
-                            "_id": "970irdpvjb",
-                            "createdAt": "Sun Sep 20 2020 13:18:55 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Qui minus vel non temporibus quos. Ut et voluptatem doloribus natus nulla est. Earum quis non dolorem eum quaerat iure quia. Et et et aut temporibus aut voluptas quis cupiditate. Consequatur recusandae iure fuga et quis ratione autem officiis. Nesciunt et in consequatur nisi ut.",
-                            "images": Array [],
-                            "name": "deleniti",
-                            "price": "63.00",
-                          },
-                          Object {
-                            "_id": "414ujj4wjl",
-                            "createdAt": "Sun Sep 20 2020 11:56:37 GMT+0300 (Eastern European Summer Time)",
-                            "description": "Iure consequatur nobis enim et sit. Qui perspiciatis et earum doloremque nihil provident perspiciatis animi. Assumenda illo quia officiis sed est est qui beatae.",
-                            "images": Array [],
-                            "name": "et",
-                            "price": "50.00",
-                          },
-                        ],
-                        "loading": false,
-                        "responseMsg": "All Ok",
-                        "serviceFormOpen": false,
-                      },
-                      "storeItemState": Object {
-                        "currentStoreItemData": Object {
-                          "_id": "",
-                          "categories": Array [],
-                          "createdAt": "",
-                          "description": "",
-                          "details": "",
-                          "images": Array [],
-                          "name": "",
-                          "price": "",
-                          "storeId": "",
-                          "storeName": "",
-                        },
-                        "error": null,
-                        "loadedStoreItems": Array [],
-                        "loading": false,
-                        "numberOfItems": 0,
-                        "responseMsg": "",
-                        "storeItemFormOpen": false,
-                      },
-                      "storeState": Object {
-                        "currentStoreData": Object {
-                          "_id": "",
-                          "createdAt": "",
-                          "description": "",
-                          "images": Array [],
-                          "title": "",
-                        },
-                        "error": null,
-                        "loadedStores": Array [],
-                        "loading": false,
-                        "responseMsg": "",
-                        "storeFormOpen": false,
-                      },
-                    }
-                  }
-                >
-                  <GridRow
-                    style={
-                      Object {
-                        "marginTop": "1em",
-                        "padding": "0.5em",
-                      }
-                    }
-                  >
-                    <div
-                      className="row"
-                      style={
-                        Object {
-                          "marginTop": "1em",
-                          "padding": "0.5em",
-                        }
-                      }
-                    >
-                      <div
-                        className="serviceManageDesc"
-                      >
-                        <h3>
-                          Name: 
-                          et
-                        </h3>
-                        <p>
-                          <strong>
-                            Description:
-                          </strong>
-                           
-                          Iure consequatur nobis enim et sit. Qui perspiciatis et earum doloremque nihil provident perspiciatis animi. Assumenda illo quia officiis sed est est qui beatae.
-                        </p>
-                        <span>
-                          Number of Images: 
-                          <strong>
-                            0
-                          </strong>
-                        </span>
-                        <p>
-                          <span>
-                            Created At: 
-                          </span>
-                          2020-Sep-20
-                        </p>
-                      </div>
-                      <div
-                        className="serviceManageCtrls"
-                      >
-                        <Button
-                          as="button"
-                          className="serviceCardBtn"
-                          color="green"
-                          content="Open"
-                          inverted={true}
-                          onClick={[Function]}
-                        >
-                          <Ref
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui green inverted button serviceCardBtn"
-                                >
-                                  Open
-                                </button>,
-                              }
-                            }
-                          >
-                            <RefFindNode
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui green inverted button serviceCardBtn"
-                                  >
-                                    Open
-                                  </button>,
-                                }
-                              }
-                            >
-                              <button
-                                className="ui green inverted button serviceCardBtn"
-                                onClick={[Function]}
-                              >
-                                Open
-                              </button>
-                            </RefFindNode>
-                          </Ref>
-                        </Button>
-                        <Button
-                          as="button"
-                          className="serviceCardBtn"
-                          color="orange"
-                          content="Edit"
-                          inverted={true}
-                          onClick={[Function]}
-                        >
-                          <Ref
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui orange inverted button serviceCardBtn"
-                                >
-                                  Edit
-                                </button>,
-                              }
-                            }
-                          >
-                            <RefFindNode
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui orange inverted button serviceCardBtn"
-                                  >
-                                    Edit
-                                  </button>,
-                                }
-                              }
-                            >
-                              <button
-                                className="ui orange inverted button serviceCardBtn"
-                                onClick={[Function]}
-                              >
-                                Edit
-                              </button>
-                            </RefFindNode>
-                          </Ref>
-                        </Button>
-                        <Button
-                          as="button"
-                          className="serviceCardBtn"
-                          color="red"
-                          content="Delete"
-                          inverted={true}
-                          onClick={[Function]}
-                        >
-                          <Ref
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui red inverted button serviceCardBtn"
-                                >
-                                  Delete
-                                </button>,
-                              }
-                            }
-                          >
-                            <RefFindNode
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui red inverted button serviceCardBtn"
-                                  >
-                                    Delete
-                                  </button>,
-                                }
-                              }
-                            >
-                              <button
-                                className="ui red inverted button serviceCardBtn"
-                                onClick={[Function]}
-                              >
-                                Delete
-                              </button>
-                            </RefFindNode>
-                          </Ref>
-                        </Button>
-                      </div>
-                    </div>
-                  </GridRow>
-                </ServiceCard>
-              </withRouter(ServiceCard)>
-            </div>
-          </GridColumn>
-          <GridColumn
-            computer={4}
-            mobile={16}
-            tablet={8}
-          >
-            <div
-              className="four wide computer sixteen wide mobile eight wide tablet column"
-            />
-          </GridColumn>
-        </div>
-      </GridRow>
-    </Route>
-  </div>
-</Grid>
+          </GridRow>
+        </Route>
+      </div>
+    </Grid>
+  </ServiceManageHolder>
+</withRouter(ServiceManageHolder)>
 `;
