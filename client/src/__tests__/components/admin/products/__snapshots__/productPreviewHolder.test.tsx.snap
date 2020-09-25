@@ -1,574 +1,766 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' state Should correctly render 1`] = `
-<div
-  class="ui stackable padded two column grid"
->
-  <div
-    class="row"
+<withRouter(ProductsPreviewHolder)>
+  <ProductsPreviewHolder
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "canGo": [Function],
+        "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "pathname": "/admin/home/my_products/view_all",
+            "search": "",
+            "state": undefined,
+          },
+        ],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "index": 0,
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/admin/home/my_products/view_all",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+    location={
+      Object {
+        "hash": "",
+        "pathname": "/admin/home/my_products/view_all",
+        "search": "",
+        "state": undefined,
+      }
+    }
+    match={
+      Object {
+        "isExact": false,
+        "params": Object {},
+        "path": "/",
+        "url": "/",
+      }
+    }
   >
-    <div
-      class="ten wide computer sixteen wide mobile eight wide tablet column"
+    <Grid
+      columns={2}
+      padded={true}
+      stackable={true}
     >
       <div
-        class="ui items"
+        className="ui stackable padded two column grid"
       >
-        <div
-          class="item productPreviewItem"
-        >
+        <GridRow>
           <div
-            class="ui small image"
+            className="row"
           >
-            <img
-              src="https://react.semantic-ui.com/images/wireframe/image.png"
-            />
-          </div>
-          <div
-            class="content"
-          >
-            <div
-              class="meta"
+            <GridColumn
+              computer={10}
+              mobile={16}
+              tablet={8}
             >
-              Displayed name: 
-              <strong>
-                et
-              </strong>
-            </div>
-            <div
-              class="meta"
-            >
-              <span
-                class="productPrice"
+              <div
+                className="ten wide computer sixteen wide mobile eight wide tablet column"
               >
-                Displayed Price: 
-                <strong>
-                  94.00
-                </strong>
-              </span>
-              <span
-                class="productCreated"
+                <ItemGroup>
+                  <div
+                    className="ui items"
+                  >
+                    <ProductPreview
+                      key="1"
+                      product={
+                        Object {
+                          "_id": "1",
+                          "createdAt": "now",
+                          "description": "description",
+                          "details": "details",
+                          "images": Array [],
+                          "name": "name",
+                          "price": "100",
+                        }
+                      }
+                    >
+                      <Item
+                        className="productPreviewItem"
+                      >
+                        <div
+                          className="item productPreviewItem"
+                        >
+                          <ItemImage
+                            size="small"
+                            src="https://react.semantic-ui.com/images/wireframe/image.png"
+                          >
+                            <Image
+                              as="img"
+                              size="small"
+                              src="https://react.semantic-ui.com/images/wireframe/image.png"
+                              ui={true}
+                              wrapped={true}
+                            >
+                              <div
+                                className="ui small image"
+                              >
+                                <img
+                                  src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                />
+                              </div>
+                            </Image>
+                          </ItemImage>
+                          <ItemContent>
+                            <div
+                              className="content"
+                            >
+                              <ItemMeta>
+                                <div
+                                  className="meta"
+                                >
+                                  Displayed name: 
+                                  <strong>
+                                    name
+                                  </strong>
+                                </div>
+                              </ItemMeta>
+                              <ItemMeta>
+                                <div
+                                  className="meta"
+                                >
+                                  <span
+                                    className="productPrice"
+                                  >
+                                    Displayed Price: 
+                                    <strong>
+                                      100
+                                    </strong>
+                                  </span>
+                                  <span
+                                    className="productCreated"
+                                  >
+                                    Created At: 
+                                    <strong>
+                                      NaN-undefined-NaN
+                                    </strong>
+                                  </span>
+                                </div>
+                              </ItemMeta>
+                              <ItemDescription>
+                                <div
+                                  className="description"
+                                >
+                                  description...
+                                </div>
+                              </ItemDescription>
+                              <Button
+                                as="button"
+                                basic={true}
+                                color="green"
+                                content="View"
+                              >
+                                <Ref
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui green basic button"
+                                      >
+                                        View
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <RefFindNode
+                                    innerRef={
+                                      Object {
+                                        "current": <button
+                                          class="ui green basic button"
+                                        >
+                                          View
+                                        </button>,
+                                      }
+                                    }
+                                  >
+                                    <button
+                                      className="ui green basic button"
+                                      onClick={[Function]}
+                                    >
+                                      View
+                                    </button>
+                                  </RefFindNode>
+                                </Ref>
+                              </Button>
+                            </div>
+                          </ItemContent>
+                        </div>
+                      </Item>
+                    </ProductPreview>
+                    <ProductPreview
+                      key="2"
+                      product={
+                        Object {
+                          "_id": "2",
+                          "createdAt": "now",
+                          "description": "description",
+                          "details": "details",
+                          "images": Array [],
+                          "name": "name",
+                          "price": "100",
+                        }
+                      }
+                    >
+                      <Item
+                        className="productPreviewItem"
+                      >
+                        <div
+                          className="item productPreviewItem"
+                        >
+                          <ItemImage
+                            size="small"
+                            src="https://react.semantic-ui.com/images/wireframe/image.png"
+                          >
+                            <Image
+                              as="img"
+                              size="small"
+                              src="https://react.semantic-ui.com/images/wireframe/image.png"
+                              ui={true}
+                              wrapped={true}
+                            >
+                              <div
+                                className="ui small image"
+                              >
+                                <img
+                                  src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                />
+                              </div>
+                            </Image>
+                          </ItemImage>
+                          <ItemContent>
+                            <div
+                              className="content"
+                            >
+                              <ItemMeta>
+                                <div
+                                  className="meta"
+                                >
+                                  Displayed name: 
+                                  <strong>
+                                    name
+                                  </strong>
+                                </div>
+                              </ItemMeta>
+                              <ItemMeta>
+                                <div
+                                  className="meta"
+                                >
+                                  <span
+                                    className="productPrice"
+                                  >
+                                    Displayed Price: 
+                                    <strong>
+                                      100
+                                    </strong>
+                                  </span>
+                                  <span
+                                    className="productCreated"
+                                  >
+                                    Created At: 
+                                    <strong>
+                                      NaN-undefined-NaN
+                                    </strong>
+                                  </span>
+                                </div>
+                              </ItemMeta>
+                              <ItemDescription>
+                                <div
+                                  className="description"
+                                >
+                                  description...
+                                </div>
+                              </ItemDescription>
+                              <Button
+                                as="button"
+                                basic={true}
+                                color="green"
+                                content="View"
+                              >
+                                <Ref
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui green basic button"
+                                      >
+                                        View
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <RefFindNode
+                                    innerRef={
+                                      Object {
+                                        "current": <button
+                                          class="ui green basic button"
+                                        >
+                                          View
+                                        </button>,
+                                      }
+                                    }
+                                  >
+                                    <button
+                                      className="ui green basic button"
+                                      onClick={[Function]}
+                                    >
+                                      View
+                                    </button>
+                                  </RefFindNode>
+                                </Ref>
+                              </Button>
+                            </div>
+                          </ItemContent>
+                        </div>
+                      </Item>
+                    </ProductPreview>
+                  </div>
+                </ItemGroup>
+              </div>
+            </GridColumn>
+            <GridColumn
+              computer={6}
+              mobile={16}
+              tablet={8}
+            >
+              <div
+                className="six wide computer sixteen wide mobile eight wide tablet column"
               >
-                Created At: 
-                <strong>
-                  2020-Sep-19
-                </strong>
-              </span>
-            </div>
-            <div
-              class="description"
-            >
-              Qui dolore optio. Sunt praesentium quod. Voluptas optio illum voluptate accusamus tenetur veniam eligendi rerum quia. Ut eos facere et ipsam accusamus et quam tenetur atque. Alias delectus commodi. Do...
-            </div>
-            <button
-              class="ui green basic button"
-            >
-              View
-            </button>
+                <ProductsControls
+                  totalProducts={2}
+                >
+                  <div
+                    className="adminProductControlsHolder"
+                  >
+                    <div
+                      className="adminProductControlsTitle"
+                    >
+                      Product Controls
+                    </div>
+                    <div
+                      className="adminProductControls"
+                    >
+                      <div
+                        className="adminProductCounter"
+                      >
+                        <div>
+                          Total Products:
+                        </div>
+                        <div
+                          className="adminProductsCount"
+                        >
+                          2
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ProductsControls>
+                <PopularProductHolder
+                  popularProducts={
+                    Array [
+                      Object {
+                        "_id": "1",
+                        "createdAt": "now",
+                        "description": "description",
+                        "details": "details",
+                        "images": Array [],
+                        "name": "name",
+                        "price": "100",
+                      },
+                      Object {
+                        "_id": "2",
+                        "createdAt": "now",
+                        "description": "description",
+                        "details": "details",
+                        "images": Array [],
+                        "name": "name",
+                        "price": "100",
+                      },
+                    ]
+                  }
+                >
+                  <div
+                    className="popProductsHolder"
+                  >
+                    <div
+                      className="popProductsHolTitle"
+                    >
+                      Popular Products
+                    </div>
+                    <ItemGroup
+                      divided={true}
+                    >
+                      <div
+                        className="ui divided items"
+                      >
+                        <PopularProduct
+                          key="1"
+                          popularProduct={
+                            Object {
+                              "_id": "1",
+                              "createdAt": "now",
+                              "description": "description",
+                              "details": "details",
+                              "images": Array [],
+                              "name": "name",
+                              "price": "100",
+                            }
+                          }
+                        >
+                          <Item>
+                            <div
+                              className="item"
+                            >
+                              <ItemImage
+                                size="tiny"
+                                src="https://react.semantic-ui.com/images/wireframe/image.png"
+                              >
+                                <Image
+                                  as="img"
+                                  size="tiny"
+                                  src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                  ui={true}
+                                  wrapped={true}
+                                >
+                                  <div
+                                    className="ui tiny image"
+                                  >
+                                    <img
+                                      src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                    />
+                                  </div>
+                                </Image>
+                              </ItemImage>
+                              <ItemContent>
+                                <div
+                                  className="content"
+                                >
+                                  <ItemHeader>
+                                    <div
+                                      className="header"
+                                    >
+                                      name
+                                    </div>
+                                  </ItemHeader>
+                                  <ItemMeta>
+                                    <div
+                                      className="meta"
+                                    >
+                                      <span>
+                                        Priced At: 
+                                        <strong>
+                                          100
+                                        </strong>
+                                      </span>
+                                      <span>
+                                        -
+                                      </span>
+                                      <span>
+                                        Posted: 
+                                        <strong>
+                                          NaN-undefined-NaN
+                                        </strong>
+                                      </span>
+                                    </div>
+                                  </ItemMeta>
+                                  <Button
+                                    as="button"
+                                    basic={true}
+                                    color="blue"
+                                    content="More..."
+                                  >
+                                    <Ref
+                                      innerRef={
+                                        Object {
+                                          "current": <button
+                                            class="ui blue basic button"
+                                          >
+                                            More...
+                                          </button>,
+                                        }
+                                      }
+                                    >
+                                      <RefFindNode
+                                        innerRef={
+                                          Object {
+                                            "current": <button
+                                              class="ui blue basic button"
+                                            >
+                                              More...
+                                            </button>,
+                                          }
+                                        }
+                                      >
+                                        <button
+                                          className="ui blue basic button"
+                                          onClick={[Function]}
+                                        >
+                                          More...
+                                        </button>
+                                      </RefFindNode>
+                                    </Ref>
+                                  </Button>
+                                </div>
+                              </ItemContent>
+                            </div>
+                          </Item>
+                        </PopularProduct>
+                        <PopularProduct
+                          key="2"
+                          popularProduct={
+                            Object {
+                              "_id": "2",
+                              "createdAt": "now",
+                              "description": "description",
+                              "details": "details",
+                              "images": Array [],
+                              "name": "name",
+                              "price": "100",
+                            }
+                          }
+                        >
+                          <Item>
+                            <div
+                              className="item"
+                            >
+                              <ItemImage
+                                size="tiny"
+                                src="https://react.semantic-ui.com/images/wireframe/image.png"
+                              >
+                                <Image
+                                  as="img"
+                                  size="tiny"
+                                  src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                  ui={true}
+                                  wrapped={true}
+                                >
+                                  <div
+                                    className="ui tiny image"
+                                  >
+                                    <img
+                                      src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                    />
+                                  </div>
+                                </Image>
+                              </ItemImage>
+                              <ItemContent>
+                                <div
+                                  className="content"
+                                >
+                                  <ItemHeader>
+                                    <div
+                                      className="header"
+                                    >
+                                      name
+                                    </div>
+                                  </ItemHeader>
+                                  <ItemMeta>
+                                    <div
+                                      className="meta"
+                                    >
+                                      <span>
+                                        Priced At: 
+                                        <strong>
+                                          100
+                                        </strong>
+                                      </span>
+                                      <span>
+                                        -
+                                      </span>
+                                      <span>
+                                        Posted: 
+                                        <strong>
+                                          NaN-undefined-NaN
+                                        </strong>
+                                      </span>
+                                    </div>
+                                  </ItemMeta>
+                                  <Button
+                                    as="button"
+                                    basic={true}
+                                    color="blue"
+                                    content="More..."
+                                  >
+                                    <Ref
+                                      innerRef={
+                                        Object {
+                                          "current": <button
+                                            class="ui blue basic button"
+                                          >
+                                            More...
+                                          </button>,
+                                        }
+                                      }
+                                    >
+                                      <RefFindNode
+                                        innerRef={
+                                          Object {
+                                            "current": <button
+                                              class="ui blue basic button"
+                                            >
+                                              More...
+                                            </button>,
+                                          }
+                                        }
+                                      >
+                                        <button
+                                          className="ui blue basic button"
+                                          onClick={[Function]}
+                                        >
+                                          More...
+                                        </button>
+                                      </RefFindNode>
+                                    </Ref>
+                                  </Button>
+                                </div>
+                              </ItemContent>
+                            </div>
+                          </Item>
+                        </PopularProduct>
+                      </div>
+                    </ItemGroup>
+                  </div>
+                </PopularProductHolder>
+              </div>
+            </GridColumn>
           </div>
-        </div>
-        <div
-          class="item productPreviewItem"
-        >
-          <div
-            class="ui small image"
-          >
-            <img
-              src="https://react.semantic-ui.com/images/wireframe/image.png"
-            />
-          </div>
-          <div
-            class="content"
-          >
-            <div
-              class="meta"
-            >
-              Displayed name: 
-              <strong>
-                error
-              </strong>
-            </div>
-            <div
-              class="meta"
-            >
-              <span
-                class="productPrice"
-              >
-                Displayed Price: 
-                <strong>
-                  38.00
-                </strong>
-              </span>
-              <span
-                class="productCreated"
-              >
-                Created At: 
-                <strong>
-                  2020-Sep-19
-                </strong>
-              </span>
-            </div>
-            <div
-              class="description"
-            >
-              Voluptatem odio sint dolor occaecati. Dolore explicabo pariatur et velit itaque perspiciatis quasi qui neque. Corporis nihil qui....
-            </div>
-            <button
-              class="ui green basic button"
-            >
-              View
-            </button>
-          </div>
-        </div>
-        <div
-          class="item productPreviewItem"
-        >
-          <div
-            class="ui small image"
-          >
-            <img
-              src="https://react.semantic-ui.com/images/wireframe/image.png"
-            />
-          </div>
-          <div
-            class="content"
-          >
-            <div
-              class="meta"
-            >
-              Displayed name: 
-              <strong>
-                rerum
-              </strong>
-            </div>
-            <div
-              class="meta"
-            >
-              <span
-                class="productPrice"
-              >
-                Displayed Price: 
-                <strong>
-                  24.00
-                </strong>
-              </span>
-              <span
-                class="productCreated"
-              >
-                Created At: 
-                <strong>
-                  2020-Sep-19
-                </strong>
-              </span>
-            </div>
-            <div
-              class="description"
-            >
-              Incidunt aspernatur atque. Dolor et iure vero qui quod ut. Ut expedita soluta. Esse in eveniet consequuntur omnis pariatur praesentium placeat assumenda....
-            </div>
-            <button
-              class="ui green basic button"
-            >
-              View
-            </button>
-          </div>
-        </div>
-        <div
-          class="item productPreviewItem"
-        >
-          <div
-            class="ui small image"
-          >
-            <img
-              src="https://react.semantic-ui.com/images/wireframe/image.png"
-            />
-          </div>
-          <div
-            class="content"
-          >
-            <div
-              class="meta"
-            >
-              Displayed name: 
-              <strong>
-                ut
-              </strong>
-            </div>
-            <div
-              class="meta"
-            >
-              <span
-                class="productPrice"
-              >
-                Displayed Price: 
-                <strong>
-                  60.00
-                </strong>
-              </span>
-              <span
-                class="productCreated"
-              >
-                Created At: 
-                <strong>
-                  2020-Sep-19
-                </strong>
-              </span>
-            </div>
-            <div
-              class="description"
-            >
-              Velit illo reiciendis quod autem minima. Non atque maxime quia aut ratione. Qui qui veniam. Reprehenderit et quidem necessitatibus animi velit. Incidunt cumque corporis nobis ea quo dolores inventore ...
-            </div>
-            <button
-              class="ui green basic button"
-            >
-              View
-            </button>
-          </div>
-        </div>
-        <div
-          class="item productPreviewItem"
-        >
-          <div
-            class="ui small image"
-          >
-            <img
-              src="https://react.semantic-ui.com/images/wireframe/image.png"
-            />
-          </div>
-          <div
-            class="content"
-          >
-            <div
-              class="meta"
-            >
-              Displayed name: 
-              <strong>
-                tempore
-              </strong>
-            </div>
-            <div
-              class="meta"
-            >
-              <span
-                class="productPrice"
-              >
-                Displayed Price: 
-                <strong>
-                  29.00
-                </strong>
-              </span>
-              <span
-                class="productCreated"
-              >
-                Created At: 
-                <strong>
-                  2020-Sep-19
-                </strong>
-              </span>
-            </div>
-            <div
-              class="description"
-            >
-              Porro iste tenetur. Cum ipsam et vel in. Qui ipsam dolore laborum libero....
-            </div>
-            <button
-              class="ui green basic button"
-            >
-              View
-            </button>
-          </div>
-        </div>
+        </GridRow>
       </div>
-    </div>
-    <div
-      class="six wide computer sixteen wide mobile eight wide tablet column"
-    >
-      <div
-        class="adminProductControlsHolder"
-      >
-        <div
-          class="adminProductControlsTitle"
-        >
-          Product Controls
-        </div>
-        <div
-          class="adminProductControls"
-        >
-          <div
-            class="adminProductCounter"
-          >
-            <div>
-              Total Products:
-            </div>
-            <div
-              class="adminProductsCount"
-            >
-              5
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="popProductsHolder"
-      >
-        <div
-          class="popProductsHolTitle"
-        >
-          Popular Products
-        </div>
-        <div
-          class="ui divided items"
-        >
-          <div
-            class="item"
-          >
-            <div
-              class="ui tiny image"
-            >
-              <img
-                src="https://react.semantic-ui.com/images/wireframe/image.png"
-              />
-            </div>
-            <div
-              class="content"
-            >
-              <div
-                class="header"
-              >
-                et
-              </div>
-              <div
-                class="meta"
-              >
-                <span>
-                  Priced At: 
-                  <strong>
-                    94.00
-                  </strong>
-                </span>
-                <span>
-                  -
-                </span>
-                <span>
-                  Posted: 
-                  <strong>
-                    2020-Sep-19
-                  </strong>
-                </span>
-              </div>
-              <button
-                class="ui blue basic button"
-              >
-                More...
-              </button>
-            </div>
-          </div>
-          <div
-            class="item"
-          >
-            <div
-              class="ui tiny image"
-            >
-              <img
-                src="https://react.semantic-ui.com/images/wireframe/image.png"
-              />
-            </div>
-            <div
-              class="content"
-            >
-              <div
-                class="header"
-              >
-                error
-              </div>
-              <div
-                class="meta"
-              >
-                <span>
-                  Priced At: 
-                  <strong>
-                    38.00
-                  </strong>
-                </span>
-                <span>
-                  -
-                </span>
-                <span>
-                  Posted: 
-                  <strong>
-                    2020-Sep-19
-                  </strong>
-                </span>
-              </div>
-              <button
-                class="ui blue basic button"
-              >
-                More...
-              </button>
-            </div>
-          </div>
-          <div
-            class="item"
-          >
-            <div
-              class="ui tiny image"
-            >
-              <img
-                src="https://react.semantic-ui.com/images/wireframe/image.png"
-              />
-            </div>
-            <div
-              class="content"
-            >
-              <div
-                class="header"
-              >
-                rerum
-              </div>
-              <div
-                class="meta"
-              >
-                <span>
-                  Priced At: 
-                  <strong>
-                    24.00
-                  </strong>
-                </span>
-                <span>
-                  -
-                </span>
-                <span>
-                  Posted: 
-                  <strong>
-                    2020-Sep-19
-                  </strong>
-                </span>
-              </div>
-              <button
-                class="ui blue basic button"
-              >
-                More...
-              </button>
-            </div>
-          </div>
-          <div
-            class="item"
-          >
-            <div
-              class="ui tiny image"
-            >
-              <img
-                src="https://react.semantic-ui.com/images/wireframe/image.png"
-              />
-            </div>
-            <div
-              class="content"
-            >
-              <div
-                class="header"
-              >
-                ut
-              </div>
-              <div
-                class="meta"
-              >
-                <span>
-                  Priced At: 
-                  <strong>
-                    60.00
-                  </strong>
-                </span>
-                <span>
-                  -
-                </span>
-                <span>
-                  Posted: 
-                  <strong>
-                    2020-Sep-19
-                  </strong>
-                </span>
-              </div>
-              <button
-                class="ui blue basic button"
-              >
-                More...
-              </button>
-            </div>
-          </div>
-          <div
-            class="item"
-          >
-            <div
-              class="ui tiny image"
-            >
-              <img
-                src="https://react.semantic-ui.com/images/wireframe/image.png"
-              />
-            </div>
-            <div
-              class="content"
-            >
-              <div
-                class="header"
-              >
-                tempore
-              </div>
-              <div
-                class="meta"
-              >
-                <span>
-                  Priced At: 
-                  <strong>
-                    29.00
-                  </strong>
-                </span>
-                <span>
-                  -
-                </span>
-                <span>
-                  Posted: 
-                  <strong>
-                    2020-Sep-19
-                  </strong>
-                </span>
-              </div>
-              <button
-                class="ui blue basic button"
-              >
-                More...
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    </Grid>
+  </ProductsPreviewHolder>
+</withRouter(ProductsPreviewHolder)>
 `;
 
 exports[`ProductPreviewHolder Component render tests ProductPreviewHolder in 'loading' state Should correctly render 1`] = `
-<div
-  id="generalLoadingScreen"
-  style="height: 100vh;"
->
-  <div
-    class="ui segment"
-    style="height: 100vh;"
+<withRouter(ProductsPreviewHolder)>
+  <ProductsPreviewHolder
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "canGo": [Function],
+        "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "pathname": "/admin/home/my_products/view_all",
+            "search": "",
+            "state": undefined,
+          },
+        ],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "index": 0,
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/admin/home/my_products/view_all",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+    location={
+      Object {
+        "hash": "",
+        "pathname": "/admin/home/my_products/view_all",
+        "search": "",
+        "state": undefined,
+      }
+    }
+    match={
+      Object {
+        "isExact": false,
+        "params": Object {},
+        "path": "/",
+        "url": "/",
+      }
+    }
   >
-    <div
-      class="ui active transition visible inverted dimmer"
-      style="display: flex;"
-    >
+    <LoaderExampleText>
       <div
-        class="content"
+        id="generalLoadingScreen"
+        style={
+          Object {
+            "height": "100vh",
+          }
+        }
       >
-        <div
-          class="ui text loader"
+        <Segment
+          style={
+            Object {
+              "height": "100vh",
+            }
+          }
         >
-          Please Wait
-        </div>
+          <div
+            className="ui segment"
+            style={
+              Object {
+                "height": "100vh",
+              }
+            }
+          >
+            <Dimmer
+              active={true}
+              inverted={true}
+            >
+              <DimmerInner
+                active={true}
+                inverted={true}
+              >
+                <Ref
+                  innerRef={
+                    Object {
+                      "current": null,
+                    }
+                  }
+                >
+                  <RefFindNode
+                    innerRef={
+                      Object {
+                        "current": null,
+                      }
+                    }
+                  >
+                    <div
+                      className="ui active transition visible inverted dimmer"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="content"
+                      >
+                        <Loader>
+                          <div
+                            className="ui text loader"
+                          >
+                            Please Wait
+                          </div>
+                        </Loader>
+                      </div>
+                    </div>
+                  </RefFindNode>
+                </Ref>
+              </DimmerInner>
+            </Dimmer>
+          </div>
+        </Segment>
       </div>
-    </div>
-  </div>
-</div>
+    </LoaderExampleText>
+  </ProductsPreviewHolder>
+</withRouter(ProductsPreviewHolder)>
 `;

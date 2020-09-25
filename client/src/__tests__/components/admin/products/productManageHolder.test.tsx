@@ -61,7 +61,6 @@ describe("Product Manage Holder Tests", () => {
           }
         });
       });
-
     });
       afterAll(() => {
       moxios.uninstall();
@@ -137,6 +136,7 @@ describe("Product Manage Holder Tests", () => {
   // mock ERROR API call render tests //
   describe("State after a Error in API call", () => {
     let component: ReactWrapper; let loadingScreen: ReactWrapper;
+    const error = new Error("Error occured");
 
     beforeAll(async () => {
       await act(async () => {
@@ -152,7 +152,7 @@ describe("Product Manage Holder Tests", () => {
           status: 500,
           response: {
             responseMsg: "Error here",
-            error: new Error("API Call Error")
+            error: error
           }
         });
       });

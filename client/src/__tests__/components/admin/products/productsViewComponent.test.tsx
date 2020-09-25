@@ -26,7 +26,7 @@ describe("ProductView Component render tests", () => {
       expect(component).toMatchSnapshot();
     });
     it("Should render conditional routes", () => {
-      expect(component.find("Switch")).toHaveLength(1);
+      expect(component.find(Switch)).toHaveLength(1);
     });
     it("Should have Render three children route componets", () => {
       const switchComponent = component.find(Switch);
@@ -60,7 +60,7 @@ describe("ProductView Component render tests", () => {
 
     beforeAll(() => {
       component = mount(
-        <Router>
+        <Router keyLength={0} initialEntries={["/admin/home/my_products"]}>
           <ProductsViewComponent />
         </Router>
       );
