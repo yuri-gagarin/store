@@ -7,7 +7,7 @@ import { act } from 'react-dom/test-utils';
 // components //
 import ServiceImgUplForm from "../../../../components/admin_components/services/forms/ServiceImgUplForm";
 // React.Context and State //
-import { StateProvider } from "../../../../state/Store";
+import { TestStateProvider } from "../../../../state/Store";
 // helpers //
 import MockFile from "../../../helpers/mockFile";
 import { createMockServices } from "../../../../test_helpers/serviceHelpers";
@@ -15,10 +15,10 @@ import { createMockServices } from "../../../../test_helpers/serviceHelpers";
 describe("Service Image Upload Form Tests", () => {
 
   describe("Render tests without any Image data", () => {
-    let component: ShallowWrapper<React.FC>;
+    let component: ShallowWrapper;
 
     beforeAll(() => {
-      component = shallow<React.FC<{}>, {}>(<ServiceImgUplForm />)
+      component = shallow(<ServiceImgUplForm />)
      });
 
     it("Should properly render", () => {
@@ -35,11 +35,11 @@ describe("Service Image Upload Form Tests", () => {
   });
   
   describe("Render tests with an Image file present", () => {
-    let component: ShallowWrapper<React.FC>;
+    let component: ShallowWrapper;
     let input: ShallowWrapper;
 
     beforeAll(() => {
-      component = shallow<React.FC<{}>, {}>(<ServiceImgUplForm />);
+      component = shallow(<ServiceImgUplForm />);
       const file: File = MockFile.create("test", 1024, { type: "image/jpeg" });
       input = component.find("input");
       input.simulate("change", { target: { files: [ file ] } });
@@ -70,10 +70,10 @@ describe("Service Image Upload Form Tests", () => {
     let input: ReactWrapper;
 
     beforeAll(() => {
-      component = mount<React.FC<{}>, {}>(
-        <StateProvider>
+      component = mount(
+        <TestStateProvider>
           <ServiceImgUplForm />
-        </StateProvider>
+        </TestStateProvider>
       );
       const file: File = MockFile.create("test", 1024, { type: "image/jpeg" });
       input = component.find("input");
@@ -112,29 +112,29 @@ describe("Service Image Upload Form Tests", () => {
       });
     });
     it("Should correctly render Select Image button after 'successful upload", () => {
-      const selectImgBtn = component.find("#selectServiceImgBtn");
-      expect(selectImgBtn.length).toEqual(2);
+      const selectImgBtn = component.find(ServiceImgUplForm).render().find("#selectServiceImgBtn");
+      expect(selectImgBtn.length).toEqual(1);
     });
     it("Should NOT render Image Upload button after 'successful upload", () => {
-      const imgUpoadBtn = component.find("#serviceImgUploadBtn");
+      const imgUpoadBtn = component.find(ServiceImgUplForm).render().find("#serviceImgUploadBtn");
       expect(imgUpoadBtn.length).toEqual(0);
     });
     it("Should NOT render Cancel Upload button after 'successful upload", () => {
-      const imgUpoadBtn = component.find("#serviceImgUploadBtn");
+      const imgUpoadBtn = component.find(ServiceImgUplForm).render().find("#serviceImgUploadBtn");
       expect(imgUpoadBtn.length).toEqual(0);
     });
   });
   // END Mock successful Image upload tests //
   // MOCK unsuccessful Image upload tests //
   describe("'#cancelServiceImgUploadBtn' functionality and a failed upload", () => {
-    let component: ReactWrapper<React.FC>;
+    let component: ReactWrapper;
     let input: ReactWrapper;
 
     beforeAll(() => {
-      component = mount<React.FC<{}>, {}>(
-        <StateProvider>
+      component = mount(
+        <TestStateProvider>
           <ServiceImgUplForm />
-        </StateProvider>
+        </TestStateProvider>
       );
       const file: File = MockFile.create("test", 1024, { type: "image/jpeg" });
       input = component.find("input");
@@ -173,16 +173,16 @@ describe("Service Image Upload Form Tests", () => {
       });
     });
     it("Should NOT render Select Image button after a 'failed' upload", () => {
-      const selectImgBtn = component.find("#selectServiceImgBtn");
+      const selectImgBtn = component.find(ServiceImgUplForm).render().find("#selectServiceImgBtn");
       expect(selectImgBtn.length).toEqual(0);
     });
     it("Should render Image Upload button after a 'failed' upload", () => {
-      const imgUpoadBtn = component.find("#serviceImgUploadBtn");
-      expect(imgUpoadBtn.length).toEqual(2);
+      const imgUpoadBtn = component.find(ServiceImgUplForm).render().find("#serviceImgUploadBtn");
+      expect(imgUpoadBtn.length).toEqual(1);
     })
     it("Should render Cancel Upload button after a 'failed' upload", () => {
-      const imgUpoadBtn = component.find("#serviceImgUploadBtn");
-      expect(imgUpoadBtn.length).toEqual(2);
+      const imgUpoadBtn = component.find(ServiceImgUplForm).render().find("#serviceImgUploadBtn");
+      expect(imgUpoadBtn.length).toEqual(1);
     });
   });
   // END Mock unsuccessful Image upload tests //

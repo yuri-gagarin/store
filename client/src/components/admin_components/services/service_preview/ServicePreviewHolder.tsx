@@ -6,6 +6,7 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import ServicePreview from "./ServicePreview";
 import ServicesDetails from "./ServicesDetails";
 import LoadingScreen from "../../miscelaneous/LoadingScreen";
+import ErrorScreen from "../../miscelaneous/ErrorScreen";
 import PopularServiceHolder from "./popular_services/PopularServiceHolder";
 // types and interfaces //
 import { Store } from "../../../../state/Store";
@@ -18,7 +19,7 @@ interface Props extends RouteComponentProps {
 
 const ServicePreviewHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const { state, dispatch } = useContext(Store);
-  const { loading, loadedServices } = state.serviceState;
+  const { loading, loadedServices, error } = state.serviceState;
 
   // lifecycle hooks //
   useEffect(() => {
@@ -35,11 +36,18 @@ const ServicePreviewHolder: React.FC<Props> = ({ history }): JSX.Element => {
     return () => { componentLoaded = false };
   }, [ dispatch ]);
   // render component //
+  useEffect(() => {
+    console.log(loading)
+  }, [ loading ])
   return (
     loading ? 
     <LoadingScreen />
     :
-    <Grid id="adminServicePreviewHolder" stackable padded columns={2}>
+    (
+      error ? 
+      <ErrorScreen lastRequest={() => getAllServices(dispatch) }/>
+      :
+      <Grid id="adminServicePreviewHolder" stackable padded columns={2}>
       <Grid.Row>
         <Grid.Column computer={10} tablet={8} mobile={16}>
           <Item.Group>
@@ -61,6 +69,8 @@ const ServicePreviewHolder: React.FC<Props> = ({ history }): JSX.Element => {
         </Grid.Column>
       </Grid.Row>
     </Grid>
+    )
+    
   );
   
 };

@@ -7,15 +7,25 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
       Object {
         "action": "POP",
         "block": [Function],
+        "canGo": [Function],
         "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "pathname": "/admin/home/my_services/manage",
+            "search": "",
+            "state": undefined,
+          },
+        ],
         "go": [Function],
         "goBack": [Function],
         "goForward": [Function],
+        "index": 0,
         "length": 1,
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "pathname": "/",
+          "pathname": "/admin/home/my_services/manage",
           "search": "",
           "state": undefined,
         },
@@ -26,14 +36,14 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
     location={
       Object {
         "hash": "",
-        "pathname": "/",
+        "pathname": "/admin/home/my_services/manage",
         "search": "",
         "state": undefined,
       }
     }
     match={
       Object {
-        "isExact": true,
+        "isExact": false,
         "params": Object {},
         "path": "/",
         "url": "/",
@@ -75,7 +85,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
                           "description": "description",
                           "images": Array [],
                           "name": "name",
-                          "price": "price",
+                          "price": "100",
                         }
                       }
                     >
@@ -128,7 +138,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
                                   >
                                     Displayed Price: 
                                     <strong>
-                                      price
+                                      100
                                     </strong>
                                   </span>
                                   <span
@@ -199,7 +209,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
                           "description": "description",
                           "images": Array [],
                           "name": "name",
-                          "price": "price",
+                          "price": "200",
                         }
                       }
                     >
@@ -252,7 +262,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
                                   >
                                     Displayed Price: 
                                     <strong>
-                                      price
+                                      200
                                     </strong>
                                   </span>
                                   <span
@@ -364,7 +374,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
                         "description": "description",
                         "images": Array [],
                         "name": "name",
-                        "price": "price",
+                        "price": "100",
                       },
                       Object {
                         "_id": "2",
@@ -372,7 +382,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
                         "description": "description",
                         "images": Array [],
                         "name": "name",
-                        "price": "price",
+                        "price": "200",
                       },
                     ]
                   }
@@ -400,7 +410,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
                               "description": "description",
                               "images": Array [],
                               "name": "name",
-                              "price": "price",
+                              "price": "100",
                             }
                           }
                         >
@@ -446,7 +456,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
                                       <span>
                                         Priced At: 
                                         <strong>
-                                          price
+                                          100
                                         </strong>
                                       </span>
                                       <span>
@@ -511,7 +521,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
                               "description": "description",
                               "images": Array [],
                               "name": "name",
-                              "price": "price",
+                              "price": "200",
                             }
                           }
                         >
@@ -557,7 +567,7 @@ exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' 
                                       <span>
                                         Priced At: 
                                         <strong>
-                                          price
+                                          200
                                         </strong>
                                       </span>
                                       <span>
@@ -634,15 +644,25 @@ exports[`ServicePreviewHolder Component render tests ServicePreviewHolder in 'lo
       Object {
         "action": "POP",
         "block": [Function],
+        "canGo": [Function],
         "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "pathname": "/admin/home/my_services/manage",
+            "search": "",
+            "state": undefined,
+          },
+        ],
         "go": [Function],
         "goBack": [Function],
         "goForward": [Function],
+        "index": 0,
         "length": 1,
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "pathname": "/",
+          "pathname": "/admin/home/my_services/manage",
           "search": "",
           "state": undefined,
         },
@@ -653,14 +673,14 @@ exports[`ServicePreviewHolder Component render tests ServicePreviewHolder in 'lo
     location={
       Object {
         "hash": "",
-        "pathname": "/",
+        "pathname": "/admin/home/my_services/manage",
         "search": "",
         "state": undefined,
       }
     }
     match={
       Object {
-        "isExact": true,
+        "isExact": false,
         "params": Object {},
         "path": "/",
         "url": "/",

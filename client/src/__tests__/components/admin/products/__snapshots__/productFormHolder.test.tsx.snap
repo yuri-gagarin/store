@@ -224,6 +224,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                 handleCreateProduct={[Function]}
                 handleUpdateProduct={[Function]}
                 name=""
+                newForm={true}
                 price=""
               >
                 <div
@@ -246,6 +247,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                             Product name
                           </label>
                           <input
+                            id="productFormNameInput"
                             onChange={[Function]}
                             placeholder="Product name here ..."
                             value=""
@@ -260,6 +262,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                             Product price
                           </label>
                           <input
+                            id="productFormPriceInput"
                             onChange={[Function]}
                             placeholder="Product price here..."
                             value=""
@@ -268,8 +271,8 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                       </FormField>
                       <FormField
                         control={[Function]}
-                        id="form-textarea-control-opinion"
-                        label="Store Description"
+                        id="productFormDescInput"
+                        label="Product Description"
                         onChange={[Function]}
                         placeholder="Product description here..."
                         value=""
@@ -278,14 +281,14 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                           className="field"
                         >
                           <label
-                            htmlFor="form-textarea-control-opinion"
+                            htmlFor="productFormDescInput"
                           >
-                            Store Description
+                            Product Description
                           </label>
                           <TextArea
                             aria-describedby={null}
                             as="textarea"
-                            id="form-textarea-control-opinion"
+                            id="productFormDescInput"
                             onChange={[Function]}
                             placeholder="Product description here..."
                             rows={3}
@@ -295,7 +298,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                               innerRef={
                                 Object {
                                   "current": <textarea
-                                    id="form-textarea-control-opinion"
+                                    id="productFormDescInput"
                                     placeholder="Product description here..."
                                     rows="3"
                                   />,
@@ -306,7 +309,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                                 innerRef={
                                   Object {
                                     "current": <textarea
-                                      id="form-textarea-control-opinion"
+                                      id="productFormDescInput"
                                       placeholder="Product description here..."
                                       rows="3"
                                     />,
@@ -315,12 +318,70 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                               >
                                 <textarea
                                   aria-describedby={null}
-                                  id="form-textarea-control-opinion"
+                                  id="productFormDescInput"
                                   onChange={[Function]}
                                   onInput={[Function]}
                                   placeholder="Product description here..."
                                   rows={3}
                                   value=""
+                                />
+                              </RefFindNode>
+                            </Ref>
+                          </TextArea>
+                        </div>
+                      </FormField>
+                      <FormField
+                        control={[Function]}
+                        id="productFormDetailsInput"
+                        label="Product Details"
+                        onChange={[Function]}
+                        placeholder="Product details here..."
+                      >
+                        <div
+                          className="field"
+                        >
+                          <label
+                            htmlFor="productFormDetailsInput"
+                          >
+                            Product Details
+                          </label>
+                          <TextArea
+                            aria-describedby={null}
+                            as="textarea"
+                            id="productFormDetailsInput"
+                            onChange={[Function]}
+                            placeholder="Product details here..."
+                            rows={3}
+                          >
+                            <Ref
+                              innerRef={
+                                Object {
+                                  "current": <textarea
+                                    id="productFormDetailsInput"
+                                    placeholder="Product details here..."
+                                    rows="3"
+                                  />,
+                                }
+                              }
+                            >
+                              <RefFindNode
+                                innerRef={
+                                  Object {
+                                    "current": <textarea
+                                      id="productFormDetailsInput"
+                                      placeholder="Product details here..."
+                                      rows="3"
+                                    />,
+                                  }
+                                }
+                              >
+                                <textarea
+                                  aria-describedby={null}
+                                  id="productFormDetailsInput"
+                                  onChange={[Function]}
+                                  onInput={[Function]}
+                                  placeholder="Product details here..."
+                                  rows={3}
                                 />
                               </RefFindNode>
                             </Ref>
