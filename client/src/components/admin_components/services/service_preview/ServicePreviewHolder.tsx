@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { Grid, Item } from "semantic-ui-react";
 // routing //
 import { withRouter, RouteComponentProps } from "react-router-dom";
@@ -20,33 +20,34 @@ interface Props extends RouteComponentProps {
 const ServicePreviewHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const { state, dispatch } = useContext(Store);
   const { loading, loadedServices, error } = state.serviceState;
+  // local state //
+  const [ newDataLoaded, setNewDataLoaded ] = useState<boolean>(false);
+  const servicesRef = useRef(loadedServices);
 
   // lifecycle hooks //
   useEffect(() => {
     let componentLoaded = true;
     if (componentLoaded) {
       getAllServices(dispatch)
-      .then((_) => {
-        // handle success //
-      })
-      .catch((_) => {
-        // handle possible error //
-      });
+        .then((_) => {
+          // handle success //
+          setNewDataLoaded(true);
+        })
+        .catch((_) => {
+          // handle possible error //
+          setNewDataLoaded(false);
+        });
     }
     return () => { componentLoaded = false };
   }, [ dispatch ]);
   // render component //
   useEffect(() => {
-    console.log(loading)
-  }, [ loading ])
+    if (servicesRef.current != loadedServices && !error && !loading) {
+      setNewDataLoaded(true);
+    }
+  }, [ servicesRef.current, loadedServices, error, loading ]);
   return (
-    loading ? 
-    <LoadingScreen />
-    :
-    (
-      error ? 
-      <ErrorScreen lastRequest={() => getAllServices(dispatch) }/>
-      :
+    newDataLoaded ?
       <Grid id="adminServicePreviewHolder" stackable padded columns={2}>
       <Grid.Row>
         <Grid.Column computer={10} tablet={8} mobile={16}>
@@ -69,9 +70,11 @@ const ServicePreviewHolder: React.FC<Props> = ({ history }): JSX.Element => {
         </Grid.Column>
       </Grid.Row>
     </Grid>
+    :
+    (
+      error ? <ErrorScreen lastRequest={ () => getAllServices(dispatch) } /> : <LoadingScreen />
     )
-    
-  );
+  ) 
   
 };
 // export for testing without router //

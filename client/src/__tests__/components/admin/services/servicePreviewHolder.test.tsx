@@ -82,6 +82,7 @@ describe("ServicePreviewHolder Component render tests", () => {
     });
 
   });
+  
   // END TEST ServicePreviewHolder in its loading state //
   // TEST ServicePreviewHolder in its loaded state //
   describe("ServicePreview in 'loaded' state", () => {
@@ -89,8 +90,8 @@ describe("ServicePreviewHolder Component render tests", () => {
 
     beforeAll( async () => {
       moxios.install();
-      
       const mockState = generateCleanState();
+
       wrapper = mount(
         <Router keyLength={0} initialEntries={["/admin/home/my_services/manage"]}>
           <TestStateProvider mockState={mockState}>
@@ -108,53 +109,65 @@ describe("ServicePreviewHolder Component render tests", () => {
           }
         });
       });
-      wrapper.update();
+    });
+    afterAll(() => {
       moxios.uninstall();
-    });
-    it("Should correctly render", () => {
-      expect(wrapper.find(ServicePreviewHolder)).toMatchSnapshot();
-    });
-    it("Should NOT have a LoadingScreen while 'loading == false'", () => {
+    })
+    it("Should correctly render initial 'LoadingScreen' component", () => {
       const loadingScreen = wrapper.find(LoadingScreen);
-      expect(loadingScreen.length).toEqual(0);
+      const errorScreen = wrapper.find(ErrorScreen);
+      const serviceGrid = wrapper.find(Grid);
+      // assert correct rendering //
+      expect(loadingScreen.length).toEqual(1)
+      expect(errorScreen.length).toEqual(0);
+      expect(serviceGrid.length).toEqual(0);
     });
-    it("Should display the '#adminServicePreviewHolder'", () => {
-      const adminServicePreview = wrapper.find(Grid);
-      expect(adminServicePreview.length).toEqual(1);
+    it("Should correctlt render the '#adminServicePreviewHolder' Grid", () => {
+      wrapper.update();
+      const loadingScreen = wrapper.find(LoadingScreen);
+      const errorScreen = wrapper.find(ErrorScreen);
+      const serviceGrid = wrapper.find(Grid);
+      // assert correct rendering ///
+      expect(loadingScreen.length).toEqual(0);
+      expect(errorScreen.length).toEqual(0);
+      expect(serviceGrid.length).toEqual(1);
+      expect(wrapper.find(ServicePreviewHolder)).toMatchSnapshot();
     });
     it(`Should display a correct number of ServicePreview Components`, () => {
       const servicePreviewComponents = wrapper.find(ServicePreview);
       expect(servicePreviewComponents.length).toEqual(2);
     });
   });
+  */
   // END TEST ServicePreviewHolder in its loaded state //
   // TEST ServicePreview Component in Error state //
-  */
+
   describe("ServicePreview Component in Error state", () => {
     let wrapper: ReactWrapper;
     const error = new Error("Error occured");
 
-    beforeAll( async () => {
-      moxios.install();
-      wrapper = mount(
-        <Router keyLength={0} initialEntries={["/admin/home/my_services/view_all"]}>
-          <TestStateProvider>
-            <ServicePreviewHolder />
-          </TestStateProvider>
-        </Router>
-      );
-
-      await act(async () => {
-        await moxios.stubRequest("/api/services", {
+    beforeAll(async () => {
+      await act( async () => {
+        moxios.install();
+        wrapper = await mount(
+          <Router keyLength={0} initialEntries={["/admin/home/my_services/view_all"]}>
+            <TestStateProvider>
+              <ServicePreviewHolder />
+            </TestStateProvider>
+          </Router>
+        );
+        moxios.stubRequest("/api/services", {
           status: 500,
           response: {
-            responseMsg: "An error",
+            responseMsg: "An error occured",
             error: error
           }
-        });
+        })
       });
-
-      //wrapper.update()
+      moxios.uninstall();
+    })
+    afterAll(() => {
+      moxios.uninstall();
     });
 
     it("Should initially render the 'LoadingScreen' component", () => {
@@ -166,39 +179,31 @@ describe("ServicePreviewHolder Component render tests", () => {
       expect(errorScreen.length).toEqual(0);
       expect(servicesGrid.length).toEqual(0);
     });
-    it("Should render the 'ErrorScreen' component after rerender", () => {
+    
+    it("Should initially render the 'ErrorScreen' component after rerender", () => {
       wrapper.update();
       const loadingScreen = wrapper.find(ServicePreviewHolder).find(LoadingScreen);
       const errorScreen = wrapper.find(ServicePreviewHolder).find(ErrorScreen);
       const servicesGrid = wrapper.find(ServicePreviewHolder).find(Grid);
-      // assert correct rendering 
+      // assert correct rendering //
       expect(loadingScreen.length).toEqual(0);
       expect(errorScreen.length).toEqual(1);
       expect(servicesGrid.length).toEqual(0);
     });
-    it("Should correctly respond to '#errorScreenRetryBtn'", async () => {
+    it("Should correctly respond to '#errorScreenRetryBtn' and rerender", async () => {
+      await act( async () => {
         moxios.install();
-        moxios.wait(() => {
-          const request = moxios.requests.mostRecent();
-          request.respondWith({
-            status: 200,
-            response: {
-              responseMsg: "All ok",
-              updatedService: services[0]
-            }
-          });
-        });
-        const errorScreenRetry = wrapper.find(ErrorScreen).find("#errorScreenRetryButton");
-        errorScreenRetry.at(0).simulate("click");
-
-        await act( async () => {
-          return new Promise((res, _) => {
-            setTimeout(() => {
-              wrapper.update();
-              res();
-            }, 500);
-          });
-        });
-    })
+        moxios.stubRequest("/api/services", {
+          status: 100,
+          response: {
+            responseMsg: "All ok",
+            services: services
+          }
+        })
+        const retryButton = wrapper.find("#errorScreenRetryButton");
+        retryButton.at(0).simulate("click");
+      });
+      
+    });
   })
 });
