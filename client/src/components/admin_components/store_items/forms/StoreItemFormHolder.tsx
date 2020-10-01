@@ -37,6 +37,10 @@ type StoreItemData = {
   images: IStoreItemImgData[];
   categories: string[];
 }
+type StoreDropdownData = {
+  storeId: string;
+  storeName: string;
+}
 
 const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const { state, dispatch } = useContext(Store);
@@ -45,6 +49,7 @@ const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   // local component state //
   // const [ formOpen, setFormOpen ] = useState<boolean>(false);
   const [ newForm, setNewForm ] = useState<boolean>(true);
+  const [ storeDropDownData, setStoreDropDownData ] = useState<StoreDropdownData[]>();
   
   // StoreItemForm toggle //
   const toggleForm = () => {
@@ -92,6 +97,14 @@ const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
       getAllStores(dispatch)
       .then((_) => {
         // handle success //
+        const { loadedStores } = state.storeState;
+        const storeDropdownData: StoreDropdownData[] = loadedStores.map((store) => {
+          return {
+            storeId: store._id,
+            storeName: store.title
+          }
+        });
+        setStoreDropDownData(storeDropDownData);
       })
       .catch((_) => {
         // handle error //
@@ -179,8 +192,6 @@ const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
           {
             storeItemFormOpen ? 
               <StoreItemForm 
-                state={state}
-                dispatch={dispatch}
                 storeItem={currentStoreItemData}
                 handleCreateStoreItem={handleCreateStoreItem}
                 handleUpdateStoreItem={handleUpdateStoreItem}

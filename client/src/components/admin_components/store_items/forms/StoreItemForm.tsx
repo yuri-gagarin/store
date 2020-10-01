@@ -18,19 +18,24 @@ export type FormState = {
 }
 
 interface Props {
-  state: IGlobalAppState;
-  dispatch: React.Dispatch<AppAction>;
-  storeItem: IStoreItemData;
+  name: string;
+  price: string;
+  description: string;
+  details: string;
+  categories: string[];
+  activeStores: any[];
+  newForm: boolean;
   handleCreateStoreItem(data: FormState): void;
   handleUpdateStoreItem(data: FormState): void;
 }
 
-const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, handleUpdateStoreItem, state, dispatch }): JSX.Element => {
-  const { storeId, storeName, name, description, details, price, categories } = storeItem;
-  const { currentStoreData } = state.storeState;
+const StoreItemForm: React.FC<Props> = ( props ): JSX.Element => {
+  const { name, description, details, price, categories } = props;
+  const { activeStores } = props;
+  const { newForm } = props;
+  const { handleCreateStoreItem, handleUpdateStoreItem } = props;
   // state and refs //
-  const [ newForm, setNewForm ] = useState<boolean>(true)
-  const [ formState, setFormState ] = useState<FormState>({ storeId, storeName, name, description, details, price, categories });
+\  const [ formState, setFormState ] = useState<FormState>({ storeId, storeName, name, description, details, price, categories });
   const storeItemFormRef = useRef<HTMLDivElement>(document.createElement("div"));
   
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
@@ -100,7 +105,7 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
         }
         <Form.Field>
           <label>Which Store to place the item in?</label>
-          <StoreNameDropDown state={state} dispatch={dispatch} />
+          <StoreNameDropDown />
         </Form.Field>
         <Form.Field>
           <label>Store Item name</label>
