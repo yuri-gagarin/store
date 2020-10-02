@@ -19,9 +19,10 @@ import { getAllStores } from "../../stores/actions/APIstoreActions";
 import { openStoreItemForm, closeStoreItemForm } from "../actions/UIStoreItemActions";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
+import { checkSetValues } from "../../../helpers/validationHelpers";
 // types 
-import { FormState } from "./StoreItemForm";
 import { AxiosError } from "axios";
+import { StoreItemFormState } from "../type_definitions/storeItemTypes";
 
 interface Props extends RouteComponentProps {
 
@@ -45,7 +46,7 @@ type StoreDropdownData = {
 const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const { state, dispatch } = useContext(Store);
   const { loading, currentStoreItemData, storeItemFormOpen, error } = state.storeItemState;
-  const { name, description, details, price, categories, createdAt, editedAt } = currentStoreItemData;
+  const { storeId, storeName, name, description, details, price, categories, createdAt, editedAt } = currentStoreItemData;
   // local component state //
   // const [ formOpen, setFormOpen ] = useState<boolean>(false);
   const [ newForm, setNewForm ] = useState<boolean>(true);
@@ -56,7 +57,7 @@ const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
     storeItemFormOpen ? closeStoreItemForm(dispatch) : openStoreItemForm(dispatch);
   };
   // API call handlers CREATE - EDIT //
-  const handleCreateStoreItem = ({ storeId, storeName, name, price, description, details, categories }: FormState): void => {
+  const handleCreateStoreItem = ({ storeId, storeName, name, price, description, details, categories }: StoreItemFormState): void => {
     const storeItemData: StoreItemData = {
       storeId,
       storeName,
@@ -78,7 +79,7 @@ const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
         // handle error? show some modal? //
       });
   };
-  const handleUpdateStoreItem = ({ storeId, storeName,name, description, details, price, categories }: FormState): void => {
+  const handleUpdateStoreItem = ({ storeId, storeName,name, description, details, price, categories }: StoreItemFormState): void => {
     const storeItemParams: StoreItemData = {
       storeId, storeName, name, details, description, price, images: currentStoreItemData.images, categories
     };
@@ -95,21 +96,22 @@ const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
     let mounted = true;
     if (mounted) {
       getAllStores(dispatch)
-      .then((_) => {
-        // handle success //
-        const { loadedStores } = state.storeState;
-        const storeDropdownData: StoreDropdownData[] = loadedStores.map((store) => {
-          return {
-            storeId: store._id,
-            storeName: store.title
-          }
+        .then((_) => {
+          // handle success //
+          const { loadedStores } = state.storeState;
+          const storeDropdownData: StoreDropdownData[] = loadedStores.map((store) => {
+            return {
+              storeId: store._id,
+              storeName: store.title
+            }
+          });
+          setStoreDropDownData(storeDropdownData);
+          checkSetValues(currentStoreItemData) ? setNewForm(false) : setNewForm(true);
+        })
+        .catch((_) => {
+          // handle error //
         });
-        setStoreDropDownData(storeDropDownData);
-      })
-      .catch((_) => {
-        // handle error //
-      });
-    }
+      }
     return () => { mounted = false };
   }, []);
   useEffect(() => {
@@ -119,11 +121,8 @@ const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   }, [ storeItemFormOpen ]);
   
   useEffect(() => {
-    if (name && description && price) {
-      setNewForm(false);
-      openStoreItemForm(dispatch);
-    }
-  }, [ name, description, price, dispatch ]);
+    checkSetValues(currentStoreItemData) ? setNewForm(false) : setNewForm(true);
+  }, [ currentStoreItemData]);
   // component return //
   return (
     <div id="storeItemFormHolder">
@@ -192,7 +191,15 @@ const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
           {
             storeItemFormOpen ? 
               <StoreItemForm 
-                storeItem={currentStoreItemData}
+                storeId={storeId}
+                storeName={storeName}
+                name={name}
+                price={price}
+                details={details}
+                description={description}
+                categories={categories}
+                newForm={newForm}
+                activeStores={storeDropDownData ? storeDropDownData : []}                
                 handleCreateStoreItem={handleCreateStoreItem}
                 handleUpdateStoreItem={handleUpdateStoreItem}
               /> 

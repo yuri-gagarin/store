@@ -1,41 +1,39 @@
-import React, { useState, useEffect, useRef }  from "react";
+import React, { useState, useEffect, useRef, useContext }  from "react";
 import { Button, Form, TextArea } from "semantic-ui-react";
 // additional components //
 import StoreItemCategories from "./StoreItemCategories";
 import StoreDetails from "./StoreDetails";
 import StoreNameDropDown from "./StoreNameDropdown";
 // actions and state //
-import { IGlobalAppState, AppAction } from "../../../../state/Store";
+import { Store } from "../../../../state/Store";
+// types //
+import { StoreItemFormState, StoreDropdownData } from "../type_definitions/storeItemTypes";
 
-export type FormState = {
+
+interface Props {
   storeId: string;
   storeName: string;
   name: string;
-  description: string;
-  details: string;
-  price: string;
-  categories: string[];
-}
-
-interface Props {
-  name: string;
   price: string;
   description: string;
   details: string;
   categories: string[];
-  activeStores: any[];
+  activeStores: StoreDropdownData[];
   newForm: boolean;
-  handleCreateStoreItem(data: FormState): void;
-  handleUpdateStoreItem(data: FormState): void;
+  handleCreateStoreItem(data: StoreItemFormState): void;
+  handleUpdateStoreItem(data: StoreItemFormState): void;
 }
 
 const StoreItemForm: React.FC<Props> = ( props ): JSX.Element => {
-  const { name, description, details, price, categories } = props;
+  const { storeId, storeName, name, description, details, price, categories } = props;
   const { activeStores } = props;
   const { newForm } = props;
+  const { currentStoreData } = useContext(Store).state.storeState;
   const { handleCreateStoreItem, handleUpdateStoreItem } = props;
-  // state and refs //
-\  const [ formState, setFormState ] = useState<FormState>({ storeId, storeName, name, description, details, price, categories });
+
+  // local state and refs //
+  const [ formState, setFormState ] = useState<StoreItemFormState>({ storeId, storeName, name, description, details, price, categories });
+  const [ currentStore, setCurrentStore ] = useState<IStoreData>();
   const storeItemFormRef = useRef<HTMLDivElement>(document.createElement("div"));
   
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
@@ -79,15 +77,6 @@ const StoreItemForm: React.FC<Props> = ( props ): JSX.Element => {
   };
 
   useEffect(() => {
-    // edit form //
-    if (storeItem._id) {
-      setNewForm(false);
-    } else {
-      setNewForm(true);
-    }
-  },  [storeItem]);
-
-  useEffect(() => {
     if (storeItemFormRef.current) {
       const elem = storeItemFormRef.current.getBoundingClientRect();
       window.scrollTo({
@@ -96,16 +85,19 @@ const StoreItemForm: React.FC<Props> = ( props ): JSX.Element => {
       })
     }
   }, [storeItemFormRef]);
+  useEffect(() => {
+    if(!newForm) setCurrentStore(currentStoreData);
+  }, [newForm, currentStoreData ])
   
   return (
     <div className="createStoreItemFormHolder" ref={storeItemFormRef}>
       <Form id="createStoreItemForm">
         {
-          (storeId && storeName) ? <StoreDetails storeId={storeId} storeName={storeName} createdAt={currentStoreData.createdAt}/> : null
+        !newForm ? <StoreDetails storeId={storeId} storeName={storeName} createdAt={currentStore?.createdAt}/> : null
         }
         <Form.Field>
           <label>Which Store to place the item in?</label>
-          <StoreNameDropDown />
+          <StoreNameDropDown activeStores={activeStores} />
         </Form.Field>
         <Form.Field>
           <label>Store Item name</label>

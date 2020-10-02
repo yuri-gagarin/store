@@ -43,3 +43,18 @@ export type StoreItemQueryPar = {
   price?: string;
   name?: string;
 }
+
+// StoreItem form and holder types //
+export type StoreItemFormState = {
+  storeId: string;
+  storeName: string;
+  name: string;
+  description: string;
+  details: string;
+  price: string;
+  categories: string[];
+}
+export type StoreDropdownData = {
+  storeId: string;
+  storeName: string;
+}

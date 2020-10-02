@@ -1,22 +1,23 @@
-import React, {  useEffect, useState } from "react";
+import React, {  useEffect, useState, useContext } from "react";
 import { Dropdown, DropdownProps } from "semantic-ui-react";
 // actions and state //
 import { getAllStores } from "../../stores/actions/APIstoreActions";
 import { setStoreByOptions } from "../../stores/actions/uiStoreActions";
-import { IGlobalAppState, AppAction } from "../../../../state/Store";
+import { Store } from "../../../../state/Store";
 // helpers //
 import { capitalizeString } from "../../../helpers/displayHelpers";
+import { StoreDropdownData } from "../type_definitions/storeItemTypes";
 
 interface Props {
-  state: IGlobalAppState;
-  dispatch: React.Dispatch<AppAction>;
+  activeStores: StoreDropdownData[];
 }
 type DropdownData = {
   key: string;
   text: string;
   value: string;
 }
-const StoreNameDropDown: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
+const StoreNameDropDown: React.FC<Props> = ({ activeStores }): JSX.Element => {
+  const { state, dispatch } = useContext(Store);
   const [ dropdownState, setDropdownState ] = useState<DropdownData[]>([]);
   const [ disabled, setDisabled ] = useState<boolean>(true);
   const { loadedStores } = state.storeState;

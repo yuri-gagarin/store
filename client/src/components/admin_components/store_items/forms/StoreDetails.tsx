@@ -6,7 +6,7 @@ interface Props {
   storeId: string;
   storeName: string;
   storeImageURL?: string;
-  createdAt: string;
+  createdAt?: string;
 }
 const StoreDetails: React.FC<Props> = ({ storeId, storeName, storeImageURL, createdAt }): JSX.Element => {
   return (
