@@ -102,7 +102,7 @@ const StoreItemForm: React.FC<Props> = ( props ): JSX.Element => {
         <Form.Field>
           <label>Store Item name</label>
           <input 
-            id="storeItemFormTitle"
+            id="storeItemFormNameInput"
             onChange={handleTitleChange} 
             placeholder="Store Item name here ..." 
             value={formState.name}
@@ -111,7 +111,7 @@ const StoreItemForm: React.FC<Props> = ( props ): JSX.Element => {
         <Form.Field>
           <label>Store Item price</label>
           <input 
-            id="storeItemFormPrice"
+            id="storeItemFormPriceInput"
             onChange={handlePriceChange} 
             placeholder="Store Item price here..." 
             value={formState.price}
@@ -122,7 +122,7 @@ const StoreItemForm: React.FC<Props> = ( props ): JSX.Element => {
           <StoreItemCategories _handleCategoryChange={handleCategoryChange} />
         </Form.Field>
         <Form.Field
-          id="storeItemFormDetails"
+          id="storeItemFormDetailsInput"
           control={TextArea}
           label='Store Item Details'
           onChange={handleDetailsChange}
@@ -130,7 +130,7 @@ const StoreItemForm: React.FC<Props> = ( props ): JSX.Element => {
           value={formState.details}
          />
         <Form.Field
-          id="storeItemFormDescription"
+          id="storeItemFormDescInput"
           control={TextArea}
           label='Store Item Description'
           onChange={hadnleDescriptionChange}
