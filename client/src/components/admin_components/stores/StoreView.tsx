@@ -8,6 +8,8 @@ import { Route, Switch } from "react-router-dom";
 import StorePreviewHolder from "./store_preview/StorePreviewHolder";
 import StoreManageHolder from "./store_manage/StoreManageHolder";
 import Spacer from "../miscelaneous/Spacer";
+// client routes //
+import AdminStoreRoutes from "../../../routes/adminStoreRoutes";
 // state //
 import { Store } from "../../../state/Store";
 
@@ -17,15 +19,15 @@ const StoreGeneralView: React.FC<{}> = (props): JSX.Element => {
     <div id="adminStoreViewHolder">
       <AdminStoreMenu  dispatch={dispatch} />
       <Switch>
-        <Route path="/admin/home/my_stores/all">
+        <Route path={AdminStoreRoutes.ADMIN_STORES_VIEW_ALL_ROUTE}>
           <Spacer width="100%" height="100px" />
           <StorePreviewHolder />
         </Route>
-        <Route path="/admin/home/my_stores/create">
+        <Route path={AdminStoreRoutes.ADMIN_STORES_CREATE_ROUTE}>
           <Spacer width="100%" height="100px"/>
           <StoreFormHolder />
         </Route>
-        <Route path="/admin/home/my_stores/manage">
+        <Route path={AdminStoreRoutes.ADMIN_STORES_VIEW_ALL_ROUTE}>
           <Spacer width="100%" height="100px" />
           <StoreManageHolder />
         </Route>

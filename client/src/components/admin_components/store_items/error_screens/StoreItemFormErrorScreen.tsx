@@ -1,8 +1,21 @@
 import React from "react";
 import { Button, Header, Icon, Segment } from "semantic-ui-react";
+// client routing imports //
+import { withRouter, RouteComponentProps } from "react-router-dom";
 // css imports //
 
-const StoreItemFormNoStoreScreen: React.FC<{}> = (props): JSX.Element => {
+interface Props extends RouteComponentProps {
+
+}
+
+const StoreItemFormNoStoreScreen: React.FC<Props> = ({ history }): JSX.Element => {
+
+  const handleBackClick = () => {
+    history.goBack();
+  };
+  const handleGoToStoreCreate = () => {
+    history.push("/admin/home/my_stores/create");
+  };
 
   return (
       <Segment placeholder>
@@ -10,11 +23,19 @@ const StoreItemFormNoStoreScreen: React.FC<{}> = (props): JSX.Element => {
           <Icon name="image"/>
             No Stores have been created yet. Please create at least one Store
         </Header>
-        <Button primary>Go Back</Button>
-        <Button primary>Create A Store</Button>
+        <Button 
+          primary
+          content={"Go Back"}
+          onClick={handleBackClick}
+        />
+        <Button 
+          primary 
+          content={"Create a Store"}
+          onClick={handleGoToStoreCreate}
+        />
 
       </Segment>
   );
 };
 
-export default StoreItemFormNoStoreScreen;
+export default withRouter(StoreItemFormNoStoreScreen);

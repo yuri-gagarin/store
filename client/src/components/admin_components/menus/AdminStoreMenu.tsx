@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Menu, MenuItemProps } from "semantic-ui-react";
 // routing //
 import { withRouter, RouteComponentProps, useRouteMatch } from "react-router-dom";
+import AdminStoreRoutes from "../../../routes/adminStoreRoutes";
 // css imports //
 import "./css/adminStoreMenu.css";
 // state and actions //
@@ -15,7 +16,7 @@ const AdminStoreMenu: React.FC<Props> = ({ history, location,  dispatch }): JSX.
   const [ activeItem, setActiveItem ] = useState<string>("view_all");
   const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
   // route match for correct links //
-  const match = useRouteMatch("/admin/home/my_stores");
+  const match = useRouteMatch(AdminStoreRoutes.ADMIN_STORES_HOME_ROUTE);
   const adminStoreMenuRef = useRef<HTMLDivElement>(document.createElement("div"));
 
   // event and handler listeners //
@@ -36,7 +37,7 @@ const AdminStoreMenu: React.FC<Props> = ({ history, location,  dispatch }): JSX.
         history.push(match?.path + "/manage");
         window.scrollTo({ top: 0, behavior: "smooth" });
         break;
-      default: history.push("/admin/home");
+      default: history.push(AdminStoreRoutes.ADMIN_STORES_HOME_ROUTE);
     }
   };
   const scrollListener = () => {

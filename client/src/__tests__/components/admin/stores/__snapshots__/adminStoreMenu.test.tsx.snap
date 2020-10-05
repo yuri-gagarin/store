@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdminStoreMenu component render tests Default component render Should properly render and match snapshot 1`] = `
+<div
+  class="adminStoreMenuFixed"
+>
+  <div
+    class="ui tabular adminStoreMenu menu"
+  >
+    <a
+      class="active item adminMenuLink"
+    >
+      View All
+    </a>
+    <a
+      class="item adminMenuLink"
+    >
+      Create Store
+    </a>
+    <a
+      class="item adminMenuLink"
+    >
+      Manage
+    </a>
+  </div>
+</div>
+`;
