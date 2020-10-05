@@ -13,7 +13,7 @@ interface Props extends RouteComponentProps {
 const AdminStoreMenu: React.FC<Props> = ({ history, location,  dispatch }): JSX.Element => {
   // local component state //
   const [ scrolled, setScrolled ] = useState<boolean>(false);
-  const [ activeItem, setActiveItem ] = useState<string>("view_all");
+  const [ activeItem, setActiveItem ] = useState<string>("");
   const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
   // route match for correct links //
   const match = useRouteMatch(AdminStoreRoutes.ADMIN_STORES_HOME_ROUTE);
@@ -25,7 +25,7 @@ const AdminStoreMenu: React.FC<Props> = ({ history, location,  dispatch }): JSX.
 
     switch (name) {
       case "view_all": 
-        history.push(match?.path + "/all");
+        history.push(match?.path + "/view_all");
         window.scrollTo({ top: 0, behavior: "smooth" });
         break;
       case "create":
@@ -51,7 +51,7 @@ const AdminStoreMenu: React.FC<Props> = ({ history, location,  dispatch }): JSX.
   useEffect(() => {
     const currentURL = location.pathname;
 
-    if (currentURL.match(/all/)) {
+    if (currentURL.match(/view_all/)) {
       setActiveItem("view_all");
     } else if (currentURL.match(/create/)) {
       setActiveItem("create");
