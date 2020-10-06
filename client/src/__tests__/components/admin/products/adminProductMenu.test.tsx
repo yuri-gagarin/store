@@ -6,7 +6,7 @@ import { MemoryRouter, Router } from "react-router-dom";
 // component imports //
 import AdminProductsMenu from "../../../../components/admin_components/menus/AdminProductsMenu";
 // component dependencies //
-import AdminProductRoutes from "../../../../routes/adminProductRoutes";
+import { AdminProductRoutes } from "../../../../routes/adminRoutes";
 
 describe("AdminProductMenu component render tests", () => {
   let wrapper: ReactWrapper;
@@ -21,9 +21,9 @@ describe("AdminProductMenu component render tests", () => {
     it("Should properly render and match snapshot", () => {
       expect(wrapper.find(AdminProductsMenu)).toMatchSnapshot();
     });
-    it("Should have 3 'Menu.Item' components", () => {
+    it("Should have 4 'Menu.Item' components", () => {
       const menuItems = wrapper.find(Menu.Item);
-      expect(menuItems.length).toEqual(3);
+      expect(menuItems.length).toEqual(4);
     });
     it("Should not have any of the links in 'active' state", () => {
       const menuItems = wrapper.find(Menu.Item);
@@ -44,6 +44,7 @@ describe("AdminProductMenu component render tests", () => {
       expect(wrapper.find(Menu.Item).at(0).props().active).toEqual(true);
       expect(wrapper.find(Menu.Item).at(1).props().active).toEqual(false);
       expect(wrapper.find(Menu.Item).at(2).props().active).toEqual(false);
+      expect(wrapper.find(Menu.Item).at(3).props().active).toEqual(false);
       // assert correct client route //
       expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminProductRoutes.ADMIN_PRODUCTS_VIEW_ALL_ROUTE);
 
@@ -57,9 +58,10 @@ describe("AdminProductMenu component render tests", () => {
       expect(wrapper.find(Menu.Item).at(0).props().active).toEqual(false);
       expect(wrapper.find(Menu.Item).at(1).props().active).toEqual(true);
       expect(wrapper.find(Menu.Item).at(2).props().active).toEqual(false);
+      expect(wrapper.find(Menu.Item).at(3).props().active).toEqual(false);
       // assert correct client route //
       expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminProductRoutes.ADMIN_PRODUCTS_CREATE_ROUTE);
-    })
+    });
     it("Should correctly respond to 'Manage' 'Menu.Item' click", () => {
       window.scrollTo = jest.fn;
       const menuItems = wrapper.find(Menu.Item)
@@ -69,8 +71,22 @@ describe("AdminProductMenu component render tests", () => {
       expect(wrapper.find(Menu.Item).at(0).props().active).toEqual(false);
       expect(wrapper.find(Menu.Item).at(1).props().active).toEqual(false);
       expect(wrapper.find(Menu.Item).at(2).props().active).toEqual(true);
+      expect(wrapper.find(Menu.Item).at(3).props().active).toEqual(false);
       // assert correct client route //
       expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminProductRoutes.ADMIN_PRODUCTS_MANAGE_ROUTE);
+    })
+    it("Should correctly respond to 'View Sorted' 'Menu.Item' click", () => {
+      window.scrollTo = jest.fn;
+      const menuItems = wrapper.find(Menu.Item)
+      menuItems.at(3).simulate("click");
+      wrapper.update();
+      // assert correct rendering //
+      expect(wrapper.find(Menu.Item).at(0).props().active).toEqual(false);
+      expect(wrapper.find(Menu.Item).at(1).props().active).toEqual(false);
+      expect(wrapper.find(Menu.Item).at(2).props().active).toEqual(false);
+      expect(wrapper.find(Menu.Item).at(3).props().active).toEqual(true);
+      // assert correct client route //
+      expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminProductRoutes.ADMIN_PRODUCTS_VIEW_SORTED_ROUTE);
     })
   })
 })

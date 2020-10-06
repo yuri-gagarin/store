@@ -3,7 +3,7 @@ import { mount, ReactWrapper } from "enzyme";
 import AdminStoreMenu from "../../../../components/admin_components/menus/AdminStoreMenu";
 import { MemoryRouter, Router } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
-import AdminStoreRoutes from "../../../../routes/adminStoreRoutes";
+import { AdminStoreRoutes } from "../../../../routes/adminRoutes";
 
 describe("AdminStoreMenu component render tests", () => {
   let wrapper: ReactWrapper;

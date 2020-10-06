@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Menu, MenuItemProps } from "semantic-ui-react";
 // routing //
 import { withRouter, RouteComponentProps, useRouteMatch } from "react-router-dom";
-import AdminStoreRoutes from "../../../routes/adminStoreRoutes";
+import { AdminStoreRoutes } from "../../../routes/adminRoutes";
 // css imports //
 import "./css/adminStoreMenu.css";
 // state and actions //

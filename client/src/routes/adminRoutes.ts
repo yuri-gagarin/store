@@ -1,0 +1,26 @@
+export const AdminProductRoutes = {
+  ADMIN_PRODUCTS_HOME_ROUTE: "/admin/home/my_products",
+  ADMIN_PRODUCTS_VIEW_ALL_ROUTE: "/admin/home/my_products/view_all",
+  ADMIN_PRODUCTS_CREATE_ROUTE: "/admin/home/my_products/create",
+  ADMIN_PRODUCTS_MANAGE_ROUTE: "/admin/home/my_products/manage",
+  ADMIN_PRODUCTS_SHOW_ROUTE: "/admin/home/my_products/show",
+  ADMIN_PRODUCTS_VIEW_SORTED_ROUTE: "/admin/home/my_products/view_sorted"
+}
+
+export const AdminServiceRoutes = {
+  ADMIN_SERVICES_HOME_ROUTE: "/admin/home/my_services",
+  ADMIN_SERVICES_VIEW_ALL_ROUTE: "/admin/home/my_services/view_all",
+  ADMIN_SERVICES_CREATE_ROUTE: "/admin/home/my_services/create",
+  ADMIN_SERVICES_MANAGE_ROUTE: "/admin/home/my_services/manage",
+  ADMIN_SERVICES_SHOW_ROUTE: "/admin/home/my_services/show",
+  ADMIN_SERVICES_VIEW_SORTED_ROUTE: "/admin/home/my_services/view_sorted"
+};
+
+export const AdminStoreRoutes = {
+  ADMIN_STORES_HOME_ROUTE: "/admin/home/my_stores",
+  ADMIN_STORES_CREATE_ROUTE: "/admin/home/my_stores/create",
+  ADMIN_STORES_MANAGE_ROUTE: "/admin/home/my_stores/manage",
+  ADMIN_STORES_SHOW_ROUTE: "/admin/home/my_stores/show",
+  ADMIN_STORES_VIEW_ALL_ROUTE: "/admin/home/my_stores/view_all"
+}
+
