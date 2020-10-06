@@ -5,7 +5,7 @@ export const AdminProductRoutes = {
   ADMIN_PRODUCTS_MANAGE_ROUTE: "/admin/home/my_products/manage",
   ADMIN_PRODUCTS_SHOW_ROUTE: "/admin/home/my_products/show",
   ADMIN_PRODUCTS_VIEW_SORTED_ROUTE: "/admin/home/my_products/view_sorted"
-}
+};
 
 export const AdminServiceRoutes = {
   ADMIN_SERVICES_HOME_ROUTE: "/admin/home/my_services",
@@ -22,5 +22,14 @@ export const AdminStoreRoutes = {
   ADMIN_STORES_MANAGE_ROUTE: "/admin/home/my_stores/manage",
   ADMIN_STORES_SHOW_ROUTE: "/admin/home/my_stores/show",
   ADMIN_STORES_VIEW_ALL_ROUTE: "/admin/home/my_stores/view_all"
-}
+};
+
+export const AdminStoreItemRoutes = {
+  HOME_ROUTE: "/admin/home/my_store_items",
+  CREATE_ROUTE: "/admin/home/my_store_items/create",
+  MANAGE_ROUTE: "/admin/home/my_store_items/manage",
+  SHOW_ROUTE: "/admin/home/my_store_items/show",
+  VIEW_ALL_ROUTE: "/admin/home/my_store_items/view_all",
+  VIEW_SORTED_ROUTE: "/admin/home/my_store_items/view_sorted"
+};
 
