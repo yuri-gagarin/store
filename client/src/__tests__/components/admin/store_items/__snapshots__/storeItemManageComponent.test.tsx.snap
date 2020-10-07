@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StoreItem Manage Holder Tests Default Component state at first render Should correctly render 1`] = `
-<MemoryRouter>
-  <Router
+<withRouter(StoreItemsManageHolder)>
+  <StoreItemsManageHolder
     history={
       Object {
         "action": "POP",
@@ -12,8 +12,7 @@ exports[`StoreItem Manage Holder Tests Default Component state at first render S
         "entries": Array [
           Object {
             "hash": "",
-            "key": "0qw0jt",
-            "pathname": "/",
+            "pathname": "/admin/home/my_store_items/manage",
             "search": "",
             "state": undefined,
           },
@@ -26,8 +25,7 @@ exports[`StoreItem Manage Holder Tests Default Component state at first render S
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "0qw0jt",
-          "pathname": "/",
+          "pathname": "/admin/home/my_store_items/manage",
           "search": "",
           "state": undefined,
         },
@@ -35,134 +33,95 @@ exports[`StoreItem Manage Holder Tests Default Component state at first render S
         "replace": [Function],
       }
     }
+    location={
+      Object {
+        "hash": "",
+        "pathname": "/admin/home/my_store_items/manage",
+        "search": "",
+        "state": undefined,
+      }
+    }
+    match={
+      Object {
+        "isExact": false,
+        "params": Object {},
+        "path": "/",
+        "url": "/",
+      }
+    }
   >
-    <Component>
-      <withRouter(StoreItemsManageHolder)>
-        <StoreItemsManageHolder
-          history={
-            Object {
-              "action": "POP",
-              "block": [Function],
-              "canGo": [Function],
-              "createHref": [Function],
-              "entries": Array [
-                Object {
-                  "hash": "",
-                  "key": "0qw0jt",
-                  "pathname": "/",
-                  "search": "",
-                  "state": undefined,
-                },
-              ],
-              "go": [Function],
-              "goBack": [Function],
-              "goForward": [Function],
-              "index": 0,
-              "length": 1,
-              "listen": [Function],
-              "location": Object {
-                "hash": "",
-                "key": "0qw0jt",
-                "pathname": "/",
-                "search": "",
-                "state": undefined,
-              },
-              "push": [Function],
-              "replace": [Function],
-            }
+    <LoaderExampleText>
+      <div
+        id="generalLoadingScreen"
+        style={
+          Object {
+            "height": "100vh",
           }
-          location={
+        }
+      >
+        <Segment
+          style={
             Object {
-              "hash": "",
-              "key": "0qw0jt",
-              "pathname": "/",
-              "search": "",
-              "state": undefined,
-            }
-          }
-          match={
-            Object {
-              "isExact": true,
-              "params": Object {},
-              "path": "/",
-              "url": "/",
+              "height": "100vh",
             }
           }
         >
-          <LoaderExampleText>
-            <div
-              style={
-                Object {
-                  "height": "100vh",
-                }
+          <div
+            className="ui segment"
+            style={
+              Object {
+                "height": "100vh",
               }
+            }
+          >
+            <Dimmer
+              active={true}
+              inverted={true}
             >
-              <Segment
-                style={
-                  Object {
-                    "height": "100vh",
-                  }
-                }
+              <DimmerInner
+                active={true}
+                inverted={true}
               >
-                <div
-                  className="ui segment"
-                  style={
+                <Ref
+                  innerRef={
                     Object {
-                      "height": "100vh",
+                      "current": null,
                     }
                   }
                 >
-                  <Dimmer
-                    active={true}
-                    inverted={true}
+                  <RefFindNode
+                    innerRef={
+                      Object {
+                        "current": null,
+                      }
+                    }
                   >
-                    <DimmerInner
-                      active={true}
-                      inverted={true}
+                    <div
+                      className="ui active transition visible inverted dimmer"
+                      onClick={[Function]}
                     >
-                      <Ref
-                        innerRef={
-                          Object {
-                            "current": null,
-                          }
-                        }
+                      <div
+                        className="content"
                       >
-                        <RefFindNode
-                          innerRef={
-                            Object {
-                              "current": null,
-                            }
-                          }
-                        >
+                        <Loader>
                           <div
-                            className="ui active transition visible inverted dimmer"
-                            onClick={[Function]}
+                            className="ui text loader"
                           >
-                            <div
-                              className="content"
-                            >
-                              <Loader>
-                                <div
-                                  className="ui text loader"
-                                >
-                                  Please Wait
-                                </div>
-                              </Loader>
-                            </div>
+                            Please Wait
                           </div>
-                        </RefFindNode>
-                      </Ref>
-                    </DimmerInner>
-                  </Dimmer>
-                </div>
-              </Segment>
-            </div>
-          </LoaderExampleText>
-        </StoreItemsManageHolder>
-      </withRouter(StoreItemsManageHolder)>
-    </Component>
-  </Router>
-</MemoryRouter>
+                        </Loader>
+                      </div>
+                    </div>
+                  </RefFindNode>
+                </Ref>
+              </DimmerInner>
+            </Dimmer>
+          </div>
+        </Segment>
+      </div>
+    </LoaderExampleText>
+  </StoreItemsManageHolder>
+</withRouter(StoreItemsManageHolder)>
 `;
 
 exports[`StoreItem Manage Holder Tests State after a successful API call Should render the correct StoreItemManageHolder Component 1`] = `null`;
