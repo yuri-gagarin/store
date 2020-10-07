@@ -9,6 +9,7 @@ import StoreItemFormHolder from "./forms/StoreItemFormHolder";
 import "./css/storeItemsView.css";
 // routing //
 import { RouteComponentProps, Route, Switch, withRouter } from "react-router-dom";
+import { AdminStoreItemRoutes } from "../../../routes/adminRoutes";
 // state //
 import { Store } from "../../../state/Store";
 
@@ -25,17 +26,17 @@ const StoreItemsView: React.FC<{}> = (props): JSX.Element => {
 
   return (
     <div id="adminStoreItemsViewHolder">
-      <AdminStoreItemsMenu state={state} dispatch={dispatch} />
+      <AdminStoreItemsMenu dispatch={dispatch} />
       <Switch>
-        <Route path="/admin/home/store_items/all">
+        <Route path={AdminStoreItemRoutes.VIEW_ALL_ROUTE}>
           <Spacer width="100%" height="100px"/>
           <StoreItemsPreviewHolder state={state} dispatch={dispatch} />
         </Route>
-        <Route path="/admin/home/store_items/create">
+        <Route path={AdminStoreItemRoutes.CREATE_ROUTE}>
           <Spacer width="100%" height="100px" />
           <StoreItemFormHolder />
         </Route>
-        <Route path="/admin/home/store_items/manage">
+        <Route path={AdminStoreItemRoutes.MANAGE_ROUTE}>
           <Spacer width="100%" height="100px"></Spacer>
           <StoreItemsManageHolder />
         </Route>

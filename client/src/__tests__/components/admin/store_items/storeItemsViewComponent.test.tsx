@@ -5,36 +5,37 @@ import { mount, ReactWrapper } from "enzyme";
 import StoreItemsViewComponent from "../../../../components/admin_components/store_items/StoreItemsView";
 import AdminStoreItemsMenu from "../../../../components/admin_components/menus/AdminStoreItemsMenu";
 import StoreItemsPreviewHolder from "../../../../components/admin_components/store_items/store_items_preview/StoreItemsPreviewHolder";
-import StoreItemFormHolder from "../../../../components/admin_components/store_items/forms/StoreItemFormHolder";
+import {StoreItemFormHolder } from "../../../../components/admin_components/store_items/forms/StoreItemFormHolder";
 // additional dependencies //
 import  { BrowserRouter as Router, Switch, MemoryRouter } from "react-router-dom";
 import { StoreItemsManageHolder } from "../../../../components/admin_components/store_items/store_items_manage/StoreItemsManageHolder";
+import { AdminStoreItemRoutes } from "../../../../routes/adminRoutes";
 
 describe("StoreItemView Component test", () => {
-  let component: ReactWrapper;
+  let wrapper: ReactWrapper;
   beforeAll(() => {
-    component = mount<{}, typeof Router>(
-      <MemoryRouter initialEntries={["/admin/home/store_items"]}>
+    wrapper = mount<{}, typeof Router>(
+      <MemoryRouter initialEntries={[AdminStoreItemRoutes.HOME_ROUTE]} keyLength={0}>
         <StoreItemsViewComponent />
       </MemoryRouter>
     );
   });
   describe("StoreItemView Component render test", () => {
     it("Should Properly render StoreItemsView", () => {
-      expect(component).toMatchSnapshot();
+      expect(wrapper.find(StoreItemsViewComponent)).toMatchSnapshot();
     });
     it("Should render Admin StoreItem Menu", () => {
-      expect(component.find(AdminStoreItemsMenu)).toHaveLength(1);
+      expect(wrapper.find(AdminStoreItemsMenu)).toHaveLength(1);
     });
     it("Should render conditional routes", () => {
-      expect(component.find("Switch")).toHaveLength(1);
+      expect(wrapper.find("Switch")).toHaveLength(1);
     });
     it("Should have Render three children route componets", () => {
-      const switchComponent = component.find(Switch);
+      const switchComponent = wrapper.find(Switch);
       expect(switchComponent.props().children).toHaveLength(3);
     });
     it("Should have proper client routes and conditionally render correct Components", () => {
-      const switchComponent = component.find(Switch);
+      const switchComponent = wrapper.find(Switch);
       type RouteMap = {
         [key: string]: string
       }
@@ -49,46 +50,59 @@ describe("StoreItemView Component test", () => {
           map[component.props.path as string] = component.props.children[1].type;
         }
       }
-      expect(map["/admin/home/store_items/all"]).toBe(StoreItemsPreviewHolder);
-      expect(map["/admin/home/store_items/create"]).toBe(StoreItemFormHolder);
-      expect(map["/admin/home/store_items/manage"]).toBe(StoreItemsManageHolder);
+      expect(map[AdminStoreItemRoutes.VIEW_ALL_ROUTE]).toBe(StoreItemsPreviewHolder);
+      expect(map[AdminStoreItemRoutes.CREATE_ROUTE]).toBe(StoreItemFormHolder);
+      expect(map[AdminStoreItemRoutes.MANAGE_ROUTE]).toBe(StoreItemsManageHolder);
     });
   });
+  
   describe("StoreItemView Component button actions", () => {
-    describe("AdminStoreItemMenu", () => {
-      it("Should have 3 main navigation links", () => {
-        const wrapper = component.find(AdminStoreItemsMenu);
-        const links = wrapper.find(Menu.Item)
-        expect(links.length).toEqual(3);
-      });
-      it("'View All Store Items' link should properly function", () => {
+    describe("'click' Event on 'View All' Link", () => {
+      it("Should render 'StoreItemsPreviewHolder' component", () => {
         window.scrollTo = jest.fn();
-        const viewAllLink = component.find(AdminStoreItemsMenu).find(Menu.Item).at(0);
+        const viewAllLink = wrapper.find(AdminStoreItemsMenu).find(Menu.Item).at(0);
         viewAllLink.simulate("click");
-        component.update();
-        expect(component.find(StoreItemsPreviewHolder).length).toEqual(1);
-        expect(component.find(StoreItemFormHolder).length).toEqual(0);
-        expect(component.find(StoreItemsManageHolder).length).toEqual(0);
+        wrapper.update();
+        expect(wrapper.find(StoreItemsPreviewHolder).length).toEqual(1);
       });
-      it("'Create Store Item' link should properly function", () => {
-        window.scrollTo = jest.fn();
-        const viewAllLink = component.find(AdminStoreItemsMenu).find(Menu.Item).at(1);
-        viewAllLink.simulate("click");
-        component.update();
-        expect(component.find(StoreItemsPreviewHolder).length).toEqual(0);
-        expect(component.find(StoreItemFormHolder).length).toEqual(1);
-        expect(component.find(StoreItemsManageHolder).length).toEqual(0);
+      it("Should NOT render 'StoreItemFormHolder' component", () => {
+        expect(wrapper.find(StoreItemFormHolder).length).toEqual(0);
       });
-      it("'Manage Store Items' link should properly function", () => {
+      it("Should NOT render 'StoreItemsManageHolder' compnent", () => {
+        expect(wrapper.find(StoreItemsManageHolder).length).toEqual(0);
+      });
+    });
+    describe("'click' Event on 'Create Store Item' Link", () => {
+      it("Should render 'StoreItemsFormHolder' component", () => {
         window.scrollTo = jest.fn();
-        const viewAllLink = component.find(AdminStoreItemsMenu).find(Menu.Item).at(2);
+        const viewAllLink = wrapper.find(AdminStoreItemsMenu).find(Menu.Item).at(1);
         viewAllLink.simulate("click");
-        component.update();
-        expect(component.find(StoreItemsPreviewHolder).length).toEqual(0);
-        expect(component.find(StoreItemFormHolder).length).toEqual(0);
-        expect(component.find(StoreItemsManageHolder).length).toEqual(1);
+        wrapper.update();
+        expect(wrapper.find(StoreItemFormHolder).length).toEqual(1);
+      });
+      it("Should NOT render 'StoreItemsPreviewHolder' component", () => {
+        expect(wrapper.find(StoreItemsPreviewHolder).length).toEqual(0);
+      });
+      it("Should NOT render 'StoreItemsManageHolder' component", () => {
+        expect(wrapper.find(StoreItemsManageHolder).length).toEqual(0);
+      });
+    });
+    describe("'click' Event on 'Manage Store Items' Link", () => {
+      it("Should render 'StoreItemsManage' component", () => {
+        window.scrollTo = jest.fn();
+        const viewAllLink = wrapper.find(AdminStoreItemsMenu).find(Menu.Item).at(2);
+        viewAllLink.simulate("click");
+        wrapper.update();
+        expect(wrapper.find(StoreItemsManageHolder).length).toEqual(1);
+      });
+      it("Should NOT redner 'StoreItemsFormHolder' component", () => {
+        expect(wrapper.find(StoreItemFormHolder).length).toEqual(0);
+      });
+      it("Should NOT redner 'StoreItemsPreviewHolder' component", () => {
+        expect(wrapper.find(StoreItemsPreviewHolder).length).toEqual(0);
       });
     });
     
   });
-})
+  
+});

@@ -11,6 +11,7 @@ import { StorePreviewHolder } from "../../../../components/admin_components/stor
 import { StoreFormHolder } from "../../../../components/admin_components/stores/forms/StoreFormHolder";
 import { StoreManageHolder } from "../../../../components/admin_components/stores/store_manage/StoreManageHolder";
 // additional dependencies //
+import { } from "../../../../routes/adminRoutes";
 
 describe("StoreView Component render tests", () => {
   // TEST StoreViewComponent render //

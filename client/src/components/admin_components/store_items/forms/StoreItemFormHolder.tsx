@@ -210,6 +210,8 @@ const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
     </div>
   );
 };
-
+// export for render tests //
+export { StoreItemFormHolder }
+// default export //
 export default withRouter(StoreItemFormHolder);
 
