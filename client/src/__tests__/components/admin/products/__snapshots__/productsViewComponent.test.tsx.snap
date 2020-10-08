@@ -9,7 +9,7 @@ exports[`ProductView Component render tests ProductView Component default render
   />
   <Switch>
     <Route
-      path="/admin/home/my_products/all"
+      path="/admin/home/my_products/view_all"
     >
       <Component
         height="100px"

@@ -10,6 +10,7 @@ import AdminProductsMenu from "../../../../components/admin_components/menus/Adm
 import { ProductsPreviewHolder } from "../../../../components/admin_components/products/product_preview/ProductsPreviewHolder";
 import { ProductFormHolder } from "../../../../components/admin_components/products/forms/ProductFormHolder";
 import { ProductsManageHolder } from "../../../../components/admin_components/products/product_manage/ProductsManageHolder";
+import { AdminProductRoutes } from "../../../../routes/adminRoutes";
 // additional dependencies //
 
 
@@ -48,9 +49,9 @@ describe("ProductView Component render tests", () => {
           map[component.props.path as string] = component.props.children[1].type;
         }
       }
-      expect(map["/admin/home/my_products/all"]).toBe(ProductsPreviewHolder);
-      expect(map["/admin/home/my_products/create"]).toBe(ProductFormHolder);
-      expect(map["/admin/home/my_products/manage"]).toBe(ProductsManageHolder);
+      expect(map[AdminProductRoutes.VIEW_ALL_ROUTE]).toBe(ProductsPreviewHolder);
+      expect(map[AdminProductRoutes.CREATE_ROUTE]).toBe(ProductFormHolder);
+      expect(map[AdminProductRoutes.MANAGE_ROUTE]).toBe(ProductsManageHolder);
     });
   });
   // END ProductViewComponent render tests //

@@ -16,7 +16,7 @@ const AdminProductsMenu: React.FC<Props> = ({ history, location, dispatch }): JS
   const [ activeItem, setActiveItem ] = useState<string>("");
   const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
 
-  const match = useRouteMatch(AdminProductRoutes.ADMIN_PRODUCTS_HOME_ROUTE);
+  const match = useRouteMatch(AdminProductRoutes.HOME_ROUTE);
   const adminProductsMenuRef = useRef<HTMLDivElement>(document.createElement("div"));
 
   const handleItemClick = (e: React.MouseEvent, { name }: MenuItemProps): void => {
@@ -41,7 +41,7 @@ const AdminProductsMenu: React.FC<Props> = ({ history, location, dispatch }): JS
         history.push(match?.path + "/view_sorted");
         break;
       }
-      default: history.push(AdminProductRoutes.ADMIN_PRODUCTS_HOME_ROUTE);
+      default: history.push(AdminProductRoutes.HOME_ROUTE);
     }
   }
  

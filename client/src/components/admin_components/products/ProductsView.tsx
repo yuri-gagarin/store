@@ -9,6 +9,7 @@ import ProductFormHolder from "./forms/ProductFormHolder";
 import "./css/productsView.css";
 // routing //
 import { Route, Switch } from "react-router-dom";
+import { AdminProductRoutes } from "../../../routes/adminRoutes";
 // state //
 import { Store } from "../../../state/Store";
 
@@ -27,15 +28,15 @@ const ProductsView: React.FC<{}> = (props): JSX.Element => {
     <div id="adminProductsViewHolder">
       <AdminProductsMenu dispatch={dispatch} />
       <Switch>
-        <Route path="/admin/home/my_products/all">
+        <Route path={AdminProductRoutes.VIEW_ALL_ROUTE}>
           <Spacer width="100%" height="100px"/>
           <ProductsPreviewHolder />
         </Route>
-        <Route path="/admin/home/my_products/create">
+        <Route path={AdminProductRoutes.CREATE_ROUTE}>
           <Spacer width="100%" height="100px" />
           <ProductFormHolder />
         </Route>
-        <Route path="/admin/home/my_products/manage">
+        <Route path={AdminProductRoutes.MANAGE_ROUTE}>
           <Spacer width="100%" height="100px"></Spacer>
           <ProductsManageHolder />
         </Route>

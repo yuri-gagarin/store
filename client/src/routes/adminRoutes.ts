@@ -1,10 +1,10 @@
 export const AdminProductRoutes = {
-  ADMIN_PRODUCTS_HOME_ROUTE: "/admin/home/my_products",
-  ADMIN_PRODUCTS_VIEW_ALL_ROUTE: "/admin/home/my_products/view_all",
-  ADMIN_PRODUCTS_CREATE_ROUTE: "/admin/home/my_products/create",
-  ADMIN_PRODUCTS_MANAGE_ROUTE: "/admin/home/my_products/manage",
-  ADMIN_PRODUCTS_SHOW_ROUTE: "/admin/home/my_products/show",
-  ADMIN_PRODUCTS_VIEW_SORTED_ROUTE: "/admin/home/my_products/view_sorted"
+  HOME_ROUTE: "/admin/home/my_products",
+  VIEW_ALL_ROUTE: "/admin/home/my_products/view_all",
+  CREATE_ROUTE: "/admin/home/my_products/create",
+  MANAGE_ROUTE: "/admin/home/my_products/manage",
+  SHOW_ROUTE: "/admin/home/my_products/show",
+  VIEW_SORTED_ROUTE: "/admin/home/my_products/view_sorted"
 };
 
 export const AdminServiceRoutes = {
