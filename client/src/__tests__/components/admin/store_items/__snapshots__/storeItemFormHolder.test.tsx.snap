@@ -257,8 +257,9 @@ exports[`StoreItemFormHolder Component tests Form Holder state OPEN - NO Current
                           <label>
                             Which Store to place the item in?
                           </label>
-                          <StoreNameDropDown
+                          <StoreItemFormStoreDropdown
                             activeStores={Array []}
+                            setStoreItemStore={[Function]}
                           >
                             <Dropdown
                               additionLabel="Add "
@@ -380,7 +381,7 @@ exports[`StoreItemFormHolder Component tests Form Holder state OPEN - NO Current
                                 </RefFindNode>
                               </Ref>
                             </Dropdown>
-                          </StoreNameDropDown>
+                          </StoreItemFormStoreDropdown>
                         </div>
                       </FormField>
                       <FormField>

@@ -2,7 +2,22 @@
 
 exports[`StoreItem Form Component render tests Empty Form render tests Should properly mount 1`] = `
 <StoreItemForm
-  activeStores={Array []}
+  activeStores={
+    Array [
+      Object {
+        "storeId": "1111",
+        "storeName": "first",
+      },
+      Object {
+        "storeId": "2222",
+        "storeName": "second",
+      },
+      Object {
+        "storeId": "3333",
+        "storeName": "third",
+      },
+    ]
+  }
   categories={Array []}
   description=""
   details=""
@@ -33,8 +48,24 @@ exports[`StoreItem Form Component render tests Empty Form render tests Should pr
             <label>
               Which Store to place the item in?
             </label>
-            <StoreNameDropDown
-              activeStores={Array []}
+            <StoreItemFormStoreDropdown
+              activeStores={
+                Array [
+                  Object {
+                    "storeId": "1111",
+                    "storeName": "first",
+                  },
+                  Object {
+                    "storeId": "2222",
+                    "storeName": "second",
+                  },
+                  Object {
+                    "storeId": "3333",
+                    "storeName": "third",
+                  },
+                ]
+              }
+              setStoreItemStore={[Function]}
             >
               <Dropdown
                 additionLabel="Add "
@@ -42,13 +73,31 @@ exports[`StoreItem Form Component render tests Empty Form render tests Should pr
                 closeOnBlur={true}
                 closeOnEscape={true}
                 deburr={false}
-                disabled={true}
+                disabled={false}
                 icon="dropdown"
                 minCharacters={1}
                 noResultsMessage="No results found."
                 onChange={[Function]}
                 openOnFocus={true}
-                options={Array []}
+                options={
+                  Array [
+                    Object {
+                      "key": "1111",
+                      "text": "First",
+                      "value": "first",
+                    },
+                    Object {
+                      "key": "2222",
+                      "text": "Second",
+                      "value": "second",
+                    },
+                    Object {
+                      "key": "3333",
+                      "text": "Third",
+                      "value": "third",
+                    },
+                  ]
+                }
                 placeholder="Select a Store"
                 renderLabel={[Function]}
                 searchInput="text"
@@ -61,11 +110,11 @@ exports[`StoreItem Form Component render tests Empty Form render tests Should pr
                   innerRef={
                     Object {
                       "current": <div
-                        aria-disabled="true"
+                        aria-disabled="false"
                         aria-expanded="false"
-                        class="ui disabled selection dropdown"
+                        class="ui selection dropdown"
                         role="listbox"
-                        tabindex="-1"
+                        tabindex="0"
                       >
                         <div
                           aria-atomic="true"
@@ -81,7 +130,47 @@ exports[`StoreItem Form Component render tests Empty Form render tests Should pr
                         />
                         <div
                           class="menu transition"
-                        />
+                        >
+                          <div
+                            aria-checked="false"
+                            aria-selected="true"
+                            class="selected item"
+                            role="option"
+                            style="pointer-events: all;"
+                          >
+                            <span
+                              class="text"
+                            >
+                              First
+                            </span>
+                          </div>
+                          <div
+                            aria-checked="false"
+                            aria-selected="false"
+                            class="item"
+                            role="option"
+                            style="pointer-events: all;"
+                          >
+                            <span
+                              class="text"
+                            >
+                              Second
+                            </span>
+                          </div>
+                          <div
+                            aria-checked="false"
+                            aria-selected="false"
+                            class="item"
+                            role="option"
+                            style="pointer-events: all;"
+                          >
+                            <span
+                              class="text"
+                            >
+                              Third
+                            </span>
+                          </div>
+                        </div>
                       </div>,
                     }
                   }
@@ -90,11 +179,11 @@ exports[`StoreItem Form Component render tests Empty Form render tests Should pr
                     innerRef={
                       Object {
                         "current": <div
-                          aria-disabled="true"
+                          aria-disabled="false"
                           aria-expanded="false"
-                          class="ui disabled selection dropdown"
+                          class="ui selection dropdown"
                           role="listbox"
-                          tabindex="-1"
+                          tabindex="0"
                         >
                           <div
                             aria-atomic="true"
@@ -110,22 +199,62 @@ exports[`StoreItem Form Component render tests Empty Form render tests Should pr
                           />
                           <div
                             class="menu transition"
-                          />
+                          >
+                            <div
+                              aria-checked="false"
+                              aria-selected="true"
+                              class="selected item"
+                              role="option"
+                              style="pointer-events: all;"
+                            >
+                              <span
+                                class="text"
+                              >
+                                First
+                              </span>
+                            </div>
+                            <div
+                              aria-checked="false"
+                              aria-selected="false"
+                              class="item"
+                              role="option"
+                              style="pointer-events: all;"
+                            >
+                              <span
+                                class="text"
+                              >
+                                Second
+                              </span>
+                            </div>
+                            <div
+                              aria-checked="false"
+                              aria-selected="false"
+                              class="item"
+                              role="option"
+                              style="pointer-events: all;"
+                            >
+                              <span
+                                class="text"
+                              >
+                                Third
+                              </span>
+                            </div>
+                          </div>
                         </div>,
                       }
                     }
                   >
                     <div
-                      aria-disabled={true}
+                      aria-disabled={false}
                       aria-expanded={false}
-                      className="ui disabled selection dropdown"
+                      className="ui selection dropdown"
                       onBlur={[Function]}
                       onChange={[Function]}
                       onClick={[Function]}
                       onFocus={[Function]}
                       onMouseDown={[Function]}
                       role="listbox"
-                      tabIndex={-1}
+                      tabIndex={0}
                     >
                       <div
                         aria-atomic={true}
@@ -150,13 +279,110 @@ exports[`StoreItem Form Component render tests Empty Form render tests Should pr
                       <DropdownMenu>
                         <div
                           className="menu transition"
-                        />
+                        >
+                          <DropdownItem
+                            active={false}
+                            key="1111"
+                            onClick={[Function]}
+                            selected={true}
+                            style={
+                              Object {
+                                "pointerEvents": "all",
+                              }
+                            }
+                            text="First"
+                            value="first"
+                          >
+                            <div
+                              aria-checked={false}
+                              aria-selected={true}
+                              className="selected item"
+                              onClick={[Function]}
+                              role="option"
+                              style={
+                                Object {
+                                  "pointerEvents": "all",
+                                }
+                              }
+                            >
+                              <span
+                                className="text"
+                              >
+                                First
+                              </span>
+                            </div>
+                          </DropdownItem>
+                          <DropdownItem
+                            active={false}
+                            key="2222"
+                            onClick={[Function]}
+                            selected={false}
+                            style={
+                              Object {
+                                "pointerEvents": "all",
+                              }
+                            }
+                            text="Second"
+                            value="second"
+                          >
+                            <div
+                              aria-checked={false}
+                              aria-selected={false}
+                              className="item"
+                              onClick={[Function]}
+                              role="option"
+                              style={
+                                Object {
+                                  "pointerEvents": "all",
+                                }
+                              }
+                            >
+                              <span
+                                className="text"
+                              >
+                                Second
+                              </span>
+                            </div>
+                          </DropdownItem>
+                          <DropdownItem
+                            active={false}
+                            key="3333"
+                            onClick={[Function]}
+                            selected={false}
+                            style={
+                              Object {
+                                "pointerEvents": "all",
+                              }
+                            }
+                            text="Third"
+                            value="third"
+                          >
+                            <div
+                              aria-checked={false}
+                              aria-selected={false}
+                              className="item"
+                              onClick={[Function]}
+                              role="option"
+                              style={
+                                Object {
+                                  "pointerEvents": "all",
+                                }
+                              }
+                            >
+                              <span
+                                className="text"
+                              >
+                                Third
+                              </span>
+                            </div>
+                          </DropdownItem>
+                        </div>
                       </DropdownMenu>
                     </div>
                   </RefFindNode>
                 </Ref>
               </Dropdown>
-            </StoreNameDropDown>
+            </StoreItemFormStoreDropdown>
           </div>
         </FormField>
         <FormField>
@@ -914,8 +1140,8 @@ exports[`StoreItem Form Component render tests Form with valid data render tests
   name="name"
   newForm={false}
   price="100"
-  storeId="2222"
-  storeName="store"
+  storeId="1"
+  storeName="store1"
 >
   <div
     className="createStoreItemFormHolder"
@@ -930,9 +1156,8 @@ exports[`StoreItem Form Component render tests Form with valid data render tests
         onSubmit={[Function]}
       >
         <StoreDetails
-          createdAt=""
-          storeId="2222"
-          storeName="store"
+          storeId="1"
+          storeName="store1"
         >
           <div>
             <Item>
@@ -967,7 +1192,7 @@ exports[`StoreItem Form Component render tests Form with valid data render tests
                       <div
                         className="header"
                       >
-                        store
+                        store1
                       </div>
                     </ItemHeader>
                     <ItemMeta>
@@ -977,7 +1202,7 @@ exports[`StoreItem Form Component render tests Form with valid data render tests
                         <span
                           className="storeItemFormStoreId"
                         >
-                          2222
+                          1
                         </span>
                         <span
                           className="storeItemFormStoreCreated"
@@ -997,8 +1222,9 @@ exports[`StoreItem Form Component render tests Form with valid data render tests
             <label>
               Which Store to place the item in?
             </label>
-            <StoreNameDropDown
+            <StoreItemFormStoreDropdown
               activeStores={Array []}
+              setStoreItemStore={[Function]}
             >
               <Dropdown
                 additionLabel="Add "
@@ -1120,7 +1346,7 @@ exports[`StoreItem Form Component render tests Form with valid data render tests
                   </RefFindNode>
                 </Ref>
               </Dropdown>
-            </StoreNameDropDown>
+            </StoreItemFormStoreDropdown>
           </div>
         </FormField>
         <FormField>

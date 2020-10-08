@@ -242,7 +242,7 @@ describe("StoreItemFormHolder Component tests", () => {
       moxios.install();
       // mount and wait for '/api/stores mock API call //
       wrapper = mount(
-        <Router initialEntries={["/admin/store_items/create"]} >
+        <Router initialEntries={["/admin/store_items/create"]} keyLength={0}>
           <TestStateProvider>
             <StoreItemFormHolder />
           </TestStateProvider>

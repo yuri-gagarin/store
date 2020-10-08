@@ -72,8 +72,9 @@ const StoreItemForm: React.FC<Props> = ( props ): JSX.Element => {
       ...formState,
       storeId: data.storeId,
       storeName: data.storeName
-    })
-  }
+    });
+    
+  };
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -101,7 +102,7 @@ const StoreItemForm: React.FC<Props> = ( props ): JSX.Element => {
     <div className="createStoreItemFormHolder" ref={storeItemFormRef}>
       <Form id="createStoreItemForm">
         {
-        !newForm ? <StoreDetails storeId={storeId} storeName={storeName} createdAt={currentStore?.createdAt}/> : null
+        !newForm ? <StoreDetails storeId={storeId} storeName={storeName} /> : null
         }
         <Form.Field>
           <label>Which Store to place the item in?</label>

@@ -1,9 +1,30 @@
 import React from "react";
 import StoreItemForm from "../../../../components/admin_components/store_items/forms/StoreItemForm";
 import { mount, ReactWrapper } from "enzyme";
+import { StoreItemFormStoreDropdownData, StoreDropdownData } from "../../../../components/admin_components/store_items/type_definitions/storeItemTypes";
+import { Dropdown } from "semantic-ui-react";
 // helpers //
 
 describe("StoreItem Form Component render tests", () => {
+  let mockStoreDropdownData: StoreDropdownData[];
+
+  beforeAll(() => {
+    mockStoreDropdownData = [
+      {
+        storeId: "1111",
+        storeName: "first"
+      },
+      {
+        storeId: "2222",
+        storeName: "second"
+      },
+      {
+        storeId: "3333",
+        storeName: "third"
+      }
+    ];
+  });
+
   describe("Empty Form render tests", () => {
     let wrapper: ReactWrapper;
 
@@ -27,7 +48,7 @@ describe("StoreItem Form Component render tests", () => {
         <StoreItemForm
           storeId={""}
           storeName={""}
-          activeStores={[]}
+          activeStores={mockStoreDropdownData}
           name={storeItemData.name}
           price={storeItemData.price}
           details={storeItemData.details}
@@ -43,6 +64,11 @@ describe("StoreItem Form Component render tests", () => {
     it("Should properly mount", () => {
       expect(wrapper).toMatchSnapshot();
     });
+    it("Should properly respond to a change in 'StoreItemFormStoreDropdown' component", () => {
+      const dropdown = wrapper.find(Dropdown);
+      const firstStoreSelect = dropdown.find(Dropdown.Item).first();
+      firstStoreSelect.simulate("click")
+    })
     it("Should render '#storeItemFormNameInput'", () => {
       expect(wrapper.render().find("#storeItemFormNameInput").length).toEqual(1);
     });
@@ -65,14 +91,15 @@ describe("StoreItem Form Component render tests", () => {
   
   describe("Form with valid data render tests", () => {
     let wrapper: ReactWrapper; let mockData: IStoreItemData;
+    let mockStoreData: StoreItemFormStoreDropdownData[];
 
     beforeAll(() => {
       window.scrollTo = jest.fn;
       // mock StoreItem data //
       mockData = {
         _id: "1111",
-        storeName: "store",
-        storeId: "2222",
+        storeName: "store1",
+        storeId: "1",
         name: "name",
         price: "100",
         details: "details",
