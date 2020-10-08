@@ -129,7 +129,7 @@ describe("StoreItem Manage Holder Tests", () => {
         moxios.install();
 
         wrapper = await mount(
-          <Router>
+          <Router initialEntries={[AdminStoreItemRoutes.HOME_ROUTE]} keyLength={0}>
             <StateProvider>
               <StoreItemManageHolder />
             </StateProvider>

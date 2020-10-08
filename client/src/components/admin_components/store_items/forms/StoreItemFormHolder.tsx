@@ -22,27 +22,11 @@ import { ConvertDate } from "../../../helpers/displayHelpers";
 import { checkSetValues } from "../../../helpers/validationHelpers";
 // types 
 import { AxiosError } from "axios";
-import { StoreItemFormState } from "../type_definitions/storeItemTypes";
+import { StoreItemFormState, StoreItemData, StoreDropdownData } from "../type_definitions/storeItemTypes";
 
 interface Props extends RouteComponentProps {
 
 }
-
-type StoreItemData = {
-  storeId: string,
-  storeName: string,
-  name: string;
-  description: string;
-  details: string;
-  price: string;
-  images: IStoreItemImgData[];
-  categories: string[];
-}
-type StoreDropdownData = {
-  storeId: string;
-  storeName: string;
-}
-
 const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const { state, dispatch } = useContext(Store);
   const { loading, currentStoreItemData, storeItemFormOpen, error } = state.storeItemState;
@@ -130,23 +114,23 @@ const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
       <FormErrorComponent error={error as AxiosError} />
       {
         !newForm ?
-          <React.Fragment>
+          <div id="storeItemFormHolderDetailsHolder">
             <Grid.Row>
               <Grid.Column mobile={16} tablet={14} computer={14}>
                 <h1>Details</h1>
-                <div className="storeItemFormHolderDetails">
+                <div className="storeItemFormHolderDetail">
                   <h3>Store Item name:</h3>
                   <p>{name}</p>
                 </div>
-                <div className="storeItemFormHolderPrice">
+                <div className="storeItemFormHolderDetail">
                   <h3>Store Item price:</h3>
                   <p>{price}</p>
                 </div>
-                <div className="storeItemFormHolderDetails">
+                <div className="storeItemFormHolderDetail">
                   <h3>Store Item description:</h3>
                   <p>{description}</p>
                 </div>
-                <div className="storeItemFormHolderDetails">
+                <div className="storeItemFormHolderDetail">
                   <h3>Store Item details:</h3>
                   <p>{details}</p>
                 </div>
@@ -179,7 +163,7 @@ const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
               </Grid.Column>
             </Grid.Row>
             <StoreItemImgUplForm />
-          </React.Fragment>
+          </div>
           : null
       }
       <Grid.Row>

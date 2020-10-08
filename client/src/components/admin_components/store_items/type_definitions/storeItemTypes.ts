@@ -58,3 +58,13 @@ export type StoreDropdownData = {
   storeId: string;
   storeName: string;
 }
+export type StoreItemData = {
+  storeId: string,
+  storeName: string,
+  name: string;
+  description: string;
+  details: string;
+  price: string;
+  images: IStoreItemImgData[];
+  categories: string[];
+}
