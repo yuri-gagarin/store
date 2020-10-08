@@ -1,0 +1,442 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`'StoreItemFormStoreDropdown' component render tests 'StoreItemFormStoreDropdown' component in default local state Should properly render without errors 1`] = `
+<Dropdown
+  additionLabel="Add "
+  additionPosition="top"
+  closeOnBlur={true}
+  closeOnEscape={true}
+  deburr={false}
+  disabled={true}
+  icon="dropdown"
+  minCharacters={1}
+  noResultsMessage="No results found."
+  onChange={[Function]}
+  openOnFocus={true}
+  options={Array []}
+  placeholder="Select a Store"
+  renderLabel={[Function]}
+  searchInput="text"
+  selectOnBlur={true}
+  selectOnNavigation={true}
+  selection={true}
+  wrapSelection={true}
+>
+  <Ref
+    innerRef={
+      Object {
+        "current": <div
+          aria-disabled="true"
+          aria-expanded="false"
+          class="ui disabled selection dropdown"
+          role="listbox"
+          tabindex="-1"
+        >
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="default text"
+            role="alert"
+          >
+            Select a Store
+          </div>
+          <i
+            aria-hidden="true"
+            class="dropdown icon"
+          />
+          <div
+            class="menu transition"
+          />
+        </div>,
+      }
+    }
+  >
+    <RefFindNode
+      innerRef={
+        Object {
+          "current": <div
+            aria-disabled="true"
+            aria-expanded="false"
+            class="ui disabled selection dropdown"
+            role="listbox"
+            tabindex="-1"
+          >
+            <div
+              aria-atomic="true"
+              aria-live="polite"
+              class="default text"
+              role="alert"
+            >
+              Select a Store
+            </div>
+            <i
+              aria-hidden="true"
+              class="dropdown icon"
+            />
+            <div
+              class="menu transition"
+            />
+          </div>,
+        }
+      }
+    >
+      <div
+        aria-disabled={true}
+        aria-expanded={false}
+        className="ui disabled selection dropdown"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseDown={[Function]}
+        role="listbox"
+        tabIndex={-1}
+      >
+        <div
+          aria-atomic={true}
+          aria-live="polite"
+          className="default text"
+          role="alert"
+        >
+          Select a Store
+        </div>
+        <Icon
+          as="i"
+          className=""
+          name="dropdown"
+          onClick={[Function]}
+        >
+          <i
+            aria-hidden="true"
+            className="dropdown icon"
+            onClick={[Function]}
+          />
+        </Icon>
+        <DropdownMenu>
+          <div
+            className="menu transition"
+          />
+        </DropdownMenu>
+      </div>
+    </RefFindNode>
+  </Ref>
+</Dropdown>
+`;
+
+exports[`'StoreItemFormStoreDropdown' component render tests 'StoreItemFormStoreDropdown' component render tests with {activeStores} 'prop' passed in Should properly render without errors 1`] = `
+<Dropdown
+  additionLabel="Add "
+  additionPosition="top"
+  closeOnBlur={true}
+  closeOnEscape={true}
+  deburr={false}
+  disabled={false}
+  icon="dropdown"
+  minCharacters={1}
+  noResultsMessage="No results found."
+  onChange={[Function]}
+  openOnFocus={true}
+  options={
+    Array [
+      Object {
+        "key": "1",
+        "text": "First",
+        "value": "first",
+      },
+      Object {
+        "key": "2",
+        "text": "Second",
+        "value": "second",
+      },
+      Object {
+        "key": "3",
+        "text": "Third",
+        "value": "third",
+      },
+    ]
+  }
+  placeholder="Select a Store"
+  renderLabel={[Function]}
+  searchInput="text"
+  selectOnBlur={true}
+  selectOnNavigation={true}
+  selection={true}
+  wrapSelection={true}
+>
+  <Ref
+    innerRef={
+      Object {
+        "current": <div
+          aria-disabled="false"
+          aria-expanded="false"
+          class="ui selection dropdown"
+          role="listbox"
+          tabindex="0"
+        >
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="default text"
+            role="alert"
+          >
+            Select a Store
+          </div>
+          <i
+            aria-hidden="true"
+            class="dropdown icon"
+          />
+          <div
+            class="menu transition"
+          >
+            <div
+              aria-checked="false"
+              aria-selected="true"
+              class="selected item"
+              role="option"
+              style="pointer-events: all;"
+            >
+              <span
+                class="text"
+              >
+                First
+              </span>
+            </div>
+            <div
+              aria-checked="false"
+              aria-selected="false"
+              class="item"
+              role="option"
+              style="pointer-events: all;"
+            >
+              <span
+                class="text"
+              >
+                Second
+              </span>
+            </div>
+            <div
+              aria-checked="false"
+              aria-selected="false"
+              class="item"
+              role="option"
+              style="pointer-events: all;"
+            >
+              <span
+                class="text"
+              >
+                Third
+              </span>
+            </div>
+          </div>
+        </div>,
+      }
+    }
+  >
+    <RefFindNode
+      innerRef={
+        Object {
+          "current": <div
+            aria-disabled="false"
+            aria-expanded="false"
+            class="ui selection dropdown"
+            role="listbox"
+            tabindex="0"
+          >
+            <div
+              aria-atomic="true"
+              aria-live="polite"
+              class="default text"
+              role="alert"
+            >
+              Select a Store
+            </div>
+            <i
+              aria-hidden="true"
+              class="dropdown icon"
+            />
+            <div
+              class="menu transition"
+            >
+              <div
+                aria-checked="false"
+                aria-selected="true"
+                class="selected item"
+                role="option"
+                style="pointer-events: all;"
+              >
+                <span
+                  class="text"
+                >
+                  First
+                </span>
+              </div>
+              <div
+                aria-checked="false"
+                aria-selected="false"
+                class="item"
+                role="option"
+                style="pointer-events: all;"
+              >
+                <span
+                  class="text"
+                >
+                  Second
+                </span>
+              </div>
+              <div
+                aria-checked="false"
+                aria-selected="false"
+                class="item"
+                role="option"
+                style="pointer-events: all;"
+              >
+                <span
+                  class="text"
+                >
+                  Third
+                </span>
+              </div>
+            </div>
+          </div>,
+        }
+      }
+    >
+      <div
+        aria-disabled={false}
+        aria-expanded={false}
+        className="ui selection dropdown"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseDown={[Function]}
+        role="listbox"
+        tabIndex={0}
+      >
+        <div
+          aria-atomic={true}
+          aria-live="polite"
+          className="default text"
+          role="alert"
+        >
+          Select a Store
+        </div>
+        <Icon
+          as="i"
+          className=""
+          name="dropdown"
+          onClick={[Function]}
+        >
+          <i
+            aria-hidden="true"
+            className="dropdown icon"
+            onClick={[Function]}
+          />
+        </Icon>
+        <DropdownMenu>
+          <div
+            className="menu transition"
+          >
+            <DropdownItem
+              active={false}
+              key="1"
+              onClick={[Function]}
+              selected={true}
+              style={
+                Object {
+                  "pointerEvents": "all",
+                }
+              }
+              text="First"
+              value="first"
+            >
+              <div
+                aria-checked={false}
+                aria-selected={true}
+                className="selected item"
+                onClick={[Function]}
+                role="option"
+                style={
+                  Object {
+                    "pointerEvents": "all",
+                  }
+                }
+              >
+                <span
+                  className="text"
+                >
+                  First
+                </span>
+              </div>
+            </DropdownItem>
+            <DropdownItem
+              active={false}
+              key="2"
+              onClick={[Function]}
+              selected={false}
+              style={
+                Object {
+                  "pointerEvents": "all",
+                }
+              }
+              text="Second"
+              value="second"
+            >
+              <div
+                aria-checked={false}
+                aria-selected={false}
+                className="item"
+                onClick={[Function]}
+                role="option"
+                style={
+                  Object {
+                    "pointerEvents": "all",
+                  }
+                }
+              >
+                <span
+                  className="text"
+                >
+                  Second
+                </span>
+              </div>
+            </DropdownItem>
+            <DropdownItem
+              active={false}
+              key="3"
+              onClick={[Function]}
+              selected={false}
+              style={
+                Object {
+                  "pointerEvents": "all",
+                }
+              }
+              text="Third"
+              value="third"
+            >
+              <div
+                aria-checked={false}
+                aria-selected={false}
+                className="item"
+                onClick={[Function]}
+                role="option"
+                style={
+                  Object {
+                    "pointerEvents": "all",
+                  }
+                }
+              >
+                <span
+                  className="text"
+                >
+                  Third
+                </span>
+              </div>
+            </DropdownItem>
+          </div>
+        </DropdownMenu>
+      </div>
+    </RefFindNode>
+  </Ref>
+</Dropdown>
+`;

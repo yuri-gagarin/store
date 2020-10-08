@@ -123,5 +123,3 @@ exports[`StoreItem Manage Holder Tests Default Component state at first render S
   </StoreItemsManageHolder>
 </withRouter(StoreItemsManageHolder)>
 `;
-
-exports[`StoreItem Manage Holder Tests State after a successful API call Should render the correct StoreItemManageHolder Component 1`] = `null`;

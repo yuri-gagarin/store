@@ -68,3 +68,13 @@ export type StoreItemData = {
   images: IStoreItemImgData[];
   categories: string[];
 }
+// StoreItemFormDropdown types //
+export type StoreItemFormStoreDropdownData = {
+  key: string;
+  text: string;
+  value: string;
+}
+export type StoreItemFormStoreDropdownState = {
+  dropdownData: StoreItemFormStoreDropdownData[];
+  disabled: boolean;
+}

@@ -45,6 +45,7 @@ export const generateCleanState = (): IGlobalAppState => {
       loading: false,
       currentBonusVideoData: emptyBonusVideoData(),
       loadedBonusVideos: [],
+      bonusVideoFormOpen: false,
       error: null
     }
   };

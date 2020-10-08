@@ -3,7 +3,7 @@ import { Button, Form, TextArea } from "semantic-ui-react";
 // additional components //
 import StoreItemCategories from "./StoreItemCategories";
 import StoreDetails from "./StoreDetails";
-import StoreNameDropDown from "./StoreNameDropdown";
+import StoreItemFormStoreDropdown from "./StoreItemFormStoreDropdown";
 // actions and state //
 import { Store } from "../../../../state/Store";
 // types //
@@ -67,6 +67,14 @@ const StoreItemForm: React.FC<Props> = ( props ): JSX.Element => {
     });
   };
 
+  const setStoreItemStore = (data: StoreDropdownData) => {
+    setFormState({
+      ...formState,
+      storeId: data.storeId,
+      storeName: data.storeName
+    })
+  }
+
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (newForm) {
@@ -97,7 +105,10 @@ const StoreItemForm: React.FC<Props> = ( props ): JSX.Element => {
         }
         <Form.Field>
           <label>Which Store to place the item in?</label>
-          <StoreNameDropDown activeStores={activeStores} />
+          <StoreItemFormStoreDropdown 
+            activeStores={activeStores} 
+            setStoreItemStore={setStoreItemStore}
+          />
         </Form.Field>
         <Form.Field>
           <label>Store Item name</label>
