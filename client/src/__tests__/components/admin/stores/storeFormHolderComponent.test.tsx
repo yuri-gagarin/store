@@ -14,7 +14,7 @@ import StoreImgPreviewHolder from "../../../../components/admin_components/store
 import StoreImgPreviewThumb from "../../../../components/admin_components/stores/image_preview/StoreImgPreviewThumb";
 import LoadingBar from "../../../../components/admin_components/miscelaneous/LoadingBar";
 // state React.Context //
-import { IGlobalAppState, StateProvider, TestStateProvider } from "../../../../state/Store";
+import { IGlobalAppState, TestStateProvider } from "../../../../state/Store";
 // helpers //
 import { createMockStores, setMockStoreState } from "../../../../test_helpers/storeHelpers";
 
@@ -25,21 +25,21 @@ describe("StoreFormHolder Component tests", () => {
     beforeAll(() => {
       window.scrollTo = jest.fn();
       wrapper = mount(
-        <Router>
+        <Router keyLength={0}>
           <StoreFormHolder />
         </Router>
       );
     });
 
     it("Should Properly Mount Form Holder", () => {
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.find(StoreFormHolder)).toMatchSnapshot();
     });
     it("Form Should be closed by default", () => {
       const form = wrapper.find(StoreForm);
       expect(form.length).toEqual(0);
     });
     it("Should have a Form toggle Button", () => {
-      const toggleButton = wrapper.find(Button);
+      const toggleButton = wrapper.find(StoreFormHolder).render().find("#storeFormToggleBtn");
       expect(toggleButton.length).toEqual(1);
     });
 
@@ -51,10 +51,10 @@ describe("StoreFormHolder Component tests", () => {
     beforeAll(() => {
       window.scrollTo = jest.fn();
       wrapper = mount(
-        <Router>
-          <StateProvider>
+        <Router keyLength={0}>
+          <TestStateProvider>
             <StoreFormHolder />
-          </StateProvider>
+          </TestStateProvider>
         </Router>
       );
     });
@@ -74,7 +74,7 @@ describe("StoreFormHolder Component tests", () => {
       const toggleButton = wrapper.render().find('#adminStoreFormCreate');
       expect(toggleButton.length).toEqual(1);
     });
-    it("Should have the Form rendered after toggle button", () => {
+    it("Should have the Form rendered after toggle button click", () => {
       const form = wrapper.find(StoreForm);
       expect(form.length).toEqual(1);
     });
@@ -96,7 +96,7 @@ describe("StoreFormHolder Component tests", () => {
       window.scrollTo = jest.fn();
       state = setMockStoreState({ currentStore: true });
       wrapper = mount(
-        <Router>
+        <Router keyLength={0}>
           <TestStateProvider mockState={state}>
             <StoreFormHolder />
           </TestStateProvider>
@@ -112,7 +112,7 @@ describe("StoreFormHolder Component tests", () => {
       const toggleButton = wrapper.render().find('#storeFormToggleBtn');
       expect(toggleButton.length).toEqual(1);
     });
-    it("Should have the Form rendered", () => {
+    it("Should  NOT initially render the 'StoreForm' component after toggle button click", () => {
       const form = wrapper.find(StoreForm);
       expect(form.length).toEqual(1);
     });
@@ -142,7 +142,7 @@ describe("StoreFormHolder Component tests", () => {
       window.scrollTo = jest.fn();
       state = setMockStoreState({ currentStore: true, storeImages: 3 });
       wrapper = mount(
-        <Router>
+        <Router keyLength={0}>
           <TestStateProvider mockState={state}>
             <StoreFormHolder />
           </TestStateProvider>
@@ -195,6 +195,9 @@ describe("StoreFormHolder Component tests", () => {
         </Router>
       );
     });
+    afterAll(() => {
+      moxios.uninstall();
+    })
 
     it("Should have a submit button", () => {
       wrapper.update();

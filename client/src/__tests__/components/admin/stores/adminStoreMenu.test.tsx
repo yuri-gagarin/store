@@ -9,7 +9,7 @@ describe("AdminStoreMenu component render tests", () => {
   let wrapper: ReactWrapper;
   beforeAll(() => {
     wrapper = mount(
-      <MemoryRouter initialEntries={[AdminStoreRoutes.ADMIN_STORES_HOME_ROUTE]} keyLength={0}>
+      <MemoryRouter initialEntries={[AdminStoreRoutes.HOME_ROUTE]} keyLength={0}>
         <AdminStoreMenu dispatch={jest.fn}/>
       </MemoryRouter>
     )
@@ -42,7 +42,7 @@ describe("AdminStoreMenu component render tests", () => {
       expect(wrapper.find(Menu.Item).at(1).props().active).toEqual(false);
       expect(wrapper.find(Menu.Item).at(2).props().active).toEqual(false);
       // assert correct client route //
-      expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminStoreRoutes.ADMIN_STORES_VIEW_ALL_ROUTE);
+      expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminStoreRoutes.VIEW_ALL_ROUTE);
 
     });
     it("Should correctly respond to 'Create' 'Menu.Item' click", () => {
@@ -55,7 +55,7 @@ describe("AdminStoreMenu component render tests", () => {
       expect(wrapper.find(Menu.Item).at(1).props().active).toEqual(true);
       expect(wrapper.find(Menu.Item).at(2).props().active).toEqual(false);
       // assert correct client route //
-      expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminStoreRoutes.ADMIN_STORES_CREATE_ROUTE);
+      expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminStoreRoutes.CREATE_ROUTE);
     })
     it("Should correctly respond to 'Manage' 'Menu.Item' click", () => {
       window.scrollTo = jest.fn;
@@ -67,7 +67,7 @@ describe("AdminStoreMenu component render tests", () => {
       expect(wrapper.find(Menu.Item).at(1).props().active).toEqual(false);
       expect(wrapper.find(Menu.Item).at(2).props().active).toEqual(true);
       // assert correct client route //
-      expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminStoreRoutes.ADMIN_STORES_MANAGE_ROUTE);
+      expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminStoreRoutes.ADMIN_SMANAGE_ROUTE);
     })
   })
 })

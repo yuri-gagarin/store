@@ -15,6 +15,7 @@ import { createStore, editStore } from "../actions/APIstoreActions";
 import { openStoreForm, closeStoreForm } from "../actions/uiStoreActions";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
+import { checkSetValues } from "../../../helpers/validationHelpers";
 
 interface Props extends RouteComponentProps {
 }
@@ -66,11 +67,8 @@ const StoreFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
     }
   }, [ storeFormOpen ]);
   useEffect(() => {
-    if (storeId) {
-      setNewForm(false);
-      openStoreForm(dispatch);
-    }
-  }, [ storeId ]);
+    checkSetValues(currentStoreData) ? setNewForm(false) : setNewForm(true);
+  }, [ currentStoreData ]);
   // component render //
   return (
     <div id="storeFormHolder">

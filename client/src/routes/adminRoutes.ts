@@ -17,11 +17,11 @@ export const AdminServiceRoutes = {
 };
 
 export const AdminStoreRoutes = {
-  ADMIN_STORES_HOME_ROUTE: "/admin/home/my_stores",
-  ADMIN_STORES_CREATE_ROUTE: "/admin/home/my_stores/create",
-  ADMIN_STORES_MANAGE_ROUTE: "/admin/home/my_stores/manage",
-  ADMIN_STORES_SHOW_ROUTE: "/admin/home/my_stores/show",
-  ADMIN_STORES_VIEW_ALL_ROUTE: "/admin/home/my_stores/view_all"
+  HOME_ROUTE: "/admin/home/my_stores",
+  CREATE_ROUTE: "/admin/home/my_stores/create",
+  MANAGE_ROUTE: "/admin/home/my_stores/manage",
+  SHOW_ROUTE: "/admin/home/my_stores/show",
+  VIEW_ALL_ROUTE: "/admin/home/my_stores/view_all"
 };
 
 export const AdminStoreItemRoutes = {
