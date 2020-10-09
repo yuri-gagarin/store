@@ -38,12 +38,13 @@ describe("ServicePreviewHolder Component render tests", () => {
       }
     ]
   });
-  /*
-  // TEST StprePreviewHolder in its loading state //
+  
+  // TEST ServicePreviewHolder in its loading state //
   describe("ServicePreviewHolder in 'loading' state", () => {
     let wrapper: ReactWrapper;
 
     beforeAll( async () => {
+      moxios.install();
       wrapper = mount(
         <Router keyLength={0} initialEntries={["/admin/home/my_services/manage"]}>
           <TestStateProvider>
@@ -72,8 +73,12 @@ describe("ServicePreviewHolder Component render tests", () => {
       const loadingScreen = wrapper.find(LoadingScreen);
       expect(loadingScreen.length).toEqual(1);
     });
-    it("Should not display the '#adminServicePreviewHolder' Grid", () => {
+    it("Should NOT display the '#adminServicePreviewHolder' Grid", () => {
       const adminServicePreview = wrapper.find(Grid);
+      expect(adminServicePreview.length).toEqual(0);
+    }); 
+    it("Should NOT display the 'ErrorScreen' component", () => {
+      const adminServicePreview = wrapper.find(ErrorScreen);
       expect(adminServicePreview.length).toEqual(0);
     }); 
     it("Should not display any ServicePreview Components", () => {
@@ -95,7 +100,7 @@ describe("ServicePreviewHolder Component render tests", () => {
       wrapper = mount(
         <Router keyLength={0} initialEntries={["/admin/home/my_services/manage"]}>
           <TestStateProvider mockState={mockState}>
-              <ServicePreviewHolder />
+            <ServicePreviewHolder />
           </TestStateProvider>
          </Router>
       );
@@ -109,10 +114,9 @@ describe("ServicePreviewHolder Component render tests", () => {
           }
         });
       });
-    });
-    afterAll(() => {
       moxios.uninstall();
-    })
+    });
+    
     it("Should correctly render initial 'LoadingScreen' component", () => {
       const loadingScreen = wrapper.find(LoadingScreen);
       const errorScreen = wrapper.find(ErrorScreen);
@@ -138,20 +142,22 @@ describe("ServicePreviewHolder Component render tests", () => {
       expect(servicePreviewComponents.length).toEqual(2);
     });
   });
-  */
+  
   // END TEST ServicePreviewHolder in its loaded state //
   // TEST ServicePreview Component in Error state //
-
+  
   describe("ServicePreview Component in Error state", () => {
     let wrapper: ReactWrapper;
     const error = new Error("Error occured");
 
     beforeAll(async () => {
+      const mockState = generateCleanState();
+
       await act( async () => {
         moxios.install();
-        wrapper = await mount(
+        wrapper = mount(
           <Router keyLength={0} initialEntries={["/admin/home/my_services/view_all"]}>
-            <TestStateProvider>
+            <TestStateProvider mockState={mockState}>
               <ServicePreviewHolder />
             </TestStateProvider>
           </Router>
@@ -194,7 +200,7 @@ describe("ServicePreviewHolder Component render tests", () => {
       await act( async () => {
         moxios.install();
         moxios.stubRequest("/api/services", {
-          status: 100,
+          status: 200,
           response: {
             responseMsg: "All ok",
             services: services
@@ -205,5 +211,6 @@ describe("ServicePreviewHolder Component render tests", () => {
       });
       
     });
-  })
+  });
+  
 });

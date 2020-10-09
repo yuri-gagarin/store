@@ -40,12 +40,13 @@ const ServicePreviewHolder: React.FC<Props> = ({ history }): JSX.Element => {
     }
     return () => { componentLoaded = false };
   }, [ dispatch ]);
-  // render component //
+  
   useEffect(() => {
     if (servicesRef.current != loadedServices && !error && !loading) {
       setNewDataLoaded(true);
     }
   }, [ servicesRef.current, loadedServices, error, loading ]);
+  // render component //
   return (
     newDataLoaded ?
       <Grid id="adminServicePreviewHolder" stackable padded columns={2}>

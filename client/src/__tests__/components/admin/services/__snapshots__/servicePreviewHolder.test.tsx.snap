@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' state Should correctly render the 'Service' 'Grid' after successful API call 1`] = `
-<withRouter(ProductsPreviewHolder)>
-  <ProductsPreviewHolder
+exports[`ServicePreviewHolder Component render tests ServicePreview in 'loaded' state Should correctlt render the '#adminServicePreviewHolder' Grid 1`] = `
+<withRouter(ServicePreviewHolder)>
+  <ServicePreviewHolder
     history={
       Object {
         "action": "POP",
@@ -12,7 +12,7 @@ exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' 
         "entries": Array [
           Object {
             "hash": "",
-            "pathname": "/admin/home/my_products/view_all",
+            "pathname": "/admin/home/my_services/manage",
             "search": "",
             "state": undefined,
           },
@@ -25,7 +25,7 @@ exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' 
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "pathname": "/admin/home/my_products/view_all",
+          "pathname": "/admin/home/my_services/manage",
           "search": "",
           "state": undefined,
         },
@@ -36,7 +36,7 @@ exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' 
     location={
       Object {
         "hash": "",
-        "pathname": "/admin/home/my_products/view_all",
+        "pathname": "/admin/home/my_services/manage",
         "search": "",
         "state": undefined,
       }
@@ -52,11 +52,13 @@ exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' 
   >
     <Grid
       columns={2}
+      id="adminServicePreviewHolder"
       padded={true}
       stackable={true}
     >
       <div
         className="ui stackable padded two column grid"
+        id="adminServicePreviewHolder"
       >
         <GridRow>
           <div
@@ -74,14 +76,13 @@ exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' 
                   <div
                     className="ui items"
                   >
-                    <ProductPreview
+                    <ServicePreview
                       key="1"
-                      product={
+                      service={
                         Object {
                           "_id": "1",
                           "createdAt": "now",
                           "description": "description",
-                          "details": "details",
                           "images": Array [],
                           "name": "name",
                           "price": "100",
@@ -89,10 +90,10 @@ exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' 
                       }
                     >
                       <Item
-                        className="productPreviewItem"
+                        className="servicePreviewItem"
                       >
                         <div
-                          className="item productPreviewItem"
+                          className="item servicePreviewItem"
                         >
                           <ItemImage
                             size="small"
@@ -133,7 +134,7 @@ exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' 
                                   className="meta"
                                 >
                                   <span
-                                    className="productPrice"
+                                    className="servicePrice"
                                   >
                                     Displayed Price: 
                                     <strong>
@@ -141,7 +142,7 @@ exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' 
                                     </strong>
                                   </span>
                                   <span
-                                    className="productCreated"
+                                    className="serviceCreated"
                                   >
                                     Created At: 
                                     <strong>
@@ -198,26 +199,25 @@ exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' 
                           </ItemContent>
                         </div>
                       </Item>
-                    </ProductPreview>
-                    <ProductPreview
+                    </ServicePreview>
+                    <ServicePreview
                       key="2"
-                      product={
+                      service={
                         Object {
                           "_id": "2",
                           "createdAt": "now",
                           "description": "description",
-                          "details": "details",
                           "images": Array [],
                           "name": "name",
-                          "price": "100",
+                          "price": "200",
                         }
                       }
                     >
                       <Item
-                        className="productPreviewItem"
+                        className="servicePreviewItem"
                       >
                         <div
-                          className="item productPreviewItem"
+                          className="item servicePreviewItem"
                         >
                           <ItemImage
                             size="small"
@@ -258,15 +258,15 @@ exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' 
                                   className="meta"
                                 >
                                   <span
-                                    className="productPrice"
+                                    className="servicePrice"
                                   >
                                     Displayed Price: 
                                     <strong>
-                                      100
+                                      200
                                     </strong>
                                   </span>
                                   <span
-                                    className="productCreated"
+                                    className="serviceCreated"
                                   >
                                     Created At: 
                                     <strong>
@@ -323,7 +323,7 @@ exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' 
                           </ItemContent>
                         </div>
                       </Item>
-                    </ProductPreview>
+                    </ServicePreview>
                   </div>
                 </ItemGroup>
               </div>
@@ -336,43 +336,42 @@ exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' 
               <div
                 className="six wide computer sixteen wide mobile eight wide tablet column"
               >
-                <ProductsControls
-                  totalProducts={2}
+                <ServicesDetails
+                  totalServices={2}
                 >
                   <div
-                    className="adminProductControlsHolder"
+                    className="adminServiceDetailsHolder"
                   >
                     <div
-                      className="adminProductControlsTitle"
+                      className="adminServiceDetailsTitle"
                     >
-                      Product Controls
+                      Service Details
                     </div>
                     <div
-                      className="adminProductControls"
+                      className="adminServiceDetails"
                     >
                       <div
-                        className="adminProductCounter"
+                        className="adminServiceCounter"
                       >
                         <div>
-                          Total Products:
+                          Total Services:
                         </div>
                         <div
-                          className="adminProductsCount"
+                          className="adminServicesCount"
                         >
                           2
                         </div>
                       </div>
                     </div>
                   </div>
-                </ProductsControls>
-                <PopularProductHolder
-                  popularProducts={
+                </ServicesDetails>
+                <PopularServiceHolder
+                  popularServices={
                     Array [
                       Object {
                         "_id": "1",
                         "createdAt": "now",
                         "description": "description",
-                        "details": "details",
                         "images": Array [],
                         "name": "name",
                         "price": "100",
@@ -381,21 +380,20 @@ exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' 
                         "_id": "2",
                         "createdAt": "now",
                         "description": "description",
-                        "details": "details",
                         "images": Array [],
                         "name": "name",
-                        "price": "100",
+                        "price": "200",
                       },
                     ]
                   }
                 >
                   <div
-                    className="popProductsHolder"
+                    className="popularServiceHolder"
                   >
                     <div
-                      className="popProductsHolTitle"
+                      className="popServiceHolTitle"
                     >
-                      Popular Products
+                      Popular Services
                     </div>
                     <ItemGroup
                       divided={true}
@@ -403,14 +401,13 @@ exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' 
                       <div
                         className="ui divided items"
                       >
-                        <PopularProduct
+                        <PopularService
                           key="1"
-                          popularProduct={
+                          popularService={
                             Object {
                               "_id": "1",
                               "createdAt": "now",
                               "description": "description",
-                              "details": "details",
                               "images": Array [],
                               "name": "name",
                               "price": "100",
@@ -514,18 +511,17 @@ exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' 
                               </ItemContent>
                             </div>
                           </Item>
-                        </PopularProduct>
-                        <PopularProduct
+                        </PopularService>
+                        <PopularService
                           key="2"
-                          popularProduct={
+                          popularService={
                             Object {
                               "_id": "2",
                               "createdAt": "now",
                               "description": "description",
-                              "details": "details",
                               "images": Array [],
                               "name": "name",
-                              "price": "100",
+                              "price": "200",
                             }
                           }
                         >
@@ -571,7 +567,7 @@ exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' 
                                       <span>
                                         Priced At: 
                                         <strong>
-                                          100
+                                          200
                                         </strong>
                                       </span>
                                       <span>
@@ -626,24 +622,24 @@ exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' 
                               </ItemContent>
                             </div>
                           </Item>
-                        </PopularProduct>
+                        </PopularService>
                       </div>
                     </ItemGroup>
                   </div>
-                </PopularProductHolder>
+                </PopularServiceHolder>
               </div>
             </GridColumn>
           </div>
         </GridRow>
       </div>
     </Grid>
-  </ProductsPreviewHolder>
-</withRouter(ProductsPreviewHolder)>
+  </ServicePreviewHolder>
+</withRouter(ServicePreviewHolder)>
 `;
 
-exports[`ProductPreviewHolder Component render tests ProductPreviewHolder in 'loading' state Should correctly render 1`] = `
-<withRouter(ProductsPreviewHolder)>
-  <ProductsPreviewHolder
+exports[`ServicePreviewHolder Component render tests ServicePreviewHolder in 'loading' state Should correctly render 1`] = `
+<withRouter(ServicePreviewHolder)>
+  <ServicePreviewHolder
     history={
       Object {
         "action": "POP",
@@ -653,7 +649,7 @@ exports[`ProductPreviewHolder Component render tests ProductPreviewHolder in 'lo
         "entries": Array [
           Object {
             "hash": "",
-            "pathname": "/admin/home/my_products/view_all",
+            "pathname": "/admin/home/my_services/manage",
             "search": "",
             "state": undefined,
           },
@@ -666,7 +662,7 @@ exports[`ProductPreviewHolder Component render tests ProductPreviewHolder in 'lo
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "pathname": "/admin/home/my_products/view_all",
+          "pathname": "/admin/home/my_services/manage",
           "search": "",
           "state": undefined,
         },
@@ -677,7 +673,7 @@ exports[`ProductPreviewHolder Component render tests ProductPreviewHolder in 'lo
     location={
       Object {
         "hash": "",
-        "pathname": "/admin/home/my_products/view_all",
+        "pathname": "/admin/home/my_services/manage",
         "search": "",
         "state": undefined,
       }
@@ -761,6 +757,6 @@ exports[`ProductPreviewHolder Component render tests ProductPreviewHolder in 'lo
         </Segment>
       </div>
     </LoaderExampleText>
-  </ProductsPreviewHolder>
-</withRouter(ProductsPreviewHolder)>
+  </ServicePreviewHolder>
+</withRouter(ServicePreviewHolder)>
 `;

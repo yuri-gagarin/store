@@ -525,6 +525,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                 state={
                   Object {
                     "bonusVideoState": Object {
+                      "bonusVideoFormOpen": false,
                       "currentBonusVideoData": Object {
                         "_id": "",
                         "createdAt": "",
@@ -1081,6 +1082,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                 state={
                   Object {
                     "bonusVideoState": Object {
+                      "bonusVideoFormOpen": false,
                       "currentBonusVideoData": Object {
                         "_id": "",
                         "createdAt": "",

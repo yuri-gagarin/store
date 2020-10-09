@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Grid, Item } from "semantic-ui-react";
 // routing //
 import { withRouter, RouteComponentProps } from "react-router-dom";
@@ -22,6 +22,9 @@ interface Props extends RouteComponentProps {
 const ProductsPreviewHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const { state, dispatch } = useContext(Store);
   const { loading, loadedProducts, error } = state.productState;
+  // local state //
+  const [ newDataLoaded, setNewDataLoaded ] = useState<boolean>(false);
+  const productsRef = useRef(loadedProducts);
   
   // lifecycle hooks //
   useEffect(() => {
@@ -30,46 +33,51 @@ const ProductsPreviewHolder: React.FC<Props> = ({ history }): JSX.Element => {
       getAllProducts(dispatch)
         .then((_) => {
           // handle success //
+          setNewDataLoaded(true);
         })
         .catch((_) => {
           // handle an error //
+          setNewDataLoaded(false);
         });
     }
     return () => { componentLoaded = false };
   }, [ dispatch ]);
+  
+  useEffect(() => {
+    if (productsRef.current != loadedProducts && !error && !loading) {
+      setNewDataLoaded(true);
+    }
+  }, [ productsRef.current, loadedProducts, error, loading ]);
   // component return //
   return (
-    loading ? 
-    <LoadingScreen />
+    newDataLoaded ? 
+    <Grid stackable padded columns={2}>
+      <Grid.Row>
+        <Grid.Column computer={10} tablet={8} mobile={16}>
+          <Item.Group>
+            {
+              loadedProducts.map((product) => {
+                return (
+                  <ProductPreview 
+                    key={product._id}
+                    product={product}
+                  />
+                );
+              })
+            }
+          </Item.Group>
+        </Grid.Column>
+        <Grid.Column computer={6} tablet={8} mobile={16}>
+          <ProductsControls totalProducts={loadedProducts.length} />
+          <PopularProductsHolder popularProducts={loadedProducts}/>
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
     :
     (
-      error ? 
-      <ErrorScreen lastRequest={ () => getAllProducts(dispatch) }/>
-      :
-      <Grid stackable padded columns={2}>
-        <Grid.Row>
-          <Grid.Column computer={10} tablet={8} mobile={16}>
-            <Item.Group>
-              {
-                loadedProducts.map((product) => {
-                  return (
-                    <ProductPreview 
-                      key={product._id}
-                      product={product}
-                    />
-                  );
-                })
-              }
-            </Item.Group>
-          </Grid.Column>
-          <Grid.Column computer={6} tablet={8} mobile={16}>
-            <ProductsControls totalProducts={loadedProducts.length} />
-            <PopularProductsHolder popularProducts={loadedProducts}/>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      error ? <ErrorScreen lastRequest={ () => getAllProducts(dispatch) } /> : <LoadingScreen />
     )
-  );
+  )
 };
 // test export without the router //
 export { ProductsPreviewHolder };

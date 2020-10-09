@@ -2,8 +2,6 @@ import React from "react"
 import { Button } from "semantic-ui-react";
 // testing utils
 import { mount, ReactWrapper } from "enzyme";
-import moxios from "moxios";
-import { act } from "react-dom/test-utils";
 // client routing //
 import { MemoryRouter as Router } from "react-router-dom";
 // component imports //
@@ -16,7 +14,6 @@ import LoadingBar from "../../../../components/admin_components/miscelaneous/Loa
 // state React.Context //
 import { IGlobalAppState, StateProvider, TestStateProvider } from "../../../../state/Store";
 // helpers //
-import { createMockServices, setMockServiceState } from "../../../../test_helpers/serviceHelpers";
 import { generateCleanState } from "../../../../test_helpers/miscHelpers";
 
 describe("ServiceFormHolder Component tests", () => {
