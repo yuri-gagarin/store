@@ -9,7 +9,7 @@ exports[`ServiceView Component render tests ServiceView Component default render
   />
   <Switch>
     <Route
-      path="/admin/home/my_services/all"
+      path="/admin/home/my_services/view_all"
     >
       <Component
         height="100px"

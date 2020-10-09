@@ -1,9 +1,10 @@
 import React, { ReactElement } from "react";
 import { Menu } from "semantic-ui-react";
-// react router //
-import { MemoryRouter as Router, Switch } from "react-router-dom";
 // testing imports //
 import { mount, shallow, ReactWrapper, ShallowWrapper } from "enzyme";
+// react router //
+import { MemoryRouter as Router, Switch } from "react-router-dom";
+import { AdminServiceRoutes } from "../../../../routes/adminRoutes";
 // component imports //
 import ServiceViewComponent from "../../../../components/admin_components/services/ServiceView";
 import AdminServiceMenu from "../../../../components/admin_components/menus/AdminServiceMenu";
@@ -50,9 +51,9 @@ describe("ServiceView Component render tests", () => {
           map[component.props.path as string] = component.props.children[1].type;
         }
       }
-      expect(map["/admin/home/my_services/all"]).toBe(ServicePreviewHolder);
-      expect(map["/admin/home/my_services/create"]).toBe(ServiceFormHolder);
-      expect(map["/admin/home/my_services/manage"]).toBe(ServiceManageHolder);
+      expect(map[AdminServiceRoutes.VIEW_ALL_ROUTE]).toBe(ServicePreviewHolder);
+      expect(map[AdminServiceRoutes.CREATE_ROUTE]).toBe(ServiceFormHolder);
+      expect(map[AdminServiceRoutes.MANAGE_ROUTE]).toBe(ServiceManageHolder);
     });
   });
   // END ServicesViewComponent default render tests //
@@ -62,7 +63,7 @@ describe("ServiceView Component render tests", () => {
 
     beforeAll(() => {
       component = mount(
-        <Router keyLength={0} initialEntries={ ["/admin/home/my_services"] }>
+        <Router keyLength={0} initialEntries={ [AdminServiceRoutes.HOME_ROUTE] }>
           <ServiceViewComponent />
         </Router>
       );
@@ -76,7 +77,7 @@ describe("ServiceView Component render tests", () => {
       it("Should have 3 main navigation links", () => {
         const wrapper = component.find(AdminServiceMenu);
         const links = wrapper.find(Menu.Item)
-        expect(links.length).toEqual(3);
+        expect(links.length).toEqual(4);
       });
       it("'View All Services' link should properly function", () => {
         window.scrollTo = jest.fn();

@@ -8,12 +8,12 @@ export const AdminProductRoutes = {
 };
 
 export const AdminServiceRoutes = {
-  ADMIN_SERVICES_HOME_ROUTE: "/admin/home/my_services",
-  ADMIN_SERVICES_VIEW_ALL_ROUTE: "/admin/home/my_services/view_all",
-  ADMIN_SERVICES_CREATE_ROUTE: "/admin/home/my_services/create",
-  ADMIN_SERVICES_MANAGE_ROUTE: "/admin/home/my_services/manage",
-  ADMIN_SERVICES_SHOW_ROUTE: "/admin/home/my_services/show",
-  ADMIN_SERVICES_VIEW_SORTED_ROUTE: "/admin/home/my_services/view_sorted"
+  HOME_ROUTE: "/admin/home/my_services",
+  VIEW_ALL_ROUTE: "/admin/home/my_services/view_all",
+  CREATE_ROUTE: "/admin/home/my_services/create",
+  MANAGE_ROUTE: "/admin/home/my_services/manage",
+  SHOW_ROUTE: "/admin/home/my_services/show",
+  VIEW_SORTED_ROUTE: "/admin/home/my_services/view_sorted"
 };
 
 export const AdminStoreRoutes = {

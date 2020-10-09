@@ -12,7 +12,7 @@ describe("AdminServiceenu component render tests", () => {
   let wrapper: ReactWrapper;
   beforeAll(() => {
     wrapper = mount(
-      <MemoryRouter initialEntries={[AdminServiceRoutes.ADMIN_SERVICES_HOME_ROUTE]} keyLength={0}>
+      <MemoryRouter initialEntries={[AdminServiceRoutes.HOME_ROUTE]} keyLength={0}>
         <AdminServiceMenu dispatch={jest.fn}/>
       </MemoryRouter>
     )
@@ -46,7 +46,7 @@ describe("AdminServiceenu component render tests", () => {
       expect(wrapper.find(Menu.Item).at(2).props().active).toEqual(false);
       expect(wrapper.find(Menu.Item).at(3).props().active).toEqual(false);
       // assert correct client route //
-      expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminServiceRoutes.ADMIN_SERVICES_VIEW_ALL_ROUTE);
+      expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminServiceRoutes.VIEW_ALL_ROUTE);
 
     });
     it("Should correctly respond to 'Create' 'Menu.Item' click", () => {
@@ -60,7 +60,7 @@ describe("AdminServiceenu component render tests", () => {
       expect(wrapper.find(Menu.Item).at(2).props().active).toEqual(false);
       expect(wrapper.find(Menu.Item).at(3).props().active).toEqual(false);
       // assert correct client route //
-      expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminServiceRoutes.ADMIN_SERVICES_CREATE_ROUTE);
+      expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminServiceRoutes.CREATE_ROUTE);
     });
     it("Should correctly respond to 'Manage' 'Menu.Item' click", () => {
       window.scrollTo = jest.fn;
@@ -73,7 +73,7 @@ describe("AdminServiceenu component render tests", () => {
       expect(wrapper.find(Menu.Item).at(2).props().active).toEqual(true);
       expect(wrapper.find(Menu.Item).at(3).props().active).toEqual(false);
       // assert correct client route //
-      expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminServiceRoutes.ADMIN_SERVICES_MANAGE_ROUTE);
+      expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminServiceRoutes.MANAGE_ROUTE);
     })
     it("Should correctly respond to 'View Sorted' 'Menu.Item' click", () => {
       window.scrollTo = jest.fn;
@@ -86,7 +86,7 @@ describe("AdminServiceenu component render tests", () => {
       expect(wrapper.find(Menu.Item).at(2).props().active).toEqual(false);
       expect(wrapper.find(Menu.Item).at(3).props().active).toEqual(true);
       // assert correct client route //
-      expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminServiceRoutes.ADMIN_SERVICES_VIEW_SORTED_ROUTE);
+      expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminServiceRoutes.VIEW_SORTED_ROUTE);
     })
   })
 })

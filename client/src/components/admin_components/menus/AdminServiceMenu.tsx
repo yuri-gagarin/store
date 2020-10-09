@@ -15,7 +15,7 @@ const AdminServiceMenu: React.FC<Props> = ({ history, location, dispatch }): JSX
   const [ activeItem, setActiveItem ] = useState<string>("");
   const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
   // route matching for correct links //
-  const match = useRouteMatch(AdminServiceRoutes.ADMIN_SERVICES_HOME_ROUTE);
+  const match = useRouteMatch(AdminServiceRoutes.HOME_ROUTE);
   const adminServiceMenuRef = useRef<HTMLDivElement>(document.createElement("div"));
 
   const handleItemClick = (e: React.MouseEvent, { name }: MenuItemProps): void => {
@@ -36,7 +36,7 @@ const AdminServiceMenu: React.FC<Props> = ({ history, location, dispatch }): JSX
       case "view_sorted": 
         history.push(match?.path + "/view_sorted");
         break;
-      default: history.push(AdminServiceRoutes.ADMIN_SERVICES_HOME_ROUTE);
+      default: history.push(AdminServiceRoutes.HOME_ROUTE);
     }
   }
  
