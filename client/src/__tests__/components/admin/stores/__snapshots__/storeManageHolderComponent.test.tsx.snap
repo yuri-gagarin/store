@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Store Manage Holder Tests Default Component state at first render Should correctly render 1`] = `
-<MemoryRouter>
-  <Router
+<withRouter(StoreManageHolder)>
+  <StoreManageHolder
     history={
       Object {
         "action": "POP",
@@ -12,8 +12,7 @@ exports[`Store Manage Holder Tests Default Component state at first render Shoul
         "entries": Array [
           Object {
             "hash": "",
-            "key": "dbyjf3",
-            "pathname": "/",
+            "pathname": "/admin/home/my_stores/manage",
             "search": "",
             "state": undefined,
           },
@@ -26,8 +25,7 @@ exports[`Store Manage Holder Tests Default Component state at first render Shoul
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "dbyjf3",
-          "pathname": "/",
+          "pathname": "/admin/home/my_stores/manage",
           "search": "",
           "state": undefined,
         },
@@ -35,134 +33,95 @@ exports[`Store Manage Holder Tests Default Component state at first render Shoul
         "replace": [Function],
       }
     }
+    location={
+      Object {
+        "hash": "",
+        "pathname": "/admin/home/my_stores/manage",
+        "search": "",
+        "state": undefined,
+      }
+    }
+    match={
+      Object {
+        "isExact": false,
+        "params": Object {},
+        "path": "/",
+        "url": "/",
+      }
+    }
   >
-    <Component>
-      <withRouter(StoreManageHolder)>
-        <StoreManageHolder
-          history={
-            Object {
-              "action": "POP",
-              "block": [Function],
-              "canGo": [Function],
-              "createHref": [Function],
-              "entries": Array [
-                Object {
-                  "hash": "",
-                  "key": "dbyjf3",
-                  "pathname": "/",
-                  "search": "",
-                  "state": undefined,
-                },
-              ],
-              "go": [Function],
-              "goBack": [Function],
-              "goForward": [Function],
-              "index": 0,
-              "length": 1,
-              "listen": [Function],
-              "location": Object {
-                "hash": "",
-                "key": "dbyjf3",
-                "pathname": "/",
-                "search": "",
-                "state": undefined,
-              },
-              "push": [Function],
-              "replace": [Function],
-            }
+    <LoaderExampleText>
+      <div
+        id="generalLoadingScreen"
+        style={
+          Object {
+            "height": "100vh",
           }
-          location={
+        }
+      >
+        <Segment
+          style={
             Object {
-              "hash": "",
-              "key": "dbyjf3",
-              "pathname": "/",
-              "search": "",
-              "state": undefined,
-            }
-          }
-          match={
-            Object {
-              "isExact": true,
-              "params": Object {},
-              "path": "/",
-              "url": "/",
+              "height": "100vh",
             }
           }
         >
-          <LoaderExampleText>
-            <div
-              style={
-                Object {
-                  "height": "100vh",
-                }
+          <div
+            className="ui segment"
+            style={
+              Object {
+                "height": "100vh",
               }
+            }
+          >
+            <Dimmer
+              active={true}
+              inverted={true}
             >
-              <Segment
-                style={
-                  Object {
-                    "height": "100vh",
-                  }
-                }
+              <DimmerInner
+                active={true}
+                inverted={true}
               >
-                <div
-                  className="ui segment"
-                  style={
+                <Ref
+                  innerRef={
                     Object {
-                      "height": "100vh",
+                      "current": null,
                     }
                   }
                 >
-                  <Dimmer
-                    active={true}
-                    inverted={true}
+                  <RefFindNode
+                    innerRef={
+                      Object {
+                        "current": null,
+                      }
+                    }
                   >
-                    <DimmerInner
-                      active={true}
-                      inverted={true}
+                    <div
+                      className="ui active transition visible inverted dimmer"
+                      onClick={[Function]}
                     >
-                      <Ref
-                        innerRef={
-                          Object {
-                            "current": null,
-                          }
-                        }
+                      <div
+                        className="content"
                       >
-                        <RefFindNode
-                          innerRef={
-                            Object {
-                              "current": null,
-                            }
-                          }
-                        >
+                        <Loader>
                           <div
-                            className="ui active transition visible inverted dimmer"
-                            onClick={[Function]}
+                            className="ui text loader"
                           >
-                            <div
-                              className="content"
-                            >
-                              <Loader>
-                                <div
-                                  className="ui text loader"
-                                >
-                                  Please Wait
-                                </div>
-                              </Loader>
-                            </div>
+                            Please Wait
                           </div>
-                        </RefFindNode>
-                      </Ref>
-                    </DimmerInner>
-                  </Dimmer>
-                </div>
-              </Segment>
-            </div>
-          </LoaderExampleText>
-        </StoreManageHolder>
-      </withRouter(StoreManageHolder)>
-    </Component>
-  </Router>
-</MemoryRouter>
+                        </Loader>
+                      </div>
+                    </div>
+                  </RefFindNode>
+                </Ref>
+              </DimmerInner>
+            </Dimmer>
+          </div>
+        </Segment>
+      </div>
+    </LoaderExampleText>
+  </StoreManageHolder>
+</withRouter(StoreManageHolder)>
 `;
 
 exports[`Store Manage Holder Tests State after a successful API call Should render the correct StoreManageHolder Component 1`] = `
@@ -175,21 +134,23 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
     id="storeManageHolder"
   >
     <Route
-      path="undefined/edit"
+      path="/admin/home/my_stores/manage/edit"
     />
     <Route
       exact={true}
+      path="/admin/home/my_stores/manage"
     >
       <withRouter(StoreCard)
-        _id="0amepj2tgl"
-        createdAt="Sat Sep 19 2020 07:18:13 GMT+0300 (Eastern European Summer Time)"
-        description="Aut aut reprehenderit nostrum quas. A voluptas accusantium id. Hic maxime sunt quisquam consequatur omnis et. Aut eius omnis iure distinctio voluptas quia. Soluta officiis et tempore qui. Quia voluptatibus quia aut voluptatem quam molestiae."
+        _id="1"
+        createdAt="now"
+        description="desc"
         dispatch={[Function]}
         imageCount={0}
-        key="0amepj2tgl"
+        key="1"
         state={
           Object {
             "bonusVideoState": Object {
+              "bonusVideoFormOpen": false,
               "currentBonusVideoData": Object {
                 "_id": "",
                 "createdAt": "",
@@ -264,39 +225,18 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
               "error": null,
               "loadedStores": Array [
                 Object {
-                  "_id": "0amepj2tgl",
-                  "createdAt": "Sat Sep 19 2020 07:18:13 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Aut aut reprehenderit nostrum quas. A voluptas accusantium id. Hic maxime sunt quisquam consequatur omnis et. Aut eius omnis iure distinctio voluptas quia. Soluta officiis et tempore qui. Quia voluptatibus quia aut voluptatem quam molestiae.",
+                  "_id": "1",
+                  "createdAt": "now",
+                  "description": "desc",
                   "images": Array [],
-                  "title": "inventore",
+                  "title": "first",
                 },
                 Object {
-                  "_id": "h7o5dskiux",
-                  "createdAt": "Sat Sep 19 2020 09:08:17 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Laboriosam dolore atque consequuntur aspernatur. Minus nulla voluptatibus quas. Neque voluptatem et quia pariatur magnam et sed voluptatem.",
+                  "_id": "2",
+                  "createdAt": "now",
+                  "description": "desc",
                   "images": Array [],
-                  "title": "sed",
-                },
-                Object {
-                  "_id": "3fodyxwcd1",
-                  "createdAt": "Sat Sep 19 2020 09:29:22 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Vero illum quaerat tempore quidem error quidem ratione doloremque. Quaerat eos atque maiores vel animi. Quia ut dicta odit rerum. Odit dolorum voluptatibus reprehenderit aut odit ad excepturi quaerat. Dicta ipsum possimus quae quisquam maxime nam impedit. Eum odio error laborum rerum veritatis ipsam doloremque dolorem.",
-                  "images": Array [],
-                  "title": "non",
-                },
-                Object {
-                  "_id": "9kk5vdolvw",
-                  "createdAt": "Sat Sep 19 2020 21:29:46 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Reiciendis provident facere sed omnis et minus dolores labore delectus. Sit quia molestiae odio minima error ut. Recusandae nisi officia facere et veritatis sit. Cum nisi et et ad corporis necessitatibus ut animi autem. Ut molestias quia qui rerum unde molestias voluptas voluptatem molestiae.",
-                  "images": Array [],
-                  "title": "excepturi",
-                },
-                Object {
-                  "_id": "xzrwiz3cb2",
-                  "createdAt": "Sat Sep 19 2020 18:56:12 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Nemo voluptate eos esse consequatur laudantium. Asperiores tenetur debitis sunt mollitia quasi voluptate veritatis eum voluptatum. Eligendi unde totam magni mollitia aliquid et enim. Explicabo laborum aut reprehenderit ut qui nesciunt assumenda. Dolores enim vel voluptates enim qui quam. Facilis delectus adipisci pariatur quidem ipsum ea sunt.",
-                  "images": Array [],
-                  "title": "saepe",
+                  "title": "second",
                 },
               ],
               "loading": false,
@@ -305,12 +245,12 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
             },
           }
         }
-        title="inventore"
+        title="first"
       >
         <StoreCard
-          _id="0amepj2tgl"
-          createdAt="Sat Sep 19 2020 07:18:13 GMT+0300 (Eastern European Summer Time)"
-          description="Aut aut reprehenderit nostrum quas. A voluptas accusantium id. Hic maxime sunt quisquam consequatur omnis et. Aut eius omnis iure distinctio voluptas quia. Soluta officiis et tempore qui. Quia voluptatibus quia aut voluptatem quam molestiae."
+          _id="1"
+          createdAt="now"
+          description="desc"
           dispatch={[Function]}
           history={
             Object {
@@ -321,8 +261,7 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
               "entries": Array [
                 Object {
                   "hash": "",
-                  "key": "v1nmvm",
-                  "pathname": "/",
+                  "pathname": "/admin/home/my_stores/manage",
                   "search": "",
                   "state": undefined,
                 },
@@ -335,8 +274,7 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
               "listen": [Function],
               "location": Object {
                 "hash": "",
-                "key": "v1nmvm",
-                "pathname": "/",
+                "pathname": "/admin/home/my_stores/manage",
                 "search": "",
                 "state": undefined,
               },
@@ -348,8 +286,7 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
           location={
             Object {
               "hash": "",
-              "key": "v1nmvm",
-              "pathname": "/",
+              "pathname": "/admin/home/my_stores/manage",
               "search": "",
               "state": undefined,
             }
@@ -358,13 +295,14 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
             Object {
               "isExact": true,
               "params": Object {},
-              "path": "/",
-              "url": "/",
+              "path": "/admin/home/my_stores/manage",
+              "url": "/admin/home/my_stores/manage",
             }
           }
           state={
             Object {
               "bonusVideoState": Object {
+                "bonusVideoFormOpen": false,
                 "currentBonusVideoData": Object {
                   "_id": "",
                   "createdAt": "",
@@ -439,39 +377,18 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
                 "error": null,
                 "loadedStores": Array [
                   Object {
-                    "_id": "0amepj2tgl",
-                    "createdAt": "Sat Sep 19 2020 07:18:13 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Aut aut reprehenderit nostrum quas. A voluptas accusantium id. Hic maxime sunt quisquam consequatur omnis et. Aut eius omnis iure distinctio voluptas quia. Soluta officiis et tempore qui. Quia voluptatibus quia aut voluptatem quam molestiae.",
+                    "_id": "1",
+                    "createdAt": "now",
+                    "description": "desc",
                     "images": Array [],
-                    "title": "inventore",
+                    "title": "first",
                   },
                   Object {
-                    "_id": "h7o5dskiux",
-                    "createdAt": "Sat Sep 19 2020 09:08:17 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Laboriosam dolore atque consequuntur aspernatur. Minus nulla voluptatibus quas. Neque voluptatem et quia pariatur magnam et sed voluptatem.",
+                    "_id": "2",
+                    "createdAt": "now",
+                    "description": "desc",
                     "images": Array [],
-                    "title": "sed",
-                  },
-                  Object {
-                    "_id": "3fodyxwcd1",
-                    "createdAt": "Sat Sep 19 2020 09:29:22 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Vero illum quaerat tempore quidem error quidem ratione doloremque. Quaerat eos atque maiores vel animi. Quia ut dicta odit rerum. Odit dolorum voluptatibus reprehenderit aut odit ad excepturi quaerat. Dicta ipsum possimus quae quisquam maxime nam impedit. Eum odio error laborum rerum veritatis ipsam doloremque dolorem.",
-                    "images": Array [],
-                    "title": "non",
-                  },
-                  Object {
-                    "_id": "9kk5vdolvw",
-                    "createdAt": "Sat Sep 19 2020 21:29:46 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Reiciendis provident facere sed omnis et minus dolores labore delectus. Sit quia molestiae odio minima error ut. Recusandae nisi officia facere et veritatis sit. Cum nisi et et ad corporis necessitatibus ut animi autem. Ut molestias quia qui rerum unde molestias voluptas voluptatem molestiae.",
-                    "images": Array [],
-                    "title": "excepturi",
-                  },
-                  Object {
-                    "_id": "xzrwiz3cb2",
-                    "createdAt": "Sat Sep 19 2020 18:56:12 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Nemo voluptate eos esse consequatur laudantium. Asperiores tenetur debitis sunt mollitia quasi voluptate veritatis eum voluptatum. Eligendi unde totam magni mollitia aliquid et enim. Explicabo laborum aut reprehenderit ut qui nesciunt assumenda. Dolores enim vel voluptates enim qui quam. Facilis delectus adipisci pariatur quidem ipsum ea sunt.",
-                    "images": Array [],
-                    "title": "saepe",
+                    "title": "second",
                   },
                 ],
                 "loading": false,
@@ -480,7 +397,7 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
               },
             }
           }
-          title="inventore"
+          title="first"
         >
           <GridRow
             style={
@@ -520,11 +437,11 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
                 >
                   <h3>
                     Title: 
-                    inventore
+                    first
                   </h3>
                   <h5>
                     Description: 
-                    Aut aut reprehenderit nostrum quas. A voluptas accusantium id. Hic maxime sunt quisquam consequatur omnis et. Aut eius omnis iure distinctio voluptas quia. Soluta officiis et tempore qui. Quia voluptatibus quia aut voluptatem quam molestiae.
+                    desc
                   </h5>
                   <h5>
                     Number of Images: 
@@ -534,7 +451,7 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
                     <span>
                       Created At: 
                     </span>
-                    2020-Sep-19
+                    NaN-undefined-NaN
                   </p>
                 </div>
               </GridColumn>
@@ -679,15 +596,16 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
         </StoreCard>
       </withRouter(StoreCard)>
       <withRouter(StoreCard)
-        _id="h7o5dskiux"
-        createdAt="Sat Sep 19 2020 09:08:17 GMT+0300 (Eastern European Summer Time)"
-        description="Laboriosam dolore atque consequuntur aspernatur. Minus nulla voluptatibus quas. Neque voluptatem et quia pariatur magnam et sed voluptatem."
+        _id="2"
+        createdAt="now"
+        description="desc"
         dispatch={[Function]}
         imageCount={0}
-        key="h7o5dskiux"
+        key="2"
         state={
           Object {
             "bonusVideoState": Object {
+              "bonusVideoFormOpen": false,
               "currentBonusVideoData": Object {
                 "_id": "",
                 "createdAt": "",
@@ -762,39 +680,18 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
               "error": null,
               "loadedStores": Array [
                 Object {
-                  "_id": "0amepj2tgl",
-                  "createdAt": "Sat Sep 19 2020 07:18:13 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Aut aut reprehenderit nostrum quas. A voluptas accusantium id. Hic maxime sunt quisquam consequatur omnis et. Aut eius omnis iure distinctio voluptas quia. Soluta officiis et tempore qui. Quia voluptatibus quia aut voluptatem quam molestiae.",
+                  "_id": "1",
+                  "createdAt": "now",
+                  "description": "desc",
                   "images": Array [],
-                  "title": "inventore",
+                  "title": "first",
                 },
                 Object {
-                  "_id": "h7o5dskiux",
-                  "createdAt": "Sat Sep 19 2020 09:08:17 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Laboriosam dolore atque consequuntur aspernatur. Minus nulla voluptatibus quas. Neque voluptatem et quia pariatur magnam et sed voluptatem.",
+                  "_id": "2",
+                  "createdAt": "now",
+                  "description": "desc",
                   "images": Array [],
-                  "title": "sed",
-                },
-                Object {
-                  "_id": "3fodyxwcd1",
-                  "createdAt": "Sat Sep 19 2020 09:29:22 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Vero illum quaerat tempore quidem error quidem ratione doloremque. Quaerat eos atque maiores vel animi. Quia ut dicta odit rerum. Odit dolorum voluptatibus reprehenderit aut odit ad excepturi quaerat. Dicta ipsum possimus quae quisquam maxime nam impedit. Eum odio error laborum rerum veritatis ipsam doloremque dolorem.",
-                  "images": Array [],
-                  "title": "non",
-                },
-                Object {
-                  "_id": "9kk5vdolvw",
-                  "createdAt": "Sat Sep 19 2020 21:29:46 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Reiciendis provident facere sed omnis et minus dolores labore delectus. Sit quia molestiae odio minima error ut. Recusandae nisi officia facere et veritatis sit. Cum nisi et et ad corporis necessitatibus ut animi autem. Ut molestias quia qui rerum unde molestias voluptas voluptatem molestiae.",
-                  "images": Array [],
-                  "title": "excepturi",
-                },
-                Object {
-                  "_id": "xzrwiz3cb2",
-                  "createdAt": "Sat Sep 19 2020 18:56:12 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Nemo voluptate eos esse consequatur laudantium. Asperiores tenetur debitis sunt mollitia quasi voluptate veritatis eum voluptatum. Eligendi unde totam magni mollitia aliquid et enim. Explicabo laborum aut reprehenderit ut qui nesciunt assumenda. Dolores enim vel voluptates enim qui quam. Facilis delectus adipisci pariatur quidem ipsum ea sunt.",
-                  "images": Array [],
-                  "title": "saepe",
+                  "title": "second",
                 },
               ],
               "loading": false,
@@ -803,12 +700,12 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
             },
           }
         }
-        title="sed"
+        title="second"
       >
         <StoreCard
-          _id="h7o5dskiux"
-          createdAt="Sat Sep 19 2020 09:08:17 GMT+0300 (Eastern European Summer Time)"
-          description="Laboriosam dolore atque consequuntur aspernatur. Minus nulla voluptatibus quas. Neque voluptatem et quia pariatur magnam et sed voluptatem."
+          _id="2"
+          createdAt="now"
+          description="desc"
           dispatch={[Function]}
           history={
             Object {
@@ -819,8 +716,7 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
               "entries": Array [
                 Object {
                   "hash": "",
-                  "key": "v1nmvm",
-                  "pathname": "/",
+                  "pathname": "/admin/home/my_stores/manage",
                   "search": "",
                   "state": undefined,
                 },
@@ -833,8 +729,7 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
               "listen": [Function],
               "location": Object {
                 "hash": "",
-                "key": "v1nmvm",
-                "pathname": "/",
+                "pathname": "/admin/home/my_stores/manage",
                 "search": "",
                 "state": undefined,
               },
@@ -846,8 +741,7 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
           location={
             Object {
               "hash": "",
-              "key": "v1nmvm",
-              "pathname": "/",
+              "pathname": "/admin/home/my_stores/manage",
               "search": "",
               "state": undefined,
             }
@@ -856,13 +750,14 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
             Object {
               "isExact": true,
               "params": Object {},
-              "path": "/",
-              "url": "/",
+              "path": "/admin/home/my_stores/manage",
+              "url": "/admin/home/my_stores/manage",
             }
           }
           state={
             Object {
               "bonusVideoState": Object {
+                "bonusVideoFormOpen": false,
                 "currentBonusVideoData": Object {
                   "_id": "",
                   "createdAt": "",
@@ -937,39 +832,18 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
                 "error": null,
                 "loadedStores": Array [
                   Object {
-                    "_id": "0amepj2tgl",
-                    "createdAt": "Sat Sep 19 2020 07:18:13 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Aut aut reprehenderit nostrum quas. A voluptas accusantium id. Hic maxime sunt quisquam consequatur omnis et. Aut eius omnis iure distinctio voluptas quia. Soluta officiis et tempore qui. Quia voluptatibus quia aut voluptatem quam molestiae.",
+                    "_id": "1",
+                    "createdAt": "now",
+                    "description": "desc",
                     "images": Array [],
-                    "title": "inventore",
+                    "title": "first",
                   },
                   Object {
-                    "_id": "h7o5dskiux",
-                    "createdAt": "Sat Sep 19 2020 09:08:17 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Laboriosam dolore atque consequuntur aspernatur. Minus nulla voluptatibus quas. Neque voluptatem et quia pariatur magnam et sed voluptatem.",
+                    "_id": "2",
+                    "createdAt": "now",
+                    "description": "desc",
                     "images": Array [],
-                    "title": "sed",
-                  },
-                  Object {
-                    "_id": "3fodyxwcd1",
-                    "createdAt": "Sat Sep 19 2020 09:29:22 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Vero illum quaerat tempore quidem error quidem ratione doloremque. Quaerat eos atque maiores vel animi. Quia ut dicta odit rerum. Odit dolorum voluptatibus reprehenderit aut odit ad excepturi quaerat. Dicta ipsum possimus quae quisquam maxime nam impedit. Eum odio error laborum rerum veritatis ipsam doloremque dolorem.",
-                    "images": Array [],
-                    "title": "non",
-                  },
-                  Object {
-                    "_id": "9kk5vdolvw",
-                    "createdAt": "Sat Sep 19 2020 21:29:46 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Reiciendis provident facere sed omnis et minus dolores labore delectus. Sit quia molestiae odio minima error ut. Recusandae nisi officia facere et veritatis sit. Cum nisi et et ad corporis necessitatibus ut animi autem. Ut molestias quia qui rerum unde molestias voluptas voluptatem molestiae.",
-                    "images": Array [],
-                    "title": "excepturi",
-                  },
-                  Object {
-                    "_id": "xzrwiz3cb2",
-                    "createdAt": "Sat Sep 19 2020 18:56:12 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Nemo voluptate eos esse consequatur laudantium. Asperiores tenetur debitis sunt mollitia quasi voluptate veritatis eum voluptatum. Eligendi unde totam magni mollitia aliquid et enim. Explicabo laborum aut reprehenderit ut qui nesciunt assumenda. Dolores enim vel voluptates enim qui quam. Facilis delectus adipisci pariatur quidem ipsum ea sunt.",
-                    "images": Array [],
-                    "title": "saepe",
+                    "title": "second",
                   },
                 ],
                 "loading": false,
@@ -978,7 +852,7 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
               },
             }
           }
-          title="sed"
+          title="second"
         >
           <GridRow
             style={
@@ -1018,11 +892,11 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
                 >
                   <h3>
                     Title: 
-                    sed
+                    second
                   </h3>
                   <h5>
                     Description: 
-                    Laboriosam dolore atque consequuntur aspernatur. Minus nulla voluptatibus quas. Neque voluptatem et quia pariatur magnam et sed voluptatem.
+                    desc
                   </h5>
                   <h5>
                     Number of Images: 
@@ -1032,1501 +906,7 @@ exports[`Store Manage Holder Tests State after a successful API call Should rend
                     <span>
                       Created At: 
                     </span>
-                    2020-Sep-19
-                  </p>
-                </div>
-              </GridColumn>
-              <GridColumn
-                computer={4}
-                mobile={16}
-                style={
-                  Object {
-                    "border": "2px solid blue",
-                  }
-                }
-              >
-                <div
-                  className="four wide computer sixteen wide mobile column"
-                  style={
-                    Object {
-                      "border": "2px solid blue",
-                    }
-                  }
-                >
-                  <Button
-                    as="button"
-                    className="storeCardBtn"
-                    color="green"
-                    content="Open"
-                    inverted={true}
-                    onClick={[Function]}
-                  >
-                    <Ref
-                      innerRef={
-                        Object {
-                          "current": <button
-                            class="ui green inverted button storeCardBtn"
-                          >
-                            Open
-                          </button>,
-                        }
-                      }
-                    >
-                      <RefFindNode
-                        innerRef={
-                          Object {
-                            "current": <button
-                              class="ui green inverted button storeCardBtn"
-                            >
-                              Open
-                            </button>,
-                          }
-                        }
-                      >
-                        <button
-                          className="ui green inverted button storeCardBtn"
-                          onClick={[Function]}
-                        >
-                          Open
-                        </button>
-                      </RefFindNode>
-                    </Ref>
-                  </Button>
-                  <Button
-                    as="button"
-                    className="storeCardBtn"
-                    color="orange"
-                    content="Edit"
-                    inverted={true}
-                    onClick={[Function]}
-                  >
-                    <Ref
-                      innerRef={
-                        Object {
-                          "current": <button
-                            class="ui orange inverted button storeCardBtn"
-                          >
-                            Edit
-                          </button>,
-                        }
-                      }
-                    >
-                      <RefFindNode
-                        innerRef={
-                          Object {
-                            "current": <button
-                              class="ui orange inverted button storeCardBtn"
-                            >
-                              Edit
-                            </button>,
-                          }
-                        }
-                      >
-                        <button
-                          className="ui orange inverted button storeCardBtn"
-                          onClick={[Function]}
-                        >
-                          Edit
-                        </button>
-                      </RefFindNode>
-                    </Ref>
-                  </Button>
-                  <Button
-                    as="button"
-                    className="storeCardBtn"
-                    color="red"
-                    content="Delete"
-                    inverted={true}
-                    onClick={[Function]}
-                  >
-                    <Ref
-                      innerRef={
-                        Object {
-                          "current": <button
-                            class="ui red inverted button storeCardBtn"
-                          >
-                            Delete
-                          </button>,
-                        }
-                      }
-                    >
-                      <RefFindNode
-                        innerRef={
-                          Object {
-                            "current": <button
-                              class="ui red inverted button storeCardBtn"
-                            >
-                              Delete
-                            </button>,
-                          }
-                        }
-                      >
-                        <button
-                          className="ui red inverted button storeCardBtn"
-                          onClick={[Function]}
-                        >
-                          Delete
-                        </button>
-                      </RefFindNode>
-                    </Ref>
-                  </Button>
-                </div>
-              </GridColumn>
-            </div>
-          </GridRow>
-        </StoreCard>
-      </withRouter(StoreCard)>
-      <withRouter(StoreCard)
-        _id="3fodyxwcd1"
-        createdAt="Sat Sep 19 2020 09:29:22 GMT+0300 (Eastern European Summer Time)"
-        description="Vero illum quaerat tempore quidem error quidem ratione doloremque. Quaerat eos atque maiores vel animi. Quia ut dicta odit rerum. Odit dolorum voluptatibus reprehenderit aut odit ad excepturi quaerat. Dicta ipsum possimus quae quisquam maxime nam impedit. Eum odio error laborum rerum veritatis ipsam doloremque dolorem."
-        dispatch={[Function]}
-        imageCount={0}
-        key="3fodyxwcd1"
-        state={
-          Object {
-            "bonusVideoState": Object {
-              "currentBonusVideoData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "vimeoURL": "",
-                "youTubeURL": "",
-              },
-              "error": null,
-              "loadedBonusVideos": Array [],
-              "loading": false,
-              "responseMsg": "",
-            },
-            "productState": Object {
-              "currentProductData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "details": "",
-                "images": Array [],
-                "name": "",
-                "price": "",
-              },
-              "error": null,
-              "loadedProducts": Array [],
-              "loading": false,
-              "productFormOpen": false,
-              "responseMsg": "",
-            },
-            "serviceState": Object {
-              "currentServiceData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "images": Array [],
-                "name": "",
-                "price": "",
-              },
-              "error": null,
-              "loadedServices": Array [],
-              "loading": false,
-              "responseMsg": "",
-              "serviceFormOpen": false,
-            },
-            "storeItemState": Object {
-              "currentStoreItemData": Object {
-                "_id": "",
-                "categories": Array [],
-                "createdAt": "",
-                "description": "",
-                "details": "",
-                "images": Array [],
-                "name": "",
-                "price": "",
-                "storeId": "",
-                "storeName": "",
-              },
-              "error": null,
-              "loadedStoreItems": Array [],
-              "loading": false,
-              "numberOfItems": 0,
-              "responseMsg": "",
-              "storeItemFormOpen": false,
-            },
-            "storeState": Object {
-              "currentStoreData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "images": Array [],
-                "title": "",
-              },
-              "error": null,
-              "loadedStores": Array [
-                Object {
-                  "_id": "0amepj2tgl",
-                  "createdAt": "Sat Sep 19 2020 07:18:13 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Aut aut reprehenderit nostrum quas. A voluptas accusantium id. Hic maxime sunt quisquam consequatur omnis et. Aut eius omnis iure distinctio voluptas quia. Soluta officiis et tempore qui. Quia voluptatibus quia aut voluptatem quam molestiae.",
-                  "images": Array [],
-                  "title": "inventore",
-                },
-                Object {
-                  "_id": "h7o5dskiux",
-                  "createdAt": "Sat Sep 19 2020 09:08:17 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Laboriosam dolore atque consequuntur aspernatur. Minus nulla voluptatibus quas. Neque voluptatem et quia pariatur magnam et sed voluptatem.",
-                  "images": Array [],
-                  "title": "sed",
-                },
-                Object {
-                  "_id": "3fodyxwcd1",
-                  "createdAt": "Sat Sep 19 2020 09:29:22 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Vero illum quaerat tempore quidem error quidem ratione doloremque. Quaerat eos atque maiores vel animi. Quia ut dicta odit rerum. Odit dolorum voluptatibus reprehenderit aut odit ad excepturi quaerat. Dicta ipsum possimus quae quisquam maxime nam impedit. Eum odio error laborum rerum veritatis ipsam doloremque dolorem.",
-                  "images": Array [],
-                  "title": "non",
-                },
-                Object {
-                  "_id": "9kk5vdolvw",
-                  "createdAt": "Sat Sep 19 2020 21:29:46 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Reiciendis provident facere sed omnis et minus dolores labore delectus. Sit quia molestiae odio minima error ut. Recusandae nisi officia facere et veritatis sit. Cum nisi et et ad corporis necessitatibus ut animi autem. Ut molestias quia qui rerum unde molestias voluptas voluptatem molestiae.",
-                  "images": Array [],
-                  "title": "excepturi",
-                },
-                Object {
-                  "_id": "xzrwiz3cb2",
-                  "createdAt": "Sat Sep 19 2020 18:56:12 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Nemo voluptate eos esse consequatur laudantium. Asperiores tenetur debitis sunt mollitia quasi voluptate veritatis eum voluptatum. Eligendi unde totam magni mollitia aliquid et enim. Explicabo laborum aut reprehenderit ut qui nesciunt assumenda. Dolores enim vel voluptates enim qui quam. Facilis delectus adipisci pariatur quidem ipsum ea sunt.",
-                  "images": Array [],
-                  "title": "saepe",
-                },
-              ],
-              "loading": false,
-              "responseMsg": "All Ok",
-              "storeFormOpen": false,
-            },
-          }
-        }
-        title="non"
-      >
-        <StoreCard
-          _id="3fodyxwcd1"
-          createdAt="Sat Sep 19 2020 09:29:22 GMT+0300 (Eastern European Summer Time)"
-          description="Vero illum quaerat tempore quidem error quidem ratione doloremque. Quaerat eos atque maiores vel animi. Quia ut dicta odit rerum. Odit dolorum voluptatibus reprehenderit aut odit ad excepturi quaerat. Dicta ipsum possimus quae quisquam maxime nam impedit. Eum odio error laborum rerum veritatis ipsam doloremque dolorem."
-          dispatch={[Function]}
-          history={
-            Object {
-              "action": "POP",
-              "block": [Function],
-              "canGo": [Function],
-              "createHref": [Function],
-              "entries": Array [
-                Object {
-                  "hash": "",
-                  "key": "v1nmvm",
-                  "pathname": "/",
-                  "search": "",
-                  "state": undefined,
-                },
-              ],
-              "go": [Function],
-              "goBack": [Function],
-              "goForward": [Function],
-              "index": 0,
-              "length": 1,
-              "listen": [Function],
-              "location": Object {
-                "hash": "",
-                "key": "v1nmvm",
-                "pathname": "/",
-                "search": "",
-                "state": undefined,
-              },
-              "push": [Function],
-              "replace": [Function],
-            }
-          }
-          imageCount={0}
-          location={
-            Object {
-              "hash": "",
-              "key": "v1nmvm",
-              "pathname": "/",
-              "search": "",
-              "state": undefined,
-            }
-          }
-          match={
-            Object {
-              "isExact": true,
-              "params": Object {},
-              "path": "/",
-              "url": "/",
-            }
-          }
-          state={
-            Object {
-              "bonusVideoState": Object {
-                "currentBonusVideoData": Object {
-                  "_id": "",
-                  "createdAt": "",
-                  "description": "",
-                  "vimeoURL": "",
-                  "youTubeURL": "",
-                },
-                "error": null,
-                "loadedBonusVideos": Array [],
-                "loading": false,
-                "responseMsg": "",
-              },
-              "productState": Object {
-                "currentProductData": Object {
-                  "_id": "",
-                  "createdAt": "",
-                  "description": "",
-                  "details": "",
-                  "images": Array [],
-                  "name": "",
-                  "price": "",
-                },
-                "error": null,
-                "loadedProducts": Array [],
-                "loading": false,
-                "productFormOpen": false,
-                "responseMsg": "",
-              },
-              "serviceState": Object {
-                "currentServiceData": Object {
-                  "_id": "",
-                  "createdAt": "",
-                  "description": "",
-                  "images": Array [],
-                  "name": "",
-                  "price": "",
-                },
-                "error": null,
-                "loadedServices": Array [],
-                "loading": false,
-                "responseMsg": "",
-                "serviceFormOpen": false,
-              },
-              "storeItemState": Object {
-                "currentStoreItemData": Object {
-                  "_id": "",
-                  "categories": Array [],
-                  "createdAt": "",
-                  "description": "",
-                  "details": "",
-                  "images": Array [],
-                  "name": "",
-                  "price": "",
-                  "storeId": "",
-                  "storeName": "",
-                },
-                "error": null,
-                "loadedStoreItems": Array [],
-                "loading": false,
-                "numberOfItems": 0,
-                "responseMsg": "",
-                "storeItemFormOpen": false,
-              },
-              "storeState": Object {
-                "currentStoreData": Object {
-                  "_id": "",
-                  "createdAt": "",
-                  "description": "",
-                  "images": Array [],
-                  "title": "",
-                },
-                "error": null,
-                "loadedStores": Array [
-                  Object {
-                    "_id": "0amepj2tgl",
-                    "createdAt": "Sat Sep 19 2020 07:18:13 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Aut aut reprehenderit nostrum quas. A voluptas accusantium id. Hic maxime sunt quisquam consequatur omnis et. Aut eius omnis iure distinctio voluptas quia. Soluta officiis et tempore qui. Quia voluptatibus quia aut voluptatem quam molestiae.",
-                    "images": Array [],
-                    "title": "inventore",
-                  },
-                  Object {
-                    "_id": "h7o5dskiux",
-                    "createdAt": "Sat Sep 19 2020 09:08:17 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Laboriosam dolore atque consequuntur aspernatur. Minus nulla voluptatibus quas. Neque voluptatem et quia pariatur magnam et sed voluptatem.",
-                    "images": Array [],
-                    "title": "sed",
-                  },
-                  Object {
-                    "_id": "3fodyxwcd1",
-                    "createdAt": "Sat Sep 19 2020 09:29:22 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Vero illum quaerat tempore quidem error quidem ratione doloremque. Quaerat eos atque maiores vel animi. Quia ut dicta odit rerum. Odit dolorum voluptatibus reprehenderit aut odit ad excepturi quaerat. Dicta ipsum possimus quae quisquam maxime nam impedit. Eum odio error laborum rerum veritatis ipsam doloremque dolorem.",
-                    "images": Array [],
-                    "title": "non",
-                  },
-                  Object {
-                    "_id": "9kk5vdolvw",
-                    "createdAt": "Sat Sep 19 2020 21:29:46 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Reiciendis provident facere sed omnis et minus dolores labore delectus. Sit quia molestiae odio minima error ut. Recusandae nisi officia facere et veritatis sit. Cum nisi et et ad corporis necessitatibus ut animi autem. Ut molestias quia qui rerum unde molestias voluptas voluptatem molestiae.",
-                    "images": Array [],
-                    "title": "excepturi",
-                  },
-                  Object {
-                    "_id": "xzrwiz3cb2",
-                    "createdAt": "Sat Sep 19 2020 18:56:12 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Nemo voluptate eos esse consequatur laudantium. Asperiores tenetur debitis sunt mollitia quasi voluptate veritatis eum voluptatum. Eligendi unde totam magni mollitia aliquid et enim. Explicabo laborum aut reprehenderit ut qui nesciunt assumenda. Dolores enim vel voluptates enim qui quam. Facilis delectus adipisci pariatur quidem ipsum ea sunt.",
-                    "images": Array [],
-                    "title": "saepe",
-                  },
-                ],
-                "loading": false,
-                "responseMsg": "All Ok",
-                "storeFormOpen": false,
-              },
-            }
-          }
-          title="non"
-        >
-          <GridRow
-            style={
-              Object {
-                "border": "3px solid green",
-                "marginTop": "2em",
-                "padding": "0.5em",
-              }
-            }
-          >
-            <div
-              className="row"
-              style={
-                Object {
-                  "border": "3px solid green",
-                  "marginTop": "2em",
-                  "padding": "0.5em",
-                }
-              }
-            >
-              <GridColumn
-                computer={12}
-                mobile={16}
-                style={
-                  Object {
-                    "border": "2px solid red",
-                  }
-                }
-              >
-                <div
-                  className="twelve wide computer sixteen wide mobile column"
-                  style={
-                    Object {
-                      "border": "2px solid red",
-                    }
-                  }
-                >
-                  <h3>
-                    Title: 
-                    non
-                  </h3>
-                  <h5>
-                    Description: 
-                    Vero illum quaerat tempore quidem error quidem ratione doloremque. Quaerat eos atque maiores vel animi. Quia ut dicta odit rerum. Odit dolorum voluptatibus reprehenderit aut odit ad excepturi quaerat. Dicta ipsum possimus quae quisquam maxime nam impedit. Eum odio error laborum rerum veritatis ipsam doloremque dolorem.
-                  </h5>
-                  <h5>
-                    Number of Images: 
-                    0
-                  </h5>
-                  <p>
-                    <span>
-                      Created At: 
-                    </span>
-                    2020-Sep-19
-                  </p>
-                </div>
-              </GridColumn>
-              <GridColumn
-                computer={4}
-                mobile={16}
-                style={
-                  Object {
-                    "border": "2px solid blue",
-                  }
-                }
-              >
-                <div
-                  className="four wide computer sixteen wide mobile column"
-                  style={
-                    Object {
-                      "border": "2px solid blue",
-                    }
-                  }
-                >
-                  <Button
-                    as="button"
-                    className="storeCardBtn"
-                    color="green"
-                    content="Open"
-                    inverted={true}
-                    onClick={[Function]}
-                  >
-                    <Ref
-                      innerRef={
-                        Object {
-                          "current": <button
-                            class="ui green inverted button storeCardBtn"
-                          >
-                            Open
-                          </button>,
-                        }
-                      }
-                    >
-                      <RefFindNode
-                        innerRef={
-                          Object {
-                            "current": <button
-                              class="ui green inverted button storeCardBtn"
-                            >
-                              Open
-                            </button>,
-                          }
-                        }
-                      >
-                        <button
-                          className="ui green inverted button storeCardBtn"
-                          onClick={[Function]}
-                        >
-                          Open
-                        </button>
-                      </RefFindNode>
-                    </Ref>
-                  </Button>
-                  <Button
-                    as="button"
-                    className="storeCardBtn"
-                    color="orange"
-                    content="Edit"
-                    inverted={true}
-                    onClick={[Function]}
-                  >
-                    <Ref
-                      innerRef={
-                        Object {
-                          "current": <button
-                            class="ui orange inverted button storeCardBtn"
-                          >
-                            Edit
-                          </button>,
-                        }
-                      }
-                    >
-                      <RefFindNode
-                        innerRef={
-                          Object {
-                            "current": <button
-                              class="ui orange inverted button storeCardBtn"
-                            >
-                              Edit
-                            </button>,
-                          }
-                        }
-                      >
-                        <button
-                          className="ui orange inverted button storeCardBtn"
-                          onClick={[Function]}
-                        >
-                          Edit
-                        </button>
-                      </RefFindNode>
-                    </Ref>
-                  </Button>
-                  <Button
-                    as="button"
-                    className="storeCardBtn"
-                    color="red"
-                    content="Delete"
-                    inverted={true}
-                    onClick={[Function]}
-                  >
-                    <Ref
-                      innerRef={
-                        Object {
-                          "current": <button
-                            class="ui red inverted button storeCardBtn"
-                          >
-                            Delete
-                          </button>,
-                        }
-                      }
-                    >
-                      <RefFindNode
-                        innerRef={
-                          Object {
-                            "current": <button
-                              class="ui red inverted button storeCardBtn"
-                            >
-                              Delete
-                            </button>,
-                          }
-                        }
-                      >
-                        <button
-                          className="ui red inverted button storeCardBtn"
-                          onClick={[Function]}
-                        >
-                          Delete
-                        </button>
-                      </RefFindNode>
-                    </Ref>
-                  </Button>
-                </div>
-              </GridColumn>
-            </div>
-          </GridRow>
-        </StoreCard>
-      </withRouter(StoreCard)>
-      <withRouter(StoreCard)
-        _id="9kk5vdolvw"
-        createdAt="Sat Sep 19 2020 21:29:46 GMT+0300 (Eastern European Summer Time)"
-        description="Reiciendis provident facere sed omnis et minus dolores labore delectus. Sit quia molestiae odio minima error ut. Recusandae nisi officia facere et veritatis sit. Cum nisi et et ad corporis necessitatibus ut animi autem. Ut molestias quia qui rerum unde molestias voluptas voluptatem molestiae."
-        dispatch={[Function]}
-        imageCount={0}
-        key="9kk5vdolvw"
-        state={
-          Object {
-            "bonusVideoState": Object {
-              "currentBonusVideoData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "vimeoURL": "",
-                "youTubeURL": "",
-              },
-              "error": null,
-              "loadedBonusVideos": Array [],
-              "loading": false,
-              "responseMsg": "",
-            },
-            "productState": Object {
-              "currentProductData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "details": "",
-                "images": Array [],
-                "name": "",
-                "price": "",
-              },
-              "error": null,
-              "loadedProducts": Array [],
-              "loading": false,
-              "productFormOpen": false,
-              "responseMsg": "",
-            },
-            "serviceState": Object {
-              "currentServiceData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "images": Array [],
-                "name": "",
-                "price": "",
-              },
-              "error": null,
-              "loadedServices": Array [],
-              "loading": false,
-              "responseMsg": "",
-              "serviceFormOpen": false,
-            },
-            "storeItemState": Object {
-              "currentStoreItemData": Object {
-                "_id": "",
-                "categories": Array [],
-                "createdAt": "",
-                "description": "",
-                "details": "",
-                "images": Array [],
-                "name": "",
-                "price": "",
-                "storeId": "",
-                "storeName": "",
-              },
-              "error": null,
-              "loadedStoreItems": Array [],
-              "loading": false,
-              "numberOfItems": 0,
-              "responseMsg": "",
-              "storeItemFormOpen": false,
-            },
-            "storeState": Object {
-              "currentStoreData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "images": Array [],
-                "title": "",
-              },
-              "error": null,
-              "loadedStores": Array [
-                Object {
-                  "_id": "0amepj2tgl",
-                  "createdAt": "Sat Sep 19 2020 07:18:13 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Aut aut reprehenderit nostrum quas. A voluptas accusantium id. Hic maxime sunt quisquam consequatur omnis et. Aut eius omnis iure distinctio voluptas quia. Soluta officiis et tempore qui. Quia voluptatibus quia aut voluptatem quam molestiae.",
-                  "images": Array [],
-                  "title": "inventore",
-                },
-                Object {
-                  "_id": "h7o5dskiux",
-                  "createdAt": "Sat Sep 19 2020 09:08:17 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Laboriosam dolore atque consequuntur aspernatur. Minus nulla voluptatibus quas. Neque voluptatem et quia pariatur magnam et sed voluptatem.",
-                  "images": Array [],
-                  "title": "sed",
-                },
-                Object {
-                  "_id": "3fodyxwcd1",
-                  "createdAt": "Sat Sep 19 2020 09:29:22 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Vero illum quaerat tempore quidem error quidem ratione doloremque. Quaerat eos atque maiores vel animi. Quia ut dicta odit rerum. Odit dolorum voluptatibus reprehenderit aut odit ad excepturi quaerat. Dicta ipsum possimus quae quisquam maxime nam impedit. Eum odio error laborum rerum veritatis ipsam doloremque dolorem.",
-                  "images": Array [],
-                  "title": "non",
-                },
-                Object {
-                  "_id": "9kk5vdolvw",
-                  "createdAt": "Sat Sep 19 2020 21:29:46 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Reiciendis provident facere sed omnis et minus dolores labore delectus. Sit quia molestiae odio minima error ut. Recusandae nisi officia facere et veritatis sit. Cum nisi et et ad corporis necessitatibus ut animi autem. Ut molestias quia qui rerum unde molestias voluptas voluptatem molestiae.",
-                  "images": Array [],
-                  "title": "excepturi",
-                },
-                Object {
-                  "_id": "xzrwiz3cb2",
-                  "createdAt": "Sat Sep 19 2020 18:56:12 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Nemo voluptate eos esse consequatur laudantium. Asperiores tenetur debitis sunt mollitia quasi voluptate veritatis eum voluptatum. Eligendi unde totam magni mollitia aliquid et enim. Explicabo laborum aut reprehenderit ut qui nesciunt assumenda. Dolores enim vel voluptates enim qui quam. Facilis delectus adipisci pariatur quidem ipsum ea sunt.",
-                  "images": Array [],
-                  "title": "saepe",
-                },
-              ],
-              "loading": false,
-              "responseMsg": "All Ok",
-              "storeFormOpen": false,
-            },
-          }
-        }
-        title="excepturi"
-      >
-        <StoreCard
-          _id="9kk5vdolvw"
-          createdAt="Sat Sep 19 2020 21:29:46 GMT+0300 (Eastern European Summer Time)"
-          description="Reiciendis provident facere sed omnis et minus dolores labore delectus. Sit quia molestiae odio minima error ut. Recusandae nisi officia facere et veritatis sit. Cum nisi et et ad corporis necessitatibus ut animi autem. Ut molestias quia qui rerum unde molestias voluptas voluptatem molestiae."
-          dispatch={[Function]}
-          history={
-            Object {
-              "action": "POP",
-              "block": [Function],
-              "canGo": [Function],
-              "createHref": [Function],
-              "entries": Array [
-                Object {
-                  "hash": "",
-                  "key": "v1nmvm",
-                  "pathname": "/",
-                  "search": "",
-                  "state": undefined,
-                },
-              ],
-              "go": [Function],
-              "goBack": [Function],
-              "goForward": [Function],
-              "index": 0,
-              "length": 1,
-              "listen": [Function],
-              "location": Object {
-                "hash": "",
-                "key": "v1nmvm",
-                "pathname": "/",
-                "search": "",
-                "state": undefined,
-              },
-              "push": [Function],
-              "replace": [Function],
-            }
-          }
-          imageCount={0}
-          location={
-            Object {
-              "hash": "",
-              "key": "v1nmvm",
-              "pathname": "/",
-              "search": "",
-              "state": undefined,
-            }
-          }
-          match={
-            Object {
-              "isExact": true,
-              "params": Object {},
-              "path": "/",
-              "url": "/",
-            }
-          }
-          state={
-            Object {
-              "bonusVideoState": Object {
-                "currentBonusVideoData": Object {
-                  "_id": "",
-                  "createdAt": "",
-                  "description": "",
-                  "vimeoURL": "",
-                  "youTubeURL": "",
-                },
-                "error": null,
-                "loadedBonusVideos": Array [],
-                "loading": false,
-                "responseMsg": "",
-              },
-              "productState": Object {
-                "currentProductData": Object {
-                  "_id": "",
-                  "createdAt": "",
-                  "description": "",
-                  "details": "",
-                  "images": Array [],
-                  "name": "",
-                  "price": "",
-                },
-                "error": null,
-                "loadedProducts": Array [],
-                "loading": false,
-                "productFormOpen": false,
-                "responseMsg": "",
-              },
-              "serviceState": Object {
-                "currentServiceData": Object {
-                  "_id": "",
-                  "createdAt": "",
-                  "description": "",
-                  "images": Array [],
-                  "name": "",
-                  "price": "",
-                },
-                "error": null,
-                "loadedServices": Array [],
-                "loading": false,
-                "responseMsg": "",
-                "serviceFormOpen": false,
-              },
-              "storeItemState": Object {
-                "currentStoreItemData": Object {
-                  "_id": "",
-                  "categories": Array [],
-                  "createdAt": "",
-                  "description": "",
-                  "details": "",
-                  "images": Array [],
-                  "name": "",
-                  "price": "",
-                  "storeId": "",
-                  "storeName": "",
-                },
-                "error": null,
-                "loadedStoreItems": Array [],
-                "loading": false,
-                "numberOfItems": 0,
-                "responseMsg": "",
-                "storeItemFormOpen": false,
-              },
-              "storeState": Object {
-                "currentStoreData": Object {
-                  "_id": "",
-                  "createdAt": "",
-                  "description": "",
-                  "images": Array [],
-                  "title": "",
-                },
-                "error": null,
-                "loadedStores": Array [
-                  Object {
-                    "_id": "0amepj2tgl",
-                    "createdAt": "Sat Sep 19 2020 07:18:13 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Aut aut reprehenderit nostrum quas. A voluptas accusantium id. Hic maxime sunt quisquam consequatur omnis et. Aut eius omnis iure distinctio voluptas quia. Soluta officiis et tempore qui. Quia voluptatibus quia aut voluptatem quam molestiae.",
-                    "images": Array [],
-                    "title": "inventore",
-                  },
-                  Object {
-                    "_id": "h7o5dskiux",
-                    "createdAt": "Sat Sep 19 2020 09:08:17 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Laboriosam dolore atque consequuntur aspernatur. Minus nulla voluptatibus quas. Neque voluptatem et quia pariatur magnam et sed voluptatem.",
-                    "images": Array [],
-                    "title": "sed",
-                  },
-                  Object {
-                    "_id": "3fodyxwcd1",
-                    "createdAt": "Sat Sep 19 2020 09:29:22 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Vero illum quaerat tempore quidem error quidem ratione doloremque. Quaerat eos atque maiores vel animi. Quia ut dicta odit rerum. Odit dolorum voluptatibus reprehenderit aut odit ad excepturi quaerat. Dicta ipsum possimus quae quisquam maxime nam impedit. Eum odio error laborum rerum veritatis ipsam doloremque dolorem.",
-                    "images": Array [],
-                    "title": "non",
-                  },
-                  Object {
-                    "_id": "9kk5vdolvw",
-                    "createdAt": "Sat Sep 19 2020 21:29:46 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Reiciendis provident facere sed omnis et minus dolores labore delectus. Sit quia molestiae odio minima error ut. Recusandae nisi officia facere et veritatis sit. Cum nisi et et ad corporis necessitatibus ut animi autem. Ut molestias quia qui rerum unde molestias voluptas voluptatem molestiae.",
-                    "images": Array [],
-                    "title": "excepturi",
-                  },
-                  Object {
-                    "_id": "xzrwiz3cb2",
-                    "createdAt": "Sat Sep 19 2020 18:56:12 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Nemo voluptate eos esse consequatur laudantium. Asperiores tenetur debitis sunt mollitia quasi voluptate veritatis eum voluptatum. Eligendi unde totam magni mollitia aliquid et enim. Explicabo laborum aut reprehenderit ut qui nesciunt assumenda. Dolores enim vel voluptates enim qui quam. Facilis delectus adipisci pariatur quidem ipsum ea sunt.",
-                    "images": Array [],
-                    "title": "saepe",
-                  },
-                ],
-                "loading": false,
-                "responseMsg": "All Ok",
-                "storeFormOpen": false,
-              },
-            }
-          }
-          title="excepturi"
-        >
-          <GridRow
-            style={
-              Object {
-                "border": "3px solid green",
-                "marginTop": "2em",
-                "padding": "0.5em",
-              }
-            }
-          >
-            <div
-              className="row"
-              style={
-                Object {
-                  "border": "3px solid green",
-                  "marginTop": "2em",
-                  "padding": "0.5em",
-                }
-              }
-            >
-              <GridColumn
-                computer={12}
-                mobile={16}
-                style={
-                  Object {
-                    "border": "2px solid red",
-                  }
-                }
-              >
-                <div
-                  className="twelve wide computer sixteen wide mobile column"
-                  style={
-                    Object {
-                      "border": "2px solid red",
-                    }
-                  }
-                >
-                  <h3>
-                    Title: 
-                    excepturi
-                  </h3>
-                  <h5>
-                    Description: 
-                    Reiciendis provident facere sed omnis et minus dolores labore delectus. Sit quia molestiae odio minima error ut. Recusandae nisi officia facere et veritatis sit. Cum nisi et et ad corporis necessitatibus ut animi autem. Ut molestias quia qui rerum unde molestias voluptas voluptatem molestiae.
-                  </h5>
-                  <h5>
-                    Number of Images: 
-                    0
-                  </h5>
-                  <p>
-                    <span>
-                      Created At: 
-                    </span>
-                    2020-Sep-19
-                  </p>
-                </div>
-              </GridColumn>
-              <GridColumn
-                computer={4}
-                mobile={16}
-                style={
-                  Object {
-                    "border": "2px solid blue",
-                  }
-                }
-              >
-                <div
-                  className="four wide computer sixteen wide mobile column"
-                  style={
-                    Object {
-                      "border": "2px solid blue",
-                    }
-                  }
-                >
-                  <Button
-                    as="button"
-                    className="storeCardBtn"
-                    color="green"
-                    content="Open"
-                    inverted={true}
-                    onClick={[Function]}
-                  >
-                    <Ref
-                      innerRef={
-                        Object {
-                          "current": <button
-                            class="ui green inverted button storeCardBtn"
-                          >
-                            Open
-                          </button>,
-                        }
-                      }
-                    >
-                      <RefFindNode
-                        innerRef={
-                          Object {
-                            "current": <button
-                              class="ui green inverted button storeCardBtn"
-                            >
-                              Open
-                            </button>,
-                          }
-                        }
-                      >
-                        <button
-                          className="ui green inverted button storeCardBtn"
-                          onClick={[Function]}
-                        >
-                          Open
-                        </button>
-                      </RefFindNode>
-                    </Ref>
-                  </Button>
-                  <Button
-                    as="button"
-                    className="storeCardBtn"
-                    color="orange"
-                    content="Edit"
-                    inverted={true}
-                    onClick={[Function]}
-                  >
-                    <Ref
-                      innerRef={
-                        Object {
-                          "current": <button
-                            class="ui orange inverted button storeCardBtn"
-                          >
-                            Edit
-                          </button>,
-                        }
-                      }
-                    >
-                      <RefFindNode
-                        innerRef={
-                          Object {
-                            "current": <button
-                              class="ui orange inverted button storeCardBtn"
-                            >
-                              Edit
-                            </button>,
-                          }
-                        }
-                      >
-                        <button
-                          className="ui orange inverted button storeCardBtn"
-                          onClick={[Function]}
-                        >
-                          Edit
-                        </button>
-                      </RefFindNode>
-                    </Ref>
-                  </Button>
-                  <Button
-                    as="button"
-                    className="storeCardBtn"
-                    color="red"
-                    content="Delete"
-                    inverted={true}
-                    onClick={[Function]}
-                  >
-                    <Ref
-                      innerRef={
-                        Object {
-                          "current": <button
-                            class="ui red inverted button storeCardBtn"
-                          >
-                            Delete
-                          </button>,
-                        }
-                      }
-                    >
-                      <RefFindNode
-                        innerRef={
-                          Object {
-                            "current": <button
-                              class="ui red inverted button storeCardBtn"
-                            >
-                              Delete
-                            </button>,
-                          }
-                        }
-                      >
-                        <button
-                          className="ui red inverted button storeCardBtn"
-                          onClick={[Function]}
-                        >
-                          Delete
-                        </button>
-                      </RefFindNode>
-                    </Ref>
-                  </Button>
-                </div>
-              </GridColumn>
-            </div>
-          </GridRow>
-        </StoreCard>
-      </withRouter(StoreCard)>
-      <withRouter(StoreCard)
-        _id="xzrwiz3cb2"
-        createdAt="Sat Sep 19 2020 18:56:12 GMT+0300 (Eastern European Summer Time)"
-        description="Nemo voluptate eos esse consequatur laudantium. Asperiores tenetur debitis sunt mollitia quasi voluptate veritatis eum voluptatum. Eligendi unde totam magni mollitia aliquid et enim. Explicabo laborum aut reprehenderit ut qui nesciunt assumenda. Dolores enim vel voluptates enim qui quam. Facilis delectus adipisci pariatur quidem ipsum ea sunt."
-        dispatch={[Function]}
-        imageCount={0}
-        key="xzrwiz3cb2"
-        state={
-          Object {
-            "bonusVideoState": Object {
-              "currentBonusVideoData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "vimeoURL": "",
-                "youTubeURL": "",
-              },
-              "error": null,
-              "loadedBonusVideos": Array [],
-              "loading": false,
-              "responseMsg": "",
-            },
-            "productState": Object {
-              "currentProductData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "details": "",
-                "images": Array [],
-                "name": "",
-                "price": "",
-              },
-              "error": null,
-              "loadedProducts": Array [],
-              "loading": false,
-              "productFormOpen": false,
-              "responseMsg": "",
-            },
-            "serviceState": Object {
-              "currentServiceData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "images": Array [],
-                "name": "",
-                "price": "",
-              },
-              "error": null,
-              "loadedServices": Array [],
-              "loading": false,
-              "responseMsg": "",
-              "serviceFormOpen": false,
-            },
-            "storeItemState": Object {
-              "currentStoreItemData": Object {
-                "_id": "",
-                "categories": Array [],
-                "createdAt": "",
-                "description": "",
-                "details": "",
-                "images": Array [],
-                "name": "",
-                "price": "",
-                "storeId": "",
-                "storeName": "",
-              },
-              "error": null,
-              "loadedStoreItems": Array [],
-              "loading": false,
-              "numberOfItems": 0,
-              "responseMsg": "",
-              "storeItemFormOpen": false,
-            },
-            "storeState": Object {
-              "currentStoreData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "images": Array [],
-                "title": "",
-              },
-              "error": null,
-              "loadedStores": Array [
-                Object {
-                  "_id": "0amepj2tgl",
-                  "createdAt": "Sat Sep 19 2020 07:18:13 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Aut aut reprehenderit nostrum quas. A voluptas accusantium id. Hic maxime sunt quisquam consequatur omnis et. Aut eius omnis iure distinctio voluptas quia. Soluta officiis et tempore qui. Quia voluptatibus quia aut voluptatem quam molestiae.",
-                  "images": Array [],
-                  "title": "inventore",
-                },
-                Object {
-                  "_id": "h7o5dskiux",
-                  "createdAt": "Sat Sep 19 2020 09:08:17 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Laboriosam dolore atque consequuntur aspernatur. Minus nulla voluptatibus quas. Neque voluptatem et quia pariatur magnam et sed voluptatem.",
-                  "images": Array [],
-                  "title": "sed",
-                },
-                Object {
-                  "_id": "3fodyxwcd1",
-                  "createdAt": "Sat Sep 19 2020 09:29:22 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Vero illum quaerat tempore quidem error quidem ratione doloremque. Quaerat eos atque maiores vel animi. Quia ut dicta odit rerum. Odit dolorum voluptatibus reprehenderit aut odit ad excepturi quaerat. Dicta ipsum possimus quae quisquam maxime nam impedit. Eum odio error laborum rerum veritatis ipsam doloremque dolorem.",
-                  "images": Array [],
-                  "title": "non",
-                },
-                Object {
-                  "_id": "9kk5vdolvw",
-                  "createdAt": "Sat Sep 19 2020 21:29:46 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Reiciendis provident facere sed omnis et minus dolores labore delectus. Sit quia molestiae odio minima error ut. Recusandae nisi officia facere et veritatis sit. Cum nisi et et ad corporis necessitatibus ut animi autem. Ut molestias quia qui rerum unde molestias voluptas voluptatem molestiae.",
-                  "images": Array [],
-                  "title": "excepturi",
-                },
-                Object {
-                  "_id": "xzrwiz3cb2",
-                  "createdAt": "Sat Sep 19 2020 18:56:12 GMT+0300 (Eastern European Summer Time)",
-                  "description": "Nemo voluptate eos esse consequatur laudantium. Asperiores tenetur debitis sunt mollitia quasi voluptate veritatis eum voluptatum. Eligendi unde totam magni mollitia aliquid et enim. Explicabo laborum aut reprehenderit ut qui nesciunt assumenda. Dolores enim vel voluptates enim qui quam. Facilis delectus adipisci pariatur quidem ipsum ea sunt.",
-                  "images": Array [],
-                  "title": "saepe",
-                },
-              ],
-              "loading": false,
-              "responseMsg": "All Ok",
-              "storeFormOpen": false,
-            },
-          }
-        }
-        title="saepe"
-      >
-        <StoreCard
-          _id="xzrwiz3cb2"
-          createdAt="Sat Sep 19 2020 18:56:12 GMT+0300 (Eastern European Summer Time)"
-          description="Nemo voluptate eos esse consequatur laudantium. Asperiores tenetur debitis sunt mollitia quasi voluptate veritatis eum voluptatum. Eligendi unde totam magni mollitia aliquid et enim. Explicabo laborum aut reprehenderit ut qui nesciunt assumenda. Dolores enim vel voluptates enim qui quam. Facilis delectus adipisci pariatur quidem ipsum ea sunt."
-          dispatch={[Function]}
-          history={
-            Object {
-              "action": "POP",
-              "block": [Function],
-              "canGo": [Function],
-              "createHref": [Function],
-              "entries": Array [
-                Object {
-                  "hash": "",
-                  "key": "v1nmvm",
-                  "pathname": "/",
-                  "search": "",
-                  "state": undefined,
-                },
-              ],
-              "go": [Function],
-              "goBack": [Function],
-              "goForward": [Function],
-              "index": 0,
-              "length": 1,
-              "listen": [Function],
-              "location": Object {
-                "hash": "",
-                "key": "v1nmvm",
-                "pathname": "/",
-                "search": "",
-                "state": undefined,
-              },
-              "push": [Function],
-              "replace": [Function],
-            }
-          }
-          imageCount={0}
-          location={
-            Object {
-              "hash": "",
-              "key": "v1nmvm",
-              "pathname": "/",
-              "search": "",
-              "state": undefined,
-            }
-          }
-          match={
-            Object {
-              "isExact": true,
-              "params": Object {},
-              "path": "/",
-              "url": "/",
-            }
-          }
-          state={
-            Object {
-              "bonusVideoState": Object {
-                "currentBonusVideoData": Object {
-                  "_id": "",
-                  "createdAt": "",
-                  "description": "",
-                  "vimeoURL": "",
-                  "youTubeURL": "",
-                },
-                "error": null,
-                "loadedBonusVideos": Array [],
-                "loading": false,
-                "responseMsg": "",
-              },
-              "productState": Object {
-                "currentProductData": Object {
-                  "_id": "",
-                  "createdAt": "",
-                  "description": "",
-                  "details": "",
-                  "images": Array [],
-                  "name": "",
-                  "price": "",
-                },
-                "error": null,
-                "loadedProducts": Array [],
-                "loading": false,
-                "productFormOpen": false,
-                "responseMsg": "",
-              },
-              "serviceState": Object {
-                "currentServiceData": Object {
-                  "_id": "",
-                  "createdAt": "",
-                  "description": "",
-                  "images": Array [],
-                  "name": "",
-                  "price": "",
-                },
-                "error": null,
-                "loadedServices": Array [],
-                "loading": false,
-                "responseMsg": "",
-                "serviceFormOpen": false,
-              },
-              "storeItemState": Object {
-                "currentStoreItemData": Object {
-                  "_id": "",
-                  "categories": Array [],
-                  "createdAt": "",
-                  "description": "",
-                  "details": "",
-                  "images": Array [],
-                  "name": "",
-                  "price": "",
-                  "storeId": "",
-                  "storeName": "",
-                },
-                "error": null,
-                "loadedStoreItems": Array [],
-                "loading": false,
-                "numberOfItems": 0,
-                "responseMsg": "",
-                "storeItemFormOpen": false,
-              },
-              "storeState": Object {
-                "currentStoreData": Object {
-                  "_id": "",
-                  "createdAt": "",
-                  "description": "",
-                  "images": Array [],
-                  "title": "",
-                },
-                "error": null,
-                "loadedStores": Array [
-                  Object {
-                    "_id": "0amepj2tgl",
-                    "createdAt": "Sat Sep 19 2020 07:18:13 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Aut aut reprehenderit nostrum quas. A voluptas accusantium id. Hic maxime sunt quisquam consequatur omnis et. Aut eius omnis iure distinctio voluptas quia. Soluta officiis et tempore qui. Quia voluptatibus quia aut voluptatem quam molestiae.",
-                    "images": Array [],
-                    "title": "inventore",
-                  },
-                  Object {
-                    "_id": "h7o5dskiux",
-                    "createdAt": "Sat Sep 19 2020 09:08:17 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Laboriosam dolore atque consequuntur aspernatur. Minus nulla voluptatibus quas. Neque voluptatem et quia pariatur magnam et sed voluptatem.",
-                    "images": Array [],
-                    "title": "sed",
-                  },
-                  Object {
-                    "_id": "3fodyxwcd1",
-                    "createdAt": "Sat Sep 19 2020 09:29:22 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Vero illum quaerat tempore quidem error quidem ratione doloremque. Quaerat eos atque maiores vel animi. Quia ut dicta odit rerum. Odit dolorum voluptatibus reprehenderit aut odit ad excepturi quaerat. Dicta ipsum possimus quae quisquam maxime nam impedit. Eum odio error laborum rerum veritatis ipsam doloremque dolorem.",
-                    "images": Array [],
-                    "title": "non",
-                  },
-                  Object {
-                    "_id": "9kk5vdolvw",
-                    "createdAt": "Sat Sep 19 2020 21:29:46 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Reiciendis provident facere sed omnis et minus dolores labore delectus. Sit quia molestiae odio minima error ut. Recusandae nisi officia facere et veritatis sit. Cum nisi et et ad corporis necessitatibus ut animi autem. Ut molestias quia qui rerum unde molestias voluptas voluptatem molestiae.",
-                    "images": Array [],
-                    "title": "excepturi",
-                  },
-                  Object {
-                    "_id": "xzrwiz3cb2",
-                    "createdAt": "Sat Sep 19 2020 18:56:12 GMT+0300 (Eastern European Summer Time)",
-                    "description": "Nemo voluptate eos esse consequatur laudantium. Asperiores tenetur debitis sunt mollitia quasi voluptate veritatis eum voluptatum. Eligendi unde totam magni mollitia aliquid et enim. Explicabo laborum aut reprehenderit ut qui nesciunt assumenda. Dolores enim vel voluptates enim qui quam. Facilis delectus adipisci pariatur quidem ipsum ea sunt.",
-                    "images": Array [],
-                    "title": "saepe",
-                  },
-                ],
-                "loading": false,
-                "responseMsg": "All Ok",
-                "storeFormOpen": false,
-              },
-            }
-          }
-          title="saepe"
-        >
-          <GridRow
-            style={
-              Object {
-                "border": "3px solid green",
-                "marginTop": "2em",
-                "padding": "0.5em",
-              }
-            }
-          >
-            <div
-              className="row"
-              style={
-                Object {
-                  "border": "3px solid green",
-                  "marginTop": "2em",
-                  "padding": "0.5em",
-                }
-              }
-            >
-              <GridColumn
-                computer={12}
-                mobile={16}
-                style={
-                  Object {
-                    "border": "2px solid red",
-                  }
-                }
-              >
-                <div
-                  className="twelve wide computer sixteen wide mobile column"
-                  style={
-                    Object {
-                      "border": "2px solid red",
-                    }
-                  }
-                >
-                  <h3>
-                    Title: 
-                    saepe
-                  </h3>
-                  <h5>
-                    Description: 
-                    Nemo voluptate eos esse consequatur laudantium. Asperiores tenetur debitis sunt mollitia quasi voluptate veritatis eum voluptatum. Eligendi unde totam magni mollitia aliquid et enim. Explicabo laborum aut reprehenderit ut qui nesciunt assumenda. Dolores enim vel voluptates enim qui quam. Facilis delectus adipisci pariatur quidem ipsum ea sunt.
-                  </h5>
-                  <h5>
-                    Number of Images: 
-                    0
-                  </h5>
-                  <p>
-                    <span>
-                      Created At: 
-                    </span>
-                    2020-Sep-19
+                    NaN-undefined-NaN
                   </p>
                 </div>
               </GridColumn>
