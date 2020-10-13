@@ -8,6 +8,7 @@ import "./css/storeFormHolder.css";
 import StoreForm from "./StoreForm";
 import StoreImgPreviewHolder from "../image_preview/StoreImgPreviewHolder";
 import StoreImageUplForm from "./StoreImageUplForm";
+import LoadingBar from "../../miscelaneous/LoadingBar";
 // state //
 import { Store } from "../../../../state/Store";
 // api and ui actions //
@@ -70,19 +71,25 @@ const StoreFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
     checkSetValues(currentStoreData) ? setNewForm(false) : setNewForm(true);
   }, [ currentStoreData ]);
   // component render //
+  useEffect(() => {
+    console.log(loading)
+  }, [ loading ])
   return (
     <div id="storeFormHolder">
       {
+        loading ? <LoadingBar /> : null
+      }
+      {
         !newForm ?
-          <React.Fragment>
+          <div id={"adminStoreFormHolderDetails"}>
             <Grid.Row>
               <Grid.Column mobile={16} tablet={14} computer={14}>
                 <h1>Details</h1>
-                <div className="storeFormHolderDetails">
+                <div className="adminStoreFormHolderTitle">
                   <h3>Store title:</h3>
                   <p>{title}</p>
                 </div>
-                <div className="storeFormHolderDetails">
+                <div className="adminStoreFormHolderDesc">
                   <h3>Store description:</h3>
                   <p>{description}</p>
                 </div>
@@ -98,13 +105,13 @@ const StoreFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
               </Grid.Column>
             </Grid.Row>
             <StoreImageUplForm />
-          </React.Fragment>
+          </div>
           : null
       }
       <Grid.Row>
         <Grid.Column mobile={16} tablet={15} computer={14}>
           <Button  
-            id="storeFormToggleBtn" 
+            id="adminStoreFormToggleBtn" 
             onClick={toggleStoreForm} 
             content={ !storeFormOpen ? "Open Form" : "Close Form"}
           />
@@ -113,6 +120,7 @@ const StoreFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
             <StoreForm 
               title={title} 
               description={description} 
+              newForm={newForm}
               handleCreateStore={handleCreateStore}
               handleUpdateStore={handleUpdateStore}
             /> 

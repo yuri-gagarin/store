@@ -67,7 +67,7 @@ describe("AdminStoreMenu component render tests", () => {
       expect(wrapper.find(Menu.Item).at(1).props().active).toEqual(false);
       expect(wrapper.find(Menu.Item).at(2).props().active).toEqual(true);
       // assert correct client route //
-      expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminStoreRoutes.ADMIN_SMANAGE_ROUTE);
+      expect(wrapper.find(Router).props().history.location.pathname).toEqual(AdminStoreRoutes.MANAGE_ROUTE);
     })
   })
 })

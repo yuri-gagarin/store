@@ -28,3 +28,9 @@ export type StoreQuery = {
   storeName?: string;
   limit?: string;
 }
+
+// StoreFormHolder and StoreForm components //
+export type StoreFormState = {
+  title: string;
+  description: string;
+}

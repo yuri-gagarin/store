@@ -6,6 +6,7 @@ import moxios from "moxios";
 import { act } from "react-dom/test-utils";
 // client routing //
 import { MemoryRouter as Router } from "react-router-dom";
+import { AdminStoreRoutes } from "../../../../routes/adminRoutes";
 // component imports //
 import StoreFormHolder from "../../../../components/admin_components/stores/forms/StoreFormHolder";
 import StoreForm from "../../../../components/admin_components/stores/forms/StoreForm";
@@ -17,6 +18,7 @@ import LoadingBar from "../../../../components/admin_components/miscelaneous/Loa
 import { IGlobalAppState, TestStateProvider } from "../../../../state/Store";
 // helpers //
 import { createMockStores, setMockStoreState } from "../../../../test_helpers/storeHelpers";
+import { generateCleanState } from "../../../../test_helpers/miscHelpers";
 
 describe("StoreFormHolder Component tests", () => {
   let wrapper: ReactWrapper; 
@@ -38,8 +40,12 @@ describe("StoreFormHolder Component tests", () => {
       const form = wrapper.find(StoreForm);
       expect(form.length).toEqual(0);
     });
+    it("Should NOT render '#adminStoreFormHolderDetails' 'div'", () => {
+      const formDetails = wrapper.find(StoreFormHolder).render().find("#adminStoreFormHolderDetails");
+      expect(formDetails.length).toEqual(0);
+    });
     it("Should have a Form toggle Button", () => {
-      const toggleButton = wrapper.find(StoreFormHolder).render().find("#storeFormToggleBtn");
+      const toggleButton = wrapper.find(StoreFormHolder).render().find("#adminStoreFormToggleBtn");
       expect(toggleButton.length).toEqual(1);
     });
 
@@ -59,11 +65,15 @@ describe("StoreFormHolder Component tests", () => {
       );
     });
     it("Should have a Form toggle Button", () => {
-      const toggleButton = wrapper.render().find('#storeFormToggleBtn');
+      const toggleButton = wrapper.render().find('#adminStoreFormToggleBtn');
       expect(toggleButton.length).toEqual(1);
     });
+    it("Should NOT render '#adminStoreFormHolderDetails' 'div'", () => {
+      const formDetails = wrapper.find(StoreFormHolder).render().find("#adminStoreFormHolderDetails");
+      expect(formDetails.length).toEqual(0);
+    });
     it("Should Properly Mount Form Holder, respond to '#storeToggleBtn' click", () => {
-      const toggleButton = wrapper.find("#storeFormToggleBtn");
+      const toggleButton = wrapper.find("#adminStoreFormToggleBtn");
       toggleButton.at(0).simulate("click")
       // open button clicked //
       //wrapper.update()
@@ -109,13 +119,35 @@ describe("StoreFormHolder Component tests", () => {
       expect(wrapper.find("#storeFormHolder").length).toEqual(1);
     });
     it("Should have a Form toggle Button", () => {
-      const toggleButton = wrapper.render().find('#storeFormToggleBtn');
+      const toggleButton = wrapper.render().find('#adminStoreFormToggleBtn');
       expect(toggleButton.length).toEqual(1);
     });
     it("Should  NOT initially render the 'StoreForm' component after toggle button click", () => {
       const form = wrapper.find(StoreForm);
-      expect(form.length).toEqual(1);
+      expect(form.length).toEqual(0);
     });
+    it("Should render '#adminStoreFormHolderDetails' 'div'", () => {
+      const formDetails = wrapper.find(StoreFormHolder).render().find("#adminStoreFormHolderDetails");
+      expect(formDetails.length).toEqual(1);
+    });
+    it("Should correctly render data in '.adminStoreFormHolderTitle'", () => {
+      const detailsTitle = wrapper.find(StoreFormHolder).find('.adminStoreFormHolderTitle');
+      const { currentStoreData } = state.storeState;
+      expect(detailsTitle.length).toEqual(1);
+      expect(detailsTitle.find('p').text()).toEqual(currentStoreData.title);
+    });
+    it("Should correctly render data in '.adminStoreFormHolderDesc'", () => {
+      const detailsDesc = wrapper.find(StoreFormHolder).find('.adminStoreFormHolderDesc');
+      const { currentStoreData } = state.storeState;
+      // assert correct rendering //
+      expect(detailsDesc.length).toEqual(1);
+      expect(detailsDesc.find("p").text()).toEqual(currentStoreData.description);
+    });
+    it("Should render 'StoreForm' component after '#adminStoreFormToggleBtn' click event", () => {
+      wrapper.find("#adminStoreFormToggleBtn").at(0).simulate("click");
+      wrapper.update();
+      expect(wrapper.find(StoreForm).length).toEqual(1);
+    })
     it("Should have a Form Update Button", () => {
       const toggleButton = wrapper.render().find('#adminStoreFormUpdate');
       expect(toggleButton.length).toEqual(1);
@@ -154,10 +186,33 @@ describe("StoreFormHolder Component tests", () => {
       expect(wrapper.find("#storeFormHolder").length).toEqual(1);
     });
     it("Should have a Form toggle Button", () => {
-      const toggleButton = wrapper.render().find('#storeFormToggleBtn');
+      const toggleButton = wrapper.render().find('#adminStoreFormToggleBtn');
       expect(toggleButton.length).toEqual(1);
     });
-    it("Should have the Form rendered", () => {
+    it("Should NOT have the 'StoreForm' component initially rendered", () => {
+      expect(wrapper.find(StoreForm).length).toEqual(0)
+    });
+    it("Should render '#adminStoreFormHolderDetails' 'div'", () => {
+      const formDetails = wrapper.find(StoreFormHolder).render().find("#adminStoreFormHolderDetails");
+      expect(formDetails.length).toEqual(1);
+    })
+    it("Should correctly render data in '.adminStoreFormHolderTitle'", () => {
+      const detailsTitle = wrapper.find(StoreFormHolder).find('.adminStoreFormHolderTitle');
+      const { currentStoreData } = state.storeState;
+      expect(detailsTitle.length).toEqual(1);
+      expect(detailsTitle.find('p').text()).toEqual(currentStoreData.title);
+    });
+    it("Should correctly render data in '.adminStoreFormHolderDesc'", () => {
+      const detailsDesc = wrapper.find(StoreFormHolder).find('.adminStoreFormHolderDesc');
+      const { currentStoreData } = state.storeState;
+      // assert correct rendering //
+      expect(detailsDesc.length).toEqual(1);
+      expect(detailsDesc.find("p").text()).toEqual(currentStoreData.description);
+    });
+    it("Should render 'StoreForm' componet after '#adminStoreFormToggleBtn' click event", () => {
+      const toggleBtn = wrapper.find(StoreFormHolder).find("#adminStoreFormToggleBtn");
+      toggleBtn.at(0).simulate("click");
+      // assert correct rendering //
       const form = wrapper.find(StoreForm);
       expect(form.length).toEqual(1);
     });
@@ -186,10 +241,11 @@ describe("StoreFormHolder Component tests", () => {
 
     beforeAll( async () => {
       window.scrollTo = jest.fn();
+      state = generateCleanState();
       // mount and wait //
       wrapper = mount(
-        <Router initialEntries={["/admin/stores/create"]} >
-          <TestStateProvider>
+        <Router initialEntries={[AdminStoreRoutes.EDIT_ROUTE]} keyLength={0} >
+          <TestStateProvider mockState={state}>
             <StoreFormHolder />
           </TestStateProvider>
         </Router>
@@ -197,11 +253,11 @@ describe("StoreFormHolder Component tests", () => {
     });
     afterAll(() => {
       moxios.uninstall();
-    })
-
+    });
+    
     it("Should have a submit button", () => {
+      wrapper.find("#adminStoreFormToggleBtn").at(0).simulate("click");
       wrapper.update();
-      wrapper.find("#storeFormToggleBtn").at(0).simulate("click").update();
       const adminStoreFormCreate = wrapper.find("#adminStoreFormCreate").at(0);
       expect(adminStoreFormCreate.length).toEqual(1)
     });
@@ -218,8 +274,8 @@ describe("StoreFormHolder Component tests", () => {
         const adminStoreFormCreate = wrapper.find("#adminStoreFormCreate").at(0);
         adminStoreFormCreate.simulate("click");
         //expect(wrapper.find(LoadingBar).length).toEqual(1);
+        // console.log(wrapper.find(LoadingBar).length);
       });
-      // expect(sinon.spy(createStore)).toHaveBeenCalled()
       wrapper.update();
     });
     it("Should NOT show the 'LoadingBar' Component after successful API call", () => {

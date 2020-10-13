@@ -1,23 +1,21 @@
 import React, { useState, useEffect, useRef }  from "react";
 import { Button, Form, TextArea } from "semantic-ui-react";
+// type definitions //
+import { StoreFormState } from "../type_definitions/storeTypes";
 
 type Props = {
   title: string;
   description: string;
+  newForm: boolean;
   handleCreateStore(title: string, description: string): void;
   handleUpdateStore(title: string, description: string): void;
 }
-type FormState = {
-  title: string;
-  description: string;
-}
 
-const StoreForm: React.FC<Props> = ({ title, description, handleCreateStore, handleUpdateStore }): JSX.Element => {
-
-  const [ newForm, setNewForm ] = useState<boolean>(true)
-  const [ formState, setFormState ] = useState<FormState>({ title, description });
+const StoreForm: React.FC<Props> = ({ title, description, newForm, handleCreateStore, handleUpdateStore }): JSX.Element => {
+  // local state //
+  const [ formState, setFormState ] = useState<StoreFormState>({ title, description });
   const storeFormRef = useRef<HTMLDivElement>(document.createElement("div"));
-  
+  // local event listeners - handlers //
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
     setFormState({
       ...formState,
@@ -38,15 +36,7 @@ const StoreForm: React.FC<Props> = ({ title, description, handleCreateStore, han
       handleUpdateStore(formState.title, formState.description);
     }
   };
-
-  useEffect(() => {
-    if (title && description) {
-      setNewForm(false);
-    } else {
-      setNewForm(true);
-    }
-  },  [title, description]);
-
+  // lifecycle hooks //
   useEffect(() => {
     if (storeFormRef.current) {
       const elem = storeFormRef.current.getBoundingClientRect();
@@ -63,13 +53,14 @@ const StoreForm: React.FC<Props> = ({ title, description, handleCreateStore, han
         <Form.Field>
           <label>Store title</label>
           <input 
+            id={"storeFormTitleInput"}
             onChange={handleTitleChange} 
             placeholder="Store title here ..." 
             value={formState.title}
           />
         </Form.Field>
         <Form.Field
-          id='form-textarea-control-opinion'
+          id='storeFormDescInput'
           control={TextArea}
           label='Store Description'
           onChange={hadnleDescriptionChange}

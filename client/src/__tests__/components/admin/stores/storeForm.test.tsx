@@ -32,11 +32,8 @@ describe("Store Form Component render tests", () => {
     it("Should properly mount", () => {
       expect(wrapper).toMatchSnapshot();
     });
-    it("Should render '#storeFormNameInput'", () => {
-      expect(wrapper.render().find("#storeFormNameInput").length).toEqual(1);
-    });
-    it("Should render '#storeFormPriceInput'", () => {
-      expect(wrapper.render().find("#storeFormPriceInput").length).toEqual(1);
+    it("Should render '#storeFormTitleInput'", () => {
+      expect(wrapper.render().find("#storeFormTitleInput").length).toEqual(1);
     });
     it("Should render '#storeFormDescInput'", () => {
       expect(wrapper.render().find("#storeFormDescInput").length).toEqual(1);
@@ -77,11 +74,11 @@ describe("Store Form Component render tests", () => {
     it("Should properly mount", () => {
       expect(wrapper).toMatchSnapshot();
     });
-    it("Should render '#storeFormNameInput'", () => {
-      expect(wrapper.render().find("#storeFormNameInput").length).toEqual(1);
+    it("Should render '#storeFormTitleInput'", () => {
+      expect(wrapper.render().find("#storeFormTitleInput").length).toEqual(1);
     });
-    it("Should set correct data in '#storeFormNameInput'", () => {
-      const input = wrapper.render().find("#storeFormNameInput");
+    it("Should set correct data in '#storeFormTitleInput'", () => {
+      const input = wrapper.render().find("#storeFormTitleInput");
       expect(input.val()).toEqual(mockData.title);
     });
     it("Should render '#storeFormDescInput'", () => {

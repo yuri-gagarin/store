@@ -68,7 +68,7 @@ exports[`StoreFormHolder Component tests Default Form Holder state Should Proper
               <Button
                 as="button"
                 content="Open Form"
-                id="storeFormToggleBtn"
+                id="adminStoreFormToggleBtn"
                 onClick={[Function]}
               >
                 <Ref
@@ -76,7 +76,7 @@ exports[`StoreFormHolder Component tests Default Form Holder state Should Proper
                     Object {
                       "current": <button
                         class="ui button"
-                        id="storeFormToggleBtn"
+                        id="adminStoreFormToggleBtn"
                       >
                         Open Form
                       </button>,
@@ -88,7 +88,7 @@ exports[`StoreFormHolder Component tests Default Form Holder state Should Proper
                       Object {
                         "current": <button
                           class="ui button"
-                          id="storeFormToggleBtn"
+                          id="adminStoreFormToggleBtn"
                         >
                           Open Form
                         </button>,
@@ -97,7 +97,7 @@ exports[`StoreFormHolder Component tests Default Form Holder state Should Proper
                   >
                     <button
                       className="ui button"
-                      id="storeFormToggleBtn"
+                      id="adminStoreFormToggleBtn"
                       onClick={[Function]}
                     >
                       Open Form
@@ -218,7 +218,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
                     <Button
                       as="button"
                       content="Close Form"
-                      id="storeFormToggleBtn"
+                      id="adminStoreFormToggleBtn"
                       onClick={[Function]}
                     >
                       <Ref
@@ -226,7 +226,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
                           Object {
                             "current": <button
                               class="ui button"
-                              id="storeFormToggleBtn"
+                              id="adminStoreFormToggleBtn"
                             >
                               Close Form
                             </button>,
@@ -238,7 +238,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
                             Object {
                               "current": <button
                                 class="ui button"
-                                id="storeFormToggleBtn"
+                                id="adminStoreFormToggleBtn"
                               >
                                 Close Form
                               </button>,
@@ -247,7 +247,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
                         >
                           <button
                             className="ui button"
-                            id="storeFormToggleBtn"
+                            id="adminStoreFormToggleBtn"
                             onClick={[Function]}
                           >
                             Close Form
@@ -259,6 +259,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
                       description=""
                       handleCreateStore={[Function]}
                       handleUpdateStore={[Function]}
+                      newForm={true}
                       title=""
                     >
                       <div
@@ -281,6 +282,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
                                   Store title
                                 </label>
                                 <input
+                                  id="storeFormTitleInput"
                                   onChange={[Function]}
                                   placeholder="Store title here ..."
                                   value=""
@@ -289,7 +291,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
                             </FormField>
                             <FormField
                               control={[Function]}
-                              id="form-textarea-control-opinion"
+                              id="storeFormDescInput"
                               label="Store Description"
                               onChange={[Function]}
                               placeholder="Store description here..."
@@ -299,14 +301,14 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
                                 className="field"
                               >
                                 <label
-                                  htmlFor="form-textarea-control-opinion"
+                                  htmlFor="storeFormDescInput"
                                 >
                                   Store Description
                                 </label>
                                 <TextArea
                                   aria-describedby={null}
                                   as="textarea"
-                                  id="form-textarea-control-opinion"
+                                  id="storeFormDescInput"
                                   onChange={[Function]}
                                   placeholder="Store description here..."
                                   rows={3}
@@ -316,7 +318,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
                                     innerRef={
                                       Object {
                                         "current": <textarea
-                                          id="form-textarea-control-opinion"
+                                          id="storeFormDescInput"
                                           placeholder="Store description here..."
                                           rows="3"
                                         />,
@@ -327,7 +329,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
                                       innerRef={
                                         Object {
                                           "current": <textarea
-                                            id="form-textarea-control-opinion"
+                                            id="storeFormDescInput"
                                             placeholder="Store description here..."
                                             rows="3"
                                           />,
@@ -336,7 +338,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
                                     >
                                       <textarea
                                         aria-describedby={null}
-                                        id="form-textarea-control-opinion"
+                                        id="storeFormDescInput"
                                         onChange={[Function]}
                                         onInput={[Function]}
                                         placeholder="Store description here..."

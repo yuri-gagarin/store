@@ -19,6 +19,7 @@ export const AdminServiceRoutes = {
 export const AdminStoreRoutes = {
   HOME_ROUTE: "/admin/home/my_stores",
   CREATE_ROUTE: "/admin/home/my_stores/create",
+  EDIT_ROUTE: "/admin/home/my_stores/edit",
   MANAGE_ROUTE: "/admin/home/my_stores/manage",
   SHOW_ROUTE: "/admin/home/my_stores/show",
   VIEW_ALL_ROUTE: "/admin/home/my_stores/view_all"
