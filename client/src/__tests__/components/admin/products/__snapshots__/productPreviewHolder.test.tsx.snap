@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' state Should correctly render the 'Service' 'Grid' after successful API call 1`] = `
+exports[`ProductPreviewHolder Component render tests 'ProductPreviewHolder' after a successful API call Should correctly render the 'Service' 'Grid' after successful API call 1`] = `
 <withRouter(ProductsPreviewHolder)>
   <ProductsPreviewHolder
     history={
@@ -637,130 +637,6 @@ exports[`ProductPreviewHolder Component render tests ProductPreview in 'loaded' 
         </GridRow>
       </div>
     </Grid>
-  </ProductsPreviewHolder>
-</withRouter(ProductsPreviewHolder)>
-`;
-
-exports[`ProductPreviewHolder Component render tests ProductPreviewHolder in 'loading' state Should correctly render 1`] = `
-<withRouter(ProductsPreviewHolder)>
-  <ProductsPreviewHolder
-    history={
-      Object {
-        "action": "POP",
-        "block": [Function],
-        "canGo": [Function],
-        "createHref": [Function],
-        "entries": Array [
-          Object {
-            "hash": "",
-            "pathname": "/admin/home/my_products/view_all",
-            "search": "",
-            "state": undefined,
-          },
-        ],
-        "go": [Function],
-        "goBack": [Function],
-        "goForward": [Function],
-        "index": 0,
-        "length": 1,
-        "listen": [Function],
-        "location": Object {
-          "hash": "",
-          "pathname": "/admin/home/my_products/view_all",
-          "search": "",
-          "state": undefined,
-        },
-        "push": [Function],
-        "replace": [Function],
-      }
-    }
-    location={
-      Object {
-        "hash": "",
-        "pathname": "/admin/home/my_products/view_all",
-        "search": "",
-        "state": undefined,
-      }
-    }
-    match={
-      Object {
-        "isExact": false,
-        "params": Object {},
-        "path": "/",
-        "url": "/",
-      }
-    }
-  >
-    <LoaderExampleText>
-      <div
-        id="generalLoadingScreen"
-        style={
-          Object {
-            "height": "100vh",
-          }
-        }
-      >
-        <Segment
-          style={
-            Object {
-              "height": "100vh",
-            }
-          }
-        >
-          <div
-            className="ui segment"
-            style={
-              Object {
-                "height": "100vh",
-              }
-            }
-          >
-            <Dimmer
-              active={true}
-              inverted={true}
-            >
-              <DimmerInner
-                active={true}
-                inverted={true}
-              >
-                <Ref
-                  innerRef={
-                    Object {
-                      "current": null,
-                    }
-                  }
-                >
-                  <RefFindNode
-                    innerRef={
-                      Object {
-                        "current": null,
-                      }
-                    }
-                  >
-                    <div
-                      className="ui active transition visible inverted dimmer"
-                      onClick={[Function]}
-                    >
-                      <div
-                        className="content"
-                      >
-                        <Loader>
-                          <div
-                            className="ui text loader"
-                          >
-                            Please Wait
-                          </div>
-                        </Loader>
-                      </div>
-                    </div>
-                  </RefFindNode>
-                </Ref>
-              </DimmerInner>
-            </Dimmer>
-          </div>
-        </Segment>
-      </div>
-    </LoaderExampleText>
   </ProductsPreviewHolder>
 </withRouter(ProductsPreviewHolder)>
 `;

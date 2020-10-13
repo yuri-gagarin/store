@@ -41,9 +41,11 @@ describe("Product Manage Holder Tests", () => {
   });
   
   describe("Default Component state at first render", () => {
-    let component: ReactWrapper; let loadingScreen: ReactWrapper;
+    let wrapper: ReactWrapper; let loadingScreen: ReactWrapper;
 
     beforeAll( async () => {
+      const promise = Promise.resolve();
+
       moxios.install();
       moxios.stubRequest("/api/products", {
         status: 200,
@@ -52,29 +54,37 @@ describe("Product Manage Holder Tests", () => {
           products: []
         }
       });
-    });
-    afterAll(() => {
-      moxios.uninstall();
-    }); 
-    
-    it("Should render a 'LoadingScreen' Component before an API call resolves", async () => {
-      const promise = Promise.resolve();
-      component = mount(
+
+      wrapper = mount(
         <Router keyLength={0} initialEntries={[AdminProductRoutes.MANAGE_ROUTE]}>
           <TestStateProvider>
             <ProductsManageHolder />
           </TestStateProvider>
         </Router>
       );
-      loadingScreen = component.find(LoadingScreen);
-      expect(loadingScreen.length).toEqual(1)
       await act( async () => promise);
+    });
+    afterAll(() => {
+      moxios.uninstall();
+    }); 
+    
+    it("Should render a 'LoadingScreen' Component before an API call resolves", () => {
+      loadingScreen = wrapper.find(ProductsManageHolder).find(LoadingScreen);
+      expect(loadingScreen.length).toEqual(1)
+    });
+    it("Should NOT render the 'ErrorScreen' component", () => {
+      const errorScreen = wrapper.find(ProductsManageHolder).find(ErrorScreen);
+      expect(errorScreen.length).toEqual(0);
+    });
+    it("Should NOT render the 'ProductsManageHolder' component 'Grid'", () => {
+      const productsManageGrid = wrapper.find(ProductsManageHolder).find(Grid);
+      expect(productsManageGrid.length).toEqual(0);
     });
   });
   
   //
   // mock successful API call render tests //
-  describe("State after a successful API call", () => {
+  describe("'ProductsManageHolder' after a successful API call", () => {
     let component: ReactWrapper; let loadingScreen: ReactWrapper;
 
     beforeAll( async () => {

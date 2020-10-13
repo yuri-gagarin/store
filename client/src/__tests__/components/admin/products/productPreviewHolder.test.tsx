@@ -45,11 +45,21 @@ describe("ProductPreviewHolder Component render tests", () => {
     ];
   });
   // TEST ProductsPreviewHolder in its loading state //
-  describe("ProductPreviewHolder in 'loading' state", () => {
+  describe("Default component state at first render", () => {
     let wrapper: ReactWrapper;
 
     beforeAll( async () => {
+      const promise = Promise.resolve();
+
       moxios.install();
+      moxios.stubRequest("/api/products", {
+        status: 200,
+        response: {
+          responseMsg: "All Ok",
+          products: []
+        }
+      });
+
       wrapper = mount(
         <Router keyLength={0} initialEntries={[AdminProductRoutes.VIEW_ALL_ROUTE]}>
           <TestStateProvider>
@@ -58,31 +68,25 @@ describe("ProductPreviewHolder Component render tests", () => {
         </Router>
       );
 
-      await act( async () => {
-        await moxios.stubRequest("/api/products", {
-          status: 200,
-          response: {
-            responseMsg: "All Ok",
-            products: []
-          }
-        });
-      });
+      await act(async () => promise);
     });
     afterAll(() => {
       moxios.uninstall();
     });
-    it("Should correctly render", () => {
-      expect(wrapper.find(ProductsPreviewHolder)).toMatchSnapshot();
-    });
-    it("Should have a LoadingScreen while 'loading == true'", () => {
-      const loadingScreen = wrapper.find(LoadingScreen);
+
+    it("Should render the 'LoadingScreen' component before an API call resolves", () => {
+      const loadingScreen = wrapper.find(ProductsPreviewHolder).find(LoadingScreen);
       expect(loadingScreen.length).toEqual(1);
     });
-    it("Should not display the '#adminProductPreviewHolder'", () => {
-      const adminProductPreview = wrapper.find(Grid);
+    it("Should NOT render the 'ErrorScreen' component", () => {
+      const errorScreen = wrapper.find(ProductsPreviewHolder).find(ErrorScreen);
+      expect(errorScreen.length).toEqual(0);
+    });
+    it("Should NOT render the '#adminProductPreviewHolder' 'Grid' ", () => {
+      const adminProductPreview = wrapper.find(ProductsPreviewHolder).find(Grid);
       expect(adminProductPreview.length).toEqual(0);
     }); 
-    it("Should not display any ProductPreview Components", () => {
+    it("Should NOT render any ProductPreview Components", () => {
       const productPreviewComponents = wrapper.find(ProductPreview);
       expect(productPreviewComponents.length).toEqual(0);
     });
@@ -90,12 +94,20 @@ describe("ProductPreviewHolder Component render tests", () => {
   });
   // END TEST ProductPreviewHolder in its loading state //
   // TEST ProductPreviewHolder in its loaded state //
-  describe("ProductPreview in 'loaded' state", () => {
+  describe("'ProductPreviewHolder' after a successful API call", () => {
     let wrapper: ReactWrapper;
 
     beforeAll( async () => {
+      const promise = Promise.resolve();
       moxios.install();
       const mockState = generateCleanState();
+      moxios.stubRequest("/api/products", {
+        status: 200,
+        response: {
+          responseMsg: "All ok",
+          products: products
+        }
+      });
 
       wrapper = mount(
          <TestStateProvider mockState={mockState}>
@@ -105,22 +117,16 @@ describe("ProductPreviewHolder Component render tests", () => {
          </TestStateProvider>
       );
 
-      await act( async () => {
-        await moxios.stubRequest("/api/products", {
-          status: 200,
-          response: {
-            responseMsg: "All ok",
-            products: products
-          }
-        });
-      });
-      moxios.uninstall();
+      await act( async () => promise)
     });
+    afterAll(() => {
+      moxios.uninstall();
+    })
     
     it("Should correctly render initial 'LoadingScreen' component", () => {
-      const loadingScreen = wrapper.find(LoadingScreen);
-      const errorScreen = wrapper.find(ErrorScreen);
-      const productsGrid = wrapper.find(Grid);
+      const loadingScreen = wrapper.find(ProductsPreviewHolder).find(LoadingScreen);
+      const errorScreen = wrapper.find(ProductsPreviewHolder).find(ErrorScreen);
+      const productsGrid = wrapper.find(ProductsPreviewHolder).find(Grid);
       // assert correct rendering //
       expect(loadingScreen.length).toEqual(1)
       expect(errorScreen.length).toEqual(0);
@@ -128,15 +134,14 @@ describe("ProductPreviewHolder Component render tests", () => {
     });
     it("Should correctly render the 'Service' 'Grid' after successful API call", () => {
       wrapper.update();
-      const loadingScreen = wrapper.find(LoadingScreen);
-      const errorScreen = wrapper.find(ErrorScreen);
-      const productsGrid = wrapper.find(Grid);
+      const loadingScreen = wrapper.find(ProductsPreviewHolder).find(LoadingScreen);
+      const errorScreen = wrapper.find(ProductsPreviewHolder).find(ErrorScreen);
+      const productsGrid = wrapper.find(ProductsPreviewHolder).find(Grid);
       // assert correct rendering ///
+      expect(wrapper.find(ProductsPreviewHolder).find(ProductsPreviewHolder)).toMatchSnapshot();
       expect(loadingScreen.length).toEqual(0);
       expect(errorScreen.length).toEqual(0);
       expect(productsGrid.length).toEqual(1);
-      expect(wrapper.find(ProductsPreviewHolder)).toMatchSnapshot();
-
     });
     it(`Should display a correct number of ProductPreview Components`, () => {
       const productPreviewComponents = wrapper.find(ProductPreview);
@@ -150,28 +155,28 @@ describe("ProductPreviewHolder Component render tests", () => {
     const error = new Error("Error occured");
 
     beforeAll( async () => {
+      const promise = Promise.resolve();
       const mockState = generateCleanState();
-
-      await act( async () => {
-        moxios.install();
-        wrapper = mount(
-          <Router keyLength={0} initialEntries={[AdminProductRoutes.VIEW_ALL_ROUTE]}>
-            <TestStateProvider mockState={mockState}>
-              <ProductsPreviewHolder />
-            </TestStateProvider>
-          </Router>
-        );
-        moxios.stubRequest("/api/products", {
-          status: 500,
-          response: {
-            responseMsg: "Error",
-            error: error
-          }
-        });
+      moxios.install();
+      moxios.stubRequest("/api/products", {
+        status: 500,
+        response: {
+          responseMsg: "Error",
+          error: error
+        }
       });
-      moxios.uninstall();
+
+      wrapper = mount(
+        <Router keyLength={0} initialEntries={[AdminProductRoutes.VIEW_ALL_ROUTE]}>
+          <TestStateProvider mockState={mockState}>
+            <ProductsPreviewHolder />
+          </TestStateProvider>
+        </Router>
+      );
+      
+      await act( async () => promise);
     });
-    afterAll(() => {
+    afterEach(() => {
       moxios.uninstall();
     });
     it("Should render the initial Loading Screen after an  API call", () => {
@@ -184,7 +189,7 @@ describe("ProductPreviewHolder Component render tests", () => {
       expect(errorScreen.length).toEqual(0);
       expect(productGrid.length).toEqual(0);
     });
-    it("Should render the 'ErrorScreen' Component only", () => {
+    it("Should render the 'ErrorScreen' Component only after rejected API call", () => {
       wrapper.update();
       const loadingScreen = wrapper.find(LoadingScreen);
       const errorScreen = wrapper.find(ErrorScreen);
@@ -194,25 +199,28 @@ describe("ProductPreviewHolder Component render tests", () => {
       expect(loadingScreen.length).toEqual(0);
       expect(productGrid.length).toEqual(0)
     });
-  
+    
     it("Should properly redispatch last API call from 'ErrorScreen' Component", async () => {
-      await act( async () => {
-        moxios.install();
-        moxios.stubRequest("/api/products", {
-          status: 200,
-          response: {
-            responseMsg: "All Ok",
-            products: products
-          }
-        });
-        
-        const retryButton = wrapper.find("#errorScreenRetryButton");
-        retryButton.at(0).simulate("click");
+      const promise = Promise.resolve();
+      moxios.install();
+      moxios.stubRequest("/api/products", {
+        status: 200,
+        response: {
+          responseMsg: "All Ok",
+          products: products
+        }
       });
+      const retryButton = wrapper.find("#errorScreenRetryButton");
+      retryButton.at(0).simulate("click");
       // assert difference //
-      expect(wrapper.find(ErrorScreen).length).toEqual(1);
+      await act( async () => promise);
+      expect(wrapper.find(ProductsPreviewHolder).find(LoadingScreen).length).toEqual(1);
+      expect(wrapper.find(ProductsPreviewHolder).find(ErrorScreen).length).toEqual(0);
+      expect(wrapper.find(ProductsPreviewHolder).find(Grid).length).toEqual(0);
+
     });
-    it("Should NOT render the 'LoadingScreen' Component", () => {
+    
+    it("Should NOT render the 'LoadingScreen' Component after successful API call", () => {
       wrapper.update();
       // assert new render //
       const loadingScreen = wrapper.find(LoadingScreen);
