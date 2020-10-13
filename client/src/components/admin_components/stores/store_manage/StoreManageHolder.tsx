@@ -10,6 +10,7 @@ import { getAllStores } from "../actions/APIstoreActions";
 import { Store } from "../../../../state/Store";
 // routing and dependencies //
 import { withRouter, RouteComponentProps, useRouteMatch, Route } from "react-router-dom";
+import { AdminStoreRoutes } from "../../../../routes/adminRoutes";
 
 interface Props extends RouteComponentProps {};
 
@@ -20,7 +21,7 @@ const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const [ newDataLoaded, setNewDataLoaded ] = useState<boolean>(false);
   const storesRef = useRef(loadedStores);
   // routing //
-  const match = useRouteMatch("/admin/home/my_stores/manage");
+  const match = useRouteMatch(AdminStoreRoutes.MANAGE_ROUTE);
   const handleBack = () => {
     history.goBack();
   }
@@ -62,7 +63,7 @@ const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
             <Button inverted color="green" content="Back" onClick={handleBack}></Button>
           </Grid.Column>
         </Grid.Row>
-        <StoreFormHolder state={state} dispatch={dispatch} />
+        <StoreFormHolder />
       </Route>
       <Route exact path={match?.url}>
         {

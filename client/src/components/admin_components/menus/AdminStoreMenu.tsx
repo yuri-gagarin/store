@@ -16,7 +16,7 @@ const AdminStoreMenu: React.FC<Props> = ({ history, location,  dispatch }): JSX.
   const [ activeItem, setActiveItem ] = useState<string>("");
   const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
   // route match for correct links //
-  const match = useRouteMatch(AdminStoreRoutes.ADMIN_STORES_HOME_ROUTE);
+  const match = useRouteMatch(AdminStoreRoutes.HOME_ROUTE);
   const adminStoreMenuRef = useRef<HTMLDivElement>(document.createElement("div"));
 
   // event and handler listeners //
@@ -37,7 +37,7 @@ const AdminStoreMenu: React.FC<Props> = ({ history, location,  dispatch }): JSX.
         history.push(match?.path + "/manage");
         window.scrollTo({ top: 0, behavior: "smooth" });
         break;
-      default: history.push(AdminStoreRoutes.ADMIN_STORES_HOME_ROUTE);
+      default: history.push(AdminStoreRoutes.HOME_ROUTE);
     }
   };
   const scrollListener = () => {

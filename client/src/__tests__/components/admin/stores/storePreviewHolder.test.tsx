@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { MemoryRouter as Router } from "react-router-dom";
 // test dependencies //
 import moxios from "moxios";
 import { mount, ReactWrapper } from "enzyme"; 
@@ -13,6 +13,8 @@ import { TestStateProvider } from "../../../../state/Store";
 // helpers //
 import { generateCleanState } from "../../../../test_helpers/miscHelpers";
 import { createMockStores } from "../../../../test_helpers/storeHelpers";
+// admin routes //
+import { AdminStoreRoutes } from "../../../../routes/adminRoutes";
 
 describe("StorePreviewHolder Component render tests", () => {
   // TEST StprePreviewHolder in its loading state //
@@ -23,7 +25,7 @@ describe("StorePreviewHolder Component render tests", () => {
       mockState.storeState.loading = true;
       wrapper = mount(
         <TestStateProvider mockState={mockState}>
-          <Router>
+          <Router keyLength={0} initialEntries={[ AdminStoreRoutes.VIEW_ALL_ROUTE  ]}>
             <StorePreviewHolder />
           </Router>
         </TestStateProvider>
@@ -49,13 +51,38 @@ describe("StorePreviewHolder Component render tests", () => {
   // END TEST StorePreviewHolder in its loading state //
   // TEST StorePreviewHolder in its loaded state //
   describe("StorePreview in 'loaded' state", () => {
-    let wrapper: ReactWrapper; const numOfStores = 5;
+    let wrapper: ReactWrapper; let mockStores: IStoreData[];
     beforeAll( async () => {
       moxios.install();
       const mockState = generateCleanState();
+      // set mock stores //
+      mockStores = [
+        {
+          _id: "1",
+          title: "first",
+          description: "desc",
+          images: [],
+          createdAt: "now"
+        },
+        {
+          _id: "2",
+          title: "second",
+          description: "desc",
+          images: [],
+          createdAt: "now"
+        },
+        {
+          _id: "3",
+          title: "third",
+          description: "desc",
+          images: [],
+          createdAt: "now"
+        }
+      ];
+
       wrapper = mount(
          <TestStateProvider mockState={mockState}>
-           <Router>
+           <Router keyLength={0} initialEntries={[AdminStoreRoutes.VIEW_ALL_ROUTE]}>
              <StorePreviewHolder />
            </Router>
          </TestStateProvider>
@@ -66,7 +93,7 @@ describe("StorePreviewHolder Component render tests", () => {
           status: 200,
           response: {
             responseMsg: "All ok",
-            stores: createMockStores(5)
+            stores: mockStores
           }
         });
       });
@@ -83,9 +110,9 @@ describe("StorePreviewHolder Component render tests", () => {
       const adminStorePreview = wrapper.find("#adminStorePreviewHolder");
       expect(adminStorePreview.length).toEqual(1);
     });
-    it(`Should display a correct (${numOfStores}) number of StorePreview Components`, () => {
+    it(`Should display a correct (3) number of StorePreview Components`, () => {
       const storePreviewComponents = wrapper.find(StorePreview);
-      expect(storePreviewComponents.length).toEqual(numOfStores);
+      expect(storePreviewComponents.length).toEqual(mockStores.length);
     });
   });
   // END TEST StorePreviewHolder in its loaded state //

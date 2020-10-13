@@ -10,18 +10,18 @@ exports[`StorePreviewHolder Component render tests StorePreview in 'loaded' stat
     <h3
       class="adminStoreTitle"
     >
-      quae
+      first
     </h3>
     <div
       class="adminStoreDescription"
     >
-      Odio debitis ut qui et modi eveniet dolor. Quam provident dolores. Consequatur ex velit amet similique. Officia laudantium rem error aliquam nostrum nemo esse. Quas ut non eius qui est.
+      desc
     </div>
     <ul
       class="adminStoreDetails"
     >
       <li>
-        Created At: 2020-Sep-19
+        Created At: NaN-undefined-NaN
       </li>
       <li>
         Edited At: Not Available
@@ -110,18 +110,18 @@ exports[`StorePreviewHolder Component render tests StorePreview in 'loaded' stat
     <h3
       class="adminStoreTitle"
     >
-      et
+      second
     </h3>
     <div
       class="adminStoreDescription"
     >
-      Aut similique rerum quae cumque repellat. Fugiat itaque ut nesciunt. Corrupti fugit blanditiis.
+      desc
     </div>
     <ul
       class="adminStoreDetails"
     >
       <li>
-        Created At: 2020-Sep-19
+        Created At: NaN-undefined-NaN
       </li>
       <li>
         Edited At: Not Available
@@ -210,218 +210,18 @@ exports[`StorePreviewHolder Component render tests StorePreview in 'loaded' stat
     <h3
       class="adminStoreTitle"
     >
-      amet
+      third
     </h3>
     <div
       class="adminStoreDescription"
     >
-      Eos blanditiis sit ipsum vel praesentium minus est laborum sed. Praesentium in architecto laudantium optio sint. Asperiores corrupti consequuntur labore ut hic provident ducimus numquam.
+      desc
     </div>
     <ul
       class="adminStoreDetails"
     >
       <li>
-        Created At: 2020-Sep-19
-      </li>
-      <li>
-        Edited At: Not Available
-      </li>
-    </ul>
-    <div
-      class="adminStoreImageDetails"
-    >
-      <h5>
-        Displayed Images: 
-      </h5>
-    </div>
-    <div
-      aria-live="polite"
-      class="image-gallery"
-    >
-      <div
-        class="image-gallery-content bottom"
-      >
-        <div
-          class="image-gallery-slide-wrapper bottom"
-        >
-          <div
-            class="image-gallery-slides"
-          />
-          <button
-            aria-label="Play or Pause Slideshow"
-            class="image-gallery-icon image-gallery-play-button"
-            type="button"
-          >
-            <svg
-              class="image-gallery-svg"
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <polygon
-                points="5 3 19 12 5 21 5 3"
-              />
-            </svg>
-          </button>
-          <button
-            aria-label="Open Fullscreen"
-            class="image-gallery-icon image-gallery-fullscreen-button"
-            type="button"
-          >
-            <svg
-              class="image-gallery-svg"
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"
-              />
-            </svg>
-          </button>
-        </div>
-        <div
-          class="image-gallery-thumbnails-wrapper bottom"
-        >
-          <div
-            class="image-gallery-thumbnails"
-          >
-            <div
-              aria-label="Thumbnail Navigation"
-              class="image-gallery-thumbnails-container"
-              style="transform: translate3d(0px, 0, 0);"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="ui segment"
-  >
-    <h3
-      class="adminStoreTitle"
-    >
-      est
-    </h3>
-    <div
-      class="adminStoreDescription"
-    >
-      Accusamus sapiente accusamus cumque minus ea adipisci voluptas sit est. Voluptate atque maxime dignissimos asperiores quam temporibus quos velit. Dignissimos praesentium impedit quo reprehenderit iste.
-    </div>
-    <ul
-      class="adminStoreDetails"
-    >
-      <li>
-        Created At: 2020-Sep-19
-      </li>
-      <li>
-        Edited At: Not Available
-      </li>
-    </ul>
-    <div
-      class="adminStoreImageDetails"
-    >
-      <h5>
-        Displayed Images: 
-      </h5>
-    </div>
-    <div
-      aria-live="polite"
-      class="image-gallery"
-    >
-      <div
-        class="image-gallery-content bottom"
-      >
-        <div
-          class="image-gallery-slide-wrapper bottom"
-        >
-          <div
-            class="image-gallery-slides"
-          />
-          <button
-            aria-label="Play or Pause Slideshow"
-            class="image-gallery-icon image-gallery-play-button"
-            type="button"
-          >
-            <svg
-              class="image-gallery-svg"
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <polygon
-                points="5 3 19 12 5 21 5 3"
-              />
-            </svg>
-          </button>
-          <button
-            aria-label="Open Fullscreen"
-            class="image-gallery-icon image-gallery-fullscreen-button"
-            type="button"
-          >
-            <svg
-              class="image-gallery-svg"
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"
-              />
-            </svg>
-          </button>
-        </div>
-        <div
-          class="image-gallery-thumbnails-wrapper bottom"
-        >
-          <div
-            class="image-gallery-thumbnails"
-          >
-            <div
-              aria-label="Thumbnail Navigation"
-              class="image-gallery-thumbnails-container"
-              style="transform: translate3d(0px, 0, 0);"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="ui segment"
-  >
-    <h3
-      class="adminStoreTitle"
-    >
-      possimus
-    </h3>
-    <div
-      class="adminStoreDescription"
-    >
-      Nesciunt mollitia iusto cupiditate alias cumque. Iusto est ut non eos quia. Dolor labore iste laudantium et aut laborum. Ea quo quia quod. Nam ut et repudiandae quia. Ea quia qui vel voluptas quia blanditiis voluptatibus.
-    </div>
-    <ul
-      class="adminStoreDetails"
-    >
-      <li>
-        Created At: 2020-Sep-19
+        Created At: NaN-undefined-NaN
       </li>
       <li>
         Edited At: Not Available
