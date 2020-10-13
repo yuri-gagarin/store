@@ -27,7 +27,7 @@ const StoreGeneralView: React.FC<{}> = (props): JSX.Element => {
           <Spacer width="100%" height="100px"/>
           <StoreFormHolder />
         </Route>
-        <Route path={AdminStoreRoutes.VIEW_ALL_ROUTE}>
+        <Route path={AdminStoreRoutes.MANAGE_ROUTE}>
           <Spacer width="100%" height="100px" />
           <StoreManageHolder />
         </Route>

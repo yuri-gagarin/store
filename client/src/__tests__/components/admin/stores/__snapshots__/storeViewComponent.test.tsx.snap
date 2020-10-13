@@ -9,136 +9,13 @@ exports[`StoreView Component render tests StoreView Component default render tes
   />
   <Switch>
     <Route
-      path="/admin/home/my_stores/all"
+      path="/admin/home/my_stores/view_all"
     >
       <Component
         height="100px"
         width="100%"
       />
       <withRouter(StorePreviewHolder) />
-    </Route>
-    <Route
-      path="/admin/home/my_stores/create"
-    >
-      <Component
-        height="100px"
-        width="100%"
-      />
-      <withRouter(StoreFormHolder) />
-    </Route>
-    <Route
-      path="/admin/home/my_stores/manage"
-    >
-      <Component
-        height="100px"
-        width="100%"
-      />
-      <withRouter(StoreManageHolder) />
-    </Route>
-  </Switch>
-</div>
-`;
-
-exports[`StoreView Component test StoreView Component render test Should Properly render StoreView 1`] = `
-<div
-  id="adminStoreViewHolder"
->
-  <withRouter(AdminStoreMenu)
-    dispatch={[Function]}
-  />
-  <Switch>
-    <Route
-      path="/admin/home/my_stores/all"
-    >
-      <Component
-        height="100px"
-        width="100%"
-      />
-      <StorePreviewHolder
-        dispatch={[Function]}
-        state={
-          Object {
-            "bonusVideoState": Object {
-              "currentBonusVideoData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "vimeoURL": "",
-                "youTubeURL": "",
-              },
-              "error": null,
-              "loadedBonusVideos": Array [],
-              "loading": false,
-              "responseMsg": "",
-            },
-            "productState": Object {
-              "currentProductData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "details": "",
-                "images": Array [],
-                "name": "",
-                "price": "",
-              },
-              "error": null,
-              "loadedProducts": Array [],
-              "loading": false,
-              "productFormOpen": false,
-              "responseMsg": "",
-            },
-            "serviceState": Object {
-              "currentServiceData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "images": Array [],
-                "name": "",
-                "price": "",
-              },
-              "error": null,
-              "loadedServices": Array [],
-              "loading": false,
-              "responseMsg": "",
-              "serviceFormOpen": false,
-            },
-            "storeItemState": Object {
-              "currentStoreItemData": Object {
-                "_id": "",
-                "categories": Array [],
-                "createdAt": "",
-                "description": "",
-                "details": "",
-                "images": Array [],
-                "name": "",
-                "price": "",
-                "storeId": "",
-                "storeName": "",
-              },
-              "error": null,
-              "loadedStoreItems": Array [],
-              "loading": false,
-              "numberOfItems": 0,
-              "responseMsg": "",
-              "storeItemFormOpen": false,
-            },
-            "storeState": Object {
-              "currentStoreData": Object {
-                "_id": "",
-                "createdAt": "",
-                "description": "",
-                "images": Array [],
-                "title": "",
-              },
-              "error": null,
-              "loadedStores": Array [],
-              "loading": false,
-              "responseMsg": "",
-              "storeFormOpen": false,
-            },
-          }
-        }
-      />
     </Route>
     <Route
       path="/admin/home/my_stores/create"

@@ -9,6 +9,7 @@ import StoreForm from "./StoreForm";
 import StoreImgPreviewHolder from "../image_preview/StoreImgPreviewHolder";
 import StoreImageUplForm from "./StoreImageUplForm";
 import LoadingBar from "../../miscelaneous/LoadingBar";
+import ErrorBar from "../../miscelaneous/ErrorBar";
 // state //
 import { Store } from "../../../../state/Store";
 // api and ui actions //
@@ -24,7 +25,7 @@ interface Props extends RouteComponentProps {
 const StoreFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const { state, dispatch } = useContext(Store);
   const { loading, currentStoreData, storeFormOpen, error } = state.storeState;
-  const { _id: storeId, title, description, createdAt, editedAt} = currentStoreData;
+  const { _id, title, description, createdAt, editedAt} = currentStoreData;
   // local component state //
   const [ newForm, setNewForm ] = useState<boolean>(true);
 
@@ -71,13 +72,10 @@ const StoreFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
     checkSetValues(currentStoreData) ? setNewForm(false) : setNewForm(true);
   }, [ currentStoreData ]);
   // component render //
-  useEffect(() => {
-    console.log(loading)
-  }, [ loading ])
   return (
     <div id="storeFormHolder">
       {
-        loading ? <LoadingBar /> : null
+        loading ? <LoadingBar /> : ( error ? <ErrorBar /> : null)
       }
       {
         !newForm ?

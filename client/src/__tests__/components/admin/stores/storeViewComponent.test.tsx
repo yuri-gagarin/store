@@ -11,7 +11,7 @@ import { StorePreviewHolder } from "../../../../components/admin_components/stor
 import { StoreFormHolder } from "../../../../components/admin_components/stores/forms/StoreFormHolder";
 import { StoreManageHolder } from "../../../../components/admin_components/stores/store_manage/StoreManageHolder";
 // additional dependencies //
-import { } from "../../../../routes/adminRoutes";
+import { AdminStoreRoutes } from "../../../../routes/adminRoutes";
 
 describe("StoreView Component render tests", () => {
   // TEST StoreViewComponent render //
@@ -26,7 +26,7 @@ describe("StoreView Component render tests", () => {
       expect(component).toMatchSnapshot();
     });
     it("Should render conditional routes", () => {
-      expect(component.find("Switch")).toHaveLength(1);
+      expect(component.find(Switch)).toHaveLength(1);
     });
     it("Should have Render three children route componets", () => {
       const switchComponent = component.find(Switch);
@@ -49,9 +49,9 @@ describe("StoreView Component render tests", () => {
           map[component.props.path as string] = component.props.children[1].type;
         }
       }
-      expect(map["/admin/home/my_stores/all"]).toBe(StorePreviewHolder);
-      expect(map["/admin/home/my_stores/create"]).toBe(StoreFormHolder);
-      expect(map["/admin/home/my_stores/manage"]).toBe(StoreManageHolder);
+      expect(map[AdminStoreRoutes.VIEW_ALL_ROUTE]).toBe(StorePreviewHolder);
+      expect(map[AdminStoreRoutes.CREATE_ROUTE]).toBe(StoreFormHolder);
+      expect(map[AdminStoreRoutes.MANAGE_ROUTE]).toBe(StoreManageHolder);
     });
   });
   // END StoreViewComponent render tests //
@@ -61,7 +61,7 @@ describe("StoreView Component render tests", () => {
 
     beforeAll(() => {
       component = mount(
-        <Router initialEntries={ ["/admin/home/my_stores"] }>
+        <Router initialEntries={ [AdminStoreRoutes.HOME_ROUTE] } keyLength={0}>
           <StoreViewComponent />
         </Router>
       );
@@ -70,12 +70,7 @@ describe("StoreView Component render tests", () => {
     describe("AdminStoreMenu", () => {
 
       it("Should render Admin Store Menu", () => {
-        expect(component.find("AdminStoreMenu")).toHaveLength(1);
-      });
-      it("Should have 3 main navigation links", () => {
-        const wrapper = component.find(AdminStoreMenu);
-        const links = wrapper.find(Menu.Item)
-        expect(links.length).toEqual(3);
+        expect(component.find(AdminStoreMenu)).toHaveLength(1);
       });
       it("'View All Stores' link should properly function", () => {
         window.scrollTo = jest.fn();
