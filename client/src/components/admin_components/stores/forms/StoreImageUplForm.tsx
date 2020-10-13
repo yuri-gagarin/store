@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button, Form } from "semantic-ui-react";
 // css imports //
 import "./css/storeImgUploadForm.css";
@@ -38,7 +38,7 @@ const StoreImageUplForm: React.FC<{}> = (props): JSX.Element => {
       setFile(e.target.files[0])
     }
   };
-
+  
   return (
     <div id="storeImgUplFormHolder">
       <div><p>Image Uploader</p></div>
