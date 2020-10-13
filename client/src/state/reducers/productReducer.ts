@@ -33,7 +33,8 @@ const productReducer = (state: IProductState = initialProductState, action: Prod
     case "DISPATCH_PRODUCT_API_REQUEST": 
       return {
         ...state,
-        loading: true
+        loading: action.payload.loading,
+        error: action.payload.error
       };
     case "GET_PRODUCT": 
       return {

@@ -16,6 +16,8 @@ import { TestStateProvider } from "../../../../state/Store";
 import { generateCleanState } from "../../../../test_helpers/miscHelpers";
 import ProductsControls from "../../../../components/admin_components/products/product_preview/ProductsControls";
 import PopularProductsHolder from "../../../../components/admin_components/products/product_preview/popular_products/PopularProductsHolder";
+// client routes //
+import { AdminProductRoutes } from "../../../../routes/adminRoutes";
 
 describe("ProductPreviewHolder Component render tests", () => {
   let products: IProductData[];
@@ -49,7 +51,7 @@ describe("ProductPreviewHolder Component render tests", () => {
     beforeAll( async () => {
       moxios.install();
       wrapper = mount(
-        <Router keyLength={0} initialEntries={["/admin/home/my_products/view_all"]}>
+        <Router keyLength={0} initialEntries={[AdminProductRoutes.VIEW_ALL_ROUTE]}>
           <TestStateProvider>
               <ProductsPreviewHolder />
           </TestStateProvider>
@@ -97,7 +99,7 @@ describe("ProductPreviewHolder Component render tests", () => {
 
       wrapper = mount(
          <TestStateProvider mockState={mockState}>
-           <Router keyLength={0} initialEntries={["/admin/home/my_products/view_all"]}>
+           <Router keyLength={0} initialEntries={[AdminProductRoutes.VIEW_ALL_ROUTE]}>
              <ProductsPreviewHolder />
            </Router>
          </TestStateProvider>
@@ -153,7 +155,7 @@ describe("ProductPreviewHolder Component render tests", () => {
       await act( async () => {
         moxios.install();
         wrapper = mount(
-          <Router keyLength={0} initialEntries={["/admin/home/my_products/view_all"]}>
+          <Router keyLength={0} initialEntries={[AdminProductRoutes.VIEW_ALL_ROUTE]}>
             <TestStateProvider mockState={mockState}>
               <ProductsPreviewHolder />
             </TestStateProvider>

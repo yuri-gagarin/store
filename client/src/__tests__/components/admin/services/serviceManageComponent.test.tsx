@@ -5,6 +5,7 @@ import moxios from "moxios";
 import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter as Router } from "react-router-dom";
+import { AdminServiceRoutes } from "../../../../routes/adminRoutes";
 // components //
 import ServiceManageHolder from "../../../../components/admin_components/services/service_manage/ServiceManageHolder";
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
@@ -43,7 +44,7 @@ describe("Service Manage Holder Tests", () => {
     beforeAll( async () => {
       moxios.install();
       component = mount(
-        <Router keyLength={0} initialEntries={["/admin/home/my_services/manage"]}>
+        <Router keyLength={0} initialEntries={[AdminServiceRoutes.MANAGE_ROUTE]}>
           <TestStateProvider>
             <ServiceManageHolder />
           </TestStateProvider>
@@ -83,7 +84,7 @@ describe("Service Manage Holder Tests", () => {
       moxios.install();
       
       component = mount(
-        <Router keyLength={0} initialEntries={["/admin/home/my_services/manage"]}>
+        <Router keyLength={0} initialEntries={[ AdminServiceRoutes.MANAGE_ROUTE ]}>
           <TestStateProvider>
             <ServiceManageHolder />
           </TestStateProvider>
@@ -140,7 +141,7 @@ describe("Service Manage Holder Tests", () => {
       await act(async () => {
         moxios.install();
         component = await mount(
-          <Router keyLength={0} initialEntries={["/admin/home/my_services/manage"]}>
+          <Router keyLength={0} initialEntries={[ AdminServiceRoutes.MANAGE_ROUTE ]}>
             <TestStateProvider>
               <ServiceManageHolder />
             </TestStateProvider>
@@ -202,6 +203,8 @@ describe("Service Manage Holder Tests", () => {
         });
         const retryButton = component.find("#errorScreenRetryButton");
         retryButton.at(0).simulate("click");
+        console.log(component.find(LoadingScreen).length)
+
       });
       component.update()
       const errorScreen = component.find(ErrorScreen);

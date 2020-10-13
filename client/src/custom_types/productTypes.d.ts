@@ -11,6 +11,7 @@ type DispatchProductAPIRequest = {
   readonly type: "DISPATCH_PRODUCT_API_REQUEST",
   readonly payload: {
     loading: boolean;
+    error: null;
   }
 }
 type SetCurrentProduct = {

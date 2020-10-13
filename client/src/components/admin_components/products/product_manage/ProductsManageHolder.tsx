@@ -10,6 +10,7 @@ import { getAllProducts } from "../actions/APIProductActions";
 import { Store } from "../../../../state/Store";
 // client routing //
 import { withRouter, RouteComponentProps, useRouteMatch, Route } from "react-router-dom";
+import { AdminProductRoutes } from "../../../../routes/adminRoutes";
 
 interface Props extends RouteComponentProps {
 };
@@ -21,7 +22,7 @@ const ProductsManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const [ newDataLoaded, setNewDataLoaded ] = useState<boolean>(false);
   const newProductsRef = useRef(loadedProducts);
   // routing //
-  const match = useRouteMatch("/admin/home/my_products/manage")
+  const match = useRouteMatch(AdminProductRoutes.MANAGE_ROUTE)
   const handleBack = () => {
     history.goBack();
   };
@@ -46,7 +47,7 @@ const ProductsManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
       setNewDataLoaded(true);
     } 
   }, [ newProductsRef.current, loadedProducts, loading, error ]);
-
+ 
   return (
     newDataLoaded ?
     <Grid id="productsManageHolder" padded stackable columns={2}>
