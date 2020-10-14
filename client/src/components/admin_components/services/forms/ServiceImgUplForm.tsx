@@ -12,6 +12,7 @@ const ServiceImageUplForm: React.FC<{}> = (props): JSX.Element => {
   const { loading, currentServiceData } = state.serviceState;
   // local file state 
   const [ file, setFile ] = useState<File>();
+  const [ imgUplError, setImgUplError ] = useState<boolean>(false);
 
   // event handlers and listeners //
   const handleButtonClick = () => {
@@ -24,15 +25,18 @@ const ServiceImageUplForm: React.FC<{}> = (props): JSX.Element => {
       formData.append("serviceImage", file);
       uploadServiceImage(_id, formData, state, dispatch)
         .then((_) => {
-          setFile(undefined)
+          setFile(undefined);
+          setImgUplError(false)
         })
         .catch(() => {
           // perhaps show error later //
+          setImgUplError(true);
         })
     }
   };
   const cancelFile = () => {
     setFile(undefined);
+    setImgUplError(false);
   };
   const fileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -49,7 +53,7 @@ const ServiceImageUplForm: React.FC<{}> = (props): JSX.Element => {
           !file ?
           <div id="serviceImgInputControlls"> 
             <Button
-              id="selectServiceImgBtn"
+              id="serviceImgSelectBtn"
               as="label"
               content="Choose Image"
               labelPosition="left"
@@ -73,14 +77,26 @@ const ServiceImageUplForm: React.FC<{}> = (props): JSX.Element => {
               icon="cancel"
               onClick={cancelFile}
             />
-            <Button 
-              id="serviceImgUploadBtn"
-              as="label"
-              content="Upload"
-              icon="upload"
-              onClick={uploadFile}
-              loading={loading}
-            />
+            {
+              imgUplError ?
+                <Button 
+                  id="serviceImgRetryBtn"
+                  as="label"
+                  content="Retry Upload"
+                  icon="upload"
+                  onClick={uploadFile}
+                  loading={loading}
+                />
+              :
+                <Button 
+                  id="serviceImgUplBtn"
+                  as="label"
+                  content="Upload"
+                  icon="upload"
+                  onClick={uploadFile}
+                  loading={loading}
+                />
+            }
           </div>
           : null
         }

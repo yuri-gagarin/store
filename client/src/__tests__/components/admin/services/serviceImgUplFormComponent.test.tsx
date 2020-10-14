@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "semantic-ui-react";
 import moxios from "moxios";
 // testing imports //
-import { mount, shallow, ReactWrapper, ShallowWrapper } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import { act } from 'react-dom/test-utils';
 // components //
 import ServiceImgUplForm from "../../../../components/admin_components/services/forms/ServiceImgUplForm";
@@ -10,180 +10,186 @@ import ServiceImgUplForm from "../../../../components/admin_components/services/
 import { TestStateProvider } from "../../../../state/Store";
 // helpers //
 import MockFile from "../../../helpers/mockFile";
-import { createMockServices } from "../../../../test_helpers/serviceHelpers";
+import { createMockServiceImage, createMockServices } from "../../../../test_helpers/serviceHelpers";
+import { generateCleanState } from "../../../../test_helpers/miscHelpers";
 
-describe("Service Image Upload Form Tests", () => {
+describe("'ServiceImgUplForm' componenent tests", () => {
+  let mockServiceData: IServiceData;
+
+  beforeAll(() => {
+    mockServiceData= createMockServices(1)[0];
+    mockServiceData.images[0] = createMockServiceImage(mockServiceData._id);
+  });
 
   describe("Render tests without any Image data", () => {
-    let component: ShallowWrapper;
+    let wrapper: ReactWrapper;
 
     beforeAll(() => {
-      component = shallow(<ServiceImgUplForm />)
-     });
+      wrapper = mount(<ServiceImgUplForm />)
+    });
 
     it("Should properly render", () => {
-      expect(component).toMatchSnapshot();
+      expect(wrapper).toMatchSnapshot();
     });
-    it("Should have one upload Button element", () => {
-      const uplButton = component.find(Button);
-      expect(uplButton.length).toEqual(1);
+    it("Should render one '#serviceImgSelectBtn' button", () => {
+      const selectButton = wrapper.render().find("#serviceImgSelectBtn");
+      expect(selectButton.length).toEqual(1);
     });
     it("Should have an input", () => {
-      const input = component.find("input");
+      const input = wrapper.find("input");
       expect(input.length).toEqual(1);
+    });
+    it("Should NOT render '#serviceImgUplControls", () => {
+      const controls = wrapper.find("#productImgUplControls");
+      expect(controls.length).toEqual(0);
     });
   });
   
   describe("Render tests with an Image file present", () => {
-    let component: ShallowWrapper;
-    let input: ShallowWrapper;
+    let wrapper: ReactWrapper;
+    let input: ReactWrapper;
 
     beforeAll(() => {
-      component = shallow(<ServiceImgUplForm />);
+      wrapper = mount(<ServiceImgUplForm />);
       const file: File = MockFile.create("test", 1024, { type: "image/jpeg" });
-      input = component.find("input");
+      input = wrapper.find("input");
       input.simulate("change", { target: { files: [ file ] } });
     });
+    
     it("Should properly set the file in props", () => {
       expect(input.prop("type")).toBeDefined();
       expect(input.prop("type")).toEqual("file");
     });
-    it("Should successfully update and render the ImgUpload button", () => {
-      const imgUpoadBtn = component.find("#serviceImgUploadBtn");
+    it("Should successfully update and render the '#serviceImgUplBtn' button", () => {
+      const imgUpoadBtn = wrapper.render().find("#serviceImgUplBtn");
       expect(imgUpoadBtn.length).toEqual(1);
     });
-    it("Should successfully update and render the Cancel button", () => {
-      const imgCanceldBtn = component.find("#serviceImgCancelBtn");
+    it("Should successfully update and render the '#serviceImgCancelBtn' button", () => {
+      const imgCanceldBtn = wrapper.render().find("#serviceImgCancelBtn");
       expect(imgCanceldBtn.length).toEqual(1);
     });
     it("Should properly handle the '#serviceImgCancelBtn' and render correct local state", () => {
-      const imgCancelBtn = component.find("#serviceImgCancelBtn");
-      imgCancelBtn.simulate("click");
-      expect(component.find("#serviceImgCancelBtn").length).toEqual(0);
-      expect(component.find("#serviceImgUploadBtn").length).toEqual(0);
-      expect(component.find("#selectServiceImgBtn").length).toEqual(1);
+      const imgCancelBtn = wrapper.find("#serviceImgCancelBtn");
+      imgCancelBtn.at(0).simulate("click");
+      expect(wrapper.render().find("#serviceImgSelectBtn").length).toEqual(1);
+      expect(wrapper.render().find("#serviceImgCancelBtn").length).toEqual(0);
+      expect(wrapper.render().find("#serviceImgUplBtn").length).toEqual(0);
     });
   });
   // MOCK Successful Image upload tests //
-  describe("'#serviceImgUploadBtn' functionality and successful upload and local state changes", () => {
-    let component: ReactWrapper<typeof ServiceImgUplForm, {}, {}>;
+  describe("'#serviceImgUplBtn' functionality and successful upload and local state changes", () => {
+    let wrapper: ReactWrapper;
     let input: ReactWrapper;
 
     beforeAll(() => {
-      component = mount(
-        <TestStateProvider>
+      const state = generateCleanState();
+      state.serviceState.currentServiceData = mockServiceData;
+
+      moxios.install();
+      moxios.stubRequest(`/api/uploads/service_images/${mockServiceData._id}`, {
+        status: 200,
+        response: {
+          responseMsg: "ok",
+          updatedService: mockServiceData
+        }
+      });
+
+      wrapper = mount(
+        <TestStateProvider mockState={state}>
           <ServiceImgUplForm />
         </TestStateProvider>
       );
+      // mock an image //
       const file: File = MockFile.create("test", 1024, { type: "image/jpeg" });
-      input = component.find("input");
+      input = wrapper.find("input");
       input.simulate("change", { target: { files: [ file ] } });
     });
-    afterEach(() => {
+    afterAll(() => {
       moxios.uninstall();
     });
 
-    it("Should successfully fire the 'uploadServiceImg' action and show loader", async () => {
-      moxios.install();
-      moxios.wait(() => {
-        const request = moxios.requests.mostRecent();
-        request.respondWith({
-          status: 200,
-          response: {
-            responseMsg: "All ok",
-            updatedService: createMockServices(1)[0]
-          }
-        });
-      });
-
-      const imgUpoadBtn = component.find("#serviceImgUploadBtn");
-      imgUpoadBtn.at(0).simulate("click");
-      // loader should be displayed on th #serviceImgUploadBtn //
-      const imgUpoadBtnLoading = component.find(Button);
-      expect(imgUpoadBtnLoading.at(1).props().loading).toEqual(true);
-      // update component and local state //
-      await act( async () => {
-        return new Promise((res, _) => {
-          setTimeout(() => {
-            component.update();
-            res();
-          }, 500);
-        });
-      });
+    it("Should dispatch the API request, rend 'loader' on '#serviceImgUplBtn'", async () => {
+      const promise = Promise.resolve();
+      const imgUploadBtn = wrapper.find("#serviceImgUplBtn");
+      imgUploadBtn.at(0).simulate("click");
+      // clear promises //
+      await act( async () => promise);
+      const updatedUplButton = wrapper.find(ServiceImgUplForm).find(Button).at(1);
+      expect(updatedUplButton.props().loading).toEqual(true);
     });
-    it("Should correctly render Select Image button after 'successful upload", () => {
-      const selectImgBtn = component.find(ServiceImgUplForm).render().find("#selectServiceImgBtn");
-      expect(selectImgBtn.length).toEqual(1);
+    it("Should correctly render '#serviceImgSelectBtn'", () => {
+      wrapper.update();
+      const serviceImgSelectBtn = wrapper.find(ServiceImgUplForm).render().find("#serviceImgSelectBtn");
+      expect(serviceImgSelectBtn.length).toEqual(1);
     });
-    it("Should NOT render Image Upload button after 'successful upload", () => {
-      const imgUpoadBtn = component.find(ServiceImgUplForm).render().find("#serviceImgUploadBtn");
+    it("Should NOT render '#serviceImgRetryBtn'", () => {
+      const retryBtn = wrapper.find(ServiceImgUplForm).render().find("#serviceImgRetryBtn");
+      expect(retryBtn.length).toEqual(0);
+    });
+    it("Should NOT render '#serviceImgUplBtn' button after 'successful' upload", () => {
+      const imgUpoadBtn = wrapper.find(ServiceImgUplForm).render().find("#serviceImgUplBtn");
       expect(imgUpoadBtn.length).toEqual(0);
     });
-    it("Should NOT render Cancel Upload button after 'successful upload", () => {
-      const imgUpoadBtn = component.find(ServiceImgUplForm).render().find("#serviceImgUploadBtn");
-      expect(imgUpoadBtn.length).toEqual(0);
+    it("Should NOT render '#serviceImgCancelBtn' button after 'successful' upload", () => {
+      const cancelBtn = wrapper.find(ServiceImgUplForm).render().find("#serviceImgCancelBtn");
+      expect(cancelBtn.length).toEqual(0);
     });
   });
   // END Mock successful Image upload tests //
   // MOCK unsuccessful Image upload tests //
   describe("'#cancelServiceImgUploadBtn' functionality and a failed upload", () => {
-    let component: ReactWrapper;
+    let wrapper: ReactWrapper;
     let input: ReactWrapper;
+    const error = new Error("An error occured");
 
     beforeAll(() => {
-      component = mount(
-        <TestStateProvider>
+      const state = generateCleanState();
+      state.serviceState.currentServiceData = mockServiceData;
+
+      moxios.install();
+      moxios.stubRequest(`/api/uploads/service_images/${mockServiceData._id}`, {
+        status: 500,
+        response: {
+          responseMsg: "Error",
+          error: error
+        }
+      });
+
+      wrapper = mount(
+        <TestStateProvider mockState={state}>
           <ServiceImgUplForm />
         </TestStateProvider>
       );
       const file: File = MockFile.create("test", 1024, { type: "image/jpeg" });
-      input = component.find("input");
+      input = wrapper.find("input");
       input.simulate("change", { target: { files: [ file ] } });
     });
     afterEach(() => {
       moxios.uninstall();
     });
 
-    it("Should successfully handle the 'uploadServiceImg' action error", async () => {
-      moxios.install();
-      moxios.wait(() => {
-        const request = moxios.requests.mostRecent();
-        request.respondWith({
-          status: 500,
-          response: {
-            responseMsg: "Error",
-            error: new Error("Oops")
-          }
-        });
-      });
-
-      const imgUpoadBtn = component.find("#serviceImgUploadBtn").at(0);
-      imgUpoadBtn.simulate("click");
-      // loader should be displayed on th #serviceImgUploadBtn //
-      const imgUpoadBtnLoading = component.find(Button);
-      expect(imgUpoadBtnLoading.at(1).props().loading).toEqual(true);
-      // update component and local state //
-      await act( async () => {
-        return new Promise((res, _) => {
-          setTimeout(() => {
-            component.update();
-            res();
-          }, 500);
-        });
-      });
+    it("Should successfully handle the '#serviceImgUplBtn' API error, render loader", async () => {
+      const promise = Promise.resolve();
+      const imgUplBtn = wrapper.find("#serviceImgUplBtn");
+      imgUplBtn.at(0).simulate("click");
+      // loader should be displayed on the #serviceImgUplBtn //
+      await act( async () => promise);
+      const updatedBtn = wrapper.find(ServiceImgUplForm).find(Button).at(1);
+      expect(updatedBtn.props().loading).toEqual(true);
     });
-    it("Should NOT render Select Image button after a 'failed' upload", () => {
-      const selectImgBtn = component.find(ServiceImgUplForm).render().find("#selectServiceImgBtn");
+    it("Should render '#serviceImgRetryBtn' after a 'failed' API call", () => {
+      const imgRetryBtn = wrapper.find(ServiceImgUplForm).render().find("#serviceImgRetryBtn");
+      expect(imgRetryBtn.length).toEqual(1);
+    });
+    it("Should render '#serviceImgCancelBtn' after a 'failed' API call", () => {
+      const imgCancelBtn = wrapper.find(ServiceImgUplForm).render().find("#serviceImgCancelBtn");
+      expect(imgCancelBtn.length).toEqual(1);
+    })
+    it("Should NOT render '#serviceImgSelectBtn' after a 'failed' API call", () => {
+      const selectImgBtn = wrapper.find(ServiceImgUplForm).render().find("#serviceImgSelectBtn");
       expect(selectImgBtn.length).toEqual(0);
     });
-    it("Should render Image Upload button after a 'failed' upload", () => {
-      const imgUpoadBtn = component.find(ServiceImgUplForm).render().find("#serviceImgUploadBtn");
-      expect(imgUpoadBtn.length).toEqual(1);
-    })
-    it("Should render Cancel Upload button after a 'failed' upload", () => {
-      const imgUpoadBtn = component.find(ServiceImgUplForm).render().find("#serviceImgUploadBtn");
-      expect(imgUpoadBtn.length).toEqual(1);
-    });
+    
   });
   // END Mock unsuccessful Image upload tests //
 });

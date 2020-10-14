@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "semantic-ui-react";
 import moxios from "moxios";
 // testing imports //
-import { mount, shallow, ReactWrapper, ShallowWrapper } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import { act } from 'react-dom/test-utils';
 // components //
 import ProductImgUplForm from "../../../../components/admin_components/products/forms/ProductImgUplForm";
@@ -20,7 +20,7 @@ describe("Product Image Upload Form Tests", () => {
   beforeAll(() => {
     mockProductData = createMockProducts(1)[0];
     mockProductData.images[0] = createMockProductImage(mockProductData._id);
-  })
+  });
   
   describe("Render tests without any Image data", () => {
     let wrapper: ReactWrapper;
@@ -117,10 +117,11 @@ describe("Product Image Upload Form Tests", () => {
       const promise = Promise.resolve();
       const imgUpoadBtn = component.find("#productImgUploadBtn");
       imgUpoadBtn.at(0).simulate("click");
+      // clear promises //
       await act( async () => promise);
       const uploadButton = component.find(ProductImageUplForm).find(Button).at(1);
       expect(uploadButton.props().loading).toEqual(true);
-    })
+    });
 
     it("Should correctly render '#selectProductImgBtn' button after 'successful upload", () => {
       component.update();
@@ -160,6 +161,7 @@ describe("Product Image Upload Form Tests", () => {
           error: error
         }
       });
+      
       wrapper = mount(
         <TestStateProvider mockState={state}>
           <ProductImgUplForm />

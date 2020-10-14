@@ -1,40 +1,106 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Service Image Upload Form Tests Render tests without any Image data Should properly render 1`] = `
-<div
-  id="serviceImgUplFormHolder"
->
-  <div>
-    <p>
-      Image Uploader
-    </p>
-  </div>
-  <Form
-    as="form"
-    id="serviceImgUploadForm"
+exports[`'ServiceImgUplForm' componenent tests Render tests without any Image data Should properly render 1`] = `
+<ServiceImageUplForm>
+  <div
+    id="serviceImgUplFormHolder"
   >
-    <div
-      id="serviceImgInputControlls"
-    >
-      <Button
-        as="label"
-        content="Choose Image"
-        htmlFor="serviceImgFile"
-        icon="file"
-        id="selectServiceImgBtn"
-        labelPosition="left"
-        onClick={[Function]}
-      />
-      <input
-        hidden={true}
-        id="serviceImgFile"
-        onChange={[Function]}
-        type="file"
-      />
+    <div>
+      <p>
+        Image Uploader
+      </p>
     </div>
-    <span>
-      No File
-    </span>
-  </Form>
-</div>
+    <Form
+      as="form"
+      id="serviceImgUploadForm"
+    >
+      <form
+        className="ui form"
+        id="serviceImgUploadForm"
+        onSubmit={[Function]}
+      >
+        <div
+          id="serviceImgInputControlls"
+        >
+          <Button
+            as="label"
+            content="Choose Image"
+            htmlFor="serviceImgFile"
+            icon="file"
+            id="serviceImgSelectBtn"
+            labelPosition="left"
+            onClick={[Function]}
+          >
+            <Ref
+              innerRef={
+                Object {
+                  "current": <label
+                    class="ui icon left labeled button"
+                    for="serviceImgFile"
+                    id="serviceImgSelectBtn"
+                    role="button"
+                  >
+                    <i
+                      aria-hidden="true"
+                      class="file icon"
+                    />
+                    Choose Image
+                  </label>,
+                }
+              }
+            >
+              <RefFindNode
+                innerRef={
+                  Object {
+                    "current": <label
+                      class="ui icon left labeled button"
+                      for="serviceImgFile"
+                      id="serviceImgSelectBtn"
+                      role="button"
+                    >
+                      <i
+                        aria-hidden="true"
+                        class="file icon"
+                      />
+                      Choose Image
+                    </label>,
+                  }
+                }
+              >
+                <label
+                  className="ui icon left labeled button"
+                  htmlFor="serviceImgFile"
+                  id="serviceImgSelectBtn"
+                  onClick={[Function]}
+                  role="button"
+                >
+                  <Icon
+                    as="i"
+                    name="file"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="file icon"
+                      onClick={[Function]}
+                    />
+                  </Icon>
+                  Choose Image
+                </label>
+              </RefFindNode>
+            </Ref>
+          </Button>
+          <input
+            hidden={true}
+            id="serviceImgFile"
+            onChange={[Function]}
+            type="file"
+          />
+        </div>
+        <span>
+          No File
+        </span>
+      </form>
+    </Form>
+  </div>
+</ServiceImageUplForm>
 `;
