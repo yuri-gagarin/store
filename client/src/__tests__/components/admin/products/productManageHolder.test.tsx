@@ -4,7 +4,7 @@ import { Grid } from "semantic-ui-react";
 import moxios from "moxios";
 import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
-import { MemoryRouter as Router } from "react-router-dom";
+import { MemoryRouter, Router } from "react-router-dom";
 import { AdminProductRoutes } from "../../../../routes/adminRoutes";
 // components //
 import ProductsManageHolder from "../../../../components/admin_components/products/product_manage/ProductsManageHolder";
@@ -56,11 +56,11 @@ describe("Product Manage Holder Tests", () => {
       });
 
       wrapper = mount(
-        <Router keyLength={0} initialEntries={[AdminProductRoutes.MANAGE_ROUTE]}>
+        <MemoryRouter keyLength={0} initialEntries={[AdminProductRoutes.MANAGE_ROUTE]}>
           <TestStateProvider>
             <ProductsManageHolder />
           </TestStateProvider>
-        </Router>
+        </MemoryRouter>
       );
       await act( async () => promise);
     });
@@ -85,9 +85,10 @@ describe("Product Manage Holder Tests", () => {
   //
   // mock successful API call render tests //
   describe("'ProductsManageHolder' after a successful API call", () => {
-    let component: ReactWrapper; let loadingScreen: ReactWrapper;
+    let wrapper: ReactWrapper; 
 
     beforeAll( async () => {
+      const promise = Promise.resolve();
       moxios.install();
       moxios.stubRequest("/api/products", {
         status: 200,
@@ -96,100 +97,108 @@ describe("Product Manage Holder Tests", () => {
           products: products
         }
       });
+
+      wrapper = mount(
+        <MemoryRouter keyLength={0} initialEntries={[ AdminProductRoutes.MANAGE_ROUTE ]}>
+          <TestStateProvider>
+            <ProductsManageHolder />
+          </TestStateProvider>
+        </MemoryRouter>
+      );
+
+      await act( async () => promise);
     });
 
     afterAll(() => {
       moxios.uninstall();
     }); 
 
-    it("Should correctly render the initial Loading Screen", async () => {
-      const promise = Promise.resolve();
-      component = mount(
-        <Router keyLength={0} initialEntries={["/admin/home/my_products/manage"]}>
-          <TestStateProvider>
-            <ProductsManageHolder />
-          </TestStateProvider>
-        </Router>
-      );
-      loadingScreen = component.find(LoadingScreen);
+    it("Should correctly render the initial 'LoadingScreen' compnent", async () => {
+      const loadingScreen = wrapper.find(ProductsManageHolder).find(LoadingScreen);
+      const errorScreen = wrapper.find(ProductsManageHolder).find(ErrorScreen);
+      const productsGrid = wrapper.find(ProductsManageHolder).find(Grid);
+      // assert correct rendering //
       expect(loadingScreen.length).toEqual(1);
-      await act (() => promise);
+      expect(errorScreen.length).toEqual(0);
+      expect(productsGrid.length).toEqual(0);
     });
-    it("Should not render the initial Loading Screen after the API call", async () => {
-      component.update();
-      loadingScreen = component.find(LoadingScreen);
+    it("Should correctly render the 'ProductsManageHolder' 'Grid' after successful API call", async () => {
+      wrapper.update();
+      const loadingScreen = wrapper.find(ProductsManageHolder).find(LoadingScreen);
+      const errorScreen = wrapper.find(ProductsManageHolder).find(ErrorScreen);
+      const productsGrid = wrapper.find(ProductsManageHolder).find(Grid);
+      // assert correct rendering //
+      expect(wrapper.find(ProductsManageHolder)).toMatchSnapshot();
       expect(loadingScreen.length).toEqual(0);
+      expect(errorScreen.length).toEqual(0);
+      expect(productsGrid.length).toEqual(1);
     });
-    it("Should NOT render the ErrorScreen Component", () => {
-      const errorScreenComponent = component.find(ErrorScreen);
-      expect(errorScreenComponent.length).toEqual(0);
+    it("Should NOT change the client route", () => {
+      const { history } = wrapper.find(Router).props();
+      expect(history.location.pathname).toEqual(AdminProductRoutes.MANAGE_ROUTE);
+    });
+    it("Should render correct number of ProductCard components", () => {
+      const productCards = wrapper.find(ProductsManageHolder).find(ProductCard);
+      expect(productCards.length).toEqual(products.length);
     });
 
-    it("Should render the correct ProductManageHolder Component", () => {
-      const productManageHolderComp = component.find(ProductsManageHolder).find(Grid);
-      expect(productManageHolderComp.length).toEqual(1);
-      expect(component.find(ProductsManageHolder)).toMatchSnapshot();
-    });
-  
-    it("Should render correct number of ProductCard components", () => {
-      const productCards = component.find(ProductCard);
-      expect(productCards.length).toEqual(products.length);
-    })
   });
   
   // END mock successfull API call render tests //
   // mock ERROR API call render tests //
-  describe("State after a Error in API call", () => {
-    let component: ReactWrapper; let loadingScreen: ReactWrapper;
+  describe("'ProductsManageHolder' component after a Error in API call", () => {
+    let wrapper: ReactWrapper; 
     const error = new Error("Error occured");
 
     beforeAll(async () => {
+      const promise = Promise.resolve();
       moxios.install();
-      component = mount(
-        <Router keyLength={0} initialEntries={[ AdminProductRoutes.MANAGE_ROUTE ]}>
+      moxios.stubRequest("/api/products", {
+        status: 500,
+        response: {
+          responseMsg: "Error here",
+          error: error
+        }
+      });
+      wrapper = mount(
+        <MemoryRouter keyLength={0} initialEntries={[ AdminProductRoutes.MANAGE_ROUTE ]}>
           <TestStateProvider>
             <ProductsManageHolder />
           </TestStateProvider>
-        </Router>
+        </MemoryRouter>
       );
-      await act(async () => {
-        moxios.stubRequest("/api/products", {
-          status: 500,
-          response: {
-            responseMsg: "Error here",
-            error: error
-          }
-        });
-      });
-      moxios.uninstall();
+      await act( async () => promise);
     });
-    afterAll(() => {
+    afterEach(() => {
       moxios.uninstall();
     });
 
-    it("Should correctly render the initial Loading Screen", () => {
-      loadingScreen = component.find(LoadingScreen);
+    it("Should correctly render the 'LoadingScreen' component after an API call", () => {
+      const loadingScreen = wrapper.find(ProductsManageHolder).find(LoadingScreen);
+      const errorScreen = wrapper.find(ProductsManageHolder).find(ErrorScreen);
+      const productsGrid = wrapper.find(ProductsManageHolder).find(Grid);
+      // assert correct rendering //
       expect(loadingScreen.length).toEqual(1);
+      expect(errorScreen.length).toEqual(0);
+      expect(productsGrid.length).toEqual(0);
     });
-    it("Should not render the initial Loading Screen after an  API call", () => {
-      component.update();
-      loadingScreen = component.find(LoadingScreen);
+
+    it("Should ONLY render the 'ErrorScreen' component afert API error", () => {
+      wrapper.update();
+      const loadingScreen = wrapper.find(ProductsManageHolder).find(LoadingScreen);
+      const errorScreen = wrapper.find(ProductsManageHolder).find(ErrorScreen);
+      const productsGrid = wrapper.find(ProductsManageHolder).find(Grid);      
+      // assert correct rendering //
       expect(loadingScreen.length).toEqual(0);
+      expect(errorScreen.length).toEqual(1);
+      expect(productsGrid.length).toEqual(0);
     });
-    it("Should render the ErrorScreen Component", () => {
-      const errorScreenComponent = component.find(ErrorScreen);
-      expect(errorScreenComponent.length).toEqual(1);
-    });
-    it("Should NOT render the ProductManageHolder Component", () => {
-      const productManageHolderComp = component.find(ProductsManageHolder).find(Grid);
-      expect(productManageHolderComp.length).toEqual(0);
-    });
-    it("Should NOT render ANY ProductCard components", () => {
-      const productCards = component.find(ProductCard);
-      expect(productCards.length).toEqual(0);
+    it("Should NOT change the client route", () => {
+      const { history } = wrapper.find(Router).props();
+      expect(history.location.pathname).toEqual(AdminProductRoutes.MANAGE_ROUTE);
     });
     it("Should have a retry Product API call Button", () => {
-      const retryButton = component.find(ErrorScreen).render().find("#errorScreenRetryButton");
+      const retryButton = wrapper.find(ProductsManageHolder).find(ErrorScreen).render().find("#errorScreenRetryButton");
       expect(retryButton.length).toEqual(1);
     });
     it("Should correctly re-dispatch the 'getProducts' API request with the button click", async () => {
@@ -203,24 +212,37 @@ describe("Product Manage Holder Tests", () => {
           products: products
         }
       });
-      const retryButton = component.find("#errorScreenRetryButton");
+      const retryButton = wrapper.find("#errorScreenRetryButton");
       retryButton.at(0).simulate("click");
-     
-      expect(component.find(LoadingScreen).length).toEqual(1);
-      expect(component.find(ErrorScreen).length).toEqual(0);
-      expect(component.find(ProductsManageHolder).find(ErrorScreen).length).toEqual(0);
 
       await act(() => promise);
     });
-    it("Should correctly rerender 'ProductsManageHolder' component", () => {
-      component.update();
-      expect(component.find(ProductsManageHolder).find(LoadingScreen).length).toEqual(0);
-      expect(component.find(ProductsManageHolder).find(ErrorScreen).length).toEqual(0);
-      expect(component.find(ProductsManageHolder).find(Grid).length).toEqual(1);
+    it("Should render ONLY 'LoadingScreen' component after API call retry", () => {
+      const loadingScreen = wrapper.find(ProductsManageHolder).find(LoadingScreen);
+      const errorScreen = wrapper.find(ProductsManageHolder).find(ErrorScreen);
+      const productsGrid = wrapper.find(ProductsManageHolder).find(Grid);
+      // assert correct rendering //
+      expect(loadingScreen.length).toEqual(1);
+      expect(errorScreen.length).toEqual(0);
+      expect(productsGrid.length).toEqual(0);
     })
-    it("Should render correct number of 'ProductCard' Components", () => {
-      const productCards = component.find(ProductsManageHolder).find(ProductCard);
+    it("Should correctly rerender 'ProductsManageHolder' component", () => {
+      wrapper.update();
+      const loadingScreen = wrapper.find(ProductsManageHolder).find(LoadingScreen);
+      const errorScreen = wrapper.find(ProductsManageHolder).find(ErrorScreen);
+      const productsGrid = wrapper.find(ProductsManageHolder).find(Grid);
+      // assert correct rendering //
+      expect(loadingScreen.length).toEqual(0);
+      expect(errorScreen.length).toEqual(0);
+      expect(productsGrid.length).toEqual(1);
+    });
+    it("Should render a correct number of 'ProductCard' components", () => {
+      const productCards = wrapper.find(ProductsManageHolder).find(ProductCard);
       expect(productCards.length).toEqual(products.length);
+    });
+    it("Should NOT change the client route", () => {
+      const { history } = wrapper.find(Router).props();
+      expect(history.location.pathname).toEqual(AdminProductRoutes.MANAGE_ROUTE);
     });
   });
   // END mock successfull API call tests //

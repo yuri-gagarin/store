@@ -117,7 +117,7 @@ describe("ProductPreviewHolder Component render tests", () => {
          </TestStateProvider>
       );
 
-      await act( async () => promise)
+      await act( async () => promise);
     });
     afterAll(() => {
       moxios.uninstall();
@@ -132,7 +132,7 @@ describe("ProductPreviewHolder Component render tests", () => {
       expect(errorScreen.length).toEqual(0);
       expect(productsGrid.length).toEqual(0);
     });
-    it("Should correctly render the 'Service' 'Grid' after successful API call", () => {
+    it("Should correctly render the 'ProductsPreviewHolder' 'Grid' after successful API call", () => {
       wrapper.update();
       const loadingScreen = wrapper.find(ProductsPreviewHolder).find(LoadingScreen);
       const errorScreen = wrapper.find(ProductsPreviewHolder).find(ErrorScreen);
@@ -147,6 +147,7 @@ describe("ProductPreviewHolder Component render tests", () => {
       const productPreviewComponents = wrapper.find(ProductPreview);
       expect(productPreviewComponents.length).toEqual(products.length);
     });
+
   });
   // END TEST ProductPreviewHolder in its loaded state //
   // TEST ProductPreviewHolder in Error state //
@@ -179,8 +180,7 @@ describe("ProductPreviewHolder Component render tests", () => {
     afterEach(() => {
       moxios.uninstall();
     });
-    it("Should render the initial Loading Screen after an  API call", () => {
-      // wrapper.update();
+    it("Should render the 'LoadingScreen' component after an API call", () => {
       const loadingScreen = wrapper.find(LoadingScreen);
       const errorScreen = wrapper.find(ErrorScreen);
       const productGrid = wrapper.find(Grid);
@@ -189,7 +189,7 @@ describe("ProductPreviewHolder Component render tests", () => {
       expect(errorScreen.length).toEqual(0);
       expect(productGrid.length).toEqual(0);
     });
-    it("Should render the 'ErrorScreen' Component only after rejected API call", () => {
+    it("Should ONLY render the 'ErrorScreen' Component only after API error", () => {
       wrapper.update();
       const loadingScreen = wrapper.find(LoadingScreen);
       const errorScreen = wrapper.find(ErrorScreen);
@@ -202,6 +202,7 @@ describe("ProductPreviewHolder Component render tests", () => {
     
     it("Should properly redispatch last API call from 'ErrorScreen' Component", async () => {
       const promise = Promise.resolve();
+      
       moxios.install();
       moxios.stubRequest("/api/products", {
         status: 200,

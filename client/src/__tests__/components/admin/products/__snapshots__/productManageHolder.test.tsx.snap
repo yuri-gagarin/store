@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Product Manage Holder Tests State after a successful API call Should render the correct ProductManageHolder Component 1`] = `
+exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful API call Should correctly render the 'ProductsManageHolder' 'Grid' after successful API call 1`] = `
 <withRouter(ProductsManageHolder)>
   <ProductsManageHolder
     history={
