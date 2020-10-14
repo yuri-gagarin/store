@@ -160,6 +160,7 @@ describe("Product Manage Holder Tests", () => {
           error: error
         }
       });
+      
       wrapper = mount(
         <MemoryRouter keyLength={0} initialEntries={[ AdminProductRoutes.MANAGE_ROUTE ]}>
           <TestStateProvider>
