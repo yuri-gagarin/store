@@ -7,41 +7,53 @@ import { act } from 'react-dom/test-utils';
 // components //
 import ProductImgUplForm from "../../../../components/admin_components/products/forms/ProductImgUplForm";
 // React.Context and State //
-import { StateProvider } from "../../../../state/Store";
+import { TestStateProvider } from "../../../../state/Store";
 // helpers //
 import MockFile from "../../../helpers/mockFile";
-import { createMockProducts } from "../../../../test_helpers/productHelpers";
+import { createMockProductImage, createMockProducts } from "../../../../test_helpers/productHelpers";
+import ProductImageUplForm from "../../../../components/admin_components/products/forms/ProductImgUplForm";
+import { generateCleanState } from "../../../../test_helpers/miscHelpers";
 
 describe("Product Image Upload Form Tests", () => {
-
+  let mockProductData: IProductData;
+  
+  beforeAll(() => {
+    mockProductData = createMockProducts(1)[0];
+    mockProductData.images[0] = createMockProductImage(mockProductData._id);
+  })
+  
   describe("Render tests without any Image data", () => {
-    let component: ShallowWrapper;
+    let wrapper: ReactWrapper;
 
     beforeAll(() => {
-      component = shallow(<ProductImgUplForm />)
+      wrapper = mount(<ProductImgUplForm />)
      });
 
     it("Should properly render", () => {
-      expect(component).toMatchSnapshot();
+      expect(wrapper).toMatchSnapshot();
     });
-    it("Should have one upload Button element", () => {
-      const uplButton = component.find(Button);
+    it("Should render one upload Button element", () => {
+      const uplButton = wrapper.find(Button);
       expect(uplButton.length).toEqual(1);
     });
-    it("Should have an input", () => {
-      const input = component.find("input");
+    it("Should NOT render '#productImgUploadControls", () => {
+      const controls = wrapper.find("#productImgUploadControls");
+      expect(controls.length).toEqual(0);
+    });
+    it("Should render an input", () => {
+      const input = wrapper.find("input");
       expect(input.length).toEqual(1);
     });
   });
   
   describe("Render tests with an Image file present", () => {
-    let component: ShallowWrapper;
-    let input: ShallowWrapper;
+    let wrapper: ReactWrapper;
+    let input: ReactWrapper;
 
     beforeAll(() => {
-      component = shallow(<ProductImgUplForm />);
+      wrapper =  mount(<ProductImgUplForm />);
       const file: File = MockFile.create("test", 1024, { type: "image/jpeg" });
-      input = component.find("input");
+      input = wrapper.find("input");
       input.simulate("change", { target: { files: [ file ] } });
     });
     it("Should properly set the file in props", () => {
@@ -49,141 +61,144 @@ describe("Product Image Upload Form Tests", () => {
       expect(input.prop("type")).toEqual("file");
     });
     it("Should successfully update and render the ImgUpload button", () => {
-      const imgUpoadBtn = component.find("#productImgUploadBtn");
+      const imgUpoadBtn = wrapper.render().find("#productImgUploadBtn");
       expect(imgUpoadBtn.length).toEqual(1);
     });
     it("Should successfully update and render the Cancel button", () => {
-      const imgCanceldBtn = component.find("#productImgCancelBtn");
+      const imgCanceldBtn = wrapper.render().find("#productImgCancelBtn");
       expect(imgCanceldBtn.length).toEqual(1);
     });
+    it("Should NOT render the '#productImageRetryButton'", () => {
+      const retryButton  = wrapper.render().find("#productImgRetryButton");
+      expect(retryButton.length).toEqual(0);
+    });
     it("Should properly handle the '#productImgCancelBtn' and render correct local state", () => {
-      const imgCancelBtn = component.find("#productImgCancelBtn");
-      imgCancelBtn.simulate("click");
-      expect(component.find("#productImgCancelBtn").length).toEqual(0);
-      expect(component.find("#productImgUploadBtn").length).toEqual(0);
-      expect(component.find("#selectProductImgBtn").length).toEqual(1);
+      const imgCancelBtn = wrapper.find("#productImgCancelBtn");
+      imgCancelBtn.at(0).simulate("click");
+      expect(wrapper.render().find("#productImgCancelBtn").length).toEqual(0);
+      expect(wrapper.render().find("#productImgUploadBtn").length).toEqual(0);
+      expect(wrapper.render().find("#productImgRetryBtn").length).toEqual(0);
+      expect(wrapper.render().find("#selectProductImgBtn").length).toEqual(1);
     });
   });
+  
   // MOCK Successful Image upload tests //
-  describe("'#productImgUploadBtn' functionality and successful upload and local state changes", () => {
+  describe("'#productImgUploadBtn' functionality and successful upload with local state changes", () => {
     let component: ReactWrapper;
     let input: ReactWrapper;
 
     beforeAll(() => {
+      const state = generateCleanState();
+      state.productState.currentProductData = mockProductData;
+
+      moxios.install();
+      moxios.stubRequest(`/api/uploads/product_images/${mockProductData._id}`, {
+        status: 200,
+        response: {
+          responseMsg: "ok",
+          updatedProduct: mockProductData
+        }
+      });
+
       component = mount(
-        <StateProvider>
+        <TestStateProvider mockState={state}>
           <ProductImgUplForm />
-        </StateProvider>
+        </TestStateProvider>
       );
+      // mock an image //
       const file: File = MockFile.create("test", 1024, { type: "image/jpeg" });
       input = component.find("input");
       input.simulate("change", { target: { files: [ file ] } });
     });
-    afterEach(() => {
+    afterAll(() => {
       moxios.uninstall();
     });
-
-    it("Should successfully fire the 'uploadProductImg' action and show loader", async () => {
-      moxios.install();
-      moxios.wait(() => {
-        const request = moxios.requests.mostRecent();
-        request.respondWith({
-          status: 200,
-          response: {
-            responseMsg: "All ok",
-            updatedProduct: createMockProducts(1)[0]
-          }
-        });
-      });
-
+    it("Should dispatch a 'correct' API request show 'loader'", async () => {
+      const promise = Promise.resolve();
       const imgUpoadBtn = component.find("#productImgUploadBtn");
       imgUpoadBtn.at(0).simulate("click");
-      // loader should be displayed on th #productImgUploadBtn //
-      const imgUpoadBtnLoading = component.find(Button);
-      expect(imgUpoadBtnLoading.at(1).props().loading).toEqual(true);
-      // update component and local state //
-      await act( async () => {
-        return new Promise((res, _) => {
-          setTimeout(() => {
-            component.update();
-            res();
-          }, 500);
-        });
-      });
-    });
-    it("Should correctly render Select Image button after 'successful upload", () => {
+      await act( async () => promise);
+      const uploadButton = component.find(ProductImageUplForm).find(Button).at(1);
+      expect(uploadButton.props().loading).toEqual(true);
+    })
+
+    it("Should correctly render '#selectProductImgBtn' button after 'successful upload", () => {
+      component.update();
       const selectImgBtn = component.find(ProductImgUplForm).render().find("#selectProductImgBtn");
       expect(selectImgBtn.length).toEqual(1);
     });
-    it("Should NOT render Image Upload button after 'successful upload", () => {
+    it("Should NOT render '#productImgRetryButton' after 'successful upload", () => {
+      const imgUpoadBtn = component.find(ProductImgUplForm).render().find("#productImgRetryButton");
+      expect(imgUpoadBtn.length).toEqual(0);
+    });
+    it("Should NOT render '#productImgUploadBtn' button after 'successful upload", () => {
       const imgUpoadBtn = component.find(ProductImgUplForm).render().find("#productImgUploadBtn");
       expect(imgUpoadBtn.length).toEqual(0);
     });
-    it("Should NOT render Cancel Upload button after 'successful upload", () => {
-      const imgUpoadBtn = component.find(ProductImgUplForm).render().find("#productImgUploadBtn");
+    it("Should NOT render '@productImgCancelBtn' button after 'successful upload", () => {
+      const imgUpoadBtn = component.find(ProductImgUplForm).render().find("#productImgCancelBtn");
       expect(imgUpoadBtn.length).toEqual(0);
     });
   });
   // END Mock successful Image upload tests //
   // MOCK unsuccessful Image upload tests //
+  
   describe("'#cancelProductImgUploadBtn' functionality and a failed upload", () => {
-    let component: ReactWrapper;
+    let wrapper: ReactWrapper;
     let input: ReactWrapper;
+    const error = new Error("An error occured");
 
     beforeAll(() => {
-      component = mount(
-        <StateProvider>
+      const state = generateCleanState();
+      state.productState.currentProductData = mockProductData;
+
+      moxios.install();
+      moxios.stubRequest(`/api/uploads/product_images/${mockProductData._id}`, {
+        status: 500,
+        response: {
+          responseMsg: "Error",
+          error: error
+        }
+      });
+      wrapper = mount(
+        <TestStateProvider mockState={state}>
           <ProductImgUplForm />
-        </StateProvider>
+        </TestStateProvider>
       );
       const file: File = MockFile.create("test", 1024, { type: "image/jpeg" });
-      input = component.find("input");
+      input = wrapper.find("input");
       input.simulate("change", { target: { files: [ file ] } });
     });
+
     afterEach(() => {
       moxios.uninstall();
     });
 
-    it("Should successfully handle the 'uploadProductImg' action error", async () => {
-      moxios.install();
-      moxios.wait(() => {
-        const request = moxios.requests.mostRecent();
-        request.respondWith({
-          status: 500,
-          response: {
-            responseMsg: "Error",
-            error: new Error("Oops")
-          }
-        });
-      });
+    it("Should successfully handle the 'uploadProductImg' API error, render 'loader'", async () => {
+      const promise = Promise.resolve();
+      const imgUpoadBtn = wrapper.find("#productImgUploadBtn").at(0);
 
-      const imgUpoadBtn = component.find("#productImgUploadBtn").at(0);
       imgUpoadBtn.simulate("click");
-      // loader should be displayed on th #productImgUploadBtn //
-      const imgUpoadBtnLoading = component.find(Button);
-      expect(imgUpoadBtnLoading.at(1).props().loading).toEqual(true);
-      // update component and local state //
-      await act( async () => {
-        return new Promise((res, _) => {
-          setTimeout(() => {
-            component.update();
-            res();
-          }, 500);
-        });
-      });
+      // loader should be displayed on the  #productImgUploadBtn //
+      await act( async() => promise);
+      const updatedButton = wrapper.find(ProductImageUplForm).find(Button).at(1);
+      expect(updatedButton.props().loading).toEqual(true);
     });
-    it("Should NOT render Select Image button after a 'failed' upload", () => {
-      const selectImgBtn = component.find(ProductImgUplForm).render().find("#selectProductImgBtn");
+    it("Should render '#productImgRetryButton' button after a 'failed' upload", () => {
+      const imgUpoadBtn = wrapper.find(ProductImgUplForm).render().find("#productImgRetryButton");
+      expect(imgUpoadBtn.length).toEqual(1);
+    });
+    it("Should render '#productImgCancelBtn' button after a 'failed' upload", () => {
+      const imgUpoadBtn = wrapper.find(ProductImgUplForm).render().find("#productImgCancelBtn");
+      expect(imgUpoadBtn.length).toEqual(1);
+    });
+    it("Should NOT render '#selectProductImgBtn' button after a 'failed' upload", () => {
+      const selectImgBtn = wrapper.find(ProductImgUplForm).render().find("#selectProductImgBtn");
       expect(selectImgBtn.length).toEqual(0);
     });
-    it("Should render Image Upload button after a 'failed' upload", () => {
-      const imgUpoadBtn = component.find(ProductImgUplForm).render().find("#productImgUploadBtn");
-      expect(imgUpoadBtn.length).toEqual(1);
-    })
-    it("Should render Cancel Upload button after a 'failed' upload", () => {
-      const imgUpoadBtn = component.find(ProductImgUplForm).render().find("#productImgUploadBtn");
-      expect(imgUpoadBtn.length).toEqual(1);
-    });
+    
+    
   });
+  
   // END Mock unsuccessful Image upload tests //
 });

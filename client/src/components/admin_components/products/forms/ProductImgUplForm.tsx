@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button, Form } from "semantic-ui-react";
 // css imports //
 import "./css/productImgUploadForm.css";
@@ -12,6 +12,7 @@ const ProductImageUplForm: React.FC<{}> = (props): JSX.Element => {
   const { loading, currentProductData } = state.productState;
   // local state //
   const [ file, setFile ] = useState<File>();
+  const [ imageUploadError, setImageUploadError ] = useState<boolean>(false);
   // event handlers and listeners //
   const handleButtonClick = () => {
 
@@ -26,7 +27,9 @@ const ProductImageUplForm: React.FC<{}> = (props): JSX.Element => {
           setFile(undefined)
         })
         .catch((_) => {
+          console.log("error")
           // handle error ? display message ? //
+          setImageUploadError(true)
         });
     }
   };
@@ -38,7 +41,7 @@ const ProductImageUplForm: React.FC<{}> = (props): JSX.Element => {
       setFile(e.target.files[0])
     }
   };
-
+  
   return (
     <div id="productImgUplFormHolder">
       <div><p>Image Uploader</p></div>
@@ -71,19 +74,29 @@ const ProductImageUplForm: React.FC<{}> = (props): JSX.Element => {
               icon="cancel"
               onClick={cancelFile}
             />
-            <Button 
-              id="productImgUploadBtn"
-              as="label"
-              content="Upload"
-              icon="upload"
-              onClick={uploadFile}
-              loading={loading}
-            />
+            {
+              imageUploadError ? 
+                <Button
+                  id="productImgRetryButton"
+                  as="label"
+                  content="Retry Img Upload"
+                  icon="upload"
+                  onClick={uploadFile}
+                  loading={loading}
+                /> 
+              : 
+                <Button 
+                  id="productImgUploadBtn"
+                  as="label"
+                  content="Upload"
+                  icon="upload"
+                  onClick={uploadFile}
+                  loading={loading}
+                />
+            }
           </div>
           : null
         }
-       
-
        <span>{file ? file.name : "No File"}</span>
       </Form>
     </div>
