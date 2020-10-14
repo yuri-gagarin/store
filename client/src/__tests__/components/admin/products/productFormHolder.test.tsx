@@ -5,7 +5,7 @@ import { mount, ReactWrapper } from "enzyme";
 import moxios from "moxios";
 import { act } from "react-dom/test-utils";
 // client routing //
-import { MemoryRouter as Router } from "react-router-dom";
+import { MemoryRouter, Router } from "react-router-dom";
 // component imports //
 import ProductFormHolder from "../../../../components/admin_components/products/forms/ProductFormHolder";
 import ProductForm from "../../../../components/admin_components/products/forms/ProductForm";
@@ -18,17 +18,20 @@ import { IGlobalAppState, TestStateProvider } from "../../../../state/Store";
 // helpers //
 import { createMockProducts, setMockProductState } from "../../../../test_helpers/productHelpers";
 import { generateCleanState } from "../../../../test_helpers/miscHelpers";
+import { AdminProductRoutes } from "../../../../routes/adminRoutes";
 
 describe("ProductFormHolder Component tests", () => {
   let wrapper: ReactWrapper; 
+  let mockProduct: IProductData;
+
   describe("Default Form Holder state",  () => {
 
     beforeAll(() => {
       window.scrollTo = jest.fn();
       wrapper = mount(
-        <Router keyLength={0}>
+        <MemoryRouter keyLength={0}>
           <ProductFormHolder />
-        </Router>
+        </MemoryRouter>
       );
     });
 
@@ -40,7 +43,7 @@ describe("ProductFormHolder Component tests", () => {
       expect(form.length).toEqual(0);
     });
     it("Should have a Form toggle Button", () => {
-      const toggleButton = wrapper.find(Button);
+      const toggleButton = wrapper.find(ProductFormHolder).render().find("#productFormToggleBtn");
       expect(toggleButton.length).toEqual(1);
     });
 
@@ -53,11 +56,11 @@ describe("ProductFormHolder Component tests", () => {
     beforeAll(() => {
       window.scrollTo = jest.fn();
       wrapper = mount(
-        <Router keyLength={0}>
+        <MemoryRouter keyLength={0}>
           <TestStateProvider>
             <ProductFormHolder />
           </TestStateProvider>
-        </Router>
+        </MemoryRouter>
       );
     });
     it("Should render a Form toggle Button", () => {
@@ -81,7 +84,7 @@ describe("ProductFormHolder Component tests", () => {
       expect(form.length).toEqual(1);
     });
     it("Should NOT render '#productFormHolderDetails", () => {
-      const details = wrapper.find(ProductFormHolder).render().find("#productFormHolderDetails");
+      const details = wrapper.find(ProductFormHolder).find("#productFormHolderDetails");
       expect(details.length).toEqual(0);
     })
     it("Should NOT have the Image Preview rendered", () => {
@@ -97,7 +100,6 @@ describe("ProductFormHolder Component tests", () => {
   // TEST Form Holder state OPEN - WITH Current Product Data - NO IMAGES //
   describe("Form Holder state OPEN - WITH Current Product Data - NO IMAGES",  () => {
     let wrapper: ReactWrapper; let state: IGlobalAppState;
-    let mockProduct: IProductData;
 
     beforeAll(() => {
       window.scrollTo = jest.fn();
@@ -113,11 +115,11 @@ describe("ProductFormHolder Component tests", () => {
       };
       state.productState.currentProductData = mockProduct;
       wrapper = mount(
-        <Router keyLength={0}>
+        <MemoryRouter keyLength={0}>
           <TestStateProvider mockState={state}>
             <ProductFormHolder />
           </TestStateProvider>
-        </Router>
+        </MemoryRouter>
       );
       wrapper.update();
     });
@@ -150,6 +152,7 @@ describe("ProductFormHolder Component tests", () => {
       expect(detailsHolders.at(0).find("p").render().text()).toEqual(mockProduct.name);
       expect(detailsHolders.at(1).find("p").render().text()).toEqual(mockProduct.price);
       expect(detailsHolders.at(2).find("p").render().text()).toEqual(mockProduct.description);
+      expect(detailsHolders.at(3).find("p").render().text()).toEqual(mockProduct.details);
     })
     it("Should have the Image Preview rendered", () => {
       const imgPreviewHolder = wrapper.find(ProductImgPreviewHolder);
@@ -205,11 +208,11 @@ describe("ProductFormHolder Component tests", () => {
       state.productState.currentProductData = mockProduct;
       // mount component //
       wrapper = mount(
-        <Router keyLength={0}>
+        <MemoryRouter keyLength={0}>
           <TestStateProvider mockState={state}>
             <ProductFormHolder />
           </TestStateProvider>
-        </Router>
+        </MemoryRouter>
       );
     });
 
@@ -248,6 +251,7 @@ describe("ProductFormHolder Component tests", () => {
   });
   // END Form Holder state OPEN - WITH Current Product Data - WITH IMAGES //
   // TEST Form Holder state OPEN - MOCK Submit action //
+  
   describe("Form Holder state OPEN - MOCK Submit action",  () => {
     let state: IGlobalAppState; let wrapper: ReactWrapper;
 
@@ -255,11 +259,11 @@ describe("ProductFormHolder Component tests", () => {
       window.scrollTo = jest.fn();
       // mount and wait //
       wrapper = mount(
-        <Router keyLength={0} initialEntries={["/admin/products/create"]} >
+        <MemoryRouter keyLength={0} initialEntries={[ AdminProductRoutes.CREATE_ROUTE ]} >
           <TestStateProvider>
             <ProductFormHolder />
           </TestStateProvider>
-        </Router>
+        </MemoryRouter>
       );
     });
 
@@ -270,28 +274,43 @@ describe("ProductFormHolder Component tests", () => {
       expect(adminProductFormCreate.length).toEqual(1)
     });
     it("Should handle the 'handleCreateProductAction, show 'LoadingBar' Component", async () => {
+      const promise = Promise.resolve();
+
       moxios.install();
-      await act( async () => {
-        moxios.stubRequest("/api/products/create", {
-          status: 200,
-          response: {
-            responseMsg: "All Good",
-            newProduct: createMockProducts(1)[0]
-          }
-        });
-        const adminProductFormCreate = wrapper.find("#adminProductFormCreate").at(0);
-        adminProductFormCreate.simulate("click");
-        //expect(wrapper.find(LoadingBar).length).toEqual(1);
+      moxios.stubRequest("/api/products/create", {
+        status: 200,
+        response: {
+          responseMsg: "All Good",
+          newProduct: mockProduct
+        }
       });
-      // expect(sinon.spy(createProduct)).toHaveBeenCalled()
-      wrapper.update();
+
+      const adminProductFormCreate = wrapper.find("#adminProductFormCreate").at(0);
+      adminProductFormCreate.simulate("click");
+
+      await act( async () => promise);
+
+      expect(wrapper.find(ProductFormHolder).find(LoadingBar).length).toEqual(1);
     });
     it("Should NOT show the 'LoadingBar' Component after successful API call", () => {
+      wrapper.update();
       expect(wrapper.find(LoadingBar).length).toEqual(0);
     });
     it("Should NOT show the 'ProductForm' Component after successful API call", () => {
       expect(wrapper.find(ProductForm).length).toEqual(0);
     });
+    it("Should correctly render '#productFormHolderDetails' 'Grid' item", () => {
+      const details = wrapper.find(ProductFormHolder).render().find("#productFormHolderDetails");
+      expect(details.length).toEqual(1);
+    });
+    it("Should render correct values in '#productFormHolderDetails", () => {
+      const detailsHolders = wrapper.find(ProductFormHolder).find(".productFormHolderDetailsItem");
+      expect(detailsHolders.at(0).find("p").render().text()).toEqual(mockProduct.name);
+      expect(detailsHolders.at(1).find("p").render().text()).toEqual(mockProduct.price);
+      expect(detailsHolders.at(2).find("p").render().text()).toEqual(mockProduct.description);
+      expect(detailsHolders.at(3).find("p").render().text()).toEqual(mockProduct.details);
+    });
+
     // END Form Holder state OPEN - MOCK Submit action //
   });
   

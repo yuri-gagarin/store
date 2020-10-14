@@ -221,6 +221,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
               </Button>
               <ProductForm
                 description=""
+                details=""
                 handleCreateProduct={[Function]}
                 handleUpdateProduct={[Function]}
                 name=""
@@ -336,6 +337,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                         label="Product Details"
                         onChange={[Function]}
                         placeholder="Product details here..."
+                        value=""
                       >
                         <div
                           className="field"
@@ -352,6 +354,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                             onChange={[Function]}
                             placeholder="Product details here..."
                             rows={3}
+                            value=""
                           >
                             <Ref
                               innerRef={
@@ -382,6 +385,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                                   onInput={[Function]}
                                   placeholder="Product details here..."
                                   rows={3}
+                                  value=""
                                 />
                               </RefFindNode>
                             </Ref>

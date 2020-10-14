@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { Menu } from "semantic-ui-react";
 // react router //
-import { MemoryRouter as Router, Switch } from "react-router-dom";
+import { MemoryRouter, Router, Switch } from "react-router-dom";
 // testing imports //
 import { mount, shallow, ReactWrapper, ShallowWrapper } from "enzyme";
 // component imports //
@@ -57,55 +57,67 @@ describe("ProductView Component render tests", () => {
   // END ProductViewComponent render tests //
   // TEST AdminProductMenu within component and Link action tests //
   describe("ProductView Component button actions", () => {
-    let component: ReactWrapper;
+    let wrapper: ReactWrapper;
 
     beforeAll(() => {
-      component = mount(
-        <Router keyLength={0} initialEntries={["/admin/home/my_products"]}>
+      wrapper = mount(
+        <MemoryRouter keyLength={0} initialEntries={[ AdminProductRoutes.HOME_ROUTE ]}>
           <ProductsViewComponent />
-        </Router>
+        </MemoryRouter>
       );
     });
 
     describe("AdminProductMenu", () => {
 
       it("Should render Admin Product Menu", () => {
-        expect(component.find(AdminProductsMenu)).toHaveLength(1);
+        expect(wrapper.find(AdminProductsMenu)).toHaveLength(1);
       });
       it("Should have 4 main navigation links", () => {
-        const wrapper = component.find(AdminProductsMenu);
-        const links = wrapper.find(Menu.Item)
+        const menuWrapper = wrapper.find(AdminProductsMenu);
+        const links = menuWrapper.find(Menu.Item)
         expect(links.length).toEqual(4);
       });
       it("'View All Products' link should properly function", () => {
         window.scrollTo = jest.fn();
-        const viewAllLink = component.find(AdminProductsMenu).find(Menu.Item).at(0);
+        const viewAllLink = wrapper.find(AdminProductsMenu).find(Menu.Item).at(0);
         viewAllLink.simulate("click");
-        component.update();
+        wrapper.update();
         // assert updated compnent //
-        expect(component.find(ProductsPreviewHolder).length).toEqual(1);
-        expect(component.find(ProductFormHolder).length).toEqual(0);
-        expect(component.find(ProductsManageHolder).length).toEqual(0);
+        expect(wrapper.find(ProductsPreviewHolder).length).toEqual(1);
+        expect(wrapper.find(ProductFormHolder).length).toEqual(0);
+        expect(wrapper.find(ProductsManageHolder).length).toEqual(0);
+      });
+      it(`Should redirect to "${AdminProductRoutes.VIEW_ALL_ROUTE}" client route`, () => {
+        const { history } = wrapper.find(Router).props();
+        expect(history.location.pathname).toEqual(AdminProductRoutes.VIEW_ALL_ROUTE);
       });
       it("'Create Product' link should properly function", () => {
         window.scrollTo = jest.fn();
-        const viewAllLink = component.find(AdminProductsMenu).find(Menu.Item).at(1);
+        const viewAllLink = wrapper.find(AdminProductsMenu).find(Menu.Item).at(1);
         viewAllLink.simulate("click");
-        component.update();
-        // assert updated component //
-        expect(component.find(ProductsPreviewHolder).length).toEqual(0);
-        expect(component.find(ProductFormHolder).length).toEqual(1);
-        expect(component.find(ProductsManageHolder).length).toEqual(0);
+        wrapper.update();
+        // assert updated wrapper //
+        expect(wrapper.find(ProductsPreviewHolder).length).toEqual(0);
+        expect(wrapper.find(ProductFormHolder).length).toEqual(1);
+        expect(wrapper.find(ProductsManageHolder).length).toEqual(0);
+      });
+      it(`Should redirect to "${AdminProductRoutes.CREATE_ROUTE}" client route`, () => {
+        const { history } = wrapper.find(Router).props();
+        expect(history.location.pathname).toEqual(AdminProductRoutes.CREATE_ROUTE);
       });
       it("'Manage Products' link should properly function", () => {
         window.scrollTo = jest.fn();
-        const viewAllLink = component.find(AdminProductsMenu).find(Menu.Item).at(2);
+        const viewAllLink = wrapper.find(AdminProductsMenu).find(Menu.Item).at(2);
         viewAllLink.simulate("click");
-        component.update();
-        // assert updated component //
-        expect(component.find(ProductsPreviewHolder).length).toEqual(0);
-        expect(component.find(ProductFormHolder).length).toEqual(0);
-        expect(component.find(ProductsManageHolder).length).toEqual(1);
+        wrapper.update();
+        // assert updated wrapper //
+        expect(wrapper.find(ProductsPreviewHolder).length).toEqual(0);
+        expect(wrapper.find(ProductFormHolder).length).toEqual(0);
+        expect(wrapper.find(ProductsManageHolder).length).toEqual(1);
+      });
+      it(`Should redirect to "${AdminProductRoutes.MANAGE_ROUTE}" client route`, () => {
+        const { history } = wrapper.find(Router).props();
+        expect(history.location.pathname).toEqual(AdminProductRoutes.MANAGE_ROUTE);
       });
     });
     

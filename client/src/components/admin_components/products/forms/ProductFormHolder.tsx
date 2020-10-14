@@ -35,7 +35,7 @@ type ProductData = {
 const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const { state,dispatch } = useContext(Store);
   const { loading, currentProductData, productFormOpen, error } = state.productState;
-  const { name, description, price, createdAt, editedAt } = currentProductData;
+  const { name, description, details, price, createdAt, editedAt } = currentProductData;
   // local component state //
   // const [ formOpen, setFormOpen ] = useState<boolean>(false);
   const [ newForm, setNewForm ] = useState<boolean>(true);
@@ -88,8 +88,8 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
       { loading ? <LoadingBar /> : null }
       {
         !newForm ?
-          <React.Fragment>
-            <Grid.Row id={"productFormHolderDetails"}> 
+          <div id={"productFormHolderDetails"}>
+            <Grid.Row> 
               <Grid.Column mobile={16} tablet={14} computer={14}>
                 <h1>Details</h1>
                 <div className="productFormHolderDetailsItem">
@@ -104,6 +104,10 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
                   <h3>Product description:</h3>
                   <p>{description}</p>
                 </div>
+                <div className="productFormHolderDetailsItem">
+                  <h3>Product details:</h3>
+                  <p>{details}</p>
+                </div>
                 <div className="productFormHolderTimestamps">
                   <span>Created At: <strong>{ConvertDate.international(createdAt)}</strong></span>
                   <span>Edited At: <strong>{ConvertDate.international(editedAt)}</strong></span>
@@ -116,7 +120,7 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
               </Grid.Column>
             </Grid.Row>
             <ProductImgUplForm />
-          </React.Fragment>
+          </div>
           : null
       }
       <Grid.Row>
@@ -131,6 +135,7 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
               <ProductForm 
                 name={name} 
                 description={description} 
+                details={details}
                 price={price}
                 newForm={newForm}
                 handleCreateProduct={handleCreateProduct}
