@@ -129,6 +129,26 @@ describe("Product Actions Tests", () => {
         expect(state.productState.error).to.eql(null);
       });
     });
+
+    describe("Action: 'DISPATCH_PRODUCT_API_REQUEST'", () => {
+      const error = new Error("Error here");
+
+      beforeAll(() => {
+        ({ dispatch, state } = getContextFromWrapper(wrapper));
+        state.productState.error = error;
+      });
+
+      it("Should properly dispatch the action and set the new state", () => {
+        // expected state after the action //
+        const expectedState: IGlobalAppState = { ...state, productState: { ...state.productState, loading: true, error: null } };
+        // fire off the action //
+        dispatch({ type: "DISPATCH_PRODUCT_API_REQUEST", payload: { loading: true, error: null }});
+        // get new state and compare //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState).to.eql(expectedState);
+      });
+
+    });
   });
   // END TEST Actions without API requests //
   // TEST actions with API requests - NO Error returned //

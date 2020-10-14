@@ -25,4 +25,17 @@ export type ClientProductData = {
   price: string;
   images: IProductImgData[]
 }
-// //
+// ProductFormHolder and ProductForm types //
+export type ProductData = {
+  name: string;
+  description: string;
+  details: string;
+  price: string;
+  images: IProductImgData[];
+}
+export type ProductFormState = {
+  name: string;
+  description: string;
+  details: string;
+  price: string;
+}

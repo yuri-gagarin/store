@@ -18,18 +18,10 @@ import { closeProductForm, openProductForm } from "../actions/UIProductActions";
 import { ConvertDate } from "../../../helpers/displayHelpers";
 import { checkSetValues } from "../../../helpers/validationHelpers";
 // types 
-import { FormState } from "./ProductForm";
-
+import { ProductData, ProductFormState } from "../type_definitions/productTypes";
 
 interface Props extends RouteComponentProps {
  
-}
-
-type ProductData = {
-  name: string;
-  description: string;
-  price: string;
-  images: IProductImgData[];
 }
 
 const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
@@ -45,11 +37,9 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
     productFormOpen ? closeProductForm(dispatch) : openProductForm(dispatch);
   };
   // API call handlers CREATE - EDIT //
-  const handleCreateProduct = ({ name, price, description }: FormState): void => {
+  const handleCreateProduct = (productFormData: ProductFormState): void => {
     const productData: ProductData = {
-      name,
-      description,
-      price,
+      ...productFormData,
       images: currentProductData.images
     };
     createProduct(productData, dispatch)
@@ -61,9 +51,10 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
         // handle error or show modal //
       });
   };
-  const handleUpdateProduct = ({ name, description, price }: FormState): void => {
+  const handleUpdateProduct = (productFormData: ProductFormState): void => {
     const productParams: ProductData = {
-      name, description, price, images: currentProductData.images
+      ...productFormData,
+      images: currentProductData.images
     };
     editProduct(currentProductData._id, productParams, dispatch, state)
       .then((_) => {

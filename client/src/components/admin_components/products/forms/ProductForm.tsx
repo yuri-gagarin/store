@@ -1,12 +1,7 @@
 import React, { useState, useEffect, useRef }  from "react";
 import { Button, Form, TextArea } from "semantic-ui-react";
-
-export type FormState = {
-  name: string;
-  description: string;
-  details: string;
-  price: string;
-}
+// type definitions//
+import { ProductFormState } from "../type_definitions/productTypes";
 
 interface Props {
   name: string;
@@ -14,12 +9,12 @@ interface Props {
   description: string;
   details: string;
   newForm: boolean;
-  handleCreateProduct(data: FormState): void;
-  handleUpdateProduct(data: FormState): void;
+  handleCreateProduct(data: ProductFormState): void;
+  handleUpdateProduct(data: ProductFormState): void;
 }
 const ProductForm: React.FC<Props> = ({ name, price, description, details, newForm, handleCreateProduct, handleUpdateProduct }): JSX.Element => {
   // local form state //
-  const [ formState, setFormState ] = useState<FormState>({ name, price, description, details });
+  const [ formState, setFormState ] = useState<ProductFormState>({ name, price, description, details });
   // form ref //
   const productFormRef = useRef<HTMLDivElement>(document.createElement("div"));
   

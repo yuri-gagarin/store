@@ -24,12 +24,11 @@ const ProductImageUplForm: React.FC<{}> = (props): JSX.Element => {
       formData.append("productImage", file);
       uploadProductImage(_id, formData, state, dispatch)
         .then((_) => {
-          setFile(undefined)
+          setFile(undefined);
         })
         .catch((_) => {
-          console.log("error")
           // handle error ? display message ? //
-          setImageUploadError(true)
+          setImageUploadError(true);
         });
     }
   };
