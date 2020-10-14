@@ -49,7 +49,7 @@ const ProductImageUplForm: React.FC<{}> = (props): JSX.Element => {
           !file ?
           <div id="productImgInputControlls"> 
             <Button
-              id="selectProductImgBtn"
+              id="productImgSelectBtn"
               as="label"
               content="Choose Image"
               labelPosition="left"

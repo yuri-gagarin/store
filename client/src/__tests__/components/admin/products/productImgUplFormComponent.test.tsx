@@ -32,8 +32,8 @@ describe("Product Image Upload Form Tests", () => {
     it("Should properly render", () => {
       expect(wrapper).toMatchSnapshot();
     });
-    it("Should render one upload Button element", () => {
-      const uplButton = wrapper.find(Button);
+    it("Should render one '#productImgSelectBtn' element", () => {
+      const uplButton = wrapper.render().find("#productImgSelectBtn");
       expect(uplButton.length).toEqual(1);
     });
     it("Should NOT render '#productImgUploadControls", () => {
@@ -60,11 +60,11 @@ describe("Product Image Upload Form Tests", () => {
       expect(input.prop("type")).toBeDefined();
       expect(input.prop("type")).toEqual("file");
     });
-    it("Should successfully update and render the ImgUpload button", () => {
+    it("Should successfully update and render the '#productImgUploadBtn' button", () => {
       const imgUpoadBtn = wrapper.render().find("#productImgUploadBtn");
       expect(imgUpoadBtn.length).toEqual(1);
     });
-    it("Should successfully update and render the Cancel button", () => {
+    it("Should successfully update and render the '#productImgCancelBtn' button", () => {
       const imgCanceldBtn = wrapper.render().find("#productImgCancelBtn");
       expect(imgCanceldBtn.length).toEqual(1);
     });
@@ -78,7 +78,7 @@ describe("Product Image Upload Form Tests", () => {
       expect(wrapper.render().find("#productImgCancelBtn").length).toEqual(0);
       expect(wrapper.render().find("#productImgUploadBtn").length).toEqual(0);
       expect(wrapper.render().find("#productImgRetryBtn").length).toEqual(0);
-      expect(wrapper.render().find("#selectProductImgBtn").length).toEqual(1);
+      expect(wrapper.render().find("#productImgSelectBtn").length).toEqual(1);
     });
   });
   
@@ -123,9 +123,9 @@ describe("Product Image Upload Form Tests", () => {
       expect(uploadButton.props().loading).toEqual(true);
     });
 
-    it("Should correctly render '#selectProductImgBtn' button after 'successful upload", () => {
+    it("Should correctly render '#productImgSelectBtn' button after 'successful upload", () => {
       component.update();
-      const selectImgBtn = component.find(ProductImgUplForm).render().find("#selectProductImgBtn");
+      const selectImgBtn = component.find(ProductImgUplForm).render().find("#productImgSelectBtn");
       expect(selectImgBtn.length).toEqual(1);
     });
     it("Should NOT render '#productImgRetryButton' after 'successful upload", () => {
@@ -136,7 +136,7 @@ describe("Product Image Upload Form Tests", () => {
       const imgUpoadBtn = component.find(ProductImgUplForm).render().find("#productImgUploadBtn");
       expect(imgUpoadBtn.length).toEqual(0);
     });
-    it("Should NOT render '@productImgCancelBtn' button after 'successful upload", () => {
+    it("Should NOT render '#productImgCancelBtn' button after 'successful upload", () => {
       const imgUpoadBtn = component.find(ProductImgUplForm).render().find("#productImgCancelBtn");
       expect(imgUpoadBtn.length).toEqual(0);
     });
@@ -161,7 +161,7 @@ describe("Product Image Upload Form Tests", () => {
           error: error
         }
       });
-      
+
       wrapper = mount(
         <TestStateProvider mockState={state}>
           <ProductImgUplForm />
@@ -176,7 +176,7 @@ describe("Product Image Upload Form Tests", () => {
       moxios.uninstall();
     });
 
-    it("Should successfully handle the 'uploadProductImg' API error, render 'loader'", async () => {
+    it("Should successfully handle the '#productImgUploadBtn' API error, render 'loader'", async () => {
       const promise = Promise.resolve();
       const imgUpoadBtn = wrapper.find("#productImgUploadBtn").at(0);
 

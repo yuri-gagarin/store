@@ -27,7 +27,7 @@ exports[`Product Image Upload Form Tests Render tests without any Image data Sho
             content="Choose Image"
             htmlFor="productImgFile"
             icon="file"
-            id="selectProductImgBtn"
+            id="productImgSelectBtn"
             labelPosition="left"
             onClick={[Function]}
           >
@@ -37,7 +37,7 @@ exports[`Product Image Upload Form Tests Render tests without any Image data Sho
                   "current": <label
                     class="ui icon left labeled button"
                     for="productImgFile"
-                    id="selectProductImgBtn"
+                    id="productImgSelectBtn"
                     role="button"
                   >
                     <i
@@ -55,7 +55,7 @@ exports[`Product Image Upload Form Tests Render tests without any Image data Sho
                     "current": <label
                       class="ui icon left labeled button"
                       for="productImgFile"
-                      id="selectProductImgBtn"
+                      id="productImgSelectBtn"
                       role="button"
                     >
                       <i
@@ -70,7 +70,7 @@ exports[`Product Image Upload Form Tests Render tests without any Image data Sho
                 <label
                   className="ui icon left labeled button"
                   htmlFor="productImgFile"
-                  id="selectProductImgBtn"
+                  id="productImgSelectBtn"
                   onClick={[Function]}
                   role="button"
                 >
