@@ -180,7 +180,6 @@ export const uploadStoreItemImage = (storeItemId: string, imageFile: FormData, s
     .then((response) => {
       const { data } = response;
       const { responseMsg, updatedStoreItem } = data;
-
       const updatedStoreItems = loadedStoreItems.map((storeItem) => {
         if (storeItem._id === updatedStoreItem._id) {
           return updatedStoreItem;

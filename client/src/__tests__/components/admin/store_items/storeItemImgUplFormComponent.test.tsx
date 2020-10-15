@@ -14,11 +14,11 @@ import { createMockStoreItemImage, createMockStoreItems } from "../../../../test
 import { generateCleanState } from "../../../../test_helpers/miscHelpers";
 
 describe("StoreItem Image Upload Form Tests", () => {
-  let mockStorItemData: IStoreItemData;
+  let mockStoreItemData: IStoreItemData;
 
   beforeAll(() => {
-    mockStorItemData = createMockStoreItems(1)[0];
-    mockStorItemData.images[0] = createMockStoreItemImage(mockStorItemData._id)
+    mockStoreItemData = createMockStoreItems(1)[0];
+    mockStoreItemData.images[0] = createMockStoreItemImage(mockStoreItemData._id)
   });
 
   describe("Render tests without any Image data", () => {
@@ -37,7 +37,7 @@ describe("StoreItem Image Upload Form Tests", () => {
     });
     it("Should NOT render '#storeItemImgUplControls' element", () => {
       const controls = wrapper.render().find("#storeItemImgUplControls");
-      expect(controls.length).toEqual(1);
+      expect(controls.length).toEqual(0);
     });
     it("Should have an input", () => {
       const input = wrapper.find("input");
@@ -59,8 +59,8 @@ describe("StoreItem Image Upload Form Tests", () => {
       expect(input.prop("type")).toBeDefined();
       expect(input.prop("type")).toEqual("file");
     });
-    it("Should successfully update and render the '#storeItemImgUplBtn", () => {
-      const uplBtn = wrapper.render().find("#storeItemImgUplBtn");
+    it("Should successfully update and render the '#storeItemImgUploadlBtn", () => {
+      const uplBtn = wrapper.render().find("#storeItemImgUploadBtn");
       expect(uplBtn.length).toEqual(1);
     });
     it("Should successfully update and render the '#storeItemImgCancelBtn'", () => {
@@ -73,28 +73,28 @@ describe("StoreItem Image Upload Form Tests", () => {
     });
     it("Should properly handle the '#storeItemImgCancelBtn' click and render correct local state", () => {
       const imgCancelBtn = wrapper.find("#storeItemImgCancelBtn");
-      imgCancelBtn.simulate("click");
+      imgCancelBtn.at(0).simulate("click");
       // assert correct rendering //
-      expect(wrapper.find("#storeItemImgCancelBtn").length).toEqual(0);
-      expect(wrapper.find("#storeItemImgUplBtn").length).toEqual(0);
-      expect(wrapper.find("#selectStoreItemImgBtn").length).toEqual(1);
+      expect(wrapper.render().find("#storeItemImgCancelBtn").length).toEqual(0);
+      expect(wrapper.render().find("#storeItemImgUploadBtn").length).toEqual(0);
+      expect(wrapper.render().find("#storeItemImgSelectBtn").length).toEqual(1);
     });
   });
   // MOCK Successful Image upload tests //
-  describe("'#store_itemImgUploadBtn' functionality and successful upload and local state changes", () => {
+  describe("'#storeItemImgUploadBtn' functionality and successful upload and local state changes", () => {
     let wrapper: ReactWrapper;
     let input: ReactWrapper;
 
     beforeAll(() => {
       const state = generateCleanState();
-      state.storeItemState.currentStoreItemData = mockStorItemData;
+      state.storeItemState.currentStoreItemData = mockStoreItemData;
 
       moxios.install();
-      moxios.stubRequest(`api/uploads/store_item_images/${mockStorItemData._id}`, {
+      moxios.stubRequest(`/api/uploads/store_item_images/${mockStoreItemData._id}`, {
         status: 200,
         response: {
           responseMsg: "ok",
-          updatedStoreItem: mockStorItemData
+          updatedStoreItem: mockStoreItemData
         }
       });
 
@@ -113,40 +113,41 @@ describe("StoreItem Image Upload Form Tests", () => {
     });
     it("Should dispatch a 'correct' API request show 'loader'", async () => {
       const promise = Promise.resolve();
-      const imgUpoadBtn = wrapper.find("#storeItemImgUplBtn");
+      const imgUpoadBtn = wrapper.find("#storeItemImgUploadBtn");
       imgUpoadBtn.at(0).simulate("click");
       // clear promises //
       await act( async () => promise);
-      const uploadButton = wrapper.find(StoreItemImgUplForm).find(Button).at(1);
+      const uploadButton = wrapper.find(StoreItemImgUplForm).find(Button).at(0);
       expect(uploadButton.props().loading).toEqual(true);
     });
     it("Should correctly render '#storeItemImgSelectBtn' button after 'successful' upload", () => {
       wrapper.update();
-      const selectImgBtn = wrapper.find(StoreItemImgUplForm).render().find("#storItemImgSelectBtn");
-      expect(selectImgBtn.length).toEqual(2);
+      const selectImgBtn = wrapper.find(StoreItemImgUplForm).render().find("#storeItemImgSelectBtn");
+      //console.log(wrapper.debug())
+      expect(selectImgBtn.length).toEqual(1);
     });
     it("Should NOT render '#storeItemImgRetryBtn' button after 'successful' upload", () => {
       const imgUpoadBtn = wrapper.find(StoreItemImgUplForm).render().find("#storeItemImgRetryBtn");
       expect(imgUpoadBtn.length).toEqual(0);
     });
-    it("Should NOT render '#storeItemImgUplBtn' button after 'successful' upload", () => {
-      const imgUpoadBtn = wrapper.find(StoreItemImgUplForm).render().find("#storeItemImgUplBtn");
+    it("Should NOT render '#storeItemImgUploadBtn' button after 'successful' upload", () => {
+      const imgUpoadBtn = wrapper.find(StoreItemImgUplForm).render().find("#storeItemImgUploadBtn");
       expect(imgUpoadBtn.length).toEqual(0);
     });
   });
   // END Mock successful Image upload tests //
   // MOCK unsuccessful Image upload tests //
-  describe("'#cancelStoreItemImgUploadBtn' functionality and a failed upload", () => {
+  describe("'#storeItemImgCancelBtn' functionality and a failed upload", () => {
     let wrapper: ReactWrapper;
     let input: ReactWrapper;
     const error = new Error("An Error Occured");
 
     beforeAll(() => {
       const state = generateCleanState();
-      state.storeItemState.currentStoreItemData = mockStorItemData;
+      state.storeItemState.currentStoreItemData = mockStoreItemData;
 
       moxios.install();
-      moxios.stubRequest(`/api/uploads/store_item_images/${mockStorItemData._id}`, {
+      moxios.stubRequest(`/api/uploads/store_item_images/${mockStoreItemData._id}`, {
         status: 500,
         response: {
           responseMsg: "Error",
@@ -168,14 +169,14 @@ describe("StoreItem Image Upload Form Tests", () => {
       moxios.uninstall();
     });
 
-    it("Should successfully handle the '#storeItemImgUplBtn' API error, render 'loader'", async () => {
+    it("Should successfully handle the '#storeItemImgUploadBtn' API error, render 'loader'", async () => {
       const promise = Promise.resolve();
-      const imgUpoadBtn = wrapper.find("#storeItemImgUplBtn").at(0);
+      const imgUpoadBtn = wrapper.find("#storeItemImgUploadBtn").at(0);
 
       imgUpoadBtn.simulate("click");
       // loader should be displayed on the  #storeItemImgUploadBtn //
       await act( async() => promise);
-      const updatedButton = wrapper.find(StoreItemImgUplForm).find(Button).at(1);
+      const updatedButton = wrapper.find(StoreItemImgUplForm).find(Button).at(0);
       expect(updatedButton.props().loading).toEqual(true);
     });
     it("Should render '#storeItemImgRetryButton' button after a 'failed' upload", () => {
