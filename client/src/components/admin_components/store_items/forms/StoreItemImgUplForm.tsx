@@ -61,7 +61,7 @@ const StoreItemImageUplForm: React.FC<{}> = (props): JSX.Element => {
               />
               :
               <Button 
-                id="storeItemImgUplRetryBtn"
+                id="storeItemImgRetryUplBtn"
                 as="label"
                 content="Cancel"
                 labelPosition="left"

@@ -5,57 +5,106 @@ import moxios from "moxios";
 import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 // routing //
-import { MemoryRouter as Router } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
+import { AdminStoreItemRoutes } from "../../../../routes/adminRoutes";
 // components //
-import StoreItemManageHolder from "../../../../components/admin_components/store_items/store_items_manage/StoreItemsManageHolder";
+import StoreItemsManageHolder from "../../../../components/admin_components/store_items/store_items_manage/StoreItemsManageHolder";
 import StoreItemCard from "../../../../components/admin_components/store_items/store_items_manage/StoreItemCard";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
 import { createMockStoreItems } from "../../../../test_helpers/storeItemHelpers";
 // helpers and state //
-import { StateProvider } from "../../../../state/Store";
-import { AdminStoreItemRoutes } from "../../../../routes/adminRoutes";
+import { TestStateProvider } from "../../../../state/Store";
 
 describe("StoreItem Manage Holder Tests", () => {
+  const mockDate: string = new Date("12/31/2019").toString();
+  let mockStoreItems: IStoreItemData[];
+  let mockStore: IStoreData;
+
+  beforeAll(() => {
+    mockStore = {
+      _id:"1111",
+      title: "title",
+      description: "description",
+      images: [],
+      createdAt: mockDate
+    };
+
+    mockStoreItems = [
+      {
+        _id: "1",
+        storeId: mockStore._id,
+        storeName: mockStore.title,
+        name: "first",
+        price: "100",
+        details: "details",
+        description: "description",
+        categories: [],
+        images: [],
+        createdAt: mockDate
+      },
+      {
+        _id: "2",
+        storeId: mockStore._id,
+        storeName: mockStore.title,
+        name: "second",
+        price: "200",
+        details: "details",
+        description: "description",
+        categories: [],
+        images: [],
+        createdAt: mockDate
+      },
+      {
+        _id: "3",
+        storeId: mockStore._id,
+        storeName: mockStore._id,
+        name: "third",
+        price: "300",
+        details: "details",
+        description: "description",
+        categories: [],
+        images: [],
+        createdAt: mockDate
+      }
+    ];
+  });
   
   describe("Default Component state at first render", () => {
-    let wrapper: ReactWrapper; let loadingScreen: ReactWrapper;
+    let wrapper: ReactWrapper;
 
     beforeAll( async () => {
+      const promise = Promise.resolve();
       moxios.install();
-
-      wrapper = mount(
-        <Router initialEntries={[AdminStoreItemRoutes.MANAGE_ROUTE]} keyLength={0}>
-          <StateProvider>
-            <StoreItemManageHolder />
-          </StateProvider>
-        </Router>
-      );
-
-      await act( async () => {
-        await moxios.stubRequest("/api/store_items", {
-          status: 200,
-          response: {
-            responseMsg: "All Ok",
-            storeItems: []
-          }
-        });
+      moxios.stubRequest("/api/store_items", {
+        status: 200,
+        response: {
+          responseMsg: "All ok",
+          products: []
+        }
       });
 
+      wrapper = mount(
+        <MemoryRouter initialEntries={[AdminStoreItemRoutes.MANAGE_ROUTE]} keyLength={0}>
+          <TestStateProvider>
+            <StoreItemsManageHolder />
+          </TestStateProvider>
+        </MemoryRouter>
+      );
+      await act( async () => promise);
     });
-      afterAll(() => {
+
+    afterAll(() => {
       moxios.uninstall();
     }); 
     
-    it("Should correctly render", () => {
-      expect(wrapper.find(StoreItemManageHolder)).toMatchSnapshot();
+    it("Should render the 'LoadingScreen' component before an API call completes", () => {
+      const loadingScreen = wrapper.find(StoreItemsManageHolder).find(LoadingScreen);
+      expect(loadingScreen.length).toEqual(1);
     });
-    it("Should render a 'LoadingScreen' Component before an API call resolves", () => {
-      loadingScreen = wrapper.find(LoadingScreen);
-      expect(loadingScreen.length).toEqual(1)
-    });
-    it("Should NOT render ErrorScreen Component", () => {
-      expect(wrapper.find(ErrorScreen).length).toEqual(0);
+    it("Should NOT render the 'ErrorScreen' component", () => {
+      const errorScreen = wrapper.find(StoreItemsManageHolder).find(ErrorScreen);
+      expect(errorScreen.length).toEqual(0);
     });
     it("Should NOT render the 'Store Items' Grid", () => {
       expect(wrapper.find(Grid).length).toEqual(0);

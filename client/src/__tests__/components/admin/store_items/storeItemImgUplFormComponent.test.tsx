@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "semantic-ui-react";
-import moxios, { stubRequest } from "moxios";
+import moxios from "moxios";
 // testing imports //
 import { mount, shallow, ReactWrapper, ShallowWrapper } from "enzyme";
 import { act } from 'react-dom/test-utils';
@@ -180,7 +180,8 @@ describe("StoreItem Image Upload Form Tests", () => {
       expect(updatedButton.props().loading).toEqual(true);
     });
     it("Should render '#storeItemImgRetryButton' button after a 'failed' upload", () => {
-      const imgUpoadBtn = wrapper.find(StoreItemImgUplForm).render().find("#storeItemImgRetryButton");
+      wrapper.update();
+      const imgUpoadBtn = wrapper.find(StoreItemImgUplForm).render().find("#storeItemImgRetryUplBtn");
       expect(imgUpoadBtn.length).toEqual(1);
     });
     it("Should render '#storeItemImgCancelBtn' button after a 'failed' upload", () => {
