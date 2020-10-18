@@ -15,6 +15,7 @@ import ErrorScreen from "../../../../components/admin_components/miscelaneous/Er
 import { TestStateProvider } from "../../../../state/Store";
 
 describe("Product Manage Holder Tests", () => {
+  const createdDate: string = new Date("12/31/2019").toString();
   let products: IProductData[];
   
   beforeAll(() => {
@@ -113,7 +114,7 @@ describe("Product Manage Holder Tests", () => {
       moxios.uninstall();
     }); 
 
-    it("Should correctly render the initial 'LoadingScreen' compnent", async () => {
+    it("Should correctly render the initial 'LoadingScreen' component", () => {
       const loadingScreen = wrapper.find(ProductsManageHolder).find(LoadingScreen);
       const errorScreen = wrapper.find(ProductsManageHolder).find(ErrorScreen);
       const productsGrid = wrapper.find(ProductsManageHolder).find(Grid);
@@ -122,7 +123,7 @@ describe("Product Manage Holder Tests", () => {
       expect(errorScreen.length).toEqual(0);
       expect(productsGrid.length).toEqual(0);
     });
-    it("Should correctly render the 'ProductsManageHolder' 'Grid' after successful API call", async () => {
+    it("Should correctly render the 'ProductsManageHolder' 'Grid' after successful API call", () => {
       wrapper.update();
       const loadingScreen = wrapper.find(ProductsManageHolder).find(LoadingScreen);
       const errorScreen = wrapper.find(ProductsManageHolder).find(ErrorScreen);
