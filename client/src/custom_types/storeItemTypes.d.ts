@@ -12,6 +12,7 @@ type DispatchStoreItemAPIReq = {
   readonly type: "DISPATCH_STORE_ITEM_API_REQUEST",
   readonly payload: {
     loading: boolean;
+    error: null;
   }
 }
 type OpenStoreItemForm = {

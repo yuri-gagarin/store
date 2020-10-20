@@ -8,8 +8,9 @@ import { MemoryRouter, Router } from "react-router-dom";
 // client routes //
 import { AdminStoreItemRoutes } from "../../../../routes/adminRoutes";
 // components //
-import StoreItemsPreviewHolder from "../../../../components/admin_components/store_items/store_items_preview/StoreItemPreview";
+import StoreItemsPreviewHolder from "../../../../components/admin_components/store_items/store_items_preview/StoreItemsPreviewHolder";
 import StoreItemPreview from "../../../../components/admin_components/store_items/store_items_preview/StoreItemPreview";
+import PopularStoreItemsHolder from "../../../../components/admin_components/store_items/store_items_preview/popular_store_items/PopularStoreItemsHolder";
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
 // state //
@@ -22,26 +23,40 @@ import StoreItemsControls from "../../../../components/admin_components/store_it
 describe("StoreItemPreviewHolder Component render tests", () => {
   let storeItems: IStoreItemData[];
   let mockStore: IStoreData;
-  
+  const date = new Date("1/1/2019").toString();
+
   beforeAll(() => {
+    mockStore = {
+      _id: "1",
+      title: "store",
+      description: "description",
+      images: [],
+      createdAt: date
+    };
     storeItems = [
       {
         _id: "1",
-        name: "name",
+        storeId: mockStore._id,
+        storeName: mockStore.title,
+        name: "first",
         price: "100",
-        description: "description",
         details: "details",
+        description: "description",
+        categories: ["sports", "outdoors"],
         images: [],
-        createdAt: "now"
+        createdAt: date
       },
       {
         _id: "2",
-        name: "name",
-        price: "100",
-        description: "description",
+        storeId: mockStore._id,
+        storeName: mockStore.title,
+        name: "second",
+        price: "200",
         details: "details",
+        description: "description",
+        categories: ["sports", "outdoors", "camping"],
         images: [],
-        createdAt: "now"
+        createdAt: date
       }
     ];
   });
@@ -53,7 +68,7 @@ describe("StoreItemPreviewHolder Component render tests", () => {
       const promise = Promise.resolve();
 
       moxios.install();
-      moxios.stubRequest("/api/storeItems", {
+      moxios.stubRequest("/api/store_items", {
         status: 200,
         response: {
           responseMsg: "All Ok",
@@ -102,7 +117,7 @@ describe("StoreItemPreviewHolder Component render tests", () => {
       const promise = Promise.resolve();
       moxios.install();
       const mockState = generateCleanState();
-      moxios.stubRequest("/api/storeItems", {
+      moxios.stubRequest("/api/store_items", {
         status: 200,
         response: {
           responseMsg: "All ok",
@@ -164,7 +179,7 @@ describe("StoreItemPreviewHolder Component render tests", () => {
       const promise = Promise.resolve();
       const mockState = generateCleanState();
       moxios.install();
-      moxios.stubRequest("/api/storeItems", {
+      moxios.stubRequest("/api/store_items", {
         status: 500,
         response: {
           responseMsg: "Error",
@@ -216,7 +231,7 @@ describe("StoreItemPreviewHolder Component render tests", () => {
       const promise = Promise.resolve();
 
       moxios.install();
-      moxios.stubRequest("/api/storeItems", {
+      moxios.stubRequest("/api/store_items", {
         status: 200,
         response: {
           responseMsg: "All Ok",

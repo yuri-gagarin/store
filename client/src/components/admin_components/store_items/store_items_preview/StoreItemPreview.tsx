@@ -28,7 +28,7 @@ const StoreItemPreview: React.FC<Props> = ({ storeItem }): JSX.Element => {
             {
               categories.map((category) => {
                 return (
-                  <List.Item className="storeItemCategory">
+                  <List.Item className="storeItemCategory" key={category}>
                     <List.Content>{category}</List.Content>
                   </List.Item>
                 );

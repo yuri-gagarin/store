@@ -77,7 +77,7 @@ const ProductsPreviewHolder: React.FC<Props> = ({ history }): JSX.Element => {
     (
       error ? <ErrorScreen lastRequest={ () => getAllProducts(dispatch) } /> : <LoadingScreen />
     )
-  )
+  );
 };
 // test export without the router //
 export { ProductsPreviewHolder };

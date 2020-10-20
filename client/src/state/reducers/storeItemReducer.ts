@@ -39,7 +39,8 @@ const storeItemReducer = (state: IStoreItemState = initialStoreItemState, action
     case "DISPATCH_STORE_ITEM_API_REQUEST":
       return {
         ...state,
-        loading: action.payload.loading
+        loading: action.payload.loading,
+        error: action.payload.error
       };
     case "GET_ALL_STORE_ITEMS": 
       return {
