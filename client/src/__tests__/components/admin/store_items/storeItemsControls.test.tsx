@@ -8,6 +8,7 @@ import getContextFromWrapper from "../../../helpers/getContextFromWrapper";
 import StoreItemsControls from "../../../../components/admin_components/store_items/store_items_preview/StoreItemsControls";
 import moxios from "moxios";
 import { act } from "react-dom/test-utils";
+import { createMockStoreItems } from "../../../../test_helpers/storeItemHelpers";
 
 interface CompProps {
   state: IGlobalAppState;
@@ -67,6 +68,7 @@ describe("'StoreItemsControls' component render tests", () => {
       </TestStateProvider>
     );
     await act(async () => promise);
+    moxios.uninstall();
   });
   describe("Default render test  with empty 'storeItem' state", () => {
     it("Should properly render and match snapshot", () => {
@@ -90,40 +92,43 @@ describe("'StoreItemsControls' component render tests", () => {
       const storeNameDropdown = wrapper.find(StoreItemsControls).find(Dropdown).at(0);
       const storeDropdownItems = storeNameDropdown.find(Dropdown.Item);
       expect(storeDropdownItems.length).toEqual(mockStores.length);
-    })
-  })
-  /*
+    });
+  });
+
   describe("'StoreItem' sort click 'DATE' 'DESC'", () => {
+    let mockStoreItems: IStoreItemData[];
     beforeEach(() => {
       moxios.install();
+      mockStoreItems = createMockStoreItems(5);
     });
     afterEach(() => {
       moxios.uninstall();
+    });
+    it("Should have the '#adminStoreItemDateDescQuery' 'Dropdown.Item'", () => {
+      const sortByDateDropdown = wrapper.find(StoreItemsControls).find(Dropdown).at(1);
+      const dropdownItem = sortByDateDropdown.find(Dropdown.Item).at(0);
+      expect(dropdownItem.props().value).toEqual("desc");
     })
     it("Should handle 'Dropdown.Item' click and dispatch correct API request", async () => {
       const promise = Promise.resolve();
-
-      await moxios.wait( async () => {
-        const request = moxios.requests.mostRecent();
-        console.log(request);
-        console.log(45)
-        request.respondWith({
-          status: 200,
-          response: {
-            responseMsg: "ok",
-            storeItems: []
-          }
-        })
-
-        const sortByDateDesc = wrapper.find(StoreItemsControls).find("#adminStoreItemDateDescQuery");
-        sortByDateDesc.at(0).simulate("click");
   
-        
-        await act( async () => promise);
+      moxios.stubRequest("/api/store_items?date=desc", {
+        status: 200,
+        response: {
+          responseMsg: "All ok",
+          storeItems: mockStoreItems
+        }
       })
+  
+    
+      const sortByDateDesc = wrapper.find(StoreItemsControls).find("#adminStoreItemDateDescQuery");
+      sortByDateDesc.at(0).simulate("click");
+
+      await act( async () => promise)
       
-     
+      const request = (moxios.requests.mostRecent());
+      expect(request.url).toEqual("/api/store_items?date=desc");
     })
   })
-  */
+  
 })
