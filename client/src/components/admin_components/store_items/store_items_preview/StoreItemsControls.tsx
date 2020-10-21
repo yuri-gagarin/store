@@ -14,9 +14,6 @@ interface Props {
 const StoreItemsControls: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   const { numberOfItems } = state.storeItemState;
 
-  useEffect(() => {
-
-  }, []);
 
   return (
     <div className="adminStoreItemControlsHolder">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Dropdown, DropdownItemProps, Menu } from "semantic-ui-react";
 // css imports //
 import "./css/storeItemsControlMenu.css";
@@ -8,12 +8,17 @@ import { getAllStoreItems } from "../actions/APIStoreItemActions";
 import { AppAction, IGlobalAppState } from "../../../../state/Store";
 // types and interfaces //
 import { StoreItemQueryPar } from "../type_definitions/storeItemTypes";
+import { capitalizeString } from "../../../helpers/displayHelpers";
 type DropdownData = {
   key: string;
   text: string;
   value: string;
 }
-
+type DropdownState = {
+  loading: boolean;
+  disabled: boolean;
+  data: DropdownData[];
+}
 interface Props {
   dispatch: React.Dispatch<AppAction>
   state: IGlobalAppState;
@@ -22,12 +27,21 @@ interface Props {
 const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   const { loadedStores : stores } = state.storeState;
   // local state //
-  const [ dropdownLoading, setDropdownLoading ] = useState<boolean>(true);
   const [ storeItemQuery, setStoreItemQuery ] = useState<StoreItemQueryPar>();
-  const [ dropdownData, setDropdownData ] = useState<DropdownData[]>();
+  const [ dropdownState, setDropdownState ] = useState<DropdownState>({
+    loading: true,
+    disabled: true,
+    data: []
+  });
+  // stores ref //
+  const storesRef = useRef<IStoreData[]>(stores);
+
   // dropdown handlers //
   const handleDateSortClick = (e: React.MouseEvent, data: DropdownItemProps): void => {
     const queryOption = data.value as string;
+    console.log("clicked")
+    console.log(queryOption);
+    getAllStoreItems(dispatch, { date: queryOption });
     setStoreItemQuery({ ...storeItemQuery, date: queryOption });
   };
   const handlePriceSortClick = (e: React.MouseEvent, data: DropdownItemProps): void => {
@@ -41,41 +55,66 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
   // lifecycle hooks //
   useEffect(() => {
     getAllStores(dispatch)
-      .then((success) => {
-        setDropdownLoading(false);
+      .then((_) => {
+        const updatedDropdownData = stores.map((store): DropdownData => {
+          return {
+            key: store._id,
+            text: capitalizeString(store.title),
+            value: store.title
+          }
+        })
+        setDropdownState({
+          loading: false,
+          disabled: false,
+          data: updatedDropdownData
+        });
+      })
+      .catch((err) => {
+        setDropdownState({
+          loading: false,
+          disabled: true,
+          data: []
+        });
       })
   }, []);
+  // watches for new store data //
   useEffect(() => {
-    const updatedDropdownData = stores.map((store): DropdownData => {
-      return {
-        key: store._id,
-        text: store.title,
-        value: store.title
-      };
-    });
-    setDropdownData(() => {
-      return [
-        ...updatedDropdownData
-      ]
-    })
-  }, [stores])
-  useEffect(() => {
-    getAllStoreItems(dispatch, storeItemQuery)
-  }, [storeItemQuery]);
+    if (storesRef.current && storesRef.current != stores) {
+      // new store data //
+      const updatedDropdownData = stores.map((store): DropdownData => {
+        return {
+          key: store._id,
+          text: store.title,
+          value: store.title
+        };
+      });
 
+      setDropdownState({
+        ...dropdownState,
+        loading: false,
+        disabled: false,
+        data: updatedDropdownData
+      });
+
+    }
+  }, [ stores, storesRef.current ]);
+  // component return //
   return (
     <div>
     <Menu className="storeItemsControlsMenu">
       <Dropdown 
+        id="adminStoreItemControlsStoreDropdown"
         item 
         text="Sort by Store Name"
-        loading={dropdownLoading}
-        options={dropdownData}
+        loading={dropdownState.loading}
+        disabled={dropdownState.disabled}
+        options={dropdownState.data}
       />
       <Menu.Item>
         <Dropdown text="Sort by Date">
           <Dropdown.Menu>
             <Dropdown.Item 
+              id="adminStoreItemDateDescQuery"
               text="Descending" 
               description="newest first" 
               value="desc"

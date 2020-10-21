@@ -1,0 +1,1331 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`'StoreItemsControls' component render tests Default render test  with empty 'storeItem' state Should properly render and match snapshot 1`] = `
+<StoreItemsControls
+  dispatch={[Function]}
+  state={
+    Object {
+      "bonusVideoState": Object {
+        "bonusVideoFormOpen": false,
+        "currentBonusVideoData": Object {
+          "_id": "",
+          "createdAt": "",
+          "description": "",
+          "vimeoURL": "",
+          "youTubeURL": "",
+        },
+        "error": null,
+        "loadedBonusVideos": Array [],
+        "loading": false,
+        "responseMsg": "",
+      },
+      "productState": Object {
+        "currentProductData": Object {
+          "_id": "",
+          "createdAt": "",
+          "description": "",
+          "details": "",
+          "images": Array [],
+          "name": "",
+          "price": "",
+        },
+        "error": null,
+        "loadedProducts": Array [],
+        "loading": false,
+        "productFormOpen": false,
+        "responseMsg": "",
+      },
+      "serviceState": Object {
+        "currentServiceData": Object {
+          "_id": "",
+          "createdAt": "",
+          "description": "",
+          "images": Array [],
+          "name": "",
+          "price": "",
+        },
+        "error": null,
+        "loadedServices": Array [],
+        "loading": false,
+        "responseMsg": "",
+        "serviceFormOpen": false,
+      },
+      "storeItemState": Object {
+        "currentStoreItemData": Object {
+          "_id": "",
+          "categories": Array [],
+          "createdAt": "",
+          "description": "",
+          "details": "",
+          "images": Array [],
+          "name": "",
+          "price": "",
+          "storeId": "",
+          "storeName": "",
+        },
+        "error": null,
+        "loadedStoreItems": Array [],
+        "loading": false,
+        "numberOfItems": 0,
+        "responseMsg": "",
+        "storeItemFormOpen": false,
+      },
+      "storeState": Object {
+        "currentStoreData": Object {
+          "_id": "",
+          "createdAt": "",
+          "description": "",
+          "images": Array [],
+          "title": "",
+        },
+        "error": null,
+        "loadedStores": Array [],
+        "loading": true,
+        "responseMsg": "",
+        "storeFormOpen": false,
+      },
+    }
+  }
+>
+  <div
+    className="adminStoreItemControlsHolder"
+  >
+    <div
+      className="adminStoreItemControlsTitle"
+    >
+      Store Item Controls
+    </div>
+    <StoreItemsControlMenu
+      dispatch={[Function]}
+      state={
+        Object {
+          "bonusVideoState": Object {
+            "bonusVideoFormOpen": false,
+            "currentBonusVideoData": Object {
+              "_id": "",
+              "createdAt": "",
+              "description": "",
+              "vimeoURL": "",
+              "youTubeURL": "",
+            },
+            "error": null,
+            "loadedBonusVideos": Array [],
+            "loading": false,
+            "responseMsg": "",
+          },
+          "productState": Object {
+            "currentProductData": Object {
+              "_id": "",
+              "createdAt": "",
+              "description": "",
+              "details": "",
+              "images": Array [],
+              "name": "",
+              "price": "",
+            },
+            "error": null,
+            "loadedProducts": Array [],
+            "loading": false,
+            "productFormOpen": false,
+            "responseMsg": "",
+          },
+          "serviceState": Object {
+            "currentServiceData": Object {
+              "_id": "",
+              "createdAt": "",
+              "description": "",
+              "images": Array [],
+              "name": "",
+              "price": "",
+            },
+            "error": null,
+            "loadedServices": Array [],
+            "loading": false,
+            "responseMsg": "",
+            "serviceFormOpen": false,
+          },
+          "storeItemState": Object {
+            "currentStoreItemData": Object {
+              "_id": "",
+              "categories": Array [],
+              "createdAt": "",
+              "description": "",
+              "details": "",
+              "images": Array [],
+              "name": "",
+              "price": "",
+              "storeId": "",
+              "storeName": "",
+            },
+            "error": null,
+            "loadedStoreItems": Array [],
+            "loading": false,
+            "numberOfItems": 0,
+            "responseMsg": "",
+            "storeItemFormOpen": false,
+          },
+          "storeState": Object {
+            "currentStoreData": Object {
+              "_id": "",
+              "createdAt": "",
+              "description": "",
+              "images": Array [],
+              "title": "",
+            },
+            "error": null,
+            "loadedStores": Array [],
+            "loading": true,
+            "responseMsg": "",
+            "storeFormOpen": false,
+          },
+        }
+      }
+    >
+      <div>
+        <Menu
+          className="storeItemsControlsMenu"
+        >
+          <div
+            className="ui storeItemsControlsMenu menu"
+          >
+            <Dropdown
+              additionLabel="Add "
+              additionPosition="top"
+              closeOnBlur={true}
+              closeOnEscape={true}
+              deburr={false}
+              disabled={true}
+              icon="dropdown"
+              id="adminStoreItemControlsStoreDropdown"
+              item={true}
+              loading={true}
+              minCharacters={1}
+              noResultsMessage="No results found."
+              openOnFocus={true}
+              options={Array []}
+              renderLabel={[Function]}
+              searchInput="text"
+              selectOnBlur={true}
+              selectOnNavigation={true}
+              text="Sort by Store Name"
+              wrapSelection={true}
+            >
+              <Ref
+                innerRef={
+                  Object {
+                    "current": <div
+                      aria-busy="false"
+                      aria-disabled="false"
+                      aria-expanded="false"
+                      class="ui item dropdown"
+                      id="adminStoreItemControlsStoreDropdown"
+                      role="listbox"
+                      tabindex="0"
+                    >
+                      <div
+                        aria-atomic="true"
+                        aria-live="polite"
+                        class="text"
+                        role="alert"
+                      >
+                        Sort by Store Name
+                      </div>
+                      <i
+                        aria-hidden="true"
+                        class="dropdown icon"
+                      />
+                      <div
+                        class="menu transition"
+                      >
+                        <div
+                          aria-checked="false"
+                          aria-selected="true"
+                          class="selected item"
+                          role="option"
+                          style="pointer-events: all;"
+                        >
+                          <span
+                            class="text"
+                          >
+                            first
+                          </span>
+                        </div>
+                        <div
+                          aria-checked="false"
+                          aria-selected="false"
+                          class="item"
+                          role="option"
+                          style="pointer-events: all;"
+                        >
+                          <span
+                            class="text"
+                          >
+                            second
+                          </span>
+                        </div>
+                      </div>
+                    </div>,
+                  }
+                }
+              >
+                <RefFindNode
+                  innerRef={
+                    Object {
+                      "current": <div
+                        aria-busy="false"
+                        aria-disabled="false"
+                        aria-expanded="false"
+                        class="ui item dropdown"
+                        id="adminStoreItemControlsStoreDropdown"
+                        role="listbox"
+                        tabindex="0"
+                      >
+                        <div
+                          aria-atomic="true"
+                          aria-live="polite"
+                          class="text"
+                          role="alert"
+                        >
+                          Sort by Store Name
+                        </div>
+                        <i
+                          aria-hidden="true"
+                          class="dropdown icon"
+                        />
+                        <div
+                          class="menu transition"
+                        >
+                          <div
+                            aria-checked="false"
+                            aria-selected="true"
+                            class="selected item"
+                            role="option"
+                            style="pointer-events: all;"
+                          >
+                            <span
+                              class="text"
+                            >
+                              first
+                            </span>
+                          </div>
+                          <div
+                            aria-checked="false"
+                            aria-selected="false"
+                            class="item"
+                            role="option"
+                            style="pointer-events: all;"
+                          >
+                            <span
+                              class="text"
+                            >
+                              second
+                            </span>
+                          </div>
+                        </div>
+                      </div>,
+                    }
+                  }
+                >
+                  <div
+                    aria-busy={true}
+                    aria-disabled={true}
+                    aria-expanded={false}
+                    className="ui disabled loading item dropdown"
+                    id="adminStoreItemControlsStoreDropdown"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseDown={[Function]}
+                    role="listbox"
+                    tabIndex={-1}
+                  >
+                    <div
+                      aria-atomic={true}
+                      aria-live="polite"
+                      className="text"
+                      role="alert"
+                    >
+                      Sort by Store Name
+                    </div>
+                    <Icon
+                      as="i"
+                      className=""
+                      name="dropdown"
+                      onClick={[Function]}
+                    >
+                      <i
+                        aria-hidden="true"
+                        className="dropdown icon"
+                        onClick={[Function]}
+                      />
+                    </Icon>
+                    <DropdownMenu>
+                      <div
+                        className="menu transition"
+                      />
+                    </DropdownMenu>
+                  </div>
+                </RefFindNode>
+              </Ref>
+            </Dropdown>
+            <MenuItem>
+              <div
+                className="item"
+                onClick={[Function]}
+              >
+                <Dropdown
+                  additionLabel="Add "
+                  additionPosition="top"
+                  closeOnBlur={true}
+                  closeOnEscape={true}
+                  deburr={false}
+                  icon="dropdown"
+                  minCharacters={1}
+                  noResultsMessage="No results found."
+                  openOnFocus={true}
+                  renderLabel={[Function]}
+                  searchInput="text"
+                  selectOnBlur={true}
+                  selectOnNavigation={true}
+                  text="Sort by Date"
+                  wrapSelection={true}
+                >
+                  <Ref
+                    innerRef={
+                      Object {
+                        "current": <div
+                          aria-expanded="false"
+                          class="ui dropdown"
+                          role="listbox"
+                          tabindex="0"
+                        >
+                          <div
+                            aria-atomic="true"
+                            aria-live="polite"
+                            class="text"
+                            role="alert"
+                          >
+                            Sort by Date
+                          </div>
+                          <i
+                            aria-hidden="true"
+                            class="dropdown icon"
+                          />
+                          <div
+                            class="menu transition"
+                          >
+                            <div
+                              class="item"
+                              id="adminStoreItemDateDescQuery"
+                              role="option"
+                            >
+                              <span
+                                class="description"
+                              >
+                                newest first
+                              </span>
+                              <span
+                                class="text"
+                              >
+                                Descending
+                              </span>
+                            </div>
+                            <div
+                              class="item"
+                              role="option"
+                            >
+                              <span
+                                class="description"
+                              >
+                                oldest first
+                              </span>
+                              <span
+                                class="text"
+                              >
+                                Ascending
+                              </span>
+                            </div>
+                          </div>
+                        </div>,
+                      }
+                    }
+                  >
+                    <RefFindNode
+                      innerRef={
+                        Object {
+                          "current": <div
+                            aria-expanded="false"
+                            class="ui dropdown"
+                            role="listbox"
+                            tabindex="0"
+                          >
+                            <div
+                              aria-atomic="true"
+                              aria-live="polite"
+                              class="text"
+                              role="alert"
+                            >
+                              Sort by Date
+                            </div>
+                            <i
+                              aria-hidden="true"
+                              class="dropdown icon"
+                            />
+                            <div
+                              class="menu transition"
+                            >
+                              <div
+                                class="item"
+                                id="adminStoreItemDateDescQuery"
+                                role="option"
+                              >
+                                <span
+                                  class="description"
+                                >
+                                  newest first
+                                </span>
+                                <span
+                                  class="text"
+                                >
+                                  Descending
+                                </span>
+                              </div>
+                              <div
+                                class="item"
+                                role="option"
+                              >
+                                <span
+                                  class="description"
+                                >
+                                  oldest first
+                                </span>
+                                <span
+                                  class="text"
+                                >
+                                  Ascending
+                                </span>
+                              </div>
+                            </div>
+                          </div>,
+                        }
+                      }
+                    >
+                      <div
+                        aria-expanded={false}
+                        className="ui dropdown"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onMouseDown={[Function]}
+                        role="listbox"
+                        tabIndex={0}
+                      >
+                        <div
+                          aria-atomic={true}
+                          aria-live="polite"
+                          className="text"
+                          role="alert"
+                        >
+                          Sort by Date
+                        </div>
+                        <Icon
+                          as="i"
+                          className=""
+                          name="dropdown"
+                          onClick={[Function]}
+                        >
+                          <i
+                            aria-hidden="true"
+                            className="dropdown icon"
+                            onClick={[Function]}
+                          />
+                        </Icon>
+                        <DropdownMenu
+                          className=""
+                        >
+                          <div
+                            className="menu transition"
+                          >
+                            <DropdownItem
+                              description="newest first"
+                              id="adminStoreItemDateDescQuery"
+                              onClick={[Function]}
+                              text="Descending"
+                              value="desc"
+                            >
+                              <div
+                                className="item"
+                                id="adminStoreItemDateDescQuery"
+                                onClick={[Function]}
+                                role="option"
+                              >
+                                <span
+                                  className="description"
+                                >
+                                  newest first
+                                </span>
+                                <span
+                                  className="text"
+                                >
+                                  Descending
+                                </span>
+                              </div>
+                            </DropdownItem>
+                            <DropdownItem
+                              description="oldest first"
+                              onClick={[Function]}
+                              text="Ascending"
+                              value="asc"
+                            >
+                              <div
+                                className="item"
+                                onClick={[Function]}
+                                role="option"
+                              >
+                                <span
+                                  className="description"
+                                >
+                                  oldest first
+                                </span>
+                                <span
+                                  className="text"
+                                >
+                                  Ascending
+                                </span>
+                              </div>
+                            </DropdownItem>
+                          </div>
+                        </DropdownMenu>
+                      </div>
+                    </RefFindNode>
+                  </Ref>
+                </Dropdown>
+              </div>
+            </MenuItem>
+            <MenuItem>
+              <div
+                className="item"
+                onClick={[Function]}
+              >
+                <Dropdown
+                  additionLabel="Add "
+                  additionPosition="top"
+                  closeOnBlur={true}
+                  closeOnEscape={true}
+                  deburr={false}
+                  icon="dropdown"
+                  minCharacters={1}
+                  noResultsMessage="No results found."
+                  openOnFocus={true}
+                  renderLabel={[Function]}
+                  searchInput="text"
+                  selectOnBlur={true}
+                  selectOnNavigation={true}
+                  text="Sort By Price"
+                  wrapSelection={true}
+                >
+                  <Ref
+                    innerRef={
+                      Object {
+                        "current": <div
+                          aria-expanded="false"
+                          class="ui dropdown"
+                          role="listbox"
+                          tabindex="0"
+                        >
+                          <div
+                            aria-atomic="true"
+                            aria-live="polite"
+                            class="text"
+                            role="alert"
+                          >
+                            Sort By Price
+                          </div>
+                          <i
+                            aria-hidden="true"
+                            class="dropdown icon"
+                          />
+                          <div
+                            class="menu transition"
+                          >
+                            <div
+                              class="item"
+                              role="option"
+                            >
+                              <span
+                                class="description"
+                              >
+                                expensive first
+                              </span>
+                              <span
+                                class="text"
+                              >
+                                Descending
+                              </span>
+                            </div>
+                            <div
+                              class="item"
+                              role="option"
+                            >
+                              <span
+                                class="description"
+                              >
+                                cheapest first
+                              </span>
+                              <span
+                                class="text"
+                              >
+                                Ascending
+                              </span>
+                            </div>
+                          </div>
+                        </div>,
+                      }
+                    }
+                  >
+                    <RefFindNode
+                      innerRef={
+                        Object {
+                          "current": <div
+                            aria-expanded="false"
+                            class="ui dropdown"
+                            role="listbox"
+                            tabindex="0"
+                          >
+                            <div
+                              aria-atomic="true"
+                              aria-live="polite"
+                              class="text"
+                              role="alert"
+                            >
+                              Sort By Price
+                            </div>
+                            <i
+                              aria-hidden="true"
+                              class="dropdown icon"
+                            />
+                            <div
+                              class="menu transition"
+                            >
+                              <div
+                                class="item"
+                                role="option"
+                              >
+                                <span
+                                  class="description"
+                                >
+                                  expensive first
+                                </span>
+                                <span
+                                  class="text"
+                                >
+                                  Descending
+                                </span>
+                              </div>
+                              <div
+                                class="item"
+                                role="option"
+                              >
+                                <span
+                                  class="description"
+                                >
+                                  cheapest first
+                                </span>
+                                <span
+                                  class="text"
+                                >
+                                  Ascending
+                                </span>
+                              </div>
+                            </div>
+                          </div>,
+                        }
+                      }
+                    >
+                      <div
+                        aria-expanded={false}
+                        className="ui dropdown"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onMouseDown={[Function]}
+                        role="listbox"
+                        tabIndex={0}
+                      >
+                        <div
+                          aria-atomic={true}
+                          aria-live="polite"
+                          className="text"
+                          role="alert"
+                        >
+                          Sort By Price
+                        </div>
+                        <Icon
+                          as="i"
+                          className=""
+                          name="dropdown"
+                          onClick={[Function]}
+                        >
+                          <i
+                            aria-hidden="true"
+                            className="dropdown icon"
+                            onClick={[Function]}
+                          />
+                        </Icon>
+                        <DropdownMenu
+                          className=""
+                        >
+                          <div
+                            className="menu transition"
+                          >
+                            <DropdownItem
+                              description="expensive first"
+                              onClick={[Function]}
+                              text="Descending"
+                              value="desc"
+                            >
+                              <div
+                                className="item"
+                                onClick={[Function]}
+                                role="option"
+                              >
+                                <span
+                                  className="description"
+                                >
+                                  expensive first
+                                </span>
+                                <span
+                                  className="text"
+                                >
+                                  Descending
+                                </span>
+                              </div>
+                            </DropdownItem>
+                            <DropdownItem
+                              description="cheapest first"
+                              onClick={[Function]}
+                              text="Ascending"
+                              value="asc"
+                            >
+                              <div
+                                className="item"
+                                onClick={[Function]}
+                                role="option"
+                              >
+                                <span
+                                  className="description"
+                                >
+                                  cheapest first
+                                </span>
+                                <span
+                                  className="text"
+                                >
+                                  Ascending
+                                </span>
+                              </div>
+                            </DropdownItem>
+                          </div>
+                        </DropdownMenu>
+                      </div>
+                    </RefFindNode>
+                  </Ref>
+                </Dropdown>
+              </div>
+            </MenuItem>
+          </div>
+        </Menu>
+        <Menu
+          id="storeItemsControlsSecondMenu"
+        >
+          <div
+            className="ui menu"
+            id="storeItemsControlsSecondMenu"
+          >
+            <MenuItem>
+              <div
+                className="item"
+                onClick={[Function]}
+              >
+                <Dropdown
+                  additionLabel="Add "
+                  additionPosition="top"
+                  closeOnBlur={true}
+                  closeOnEscape={true}
+                  deburr={false}
+                  icon="dropdown"
+                  minCharacters={1}
+                  noResultsMessage="No results found."
+                  openOnFocus={true}
+                  renderLabel={[Function]}
+                  searchInput="text"
+                  selectOnBlur={true}
+                  selectOnNavigation={true}
+                  text="Sort by name"
+                  wrapSelection={true}
+                >
+                  <Ref
+                    innerRef={
+                      Object {
+                        "current": <div
+                          aria-expanded="false"
+                          class="ui dropdown"
+                          role="listbox"
+                          tabindex="0"
+                        >
+                          <div
+                            aria-atomic="true"
+                            aria-live="polite"
+                            class="text"
+                            role="alert"
+                          >
+                            Sort by name
+                          </div>
+                          <i
+                            aria-hidden="true"
+                            class="dropdown icon"
+                          />
+                          <div
+                            class="menu transition"
+                          >
+                            <div
+                              class="item"
+                              role="option"
+                            >
+                              <span
+                                class="description"
+                              >
+                                Z - A
+                              </span>
+                              <span
+                                class="text"
+                              >
+                                Descending
+                              </span>
+                            </div>
+                            <div
+                              class="item"
+                              role="option"
+                            >
+                              <span
+                                class="description"
+                              >
+                                A - Z
+                              </span>
+                              <span
+                                class="text"
+                              >
+                                Ascending
+                              </span>
+                            </div>
+                          </div>
+                        </div>,
+                      }
+                    }
+                  >
+                    <RefFindNode
+                      innerRef={
+                        Object {
+                          "current": <div
+                            aria-expanded="false"
+                            class="ui dropdown"
+                            role="listbox"
+                            tabindex="0"
+                          >
+                            <div
+                              aria-atomic="true"
+                              aria-live="polite"
+                              class="text"
+                              role="alert"
+                            >
+                              Sort by name
+                            </div>
+                            <i
+                              aria-hidden="true"
+                              class="dropdown icon"
+                            />
+                            <div
+                              class="menu transition"
+                            >
+                              <div
+                                class="item"
+                                role="option"
+                              >
+                                <span
+                                  class="description"
+                                >
+                                  Z - A
+                                </span>
+                                <span
+                                  class="text"
+                                >
+                                  Descending
+                                </span>
+                              </div>
+                              <div
+                                class="item"
+                                role="option"
+                              >
+                                <span
+                                  class="description"
+                                >
+                                  A - Z
+                                </span>
+                                <span
+                                  class="text"
+                                >
+                                  Ascending
+                                </span>
+                              </div>
+                            </div>
+                          </div>,
+                        }
+                      }
+                    >
+                      <div
+                        aria-expanded={false}
+                        className="ui dropdown"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onMouseDown={[Function]}
+                        role="listbox"
+                        tabIndex={0}
+                      >
+                        <div
+                          aria-atomic={true}
+                          aria-live="polite"
+                          className="text"
+                          role="alert"
+                        >
+                          Sort by name
+                        </div>
+                        <Icon
+                          as="i"
+                          className=""
+                          name="dropdown"
+                          onClick={[Function]}
+                        >
+                          <i
+                            aria-hidden="true"
+                            className="dropdown icon"
+                            onClick={[Function]}
+                          />
+                        </Icon>
+                        <DropdownMenu
+                          className=""
+                        >
+                          <div
+                            className="menu transition"
+                          >
+                            <DropdownItem
+                              description="Z - A"
+                              onClick={[Function]}
+                              text="Descending"
+                              value="desc"
+                            >
+                              <div
+                                className="item"
+                                onClick={[Function]}
+                                role="option"
+                              >
+                                <span
+                                  className="description"
+                                >
+                                  Z - A
+                                </span>
+                                <span
+                                  className="text"
+                                >
+                                  Descending
+                                </span>
+                              </div>
+                            </DropdownItem>
+                            <DropdownItem
+                              description="A - Z"
+                              onClick={[Function]}
+                              text="Ascending"
+                              value="asc"
+                            >
+                              <div
+                                className="item"
+                                onClick={[Function]}
+                                role="option"
+                              >
+                                <span
+                                  className="description"
+                                >
+                                  A - Z
+                                </span>
+                                <span
+                                  className="text"
+                                >
+                                  Ascending
+                                </span>
+                              </div>
+                            </DropdownItem>
+                          </div>
+                        </DropdownMenu>
+                      </div>
+                    </RefFindNode>
+                  </Ref>
+                </Dropdown>
+              </div>
+            </MenuItem>
+            <MenuItem>
+              <div
+                className="item"
+                onClick={[Function]}
+              >
+                <Dropdown
+                  additionLabel="Add "
+                  additionPosition="top"
+                  closeOnBlur={true}
+                  closeOnEscape={true}
+                  deburr={false}
+                  icon="dropdown"
+                  minCharacters={1}
+                  noResultsMessage="No results found."
+                  openOnFocus={true}
+                  renderLabel={[Function]}
+                  searchInput="text"
+                  selectOnBlur={true}
+                  selectOnNavigation={true}
+                  text="Sort by category"
+                  wrapSelection={true}
+                >
+                  <Ref
+                    innerRef={
+                      Object {
+                        "current": <div
+                          aria-expanded="false"
+                          class="ui dropdown"
+                          role="listbox"
+                          tabindex="0"
+                        >
+                          <div
+                            aria-atomic="true"
+                            aria-live="polite"
+                            class="text"
+                            role="alert"
+                          >
+                            Sort by category
+                          </div>
+                          <i
+                            aria-hidden="true"
+                            class="dropdown icon"
+                          />
+                          <div
+                            class="menu transition"
+                          >
+                            <div
+                              class="item"
+                              role="option"
+                            >
+                              <span
+                                class="description"
+                              >
+                                Z - A
+                              </span>
+                              <span
+                                class="text"
+                              >
+                                Descending
+                              </span>
+                            </div>
+                            <div
+                              class="item"
+                              role="option"
+                            >
+                              <span
+                                class="description"
+                              >
+                                A - Z
+                              </span>
+                              <span
+                                class="text"
+                              >
+                                Ascending
+                              </span>
+                            </div>
+                          </div>
+                        </div>,
+                      }
+                    }
+                  >
+                    <RefFindNode
+                      innerRef={
+                        Object {
+                          "current": <div
+                            aria-expanded="false"
+                            class="ui dropdown"
+                            role="listbox"
+                            tabindex="0"
+                          >
+                            <div
+                              aria-atomic="true"
+                              aria-live="polite"
+                              class="text"
+                              role="alert"
+                            >
+                              Sort by category
+                            </div>
+                            <i
+                              aria-hidden="true"
+                              class="dropdown icon"
+                            />
+                            <div
+                              class="menu transition"
+                            >
+                              <div
+                                class="item"
+                                role="option"
+                              >
+                                <span
+                                  class="description"
+                                >
+                                  Z - A
+                                </span>
+                                <span
+                                  class="text"
+                                >
+                                  Descending
+                                </span>
+                              </div>
+                              <div
+                                class="item"
+                                role="option"
+                              >
+                                <span
+                                  class="description"
+                                >
+                                  A - Z
+                                </span>
+                                <span
+                                  class="text"
+                                >
+                                  Ascending
+                                </span>
+                              </div>
+                            </div>
+                          </div>,
+                        }
+                      }
+                    >
+                      <div
+                        aria-expanded={false}
+                        className="ui dropdown"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onMouseDown={[Function]}
+                        role="listbox"
+                        tabIndex={0}
+                      >
+                        <div
+                          aria-atomic={true}
+                          aria-live="polite"
+                          className="text"
+                          role="alert"
+                        >
+                          Sort by category
+                        </div>
+                        <Icon
+                          as="i"
+                          className=""
+                          name="dropdown"
+                          onClick={[Function]}
+                        >
+                          <i
+                            aria-hidden="true"
+                            className="dropdown icon"
+                            onClick={[Function]}
+                          />
+                        </Icon>
+                        <DropdownMenu
+                          className=""
+                        >
+                          <div
+                            className="menu transition"
+                          >
+                            <DropdownItem
+                              description="Z - A"
+                              onClick={[Function]}
+                              text="Descending"
+                              value="desc"
+                            >
+                              <div
+                                className="item"
+                                onClick={[Function]}
+                                role="option"
+                              >
+                                <span
+                                  className="description"
+                                >
+                                  Z - A
+                                </span>
+                                <span
+                                  className="text"
+                                >
+                                  Descending
+                                </span>
+                              </div>
+                            </DropdownItem>
+                            <DropdownItem
+                              description="A - Z"
+                              onClick={[Function]}
+                              text="Ascending"
+                              value="asc"
+                            >
+                              <div
+                                className="item"
+                                onClick={[Function]}
+                                role="option"
+                              >
+                                <span
+                                  className="description"
+                                >
+                                  A - Z
+                                </span>
+                                <span
+                                  className="text"
+                                >
+                                  Ascending
+                                </span>
+                              </div>
+                            </DropdownItem>
+                          </div>
+                        </DropdownMenu>
+                      </div>
+                    </RefFindNode>
+                  </Ref>
+                </Dropdown>
+              </div>
+            </MenuItem>
+          </div>
+        </Menu>
+      </div>
+    </StoreItemsControlMenu>
+    <div
+      className="adminStoreItemControls"
+    >
+      <div
+        className="adminStoreItemCounter"
+      >
+        <div>
+          Total Store Items:
+        </div>
+        <div
+          className="adminStoreItemsCount"
+        >
+          0
+        </div>
+      </div>
+    </div>
+  </div>
+</StoreItemsControls>
+`;
