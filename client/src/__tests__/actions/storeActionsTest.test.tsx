@@ -1,10 +1,10 @@
 import React from "react";
-import faker from "faker";
 // test dependences
 import { expect } from "chai";
 import { shallow, ShallowWrapper } from "enzyme";
 import moxios from "moxios";
 import { AxiosRequestConfig } from "axios";
+import faker from "faker";
 // state and React.context dependenies //
 import { IGlobalAppState, IGlobalAppContext, TestStateProvider } from "../../state/Store";
 // actions to test //
@@ -43,6 +43,34 @@ describe("Store Actions Tests", () => {
         <TestStateProvider mockState={testState} />
       );
     });
+
+    describe("Action: 'DISPATCH_STORE_API_REQUEST'", () => {
+      beforeAll(() => {
+        ({ dispatch, state } = getContextFromWrapper(wrapper));
+      });
+
+      it("Should properly dispatch the action and set new state", () => {
+        // expected state after action //
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState } };
+        expectedState.storeState.loading = true;
+        // fire off the action //
+        dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true, error: null } });
+        // get new state //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState).to.eql(expectedState);
+      });
+      it("Should clear a previous error if an error is present", () => {
+        const { state } = getContextFromWrapper(wrapper);
+        state.storeState.error = new Error("ooops");
+        // expected state after action //
+        const expectedState: IGlobalAppState = { ...state, storeState: { ...state.storeState, loading: true, error: null }};
+        // fire off the action //
+        dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true, error: null } });
+        // get new state //
+        const { state: newState } = getContextFromWrapper(wrapper);
+        expect(newState).to.eql(expectedState);
+      });
+    })
 
     describe("Action: 'SET_CURRENT_STORE'", () => {
 

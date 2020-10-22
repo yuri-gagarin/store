@@ -11,6 +11,7 @@
     readonly type: "DISPATCH_STORE_API_REQUEST",
     readonly payload: {
       loading: boolean;
+      error: null;
     }
   }
   type SetCurrentStore = {

@@ -13,7 +13,7 @@ export const getAllStores = (dispatch: Dispatch<StoreAction>, queryOptions?: Sto
     url: "/api/stores",
     params: queryOptions
   };
-  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true } });
+  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -43,7 +43,7 @@ export const getStoreByName = (name: string, dispatch: Dispatch<StoreAction>): P
       name: name
     }
   };
-  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true } });
+  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -74,7 +74,7 @@ export const getStore = (_id: string, dispatch: Dispatch<StoreAction>): Promise<
     method: "get",
     url: "/api/stores/" + _id,
   };
-  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true } });
+  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -107,7 +107,7 @@ export const createStore = ({ title, description, images }: ClientStoreData, dis
       images: images,
     }
   };
-  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true } });
+  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -139,7 +139,7 @@ export const editStore = (_id: string, data: ClientStoreData, dispatch: Dispatch
       ...data,
     }
   };
-  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true } });
+  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -176,7 +176,7 @@ export const deleteStore = (_id: string, dispatch: Dispatch<StoreAction>, state:
     method: "delete",
     url: "/api/stores/delete/" + _id,
   };
-  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true } });
+  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IStoreServerResData, IStoreServerResponse>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -210,7 +210,7 @@ export const uploadStoreImage = (_store_id: string, imageFile: FormData, state: 
     url: "/api/uploads/store_images/" + _store_id,
     data: imageFile
   };
-  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true } });
+  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IStoreImgServerResData, IStoreImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -249,7 +249,7 @@ export const deleteStoreImage = (imgId: string, state: IGlobalAppState, dispatch
     method: "delete",
     url: "/api/uploads/store_images/" + imgId + "/" + storeId
   };
-  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true } });
+  dispatch({ type: "DISPATCH_STORE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IStoreImgServerResData, IStoreImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;

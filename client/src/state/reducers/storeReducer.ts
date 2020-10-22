@@ -23,7 +23,8 @@ const storeReducer = (state: IStoreState = initialStoreState, action: StoreActio
     case "DISPATCH_STORE_API_REQUEST": 
       return {
         ...state,
-        loading: action.payload.loading
+        loading: action.payload.loading,
+        error: action.payload.error
       };
     case "GET_ALL_STORES": 
       return {
