@@ -238,8 +238,17 @@ describe("StoreItemFormHolder Component tests", () => {
     let state: IGlobalAppState; let wrapper: ReactWrapper;
 
     beforeAll( async () => {
+      const promise = Promise.resolve();
+
       window.scrollTo = jest.fn();
       moxios.install();
+      moxios.stubRequest("/api/stores", {
+        status: 200,
+        response: {
+          responseMsg: "OK",
+          stores: createMockStores(5)
+        }
+      });
       // mount and wait for '/api/stores mock API call //
       wrapper = mount(
         <Router initialEntries={["/admin/store_items/create"]} keyLength={0}>
@@ -249,19 +258,9 @@ describe("StoreItemFormHolder Component tests", () => {
         </Router>
         
       );
-    
-      await act( async () => {
-        moxios.stubRequest("/api/stores", {
-          status: 200,
-          response: {
-            responseMsg: "OK",
-            stores: createMockStores(5)
-          }
-        });
-      });
+      await act( async() => promise);
       moxios.uninstall()
     });
-
     it("Should have a submit button", () => {
       wrapper.update();
       wrapper.find("#storeItemFormToggleBtn").at(0).simulate("click").update();
@@ -269,23 +268,24 @@ describe("StoreItemFormHolder Component tests", () => {
       expect(adminStoreItemFormCreate.length).toEqual(1)
     });
     it("Should handle the 'handleCreateStoreItemAction, show 'LoadingBar' Component", async () => {
+      const promise = Promise.resolve();
       moxios.install();
-      await act( async () => {
-        moxios.stubRequest("/api/store_items/create", {
-          status: 200,
-          response: {
-            responseMsg: "All Good",
-            newStoreItem: createMockStoreItems(1)[0]
-          }
-        });
-        const adminStoreItemFormCreate = wrapper.find("#adminStoreItemFormCreate").at(0);
-        adminStoreItemFormCreate.simulate("click");
-        //expect(wrapper.find(LoadingBar).length).toEqual(1);
+      moxios.stubRequest("/api/store_items/create", {
+        status: 200,
+        response: {
+          responseMsg: "All Good",
+          newStoreItem: createMockStoreItems(1)[0]
+        }
       });
+      const adminStoreItemFormCreate = wrapper.find("#adminStoreItemFormCreate").at(0);
+      adminStoreItemFormCreate.simulate("click");
+      //expect(wrapper.find(LoadingBar).length).toEqual(1);
       // expect(sinon.spy(createStoreItem)).toHaveBeenCalled()
-      wrapper.update();
+      await act( async () => promise);
+      expect(wrapper.find(LoadingBar).length).toEqual(1);
     });
     it("Should NOT show the 'LoadingBar' Component after successful API call", () => {
+      wrapper.update();
       expect(wrapper.find(LoadingBar).length).toEqual(0);
     });
     it("Should NOT show the 'StoreItemForm' Component after successful API call", () => {
