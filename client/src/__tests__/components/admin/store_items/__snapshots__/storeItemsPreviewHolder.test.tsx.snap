@@ -750,7 +750,9 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                               closeOnBlur={true}
                               closeOnEscape={true}
                               deburr={false}
+                              disabled={true}
                               icon="dropdown"
+                              id="adminStoreItemControlsStoreDropdown"
                               item={true}
                               loading={true}
                               minCharacters={1}
@@ -769,10 +771,12 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                   Object {
                                     "current": <div
                                       aria-busy="true"
+                                      aria-disabled="true"
                                       aria-expanded="false"
-                                      class="ui loading item dropdown"
+                                      class="ui disabled loading item dropdown"
+                                      id="adminStoreItemControlsStoreDropdown"
                                       role="listbox"
-                                      tabindex="0"
+                                      tabindex="-1"
                                     >
                                       <div
                                         aria-atomic="true"
@@ -798,10 +802,12 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                     Object {
                                       "current": <div
                                         aria-busy="true"
+                                        aria-disabled="true"
                                         aria-expanded="false"
-                                        class="ui loading item dropdown"
+                                        class="ui disabled loading item dropdown"
+                                        id="adminStoreItemControlsStoreDropdown"
                                         role="listbox"
-                                        tabindex="0"
+                                        tabindex="-1"
                                       >
                                         <div
                                           aria-atomic="true"
@@ -824,15 +830,17 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                 >
                                   <div
                                     aria-busy={true}
+                                    aria-disabled={true}
                                     aria-expanded={false}
-                                    className="ui loading item dropdown"
+                                    className="ui disabled loading item dropdown"
+                                    id="adminStoreItemControlsStoreDropdown"
                                     onBlur={[Function]}
                                     onChange={[Function]}
                                     onClick={[Function]}
                                     onFocus={[Function]}
                                     onMouseDown={[Function]}
                                     role="listbox"
-                                    tabIndex={0}
+                                    tabIndex={-1}
                                   >
                                     <div
                                       aria-atomic={true}
@@ -874,7 +882,10 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                   closeOnBlur={true}
                                   closeOnEscape={true}
                                   deburr={false}
+                                  disabled={true}
                                   icon="dropdown"
+                                  id="adminStoreItemControlsDateDropdown"
+                                  loading={true}
                                   minCharacters={1}
                                   noResultsMessage="No results found."
                                   openOnFocus={true}
@@ -889,10 +900,13 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                     innerRef={
                                       Object {
                                         "current": <div
+                                          aria-busy="true"
+                                          aria-disabled="true"
                                           aria-expanded="false"
-                                          class="ui dropdown"
+                                          class="ui disabled loading dropdown"
+                                          id="adminStoreItemControlsDateDropdown"
                                           role="listbox"
-                                          tabindex="0"
+                                          tabindex="-1"
                                         >
                                           <div
                                             aria-atomic="true"
@@ -911,6 +925,7 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                           >
                                             <div
                                               class="item"
+                                              id="adminStoreItemDateDescQuery"
                                               role="option"
                                             >
                                               <span
@@ -926,6 +941,7 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                             </div>
                                             <div
                                               class="item"
+                                              id="adminStoreItemDateAscQuery"
                                               role="option"
                                             >
                                               <span
@@ -948,10 +964,13 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                       innerRef={
                                         Object {
                                           "current": <div
+                                            aria-busy="true"
+                                            aria-disabled="true"
                                             aria-expanded="false"
-                                            class="ui dropdown"
+                                            class="ui disabled loading dropdown"
+                                            id="adminStoreItemControlsDateDropdown"
                                             role="listbox"
-                                            tabindex="0"
+                                            tabindex="-1"
                                           >
                                             <div
                                               aria-atomic="true"
@@ -970,6 +989,7 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                             >
                                               <div
                                                 class="item"
+                                                id="adminStoreItemDateDescQuery"
                                                 role="option"
                                               >
                                                 <span
@@ -985,6 +1005,7 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                               </div>
                                               <div
                                                 class="item"
+                                                id="adminStoreItemDateAscQuery"
                                                 role="option"
                                               >
                                                 <span
@@ -1004,15 +1025,18 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                       }
                                     >
                                       <div
+                                        aria-busy={true}
+                                        aria-disabled={true}
                                         aria-expanded={false}
-                                        className="ui dropdown"
+                                        className="ui disabled loading dropdown"
+                                        id="adminStoreItemControlsDateDropdown"
                                         onBlur={[Function]}
                                         onChange={[Function]}
                                         onClick={[Function]}
                                         onFocus={[Function]}
                                         onMouseDown={[Function]}
                                         role="listbox"
-                                        tabIndex={0}
+                                        tabIndex={-1}
                                       >
                                         <div
                                           aria-atomic={true}
@@ -1042,12 +1066,14 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                           >
                                             <DropdownItem
                                               description="newest first"
+                                              id="adminStoreItemDateDescQuery"
                                               onClick={[Function]}
                                               text="Descending"
                                               value="desc"
                                             >
                                               <div
                                                 className="item"
+                                                id="adminStoreItemDateDescQuery"
                                                 onClick={[Function]}
                                                 role="option"
                                               >
@@ -1065,12 +1091,14 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                             </DropdownItem>
                                             <DropdownItem
                                               description="oldest first"
+                                              id="adminStoreItemDateAscQuery"
                                               onClick={[Function]}
                                               text="Ascending"
                                               value="asc"
                                             >
                                               <div
                                                 className="item"
+                                                id="adminStoreItemDateAscQuery"
                                                 onClick={[Function]}
                                                 role="option"
                                               >
@@ -1105,7 +1133,10 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                   closeOnBlur={true}
                                   closeOnEscape={true}
                                   deburr={false}
+                                  disabled={true}
                                   icon="dropdown"
+                                  id="adminStoreItemControlsPriceDropdown"
+                                  loading={true}
                                   minCharacters={1}
                                   noResultsMessage="No results found."
                                   openOnFocus={true}
@@ -1120,10 +1151,13 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                     innerRef={
                                       Object {
                                         "current": <div
+                                          aria-busy="true"
+                                          aria-disabled="true"
                                           aria-expanded="false"
-                                          class="ui dropdown"
+                                          class="ui disabled loading dropdown"
+                                          id="adminStoreItemControlsPriceDropdown"
                                           role="listbox"
-                                          tabindex="0"
+                                          tabindex="-1"
                                         >
                                           <div
                                             aria-atomic="true"
@@ -1142,6 +1176,7 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                           >
                                             <div
                                               class="item"
+                                              id="adminStoreItemPriceDescQuery"
                                               role="option"
                                             >
                                               <span
@@ -1157,6 +1192,7 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                             </div>
                                             <div
                                               class="item"
+                                              id="adminStoreItemPriceAscQuery"
                                               role="option"
                                             >
                                               <span
@@ -1179,10 +1215,13 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                       innerRef={
                                         Object {
                                           "current": <div
+                                            aria-busy="true"
+                                            aria-disabled="true"
                                             aria-expanded="false"
-                                            class="ui dropdown"
+                                            class="ui disabled loading dropdown"
+                                            id="adminStoreItemControlsPriceDropdown"
                                             role="listbox"
-                                            tabindex="0"
+                                            tabindex="-1"
                                           >
                                             <div
                                               aria-atomic="true"
@@ -1201,6 +1240,7 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                             >
                                               <div
                                                 class="item"
+                                                id="adminStoreItemPriceDescQuery"
                                                 role="option"
                                               >
                                                 <span
@@ -1216,6 +1256,7 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                               </div>
                                               <div
                                                 class="item"
+                                                id="adminStoreItemPriceAscQuery"
                                                 role="option"
                                               >
                                                 <span
@@ -1235,15 +1276,18 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                       }
                                     >
                                       <div
+                                        aria-busy={true}
+                                        aria-disabled={true}
                                         aria-expanded={false}
-                                        className="ui dropdown"
+                                        className="ui disabled loading dropdown"
+                                        id="adminStoreItemControlsPriceDropdown"
                                         onBlur={[Function]}
                                         onChange={[Function]}
                                         onClick={[Function]}
                                         onFocus={[Function]}
                                         onMouseDown={[Function]}
                                         role="listbox"
-                                        tabIndex={0}
+                                        tabIndex={-1}
                                       >
                                         <div
                                           aria-atomic={true}
@@ -1273,12 +1317,14 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                           >
                                             <DropdownItem
                                               description="expensive first"
+                                              id="adminStoreItemPriceDescQuery"
                                               onClick={[Function]}
                                               text="Descending"
                                               value="desc"
                                             >
                                               <div
                                                 className="item"
+                                                id="adminStoreItemPriceDescQuery"
                                                 onClick={[Function]}
                                                 role="option"
                                               >
@@ -1296,12 +1342,14 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                             </DropdownItem>
                                             <DropdownItem
                                               description="cheapest first"
+                                              id="adminStoreItemPriceAscQuery"
                                               onClick={[Function]}
                                               text="Ascending"
                                               value="asc"
                                             >
                                               <div
                                                 className="item"
+                                                id="adminStoreItemPriceAscQuery"
                                                 onClick={[Function]}
                                                 role="option"
                                               >
@@ -1345,7 +1393,10 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                   closeOnBlur={true}
                                   closeOnEscape={true}
                                   deburr={false}
+                                  disabled={true}
                                   icon="dropdown"
+                                  id="adminStoreITemContolsNameDropdown"
+                                  loading={true}
                                   minCharacters={1}
                                   noResultsMessage="No results found."
                                   openOnFocus={true}
@@ -1360,10 +1411,13 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                     innerRef={
                                       Object {
                                         "current": <div
+                                          aria-busy="true"
+                                          aria-disabled="true"
                                           aria-expanded="false"
-                                          class="ui dropdown"
+                                          class="ui disabled loading dropdown"
+                                          id="adminStoreITemContolsNameDropdown"
                                           role="listbox"
-                                          tabindex="0"
+                                          tabindex="-1"
                                         >
                                           <div
                                             aria-atomic="true"
@@ -1382,6 +1436,7 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                           >
                                             <div
                                               class="item"
+                                              id="adminStoreItemNameDescQuery"
                                               role="option"
                                             >
                                               <span
@@ -1397,6 +1452,7 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                             </div>
                                             <div
                                               class="item"
+                                              id="adminStoreItemNameAscQuery"
                                               role="option"
                                             >
                                               <span
@@ -1419,10 +1475,13 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                       innerRef={
                                         Object {
                                           "current": <div
+                                            aria-busy="true"
+                                            aria-disabled="true"
                                             aria-expanded="false"
-                                            class="ui dropdown"
+                                            class="ui disabled loading dropdown"
+                                            id="adminStoreITemContolsNameDropdown"
                                             role="listbox"
-                                            tabindex="0"
+                                            tabindex="-1"
                                           >
                                             <div
                                               aria-atomic="true"
@@ -1441,6 +1500,7 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                             >
                                               <div
                                                 class="item"
+                                                id="adminStoreItemNameDescQuery"
                                                 role="option"
                                               >
                                                 <span
@@ -1456,6 +1516,7 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                               </div>
                                               <div
                                                 class="item"
+                                                id="adminStoreItemNameAscQuery"
                                                 role="option"
                                               >
                                                 <span
@@ -1475,15 +1536,18 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                       }
                                     >
                                       <div
+                                        aria-busy={true}
+                                        aria-disabled={true}
                                         aria-expanded={false}
-                                        className="ui dropdown"
+                                        className="ui disabled loading dropdown"
+                                        id="adminStoreITemContolsNameDropdown"
                                         onBlur={[Function]}
                                         onChange={[Function]}
                                         onClick={[Function]}
                                         onFocus={[Function]}
                                         onMouseDown={[Function]}
                                         role="listbox"
-                                        tabIndex={0}
+                                        tabIndex={-1}
                                       >
                                         <div
                                           aria-atomic={true}
@@ -1513,12 +1577,14 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                           >
                                             <DropdownItem
                                               description="Z - A"
+                                              id="adminStoreItemNameDescQuery"
                                               onClick={[Function]}
                                               text="Descending"
                                               value="desc"
                                             >
                                               <div
                                                 className="item"
+                                                id="adminStoreItemNameDescQuery"
                                                 onClick={[Function]}
                                                 role="option"
                                               >
@@ -1536,12 +1602,14 @@ exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' 
                                             </DropdownItem>
                                             <DropdownItem
                                               description="A - Z"
+                                              id="adminStoreItemNameAscQuery"
                                               onClick={[Function]}
                                               text="Ascending"
                                               value="asc"
                                             >
                                               <div
                                                 className="item"
+                                                id="adminStoreItemNameAscQuery"
                                                 onClick={[Function]}
                                                 role="option"
                                               >

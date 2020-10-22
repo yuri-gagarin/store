@@ -8,7 +8,7 @@ import StoreItemFormHolder from "./forms/StoreItemFormHolder";
 // css imports //
 import "./css/storeItemsView.css";
 // routing //
-import { RouteComponentProps, Route, Switch, withRouter } from "react-router-dom";
+import {  Route, Switch, withRouter } from "react-router-dom";
 import { AdminStoreItemRoutes } from "../../../routes/adminRoutes";
 // state //
 import { Store } from "../../../state/Store";
@@ -30,7 +30,7 @@ const StoreItemsView: React.FC<{}> = (props): JSX.Element => {
       <Switch>
         <Route path={AdminStoreItemRoutes.VIEW_ALL_ROUTE}>
           <Spacer width="100%" height="100px"/>
-          <StoreItemsPreviewHolder state={state} dispatch={dispatch} />
+          <StoreItemsPreviewHolder />
         </Route>
         <Route path={AdminStoreItemRoutes.CREATE_ROUTE}>
           <Spacer width="100%" height="100px" />

@@ -4,8 +4,8 @@ import { mount, ReactWrapper } from "enzyme";
 // component imports //
 import StoreItemsViewComponent from "../../../../components/admin_components/store_items/StoreItemsView";
 import AdminStoreItemsMenu from "../../../../components/admin_components/menus/AdminStoreItemsMenu";
-import StoreItemsPreviewHolder from "../../../../components/admin_components/store_items/store_items_preview/StoreItemsPreviewHolder";
-import {StoreItemFormHolder } from "../../../../components/admin_components/store_items/forms/StoreItemFormHolder";
+import { StoreItemsPreviewHolder } from "../../../../components/admin_components/store_items/store_items_preview/StoreItemsPreviewHolder";
+import { StoreItemFormHolder } from "../../../../components/admin_components/store_items/forms/StoreItemFormHolder";
 // additional dependencies //
 import  { BrowserRouter as Router, Switch, MemoryRouter } from "react-router-dom";
 import { StoreItemsManageHolder } from "../../../../components/admin_components/store_items/store_items_manage/StoreItemsManageHolder";
