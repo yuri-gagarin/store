@@ -633,7 +633,7 @@ exports[`'StoreItemsControls' component render tests Default render test  with e
                   deburr={false}
                   disabled={true}
                   icon="dropdown"
-                  id="adminStoreItemControlPriceDropdown"
+                  id="adminStoreItemControlsPriceDropdown"
                   loading={true}
                   minCharacters={1}
                   noResultsMessage="No results found."
@@ -653,7 +653,7 @@ exports[`'StoreItemsControls' component render tests Default render test  with e
                           aria-disabled="false"
                           aria-expanded="false"
                           class="ui dropdown"
-                          id="adminStoreItemControlPriceDropdown"
+                          id="adminStoreItemControlsPriceDropdown"
                           role="listbox"
                           tabindex="0"
                         >
@@ -717,7 +717,7 @@ exports[`'StoreItemsControls' component render tests Default render test  with e
                             aria-disabled="false"
                             aria-expanded="false"
                             class="ui dropdown"
-                            id="adminStoreItemControlPriceDropdown"
+                            id="adminStoreItemControlsPriceDropdown"
                             role="listbox"
                             tabindex="0"
                           >
@@ -778,7 +778,7 @@ exports[`'StoreItemsControls' component render tests Default render test  with e
                         aria-disabled={true}
                         aria-expanded={false}
                         className="ui disabled loading dropdown"
-                        id="adminStoreItemControlPriceDropdown"
+                        id="adminStoreItemControlsPriceDropdown"
                         onBlur={[Function]}
                         onChange={[Function]}
                         onClick={[Function]}
@@ -891,7 +891,10 @@ exports[`'StoreItemsControls' component render tests Default render test  with e
                   closeOnBlur={true}
                   closeOnEscape={true}
                   deburr={false}
+                  disabled={true}
                   icon="dropdown"
+                  id="adminStoreITemContolsNameDropdown"
+                  loading={true}
                   minCharacters={1}
                   noResultsMessage="No results found."
                   openOnFocus={true}
@@ -906,8 +909,11 @@ exports[`'StoreItemsControls' component render tests Default render test  with e
                     innerRef={
                       Object {
                         "current": <div
+                          aria-busy="false"
+                          aria-disabled="false"
                           aria-expanded="false"
                           class="ui dropdown"
+                          id="adminStoreITemContolsNameDropdown"
                           role="listbox"
                           tabindex="0"
                         >
@@ -928,6 +934,7 @@ exports[`'StoreItemsControls' component render tests Default render test  with e
                           >
                             <div
                               class="item"
+                              id="adminStoreItemNameDescQuery"
                               role="option"
                             >
                               <span
@@ -943,6 +950,7 @@ exports[`'StoreItemsControls' component render tests Default render test  with e
                             </div>
                             <div
                               class="item"
+                              id="adminStoreItemNameAscQuery"
                               role="option"
                             >
                               <span
@@ -965,8 +973,11 @@ exports[`'StoreItemsControls' component render tests Default render test  with e
                       innerRef={
                         Object {
                           "current": <div
+                            aria-busy="false"
+                            aria-disabled="false"
                             aria-expanded="false"
                             class="ui dropdown"
+                            id="adminStoreITemContolsNameDropdown"
                             role="listbox"
                             tabindex="0"
                           >
@@ -987,6 +998,7 @@ exports[`'StoreItemsControls' component render tests Default render test  with e
                             >
                               <div
                                 class="item"
+                                id="adminStoreItemNameDescQuery"
                                 role="option"
                               >
                                 <span
@@ -1002,6 +1014,7 @@ exports[`'StoreItemsControls' component render tests Default render test  with e
                               </div>
                               <div
                                 class="item"
+                                id="adminStoreItemNameAscQuery"
                                 role="option"
                               >
                                 <span
@@ -1021,15 +1034,18 @@ exports[`'StoreItemsControls' component render tests Default render test  with e
                       }
                     >
                       <div
+                        aria-busy={true}
+                        aria-disabled={true}
                         aria-expanded={false}
-                        className="ui dropdown"
+                        className="ui disabled loading dropdown"
+                        id="adminStoreITemContolsNameDropdown"
                         onBlur={[Function]}
                         onChange={[Function]}
                         onClick={[Function]}
                         onFocus={[Function]}
                         onMouseDown={[Function]}
                         role="listbox"
-                        tabIndex={0}
+                        tabIndex={-1}
                       >
                         <div
                           aria-atomic={true}
@@ -1059,12 +1075,14 @@ exports[`'StoreItemsControls' component render tests Default render test  with e
                           >
                             <DropdownItem
                               description="Z - A"
+                              id="adminStoreItemNameDescQuery"
                               onClick={[Function]}
                               text="Descending"
                               value="desc"
                             >
                               <div
                                 className="item"
+                                id="adminStoreItemNameDescQuery"
                                 onClick={[Function]}
                                 role="option"
                               >
@@ -1082,12 +1100,14 @@ exports[`'StoreItemsControls' component render tests Default render test  with e
                             </DropdownItem>
                             <DropdownItem
                               description="A - Z"
+                              id="adminStoreItemNameAscQuery"
                               onClick={[Function]}
                               text="Ascending"
                               value="asc"
                             >
                               <div
                                 className="item"
+                                id="adminStoreItemNameAscQuery"
                                 onClick={[Function]}
                                 role="option"
                               >

@@ -27,7 +27,6 @@ interface Props {
 const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   const { loadedStores : stores } = state.storeState;
   // local state //
-  const [ storeItemQuery, setStoreItemQuery ] = useState<StoreItemQueryPar>();
   const [ dropdownState, setDropdownState ] = useState<DropdownState>({
     loading: true,
     disabled: true,
@@ -60,7 +59,6 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
   };
   const handlePriceSortClick = (e: React.MouseEvent, data: DropdownItemProps): void => {
     const queryOption = data.value as string;
-    console.log("price clicked")
     setDropdownState({
       ...dropdownState,
       loading: true
@@ -81,7 +79,23 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
   };
   const handleNameSortClick = (e: React.MouseEvent, data: DropdownItemProps): void => {
     const queryOption = data.value as string;
-    setStoreItemQuery({ ...storeItemQuery, price: queryOption });
+    setDropdownState({
+      ...dropdownState,
+      loading: true
+    });
+    getAllStoreItems(dispatch, { name: queryOption })
+      .then((_) => {
+        setDropdownState({
+          ...dropdownState,
+          loading: false
+        });
+      })
+      .catch((_) => {
+        setDropdownState({
+          ...dropdownState,
+          loading: false
+        });
+      });
   };
   // lifecycle hooks //
   useEffect(() => {
@@ -168,7 +182,7 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
       </Menu.Item>
       <Menu.Item> 
         <Dropdown 
-          id="adminStoreItemControlPriceDropdown"
+          id="adminStoreItemControlsPriceDropdown"
           text="Sort By Price"
           loading={dropdownState.loading}
           disabled={dropdownState.disabled}
@@ -195,19 +209,26 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
     </Menu>
     <Menu id="storeItemsControlsSecondMenu">
       <Menu.Item>
-        <Dropdown text="Sort by name">
+        <Dropdown 
+          id="adminStoreITemContolsNameDropdown"
+          text="Sort by name"
+          loading={dropdownState.loading}
+          disabled={dropdownState.disabled}
+        >
           <Dropdown.Menu>
             <Dropdown.Item 
+              id="adminStoreItemNameDescQuery"
               text="Descending" 
               description="Z - A" 
               value="desc"
-              onClick={handlePriceSortClick}
+              onClick={handleNameSortClick}
             />
             <Dropdown.Item 
+              id="adminStoreItemNameAscQuery"
               text="Ascending" 
               description="A - Z" 
               value="asc"
-              onClick={handlePriceSortClick}
+              onClick={handleNameSortClick}
             />
           </Dropdown.Menu>
 
