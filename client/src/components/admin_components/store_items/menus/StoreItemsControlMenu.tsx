@@ -39,14 +39,45 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
   // dropdown handlers //
   const handleDateSortClick = (e: React.MouseEvent, data: DropdownItemProps): void => {
     const queryOption = data.value as string;
-    console.log("clicked")
-    console.log(queryOption);
-    getAllStoreItems(dispatch, { date: queryOption });
-    setStoreItemQuery({ ...storeItemQuery, date: queryOption });
+    setDropdownState({
+      ...dropdownState,
+      loading: true
+    });
+    getAllStoreItems(dispatch, { date: queryOption })
+      .then((_) => {
+        setDropdownState({
+          ...dropdownState,
+          loading: false
+        });
+      })
+      .catch((_) => {
+        // handle an error //
+        setDropdownState({
+          ...dropdownState,
+          loading: false
+        });
+      });
   };
   const handlePriceSortClick = (e: React.MouseEvent, data: DropdownItemProps): void => {
     const queryOption = data.value as string;
-    setStoreItemQuery({ ...storeItemQuery, price: queryOption });
+    console.log("price clicked")
+    setDropdownState({
+      ...dropdownState,
+      loading: true
+    });
+    getAllStoreItems(dispatch, { price: queryOption })
+      .then((_) => {
+        setDropdownState({
+          ...dropdownState,
+          loading: false
+        });
+      })
+      .catch((_) => {
+        setDropdownState({
+          ...dropdownState,
+          loading: false
+        });
+      });
   };
   const handleNameSortClick = (e: React.MouseEvent, data: DropdownItemProps): void => {
     const queryOption = data.value as string;
@@ -111,7 +142,12 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
         options={dropdownState.data}
       />
       <Menu.Item>
-        <Dropdown text="Sort by Date">
+        <Dropdown 
+          id={"adminStoreItemControlsDateDropdown"}
+          text="Sort by Date" 
+          loading={dropdownState.loading}
+          disabled={dropdownState.disabled}
+        >
           <Dropdown.Menu>
             <Dropdown.Item 
               id="adminStoreItemDateDescQuery"
@@ -121,6 +157,7 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
               onClick={handleDateSortClick}
             />
             <Dropdown.Item 
+              id="adminStoreItemDateAscQuery"
               text="Ascending" 
               description="oldest first" 
               value="asc"
@@ -130,15 +167,22 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
         </Dropdown>
       </Menu.Item>
       <Menu.Item> 
-        <Dropdown text="Sort By Price">
+        <Dropdown 
+          id="adminStoreItemControlPriceDropdown"
+          text="Sort By Price"
+          loading={dropdownState.loading}
+          disabled={dropdownState.disabled}
+        >
           <Dropdown.Menu>
             <Dropdown.Item 
+              id="adminStoreItemPriceDescQuery"
               text="Descending" 
               description="expensive first" 
               value="desc"
               onClick={handlePriceSortClick}
             />
             <Dropdown.Item 
+              id="adminStoreItemPriceAscQuery"
               text="Ascending" 
               description="cheapest first" 
               value="asc"

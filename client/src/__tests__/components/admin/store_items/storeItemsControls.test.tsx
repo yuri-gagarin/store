@@ -95,13 +95,14 @@ describe("'StoreItemsControls' component render tests", () => {
     });
   });
 
-  describe("'StoreItem' sort click 'DATE' 'DESC'", () => {
+  describe("'Dropdown' '#adminStoreItemControlsDateDropdown' click 'DATE' 'DESC'", () => {
     let mockStoreItems: IStoreItemData[];
-    beforeEach(() => {
+
+    beforeAll(() => {
       moxios.install();
       mockStoreItems = createMockStoreItems(5);
     });
-    afterEach(() => {
+    afterAll(() => {
       moxios.uninstall();
     });
     it("Should have the '#adminStoreItemDateDescQuery' 'Dropdown.Item'", () => {
@@ -118,8 +119,7 @@ describe("'StoreItemsControls' component render tests", () => {
           responseMsg: "All ok",
           storeItems: mockStoreItems
         }
-      })
-  
+      });
     
       const sortByDateDesc = wrapper.find(StoreItemsControls).find("#adminStoreItemDateDescQuery");
       sortByDateDesc.at(0).simulate("click");
@@ -128,7 +128,167 @@ describe("'StoreItemsControls' component render tests", () => {
       
       const request = (moxios.requests.mostRecent());
       expect(request.url).toEqual("/api/store_items?date=desc");
+    });
+
+    it("Should set the '#adminStoreItemControlsDateDropdown' props to 'loading'", () => {
+      const sortByDateDropdown = wrapper.find(StoreItemsControls).find(Dropdown).at(1);
+      expect(sortByDateDropdown.props().loading).toEqual(true);
+    });
+    it("Should set the '#adminStoreItemControlsDateDropdown' props to 'loading == false' after rerender", () => {
+      wrapper.update();
+      const sortByDateDropdown = wrapper.find(StoreItemsControls).find(Dropdown).at(1);
+      expect(sortByDateDropdown.props().loading).toEqual(false);
+      expect(sortByDateDropdown.props().disabled).toEqual(false);
+    });
+  });
+
+  describe("'Dropdown' '#adminStoreItemControlsDateDropdown' click 'DATE' 'ASC'", () => {
+    let mockStoreItems: IStoreItemData[];
+
+    beforeAll(() => {
+      moxios.install();
+      mockStoreItems = createMockStoreItems(5);
+    });
+    afterAll(() => {
+      moxios.uninstall();
+    });
+
+    it("Should have the '#adminStoreItemDateAscQuery' 'Dropdown.Item'", () => {
+      const sortByDateDropdown = wrapper.find(StoreItemsControls).find(Dropdown).at(1);
+      const dropdownItem = sortByDateDropdown.find(Dropdown.Item).at(1);
+      expect(dropdownItem.props().value).toEqual("asc");
     })
-  })
+    it("Should handle 'Dropdown.Item' click and dispatch correct API request", async () => {
+      const promise = Promise.resolve();
+  
+      moxios.stubRequest("/api/store_items?date=asc", {
+        status: 200,
+        response: {
+          responseMsg: "All ok",
+          storeItems: mockStoreItems
+        }
+      });
+    
+      const sortByDateDesc = wrapper.find(StoreItemsControls).find("#adminStoreItemDateAscQuery");
+      sortByDateDesc.at(0).simulate("click");
+
+      await act( async () => promise)
+      
+      const request = (moxios.requests.mostRecent());
+      expect(request.url).toEqual("/api/store_items?date=asc");
+    });
+
+    it("Should set the '#adminStoreItemControlsDateDropdown' props to 'loading'", () => {
+      const sortByDateDropdown = wrapper.find(StoreItemsControls).find(Dropdown).at(1);
+      expect(sortByDateDropdown.props().loading).toEqual(true);
+    });
+    it("Should set the '#adminStoreItemControlsDateDropdown' props to 'loading == false' after rerender", () => {
+      wrapper.update();
+      const sortByDateDropdown = wrapper.find(StoreItemsControls).find(Dropdown).at(1);
+      expect(sortByDateDropdown.props().loading).toEqual(false);
+      expect(sortByDateDropdown.props().disabled).toEqual(false);
+    });
+
+  });
+
+  describe("'Dropdown' '#adminStoreItemControlsPriceDropdown' click 'PRICE' 'DESC'", () => {
+    let mockStoreItems: IStoreItemData[];
+
+    beforeAll(() => {
+      moxios.install();
+      mockStoreItems = createMockStoreItems(5);
+    });
+    afterAll(() => {
+      moxios.uninstall();
+    });
+
+    it("Should have the '#adminStoreItemDateAscQuery' 'Dropdown.Item'", () => {
+      const sortByDateDropdown = wrapper.find(StoreItemsControls).find(Dropdown).at(2);
+      const dropdownItem = sortByDateDropdown.find(Dropdown.Item).at(0);
+      expect(dropdownItem.props().value).toEqual("desc");
+    })
+    it("Should handle 'Dropdown.Item' click and dispatch correct API request", async () => {
+      const promise = Promise.resolve();
+  
+      moxios.stubRequest("/api/store_items?price=desc", {
+        status: 200,
+        response: {
+          responseMsg: "All ok",
+          storeItems: mockStoreItems
+        }
+      });
+    
+      const sortByDateDesc = wrapper.find(StoreItemsControls).find("#adminStoreItemPriceDescQuery");
+      sortByDateDesc.at(0).simulate("click");
+
+      await act( async () => promise)
+      
+      const request = (moxios.requests.mostRecent());
+      expect(request.url).toEqual("/api/store_items?price=desc");
+    });
+
+    it("Should set the '#adminStoreItemControlsDateDropdown' props to 'loading'", () => {
+      const sortByDateDropdown = wrapper.find(StoreItemsControls).find(Dropdown).at(2);
+      expect(sortByDateDropdown.props().loading).toEqual(true);
+    });
+    it("Should set the '#adminStoreItemControlsDateDropdown' props to 'loading == false' after rerender", () => {
+      wrapper.update();
+      const sortByDateDropdown = wrapper.find(StoreItemsControls).find(Dropdown).at(2);
+      expect(sortByDateDropdown.props().loading).toEqual(false);
+      expect(sortByDateDropdown.props().disabled).toEqual(false);
+    });
+
+  });
+
+  describe("'Dropdown' '#adminStoreItemControlsPriceDropdown' click 'PRICE' 'ASC'", () => {
+    let mockStoreItems: IStoreItemData[];
+
+    beforeAll(() => {
+      moxios.install();
+      mockStoreItems = createMockStoreItems(5);
+    });
+    afterAll(() => {
+      moxios.uninstall();
+    });
+
+    it("Should have the '#adminStoreItemDateAscQuery' 'Dropdown.Item'", () => {
+      const sortByDateDropdown = wrapper.find(StoreItemsControls).find(Dropdown).at(2);
+      const dropdownItem = sortByDateDropdown.find(Dropdown.Item).at(1);
+      expect(dropdownItem.props().value).toEqual("asc");
+    })
+    it("Should handle 'Dropdown.Item' click and dispatch correct API request", async () => {
+      const promise = Promise.resolve();
+  
+      moxios.stubRequest("/api/store_items?price=asc", {
+        status: 200,
+        response: {
+          responseMsg: "All ok",
+          storeItems: mockStoreItems
+        }
+      });
+    
+      const sortByDateDesc = wrapper.find(StoreItemsControls).find("#adminStoreItemPriceAscQuery");
+      sortByDateDesc.at(0).simulate("click");
+
+      await act( async () => promise)
+      
+      const request = (moxios.requests.mostRecent());
+      expect(request.url).toEqual("/api/store_items?price=asc");
+    });
+
+    it("Should set the '#adminStoreItemControlsDateDropdown' props to 'loading'", () => {
+      const sortByDateDropdown = wrapper.find(StoreItemsControls).find(Dropdown).at(2);
+      expect(sortByDateDropdown.props().loading).toEqual(true);
+    });
+    it("Should set the '#adminStoreItemControlsDateDropdown' props to 'loading == false' after rerender", () => {
+      wrapper.update();
+      const sortByDateDropdown = wrapper.find(StoreItemsControls).find(Dropdown).at(2);
+      expect(sortByDateDropdown.props().loading).toEqual(false);
+      expect(sortByDateDropdown.props().disabled).toEqual(false);
+    });
+
+  });
+
+  
   
 })
