@@ -7,23 +7,14 @@ import { getAllStores } from "../../stores/actions/APIstoreActions";
 import { getAllStoreItems } from "../actions/APIStoreItemActions";
 import { AppAction, IGlobalAppState } from "../../../../state/Store";
 // types and interfaces //
-import { StoreItemQueryPar } from "../type_definitions/storeItemTypes";
+import { DropdownData, DropdownState } from "../type_definitions/storeItemTypes";
 import { capitalizeString } from "../../../helpers/displayHelpers";
-type DropdownData = {
-  key: string;
-  text: string;
-  value: string;
-}
-type DropdownState = {
-  loading: boolean;
-  disabled: boolean;
-  data: DropdownData[];
-}
+
 interface Props {
   dispatch: React.Dispatch<AppAction>
   state: IGlobalAppState;
 }
-// components //
+
 const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   const { loadedStores : stores } = state.storeState;
   // local state //
@@ -124,7 +115,8 @@ const StoreItemsControlMenu: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
   }, []);
   // watches for new store data //
   useEffect(() => {
-    if (storesRef.current && storesRef.current != stores) {
+    // TODO - redo later to prevent unnecessary rerenders //
+    if (storesRef.current && (storesRef.current != stores)) {
       // new store data //
       const updatedDropdownData = stores.map((store): DropdownData => {
         return {

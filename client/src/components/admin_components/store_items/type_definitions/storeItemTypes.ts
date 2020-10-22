@@ -78,3 +78,14 @@ export type StoreItemFormStoreDropdownState = {
   dropdownData: StoreItemFormStoreDropdownData[];
   disabled: boolean;
 }
+// StoreItemsControlls component types //
+export type DropdownData = {
+  key: string;
+  text: string;
+  value: string;
+}
+export type DropdownState = {
+  loading: boolean;
+  disabled: boolean;
+  data: DropdownData[];
+}
