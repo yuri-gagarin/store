@@ -57,23 +57,23 @@ const StoreItemCard: React.FC<Props> = ({ storeItem, imageCount, state, dispatch
         </div> 
         <div className="storeItemManageCtrls">
           <Button 
+            className="storeItemCardOpenBtn"
             inverted
             color="green"
-            className="storeItemCardBtn" 
             content="Open" 
             onClick={handleStoreItemOpen} 
           />
           <Button 
+            className="storeItemCardEditBtn"
             inverted
             color="orange"
-            className="storeItemCardBtn" 
             content="Edit" 
             onClick={handleStoreItemEdit}  
           />
           <Button 
+            className="storeItemCardDeleteBtn"
             inverted
             color="red"
-            className="storeItemCardBtn" 
             content="Delete" 
             onClick={handleStoreItemDelete}
           />

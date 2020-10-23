@@ -448,7 +448,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                           >
                             <Button
                               as="button"
-                              className="storeItemCardBtn"
+                              className="storeItemCardOpenBtn"
                               color="green"
                               content="Open"
                               inverted={true}
@@ -458,7 +458,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                 innerRef={
                                   Object {
                                     "current": <button
-                                      class="ui green inverted button storeItemCardBtn"
+                                      class="ui green inverted button storeItemCardOpenBtn"
                                     >
                                       Open
                                     </button>,
@@ -469,7 +469,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                   innerRef={
                                     Object {
                                       "current": <button
-                                        class="ui green inverted button storeItemCardBtn"
+                                        class="ui green inverted button storeItemCardOpenBtn"
                                       >
                                         Open
                                       </button>,
@@ -477,7 +477,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                   }
                                 >
                                   <button
-                                    className="ui green inverted button storeItemCardBtn"
+                                    className="ui green inverted button storeItemCardOpenBtn"
                                     onClick={[Function]}
                                   >
                                     Open
@@ -487,7 +487,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                             </Button>
                             <Button
                               as="button"
-                              className="storeItemCardBtn"
+                              className="storeItemCardEditBtn"
                               color="orange"
                               content="Edit"
                               inverted={true}
@@ -497,7 +497,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                 innerRef={
                                   Object {
                                     "current": <button
-                                      class="ui orange inverted button storeItemCardBtn"
+                                      class="ui orange inverted button storeItemCardEditBtn"
                                     >
                                       Edit
                                     </button>,
@@ -508,7 +508,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                   innerRef={
                                     Object {
                                       "current": <button
-                                        class="ui orange inverted button storeItemCardBtn"
+                                        class="ui orange inverted button storeItemCardEditBtn"
                                       >
                                         Edit
                                       </button>,
@@ -516,7 +516,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                   }
                                 >
                                   <button
-                                    className="ui orange inverted button storeItemCardBtn"
+                                    className="ui orange inverted button storeItemCardEditBtn"
                                     onClick={[Function]}
                                   >
                                     Edit
@@ -526,7 +526,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                             </Button>
                             <Button
                               as="button"
-                              className="storeItemCardBtn"
+                              className="storeItemCardDeleteBtn"
                               color="red"
                               content="Delete"
                               inverted={true}
@@ -536,7 +536,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                 innerRef={
                                   Object {
                                     "current": <button
-                                      class="ui red inverted button storeItemCardBtn"
+                                      class="ui red inverted button storeItemCardDeleteBtn"
                                     >
                                       Delete
                                     </button>,
@@ -547,7 +547,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                   innerRef={
                                     Object {
                                       "current": <button
-                                        class="ui red inverted button storeItemCardBtn"
+                                        class="ui red inverted button storeItemCardDeleteBtn"
                                       >
                                         Delete
                                       </button>,
@@ -555,7 +555,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                   }
                                 >
                                   <button
-                                    className="ui red inverted button storeItemCardBtn"
+                                    className="ui red inverted button storeItemCardDeleteBtn"
                                     onClick={[Function]}
                                   >
                                     Delete
@@ -940,7 +940,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                           >
                             <Button
                               as="button"
-                              className="storeItemCardBtn"
+                              className="storeItemCardOpenBtn"
                               color="green"
                               content="Open"
                               inverted={true}
@@ -950,7 +950,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                 innerRef={
                                   Object {
                                     "current": <button
-                                      class="ui green inverted button storeItemCardBtn"
+                                      class="ui green inverted button storeItemCardOpenBtn"
                                     >
                                       Open
                                     </button>,
@@ -961,7 +961,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                   innerRef={
                                     Object {
                                       "current": <button
-                                        class="ui green inverted button storeItemCardBtn"
+                                        class="ui green inverted button storeItemCardOpenBtn"
                                       >
                                         Open
                                       </button>,
@@ -969,7 +969,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                   }
                                 >
                                   <button
-                                    className="ui green inverted button storeItemCardBtn"
+                                    className="ui green inverted button storeItemCardOpenBtn"
                                     onClick={[Function]}
                                   >
                                     Open
@@ -979,7 +979,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                             </Button>
                             <Button
                               as="button"
-                              className="storeItemCardBtn"
+                              className="storeItemCardEditBtn"
                               color="orange"
                               content="Edit"
                               inverted={true}
@@ -989,7 +989,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                 innerRef={
                                   Object {
                                     "current": <button
-                                      class="ui orange inverted button storeItemCardBtn"
+                                      class="ui orange inverted button storeItemCardEditBtn"
                                     >
                                       Edit
                                     </button>,
@@ -1000,7 +1000,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                   innerRef={
                                     Object {
                                       "current": <button
-                                        class="ui orange inverted button storeItemCardBtn"
+                                        class="ui orange inverted button storeItemCardEditBtn"
                                       >
                                         Edit
                                       </button>,
@@ -1008,7 +1008,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                   }
                                 >
                                   <button
-                                    className="ui orange inverted button storeItemCardBtn"
+                                    className="ui orange inverted button storeItemCardEditBtn"
                                     onClick={[Function]}
                                   >
                                     Edit
@@ -1018,7 +1018,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                             </Button>
                             <Button
                               as="button"
-                              className="storeItemCardBtn"
+                              className="storeItemCardDeleteBtn"
                               color="red"
                               content="Delete"
                               inverted={true}
@@ -1028,7 +1028,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                 innerRef={
                                   Object {
                                     "current": <button
-                                      class="ui red inverted button storeItemCardBtn"
+                                      class="ui red inverted button storeItemCardDeleteBtn"
                                     >
                                       Delete
                                     </button>,
@@ -1039,7 +1039,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                   innerRef={
                                     Object {
                                       "current": <button
-                                        class="ui red inverted button storeItemCardBtn"
+                                        class="ui red inverted button storeItemCardDeleteBtn"
                                       >
                                         Delete
                                       </button>,
@@ -1047,7 +1047,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                   }
                                 >
                                   <button
-                                    className="ui red inverted button storeItemCardBtn"
+                                    className="ui red inverted button storeItemCardDeleteBtn"
                                     onClick={[Function]}
                                   >
                                     Delete
@@ -1432,7 +1432,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                           >
                             <Button
                               as="button"
-                              className="storeItemCardBtn"
+                              className="storeItemCardOpenBtn"
                               color="green"
                               content="Open"
                               inverted={true}
@@ -1442,7 +1442,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                 innerRef={
                                   Object {
                                     "current": <button
-                                      class="ui green inverted button storeItemCardBtn"
+                                      class="ui green inverted button storeItemCardOpenBtn"
                                     >
                                       Open
                                     </button>,
@@ -1453,7 +1453,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                   innerRef={
                                     Object {
                                       "current": <button
-                                        class="ui green inverted button storeItemCardBtn"
+                                        class="ui green inverted button storeItemCardOpenBtn"
                                       >
                                         Open
                                       </button>,
@@ -1461,7 +1461,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                   }
                                 >
                                   <button
-                                    className="ui green inverted button storeItemCardBtn"
+                                    className="ui green inverted button storeItemCardOpenBtn"
                                     onClick={[Function]}
                                   >
                                     Open
@@ -1471,7 +1471,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                             </Button>
                             <Button
                               as="button"
-                              className="storeItemCardBtn"
+                              className="storeItemCardEditBtn"
                               color="orange"
                               content="Edit"
                               inverted={true}
@@ -1481,7 +1481,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                 innerRef={
                                   Object {
                                     "current": <button
-                                      class="ui orange inverted button storeItemCardBtn"
+                                      class="ui orange inverted button storeItemCardEditBtn"
                                     >
                                       Edit
                                     </button>,
@@ -1492,7 +1492,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                   innerRef={
                                     Object {
                                       "current": <button
-                                        class="ui orange inverted button storeItemCardBtn"
+                                        class="ui orange inverted button storeItemCardEditBtn"
                                       >
                                         Edit
                                       </button>,
@@ -1500,7 +1500,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                   }
                                 >
                                   <button
-                                    className="ui orange inverted button storeItemCardBtn"
+                                    className="ui orange inverted button storeItemCardEditBtn"
                                     onClick={[Function]}
                                   >
                                     Edit
@@ -1510,7 +1510,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                             </Button>
                             <Button
                               as="button"
-                              className="storeItemCardBtn"
+                              className="storeItemCardDeleteBtn"
                               color="red"
                               content="Delete"
                               inverted={true}
@@ -1520,7 +1520,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                 innerRef={
                                   Object {
                                     "current": <button
-                                      class="ui red inverted button storeItemCardBtn"
+                                      class="ui red inverted button storeItemCardDeleteBtn"
                                     >
                                       Delete
                                     </button>,
@@ -1531,7 +1531,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                   innerRef={
                                     Object {
                                       "current": <button
-                                        class="ui red inverted button storeItemCardBtn"
+                                        class="ui red inverted button storeItemCardDeleteBtn"
                                       >
                                         Delete
                                       </button>,
@@ -1539,7 +1539,7 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                                   }
                                 >
                                   <button
-                                    className="ui red inverted button storeItemCardBtn"
+                                    className="ui red inverted button storeItemCardDeleteBtn"
                                     onClick={[Function]}
                                   >
                                     Delete

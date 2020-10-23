@@ -15,6 +15,8 @@ import LoadingScreen from "../../../../components/admin_components/miscelaneous/
 import { createMockStoreItems } from "../../../../test_helpers/storeItemHelpers";
 // helpers and state //
 import { TestStateProvider } from "../../../../state/Store";
+import { generateCleanState } from "../../../../test_helpers/miscHelpers";
+import { StoreItemFormHolder } from "../../../../components/admin_components/store_items/forms/StoreItemFormHolder";
 
 describe("StoreItem Manage Holder Tests", () => {
   const mockDate: string = new Date("12/31/2019").toString();
@@ -270,5 +272,40 @@ describe("StoreItem Manage Holder Tests", () => {
       expect(history.location.pathname).toEqual(AdminStoreItemRoutes.MANAGE_ROUTE);
     });
   });
+  // TEST StoreItemCard EDIT button click //
+  describe("'StoreItemCard' component EDIT button click action", () => {
+    let wrapper: ReactWrapper;
+    let editWrapper: ReactWrapper;
+    window.scrollTo = jest.fn();
+
+    beforeAll( async () => {
+      const promise = Promise.resolve();
+      moxios.install();
+      moxios.stubRequest("/api/store_items", {
+        response: {
+          responseMsg: "All ok",
+          storeItems: mockStoreItems
+        }
+      });
+      wrapper = mount(
+        <MemoryRouter initialEntries={[AdminStoreItemRoutes.MANAGE_ROUTE]} keyLength={0}>
+          <TestStateProvider>
+            <StoreItemsManageHolder />
+          </TestStateProvider>
+        </MemoryRouter>
+      );
+      await act( async () => promise);
+      wrapper.update();
+    });
+    it("Should render the 'StoreItemFormHolder' component after 'edit' Button click action", () => {
+      const editButton = wrapper.find(StoreItemCard).at(0).find(".storeItemCardEditBtn").at(0);
+      editButton.simulate("click");
+      const storeItmFormHold = wrapper.find(StoreItemFormHolder);
+      expect(storeItmFormHold.length).toEqual(1);
+    });
+    it("Should display correct data in '#storeItemFormHolderDetailsHolder' component", () => {
+      console.log(wrapper.find)
+    })
+  })
   // END mock successfull API call tests //
 });
