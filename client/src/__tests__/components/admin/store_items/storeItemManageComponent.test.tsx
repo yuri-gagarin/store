@@ -303,8 +303,9 @@ describe("StoreItem Manage Holder Tests", () => {
       const storeItmFormHold = wrapper.find(StoreItemFormHolder);
       expect(storeItmFormHold.length).toEqual(1);
     });
-    it("Should display correct data in '#storeItemFormHolderDetailsHolder' component", () => {
-      console.log(wrapper.find)
+    it("Should display the in '#storeItemFormHolderDetailsHolder' component", () => {
+      const detailsHolder = wrapper.find(StoreItemFormHolder).render().find("#storeItemFormHolderDetailsHolder");
+      expect(detailsHolder.length).toEqual(1);
     })
   })
   // END mock successfull API call tests //

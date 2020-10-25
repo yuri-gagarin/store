@@ -27,7 +27,6 @@ export const getAllServices = (dispatch: Dispatch<ServiceAction>): Promise<void>
       return Promise.resolve();
     })
     .catch((error: AxiosError) => {
-      console.log("error dispatched")
       dispatch({ type: "SET_SERVICE_ERROR", payload: {
         loading: false,
         responseMsg: error.message,

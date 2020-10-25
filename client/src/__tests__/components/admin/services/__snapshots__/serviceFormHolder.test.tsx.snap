@@ -644,7 +644,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                   content="Choose Image"
                   htmlFor="serviceImgFile"
                   icon="file"
-                  id="selectServiceImgBtn"
+                  id="serviceImgSelectBtn"
                   labelPosition="left"
                   onClick={[Function]}
                 >
@@ -654,7 +654,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                         "current": <label
                           class="ui icon left labeled button"
                           for="serviceImgFile"
-                          id="selectServiceImgBtn"
+                          id="serviceImgSelectBtn"
                           role="button"
                         >
                           <i
@@ -672,7 +672,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                           "current": <label
                             class="ui icon left labeled button"
                             for="serviceImgFile"
-                            id="selectServiceImgBtn"
+                            id="serviceImgSelectBtn"
                             role="button"
                           >
                             <i
@@ -687,7 +687,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                       <label
                         className="ui icon left labeled button"
                         htmlFor="serviceImgFile"
-                        id="selectServiceImgBtn"
+                        id="serviceImgSelectBtn"
                         onClick={[Function]}
                         role="button"
                       >
@@ -1290,7 +1290,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                   content="Choose Image"
                   htmlFor="serviceImgFile"
                   icon="file"
-                  id="selectServiceImgBtn"
+                  id="serviceImgSelectBtn"
                   labelPosition="left"
                   onClick={[Function]}
                 >
@@ -1300,7 +1300,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                         "current": <label
                           class="ui icon left labeled button"
                           for="serviceImgFile"
-                          id="selectServiceImgBtn"
+                          id="serviceImgSelectBtn"
                           role="button"
                         >
                           <i
@@ -1318,7 +1318,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                           "current": <label
                             class="ui icon left labeled button"
                             for="serviceImgFile"
-                            id="selectServiceImgBtn"
+                            id="serviceImgSelectBtn"
                             role="button"
                           >
                             <i
@@ -1333,7 +1333,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                       <label
                         className="ui icon left labeled button"
                         htmlFor="serviceImgFile"
-                        id="selectServiceImgBtn"
+                        id="serviceImgSelectBtn"
                         onClick={[Function]}
                         role="button"
                       >
