@@ -12,6 +12,7 @@ import { IGlobalAppState, AppAction } from "../../../../state/Store";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
+import { AdminStoreItemRoutes } from "../../../../routes/adminRoutes";
 
 interface Props extends RouteComponentProps {
   storeItem: IStoreItemData;
@@ -22,7 +23,7 @@ interface Props extends RouteComponentProps {
 
 const StoreItemCard: React.FC<Props> = ({ storeItem, imageCount, state, dispatch, history }): JSX.Element => {
   const [ editing, setEditing ] = useState<boolean>(false);
-  const baseUrl = "/admin/home/store_items/manage"
+  const baseUrl = AdminStoreItemRoutes.MANAGE_ROUTE
   const { _id, name, price, description, details, images, createdAt, editedAt } = storeItem;
 
   const handleStoreItemOpen = (e: React.MouseEvent<HTMLButtonElement>): void => {
@@ -31,7 +32,7 @@ const StoreItemCard: React.FC<Props> = ({ storeItem, imageCount, state, dispatch
   const handleStoreItemEdit = (e: React.MouseEvent<HTMLButtonElement>): void => {
     if (!editing) {
       setCurrentStoreItem(_id, dispatch, state);
-      history.push(baseUrl + "/edit");
+      history.push(AdminStoreItemRoutes.EDIT_ROUTE);
       setEditing(true);
     } else {
       clearCurrentStoreItem(dispatch);

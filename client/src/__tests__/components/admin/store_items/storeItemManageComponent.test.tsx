@@ -12,10 +12,8 @@ import StoreItemsManageHolder from "../../../../components/admin_components/stor
 import StoreItemCard from "../../../../components/admin_components/store_items/store_items_manage/StoreItemCard";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
-import { createMockStoreItems } from "../../../../test_helpers/storeItemHelpers";
 // helpers and state //
 import { TestStateProvider } from "../../../../state/Store";
-import { generateCleanState } from "../../../../test_helpers/miscHelpers";
 import { StoreItemFormHolder } from "../../../../components/admin_components/store_items/forms/StoreItemFormHolder";
 
 describe("StoreItem Manage Holder Tests", () => {
@@ -71,7 +69,7 @@ describe("StoreItem Manage Holder Tests", () => {
       }
     ];
   });
-  
+  /*
   describe("Default Component state at first render", () => {
     let wrapper: ReactWrapper;
 
@@ -272,6 +270,7 @@ describe("StoreItem Manage Holder Tests", () => {
       expect(history.location.pathname).toEqual(AdminStoreItemRoutes.MANAGE_ROUTE);
     });
   });
+  */
   // TEST StoreItemCard EDIT button click //
   describe("'StoreItemCard' component EDIT button click action", () => {
     let wrapper: ReactWrapper;
@@ -306,7 +305,30 @@ describe("StoreItem Manage Holder Tests", () => {
     it("Should display the in '#storeItemFormHolderDetailsHolder' component", () => {
       const detailsHolder = wrapper.find(StoreItemFormHolder).render().find("#storeItemFormHolderDetailsHolder");
       expect(detailsHolder.length).toEqual(1);
-    })
+    });
+    it("Should display correct data in '.storeItemFormHolderDetail' '<div>'s", () => {
+      const detailsDivs = wrapper.find(StoreItemFormHolder).find(".storeItemFormHolderDetail");
+      expect(detailsDivs.length).toEqual(4);
+      // assert correct data rendering //
+      expect(detailsDivs.at(0).render().find("p").html()).toEqual(mockStoreItems[0].name);
+      expect(detailsDivs.at(1).render().find("p").html()).toEqual(mockStoreItems[0].price);
+      expect(detailsDivs.at(2).render().find("p").html()).toEqual(mockStoreItems[0].description);
+      expect(detailsDivs.at(3).render().find("p").html()).toEqual(mockStoreItems[0].details);
+    });
+    it(`Should route to a correct client route: ${AdminStoreItemRoutes.EDIT_ROUTE}`, () => {
+      const router = wrapper.find(Router);
+      expect(router.props().history.location.pathname).toEqual(AdminStoreItemRoutes.EDIT_ROUTE);
+    });
+    it("Should correctly handle the '#adminStoreItemsManageBackBtn' click, close 'StoreItemFormHolder' component", () => {
+      const backBtn = wrapper.find(StoreItemsManageHolder).find("#adminStoreItemsManageBackBtn");
+      backBtn.at(0).simulate("click");
+      expect(wrapper.find(StoreItemFormHolder).length).toEqual(0);
+    });
+    it(`Should route to a correct client route: ${AdminStoreItemRoutes.MANAGE_ROUTE}`, () => {
+      const router = wrapper.find(Router);
+      expect(router.props().history.location.pathname).toEqual(AdminStoreItemRoutes.MANAGE_ROUTE);
+    });
+
   })
   // END mock successfull API call tests //
 });

@@ -5,12 +5,13 @@ import StoreItemFormHolder from "../forms/StoreItemFormHolder";
 import StoreItemCard from "./StoreItemCard";
 import StoreItemControls from "../store_items_preview/StoreItemsControls";
 import LoadingScreen from "../../miscelaneous/LoadingScreen";
+import ErrorScreen from "../../miscelaneous/ErrorScreen";
 // actions and state //
 import { getAllStoreItems } from "../actions/APIStoreItemActions";
 import { Store } from "../../../../state/Store";
 // additional dependencies //
 import { withRouter, RouteComponentProps, useRouteMatch, Route } from "react-router-dom";
-import ErrorScreen from "../../miscelaneous/ErrorScreen";
+import { AdminStoreItemRoutes } from "../../../../routes/adminRoutes";
 
 interface Props extends RouteComponentProps {
 };
@@ -22,7 +23,7 @@ const StoreItemsManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const [ newDataLoaded, setNewDataLoaded ] = useState<boolean>(false);
   const storeItemsRef = useRef(loadedStoreItems);
   // client routing //
-  const match = useRouteMatch("/admin/home/store_items/manage");
+  const match = useRouteMatch(AdminStoreItemRoutes.MANAGE_ROUTE);
 
   const handleBack = () => {
     history.goBack();
@@ -51,11 +52,17 @@ const StoreItemsManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
   return (
     newDataLoaded ? 
     <Grid padded stackable columns={2}>
-      <Route path={match?.url + "/edit"}> 
+      <Route path={AdminStoreItemRoutes.EDIT_ROUTE}> 
         <Grid.Row>
           <Grid.Column computer={12} tablet={6} mobile={16}>
             <h3>Editing Store Item: { state.storeItemState.currentStoreItemData.name }</h3>
-            <Button inverted color="green" content="Back" onClick={handleBack}></Button>
+            <Button
+              id="adminStoreItemsManageBackBtn"
+              inverted 
+              color="green" 
+              content="Back" 
+              onClick={handleBack}>
+            </Button>
           </Grid.Column>
         </Grid.Row>
         <StoreItemFormHolder />

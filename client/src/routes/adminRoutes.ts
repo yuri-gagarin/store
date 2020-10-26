@@ -28,6 +28,7 @@ export const AdminStoreRoutes = {
 export const AdminStoreItemRoutes = {
   HOME_ROUTE: "/admin/home/my_store_items",
   CREATE_ROUTE: "/admin/home/my_store_items/create",
+  EDIT_ROUTE: "/admin/home/my_store_items/manage/edit",
   MANAGE_ROUTE: "/admin/home/my_store_items/manage",
   SHOW_ROUTE: "/admin/home/my_store_items/show",
   VIEW_ALL_ROUTE: "/admin/home/my_store_items/view_all",
