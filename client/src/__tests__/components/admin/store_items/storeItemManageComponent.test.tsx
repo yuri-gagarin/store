@@ -110,12 +110,12 @@ describe("StoreItem Manage Holder Tests", () => {
     });
     it("Should NOT render the 'Store Items' Grid", () => {
       expect(wrapper.find(Grid).length).toEqual(0);
-    })
+    });
   });
     
   // mock successful API call render tests //
   describe("State after a successful API call", () => {
-    let wrapper: ReactWrapper; let loadingScreen: ReactWrapper;
+    let wrapper: ReactWrapper; 
 
     beforeAll( async () => {
       const promise = Promise.resolve();
@@ -151,7 +151,7 @@ describe("StoreItem Manage Holder Tests", () => {
       expect(errorScreen.length).toEqual(0);
       expect(storeItemsGrid.length).toEqual(0);
     });
-    it("Should correctly render the 'StoreItemsManageHold' 'Grid' after a 'successful' API call", () => {
+    it("Should correctly render the 'StoreItemsManageHolder' 'Grid' after a 'successful' API call", () => {
       wrapper.update();
       const loadingScreen = wrapper.find(StoreItemsManageHolder).find(LoadingScreen);
       const errorScreen = wrapper.find(StoreItemsManageHolder).find(ErrorScreen);
@@ -204,13 +204,13 @@ describe("StoreItem Manage Holder Tests", () => {
     it("Should correctly render the 'LoadingScreen' component", () => {
       const loadingScreen = wrapper.find(StoreItemsManageHolder).find(LoadingScreen);
       const errorScreen = wrapper.find(StoreItemsManageHolder).find(ErrorScreen);
-      const servicesGrid = wrapper.find(StoreItemsManageHolder).find(Grid);
+      const storeItemsGrid = wrapper.find(StoreItemsManageHolder).find(Grid);
       // assert correct rendering //
       expect(loadingScreen.length).toEqual(1);
       expect(errorScreen.length).toEqual(0);
-      expect(servicesGrid.length).toEqual(0);
+      expect(storeItemsGrid.length).toEqual(0);
     });
-    it("Should ONLY render the 'ErrorScreen' component afert API error", () => {
+    it("Should ONLY render the 'ErrorScreen' component after API error", () => {
       wrapper.update();
       const loadingScreen = wrapper.find(StoreItemsManageHolder).find(LoadingScreen);
       const errorScreen = wrapper.find(StoreItemsManageHolder).find(ErrorScreen);
@@ -239,10 +239,11 @@ describe("StoreItem Manage Holder Tests", () => {
           storeItems: mockStoreItems
         }
       });
+
       const retryButton = wrapper.find("#errorScreenRetryButton");
       retryButton.at(0).simulate("click");
 
-      await act(() => promise);
+      await act( async () => promise);
     });
     it("Should render ONLY 'LoadingScreen' component after API call retry", () => {
       const loadingScreen = wrapper.find(StoreItemsManageHolder).find(LoadingScreen);
