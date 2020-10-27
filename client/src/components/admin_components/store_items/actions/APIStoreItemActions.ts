@@ -148,7 +148,7 @@ export const deleteStoreItem = (_id: string, dispatch: Dispatch<StoreItemAction>
       const deletedStoreItem = data.deletedStoreItem!;
       const updatedStoreItems = loadedStoreItems.filter((storeItem) => {
         return storeItem._id !== deletedStoreItem._id;
-      })
+      });
 
       dispatch({ type: "DELETE_STORE_ITEM", payload: {
         loading: false,

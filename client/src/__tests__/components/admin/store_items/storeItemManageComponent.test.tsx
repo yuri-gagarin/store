@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "semantic-ui-react";
+import { Button, Confirm, Grid } from "semantic-ui-react";
 import moxios from "moxios";
 // test dependencies
 import { mount, ReactWrapper } from "enzyme";
@@ -12,9 +12,11 @@ import StoreItemsManageHolder from "../../../../components/admin_components/stor
 import StoreItemCard from "../../../../components/admin_components/store_items/store_items_manage/StoreItemCard";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
+import { StoreItemFormHolder } from "../../../../components/admin_components/store_items/forms/StoreItemFormHolder";
+import StoreItemForm from "../../../../components/admin_components/store_items/forms/StoreItemForm";
+
 // helpers and state //
 import { TestStateProvider } from "../../../../state/Store";
-import { StoreItemFormHolder } from "../../../../components/admin_components/store_items/forms/StoreItemFormHolder";
 
 describe("StoreItem Manage Holder Tests", () => {
   const mockDate: string = new Date("12/31/2019").toString();
@@ -69,7 +71,7 @@ describe("StoreItem Manage Holder Tests", () => {
       }
     ];
   });
-  /*
+  
   describe("Default Component state at first render", () => {
     let wrapper: ReactWrapper;
 
@@ -270,7 +272,7 @@ describe("StoreItem Manage Holder Tests", () => {
       expect(history.location.pathname).toEqual(AdminStoreItemRoutes.MANAGE_ROUTE);
     });
   });
-  */
+  
   // TEST StoreItemCard EDIT button click //
   describe("'StoreItemCard' component EDIT button click action", () => {
     let wrapper: ReactWrapper;
@@ -315,6 +317,27 @@ describe("StoreItem Manage Holder Tests", () => {
       expect(detailsDivs.at(2).render().find("p").html()).toEqual(mockStoreItems[0].description);
       expect(detailsDivs.at(3).render().find("p").html()).toEqual(mockStoreItems[0].details);
     });
+    it("Should correctly render the 'StoreItemForm' component", () => {
+      const storeItemFormToggleBtn = wrapper.find(StoreItemFormHolder).find("#storeItemFormToggleBtn");
+      // toggle form //
+      storeItemFormToggleBtn.at(0).simulate("click");
+      // assert correct rendering //
+      const storeItemForm = wrapper.find(StoreItemForm);
+      expect(storeItemForm.length).toEqual(1);
+    });
+    it("Should correctly render the 'currentStoreItem' data within 'StoreItemForm' component", () => {
+      const currentStoreItem = mockStoreItems[0];
+      const nameInput = wrapper.find(StoreItemForm).find("#storeItemFormNameInput");
+      const priceInput = wrapper.find(StoreItemForm).find("#storeItemFormPriceInput");
+      const detailsInput = wrapper.find(StoreItemForm).find("#storeItemFormDetailsInput");
+      const descriptionInput = wrapper.find(StoreItemForm).find("#storeItemFormDescInput");
+      // assert correct rendering //
+      expect(nameInput.props().value).toEqual(currentStoreItem.name);
+      expect(priceInput.props().value).toEqual(currentStoreItem.price);
+      expect(detailsInput.at(0).props().value).toEqual(currentStoreItem.details);
+      expect(descriptionInput.at(0).props().value).toEqual(currentStoreItem.description);
+
+    })
     it(`Should route to a correct client route: ${AdminStoreItemRoutes.EDIT_ROUTE}`, () => {
       const router = wrapper.find(Router);
       expect(router.props().history.location.pathname).toEqual(AdminStoreItemRoutes.EDIT_ROUTE);
@@ -327,6 +350,95 @@ describe("StoreItem Manage Holder Tests", () => {
     it(`Should route to a correct client route: ${AdminStoreItemRoutes.MANAGE_ROUTE}`, () => {
       const router = wrapper.find(Router);
       expect(router.props().history.location.pathname).toEqual(AdminStoreItemRoutes.MANAGE_ROUTE);
+    });
+  });
+  // END TEST StoreItemCard EDIT button click //
+  // TEST SToreItemCard DELETE button click //
+  describe("'StoreItemCard' component DELETE button click action", () => {
+    let wrapper: ReactWrapper;
+    let mockDeletedStoreItem: IStoreItemData;
+    window.scrollTo = jest.fn();
+
+    beforeAll( async () => {
+      const promise = Promise.resolve();
+      moxios.install();
+      moxios.stubRequest("/api/store_items", {
+        response: {
+          responseMsg: "All ok",
+          storeItems: mockStoreItems
+        }
+      });
+      mockDeletedStoreItem = mockStoreItems[0];
+      // mount and update //
+      wrapper = mount(
+        <MemoryRouter initialEntries={[AdminStoreItemRoutes.MANAGE_ROUTE]} keyLength={0}>
+          <TestStateProvider>
+            <StoreItemsManageHolder />
+          </TestStateProvider>
+        </MemoryRouter>
+      );
+      await act( async () => promise);
+      wrapper.update();
+    });
+    beforeEach(() => {
+      moxios.install();
+    });
+    afterEach(() => {
+      moxios.uninstall();
+    })
+
+    it("Should render 'StoreItemDeleteConfirm' component after 'delete' Button click action", () => {
+      const deleteBtn = wrapper.find(StoreItemCard).at(0).find(".storeItemCardDeleteBtn");
+      deleteBtn.at(0).simulate("click");
+      const confirmModal = wrapper.find(StoreItemCard).at(0).find(Confirm);
+      // assert correct rendering //
+      expect(confirmModal.props().open).toEqual(true);
+      expect(confirmModal.find(Button).length).toEqual(2);
+    });
+    it("Should correctly handle {cancelStoreItemDeleteAction} method and correctly update local state", () => {
+      const deleteBtn = wrapper.find(StoreItemCard).at(0).find(".storeItemCardDeleteBtn");
+      deleteBtn.at(0).simulate("click");
+      const confirmModal = wrapper.find(StoreItemCard).at(0).find(Confirm);
+      // simulate cancel button click //
+      confirmModal.find(Button).at(0).simulate("click");
+      // assert correct rendering //
+      expect(wrapper.find(StoreItemCard).at(0).find(Confirm).props().open).toEqual(false);
+      expect(wrapper.find(StoreItemCard).length).toEqual(mockStoreItems.length);
+    });
+    it("Should correctly handle {confirmStoreItemDeleteAction} method and correctly update local state", async () => {
+      const promise = Promise.resolve();
+      moxios.stubRequest(`/api/store_items/delete/${mockStoreItems[0]._id}`, {
+        status: 200,
+        response: {
+          responseMsg: "All ok",
+          deletedStoreItem: mockDeletedStoreItem
+        }        
+      });
+      moxios.install()
+      const deleteBtn = wrapper.find(StoreItemCard).at(0).find(".storeItemCardDeleteBtn");
+      deleteBtn.at(0).simulate("click");
+      const confirmModal = wrapper.find(StoreItemCard).at(0).find(Confirm);
+      // simulate confirm button click //
+      confirmModal.find(Button).at(1).simulate("click");
+      // assert correct rendering //
+      await act (async () => promise);
+      expect(moxios.requests.mostRecent().url).toEqual(`/api/store_items/delete/${mockStoreItems[0]._id}`);
+    });
+    it("Should correctly updated and rerender 'StoreItemManage' component", () => {
+      wrapper.update();
+      expect(wrapper.find(StoreItemsManageHolder).find(LoadingScreen).length).toEqual(0);
+      expect(wrapper.find(StoreItemsManageHolder).find(ErrorScreen).length).toEqual(0);
+      expect(wrapper.find(StoreItemsManageHolder).find(Grid).length).toEqual(1);
+    });
+    it("Should NOT render the 'removed' 'StoreItemCard' component", () => {
+      const storeItemCards = wrapper.find(StoreItemsManageHolder).find(StoreItemCard);
+      storeItemCards.forEach((storeItemCard) => {
+        expect(storeItemCard.props().storeItem._id).not.toEqual(mockDeletedStoreItem._id);
+      });
+    });
+    it("Should rerender with correct number of 'StoreItemCard' components", () => {
+      const storeItemCards = wrapper.find(StoreItemsManageHolder).find(StoreItemCard);
+      expect(storeItemCards.length).toEqual(mockStoreItems.length - 1);
     });
 
   })
