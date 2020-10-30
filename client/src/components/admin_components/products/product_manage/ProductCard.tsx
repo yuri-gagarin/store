@@ -66,7 +66,7 @@ const ProductCard: React.FC<Props> = ({ product, imageCount, state, dispatch, hi
           <Button 
             inverted
             color="orange"
-            className="productCardBtn" 
+            className="productCardEditBtn" 
             content="Edit" 
             onClick={handleProductEdit}  
           />

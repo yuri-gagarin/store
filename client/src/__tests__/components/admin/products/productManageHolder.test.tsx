@@ -11,6 +11,8 @@ import ProductsManageHolder from "../../../../components/admin_components/produc
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
 import ProductCard from "../../../../components/admin_components/products/product_manage/ProductCard";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
+import ProductFormHolder from "../../../../components/admin_components/products/forms/ProductFormHolder";
+import ProductForm from "../../../../components/admin_components/products/forms/ProductForm";
 // helpers and state //
 import { TestStateProvider } from "../../../../state/Store";
 
@@ -27,7 +29,7 @@ describe("Product Manage Holder Tests", () => {
         details: "details",
         description: "description",
         images: [],
-        createdAt: "now"
+        createdAt: createdDate
       },
       {
         _id: "2",
@@ -36,7 +38,7 @@ describe("Product Manage Holder Tests", () => {
         details: "details",
         description: "description",
         images: [],
-        createdAt: "now"
+        createdAt: createdDate
       }
     ];
   });
@@ -248,5 +250,82 @@ describe("Product Manage Holder Tests", () => {
     });
   });
   // END mock successfull API call tests //
-  
+  describe("'ProductCard' component EDIT button click action", () => {
+    let wrapper: ReactWrapper;
+    window.scrollTo = jest.fn;
+
+    beforeAll( async () => {
+      const promise = Promise.resolve();
+      moxios.install();
+      moxios.stubRequest("/api/products", {
+        status: 200,
+        response: {
+          responseMsg: "All ok",
+          products: products
+        }
+      });
+
+      wrapper = mount(
+        <MemoryRouter initialEntries={[ AdminProductRoutes.MANAGE_ROUTE ]} keyLength={0}>
+          <TestStateProvider>
+            <ProductsManageHolder />
+          </TestStateProvider>
+        </MemoryRouter>
+      );
+      await act( async () => promise);
+      wrapper.update();
+    });
+    it("Should render the 'ProductFormHolder' component after 'edit Button click action", () => {
+      const editButton = wrapper.find(ProductCard).at(0).find(".productCardEditBtn").at(0);
+      editButton.simulate("click");
+      const productFormHolder = wrapper.find(ProductFormHolder);
+      expect(productFormHolder.length).toEqual(1);
+    });
+    it("Should display the '#productFormHolderDetails' component", () => {
+      const detailsHolder = wrapper.find(ProductFormHolder).render().find("#productFormHolderDetails");
+      expect(detailsHolder.length).toEqual(1);
+    });
+    it("Should display the correct data in '.productFormHolderDetailsItem' <div>(s)", () => {
+      const detailsDivs = wrapper.find(ProductFormHolder).find(".productFormHolderDetailsItem");
+      expect(detailsDivs.length).toEqual(4);
+      expect(detailsDivs.at(0).render().find("p").html()).toEqual(products[0].name);
+      expect(detailsDivs.at(1).render().find("p").html()).toEqual(products[0].price);
+      expect(detailsDivs.at(2).render().find("p").html()).toEqual(products[0].description);
+      expect(detailsDivs.at(3).render().find("p").html()).toEqual(products[0].details);
+    });
+    it("Should correctly render the 'ProductForm' component", () => {
+      const productFormToggleBtnn = wrapper.find(ProductFormHolder).find("#productFormToggleBtn");
+      // toggle form //
+      productFormToggleBtnn.at(0).simulate("click");
+      // assert correct rendering //
+      const productForm = wrapper.find(ProductForm);
+      expect(productForm.length).toEqual(1);
+    });
+    it("Shhould correctly render the 'currentProduct' data within the 'ProductForm' component", () => {
+      const currentProduct = products[0];
+      const nameInput = wrapper.find(ProductForm).find('#adminProductFormNameInput');
+      const priceInput = wrapper.find(ProductForm).find("#adminProductFormPriceInput");
+      const descriptionInput = wrapper.find(ProductForm).find("#adminProductFormDescInput");
+      const detailsInput = wrapper.find(ProductForm).find("#adminProductFormDetailsInput");
+      // assert correct rendering //
+      expect(nameInput.props().value).toEqual(currentProduct.name);
+      expect(priceInput.props().value).toEqual(currentProduct.price);
+      expect(descriptionInput.at(0).props().value).toEqual(currentProduct.description);
+      expect(detailsInput.at(0).props().value).toEqual(currentProduct.details);
+    });
+    it(`Should route to a correct client route: ${AdminProductRoutes.EDIT_ROUTE}`, () => {
+      const { history } = wrapper.find(Router).props();
+      expect(history.location.pathname).toEqual(AdminProductRoutes.EDIT_ROUTE);
+    });
+    it("Should correctly handle the '#adminProductManageBackBtn' click, close 'ProductFormHHolder' component", () => {
+      const backBtn = wrapper.find(ProductsManageHolder).find("#adminProductsManageBackBtn");
+      backBtn.at(0).simulate("click");
+      expect(wrapper.find(ProductFormHolder).length).toEqual(0);
+    });
+    it(`Should route to a correct client route: ${AdminProductRoutes.MANAGE_ROUTE}`, () => {
+      const { history } = wrapper.find(Router).props();
+      expect(history.location.pathname).toEqual(AdminProductRoutes.MANAGE_ROUTE);
+    })
+  });
+
 });

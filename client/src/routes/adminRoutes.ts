@@ -2,6 +2,7 @@ export const AdminProductRoutes = {
   HOME_ROUTE: "/admin/home/my_products",
   VIEW_ALL_ROUTE: "/admin/home/my_products/view_all",
   CREATE_ROUTE: "/admin/home/my_products/create",
+  EDIT_ROUTE: "/admin/home/my_products/manage/edit",
   MANAGE_ROUTE: "/admin/home/my_products/manage",
   SHOW_ROUTE: "/admin/home/my_products/show",
   VIEW_SORTED_ROUTE: "/admin/home/my_products/view_sorted"

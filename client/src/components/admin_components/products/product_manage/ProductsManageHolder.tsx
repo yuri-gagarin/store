@@ -55,7 +55,14 @@ const ProductsManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
         <Grid.Row>
           <Grid.Column computer={12} tablet={6} mobile={16}>
             <h3>Editing Product: { state.productState.currentProductData.name }</h3>
-            <Button inverted color="green" content="Back" onClick={handleBack}></Button>
+            <Button 
+              id="adminProductsManageBackBtn"
+              inverted 
+              color="green" 
+              content="Back" 
+              onClick={handleBack}>
+
+            </Button>
           </Grid.Column>
         </Grid.Row>
         <ProductFormHolder />

@@ -284,13 +284,14 @@ describe("StoreItem Manage Holder Tests", () => {
       const promise = Promise.resolve();
       moxios.install();
       moxios.stubRequest("/api/store_items", {
+        status: 200,
         response: {
           responseMsg: "All ok",
           storeItems: mockStoreItems
         }
       });
       wrapper = mount(
-        <MemoryRouter initialEntries={[AdminStoreItemRoutes.MANAGE_ROUTE]} keyLength={0}>
+        <MemoryRouter initialEntries={[AdminStoreItemRoutes.MANAGE_ROUTE]} keyLength={0}>p
           <TestStateProvider>
             <StoreItemsManageHolder />
           </TestStateProvider>

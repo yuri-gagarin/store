@@ -86,7 +86,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                     product={
                       Object {
                         "_id": "1",
-                        "createdAt": "now",
+                        "createdAt": "Tue Dec 31 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
                         "description": "description",
                         "details": "details",
                         "images": Array [],
@@ -124,7 +124,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                           "loadedProducts": Array [
                             Object {
                               "_id": "1",
-                              "createdAt": "now",
+                              "createdAt": "Tue Dec 31 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
                               "description": "description",
                               "details": "details",
                               "images": Array [],
@@ -133,7 +133,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                             },
                             Object {
                               "_id": "2",
-                              "createdAt": "now",
+                              "createdAt": "Tue Dec 31 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
                               "description": "description",
                               "details": "details",
                               "images": Array [],
@@ -249,7 +249,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                       product={
                         Object {
                           "_id": "1",
-                          "createdAt": "now",
+                          "createdAt": "Tue Dec 31 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
                           "description": "description",
                           "details": "details",
                           "images": Array [],
@@ -287,7 +287,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                             "loadedProducts": Array [
                               Object {
                                 "_id": "1",
-                                "createdAt": "now",
+                                "createdAt": "Tue Dec 31 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
                                 "description": "description",
                                 "details": "details",
                                 "images": Array [],
@@ -296,7 +296,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                               },
                               Object {
                                 "_id": "2",
-                                "createdAt": "now",
+                                "createdAt": "Tue Dec 31 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
                                 "description": "description",
                                 "details": "details",
                                 "images": Array [],
@@ -401,7 +401,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                               <span>
                                 Created At: 
                               </span>
-                              NaN-undefined-NaN
+                              2019-undefined-31
                             </p>
                           </div>
                           <div
@@ -448,7 +448,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                             </Button>
                             <Button
                               as="button"
-                              className="productCardBtn"
+                              className="productCardEditBtn"
                               color="orange"
                               content="Edit"
                               inverted={true}
@@ -458,7 +458,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                                 innerRef={
                                   Object {
                                     "current": <button
-                                      class="ui orange inverted button productCardBtn"
+                                      class="ui orange inverted button productCardEditBtn"
                                     >
                                       Edit
                                     </button>,
@@ -469,7 +469,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                                   innerRef={
                                     Object {
                                       "current": <button
-                                        class="ui orange inverted button productCardBtn"
+                                        class="ui orange inverted button productCardEditBtn"
                                       >
                                         Edit
                                       </button>,
@@ -477,7 +477,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                                   }
                                 >
                                   <button
-                                    className="ui orange inverted button productCardBtn"
+                                    className="ui orange inverted button productCardEditBtn"
                                     onClick={[Function]}
                                   >
                                     Edit
@@ -536,7 +536,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                     product={
                       Object {
                         "_id": "2",
-                        "createdAt": "now",
+                        "createdAt": "Tue Dec 31 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
                         "description": "description",
                         "details": "details",
                         "images": Array [],
@@ -574,7 +574,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                           "loadedProducts": Array [
                             Object {
                               "_id": "1",
-                              "createdAt": "now",
+                              "createdAt": "Tue Dec 31 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
                               "description": "description",
                               "details": "details",
                               "images": Array [],
@@ -583,7 +583,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                             },
                             Object {
                               "_id": "2",
-                              "createdAt": "now",
+                              "createdAt": "Tue Dec 31 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
                               "description": "description",
                               "details": "details",
                               "images": Array [],
@@ -699,7 +699,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                       product={
                         Object {
                           "_id": "2",
-                          "createdAt": "now",
+                          "createdAt": "Tue Dec 31 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
                           "description": "description",
                           "details": "details",
                           "images": Array [],
@@ -737,7 +737,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                             "loadedProducts": Array [
                               Object {
                                 "_id": "1",
-                                "createdAt": "now",
+                                "createdAt": "Tue Dec 31 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
                                 "description": "description",
                                 "details": "details",
                                 "images": Array [],
@@ -746,7 +746,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                               },
                               Object {
                                 "_id": "2",
-                                "createdAt": "now",
+                                "createdAt": "Tue Dec 31 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
                                 "description": "description",
                                 "details": "details",
                                 "images": Array [],
@@ -851,7 +851,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                               <span>
                                 Created At: 
                               </span>
-                              NaN-undefined-NaN
+                              2019-undefined-31
                             </p>
                           </div>
                           <div
@@ -898,7 +898,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                             </Button>
                             <Button
                               as="button"
-                              className="productCardBtn"
+                              className="productCardEditBtn"
                               color="orange"
                               content="Edit"
                               inverted={true}
@@ -908,7 +908,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                                 innerRef={
                                   Object {
                                     "current": <button
-                                      class="ui orange inverted button productCardBtn"
+                                      class="ui orange inverted button productCardEditBtn"
                                     >
                                       Edit
                                     </button>,
@@ -919,7 +919,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                                   innerRef={
                                     Object {
                                       "current": <button
-                                        class="ui orange inverted button productCardBtn"
+                                        class="ui orange inverted button productCardEditBtn"
                                       >
                                         Edit
                                       </button>,
@@ -927,7 +927,7 @@ exports[`Product Manage Holder Tests 'ProductsManageHolder' after a successful A
                                   }
                                 >
                                   <button
-                                    className="ui orange inverted button productCardBtn"
+                                    className="ui orange inverted button productCardEditBtn"
                                     onClick={[Function]}
                                   >
                                     Edit

@@ -69,7 +69,7 @@ const ProductForm: React.FC<Props> = ({ name, price, description, details, newFo
         <Form.Field>
           <label>Product name</label>
           <input 
-            id="productFormNameInput"
+            id="adminProductFormNameInput"
             onChange={handleNameChange} 
             placeholder="Product name here ..." 
             value={formState.name}
@@ -78,14 +78,14 @@ const ProductForm: React.FC<Props> = ({ name, price, description, details, newFo
         <Form.Field>
           <label>Product price</label>
           <input 
-            id="productFormPriceInput"
+            id="adminProductFormPriceInput"
             onChange={handlePriceChange} 
             placeholder="Product price here..." 
             value={formState.price}
           />
         </Form.Field>
         <Form.Field
-          id='productFormDescInput'
+          id='adminProductFormDescInput'
           control={TextArea}
           label='Product Description'
           onChange={hadnleDescriptionChange}
@@ -93,7 +93,7 @@ const ProductForm: React.FC<Props> = ({ name, price, description, details, newFo
           value={formState.description}
          />
          <Form.Field
-          id='productFormDetailsInput'
+          id='adminProductFormDetailsInput'
           control={TextArea}
           label='Product Details'
           onChange={handleDetailsChange}
