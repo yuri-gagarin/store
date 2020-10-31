@@ -387,7 +387,7 @@ describe("StoreItem Manage Holder Tests", () => {
     });
     afterEach(() => {
       moxios.uninstall();
-    })
+    });
 
     it("Should render 'StoreItemDeleteConfirm' component after 'delete' Button click action", () => {
       const deleteBtn = wrapper.find(StoreItemCard).at(0).find(".storeItemCardDeleteBtn");
@@ -416,7 +416,6 @@ describe("StoreItem Manage Holder Tests", () => {
           deletedStoreItem: mockDeletedStoreItem
         }        
       });
-      moxios.install()
       const deleteBtn = wrapper.find(StoreItemCard).at(0).find(".storeItemCardDeleteBtn");
       deleteBtn.at(0).simulate("click");
       const confirmModal = wrapper.find(StoreItemCard).at(0).find(Confirm);

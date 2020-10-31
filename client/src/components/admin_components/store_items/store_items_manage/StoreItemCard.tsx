@@ -62,12 +62,12 @@ const StoreItemCard: React.FC<Props> = ({ storeItem, imageCount, state, dispatch
 
   return (
     <React.Fragment>
-      <Confirm 
-        open={confirmDeleteOpen}
-        onCancel={cancelStoreItemDeleteAction}
-        onConfirm={confirmStoreItemDeleteAction}
-      />
       <Grid.Row style={{ padding: "0.5em", marginTop: "1em" }}>
+        <Confirm 
+          open={confirmDeleteOpen}
+          onCancel={cancelStoreItemDeleteAction}
+          onConfirm={confirmStoreItemDeleteAction}
+        />
         <div className="storeItemManageDesc">
           <h3>Name: {name}</h3>
           <p><strong>Description:</strong> {description}</p>
