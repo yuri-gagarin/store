@@ -13,6 +13,7 @@ export const AdminServiceRoutes = {
   VIEW_ALL_ROUTE: "/admin/home/my_services/view_all",
   CREATE_ROUTE: "/admin/home/my_services/create",
   MANAGE_ROUTE: "/admin/home/my_services/manage",
+  EDIT_ROUTE: "/admin/home/my_services/manage/edit",
   SHOW_ROUTE: "/admin/home/my_services/show",
   VIEW_SORTED_ROUTE: "/admin/home/my_services/view_sorted"
 };

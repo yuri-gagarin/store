@@ -239,4 +239,80 @@ describe("Service Manage Holder Tests", () => {
     });
   });
   // END mock successfull API call tests //
+  // TEST ServiceCard EDIT button functionality //
+  describe("'ServiceCard' component EDIT button click action", () => {
+    let wrapper: ReactWrapper;
+    window.scrollTo = jest.fn;
+
+    beforeAll( async () => {
+      const promise = Promise.resolve();
+      moxios.install();
+      moxios.stubRequest("/api/services", {
+        status: 200,
+        response: {
+          responseMsg: "All ok",
+          services: mockServices
+        }
+      });
+
+      wrapper = mount(
+        <MemoryRouter initialEntries={[ AdminServiceRoutes.MANAGE_ROUTE ]} keyLength={0}>
+          <TestStateProvider>
+            <ServiceManageHolder />
+          </TestStateProvider>
+        </MemoryRouter>
+      );
+      await act( async () => promise);
+      wrapper.update();
+    });
+    it("Should render thhe 'ServiceFormHolder' component after 'EDIT' Button click action", () => {
+      const editButton = wrapper.find(ServiceCard).at(0).find(".serviceCardEditBtn").at(0);
+      // simulate click event and assert correct rendering //
+      editButton.simulate("click");
+      const serviceFormHolder = wrapper.find(ServiceFormHolder);
+      expect(serviceFormHolder.length).toEqual(1);
+    });
+    it("Should render the '#serviceFormHolderDetails' component", () => {
+      const detailsHolder = wrapper.find(ServiceFormHolder).render().find("#serviceFormHolderDetails");
+      expect(detailsHolder.length).toEqual(1);
+    });
+    it("Should display yhe correct data in '.serviceFormHolderDetailsItem' <div>(s)", () => {
+      const detailsDivs = wrapper.find(ServiceFormHolder).find(".serviceFormHolderDetailsItem");
+      expect(detailsDivs.length).toEqual(3);
+      expect(detailsDivs.at(0).render().find("p").html()).toEqual(mockServices[0].name);
+      expect(detailsDivs.at(1).render().find("p").html()).toEqual(mockServices[0].price);
+      expect(detailsDivs.at(2).render().find("p").html()).toEqual(mockServices[0].description);
+    });
+    it("Should correctly render the 'ServiceForm' component", () => {
+      const serviceFormToggleBtn = wrapper.find(ServiceFormHolder).find("#serviceFormToggleBtn");
+      // toggle form //
+      serviceFormToggleBtn.at(0).simulate("click");
+      // assert correct rendering //
+      const serviceForm = wrapper.find(ServiceForm);
+      expect(serviceForm.length).toEqual(1);
+    });
+    it("Should correctly render thhe 'currentService' data within thhe 'ServiceForm' component", () => {
+      const currentService = mockServices[0];
+      const nameInput = wrapper.find(ServiceForm).find("#adminServiceFormNameInput");
+      const priceInput = wrapper.find(ServiceForm).find("#adminServiceFormPriceInput");
+      const descriptionInput = wrapper.find(ServiceForm).find("#adminServiceFormDescInput");
+      // assert correct rendering //
+      expect(nameInput.props().value).toEqual(currentService.name);
+      expect(priceInput.props().value)
+    });
+    it(`Should route to a correct client route: ${AdminServiceRoutes.EDIT_ROUTE}`, () => {
+      const { history } = wrapper.find(Router).props();
+      expect(history.location.pathname).toEqual(AdminServiceRoutes.EDIT_ROUTE);
+    });
+    it("Should correctly handle the '#adminServiceManageBackBtn' click and close 'ServiceFormHolder' component", () => {
+      const backBtn = wrapper.find(ServiceManageHolder).find("#adminServiceManageBackBtn");
+      backBtn.at(0).simulate("click");
+      expect(wrapper.find(ServiceFormHolder).length).toEqual(0);
+    });
+    it(`Should route to a correct client route: ${AdminServiceRoutes.MANAGE_ROUTE}`, () => {
+      const { history } = wrapper.find(Router).props();
+      expect(history.location.pathname).toEqual(AdminServiceRoutes.MANAGE_ROUTE);
+    });
+  });
+  // 
 });

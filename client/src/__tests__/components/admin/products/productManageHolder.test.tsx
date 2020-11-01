@@ -301,7 +301,7 @@ describe("Product Manage Holder Tests", () => {
       const productForm = wrapper.find(ProductForm);
       expect(productForm.length).toEqual(1);
     });
-    it("Shhould correctly render the 'currentProduct' data within the 'ProductForm' component", () => {
+    it("Should correctly render the 'currentProduct' data within the 'ProductForm' component", () => {
       const currentProduct = products[0];
       const nameInput = wrapper.find(ProductForm).find('#adminProductFormNameInput');
       const priceInput = wrapper.find(ProductForm).find("#adminProductFormPriceInput");
