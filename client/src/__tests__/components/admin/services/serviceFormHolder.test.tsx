@@ -138,20 +138,12 @@ describe("ServiceFormHolder Component tests", () => {
       const serviceFormDetails = wrapper.find(ServiceFormHolder).render().find("#serviceFormHolderDetails");
       expect(serviceFormDetails.length).toEqual(1);
     });
-    it("Should correctly render '.serviceFormHolderDetailsName' and its data", () => {
-      const serviceDetail = wrapper.find(ServiceFormHolder).render().find(".serviceFormHolderDetailsName");
-      expect(serviceDetail.length).toEqual(1);
-      expect(serviceDetail.find("p").text()).toEqual(mockService.name);
-    });
-    it("Should correctly render '.serviceFormHolderDetailsPrice' and its data", () => {
-      const serviceDetail = wrapper.find(ServiceFormHolder).render().find(".serviceFormHolderDetailsPrice");
-      expect(serviceDetail.length).toEqual(1);
-      expect(serviceDetail.find("p").text()).toEqual(mockService.price);
-    });
-    it("Should correctly render '.serviceFormHolderDetailsDesc' and its data", () => {
-      const serviceDetail = wrapper.find(ServiceFormHolder).render().find(".serviceFormHolderDetailsDesc");
-      expect(serviceDetail.length).toEqual(1);
-      expect(serviceDetail.find("p").text()).toEqual(mockService.description);
+    it("Should correctly render '.serviceFormHolderDetailsItem' <divs> and their data", () => {
+      const serviceDetails = wrapper.find(ServiceFormHolder).find(".serviceFormHolderDetailsItem");
+      expect(serviceDetails.length).toEqual(3);
+      expect(serviceDetails.at(0).find("p").text()).toEqual(mockService.name);
+      expect(serviceDetails.at(1).find("p").text()).toEqual(mockService.price);
+      expect(serviceDetails.at(2).find("p").text()).toEqual(mockService.description);
     });
     it("Should render a '#adminServiceFormUpdate' Button", () => {
       const toggleButton = wrapper.find(ServiceFormHolder).render().find('#adminServiceFormUpdate');
@@ -238,20 +230,12 @@ describe("ServiceFormHolder Component tests", () => {
       const serviceFormDetails = wrapper.find(ServiceFormHolder).render().find("#serviceFormHolderDetails");
       expect(serviceFormDetails.length).toEqual(1);
     });
-    it("Should correctly render '.serviceFormHolderDetailsName' and its data", () => {
-      const serviceDetail = wrapper.find(ServiceFormHolder).render().find(".serviceFormHolderDetailsName");
-      expect(serviceDetail.length).toEqual(1);
-      expect(serviceDetail.find("p").text()).toEqual(mockService.name);
-    });
-    it("Should correctly render '.serviceFormHolderDetailsPrice' and its data", () => {
-      const serviceDetail = wrapper.find(ServiceFormHolder).render().find(".serviceFormHolderDetailsPrice");
-      expect(serviceDetail.length).toEqual(1);
-      expect(serviceDetail.find("p").text()).toEqual(mockService.price);
-    });
-    it("Should correctly render '.serviceFormHolderDetailsDesc' and its data", () => {
-      const serviceDetail = wrapper.find(ServiceFormHolder).render().find(".serviceFormHolderDetailsDesc");
-      expect(serviceDetail.length).toEqual(1);
-      expect(serviceDetail.find("p").text()).toEqual(mockService.description);
+    it("Should correctly render '.serviceFormHolderDetailsItem' <divs> and their data", () => {
+      const serviceDetails = wrapper.find(ServiceFormHolder).find(".serviceFormHolderDetailsItem");
+      expect(serviceDetails.length).toEqual(3);
+      expect(serviceDetails.at(0).find("p").text()).toEqual(mockService.name);
+      expect(serviceDetails.at(1).find("p").text()).toEqual(mockService.price);
+      expect(serviceDetails.at(2).find("p").text()).toEqual(mockService.description);
     });
     it("Should have a '#adminServiceFormUpdate' Button", () => {
       const toggleButton = wrapper.find(ServiceFormHolder).render().find('#adminServiceFormUpdate');

@@ -29,7 +29,7 @@ exports[`Service Form Component render tests Empty Form render tests Should prop
               Service name
             </label>
             <input
-              id="serviceFormNameInput"
+              id="adminServiceFormNameInput"
               onChange={[Function]}
               placeholder="Service name here ..."
               value=""
@@ -44,7 +44,7 @@ exports[`Service Form Component render tests Empty Form render tests Should prop
               Service price
             </label>
             <input
-              id="serviceFormPriceInput"
+              id="adminServiceFormPriceInput"
               onChange={[Function]}
               placeholder="Service price here..."
               value=""
@@ -53,7 +53,7 @@ exports[`Service Form Component render tests Empty Form render tests Should prop
         </FormField>
         <FormField
           control={[Function]}
-          id="serviceFormDescInput"
+          id="adminServiceFormDescInput"
           label="Store Description"
           onChange={[Function]}
           placeholder="Service description here..."
@@ -63,14 +63,14 @@ exports[`Service Form Component render tests Empty Form render tests Should prop
             className="field"
           >
             <label
-              htmlFor="serviceFormDescInput"
+              htmlFor="adminServiceFormDescInput"
             >
               Store Description
             </label>
             <TextArea
               aria-describedby={null}
               as="textarea"
-              id="serviceFormDescInput"
+              id="adminServiceFormDescInput"
               onChange={[Function]}
               placeholder="Service description here..."
               rows={3}
@@ -80,7 +80,7 @@ exports[`Service Form Component render tests Empty Form render tests Should prop
                 innerRef={
                   Object {
                     "current": <textarea
-                      id="serviceFormDescInput"
+                      id="adminServiceFormDescInput"
                       placeholder="Service description here..."
                       rows="3"
                     />,
@@ -91,7 +91,7 @@ exports[`Service Form Component render tests Empty Form render tests Should prop
                   innerRef={
                     Object {
                       "current": <textarea
-                        id="serviceFormDescInput"
+                        id="adminServiceFormDescInput"
                         placeholder="Service description here..."
                         rows="3"
                       />,
@@ -100,7 +100,7 @@ exports[`Service Form Component render tests Empty Form render tests Should prop
                 >
                   <textarea
                     aria-describedby={null}
-                    id="serviceFormDescInput"
+                    id="adminServiceFormDescInput"
                     onChange={[Function]}
                     onInput={[Function]}
                     placeholder="Service description here..."
@@ -191,7 +191,7 @@ exports[`Service Form Component render tests Form with valid data render tests S
               Service name
             </label>
             <input
-              id="serviceFormNameInput"
+              id="adminServiceFormNameInput"
               onChange={[Function]}
               placeholder="Service name here ..."
               value="name"
@@ -206,7 +206,7 @@ exports[`Service Form Component render tests Form with valid data render tests S
               Service price
             </label>
             <input
-              id="serviceFormPriceInput"
+              id="adminServiceFormPriceInput"
               onChange={[Function]}
               placeholder="Service price here..."
               value="100"
@@ -215,7 +215,7 @@ exports[`Service Form Component render tests Form with valid data render tests S
         </FormField>
         <FormField
           control={[Function]}
-          id="serviceFormDescInput"
+          id="adminServiceFormDescInput"
           label="Store Description"
           onChange={[Function]}
           placeholder="Service description here..."
@@ -225,14 +225,14 @@ exports[`Service Form Component render tests Form with valid data render tests S
             className="field"
           >
             <label
-              htmlFor="serviceFormDescInput"
+              htmlFor="adminServiceFormDescInput"
             >
               Store Description
             </label>
             <TextArea
               aria-describedby={null}
               as="textarea"
-              id="serviceFormDescInput"
+              id="adminServiceFormDescInput"
               onChange={[Function]}
               placeholder="Service description here..."
               rows={3}
@@ -242,7 +242,7 @@ exports[`Service Form Component render tests Form with valid data render tests S
                 innerRef={
                   Object {
                     "current": <textarea
-                      id="serviceFormDescInput"
+                      id="adminServiceFormDescInput"
                       placeholder="Service description here..."
                       rows="3"
                     >
@@ -255,7 +255,7 @@ exports[`Service Form Component render tests Form with valid data render tests S
                   innerRef={
                     Object {
                       "current": <textarea
-                        id="serviceFormDescInput"
+                        id="adminServiceFormDescInput"
                         placeholder="Service description here..."
                         rows="3"
                       >
@@ -266,7 +266,7 @@ exports[`Service Form Component render tests Form with valid data render tests S
                 >
                   <textarea
                     aria-describedby={null}
-                    id="serviceFormDescInput"
+                    id="adminServiceFormDescInput"
                     onChange={[Function]}
                     onInput={[Function]}
                     placeholder="Service description here..."

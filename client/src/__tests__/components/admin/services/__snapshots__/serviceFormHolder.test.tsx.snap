@@ -247,7 +247,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - NO Current S
                             Service name
                           </label>
                           <input
-                            id="serviceFormNameInput"
+                            id="adminServiceFormNameInput"
                             onChange={[Function]}
                             placeholder="Service name here ..."
                             value=""
@@ -262,7 +262,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - NO Current S
                             Service price
                           </label>
                           <input
-                            id="serviceFormPriceInput"
+                            id="adminServiceFormPriceInput"
                             onChange={[Function]}
                             placeholder="Service price here..."
                             value=""
@@ -271,7 +271,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - NO Current S
                       </FormField>
                       <FormField
                         control={[Function]}
-                        id="serviceFormDescInput"
+                        id="adminServiceFormDescInput"
                         label="Store Description"
                         onChange={[Function]}
                         placeholder="Service description here..."
@@ -281,14 +281,14 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - NO Current S
                           className="field"
                         >
                           <label
-                            htmlFor="serviceFormDescInput"
+                            htmlFor="adminServiceFormDescInput"
                           >
                             Store Description
                           </label>
                           <TextArea
                             aria-describedby={null}
                             as="textarea"
-                            id="serviceFormDescInput"
+                            id="adminServiceFormDescInput"
                             onChange={[Function]}
                             placeholder="Service description here..."
                             rows={3}
@@ -298,7 +298,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - NO Current S
                               innerRef={
                                 Object {
                                   "current": <textarea
-                                    id="serviceFormDescInput"
+                                    id="adminServiceFormDescInput"
                                     placeholder="Service description here..."
                                     rows="3"
                                   />,
@@ -309,7 +309,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - NO Current S
                                 innerRef={
                                   Object {
                                     "current": <textarea
-                                      id="serviceFormDescInput"
+                                      id="adminServiceFormDescInput"
                                       placeholder="Service description here..."
                                       rows="3"
                                     />,
@@ -318,7 +318,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - NO Current S
                               >
                                 <textarea
                                   aria-describedby={null}
-                                  id="serviceFormDescInput"
+                                  id="adminServiceFormDescInput"
                                   onChange={[Function]}
                                   onInput={[Function]}
                                   placeholder="Service description here..."
@@ -459,7 +459,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                 Details
               </h1>
               <div
-                className="serviceFormHolderDetailsName"
+                className="serviceFormHolderDetailsItem"
               >
                 <h3>
                   Service name:
@@ -469,7 +469,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                 </p>
               </div>
               <div
-                className="serviceFormHolderDetailsPrice"
+                className="serviceFormHolderDetailsItem"
               >
                 <h3>
                   Service price:
@@ -479,7 +479,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                 </p>
               </div>
               <div
-                className="serviceFormHolderDetailsDesc"
+                className="serviceFormHolderDetailsItem"
               >
                 <h3>
                   Service description:
@@ -800,7 +800,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                             Service name
                           </label>
                           <input
-                            id="serviceFormNameInput"
+                            id="adminServiceFormNameInput"
                             onChange={[Function]}
                             placeholder="Service name here ..."
                             value="name"
@@ -815,7 +815,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                             Service price
                           </label>
                           <input
-                            id="serviceFormPriceInput"
+                            id="adminServiceFormPriceInput"
                             onChange={[Function]}
                             placeholder="Service price here..."
                             value="100"
@@ -824,7 +824,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                       </FormField>
                       <FormField
                         control={[Function]}
-                        id="serviceFormDescInput"
+                        id="adminServiceFormDescInput"
                         label="Store Description"
                         onChange={[Function]}
                         placeholder="Service description here..."
@@ -834,14 +834,14 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                           className="field"
                         >
                           <label
-                            htmlFor="serviceFormDescInput"
+                            htmlFor="adminServiceFormDescInput"
                           >
                             Store Description
                           </label>
                           <TextArea
                             aria-describedby={null}
                             as="textarea"
-                            id="serviceFormDescInput"
+                            id="adminServiceFormDescInput"
                             onChange={[Function]}
                             placeholder="Service description here..."
                             rows={3}
@@ -851,7 +851,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                               innerRef={
                                 Object {
                                   "current": <textarea
-                                    id="serviceFormDescInput"
+                                    id="adminServiceFormDescInput"
                                     placeholder="Service description here..."
                                     rows="3"
                                   >
@@ -864,7 +864,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                                 innerRef={
                                   Object {
                                     "current": <textarea
-                                      id="serviceFormDescInput"
+                                      id="adminServiceFormDescInput"
                                       placeholder="Service description here..."
                                       rows="3"
                                     >
@@ -875,7 +875,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                               >
                                 <textarea
                                   aria-describedby={null}
-                                  id="serviceFormDescInput"
+                                  id="adminServiceFormDescInput"
                                   onChange={[Function]}
                                   onInput={[Function]}
                                   placeholder="Service description here..."
@@ -1016,7 +1016,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                 Details
               </h1>
               <div
-                className="serviceFormHolderDetailsName"
+                className="serviceFormHolderDetailsItem"
               >
                 <h3>
                   Service name:
@@ -1026,7 +1026,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                 </p>
               </div>
               <div
-                className="serviceFormHolderDetailsPrice"
+                className="serviceFormHolderDetailsItem"
               >
                 <h3>
                   Service price:
@@ -1036,7 +1036,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                 </p>
               </div>
               <div
-                className="serviceFormHolderDetailsDesc"
+                className="serviceFormHolderDetailsItem"
               >
                 <h3>
                   Service description:
@@ -1446,7 +1446,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                             Service name
                           </label>
                           <input
-                            id="serviceFormNameInput"
+                            id="adminServiceFormNameInput"
                             onChange={[Function]}
                             placeholder="Service name here ..."
                             value="name"
@@ -1461,7 +1461,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                             Service price
                           </label>
                           <input
-                            id="serviceFormPriceInput"
+                            id="adminServiceFormPriceInput"
                             onChange={[Function]}
                             placeholder="Service price here..."
                             value="100"
@@ -1470,7 +1470,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                       </FormField>
                       <FormField
                         control={[Function]}
-                        id="serviceFormDescInput"
+                        id="adminServiceFormDescInput"
                         label="Store Description"
                         onChange={[Function]}
                         placeholder="Service description here..."
@@ -1480,14 +1480,14 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                           className="field"
                         >
                           <label
-                            htmlFor="serviceFormDescInput"
+                            htmlFor="adminServiceFormDescInput"
                           >
                             Store Description
                           </label>
                           <TextArea
                             aria-describedby={null}
                             as="textarea"
-                            id="serviceFormDescInput"
+                            id="adminServiceFormDescInput"
                             onChange={[Function]}
                             placeholder="Service description here..."
                             rows={3}
@@ -1497,7 +1497,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                               innerRef={
                                 Object {
                                   "current": <textarea
-                                    id="serviceFormDescInput"
+                                    id="adminServiceFormDescInput"
                                     placeholder="Service description here..."
                                     rows="3"
                                   >
@@ -1510,7 +1510,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                                 innerRef={
                                   Object {
                                     "current": <textarea
-                                      id="serviceFormDescInput"
+                                      id="adminServiceFormDescInput"
                                       placeholder="Service description here..."
                                       rows="3"
                                     >
@@ -1521,7 +1521,7 @@ exports[`ServiceFormHolder Component tests Form Holder state OPEN - WITH Current
                               >
                                 <textarea
                                   aria-describedby={null}
-                                  id="serviceFormDescInput"
+                                  id="adminServiceFormDescInput"
                                   onChange={[Function]}
                                   onInput={[Function]}
                                   placeholder="Service description here..."

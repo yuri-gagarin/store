@@ -34,14 +34,14 @@ describe("Service Form Component render tests", () => {
     it("Should properly mount", () => {
       expect(wrapper).toMatchSnapshot();
     });
-    it("Should render '#serviceFormNameInput'", () => {
-      expect(wrapper.render().find("#serviceFormNameInput").length).toEqual(1);
+    it("Should render '#adminServiceFormNameInput'", () => {
+      expect(wrapper.render().find("#adminServiceFormNameInput").length).toEqual(1);
     });
     it("Should render '#serviceFormPriceInput'", () => {
-      expect(wrapper.render().find("#serviceFormPriceInput").length).toEqual(1);
+      expect(wrapper.render().find("#adminServiceFormPriceInput").length).toEqual(1);
     });
     it("Should render '#serviceFormDescInput'", () => {
-      expect(wrapper.render().find("#serviceFormDescInput").length).toEqual(1);
+      expect(wrapper.render().find("#adminServiceFormDescInput").length).toEqual(1);
     });
     it("Should render '#adminServiceFormCreate' Button", () => {
       expect(wrapper.render().find("#adminServiceFormCreate").length).toEqual(1);
@@ -81,25 +81,25 @@ describe("Service Form Component render tests", () => {
     it("Should properly mount", () => {
       expect(wrapper).toMatchSnapshot();
     });
-    it("Should render '#serviceFormNameInput'", () => {
-      expect(wrapper.render().find("#serviceFormNameInput").length).toEqual(1);
+    it("Should render '#adminServiceFormNameInput'", () => {
+      expect(wrapper.render().find("#adminServiceFormNameInput").length).toEqual(1);
     });
-    it("Should set correct data in '#serviceFormNameInput'", () => {
-      const input = wrapper.render().find("#serviceFormNameInput");
+    it("Should set correct data in '#adminServiceFormNameInput'", () => {
+      const input = wrapper.render().find("#adminServiceFormNameInput");
       expect(input.val()).toEqual(mockData.name);
     });
-    it("Should render '#serviceFormPriceInput'", () => {
-      expect(wrapper.render().find("#serviceFormPriceInput").length).toEqual(1);
+    it("Should render '#adminServiceFormPriceInput'", () => {
+      expect(wrapper.render().find("#adminServiceFormPriceInput").length).toEqual(1);
     });
-    it("Should set correct data in '#serviceFormPriceInput'", () => {
-      const input = wrapper.render().find("#serviceFormPriceInput");
+    it("Should set correct data in '#adminServiceFormPriceInput'", () => {
+      const input = wrapper.render().find("#adminServiceFormPriceInput");
       expect(input.val()).toEqual(mockData.price);
     });
-    it("Should render '#serviceFormDescInput'", () => {
-      expect(wrapper.render().find("#serviceFormDescInput").length).toEqual(1);
+    it("Should render '#adminServiceFormDescInput'", () => {
+      expect(wrapper.render().find("#adminServiceFormDescInput").length).toEqual(1);
     });
-    it("Should set correct data in '#serviceFormDescInput'", () => {
-      const input = wrapper.render().find("#serviceFormDescInput");
+    it("Should set correct data in '#adminServiceFormDescInput'", () => {
+      const input = wrapper.render().find("#adminServiceFormDescInput");
       expect(input.val()).toEqual(mockData.description);
     });
     it("Should render '#adminServiceFormUpdate' Button'", () => {
