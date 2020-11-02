@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "semantic-ui-react";
+import { Button, Confirm, Grid } from "semantic-ui-react";
 // test dependencies //
 import moxios from "moxios";
 import { mount, ReactWrapper } from "enzyme";
@@ -314,5 +314,87 @@ describe("Service Manage Holder Tests", () => {
       expect(history.location.pathname).toEqual(AdminServiceRoutes.MANAGE_ROUTE);
     });
   });
-  // 
+  // END ServiceCard EDIT button functionality //
+  describe("'ServiceCard' component DELETE Button click action", () => {
+    let wrapper: ReactWrapper;
+    let mockDeletedService: IServiceData;
+    window.scrollTo = jest.fn;
+
+    beforeAll( async () => {
+      const promise = Promise.resolve();
+      moxios.install();
+      moxios.stubRequest("/api/services", {
+        status: 200,
+        response: {
+          responseMsg: "All ok",
+          services: mockServices
+        }
+      });
+      mockDeletedService = mockServices[0];
+      // mount and update //
+      wrapper = mount(
+        <MemoryRouter initialEntries={[ AdminServiceRoutes.MANAGE_ROUTE ]} keyLength={0}>
+          <TestStateProvider>
+            <ServiceManageHolder />
+          </TestStateProvider>
+        </MemoryRouter>
+      );
+      await act( async () => promise);
+      wrapper.update();
+    });
+    beforeEach(() => {
+      moxios.install();
+    });
+    afterEach(() => {
+      moxios.uninstall();
+    });
+
+    it("Should render 'Confirm' component after 'DELETE' Button click", () => {
+      const deleteBtn = wrapper.find(ServiceCard).at(0).find(".serviceCardDeleteBtn");
+      deleteBtn.at(0).simulate("click");
+      const confirmModal = wrapper.find(ServiceCard).at(0).find(Confirm);
+      // assert correct rendering//
+      expect(confirmModal.props().open).toEqual(true);
+      expect(confirmModal.find(Button).length).toEqual(2);
+    });
+    it("Sould correctly andle the {cancelServiceDeleteAction} methohd and update thhe local component state", () => {
+      const deleteBtn = wrapper.find(ServiceCard).at(0).find(".serviceCardDeleteBtn");
+      deleteBtn.at(0).simulate("click");
+      const confirmModal = wrapper.find(ServiceCard).at(0).find(Confirm);
+      // simulate cancel button click //
+      confirmModal.find(Button).at(0).simulate("click");
+      // assert correct rendering //
+      expect(wrapper.find(ServiceCard).at(0).find(Confirm).props().open).toEqual(false);
+      expect(wrapper.find(ServiceCard).length).toEqual(mockServices.length);
+    });
+    it("Should correctly handle {confirmServiceDeleteAction} method and correctly update local component state", async () => {
+      const promise = Promise.resolve();
+      moxios.stubRequest(`/api/services/delete/${mockServices[0]._id}`, {
+        status: 200,
+        response: {
+          responseMsg: "All ok",
+          deletedService: mockDeletedService
+        }
+      });
+      // simulate te action //
+      const deleteBtn = wrapper.find(ServiceCard).at(0).find(".serviceCardDeleteBtn");
+      deleteBtn.at(0).simulate("click");
+      const confirmModal = wrapper.find(ServiceCard).at(0).find(Confirm);
+      // simulte confirm action click //
+      confirmModal.find(Button).at(1).simulate("click");
+      await act( async () => promise);
+      // assert correct rerender //
+      expect(moxios.requests.mostRecent().url).toEqual(`/api/services/delete/${mockServices[0]._id}`);
+    });
+    it("Should NOT render the 'removed' 'ServiceCard' component", () => {
+      const serviceCards = wrapper.find(ServiceManageHolder).find(ServiceCard);
+      serviceCards.forEach((serviceCard) => {
+        expect(serviceCard.props().service._id).not.toEqual(mockDeletedService._id);
+      });
+    });
+    it("Should rerender wit correct number of 'ServiceCard' components", () => {
+      const servicesCards = wrapper.find(ServiceManageHolder).find(ServiceCard);
+      expect(servicesCards.length).toEqual(mockServices.length - 1);
+    });
+  });
 });

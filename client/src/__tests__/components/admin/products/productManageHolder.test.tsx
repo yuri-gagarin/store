@@ -374,7 +374,7 @@ describe("Product Manage Holder Tests", () => {
       const deleteBtn = wrapper.find(ProductCard).at(0).find(".productCardDeleteBtn");
       deleteBtn.at(0).simulate("click");
       const confirmModal = wrapper.find(ProductCard).at(0).find(Confirm);
-      // simalute cancel button click //
+      // simlate cancel button click //
       confirmModal.find(Button).at(0).simulate("click");
       // assert correct rendering //
       expect(wrapper.find(ProductCard).at(0).find(Confirm).props().open).toEqual(false);
@@ -395,7 +395,7 @@ describe("Product Manage Holder Tests", () => {
       const confirmModal = wrapper.find(ProductCard).at(0).find(Confirm);
       // simulate confirm action click //
       confirmModal.find(Button).at(1).simulate("click");
-      // assert correct 
+      // assert correct rendering //
       await act( async () => promise);
       expect(moxios.requests.mostRecent().url).toEqual(`/api/products/delete/${products[0]._id}`);
     });
