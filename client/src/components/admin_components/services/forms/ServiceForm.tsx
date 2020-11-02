@@ -66,7 +66,7 @@ const ServiceForm: React.FC<Props> = ({ name, description, price, newForm, handl
         <Form.Field>
           <label>Service name</label>
           <input 
-            id="serviceFormNameInput"
+            id="adminServiceFormNameInput"
             onChange={handleNameChange} 
             placeholder="Service name here ..." 
             value={formState.name}
@@ -75,14 +75,14 @@ const ServiceForm: React.FC<Props> = ({ name, description, price, newForm, handl
         <Form.Field>
           <label>Service price</label>
           <input 
-            id="serviceFormPriceInput"
+            id="adminServiceFormPriceInput"
             onChange={handlePriceChange} 
             placeholder="Service price here..." 
             value={formState.price}
           />
         </Form.Field>
         <Form.Field
-          id='serviceFormDescInput'
+          id='adminServiceFormDescInput'
           control={TextArea}
           label='Store Description'
           onChange={handleDescriptionChange}

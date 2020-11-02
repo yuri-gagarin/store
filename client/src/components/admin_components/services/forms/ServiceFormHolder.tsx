@@ -92,15 +92,15 @@ const ServiceFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
             <Grid.Row id="serviceFormHolderDetails">
               <Grid.Column mobile={16} tablet={14} computer={14}>
                 <h1>Details</h1>
-                <div className="serviceFormHolderDetailsName">
+                <div className="serviceFormHolderDetailsItem">
                   <h3>Service name:</h3>
                   <p>{name}</p>
                 </div>
-                <div className="serviceFormHolderDetailsPrice">
+                <div className="serviceFormHolderDetailsItem">
                   <h3>Service price:</h3>
                   <p>{price}</p>
                 </div>
-                <div className="serviceFormHolderDetailsDesc">
+                <div className="serviceFormHolderDetailsItem">
                   <h3>Service description:</h3>
                   <p>{description}</p>
                 </div>

@@ -13,7 +13,7 @@ export const getAllServices = (dispatch: Dispatch<ServiceAction>): Promise<void>
     method: "get",
     url: "/api/services"
   };
-  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true } });
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IServiceServerResData, IServiceServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -41,7 +41,7 @@ export const getService = (_id: string, dispatch: Dispatch<ServiceAction>): Prom
     method: "get",
     url: "/api/services/" + _id,
   };
-  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true } });
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IServiceServerResData, IServiceServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -75,7 +75,7 @@ export const createService = ({ name, description, price, images }: ClientServic
       images: images
     }
   };
-  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true } });
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IServiceServerResData, IServiceServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -107,7 +107,7 @@ export const editService = (_id: string, data: ClientServiceData, dispatch: Disp
       ...data,
     }
   };
-  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true } });
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IServiceServerResData, IServiceServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -144,7 +144,7 @@ export const deleteService = (_id: string, dispatch: Dispatch<ServiceAction>, st
     method: "delete",
     url: "/api/services/delete/" + _id,
   };
-  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true } });
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IServiceServerResData, IServiceServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -178,7 +178,7 @@ export const uploadServiceImage = (_id: string, imageFile: FormData, state: IGlo
     url: "/api/uploads/service_images/" + _id,
     data: imageFile
   };
-  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true } });
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IServiceImgServerResData, IServiceImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -217,7 +217,7 @@ export const deleteServiceImage = (imgId: string, state: IGlobalAppState, dispat
     method: "delete",
     url: "/api/uploads/service_images/" + imgId + "/" + serviceId
   };
-  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true } });
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IServiceImgServerResData, IServiceImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;

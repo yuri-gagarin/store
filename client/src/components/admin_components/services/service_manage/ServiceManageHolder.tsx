@@ -10,6 +10,7 @@ import { getAllServices } from "../actions/APIServiceActions";
 import { Store } from "../../../../state/Store";
 // client routing //
 import { withRouter, RouteComponentProps, useRouteMatch, Route } from "react-router-dom";
+import { AdminServiceRoutes } from "../../../../routes/adminRoutes";
 
 interface Props extends RouteComponentProps {
 };
@@ -21,7 +22,7 @@ const ServiceManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const [ newDataLoaded, setNewDataLoaded ] = useState<boolean>(false);
   const servicesRef = useRef(loadedServices);
   // routing //
-  const match = useRouteMatch("/admin/home/my_services/manage");
+  // const match = useRouteMatch("/admin/home/my_services/manage");
   const handleBack = () => {
     history.goBack();
   };
@@ -49,16 +50,21 @@ const ServiceManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
   return (
     newDataLoaded ?
     <Grid padded stackable columns={2} id="serviceManageHolder">
-      <Route path={match?.url + "/edit"}> 
+      <Route path={AdminServiceRoutes.EDIT_ROUTE}> 
         <Grid.Row>
           <Grid.Column computer={12} tablet={6} mobile={16}>
             <h3>Editing Service: { state.serviceState.currentServiceData.name }</h3>
-            <Button inverted color="green" content="Back" onClick={handleBack}></Button>
+            <Button 
+              id="adminServiceManageBackBtn"
+              inverted color="green" 
+              content="Back" 
+              onClick={handleBack}
+            />
           </Grid.Column>
         </Grid.Row>
         <ServiceFormHolder />
       </Route>
-      <Route exact path={match?.url}>
+      <Route exact path={AdminServiceRoutes.MANAGE_ROUTE}>
         <Grid.Row>
           <Grid.Column computer={12} tablet={8} mobile={16}>
           {

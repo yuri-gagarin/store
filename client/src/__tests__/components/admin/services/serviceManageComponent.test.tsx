@@ -15,6 +15,7 @@ import { ServiceFormHolder } from "../../../../components/admin_components/servi
 import ServiceForm from "../../../../components/admin_components/services/forms/ServiceForm";
 // helpers and state //
 import { TestStateProvider } from "../../../../state/Store";
+import LoadingBar from "../../../../components/admin_components/miscelaneous/LoadingBar";
 
 describe("Service Manage Holder Tests", () => {
   let mockDate: string = new Date("12/31/2019").toString();
@@ -234,6 +235,7 @@ describe("Service Manage Holder Tests", () => {
       expect(servicesGrid.length).toEqual(0);
     });
     it("Should render correct number of 'ServiceCard' Components", () => {
+      wrapper.update();
       const serviceCards = wrapper.find(ServiceCard);
       expect(serviceCards.length).toEqual(mockServices.length);
     });
@@ -265,7 +267,7 @@ describe("Service Manage Holder Tests", () => {
       await act( async () => promise);
       wrapper.update();
     });
-    it("Should render thhe 'ServiceFormHolder' component after 'EDIT' Button click action", () => {
+    it("Should render the 'ServiceFormHolder' component after 'EDIT' Button click action", () => {
       const editButton = wrapper.find(ServiceCard).at(0).find(".serviceCardEditBtn").at(0);
       // simulate click event and assert correct rendering //
       editButton.simulate("click");
@@ -291,7 +293,7 @@ describe("Service Manage Holder Tests", () => {
       const serviceForm = wrapper.find(ServiceForm);
       expect(serviceForm.length).toEqual(1);
     });
-    it("Should correctly render thhe 'currentService' data within thhe 'ServiceForm' component", () => {
+    it("Should correctly render the 'currentService' data within thhe 'ServiceForm' component", () => {
       const currentService = mockServices[0];
       const nameInput = wrapper.find(ServiceForm).find("#adminServiceFormNameInput");
       const priceInput = wrapper.find(ServiceForm).find("#adminServiceFormPriceInput");
@@ -367,6 +369,7 @@ describe("Service Manage Holder Tests", () => {
       expect(wrapper.find(ServiceCard).at(0).find(Confirm).props().open).toEqual(false);
       expect(wrapper.find(ServiceCard).length).toEqual(mockServices.length);
     });
+    
     it("Should correctly handle {confirmServiceDeleteAction} method and correctly update local component state", async () => {
       const promise = Promise.resolve();
       moxios.stubRequest(`/api/services/delete/${mockServices[0]._id}`, {
@@ -385,8 +388,11 @@ describe("Service Manage Holder Tests", () => {
       await act( async () => promise);
       // assert correct rerender //
       expect(moxios.requests.mostRecent().url).toEqual(`/api/services/delete/${mockServices[0]._id}`);
+      expect(wrapper.find(ServiceCard).at(0).find(LoadingBar).length).toEqual(1);
     });
+    
     it("Should NOT render the 'removed' 'ServiceCard' component", () => {
+      wrapper.update();
       const serviceCards = wrapper.find(ServiceManageHolder).find(ServiceCard);
       serviceCards.forEach((serviceCard) => {
         expect(serviceCard.props().service._id).not.toEqual(mockDeletedService._id);
@@ -396,5 +402,6 @@ describe("Service Manage Holder Tests", () => {
       const servicesCards = wrapper.find(ServiceManageHolder).find(ServiceCard);
       expect(servicesCards.length).toEqual(mockServices.length - 1);
     });
+    
   });
 });

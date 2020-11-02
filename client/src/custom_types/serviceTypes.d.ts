@@ -11,6 +11,7 @@ type DispatchServiceAPIRequest = {
   readonly type: "DISPATCH_SERVICE_API_REQUEST",
   readonly payload: {
     loading: boolean;
+    error: null;
   }
 }
 type SetCurrentService = {

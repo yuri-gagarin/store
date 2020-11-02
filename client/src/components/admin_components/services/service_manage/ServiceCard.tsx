@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Button, Grid } from "semantic-ui-react";
+import { Button, Confirm, Grid } from "semantic-ui-react";
 // additional components //
 import EditControls from "./EditControls"
+import LoadingBar from "../../miscelaneous/LoadingBar";
 // css imports //
 import "./css/serviceCard.css";
 // actions and state /
@@ -12,6 +13,7 @@ import { IGlobalAppState, AppAction } from "../../../../state/Store";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
+import { AdminServiceRoutes } from "../../../../routes/adminRoutes";
 
 interface Props extends RouteComponentProps {
   service: IServiceData;
@@ -19,36 +21,63 @@ interface Props extends RouteComponentProps {
   state: IGlobalAppState;
   dispatch: React.Dispatch<AppAction>;
 }
-
+interface ServiceCardState {
+  editing: boolean;
+  confirmDeleteOpen: boolean;
+}
 const ServiceCard: React.FC<Props> = ({ service, imageCount, state, dispatch, history }): JSX.Element => {
-  const [ editing, setEditing ] = useState<boolean>(false);
+  const [ serviceCardState, setServiceCardState ] = useState<ServiceCardState>({ editing: false, confirmDeleteOpen: false });
   const baseUrl = "/admin/home/my_services/manage"
   const { _id, name, price, description, images, createdAt, editedAt } = service;
+  const { loading } = state.serviceState;
 
   const handleServiceOpen = (e: React.MouseEvent<HTMLButtonElement>): void => {
     history.push(baseUrl + "/view");
-  }
-  const handleServiceEdit = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    if (!editing) {
-      setCurrentService(_id, dispatch, state);
-      history.push(baseUrl + "/edit");
-      setEditing(true);
-    } else {
+  };
+  // EDIT controls //
+  const handleEditBtnClick = ()  => {
+    if(serviceCardState.editing) {
       clearCurrentService(dispatch);
-      history.push(baseUrl);
-      setEditing(false);
+      history.goBack();
+    } else {
+      setCurrentService(_id, dispatch, state);
+      history.push(AdminServiceRoutes.EDIT_ROUTE);
     }
-  }
-  const handleServiceDelete = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    deleteService( _id, dispatch, state)
-      .then((success) => {
-        
+  };
+  // DELETE controls //
+  const handleDeleteBtnClick = (): void => {
+    setServiceCardState({
+      ...serviceCardState,
+      confirmDeleteOpen: true
+    });
+  };
+  const handleServiceDelete = () => {
+    return deleteService(_id, dispatch, state)
+      .then((_) => {
+        // delete succussful do something ? //
       })
-  }
-
+      .catch((_) => {
+        // handle an error ? //
+      });
+  };
+  const handleServiceDeleteCancel = () => {
+    setServiceCardState({
+      ...serviceCardState,
+      confirmDeleteOpen: false
+    });
+  };
+  
   return (
     <React.Fragment>
       <Grid.Row style={{ padding: "0.5em", marginTop: "1em" }}>
+        {
+          loading ? <LoadingBar /> : null
+        }
+        <Confirm
+          open={serviceCardState.confirmDeleteOpen}
+          onCancel={handleServiceDeleteCancel}
+          onConfirm={handleServiceDelete}
+        />
         <div className="serviceManageDesc">
           <h3>Name: {name}</h3>
           <p><strong>Description:</strong> {description}</p>
@@ -66,20 +95,20 @@ const ServiceCard: React.FC<Props> = ({ service, imageCount, state, dispatch, hi
           <Button 
             inverted
             color="orange"
-            className="serviceCardBtn" 
+            className="serviceCardEditBtn" 
             content="Edit" 
-            onClick={handleServiceEdit}  
+            onClick={handleEditBtnClick}  
           />
           <Button 
             inverted
             color="red"
-            className="serviceCardBtn" 
+            className="serviceCardDeleteBtn" 
             content="Delete" 
-            onClick={handleServiceDelete}
+            onClick={handleDeleteBtnClick}
           />
         </div> 
       </Grid.Row>
-      {  editing ?  <EditControls handleServiceEdit={handleServiceEdit}/>: null }
+      {  serviceCardState.editing ?  <EditControls handleServiceEdit={handleEditBtnClick}/>: null }
     </React.Fragment>
     
   );
