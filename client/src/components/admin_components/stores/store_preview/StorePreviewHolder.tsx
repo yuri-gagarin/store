@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { Grid } from "semantic-ui-react";
 // additional components //
 import StorePreview from "./StorePreview";
 import LoadingScreen from "../../miscelaneous/LoadingScreen";
@@ -34,7 +35,7 @@ const StorePreviewHolder: React.FC<Props> = ({ history }): JSX.Element => {
     loading ? 
     <LoadingScreen />
     :
-    <div id="adminStorePreviewHolder">
+    <Grid id="adminStorePreviewHolder">
       {
         loadedStores.map((store) => {
           return (
@@ -50,7 +51,7 @@ const StorePreviewHolder: React.FC<Props> = ({ history }): JSX.Element => {
           );
         })
       }
-    </div>
+    </Grid>
   );
 };
 // test export without the router //

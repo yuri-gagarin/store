@@ -12,12 +12,12 @@ import ProductsPreviewHolder from "../../../../components/admin_components/produ
 import ProductPreview from "../../../../components/admin_components/products/product_preview/ProductPreview";
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
+import ProductsControls from "../../../../components/admin_components/products/product_preview/ProductsControls";
+import PopularProductsHolder from "../../../../components/admin_components/products/product_preview/popular_products/PopularProductsHolder";
 // state //
 import { TestStateProvider } from "../../../../state/Store";
 // helpers //
 import { generateCleanState } from "../../../../test_helpers/miscHelpers";
-import ProductsControls from "../../../../components/admin_components/products/product_preview/ProductsControls";
-import PopularProductsHolder from "../../../../components/admin_components/products/product_preview/popular_products/PopularProductsHolder";
 
 describe("ProductPreviewHolder Component render tests", () => {
   let products: IProductData[];
@@ -121,7 +121,7 @@ describe("ProductPreviewHolder Component render tests", () => {
     });
     afterAll(() => {
       moxios.uninstall();
-    })
+    });
     
     it("Should correctly render initial 'LoadingScreen' component", () => {
       const loadingScreen = wrapper.find(ProductsPreviewHolder).find(LoadingScreen);
@@ -138,7 +138,7 @@ describe("ProductPreviewHolder Component render tests", () => {
       const errorScreen = wrapper.find(ProductsPreviewHolder).find(ErrorScreen);
       const productsGrid = wrapper.find(ProductsPreviewHolder).find(Grid);
       // assert correct rendering ///
-      expect(wrapper.find(ProductsPreviewHolder).find(ProductsPreviewHolder)).toMatchSnapshot();
+      expect(wrapper.find(ProductsPreviewHolder)).toMatchSnapshot();
       expect(loadingScreen.length).toEqual(0);
       expect(errorScreen.length).toEqual(0);
       expect(productsGrid.length).toEqual(1);

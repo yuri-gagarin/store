@@ -1,310 +1,636 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`StorePreviewHolder Component render tests StorePreview in 'loaded' state Should correctly render 1`] = `
-<div
-  id="adminStorePreviewHolder"
->
-  <div
-    class="ui segment"
+exports[`StorePreviewHolder Component render tests 'StorePreviewHolder' component after all successful API calls Should correctly render the'StorePreviewHolder' component 'Grid' 1`] = `
+<withRouter(StorePreviewHolder)>
+  <StorePreviewHolder
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "canGo": [Function],
+        "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "pathname": "/admin/home/my_stores/view_all",
+            "search": "",
+            "state": undefined,
+          },
+        ],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "index": 0,
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/admin/home/my_stores/view_all",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+    location={
+      Object {
+        "hash": "",
+        "pathname": "/admin/home/my_stores/view_all",
+        "search": "",
+        "state": undefined,
+      }
+    }
+    match={
+      Object {
+        "isExact": false,
+        "params": Object {},
+        "path": "/",
+        "url": "/",
+      }
+    }
   >
-    <h3
-      class="adminStoreTitle"
-    >
-      first
-    </h3>
-    <div
-      class="adminStoreDescription"
-    >
-      desc
-    </div>
-    <ul
-      class="adminStoreDetails"
-    >
-      <li>
-        Created At: NaN-undefined-NaN
-      </li>
-      <li>
-        Edited At: Not Available
-      </li>
-    </ul>
-    <div
-      class="adminStoreImageDetails"
-    >
-      <h5>
-        Displayed Images: 
-      </h5>
-    </div>
-    <div
-      aria-live="polite"
-      class="image-gallery"
+    <Grid
+      id="adminStorePreviewHolder"
     >
       <div
-        class="image-gallery-content bottom"
+        className="ui grid"
+        id="adminStorePreviewHolder"
       >
-        <div
-          class="image-gallery-slide-wrapper bottom"
+        <StorePreview
+          _id="1"
+          createdAt="Tue Jan 01 2019 00:00:00 GMT+0200 (Eastern European Standard Time)"
+          description="description"
+          images={Array []}
+          key="1"
+          title="first"
         >
-          <div
-            class="image-gallery-slides"
-          />
-          <button
-            aria-label="Play or Pause Slideshow"
-            class="image-gallery-icon image-gallery-play-button"
-            type="button"
-          >
-            <svg
-              class="image-gallery-svg"
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <polygon
-                points="5 3 19 12 5 21 5 3"
-              />
-            </svg>
-          </button>
-          <button
-            aria-label="Open Fullscreen"
-            class="image-gallery-icon image-gallery-fullscreen-button"
-            type="button"
-          >
-            <svg
-              class="image-gallery-svg"
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"
-              />
-            </svg>
-          </button>
-        </div>
-        <div
-          class="image-gallery-thumbnails-wrapper bottom"
-        >
-          <div
-            class="image-gallery-thumbnails"
-          >
+          <Segment>
             <div
-              aria-label="Thumbnail Navigation"
-              class="image-gallery-thumbnails-container"
-              style="transform: translate3d(0px, 0, 0);"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="ui segment"
-  >
-    <h3
-      class="adminStoreTitle"
-    >
-      second
-    </h3>
-    <div
-      class="adminStoreDescription"
-    >
-      desc
-    </div>
-    <ul
-      class="adminStoreDetails"
-    >
-      <li>
-        Created At: NaN-undefined-NaN
-      </li>
-      <li>
-        Edited At: Not Available
-      </li>
-    </ul>
-    <div
-      class="adminStoreImageDetails"
-    >
-      <h5>
-        Displayed Images: 
-      </h5>
-    </div>
-    <div
-      aria-live="polite"
-      class="image-gallery"
-    >
-      <div
-        class="image-gallery-content bottom"
-      >
-        <div
-          class="image-gallery-slide-wrapper bottom"
-        >
-          <div
-            class="image-gallery-slides"
-          />
-          <button
-            aria-label="Play or Pause Slideshow"
-            class="image-gallery-icon image-gallery-play-button"
-            type="button"
-          >
-            <svg
-              class="image-gallery-svg"
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+              className="ui segment"
             >
-              <polygon
-                points="5 3 19 12 5 21 5 3"
-              />
-            </svg>
-          </button>
-          <button
-            aria-label="Open Fullscreen"
-            class="image-gallery-icon image-gallery-fullscreen-button"
-            type="button"
-          >
-            <svg
-              class="image-gallery-svg"
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"
-              />
-            </svg>
-          </button>
-        </div>
-        <div
-          class="image-gallery-thumbnails-wrapper bottom"
+              <h3
+                className="adminStoreTitle"
+              >
+                first
+              </h3>
+              <div
+                className="adminStoreDescription"
+              >
+                description
+              </div>
+              <ul
+                className="adminStoreDetails"
+              >
+                <li>
+                  Created At: 
+                  2019-Jan-1
+                </li>
+                <li>
+                  Edited At: 
+                  Not Available
+                </li>
+              </ul>
+              <div
+                className="adminStoreImageDetails"
+              >
+                <h5>
+                  Displayed Images: 
+                </h5>
+              </div>
+              <ImageGallery
+                additionalClass=""
+                autoPlay={false}
+                disableKeyDown={false}
+                disableSwipe={false}
+                disableThumbnailScroll={false}
+                flickThreshold={0.4}
+                indexSeparator=" / "
+                infinite={true}
+                isRTL={false}
+                items={Array []}
+                lazyLoad={false}
+                onBeforeSlide={null}
+                onClick={null}
+                onErrorImageURL=""
+                onImageError={null}
+                onImageLoad={null}
+                onMouseLeave={null}
+                onMouseOver={null}
+                onPause={null}
+                onPlay={null}
+                onScreenChange={null}
+                onSlide={null}
+                onThumbnailClick={null}
+                onThumbnailError={null}
+                onTouchEnd={null}
+                onTouchMove={null}
+                onTouchStart={null}
+                preventDefaultTouchmoveEvent={false}
+                renderCustomControls={null}
+                renderFullscreenButton={[Function]}
+                renderItem={null}
+                renderLeftNav={[Function]}
+                renderPlayPauseButton={[Function]}
+                renderRightNav={[Function]}
+                renderThumbInner={null}
+                showBullets={false}
+                showFullscreenButton={true}
+                showIndex={false}
+                showNav={true}
+                showPlayButton={true}
+                showThumbnails={true}
+                slideDuration={450}
+                slideInterval={3000}
+                slideOnThumbnailOver={false}
+                startIndex={0}
+                stopPropagation={false}
+                swipeThreshold={30}
+                swipingTransitionDuration={0}
+                thumbnailPosition="bottom"
+                useBrowserFullscreen={true}
+                useTranslate3D={true}
+              >
+                <div
+                  aria-live="polite"
+                  className="image-gallery"
+                >
+                  <div
+                    className="image-gallery-content bottom"
+                  >
+                    <div
+                      className="image-gallery-slide-wrapper bottom"
+                    >
+                      <div
+                        className="image-gallery-slides"
+                      />
+                      <button
+                        aria-label="Play or Pause Slideshow"
+                        className="image-gallery-icon image-gallery-play-button"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <SVG
+                          icon="play"
+                          strokeWidth={2}
+                          viewBox="0 0 24 24"
+                        >
+                          <svg
+                            className="image-gallery-svg"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <polygon
+                              points="5 3 19 12 5 21 5 3"
+                            />
+                          </svg>
+                        </SVG>
+                      </button>
+                      <button
+                        aria-label="Open Fullscreen"
+                        className="image-gallery-icon image-gallery-fullscreen-button"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <SVG
+                          icon="maximize"
+                          strokeWidth={2}
+                          viewBox="0 0 24 24"
+                        >
+                          <svg
+                            className="image-gallery-svg"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"
+                            />
+                          </svg>
+                        </SVG>
+                      </button>
+                    </div>
+                    <div
+                      className="image-gallery-thumbnails-wrapper bottom"
+                      style={Object {}}
+                    >
+                      <div
+                        className="image-gallery-thumbnails"
+                      >
+                        <div
+                          aria-label="Thumbnail Navigation"
+                          className="image-gallery-thumbnails-container"
+                          style={
+                            Object {
+                              "MozTransform": "translate3d(0px, 0, 0)",
+                              "OTransform": "translate3d(0px, 0, 0)",
+                              "WebkitTransform": "translate3d(0px, 0, 0)",
+                              "msTransform": "translate3d(0px, 0, 0)",
+                              "transform": "translate3d(0px, 0, 0)",
+                            }
+                          }
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ImageGallery>
+            </div>
+          </Segment>
+        </StorePreview>
+        <StorePreview
+          _id="2"
+          createdAt="Tue Jan 01 2019 00:00:00 GMT+0200 (Eastern European Standard Time)"
+          description="description"
+          images={Array []}
+          key="2"
+          title="second"
         >
-          <div
-            class="image-gallery-thumbnails"
-          >
+          <Segment>
             <div
-              aria-label="Thumbnail Navigation"
-              class="image-gallery-thumbnails-container"
-              style="transform: translate3d(0px, 0, 0);"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="ui segment"
-  >
-    <h3
-      class="adminStoreTitle"
-    >
-      third
-    </h3>
-    <div
-      class="adminStoreDescription"
-    >
-      desc
-    </div>
-    <ul
-      class="adminStoreDetails"
-    >
-      <li>
-        Created At: NaN-undefined-NaN
-      </li>
-      <li>
-        Edited At: Not Available
-      </li>
-    </ul>
-    <div
-      class="adminStoreImageDetails"
-    >
-      <h5>
-        Displayed Images: 
-      </h5>
-    </div>
-    <div
-      aria-live="polite"
-      class="image-gallery"
-    >
-      <div
-        class="image-gallery-content bottom"
-      >
-        <div
-          class="image-gallery-slide-wrapper bottom"
-        >
-          <div
-            class="image-gallery-slides"
-          />
-          <button
-            aria-label="Play or Pause Slideshow"
-            class="image-gallery-icon image-gallery-play-button"
-            type="button"
-          >
-            <svg
-              class="image-gallery-svg"
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+              className="ui segment"
             >
-              <polygon
-                points="5 3 19 12 5 21 5 3"
-              />
-            </svg>
-          </button>
-          <button
-            aria-label="Open Fullscreen"
-            class="image-gallery-icon image-gallery-fullscreen-button"
-            type="button"
-          >
-            <svg
-              class="image-gallery-svg"
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"
-              />
-            </svg>
-          </button>
-        </div>
-        <div
-          class="image-gallery-thumbnails-wrapper bottom"
+              <h3
+                className="adminStoreTitle"
+              >
+                second
+              </h3>
+              <div
+                className="adminStoreDescription"
+              >
+                description
+              </div>
+              <ul
+                className="adminStoreDetails"
+              >
+                <li>
+                  Created At: 
+                  2019-Jan-1
+                </li>
+                <li>
+                  Edited At: 
+                  Not Available
+                </li>
+              </ul>
+              <div
+                className="adminStoreImageDetails"
+              >
+                <h5>
+                  Displayed Images: 
+                </h5>
+              </div>
+              <ImageGallery
+                additionalClass=""
+                autoPlay={false}
+                disableKeyDown={false}
+                disableSwipe={false}
+                disableThumbnailScroll={false}
+                flickThreshold={0.4}
+                indexSeparator=" / "
+                infinite={true}
+                isRTL={false}
+                items={Array []}
+                lazyLoad={false}
+                onBeforeSlide={null}
+                onClick={null}
+                onErrorImageURL=""
+                onImageError={null}
+                onImageLoad={null}
+                onMouseLeave={null}
+                onMouseOver={null}
+                onPause={null}
+                onPlay={null}
+                onScreenChange={null}
+                onSlide={null}
+                onThumbnailClick={null}
+                onThumbnailError={null}
+                onTouchEnd={null}
+                onTouchMove={null}
+                onTouchStart={null}
+                preventDefaultTouchmoveEvent={false}
+                renderCustomControls={null}
+                renderFullscreenButton={[Function]}
+                renderItem={null}
+                renderLeftNav={[Function]}
+                renderPlayPauseButton={[Function]}
+                renderRightNav={[Function]}
+                renderThumbInner={null}
+                showBullets={false}
+                showFullscreenButton={true}
+                showIndex={false}
+                showNav={true}
+                showPlayButton={true}
+                showThumbnails={true}
+                slideDuration={450}
+                slideInterval={3000}
+                slideOnThumbnailOver={false}
+                startIndex={0}
+                stopPropagation={false}
+                swipeThreshold={30}
+                swipingTransitionDuration={0}
+                thumbnailPosition="bottom"
+                useBrowserFullscreen={true}
+                useTranslate3D={true}
+              >
+                <div
+                  aria-live="polite"
+                  className="image-gallery"
+                >
+                  <div
+                    className="image-gallery-content bottom"
+                  >
+                    <div
+                      className="image-gallery-slide-wrapper bottom"
+                    >
+                      <div
+                        className="image-gallery-slides"
+                      />
+                      <button
+                        aria-label="Play or Pause Slideshow"
+                        className="image-gallery-icon image-gallery-play-button"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <SVG
+                          icon="play"
+                          strokeWidth={2}
+                          viewBox="0 0 24 24"
+                        >
+                          <svg
+                            className="image-gallery-svg"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <polygon
+                              points="5 3 19 12 5 21 5 3"
+                            />
+                          </svg>
+                        </SVG>
+                      </button>
+                      <button
+                        aria-label="Open Fullscreen"
+                        className="image-gallery-icon image-gallery-fullscreen-button"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <SVG
+                          icon="maximize"
+                          strokeWidth={2}
+                          viewBox="0 0 24 24"
+                        >
+                          <svg
+                            className="image-gallery-svg"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"
+                            />
+                          </svg>
+                        </SVG>
+                      </button>
+                    </div>
+                    <div
+                      className="image-gallery-thumbnails-wrapper bottom"
+                      style={Object {}}
+                    >
+                      <div
+                        className="image-gallery-thumbnails"
+                      >
+                        <div
+                          aria-label="Thumbnail Navigation"
+                          className="image-gallery-thumbnails-container"
+                          style={
+                            Object {
+                              "MozTransform": "translate3d(0px, 0, 0)",
+                              "OTransform": "translate3d(0px, 0, 0)",
+                              "WebkitTransform": "translate3d(0px, 0, 0)",
+                              "msTransform": "translate3d(0px, 0, 0)",
+                              "transform": "translate3d(0px, 0, 0)",
+                            }
+                          }
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ImageGallery>
+            </div>
+          </Segment>
+        </StorePreview>
+        <StorePreview
+          _id="3"
+          createdAt="Tue Jan 01 2019 00:00:00 GMT+0200 (Eastern European Standard Time)"
+          description="description"
+          images={Array []}
+          key="3"
+          title="third"
         >
-          <div
-            class="image-gallery-thumbnails"
-          >
+          <Segment>
             <div
-              aria-label="Thumbnail Navigation"
-              class="image-gallery-thumbnails-container"
-              style="transform: translate3d(0px, 0, 0);"
-            />
-          </div>
-        </div>
+              className="ui segment"
+            >
+              <h3
+                className="adminStoreTitle"
+              >
+                third
+              </h3>
+              <div
+                className="adminStoreDescription"
+              >
+                description
+              </div>
+              <ul
+                className="adminStoreDetails"
+              >
+                <li>
+                  Created At: 
+                  2019-Jan-1
+                </li>
+                <li>
+                  Edited At: 
+                  Not Available
+                </li>
+              </ul>
+              <div
+                className="adminStoreImageDetails"
+              >
+                <h5>
+                  Displayed Images: 
+                </h5>
+              </div>
+              <ImageGallery
+                additionalClass=""
+                autoPlay={false}
+                disableKeyDown={false}
+                disableSwipe={false}
+                disableThumbnailScroll={false}
+                flickThreshold={0.4}
+                indexSeparator=" / "
+                infinite={true}
+                isRTL={false}
+                items={Array []}
+                lazyLoad={false}
+                onBeforeSlide={null}
+                onClick={null}
+                onErrorImageURL=""
+                onImageError={null}
+                onImageLoad={null}
+                onMouseLeave={null}
+                onMouseOver={null}
+                onPause={null}
+                onPlay={null}
+                onScreenChange={null}
+                onSlide={null}
+                onThumbnailClick={null}
+                onThumbnailError={null}
+                onTouchEnd={null}
+                onTouchMove={null}
+                onTouchStart={null}
+                preventDefaultTouchmoveEvent={false}
+                renderCustomControls={null}
+                renderFullscreenButton={[Function]}
+                renderItem={null}
+                renderLeftNav={[Function]}
+                renderPlayPauseButton={[Function]}
+                renderRightNav={[Function]}
+                renderThumbInner={null}
+                showBullets={false}
+                showFullscreenButton={true}
+                showIndex={false}
+                showNav={true}
+                showPlayButton={true}
+                showThumbnails={true}
+                slideDuration={450}
+                slideInterval={3000}
+                slideOnThumbnailOver={false}
+                startIndex={0}
+                stopPropagation={false}
+                swipeThreshold={30}
+                swipingTransitionDuration={0}
+                thumbnailPosition="bottom"
+                useBrowserFullscreen={true}
+                useTranslate3D={true}
+              >
+                <div
+                  aria-live="polite"
+                  className="image-gallery"
+                >
+                  <div
+                    className="image-gallery-content bottom"
+                  >
+                    <div
+                      className="image-gallery-slide-wrapper bottom"
+                    >
+                      <div
+                        className="image-gallery-slides"
+                      />
+                      <button
+                        aria-label="Play or Pause Slideshow"
+                        className="image-gallery-icon image-gallery-play-button"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <SVG
+                          icon="play"
+                          strokeWidth={2}
+                          viewBox="0 0 24 24"
+                        >
+                          <svg
+                            className="image-gallery-svg"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <polygon
+                              points="5 3 19 12 5 21 5 3"
+                            />
+                          </svg>
+                        </SVG>
+                      </button>
+                      <button
+                        aria-label="Open Fullscreen"
+                        className="image-gallery-icon image-gallery-fullscreen-button"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <SVG
+                          icon="maximize"
+                          strokeWidth={2}
+                          viewBox="0 0 24 24"
+                        >
+                          <svg
+                            className="image-gallery-svg"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"
+                            />
+                          </svg>
+                        </SVG>
+                      </button>
+                    </div>
+                    <div
+                      className="image-gallery-thumbnails-wrapper bottom"
+                      style={Object {}}
+                    >
+                      <div
+                        className="image-gallery-thumbnails"
+                      >
+                        <div
+                          aria-label="Thumbnail Navigation"
+                          className="image-gallery-thumbnails-container"
+                          style={
+                            Object {
+                              "MozTransform": "translate3d(0px, 0, 0)",
+                              "OTransform": "translate3d(0px, 0, 0)",
+                              "WebkitTransform": "translate3d(0px, 0, 0)",
+                              "msTransform": "translate3d(0px, 0, 0)",
+                              "transform": "translate3d(0px, 0, 0)",
+                            }
+                          }
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ImageGallery>
+            </div>
+          </Segment>
+        </StorePreview>
       </div>
-    </div>
-  </div>
-</div>
+    </Grid>
+  </StorePreviewHolder>
+</withRouter(StorePreviewHolder)>
 `;
 
 exports[`StorePreviewHolder Component render tests StorePreviewHolder in 'loading' state Should correctly render 1`] = `

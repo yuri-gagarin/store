@@ -1,42 +1,78 @@
 import React from "react";
-import { MemoryRouter as Router } from "react-router-dom";
+import { Grid } from "semantic-ui-react";
+import { mount, ReactWrapper } from "enzyme"; 
 // test dependencies //
 import moxios from "moxios";
-import { mount, ReactWrapper } from "enzyme"; 
 import { act } from "react-dom/test-utils";
+import { MemoryRouter, Router } from "react-router-dom";
+// admin routes //
+import { AdminStoreRoutes } from "../../../../routes/adminRoutes";
 // components //
 import StorePreviewHolder from "../../../../components/admin_components/stores/store_preview/StorePreviewHolder";
 import StorePreview from "../../../../components/admin_components/stores/store_preview/StorePreview";
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
+import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
 // state //
 import { TestStateProvider } from "../../../../state/Store";
 // helpers //
 import { generateCleanState } from "../../../../test_helpers/miscHelpers";
-import { createMockStores } from "../../../../test_helpers/storeHelpers";
-// admin routes //
-import { AdminStoreRoutes } from "../../../../routes/adminRoutes";
+
 
 describe("StorePreviewHolder Component render tests", () => {
+  let mockStores: IStoreData[];
+  const mockDate = new Date("1/1/2019").toString();
+
+  beforeAll(() => {
+    mockStores = [
+      {
+        _id: "1",
+        title: "first",
+        description: "description",
+        images: [],
+        createdAt: mockDate
+      },
+      {
+        _id: "2",
+        title: "second",
+        description: "description",
+        images: [],
+        createdAt: mockDate
+      },
+      {
+        _id: "3",
+        title: "third",
+        description: "description",
+        images: [],
+        createdAt: mockDate
+      }
+    ]
+  })
   // TEST StprePreviewHolder in its loading state //
   describe("StorePreviewHolder in 'loading' state", () => {
     let wrapper: ReactWrapper;
-    beforeAll(() => {
+
+    beforeAll( () => {
       const mockState = generateCleanState();
       mockState.storeState.loading = true;
       wrapper = mount(
         <TestStateProvider mockState={mockState}>
-          <Router keyLength={0} initialEntries={[ AdminStoreRoutes.VIEW_ALL_ROUTE  ]}>
+          <MemoryRouter keyLength={0} initialEntries={[ AdminStoreRoutes.VIEW_ALL_ROUTE  ]}>
             <StorePreviewHolder />
-          </Router>
+          </MemoryRouter>
         </TestStateProvider>
       );
     });
     it("Should correctly render", () => {
       expect(wrapper.render()).toMatchSnapshot();
     });
-    it("Should have a LoadingScreen while 'loading == true'", () => {
-      const loadingScreen = wrapper.find(LoadingScreen);
+    it("Should render the 'LoadingScreen' before API calls resolve", () => {
+      const loadingScreen = wrapper.find(StorePreviewHolder).find(LoadingScreen);
+      const errorScreen = wrapper.find(StorePreviewHolder).find(ErrorScreen);
+      const storesGrid = wrapper.find(StorePreviewHolder).find(Grid);
+      // assert correct rendering //
       expect(loadingScreen.length).toEqual(1);
+      expect(errorScreen.length).toEqual(0);
+      expect(storesGrid.length).toEqual(0);
     });
     it("Should not display the '#adminStorePreviewHolder'", () => {
       const adminStorePreview = wrapper.find("#adminStorePreviewHolder");
@@ -50,70 +86,120 @@ describe("StorePreviewHolder Component render tests", () => {
   });
   // END TEST StorePreviewHolder in its loading state //
   // TEST StorePreviewHolder in its loaded state //
-  describe("StorePreview in 'loaded' state", () => {
-    let wrapper: ReactWrapper; let mockStores: IStoreData[];
+  describe("'StorePreviewHolder' component after all successful API calls", () => {
+    let wrapper: ReactWrapper;
+
     beforeAll( async () => {
+      const promise = Promise.resolve();
       moxios.install();
       const mockState = generateCleanState();
-      // set mock stores //
-      mockStores = [
-        {
-          _id: "1",
-          title: "first",
-          description: "desc",
-          images: [],
-          createdAt: "now"
-        },
-        {
-          _id: "2",
-          title: "second",
-          description: "desc",
-          images: [],
-          createdAt: "now"
-        },
-        {
-          _id: "3",
-          title: "third",
-          description: "desc",
-          images: [],
-          createdAt: "now"
+      moxios.stubRequest("/api/stores", {
+        status: 200,
+        response: {
+          responseMsg: "All ok",
+          stores: mockStores
         }
-      ];
-
+      });
+     
       wrapper = mount(
          <TestStateProvider mockState={mockState}>
-           <Router keyLength={0} initialEntries={[AdminStoreRoutes.VIEW_ALL_ROUTE]}>
+           <MemoryRouter keyLength={0} initialEntries={[AdminStoreRoutes.VIEW_ALL_ROUTE]}>
              <StorePreviewHolder />
-           </Router>
+           </MemoryRouter>
          </TestStateProvider>
       );
 
-      await act( async () => {
-        await moxios.stubRequest("/api/stores", {
-          status: 200,
-          response: {
-            responseMsg: "All ok",
-            stores: mockStores
-          }
-        });
-      });
+      await act( async () => promise);
+    });
+    afterAll(() => {
+      moxios.uninstall();
+    });
+
+    it("Should correctly render initial 'LoadingScreen' component", () => {
+      const loadingScreen = wrapper.find(StorePreviewHolder).find(LoadingScreen);
+      const errorScreen = wrapper.find(StorePreviewHolder).find(ErrorScreen);
+      const storesGrid = wrapper.find(StorePreviewHolder).find(Grid);
+      // assert correct rendering //
+      expect(loadingScreen.length).toEqual(1);
+      expect(errorScreen.length).toEqual(0);
+      expect(storesGrid.length).toEqual(0);
+    });
+    it("Should correctly render the'StorePreviewHolder' component 'Grid'", () => {
       wrapper.update();
-    });
-    it("Should correctly render", () => {
-      expect(wrapper.render()).toMatchSnapshot();
-    });
-    it("Should NOT have a LoadingScreen while 'loading == false'", () => {
-      const loadingScreen = wrapper.find(LoadingScreen);
+      const loadingScreen = wrapper.find(StorePreviewHolder).find(LoadingScreen);
+      const errorScreen = wrapper.find(StorePreviewHolder).find(ErrorScreen);
+      const storesGrid = wrapper.find(StorePreviewHolder).find(Grid);
+      // assert correct rendering //
+      expect(wrapper.find(StorePreviewHolder)).toMatchSnapshot();
       expect(loadingScreen.length).toEqual(0);
+      expect(errorScreen.length).toEqual(0);
+      expect(storesGrid.length).toEqual(1);
     });
-    it("Should display the '#adminStorePreviewHolder'", () => {
-      const adminStorePreview = wrapper.find("#adminStorePreviewHolder");
-      expect(adminStorePreview.length).toEqual(1);
+    it(`Should NOT change the client route ${AdminStoreRoutes.VIEW_ALL_ROUTE}`, () => {
+      const { history } = wrapper.find(Router).props();
+      expect(history.location.pathname).toEqual(AdminStoreRoutes.VIEW_ALL_ROUTE);
     });
-    it(`Should display a correct (3) number of StorePreview Components`, () => {
-      const storePreviewComponents = wrapper.find(StorePreview);
+    it(`Should display a correct number of StorePreview Components`, () => {
+      const storePreviewComponents = wrapper.find(StorePreviewHolder).find(StorePreview);
       expect(storePreviewComponents.length).toEqual(mockStores.length);
     });
   });
-  // END TEST StorePreviewHolder in its loaded state //
+  // END TEST StorePreviewHolder with a successful API call //
+  // TEST StorePReviewHolder in Error state //
+  /*
+  describe("'StorePreviewHolder' component in API Error state", () => {
+    let wrapper: ReactWrapper;
+    const error = new Error("Error occured");
+
+    beforeAll( async () => {
+      const promise = Promise.resolve();
+      
+      moxios.install();
+      moxios.stubRequest("/api/stores", {
+        status: 500,
+        response: {
+          responseMsg: "Oops error",
+          error: error
+        }
+      });
+
+      wrapper = mount(
+        <MemoryRouter initialEntries={[ AdminStoreRoutes.VIEW_ALL_ROUTE ]} keyLength={0}>
+          <TestStateProvider>
+            <StorePreviewHolder />
+          </TestStateProvider>
+        </MemoryRouter>
+      );
+      await act( async () => promise);
+    });
+    afterEach(() => {
+      moxios.uninstall();
+    });
+
+    it("Should render the 'LoadingScreen' component after an API call", () => {
+      const loadingScreen = wrapper.find(StorePreviewHolder).find(LoadingScreen);
+      const errorScreen = wrapper.find(StorePreviewHolder).find(ErrorScreen);
+      const storesGrid = wrapper.find(StorePreviewHolder).find(Grid);
+      // assert correct rendering //
+      expect(loadingScreen.length).toEqual(1);
+      expect(errorScreen.length).toEqual(0);
+      expect(storesGrid.length).toEqual(0);
+    });
+    it("Should ONLY render the 'ErrorScreen' component after an API error", () => {
+      wrapper.update();
+      const loadingScreen = wrapper.find(StorePreviewHolder).find(LoadingScreen);
+      const errorScreen = wrapper.find(StorePreviewHolder).find(ErrorScreen);
+      const storesGrid = wrapper.find(StorePreviewHolder).find(Grid);
+      // assert correct rendering //
+      expect(loadingScreen.length).toEqual(0);
+      expect(errorScreen.length).toEqual(1);
+      expect(storesGrid.length).toEqual(0);
+    });
+    it(`Should NOT change the client route: ${AdminStoreRoutes.VIEW_ALL_ROUTE}`, () => {
+      const { history } = wrapper.find(Router).props();
+      expect(history.location.pathname).toEqual(AdminStoreRoutes.VIEW_ALL_ROUTE);
+    });
+  });
+
+  */
 });
