@@ -53,14 +53,14 @@ const StoreForm: React.FC<Props> = ({ title, description, newForm, handleCreateS
         <Form.Field>
           <label>Store title</label>
           <input 
-            id={"storeFormTitleInput"}
+            id="adminStoreFormTitleInput"
             onChange={handleTitleChange} 
             placeholder="Store title here ..." 
             value={formState.title}
           />
         </Form.Field>
         <Form.Field
-          id='storeFormDescInput'
+          id="adminStoreFormDescInput"
           control={TextArea}
           label='Store Description'
           onChange={hadnleDescriptionChange}

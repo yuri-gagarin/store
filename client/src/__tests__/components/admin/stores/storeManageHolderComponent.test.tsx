@@ -4,12 +4,14 @@ import { Grid } from "semantic-ui-react";
 import moxios from "moxios";
 import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
-import { MemoryRouter as Router } from "react-router-dom";
+import { MemoryRouter, Router } from "react-router-dom";
 // components //
 import StoreManageHolder from "../../../../components/admin_components/stores/store_manage/StoreManageHolder";
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
 import StoreCard from "../../../../components/admin_components/stores/store_manage/StoreCard";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
+import StoreFormHolder from "../../../../components/admin_components/stores/forms/StoreFormHolder";
+import StoreForm from "../../../../components/admin_components/stores/forms/StoreForm";
 // helpers and state //
 import { TestStateProvider } from "../../../../state/Store";
 import { AdminStoreRoutes } from "../../../../routes/adminRoutes";
@@ -41,11 +43,11 @@ describe("Store Manage Holder Tests", () => {
       beforeAll( async () => {
         moxios.install();
         wrapper = mount(
-          <Router keyLength={0} initialEntries={[AdminStoreRoutes.MANAGE_ROUTE]}>
+          <MemoryRouter keyLength={0} initialEntries={[AdminStoreRoutes.MANAGE_ROUTE]}>
             <TestStateProvider>
               <StoreManageHolder />
             </TestStateProvider>
-          </Router>
+          </MemoryRouter>
         );
 
         await act( async () => {
@@ -81,11 +83,11 @@ describe("Store Manage Holder Tests", () => {
         moxios.install();
 
         wrapper = mount(
-          <Router keyLength={0} initialEntries={[AdminStoreRoutes.MANAGE_ROUTE]}>
+          <MemoryRouter keyLength={0} initialEntries={[AdminStoreRoutes.MANAGE_ROUTE]}>
             <TestStateProvider>
               <StoreManageHolder />
             </TestStateProvider>
-          </Router>
+          </MemoryRouter>
         );
         
         await act( async () => {
@@ -139,11 +141,11 @@ describe("Store Manage Holder Tests", () => {
         await act(async () => {
           moxios.install();
           wrapper = await mount(
-            <Router keyLength={0} initialEntries={[AdminStoreRoutes.MANAGE_ROUTE]}>
+            <MemoryRouter keyLength={0} initialEntries={[AdminStoreRoutes.MANAGE_ROUTE]}>
               <TestStateProvider>
                 <StoreManageHolder />
               </TestStateProvider>
-            </Router>
+            </MemoryRouter>
           );
           moxios.stubRequest("/api/stores", {
             status: 500,
@@ -220,6 +222,80 @@ describe("Store Manage Holder Tests", () => {
       });
     });
     // END mock successfull API call tests //
+    // TEST StoreCard component EDIT button tests //
+    describe("'StoreCard component EDIT button click action", () => {
+      let wrapper: ReactWrapper;
+      window.scrollTo = jest.fn;
+
+      beforeAll( async () => {
+        const promise = Promise.resolve();
+        moxios.install();
+        moxios.stubRequest("/api/stores",  {
+          status: 200,
+          response: {
+            responseMsg: "All ok",
+            stores: mockStores
+          }
+        });
+
+        wrapper = mount(
+          <MemoryRouter>
+            <TestStateProvider>
+              <StoreManageHolder />
+            </TestStateProvider>
+          </MemoryRouter>
+        );
+        await act( async () => promise);
+        wrapper.update();
+      });
+
+      it("Should render the 'StoreFormHolder' component after EDIT Button click", () => {
+        const editButton = wrapper.find(StoreCard).at(0).find(".storeCardEditBtn");
+        editButton.simulate("click");
+        const storeFormholder = wrapper.find(StoreFormHolder);
+        expect(storeFormholder.length).toEqual(1);
+      });
+      it("Should render the '#storeFormHolderDetails' component", () => {
+        const detailsHolder = wrapper.find(StoreFormHolder).render().find("#adminStoreFormHolderDetails");
+        expect(detailsHolder.length).toEqual(1);
+      });
+      it("Should display the correct data in '.storeFormHolderDetailsItem' components", () => {
+        const detailsDivs = wrapper.find(StoreFormHolder).find(".adminStoreFormHolderDetailsItem");
+        expect(detailsDivs.length).toEqual(2);
+        expect(detailsDivs.at(0).find("p").text()).toEqual(mockStores[0].title);
+        expect(detailsDivs.at(1).find("p").text()).toEqual(mockStores[1].description);
+      });
+      it("Should correctly render the 'StoreForm' component", () => {
+        const storeFormToggleBtn = wrapper.find(StoreFormHolder).find("#adminStoreFormToggleBtn");
+        // toggle StoreForm //
+        storeFormToggleBtn.at(0).simulate("click");
+        // assert correct rendering //
+        const storeForm = wrapper.find(StoreForm);
+        expect(storeForm.length).toEqual(1);
+      });
+      it("Shuld correctly render the 'currentStore' data within the 'StoreForm' component", () => {
+        const currentStore = mockStores[0];
+        const titleInput = wrapper.find(StoreForm).find("#adminStoreFormTitleInput");
+        const descriptionInput = wrapper.find(StoreForm).find("adminStoreFormDescInput");
+        // assert correct rendering //
+        expect(titleInput.props().value).toEqual(currentStore.title);
+        expect(descriptionInput.at(0).props().value).toEqual(currentStore.description);
+      });
+      it(`Should route to a correct client route: ${AdminStoreRoutes.EDIT_ROUTE}`, () => {
+        const { history } = wrapper.find(Router).props();
+        expect(history.location.pathname).toEqual(AdminStoreRoutes.EDIT_ROUTE);
+      });
+      it("Should correctly handle the '#adminStoreManageBackBtn' click and close 'StoreFormHolder' component", () => {
+        const backBtn = wrapper.find(StoreManageHolder).find("#adminStoreManageBackBtn");
+        backBtn.at(0).simulate("click");
+        expect(wrapper.find(StoreFormHolder).length).toEqual(0);
+      });
+      it(`Should route to a correct client route: ${AdminStoreRoutes.MANAGE_ROUTE}`, () => {
+        const { history } = wrapper.find(Router).props();
+        expect(history.location.pathname).toEqual(AdminStoreRoutes.MANAGE_ROUTE);
+      });
+    });
+    // END TEST StoreCard EDIT button click //
     
   
 });

@@ -275,6 +275,7 @@ describe("Product Manage Holder Tests", () => {
       await act( async () => promise);
       wrapper.update();
     });
+    
     it("Should render the 'ProductFormHolder' component after 'edit Button click action", () => {
       const editButton = wrapper.find(ProductCard).at(0).find(".productCardEditBtn").at(0);
       editButton.simulate("click");

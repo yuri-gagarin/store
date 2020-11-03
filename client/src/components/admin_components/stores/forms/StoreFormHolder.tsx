@@ -83,11 +83,11 @@ const StoreFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
             <Grid.Row>
               <Grid.Column mobile={16} tablet={14} computer={14}>
                 <h1>Details</h1>
-                <div className="adminStoreFormHolderTitle">
+                <div className="adminStoreFormHolderDetailsItem">
                   <h3>Store title:</h3>
                   <p>{title}</p>
                 </div>
-                <div className="adminStoreFormHolderDesc">
+                <div className="adminStoreFormHolderDetailsItem">
                   <h3>Store description:</h3>
                   <p>{description}</p>
                 </div>
