@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "semantic-ui-react";
+import { Button, Confirm, Grid } from "semantic-ui-react";
 // test dependencies //
 import moxios from "moxios";
 import { mount, ReactWrapper } from "enzyme";
@@ -13,10 +13,11 @@ import ErrorScreen from "../../../../components/admin_components/miscelaneous/Er
 import StoreFormHolder from "../../../../components/admin_components/stores/forms/StoreFormHolder";
 import StoreForm from "../../../../components/admin_components/stores/forms/StoreForm";
 // helpers and state //
-import { TestStateProvider } from "../../../../state/Store";
+import { Store, TestStateProvider } from "../../../../state/Store";
 import { AdminStoreRoutes } from "../../../../routes/adminRoutes";
 
 describe("Store Manage Holder Tests", () => {
+    const createdDate: string = new Date("12/31/2019").toString();
     let mockStores: IStoreData[];
 
     beforeAll(() => {
@@ -24,24 +25,42 @@ describe("Store Manage Holder Tests", () => {
         {
           _id: "1",
           title: "first",
-          description: "desc",
+          description: "description",
           images: [],
-          createdAt: "now"
+          createdAt: createdDate
         },
         {
           _id: "2",
           title: "second",
-          description: "desc",
+          description: "description",
           images: [],
-          createdAt: "now"
+          createdAt: createdDate
+        },
+        {
+          _id: "3",
+          title: "third",
+          description: "description",
+          images: [],
+          createdAt: createdDate
         }
-      ]
-    })
+      ];
+    });
+    // TEST component state at first render //
     describe("Default Component state at first render", () => {
       let wrapper: ReactWrapper; 
 
       beforeAll( async () => {
-        moxios.install();
+        const promise = Promise.resolve();
+
+        moxios.uninstall();
+        moxios.stubRequest("/api/stores", {
+          status: 200,
+          response: {
+            responseMsg: "All Ok",
+            stores: []
+          }
+        });
+
         wrapper = mount(
           <MemoryRouter keyLength={0} initialEntries={[AdminStoreRoutes.MANAGE_ROUTE]}>
             <TestStateProvider>
@@ -49,38 +68,40 @@ describe("Store Manage Holder Tests", () => {
             </TestStateProvider>
           </MemoryRouter>
         );
-
-        await act( async () => {
-          await moxios.stubRequest("/api/stores", {
-            status: 200,
-            response: {
-              responseMsg: "All Ok",
-              stores: []
-            }
-          });
-        });
-
+        await act( async () => promise);
       });
        afterAll(() => {
         moxios.uninstall();
       }); 
       
+      it("Should render a LoadingScreen' Component before an API call", () => {
+        const loadingScreen = wrapper.find(StoreManageHolder).find(LoadingScreen);
+        const errorScreen = wrapper.find(StoreManageHolder).find(ErrorScreen);
+        const storesGrid = wrapper.find(StoreManageHolder).find(Grid);
+        // assert correct rendering //
+        expect(loadingScreen.length).toEqual(1)
+        expect(errorScreen.length).toEqual(0);
+        expect(storesGrid.length).toEqual(0);
+      })
       it("Should correctly render", () => {
         expect(wrapper.find(StoreManageHolder)).toMatchSnapshot();
       });
-      
-      it("Should render a 'LoadingScreen' Component before an API call resolves", () => {
-        const loadingScreen = wrapper.find(LoadingScreen);
-        expect(loadingScreen.length).toEqual(1)
-      });
     });
-    
-    // mock successful API call render tests //
-    describe("State after a successful API call", () => {
-      let wrapper: ReactWrapper; let loadingScreen: ReactWrapper;
+    // END TEST component at first render //
+    // TEST mock successful API call render tests //
+    describe("'StoreManageHolder' component after a successful API call", () => {
+      let wrapper: ReactWrapper; 
 
       beforeAll( async () => {
+        const promise = Promise.resolve();
         moxios.install();
+        moxios.stubRequest("/api/stores", {
+          status: 200,
+          response: {
+            responseMsg: "All Ok",
+            stores: mockStores
+          }
+        });
 
         wrapper = mount(
           <MemoryRouter keyLength={0} initialEntries={[AdminStoreRoutes.MANAGE_ROUTE]}>
@@ -90,103 +111,101 @@ describe("Store Manage Holder Tests", () => {
           </MemoryRouter>
         );
         
-        await act( async () => {
-          await moxios.stubRequest("/api/stores", {
-            status: 200,
-            response: {
-              responseMsg: "All Ok",
-              stores: mockStores
-            }
-          });
-        });
+       await act( async () => promise);
       });
 
       afterAll(() => {
         moxios.uninstall();
       }); 
 
-      it("Should correctly render the initial Loading Screen", () => {
-        const loadingScreen = wrapper.find(LoadingScreen);
+      it("Should correctly render the initial 'LoadingScreen' component", () => {
+        const loadingScreen = wrapper.find(StoreManageHolder).find(LoadingScreen);
+        const errorScreen = wrapper.find(StoreManageHolder).find(ErrorScreen);
+        const storesGrid = wrapper.find(StoreManageHolder).find(Grid);
+        // assert correct rendering //
         expect(loadingScreen.length).toEqual(1);
+        expect(errorScreen.length).toEqual(0);
+        expect(storesGrid.length).toEqual(0);
       });
-      it("Should not render the initial Loading Screen after the API call", async () => {
-        act( () => {
-          wrapper.update();
-        });
-        const loadingScreen = wrapper.find(LoadingScreen);
+      it("Should render the correct 'StoreManageHolder' 'Grid' Component", () => {
+        wrapper.update();
+        const loadingScreen = wrapper.find(StoreManageHolder).find(LoadingScreen);
+        const errorScreen = wrapper.find(StoreManageHolder).find(ErrorScreen);
+        const storesGrid = wrapper.find(StoreManageHolder).find(Grid);
+        // assert correct rendering //
+        expect(wrapper.find(StoreManageHolder)).toMatchSnapshot();
         expect(loadingScreen.length).toEqual(0);
+        expect(errorScreen.length).toEqual(0);
+        expect(storesGrid.length).toEqual(1);
       });
-      it("Should NOT render the ErrorScreen Component", () => {
-        const errorScreenComponent = wrapper.find(ErrorScreen);
-        expect(errorScreenComponent.length).toEqual(0);
+      it("Should NOT change the client route", () => {
+        const { history } = wrapper.find(Router).props();
+        expect(history.location.pathname).toEqual(mockStores.length);
       });
-  
-      it("Should render the correct StoreManageHolder Component", () => {
-        const storeManageHolderComp = wrapper.find(StoreManageHolder).find(Grid);
-        expect(storeManageHolderComp.length).toEqual(1)
-        expect(storeManageHolderComp).toMatchSnapshot();
-      });
-    
       it("Should render correct number of StoreCard components", () => {
-        const storeCards = wrapper.find(StoreCard);
+        const storeCards = wrapper.find(StoreManageHolder).find(StoreCard);
         expect(storeCards.length).toEqual(mockStores.length);
-      })
+      });
+
     });
     // END mock successfull API call render tests //
-    // mock ERROR API call render tests //
-    describe("State after a Error in API call", () => {
+    // TEST mock ERROR API call render tests //
+    describe("'StoreManageHolde' component state after a Error in API call", () => {
       let wrapper: ReactWrapper;
+      const error = new Error("Error occured");
 
-      beforeAll(async () => {
-        await act(async () => {
-          moxios.install();
-          wrapper = await mount(
-            <MemoryRouter keyLength={0} initialEntries={[AdminStoreRoutes.MANAGE_ROUTE]}>
-              <TestStateProvider>
-                <StoreManageHolder />
-              </TestStateProvider>
-            </MemoryRouter>
-          );
-          moxios.stubRequest("/api/stores", {
-            status: 500,
-            response: {
-              responseMsg: "Error here",
-              error: new Error("API Call Error")
-            }
-          });
+      beforeAll( async () => {
+        const promise = Promise.resolve();
+        moxios.install();
+        moxios.stubRequest("/api/stores", {
+          status: 500,
+          response: {
+            responseMsg: "Error here",
+            error: new Error("API Call Error")
+          }
         });
-        act(() => {
-          moxios.uninstall();
-        })
+
+        wrapper = mount(
+          <MemoryRouter keyLength={0} initialEntries={[AdminStoreRoutes.MANAGE_ROUTE]}>
+            <TestStateProvider>
+              <StoreManageHolder />
+            </TestStateProvider>
+          </MemoryRouter>
+        );
+        await act( async () => promise);
+      });
+      afterEach(() => {
+        moxios.uninstall();
       });
 
-      it("Should correctly render the initial Loading Screen", () => {
-        const loadingScreen = wrapper.find(LoadingScreen);
+      it("Should correctly render the 'LoadingScreen' component", () => {
+        const loadingScreen = wrapper.find(StoreManageHolder).find(LoadingScreen);
+        const errorScreen = wrapper.find(StoreManageHolder).find(ErrorScreen);
+        const storesGrid = wrapper.find(StoreManageHolder).find(Grid);
+        // assert correct rendering //
         expect(loadingScreen.length).toEqual(1);
+        expect(errorScreen.length).toEqual(0);
+        expect(storesGrid.length).toEqual(0);
       });
 
-      it("Should not render the initial Loading Screen after an  API call", () => {
-        act( () => {
-          wrapper.update();
-        });
-        const loadingScreen = wrapper.find(LoadingScreen);
+      it("Should ONLT render the 'ErrorScreen' Component after API error", () => {
+        wrapper.update();
+        const loadingScreen = wrapper.find(StoreManageHolder).find(LoadingScreen);
+        const errorScreenComponent = wrapper.find(ErrorScreen).find(ErrorScreen);
+        const storesGrid = wrapper.find(StoreManageHolder).find(Grid);
+        // assert correct rendering //
         expect(loadingScreen.length).toEqual(0);
-      });
-      it("Should render the ErrorScreen Component", () => {
-        const errorScreenComponent = wrapper.find(ErrorScreen);
         expect(errorScreenComponent.length).toEqual(1);
+        expect(storesGrid.length).toEqual(0);
       });
-      
-      it("Should NOT render the StoreManageHolder Component", () => {
-        const storeManageHolderComp = wrapper.find(StoreManageHolder).find(Grid);
-        expect(storeManageHolderComp.length).toEqual(0);
+      it("Should NOT change the client route", () => {
+        const { history } = wrapper.find(Router).props();
+        expect(history.location.pathname).toEqual(AdminStoreRoutes.MANAGE_ROUTE);
       });
-    
       it("Should NOT render ANY StoreCard components", () => {
         const storeCards = wrapper.find(StoreCard);
         expect(storeCards.length).toEqual(0);
       });
-  
       it("Should have a retry Store API call Button", () => {
         const retryButton = wrapper.find(ErrorScreen).render().find("#errorScreenRetryButton");
         expect(retryButton.length).toEqual(1);
@@ -194,31 +213,48 @@ describe("Store Manage Holder Tests", () => {
       
       
       it("Should correctly re-dispatch the 'getStores' API request with the button click", async () => {
-        await act( async () => {
-          moxios.install();
-          moxios.stubRequest("/api/stores", {
-            status: 200,
-            response: {
-              responseMsg: "All Ok",
-              stores: mockStores
-            }
-          });
-          const retryButton = wrapper.find("#errorScreenRetryButton");
-          retryButton.at(0).simulate("click");
+        const promise = Promise.resolve();
+
+        moxios.install();
+        moxios.stubRequest("/api/stores", {
+          status: 200,
+          response: {
+            responseMsg: "All Ok",
+            stores: mockStores
+          }
         });
+        const retryButton = wrapper.find("#errorScreenRetryButton");
+        retryButton.at(0).simulate("click");
+
+        await act( async () =>promise);
+        expect(wrapper.find(StoreManageHolder).find(ErrorScreen).length).toEqual(0);
+      });
+      it("Should render ONLY 'LoadingScreen' component after an API call", () => {
+        const loadingScreen = wrapper.find(StoreManageHolder).find(LoadingScreen);
+        const errorScreen = wrapper.find(StoreManageHolder).find(ErrorScreen);
+        const storesGrid = wrapper.find(StoreManageHolder).find(Grid);
+        // assert correct rendering //
+        expect(loadingScreen.length).toEqual(1);
+        expect(errorScreen.length).toEqual(0);
+        expect(storesGrid.length).toEqual(0);
       });
       it("Should properly rerender 'StoreManageHolder' component", () => {
         wrapper.update()
-        const errorScreen = wrapper.find(ErrorScreen);
-        const storeManageHolderComp = wrapper.find(StoreManageHolder).find(Grid);
+        const loadingScreen = wrapper.find(StoreManageHolder).find(LoadingScreen);
+        const errorScreen = wrapper.find(StoreManageHolder).find(ErrorScreen);
+        const storesGrid = wrapper.find(StoreManageHolder).find(Grid);
         // assert correct rendering //
+        expect(loadingScreen.length).toEqual(0)
         expect(errorScreen.length).toEqual(0);
-        expect(storeManageHolderComp.length).toEqual(1);
+        expect(storesGrid.length).toEqual(1);
       });
-      
       it("Should render correct number of 'StoreCard' Components", () => {
-        const storeCards = wrapper.find(StoreCard);
+        const storeCards = wrapper.find(StoreManageHolder).find(StoreCard);
         expect(storeCards.length).toEqual(mockStores.length);
+      });
+      it("Should NOT change the client route", () => {
+        const { history } = wrapper.find(Router).props();
+        expect(history.location.pathname).toEqual(AdminStoreRoutes.MANAGE_ROUTE);
       });
     });
     // END mock successfull API call tests //
@@ -296,6 +332,92 @@ describe("Store Manage Holder Tests", () => {
       });
     });
     // END TEST StoreCard EDIT button click //
-    
+    // TEST StoreCard DELETE buton click //
+    describe("'StoreCard' component DELETE button click action", () => {
+      let wrapper: ReactWrapper;
+      let mockDeletedStore: IStoreData;
+      window.scrollTo = jest.fn;
+
+      beforeAll( async () => {
+        const promise = Promise.resolve();
+        moxios.install();
+        moxios.stubRequest("/api/stores", {
+          status: 200,
+          response: {
+            responseMsg: "All ok",
+            stores: mockStores
+          }
+        })
+        mockDeletedStore = mockStores[0];
+        // mount and update //
+        wrapper = mount(
+          <MemoryRouter initialEntries={[ AdminStoreRoutes.MANAGE_ROUTE ]} keyLength={0}>
+            <TestStateProvider>
+              <StoreManageHolder />
+            </TestStateProvider>
+          </MemoryRouter>
+        );
+        await act( async () => promise);
+        wrapper.update();
+      });
+      beforeEach(() => {
+        moxios.install();
+      });
+      afterEach(() => {
+        moxios.uninstall();
+      });
+
+      it("Should render the 'Confirm' component after the 'DELETE' Button click action", () => {
+        const deleteBtn = wrapper.find(StoreCard).at(0).find(".storeCardDeleteBtn");
+        deleteBtn.at(0).simulate("click");
+        const confirmModal = wrapper.find(StoreCard).at(0).find(Confirm);
+        // assert correct rendering //
+        expect(confirmModal.props().open).toEqual(true);
+        expect(confirmModal.find(Button).length).toEqual(2);
+      });
+      it("Should correctly handle the {cancelStoreDeleteAction} method and update the local component state", () => {
+        const deleteBtn = wrapper.find(StoreCard).at(0).find(".storeCardDeleteBtn");
+        deleteBtn.at(0).simulate("click");
+        const confirmModal = wrapper.find(StoreCard).at(0).find(Confirm);
+        // simulate cancel button click //
+        confirmModal.find(Button).at(0).simulate("click");
+        // assert correct rendering //
+        expect(wrapper.find(StoreCard).at(0).find(Confirm).props().open).toEqual(false);
+        expect(wrapper.find(StoreCard).length).toEqual(mockStores.length);
+      });
+      it("Should correctly handle {confirmStoreDeleteAction} method and correctly update local component state", async () => {
+        const promise = Promise.resolve();
+        moxios.stubRequest(`/api/stores/delete/${mockStores[0]._id}`, {
+          status: 200,
+          response: {
+            responseMsg: "All ok",
+            deletedStore: mockDeletedStore
+          }
+        });
+        // simulate click action //
+        const deleteBtn = wrapper.find(StoreCard).at(0).find(".storeCardDeleteBtn");
+        deleteBtn.at(0).simulate("click");
+        const confirmModal = wrapper.find(StoreCard).at(0).find(Confirm);
+        // simulate confirm action click //
+        await act( async () => promise);
+        expect(moxios.requests.mostRecent().url).toEqual(`/api/stores/delete/${mockStores[0]._id}`);
+      });
+      it("Should correctly updated and rerender 'StoreManageHolder' component", () => {
+        wrapper.update();
+        expect(wrapper.find(StoreManageHolder).find(LoadingScreen).length).toEqual(0);
+        expect(wrapper.find(StoreManageHolder).find(ErrorScreen).length).toEqual(0);
+        expect(wrapper.find(StoreManageHolder).find(Grid).length).toEqual(1);
+      });
+      it("Should NOT render the 'removed' 'StoreCard' component", () => {
+        const storeCards = wrapper.find(StoreManageHolder).find(StoreCard);
+        storeCards.forEach((storeCard) => {
+          expect(storeCard.props()._id).not.toEqual(mockDeletedStore._id);
+        });
+      });
+      it("Should rerender with correct number of 'StoreCard' components", () => {
+        const storeCards = wrapper.find(StoreManageHolder).find(StoreCard);
+        expect(storeCards.length).toEqual(mockStores.length - 1);
+      });
+    })
   
 });

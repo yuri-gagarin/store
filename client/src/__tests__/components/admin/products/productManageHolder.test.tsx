@@ -86,7 +86,7 @@ describe("Product Manage Holder Tests", () => {
   });
   
   //
-  // mock successful API call render tests //
+  // TEST mock successful API call render tests //
   describe("'ProductsManageHolder' after a successful API call", () => {
     let wrapper: ReactWrapper; 
 
@@ -146,9 +146,8 @@ describe("Product Manage Holder Tests", () => {
     });
 
   });
-  
   // END mock successfull API call render tests //
-  // mock ERROR API call render tests //
+  // TEST mock ERROR API call render tests //
   describe("'ProductsManageHolder' component after a Error in API call", () => {
     let wrapper: ReactWrapper; 
     const error = new Error("Error occured");
@@ -219,7 +218,8 @@ describe("Product Manage Holder Tests", () => {
       const retryButton = wrapper.find("#errorScreenRetryButton");
       retryButton.at(0).simulate("click");
 
-      await act(() => promise);
+      await act( async () => promise);
+      expect(wrapper.find(ProductsManageHolder).find(ErrorScreen).length).toEqual(0);
     });
     it("Should render ONLY 'LoadingScreen' component after API call retry", () => {
       const loadingScreen = wrapper.find(ProductsManageHolder).find(LoadingScreen);
@@ -275,7 +275,7 @@ describe("Product Manage Holder Tests", () => {
       await act( async () => promise);
       wrapper.update();
     });
-    
+
     it("Should render the 'ProductFormHolder' component after 'edit Button click action", () => {
       const editButton = wrapper.find(ProductCard).at(0).find(".productCardEditBtn").at(0);
       editButton.simulate("click");
