@@ -51,10 +51,13 @@ exports[`StorePreviewHolder Component render tests 'StorePreviewHolder' componen
     }
   >
     <Grid
+      columns={2}
       id="adminStorePreviewHolder"
+      padded={true}
+      stackable={true}
     >
       <div
-        className="ui grid"
+        className="ui stackable padded two column grid"
         id="adminStorePreviewHolder"
       >
         <StorePreview

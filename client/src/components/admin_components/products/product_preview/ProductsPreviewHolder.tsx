@@ -44,7 +44,7 @@ const ProductsPreviewHolder: React.FC<Props> = ({ history }): JSX.Element => {
   }, [ dispatch ]);
   
   useEffect(() => {
-    if (productsRef.current != loadedProducts && !error && !loading) {
+    if ((productsRef.current != loadedProducts) && !error && !loading) {
       setNewDataLoaded(true);
     }
   }, [ productsRef.current, loadedProducts, error, loading ]);

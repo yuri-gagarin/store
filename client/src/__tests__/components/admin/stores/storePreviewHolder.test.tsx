@@ -17,7 +17,9 @@ import { TestStateProvider } from "../../../../state/Store";
 // helpers //
 import { generateCleanState } from "../../../../test_helpers/miscHelpers";
 
-
+// TEST StprePreviewHolder in its loading state //
+  
+  
 describe("StorePreviewHolder Component render tests", () => {
   let mockStores: IStoreData[];
   const mockDate = new Date("1/1/2019").toString();
@@ -46,22 +48,36 @@ describe("StorePreviewHolder Component render tests", () => {
         createdAt: mockDate
       }
     ]
-  })
-  // TEST StprePreviewHolder in its loading state //
+  });
+  // TEST StorePreviewHolder initial render //
   describe("StorePreviewHolder in 'loading' state", () => {
     let wrapper: ReactWrapper;
 
-    beforeAll( () => {
-      const mockState = generateCleanState();
-      mockState.storeState.loading = true;
+    beforeAll( async () => {
+      const promise = Promise.resolve();
+
+      moxios.install();
+      moxios.stubRequest("/api/stores", {
+        status: 200,
+        response: {
+          responseMsg: "OK",
+          stores: []
+        }
+      });
+
       wrapper = mount(
-        <TestStateProvider mockState={mockState}>
-          <MemoryRouter keyLength={0} initialEntries={[ AdminStoreRoutes.VIEW_ALL_ROUTE  ]}>
+        <MemoryRouter keyLength={0} initialEntries={[ AdminStoreRoutes.VIEW_ALL_ROUTE  ]}>
+          <TestStateProvider>
             <StorePreviewHolder />
-          </MemoryRouter>
-        </TestStateProvider>
+          </TestStateProvider>
+        </MemoryRouter>
       );
+      await act( async () => promise);
     });
+    afterAll(() => {
+      moxios.uninstall();
+    });
+    
     it("Should correctly render", () => {
       expect(wrapper.render()).toMatchSnapshot();
     });
@@ -85,6 +101,7 @@ describe("StorePreviewHolder Component render tests", () => {
 
   });
   // END TEST StorePreviewHolder in its loading state //
+  
   // TEST StorePreviewHolder in its loaded state //
   describe("'StorePreviewHolder' component after all successful API calls", () => {
     let wrapper: ReactWrapper;
@@ -92,7 +109,6 @@ describe("StorePreviewHolder Component render tests", () => {
     beforeAll( async () => {
       const promise = Promise.resolve();
       moxios.install();
-      const mockState = generateCleanState();
       moxios.stubRequest("/api/stores", {
         status: 200,
         response: {
@@ -102,11 +118,11 @@ describe("StorePreviewHolder Component render tests", () => {
       });
      
       wrapper = mount(
-         <TestStateProvider mockState={mockState}>
-           <MemoryRouter keyLength={0} initialEntries={[AdminStoreRoutes.VIEW_ALL_ROUTE]}>
-             <StorePreviewHolder />
-           </MemoryRouter>
-         </TestStateProvider>
+        <MemoryRouter keyLength={0} initialEntries={[AdminStoreRoutes.VIEW_ALL_ROUTE]}>
+          <TestStateProvider>
+            <StorePreviewHolder />
+          </TestStateProvider>
+        </MemoryRouter>
       );
 
       await act( async () => promise);
@@ -146,7 +162,6 @@ describe("StorePreviewHolder Component render tests", () => {
   });
   // END TEST StorePreviewHolder with a successful API call //
   // TEST StorePReviewHolder in Error state //
-  /*
   describe("'StorePreviewHolder' component in API Error state", () => {
     let wrapper: ReactWrapper;
     const error = new Error("Error occured");
@@ -199,7 +214,52 @@ describe("StorePreviewHolder Component render tests", () => {
       const { history } = wrapper.find(Router).props();
       expect(history.location.pathname).toEqual(AdminStoreRoutes.VIEW_ALL_ROUTE);
     });
-  });
+    it("Should have a retry Store API call Button", () => {
+      const retryBtn = wrapper.find(StorePreviewHolder).find(ErrorScreen).render().find("#errorScreenRetryButton");
+      expect(retryBtn.length).toEqual(1)
+    });
+    it("Should properly redispatch last API call from 'ErrorScreen' component, render 'LoadingScreen' component", async () => {
+      const promise = Promise.resolve();
 
-  */
+      moxios.install();
+      moxios.stubRequest("/api/stores", {
+        status: 200,
+        response: {
+          responseMsg: "All ok",
+          stores: mockStores
+        }
+      });
+      const retryBtn = wrapper.find(StorePreviewHolder).find(ErrorScreen).find("#errorScreenRetryButton");
+      retryBtn.at(0).simulate("click");
+      // await for api calls to complete //
+      await act( async () => promise);
+      const loadingScreen = wrapper.find(StorePreviewHolder).find(LoadingScreen);
+      const errorScreen = wrapper.find(StorePreviewHolder).find(ErrorScreen);
+      const storesGrid = wrapper.find(StorePreviewHolder).find(Grid);
+      // assert correct rendering //
+      expect(loadingScreen.length).toEqual(1);
+      expect(errorScreen.length).toEqual(0);
+      expect(storesGrid.length).toEqual(0);
+    });
+    it("Should correctly rerender the 'StoresPreviewHolder' component after a successful API call", () => {
+      wrapper.update();
+      const loadingScreen = wrapper.find(StorePreviewHolder).find(LoadingScreen);
+      const errorScreen = wrapper.find(StorePreviewHolder).find(ErrorScreen);
+      const storesGrid = wrapper.find(StorePreviewHolder).find(Grid);
+      // assert correct rendering //
+      expect(loadingScreen.length).toEqual(0);
+      expect(errorScreen.length).toEqual(0);
+      expect(storesGrid.length).toEqual(1);
+    });
+    it("Should render a correct number of 'StorePreview' components", () => {
+      const storePreviews = wrapper.find(StorePreviewHolder).find(StorePreview);
+      expect(storePreviews.length).toEqual(mockStores.length);
+    });
+    it("Should NOT change the client route", () => {
+      const { history } = wrapper.find(Router).props();
+      expect(history.location.pathname).toEqual(AdminStoreRoutes.VIEW_ALL_ROUTE);
+    });
+  });
+  // END TEST StorePreviewHolder render tests with an API error returned //
+  
 });
