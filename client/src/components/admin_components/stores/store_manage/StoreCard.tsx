@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { Button, Grid } from "semantic-ui-react";
+import { Button, Confirm, Grid } from "semantic-ui-react";
+// client routing //
+import { withRouter, RouteComponentProps } from "react-router-dom";
+import { AdminStoreRoutes } from "../../../../routes/adminRoutes";
+// css imports //
+import "./css/storeCard.css";
 import { IGlobalAppState, AppAction } from "../../../../state/Store";
 import { deleteStore, getStore } from "../actions/APIstoreActions";
 import { setCurrentStore, clearCurrentStore } from "../actions/uiStoreActions";
-import { withRouter, RouteComponentProps } from "react-router-dom";
 // css imports //
-import "./css/storeCard.css";
 import { ConvertDate } from "../../../helpers/displayHelpers";
+import { clearCurrentService } from "../../services/actions/UIServiceActions";
 
 interface StoreCardProps extends RouteComponentProps {
   _id: string;
@@ -19,7 +23,11 @@ interface StoreCardProps extends RouteComponentProps {
   state: IGlobalAppState;
   dispatch: React.Dispatch<AppAction>;
 }
-type EditControlsProps = {
+interface StoreCardState {
+  editing: boolean;
+  confirmModalOpen: boolean;
+}
+interface EditControlsProps {
   handleStoreEdit(e:  React.MouseEvent<HTMLButtonElement>): void;
 }
 
@@ -33,37 +41,51 @@ const CancelEditControls: React.FC<EditControlsProps> = ({ handleStoreEdit }): J
   )
 }
 
-const StoreCard: React.FC<StoreCardProps> = ({ 
-   _id, title, description, imageCount, createdAt, editedAt, history,
-   state, dispatch
-  }): JSX.Element => {
-  const [ editing, setEditing ] = useState<boolean>(false);
+const StoreCard: React.FC<StoreCardProps> = ({ _id, title, description, imageCount, createdAt, history, state, dispatch }): JSX.Element => {
+  const [ storeCardState, setStoreCardState ] = useState<StoreCardState>({ editing: false, confirmModalOpen: false });
   const baseUrl = "/admin/home/my_stores/manage"
- 
-  const handleStoreOpen = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  
+  // OPEN Store click handler //
+  const handleStoreOpen = (): void => {
     history.push(baseUrl + "/view");
-  }
-  const handleStoreEdit = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    if (!editing) {
-      setCurrentStore(_id, dispatch, state);
-      history.push(baseUrl + "/edit");
-      setEditing(true);
-    } else {
+  };
+  // EDIT Store click handler //
+  const handleStoreEditBtn = (): void => {
+    if (storeCardState.editing) {
       clearCurrentStore(dispatch);
-      history.push(baseUrl);
-      setEditing(false);
+      history.push(AdminStoreRoutes.MANAGE_ROUTE);
+      setStoreCardState({ ...storeCardState, editing: false });
+    } else {
+      setCurrentStore(_id, dispatch, state);
+      history.push(AdminStoreRoutes.EDIT_ROUTE);
+      setStoreCardState({ ...storeCardState, editing: true });
     }
-  }
-  const handleStoreDelete = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    deleteStore( _id, dispatch, state)
-      .then((success) => {
-        
+  };
+  // DELETE Store click handlers CONFIRM and CANCEL //
+  const handleStoreDeleteBtn = (): void => {
+    setStoreCardState({ ...storeCardState, confirmModalOpen: true });
+  };
+  const handleStoreDeleteCancelBtn = (): void => {
+    setStoreCardState({ ...storeCardState, confirmModalOpen: false });
+  };
+  const handleStoreDeleteConfirmBtn = (): Promise<void> => {
+    return deleteStore(_id, dispatch, state)
+      .then((_) => {
+        // handle success //
       })
-  }
+      .catch((_) => {
+        // handle error? //
+      });
+  };
 
   return (
     <React.Fragment>
       <Grid.Row style={{ border: "3px solid green", padding: "0.5em", marginTop: "2em" }}>
+        <Confirm
+          open={storeCardState.confirmModalOpen}
+          onCancel={handleStoreDeleteCancelBtn}
+          onConfirm={handleStoreDeleteConfirmBtn}
+        />
         <Grid.Column computer={12} mobile={16} style={{ border: '2px solid red'}}>
           <h3>Title: {title}</h3>
           <h5>Description: {description}</h5>
@@ -81,20 +103,20 @@ const StoreCard: React.FC<StoreCardProps> = ({
           <Button 
             inverted
             color="orange"
-            className="storeCardBtn" 
+            className="storeCardEditBtn" 
             content="Edit" 
-            onClick={handleStoreEdit}  
+            onClick={handleStoreEditBtn}  
           />
           <Button 
             inverted
             color="red"
-            className="storeCardBtn" 
+            className="storeCardDeleteBtn" 
             content="Delete" 
-            onClick={handleStoreDelete}
+            onClick={handleStoreDeleteBtn}
           />
         </Grid.Column> 
       </Grid.Row>
-      {  editing ?  <CancelEditControls handleStoreEdit={handleStoreEdit}/>: null }
+      {  storeCardState.editing ?  <CancelEditControls handleStoreEdit={handleStoreEditBtn}/>: null }
     </React.Fragment>
     
   );

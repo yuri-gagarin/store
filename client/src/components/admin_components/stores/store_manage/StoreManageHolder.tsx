@@ -56,11 +56,17 @@ const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
   return (
     newDataLoaded ?
     <Grid padded id="storeManageHolder">
-      <Route path={match?.url + "/edit"}> 
+      <Route path={AdminStoreRoutes.EDIT_ROUTE}> 
         <Grid.Row>
           <Grid.Column>
             <h3>Editing Store: { state.storeState.currentStoreData.title }</h3>
-            <Button inverted color="green" content="Back" onClick={handleBack}></Button>
+            <Button 
+              id="adminStoreManageBackBtn"
+              inverted 
+              color="green" 
+              content="Back" 
+              onClick={handleBack}
+            />
           </Grid.Column>
         </Grid.Row>
         <StoreFormHolder />

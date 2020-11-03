@@ -33,10 +33,10 @@ describe("Store Form Component render tests", () => {
       expect(wrapper).toMatchSnapshot();
     });
     it("Should render '#storeFormTitleInput'", () => {
-      expect(wrapper.render().find("#storeFormTitleInput").length).toEqual(1);
+      expect(wrapper.render().find("#adminStoreFormTitleInput").length).toEqual(1);
     });
     it("Should render '#storeFormDescInput'", () => {
-      expect(wrapper.render().find("#storeFormDescInput").length).toEqual(1);
+      expect(wrapper.render().find("#adminStoreFormDescInput").length).toEqual(1);
     });
     it("Should render '#adminStoreFormCreate' Button", () => {
       expect(wrapper.render().find("#adminStoreFormCreate").length).toEqual(1);
@@ -74,18 +74,18 @@ describe("Store Form Component render tests", () => {
     it("Should properly mount", () => {
       expect(wrapper).toMatchSnapshot();
     });
-    it("Should render '#storeFormTitleInput'", () => {
-      expect(wrapper.render().find("#storeFormTitleInput").length).toEqual(1);
+    it("Should render '#adminStoreFormTitleInput'", () => {
+      expect(wrapper.render().find("#adminStoreFormTitleInput").length).toEqual(1);
     });
-    it("Should set correct data in '#storeFormTitleInput'", () => {
-      const input = wrapper.render().find("#storeFormTitleInput");
+    it("Should set correct data in '#adminStoreFormTitleInput'", () => {
+      const input = wrapper.render().find("#adminStoreFormTitleInput");
       expect(input.val()).toEqual(mockData.title);
     });
-    it("Should render '#storeFormDescInput'", () => {
-      expect(wrapper.render().find("#storeFormDescInput").length).toEqual(1);
+    it("Should render '#adminStoreFormDescInput'", () => {
+      expect(wrapper.render().find("#adminStoreFormDescInput").length).toEqual(1);
     });
-    it("Should set correct data in '#storeFormDescInput'", () => {
-      const input = wrapper.render().find("#storeFormDescInput");
+    it("Should set correct data in '#adminStoreFormDescInput'", () => {
+      const input = wrapper.render().find("#adminStoreFormDescInput");
       expect(input.val()).toEqual(mockData.description);
     });
     it("Should render '#adminStoreFormUpdate' Button'", () => {

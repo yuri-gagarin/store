@@ -24,6 +24,7 @@ export const AdminStoreRoutes = {
   EDIT_ROUTE: "/admin/home/my_stores/manage/edit",
   MANAGE_ROUTE: "/admin/home/my_stores/manage",
   SHOW_ROUTE: "/admin/home/my_stores/show",
+  VIEW_STORE_ROUTE: "/admin/home/my_stores/view",
   VIEW_ALL_ROUTE: "/admin/home/my_stores/view_all"
 };
 

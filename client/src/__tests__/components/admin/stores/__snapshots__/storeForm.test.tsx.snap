@@ -28,7 +28,7 @@ exports[`Store Form Component render tests Empty Form render tests Should proper
               Store title
             </label>
             <input
-              id="storeFormTitleInput"
+              id="adminStoreFormTitleInput"
               onChange={[Function]}
               placeholder="Store title here ..."
               value=""
@@ -37,7 +37,7 @@ exports[`Store Form Component render tests Empty Form render tests Should proper
         </FormField>
         <FormField
           control={[Function]}
-          id="storeFormDescInput"
+          id="adminStoreFormDescInput"
           label="Store Description"
           onChange={[Function]}
           placeholder="Store description here..."
@@ -47,14 +47,14 @@ exports[`Store Form Component render tests Empty Form render tests Should proper
             className="field"
           >
             <label
-              htmlFor="storeFormDescInput"
+              htmlFor="adminStoreFormDescInput"
             >
               Store Description
             </label>
             <TextArea
               aria-describedby={null}
               as="textarea"
-              id="storeFormDescInput"
+              id="adminStoreFormDescInput"
               onChange={[Function]}
               placeholder="Store description here..."
               rows={3}
@@ -64,7 +64,7 @@ exports[`Store Form Component render tests Empty Form render tests Should proper
                 innerRef={
                   Object {
                     "current": <textarea
-                      id="storeFormDescInput"
+                      id="adminStoreFormDescInput"
                       placeholder="Store description here..."
                       rows="3"
                     />,
@@ -75,7 +75,7 @@ exports[`Store Form Component render tests Empty Form render tests Should proper
                   innerRef={
                     Object {
                       "current": <textarea
-                        id="storeFormDescInput"
+                        id="adminStoreFormDescInput"
                         placeholder="Store description here..."
                         rows="3"
                       />,
@@ -84,7 +84,7 @@ exports[`Store Form Component render tests Empty Form render tests Should proper
                 >
                   <textarea
                     aria-describedby={null}
-                    id="storeFormDescInput"
+                    id="adminStoreFormDescInput"
                     onChange={[Function]}
                     onInput={[Function]}
                     placeholder="Store description here..."
@@ -174,7 +174,7 @@ exports[`Store Form Component render tests Form with valid data render tests Sho
               Store title
             </label>
             <input
-              id="storeFormTitleInput"
+              id="adminStoreFormTitleInput"
               onChange={[Function]}
               placeholder="Store title here ..."
               value="title"
@@ -183,7 +183,7 @@ exports[`Store Form Component render tests Form with valid data render tests Sho
         </FormField>
         <FormField
           control={[Function]}
-          id="storeFormDescInput"
+          id="adminStoreFormDescInput"
           label="Store Description"
           onChange={[Function]}
           placeholder="Store description here..."
@@ -193,14 +193,14 @@ exports[`Store Form Component render tests Form with valid data render tests Sho
             className="field"
           >
             <label
-              htmlFor="storeFormDescInput"
+              htmlFor="adminStoreFormDescInput"
             >
               Store Description
             </label>
             <TextArea
               aria-describedby={null}
               as="textarea"
-              id="storeFormDescInput"
+              id="adminStoreFormDescInput"
               onChange={[Function]}
               placeholder="Store description here..."
               rows={3}
@@ -210,7 +210,7 @@ exports[`Store Form Component render tests Form with valid data render tests Sho
                 innerRef={
                   Object {
                     "current": <textarea
-                      id="storeFormDescInput"
+                      id="adminStoreFormDescInput"
                       placeholder="Store description here..."
                       rows="3"
                     >
@@ -223,7 +223,7 @@ exports[`Store Form Component render tests Form with valid data render tests Sho
                   innerRef={
                     Object {
                       "current": <textarea
-                        id="storeFormDescInput"
+                        id="adminStoreFormDescInput"
                         placeholder="Store description here..."
                         rows="3"
                       >
@@ -234,7 +234,7 @@ exports[`Store Form Component render tests Form with valid data render tests Sho
                 >
                   <textarea
                     aria-describedby={null}
-                    id="storeFormDescInput"
+                    id="adminStoreFormDescInput"
                     onChange={[Function]}
                     onInput={[Function]}
                     placeholder="Store description here..."

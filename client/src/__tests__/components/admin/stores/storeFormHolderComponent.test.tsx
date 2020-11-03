@@ -130,18 +130,12 @@ describe("StoreFormHolder Component tests", () => {
       const formDetails = wrapper.find(StoreFormHolder).render().find("#adminStoreFormHolderDetails");
       expect(formDetails.length).toEqual(1);
     });
-    it("Should correctly render data in '.adminStoreFormHolderTitle'", () => {
-      const detailsTitle = wrapper.find(StoreFormHolder).find('.adminStoreFormHolderTitle');
+    it("Should correctly render data in '.adminStoreFormHolderDetailsItem' <div>(s)", () => {
+      const detailsDivs = wrapper.find(StoreFormHolder).find('.adminStoreFormHolderDetailsItem');
       const { currentStoreData } = state.storeState;
-      expect(detailsTitle.length).toEqual(1);
-      expect(detailsTitle.find('p').text()).toEqual(currentStoreData.title);
-    });
-    it("Should correctly render data in '.adminStoreFormHolderDesc'", () => {
-      const detailsDesc = wrapper.find(StoreFormHolder).find('.adminStoreFormHolderDesc');
-      const { currentStoreData } = state.storeState;
-      // assert correct rendering //
-      expect(detailsDesc.length).toEqual(1);
-      expect(detailsDesc.find("p").text()).toEqual(currentStoreData.description);
+      expect(detailsDivs.length).toEqual(2);
+      expect(detailsDivs.at(0).find('p').text()).toEqual(currentStoreData.title);
+      expect(detailsDivs.at(1).find('p').text()).toEqual(currentStoreData.description);
     });
     it("Should render 'StoreForm' component after '#adminStoreFormToggleBtn' click event", () => {
       wrapper.find("#adminStoreFormToggleBtn").at(0).simulate("click");
@@ -196,18 +190,12 @@ describe("StoreFormHolder Component tests", () => {
       const formDetails = wrapper.find(StoreFormHolder).render().find("#adminStoreFormHolderDetails");
       expect(formDetails.length).toEqual(1);
     })
-    it("Should correctly render data in '.adminStoreFormHolderTitle'", () => {
-      const detailsTitle = wrapper.find(StoreFormHolder).find('.adminStoreFormHolderTitle');
+    it("Should correctly render data in '.adminStoreFormHolderDetailsItem' <div>(s)", () => {
+      const detailsDivs = wrapper.find(StoreFormHolder).find('.adminStoreFormHolderDetailsItem');
       const { currentStoreData } = state.storeState;
-      expect(detailsTitle.length).toEqual(1);
-      expect(detailsTitle.find('p').text()).toEqual(currentStoreData.title);
-    });
-    it("Should correctly render data in '.adminStoreFormHolderDesc'", () => {
-      const detailsDesc = wrapper.find(StoreFormHolder).find('.adminStoreFormHolderDesc');
-      const { currentStoreData } = state.storeState;
-      // assert correct rendering //
-      expect(detailsDesc.length).toEqual(1);
-      expect(detailsDesc.find("p").text()).toEqual(currentStoreData.description);
+      expect(detailsDivs.length).toEqual(2);
+      expect(detailsDivs.at(0).find('p').text()).toEqual(currentStoreData.title);
+      expect(detailsDivs.at(1).find('p').text()).toEqual(currentStoreData.description);
     });
     it("Should render 'StoreForm' componet after '#adminStoreFormToggleBtn' click event", () => {
       const toggleBtn = wrapper.find(StoreFormHolder).find("#adminStoreFormToggleBtn");

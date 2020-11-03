@@ -140,7 +140,7 @@ describe("Store Manage Holder Tests", () => {
       });
       it("Should NOT change the client route", () => {
         const { history } = wrapper.find(Router).props();
-        expect(history.location.pathname).toEqual(mockStores.length);
+        expect(history.location.pathname).toEqual(AdminStoreRoutes.MANAGE_ROUTE);
       });
       it("Should render correct number of StoreCard components", () => {
         const storeCards = wrapper.find(StoreManageHolder).find(StoreCard);
@@ -275,7 +275,7 @@ describe("Store Manage Holder Tests", () => {
         });
 
         wrapper = mount(
-          <MemoryRouter>
+          <MemoryRouter initialEntries={[ AdminStoreRoutes.MANAGE_ROUTE ]} keyLength={0}>
             <TestStateProvider>
               <StoreManageHolder />
             </TestStateProvider>
@@ -287,8 +287,9 @@ describe("Store Manage Holder Tests", () => {
 
       it("Should render the 'StoreFormHolder' component after EDIT Button click", () => {
         const editButton = wrapper.find(StoreCard).at(0).find(".storeCardEditBtn");
-        editButton.simulate("click");
+        editButton.at(0).simulate("click");
         const storeFormholder = wrapper.find(StoreFormHolder);
+        // console.log(wra)
         expect(storeFormholder.length).toEqual(1);
       });
       it("Should render the '#storeFormHolderDetails' component", () => {
@@ -312,7 +313,7 @@ describe("Store Manage Holder Tests", () => {
       it("Shuld correctly render the 'currentStore' data within the 'StoreForm' component", () => {
         const currentStore = mockStores[0];
         const titleInput = wrapper.find(StoreForm).find("#adminStoreFormTitleInput");
-        const descriptionInput = wrapper.find(StoreForm).find("adminStoreFormDescInput");
+        const descriptionInput = wrapper.find(StoreForm).find("#adminStoreFormDescInput");
         // assert correct rendering //
         expect(titleInput.props().value).toEqual(currentStore.title);
         expect(descriptionInput.at(0).props().value).toEqual(currentStore.description);
@@ -399,6 +400,7 @@ describe("Store Manage Holder Tests", () => {
         deleteBtn.at(0).simulate("click");
         const confirmModal = wrapper.find(StoreCard).at(0).find(Confirm);
         // simulate confirm action click //
+        confirmModal.find(Button).at(1).simulate("click");
         await act( async () => promise);
         expect(moxios.requests.mostRecent().url).toEqual(`/api/stores/delete/${mockStores[0]._id}`);
       });
