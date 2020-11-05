@@ -81,7 +81,7 @@ describe("StoreFormHolder Component tests", () => {
     });
   
     it("Should have a Form Create Button", () => {
-      const toggleButton = wrapper.render().find('#adminStoreFormCreate');
+      const toggleButton = wrapper.render().find('#adminStoreFormCreateBtn');
       expect(toggleButton.length).toEqual(1);
     });
     it("Should have the Form rendered after toggle button click", () => {
@@ -143,7 +143,7 @@ describe("StoreFormHolder Component tests", () => {
       expect(wrapper.find(StoreForm).length).toEqual(1);
     })
     it("Should have a Form Update Button", () => {
-      const toggleButton = wrapper.render().find('#adminStoreFormUpdate');
+      const toggleButton = wrapper.render().find('#adminStoreFormUpdateBtn');
       expect(toggleButton.length).toEqual(1);
     });
     it("Should have the Image Preview rendered", () => {
@@ -205,7 +205,7 @@ describe("StoreFormHolder Component tests", () => {
       expect(form.length).toEqual(1);
     });
     it("Should have a Form Update Button", () => {
-      const toggleButton = wrapper.render().find('#adminStoreFormUpdate');
+      const toggleButton = wrapper.render().find('#adminStoreFormUpdateBtn');
       expect(toggleButton.length).toEqual(1);
     });
     it("Should have the Image Preview rendered", () => {
@@ -246,33 +246,81 @@ describe("StoreFormHolder Component tests", () => {
     it("Should have a submit button", () => {
       wrapper.find("#adminStoreFormToggleBtn").at(0).simulate("click");
       wrapper.update();
-      const adminStoreFormCreate = wrapper.find("#adminStoreFormCreate").at(0);
+      const adminStoreFormCreate = wrapper.find("#adminStoreFormCreateBtn").at(0);
       expect(adminStoreFormCreate.length).toEqual(1)
     });
     it("Should handle the 'handleCreateStoreAction, show 'LoadingBar' Component", async () => {
+      const promise = Promise.resolve();
       moxios.install();
-      await act( async () => {
-        moxios.stubRequest("/api/stores/create", {
-          status: 200,
-          response: {
-            responseMsg: "All Good",
-            newStore: createMockStores(1)[0]
-          }
-        });
-        const adminStoreFormCreate = wrapper.find("#adminStoreFormCreate").at(0);
-        adminStoreFormCreate.simulate("click");
-        //expect(wrapper.find(LoadingBar).length).toEqual(1);
-        // console.log(wrapper.find(LoadingBar).length);
+      moxios.stubRequest("/api/stores/create", {
+        status: 200,
+        response: {
+          responseMsg: "All Good",
+          newStore: createMockStores(1)[0]
+        }
       });
-      wrapper.update();
+      const adminStoreFormCreate = wrapper.find("#adminStoreFormCreate").at(0);
+      adminStoreFormCreate.simulate("click");
+      await act( async () => promise);
+      expect(wrapper.find(LoadingBar).length).toEqual(1);
     });
     it("Should NOT show the 'LoadingBar' Component after successful API call", () => {
+      wrapper.update();
       expect(wrapper.find(LoadingBar).length).toEqual(0);
     });
     it("Should NOT show the 'StoreForm' Component after successful API call", () => {
       expect(wrapper.find(StoreForm).length).toEqual(0);
     });
-    // END Form Holder state OPEN - MOCK Submit action //
   });
+  // END Form Holder state OPEN - MOCK Submit action //
+  // TEST StoreFormHolder mock submit action with an API error returned //
+  describe("Form Holder state OPEN - MOCK Submit action ERROR returned",  () => {
+    let state: IGlobalAppState; let wrapper: ReactWrapper;
+    const error = new Error("Am error occured");
+
+    beforeAll( async () => {
+      window.scrollTo = jest.fn();
+      state = generateCleanState();
+      const currentStore = createMockStores(1)[0];
+      state.storeState.currentStoreData = currentStore;
+      // mount and wait //
+      wrapper = mount(
+        <Router initialEntries={[AdminStoreRoutes.EDIT_ROUTE]} keyLength={0} >
+          <TestStateProvider mockState={state}>
+            <StoreFormHolder />
+          </TestStateProvider>
+        </Router>
+      );
+      const toggleBtn = wrapper.find(StoreForm).find("#adminStoreFormToggleBtn");
+      toggleBtn.at(0).simulate("click");
+    });
+    afterAll(() => {
+      moxios.uninstall();
+    });
+    
+    it("Should handle the 'handleCreateStoreAction, show 'LoadingBar' Component", async () => {
+      const promise = Promise.resolve();
+      moxios.install();
+      moxios.stubRequest("/api/stores/create", {
+        status: 500,
+        response: {
+          responseMsg: "All Good",
+          newStore: createMockStores(1)[0]
+        }
+      });
+      const adminStoreFormCreate = wrapper.find("#adminStoreFormUpdate").at(0);
+      adminStoreFormCreate.simulate("click");
+      await act( async () => promise);
+      expect(wrapper.find(LoadingBar).length).toEqual(1);
+    });
+    it("Should NOT show the 'LoadingBar' Component after successful API call", () => {
+      wrapper.update();
+      expect(wrapper.find(LoadingBar).length).toEqual(0);
+    });
+    it("Should show the 'StoreForm' Component after am API call Error", () => {
+      expect(wrapper.find(StoreForm).length).toEqual(1);
+    });
+  });
+
   
 });

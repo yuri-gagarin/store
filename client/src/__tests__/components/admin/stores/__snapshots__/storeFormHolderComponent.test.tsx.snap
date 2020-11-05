@@ -353,7 +353,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
                             <Button
                               as="button"
                               content="Create Store"
-                              id="adminStoreFormCreate"
+                              id="adminStoreFormCreateBtn"
                               onClick={[Function]}
                               type="submit"
                             >
@@ -362,7 +362,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
                                   Object {
                                     "current": <button
                                       class="ui button"
-                                      id="adminStoreFormCreate"
+                                      id="adminStoreFormCreateBtn"
                                       type="submit"
                                     >
                                       Create Store
@@ -375,7 +375,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
                                     Object {
                                       "current": <button
                                         class="ui button"
-                                        id="adminStoreFormCreate"
+                                        id="adminStoreFormCreateBtn"
                                         type="submit"
                                       >
                                         Create Store
@@ -385,7 +385,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
                                 >
                                   <button
                                     className="ui button"
-                                    id="adminStoreFormCreate"
+                                    id="adminStoreFormCreateBtn"
                                     onClick={[Function]}
                                     type="submit"
                                   >
