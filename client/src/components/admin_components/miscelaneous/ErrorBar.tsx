@@ -1,16 +1,20 @@
-import React from "react";
-import { Dimmer, Loader, Segment } from "semantic-ui-react";
+import React, {} from "react";
+import { Message } from "semantic-ui-react";
 
-const ErrorBar: React.FC<{}> = (props): JSX.Element => {
+interface Props {
+  clearError: () => void;
+  error: Error;
+  messages?: string[];
+}
+const ErrorBar: React.FC<Props> = ({ clearError, error, messages }): JSX.Element => {
 
   return (
-    <div style={{ height: "50px", width: "100%" }}>
-      <Segment>
-        <Dimmer active>
-          <Loader>Error Occured</Loader>
-        </Dimmer>
-      </Segment>
-    </div>
+    <Message 
+      error
+      onDismiss={clearError}
+      header={error.message}
+      list={[messages]}
+    /> 
   );
 };
 

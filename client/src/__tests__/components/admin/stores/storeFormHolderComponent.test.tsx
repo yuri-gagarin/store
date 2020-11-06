@@ -1,5 +1,5 @@
 import React from "react"
-import { Button } from "semantic-ui-react";
+import { Button, Icon } from "semantic-ui-react";
 // testing utils
 import { mount, ReactWrapper } from "enzyme";
 import moxios from "moxios";
@@ -14,6 +14,7 @@ import StoreImageUplForm from "../../../../components/admin_components/stores/fo
 import StoreImgPreviewHolder from "../../../../components/admin_components/stores/image_preview/StoreImgPreviewHolder";
 import StoreImgPreviewThumb from "../../../../components/admin_components/stores/image_preview/StoreImgPreviewThumb";
 import LoadingBar from "../../../../components/admin_components/miscelaneous/LoadingBar";
+import ErrorBar from "../../../../components/admin_components/miscelaneous/ErrorBar";
 // state React.Context //
 import { IGlobalAppState, TestStateProvider } from "../../../../state/Store";
 // helpers //
@@ -22,6 +23,7 @@ import { generateCleanState } from "../../../../test_helpers/miscHelpers";
 
 describe("StoreFormHolder Component tests", () => {
   let wrapper: ReactWrapper; 
+  /*
   describe("Default Form Holder state",  () => {
 
     beforeAll(() => {
@@ -259,7 +261,8 @@ describe("StoreFormHolder Component tests", () => {
           newStore: createMockStores(1)[0]
         }
       });
-      const adminStoreFormCreate = wrapper.find("#adminStoreFormCreate").at(0);
+      const adminStoreFormCreate = wrapper.find("#adminStoreFormCreateBtn").at(0);
+      // console.log(wrapper.find(StoreFormHolder).debug());
       adminStoreFormCreate.simulate("click");
       await act( async () => promise);
       expect(wrapper.find(LoadingBar).length).toEqual(1);
@@ -272,16 +275,18 @@ describe("StoreFormHolder Component tests", () => {
       expect(wrapper.find(StoreForm).length).toEqual(0);
     });
   });
+  */
   // END Form Holder state OPEN - MOCK Submit action //
   // TEST StoreFormHolder mock submit action with an API error returned //
   describe("Form Holder state OPEN - MOCK Submit action ERROR returned",  () => {
     let state: IGlobalAppState; let wrapper: ReactWrapper;
+    let mockStore: IStoreData;
     const error = new Error("Am error occured");
 
     beforeAll( async () => {
       window.scrollTo = jest.fn();
       state = generateCleanState();
-      const currentStore = createMockStores(1)[0];
+      const currentStore = mockStore = createMockStores(1)[0];
       state.storeState.currentStoreData = currentStore;
       // mount and wait //
       wrapper = mount(
@@ -291,7 +296,7 @@ describe("StoreFormHolder Component tests", () => {
           </TestStateProvider>
         </Router>
       );
-      const toggleBtn = wrapper.find(StoreForm).find("#adminStoreFormToggleBtn");
+      const toggleBtn = wrapper.find(StoreFormHolder).find("#adminStoreFormToggleBtn");
       toggleBtn.at(0).simulate("click");
     });
     afterAll(() => {
@@ -300,26 +305,38 @@ describe("StoreFormHolder Component tests", () => {
     
     it("Should handle the 'handleCreateStoreAction, show 'LoadingBar' Component", async () => {
       const promise = Promise.resolve();
+      const url = `/api/stores/update/${mockStore._id}`
       moxios.install();
-      moxios.stubRequest("/api/stores/create", {
+      moxios.stubRequest(url, {
         status: 500,
         response: {
-          responseMsg: "All Good",
-          newStore: createMockStores(1)[0]
+          responseMsg: "Error",
+          error: error
         }
       });
-      const adminStoreFormCreate = wrapper.find("#adminStoreFormUpdate").at(0);
+      const adminStoreFormCreate = wrapper.find("#adminStoreFormUpdateBtn").at(0);
       adminStoreFormCreate.simulate("click");
       await act( async () => promise);
       expect(wrapper.find(LoadingBar).length).toEqual(1);
+      expect(moxios.requests.mostRecent().url).toEqual(url);
     });
-    it("Should NOT show the 'LoadingBar' Component after successful API call", () => {
+    it("Should NOT render the 'LoadingBar' Component after an error in API call", () => {
       wrapper.update();
       expect(wrapper.find(LoadingBar).length).toEqual(0);
     });
-    it("Should show the 'StoreForm' Component after am API call Error", () => {
+    it("Should render the 'ErrorBar' Component after an error in API call", () => {
+      expect(wrapper.find(ErrorBar).length).toEqual(1);
+    });
+    it("Should show the 'StoreForm' Component after an error in API call", () => {
       expect(wrapper.find(StoreForm).length).toEqual(1);
     });
+    it("Should properly dissmiss the 'ErrorBar' component with button click", () => {
+      const dismissErrorIcon = wrapper.find(StoreFormHolder).find(ErrorBar).find(Icon);
+      // simulate the dismissErrorIcon click //
+      dismissErrorIcon.simulate("click");
+      expect(wrapper.find(StoreFormHolder).find(ErrorBar).length).toEqual(0);
+      expect(wrapper.find(StoreFormHolder).find(LoadingBar).length).toEqual(0);
+    })
   });
 
   

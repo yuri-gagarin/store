@@ -41,3 +41,7 @@ export const closeStoreForm = (dispatch: Dispatch<StoreAction>): void => {
   dispatch({ type: "CLEAR_CURRENT_STORE", payload: null });
   dispatch({ type: "CLOSE_STORE_FORM", payload: { storeFormOpen: false } });
 };
+
+export const clearCurrentError = (dispatch: Dispatch<StoreAction>): void => {
+  dispatch({ type: "ClEAR_STORE_ERROR", payload: { loading: false, responseMsg: "", error: null } });
+}

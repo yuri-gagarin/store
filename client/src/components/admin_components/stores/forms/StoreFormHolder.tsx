@@ -14,7 +14,7 @@ import ErrorBar from "../../miscelaneous/ErrorBar";
 import { Store } from "../../../../state/Store";
 // api and ui actions //
 import { createStore, editStore } from "../actions/APIstoreActions";
-import { openStoreForm, closeStoreForm } from "../actions/uiStoreActions";
+import { openStoreForm, closeStoreForm, clearCurrentError } from "../actions/uiStoreActions";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
 import { checkSetValues } from "../../../helpers/validationHelpers";
@@ -32,6 +32,10 @@ const StoreFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   // Store form toggle //
   const toggleStoreForm = () => {
     storeFormOpen ? closeStoreForm(dispatch) : openStoreForm(dispatch);
+  };
+  // clear a store API error //
+  const handleClearError = () => {
+    clearCurrentError(dispatch);
   }
   // API call handlers CREATE - EDIT //
   const handleCreateStore = (title: string, description: string): void => {
@@ -75,7 +79,7 @@ const StoreFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   return (
     <div id="storeFormHolder">
       {
-        loading ? <LoadingBar /> : ( error ? <ErrorBar /> : null)
+        loading ? <LoadingBar /> : ( error ? <ErrorBar clearError={handleClearError} error={error} /> : null)
       }
       {
         !newForm ?
