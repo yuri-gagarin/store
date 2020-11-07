@@ -39,10 +39,10 @@ describe("Store Form Component render tests", () => {
       expect(wrapper.render().find("#adminStoreFormDescInput").length).toEqual(1);
     });
     it("Should render '#adminStoreFormCreate' Button", () => {
-      expect(wrapper.render().find("#adminStoreFormCreate").length).toEqual(1);
+      expect(wrapper.render().find("#adminStoreFormCreateBtn").length).toEqual(1);
     });
     it("Should NOT render '#adminStoreFormUpdate' Button'", () => {
-      expect(wrapper.render().find("#adminStoreFormUpdate").length).toEqual(0);
+      expect(wrapper.render().find("#adminStoreFormUpdateBtn").length).toEqual(0);
     });
   });
   
@@ -89,10 +89,10 @@ describe("Store Form Component render tests", () => {
       expect(input.val()).toEqual(mockData.description);
     });
     it("Should render '#adminStoreFormUpdate' Button'", () => {
-      expect(wrapper.render().find("#adminStoreFormUpdate").length).toEqual(1);
+      expect(wrapper.render().find("#adminStoreFormUpdateBtn").length).toEqual(1);
     });
     it("Should NOT render '#adminStoreFormCreate' Button", () => {
-      expect(wrapper.render().find("#adminStoreFormCreate").length).toEqual(0);
+      expect(wrapper.render().find("#adminStoreFormCreateBtn").length).toEqual(0);
     });
   });
 });

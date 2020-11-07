@@ -248,7 +248,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                             Product name
                           </label>
                           <input
-                            id="productFormNameInput"
+                            id="adminProductFormNameInput"
                             onChange={[Function]}
                             placeholder="Product name here ..."
                             value=""
@@ -263,7 +263,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                             Product price
                           </label>
                           <input
-                            id="productFormPriceInput"
+                            id="adminProductFormPriceInput"
                             onChange={[Function]}
                             placeholder="Product price here..."
                             value=""
@@ -272,7 +272,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                       </FormField>
                       <FormField
                         control={[Function]}
-                        id="productFormDescInput"
+                        id="adminProductFormDescInput"
                         label="Product Description"
                         onChange={[Function]}
                         placeholder="Product description here..."
@@ -282,14 +282,14 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                           className="field"
                         >
                           <label
-                            htmlFor="productFormDescInput"
+                            htmlFor="adminProductFormDescInput"
                           >
                             Product Description
                           </label>
                           <TextArea
                             aria-describedby={null}
                             as="textarea"
-                            id="productFormDescInput"
+                            id="adminProductFormDescInput"
                             onChange={[Function]}
                             placeholder="Product description here..."
                             rows={3}
@@ -299,7 +299,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                               innerRef={
                                 Object {
                                   "current": <textarea
-                                    id="productFormDescInput"
+                                    id="adminProductFormDescInput"
                                     placeholder="Product description here..."
                                     rows="3"
                                   />,
@@ -310,7 +310,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                                 innerRef={
                                   Object {
                                     "current": <textarea
-                                      id="productFormDescInput"
+                                      id="adminProductFormDescInput"
                                       placeholder="Product description here..."
                                       rows="3"
                                     />,
@@ -319,7 +319,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                               >
                                 <textarea
                                   aria-describedby={null}
-                                  id="productFormDescInput"
+                                  id="adminProductFormDescInput"
                                   onChange={[Function]}
                                   onInput={[Function]}
                                   placeholder="Product description here..."
@@ -333,7 +333,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                       </FormField>
                       <FormField
                         control={[Function]}
-                        id="productFormDetailsInput"
+                        id="adminProductFormDetailsInput"
                         label="Product Details"
                         onChange={[Function]}
                         placeholder="Product details here..."
@@ -343,14 +343,14 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                           className="field"
                         >
                           <label
-                            htmlFor="productFormDetailsInput"
+                            htmlFor="adminProductFormDetailsInput"
                           >
                             Product Details
                           </label>
                           <TextArea
                             aria-describedby={null}
                             as="textarea"
-                            id="productFormDetailsInput"
+                            id="adminProductFormDetailsInput"
                             onChange={[Function]}
                             placeholder="Product details here..."
                             rows={3}
@@ -360,7 +360,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                               innerRef={
                                 Object {
                                   "current": <textarea
-                                    id="productFormDetailsInput"
+                                    id="adminProductFormDetailsInput"
                                     placeholder="Product details here..."
                                     rows="3"
                                   />,
@@ -371,7 +371,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                                 innerRef={
                                   Object {
                                     "current": <textarea
-                                      id="productFormDetailsInput"
+                                      id="adminProductFormDetailsInput"
                                       placeholder="Product details here..."
                                       rows="3"
                                     />,
@@ -380,7 +380,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                               >
                                 <textarea
                                   aria-describedby={null}
-                                  id="productFormDetailsInput"
+                                  id="adminProductFormDetailsInput"
                                   onChange={[Function]}
                                   onInput={[Function]}
                                   placeholder="Product details here..."

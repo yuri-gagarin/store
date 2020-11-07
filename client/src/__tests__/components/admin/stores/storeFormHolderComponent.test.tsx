@@ -23,7 +23,7 @@ import { generateCleanState } from "../../../../test_helpers/miscHelpers";
 
 describe("StoreFormHolder Component tests", () => {
   let wrapper: ReactWrapper; 
-  /*
+  
   describe("Default Form Holder state",  () => {
 
     beforeAll(() => {
@@ -275,7 +275,6 @@ describe("StoreFormHolder Component tests", () => {
       expect(wrapper.find(StoreForm).length).toEqual(0);
     });
   });
-  */
   // END Form Holder state OPEN - MOCK Submit action //
   // TEST StoreFormHolder mock submit action with an API error returned //
   describe("Form Holder state OPEN - MOCK Submit action ERROR returned",  () => {

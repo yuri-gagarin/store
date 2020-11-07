@@ -99,7 +99,7 @@ exports[`Store Form Component render tests Empty Form render tests Should proper
         <Button
           as="button"
           content="Create Store"
-          id="adminStoreFormCreate"
+          id="adminStoreFormCreateBtn"
           onClick={[Function]}
           type="submit"
         >
@@ -108,7 +108,7 @@ exports[`Store Form Component render tests Empty Form render tests Should proper
               Object {
                 "current": <button
                   class="ui button"
-                  id="adminStoreFormCreate"
+                  id="adminStoreFormCreateBtn"
                   type="submit"
                 >
                   Create Store
@@ -121,7 +121,7 @@ exports[`Store Form Component render tests Empty Form render tests Should proper
                 Object {
                   "current": <button
                     class="ui button"
-                    id="adminStoreFormCreate"
+                    id="adminStoreFormCreateBtn"
                     type="submit"
                   >
                     Create Store
@@ -131,7 +131,7 @@ exports[`Store Form Component render tests Empty Form render tests Should proper
             >
               <button
                 className="ui button"
-                id="adminStoreFormCreate"
+                id="adminStoreFormCreateBtn"
                 onClick={[Function]}
                 type="submit"
               >
@@ -249,7 +249,7 @@ exports[`Store Form Component render tests Form with valid data render tests Sho
         <Button
           as="button"
           content="Update Store"
-          id="adminStoreFormUpdate"
+          id="adminStoreFormUpdateBtn"
           onClick={[Function]}
           type="submit"
         >
@@ -258,7 +258,7 @@ exports[`Store Form Component render tests Form with valid data render tests Sho
               Object {
                 "current": <button
                   class="ui button"
-                  id="adminStoreFormUpdate"
+                  id="adminStoreFormUpdateBtn"
                   type="submit"
                 >
                   Update Store
@@ -271,7 +271,7 @@ exports[`Store Form Component render tests Form with valid data render tests Sho
                 Object {
                   "current": <button
                     class="ui button"
-                    id="adminStoreFormUpdate"
+                    id="adminStoreFormUpdateBtn"
                     type="submit"
                   >
                     Update Store
@@ -281,7 +281,7 @@ exports[`Store Form Component render tests Form with valid data render tests Sho
             >
               <button
                 className="ui button"
-                id="adminStoreFormUpdate"
+                id="adminStoreFormUpdateBtn"
                 onClick={[Function]}
                 type="submit"
               >
