@@ -1,3 +1,5 @@
+import { MutableRefObject } from "react"
+
 // APIProduct actions types //
 export interface IProductImgServerResData {
   responseMsg: string;
@@ -38,4 +40,5 @@ export type ProductFormState = {
   description: string;
   details: string;
   price: string;
+  // formRef: MutableRefObject<React.Component>;
 }

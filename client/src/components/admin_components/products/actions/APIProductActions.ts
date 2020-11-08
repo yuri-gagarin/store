@@ -74,6 +74,7 @@ export const createProduct = (data: ClientProductData, dispatch: Dispatch<Produc
   return axios.request<IProductServerResData, IProductServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
+      // console.log(response)
       const newProduct = data.newProduct!
       dispatch({ type: "CREATE_PRODUCT", payload: {
         loading: false,

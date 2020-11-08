@@ -20,4 +20,7 @@ export const closeProductForm = (dispatch: Dispatch<ProductAction>): void => {
   // dispatch({ type: "CLEAR_CURRENT_PRODUCT", payload: null });
   dispatch({ type: "CLOSE_PRODUCT_FORM", payload: { productFormOpen: false } });
 };
+export const clearProductAPIError = (dispatch: Dispatch<ProductAction>): void => {
+  dispatch({ type: "ClEAR_PRODUCT_ERROR", payload: { loading: false, responseMsg: "", error: null } });
+};
 

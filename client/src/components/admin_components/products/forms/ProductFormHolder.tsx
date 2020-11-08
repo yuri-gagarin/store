@@ -13,28 +13,41 @@ import ProductImgUplForm from "./ProductImgUplForm";
 import { Store } from "../../../../state/Store";
 // api and ui actions //
 import { createProduct, editProduct } from "../actions/APIProductActions";
-import { closeProductForm, openProductForm } from "../actions/UIProductActions";
+import { closeProductForm, openProductForm, clearProductAPIError } from "../actions/UIProductActions";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
 import { checkSetValues } from "../../../helpers/validationHelpers";
 // types 
 import { ProductData, ProductFormState } from "../type_definitions/productTypes";
+import ErrorBar from "../../miscelaneous/ErrorBar";
+
+interface ProductFormContState {
+  productFormState: ProductFormState;
+  newForm: boolean;
+}
 
 interface Props extends RouteComponentProps {
  
 }
 
 const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
-  const { state,dispatch } = useContext(Store);
+  const { state, dispatch } = useContext(Store);
   const { loading, currentProductData, productFormOpen, error } = state.productState;
   const { name, description, details, price, createdAt, editedAt } = currentProductData;
   // local component state //
   // const [ formOpen, setFormOpen ] = useState<boolean>(false);
-  const [ newForm, setNewForm ] = useState<boolean>(true);
+  const [ productContState, setProductContState ] = useState<ProductFormContState>({
+    newForm: true,
+    productFormState: { name: "", price: "", details: "", description: " "}
+  });
 
   // ProductForm toggle //
   const toggleProductForm = () => {
     productFormOpen ? closeProductForm(dispatch) : openProductForm(dispatch);
+  };
+  // CLEAR Product API ERRROR //
+  const clearCurrentError = () => {
+    clearProductAPIError(dispatch);
   };
   // API call handlers CREATE - EDIT //
   const handleCreateProduct = (productFormData: ProductFormState): void => {
@@ -49,6 +62,11 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
       })
       .catch((_) => {
         // handle error or show modal //
+        // set form state //
+        setProductContState({
+          ...productContState,
+          productFormState: { ...productData }
+        });
       });
   };
   const handleUpdateProduct = (productFormData: ProductFormState): void => {
@@ -71,14 +89,27 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
     }
   }, [ productFormOpen ]);
   useEffect(() => {
-    checkSetValues(currentProductData) ? setNewForm(false) : setNewForm(true);
+    console.log(currentProductData)
+    if (checkSetValues(currentProductData)) {
+      const { name, price, description, details } = currentProductData;
+      setProductContState({
+        newForm: false,
+        productFormState: {
+          name,
+          price,
+          description,
+          details
+        }
+      });
+    }
   }, [ currentProductData ]);
+  
   // component return //
   return (
     <div id="productFormHolder">
       { loading ? <LoadingBar /> : null }
       {
-        !newForm ?
+        !productContState.newForm ?
           <div id={"productFormHolderDetails"}>
             <Grid.Row> 
               <Grid.Column mobile={16} tablet={14} computer={14}>
@@ -121,16 +152,14 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
             onClick={toggleProductForm} 
             content={ !productFormOpen ? "Open Form" : "Close Form"}
           />
+          { error ? <ErrorBar clearError={clearCurrentError} error={error} /> : null }
           {
             productFormOpen ? 
               <ProductForm 
-                name={name} 
-                description={description} 
-                details={details}
-                price={price}
-                newForm={newForm}
+                newForm={productContState.newForm}
                 handleCreateProduct={handleCreateProduct}
                 handleUpdateProduct={handleUpdateProduct}
+                { ...productContState.productFormState }
               /> 
             : null
           }

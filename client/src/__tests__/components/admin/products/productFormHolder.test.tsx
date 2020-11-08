@@ -25,7 +25,7 @@ import ErrorBar from "../../../../components/admin_components/miscelaneous/Error
 describe("ProductFormHolder Component tests", () => {
   let wrapper: ReactWrapper; 
   let mockProduct: IProductData;
-
+  /*
   describe("Default Form Holder state",  () => {
 
     beforeAll(() => {
@@ -251,6 +251,7 @@ describe("ProductFormHolder Component tests", () => {
       expect(imgUploadForm.length).toEqual(1);
     });
   });
+  */
   // END Form Holder state OPEN - WITH Current Product Data - WITH IMAGES //
   // TEST Form Holder state OPEN - MOCK Submit action SUCCESS //
   describe("'ProductFormHolder' - New Form - MOCK Submit action", () => {
@@ -286,6 +287,9 @@ describe("ProductFormHolder Component tests", () => {
             </TestStateProvider>
           </MemoryRouter>
         );
+      });
+      afterAll(() => {
+        moxios.uninstall();
       });
   
       it("Should have 'ProductForm' a submit button", () => {
@@ -347,6 +351,7 @@ describe("ProductFormHolder Component tests", () => {
     });
     // END Form Holder state OPEN - MOCK Submit action SUCCESS //
     // TEST ProductFormHolder component StoreForm open - MOCK Submit Error //
+    /*
     describe("'ProductFormHolder' state OPEN - New Form - Mock Submit action API ERROR", () => {
       let wrapper: ReactWrapper;
       const error = new Error("An error occured");
@@ -364,6 +369,9 @@ describe("ProductFormHolder Component tests", () => {
           </MemoryRouter>
         );
       });
+      afterAll(() => {
+        moxios.uninstall();
+      })
 
       it("Should have 'ProductForm' a submit button", () => {
         wrapper.update();
@@ -407,10 +415,25 @@ describe("ProductFormHolder Component tests", () => {
         expect(wrapper.find(ProductFormHolder).find(LoadingBar).length).toEqual(0);
         expect(wrapper.find(ProductFormHolder).find(ErrorBar).length).toEqual(1);
       });
-      it("Should NOT close ")
-    })
+      it("Should NOT close the 'ProductForm' component after a failed CREATE action", () => {
+        const productForm = wrapper.find(ProductFormHolder).find(ProductForm);
+        expect(productForm.length).toEqual(1)
+      });
+      it("Should not reset 'ProductForm' input values", () => {
+        const productNameInput = wrapper.find(ProductForm).find("#adminProductFormNameInput");
+        const productPriceInput = wrapper.find(ProductForm).find("#adminProductFormPriceInput");
+        const productDescInput = wrapper.find(ProductForm).find("#adminProductFormDescInput").at(0);
+        const productDetailsInput = wrapper.find(ProductForm).find("#adminProductFormDetailsInput").at(0);
+        // assert matching values //
+        expect(productNameInput.props().value).toEqual(mockProductData.name);
+        expect(productPriceInput.props().value).toEqual(mockProductData.price);
+        expect(productDescInput.props().value).toEqual(mockProductData.description);
+        expect(productDetailsInput.props().value).toEqual(mockProductData.details);
+      });
+    });
+    */
 
-  })
+  });
   
   
   
