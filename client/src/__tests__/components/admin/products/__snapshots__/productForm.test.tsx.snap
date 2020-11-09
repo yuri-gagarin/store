@@ -30,7 +30,7 @@ exports[`PRoduct Form Component render tests Empty Form render tests Should prop
               Product name
             </label>
             <input
-              id="productFormNameInput"
+              id="adminProductFormNameInput"
               onChange={[Function]}
               placeholder="Product name here ..."
               value=""
@@ -45,7 +45,7 @@ exports[`PRoduct Form Component render tests Empty Form render tests Should prop
               Product price
             </label>
             <input
-              id="productFormPriceInput"
+              id="adminProductFormPriceInput"
               onChange={[Function]}
               placeholder="Product price here..."
               value=""
@@ -54,7 +54,7 @@ exports[`PRoduct Form Component render tests Empty Form render tests Should prop
         </FormField>
         <FormField
           control={[Function]}
-          id="productFormDescInput"
+          id="adminProductFormDescInput"
           label="Product Description"
           onChange={[Function]}
           placeholder="Product description here..."
@@ -64,14 +64,14 @@ exports[`PRoduct Form Component render tests Empty Form render tests Should prop
             className="field"
           >
             <label
-              htmlFor="productFormDescInput"
+              htmlFor="adminProductFormDescInput"
             >
               Product Description
             </label>
             <TextArea
               aria-describedby={null}
               as="textarea"
-              id="productFormDescInput"
+              id="adminProductFormDescInput"
               onChange={[Function]}
               placeholder="Product description here..."
               rows={3}
@@ -81,7 +81,7 @@ exports[`PRoduct Form Component render tests Empty Form render tests Should prop
                 innerRef={
                   Object {
                     "current": <textarea
-                      id="productFormDescInput"
+                      id="adminProductFormDescInput"
                       placeholder="Product description here..."
                       rows="3"
                     />,
@@ -92,7 +92,7 @@ exports[`PRoduct Form Component render tests Empty Form render tests Should prop
                   innerRef={
                     Object {
                       "current": <textarea
-                        id="productFormDescInput"
+                        id="adminProductFormDescInput"
                         placeholder="Product description here..."
                         rows="3"
                       />,
@@ -101,7 +101,7 @@ exports[`PRoduct Form Component render tests Empty Form render tests Should prop
                 >
                   <textarea
                     aria-describedby={null}
-                    id="productFormDescInput"
+                    id="adminProductFormDescInput"
                     onChange={[Function]}
                     onInput={[Function]}
                     placeholder="Product description here..."
@@ -115,7 +115,7 @@ exports[`PRoduct Form Component render tests Empty Form render tests Should prop
         </FormField>
         <FormField
           control={[Function]}
-          id="productFormDetailsInput"
+          id="adminProductFormDetailsInput"
           label="Product Details"
           onChange={[Function]}
           placeholder="Product details here..."
@@ -125,14 +125,14 @@ exports[`PRoduct Form Component render tests Empty Form render tests Should prop
             className="field"
           >
             <label
-              htmlFor="productFormDetailsInput"
+              htmlFor="adminProductFormDetailsInput"
             >
               Product Details
             </label>
             <TextArea
               aria-describedby={null}
               as="textarea"
-              id="productFormDetailsInput"
+              id="adminProductFormDetailsInput"
               onChange={[Function]}
               placeholder="Product details here..."
               rows={3}
@@ -142,7 +142,7 @@ exports[`PRoduct Form Component render tests Empty Form render tests Should prop
                 innerRef={
                   Object {
                     "current": <textarea
-                      id="productFormDetailsInput"
+                      id="adminProductFormDetailsInput"
                       placeholder="Product details here..."
                       rows="3"
                     />,
@@ -153,7 +153,7 @@ exports[`PRoduct Form Component render tests Empty Form render tests Should prop
                   innerRef={
                     Object {
                       "current": <textarea
-                        id="productFormDetailsInput"
+                        id="adminProductFormDetailsInput"
                         placeholder="Product details here..."
                         rows="3"
                       />,
@@ -162,7 +162,7 @@ exports[`PRoduct Form Component render tests Empty Form render tests Should prop
                 >
                   <textarea
                     aria-describedby={null}
-                    id="productFormDetailsInput"
+                    id="adminProductFormDetailsInput"
                     onChange={[Function]}
                     onInput={[Function]}
                     placeholder="Product details here..."
@@ -174,52 +174,52 @@ exports[`PRoduct Form Component render tests Empty Form render tests Should prop
             </TextArea>
           </div>
         </FormField>
-        <Button
-          as="button"
-          content="Create  New Product"
-          id="adminProductFormCreate"
-          onClick={[Function]}
-          type="submit"
-        >
-          <Ref
-            innerRef={
-              Object {
-                "current": <button
-                  class="ui button"
-                  id="adminProductFormCreate"
-                  type="submit"
-                >
-                  Create  New Product
-                </button>,
-              }
-            }
-          >
-            <RefFindNode
-              innerRef={
-                Object {
-                  "current": <button
-                    class="ui button"
-                    id="adminProductFormCreate"
-                    type="submit"
-                  >
-                    Create  New Product
-                  </button>,
-                }
-              }
-            >
-              <button
-                className="ui button"
-                id="adminProductFormCreate"
-                onClick={[Function]}
-                type="submit"
-              >
-                Create  New Product
-              </button>
-            </RefFindNode>
-          </Ref>
-        </Button>
       </form>
     </Form>
+    <Button
+      as="button"
+      content="Create  New Product"
+      id="adminProductFormCreate"
+      onClick={[Function]}
+      type="button"
+    >
+      <Ref
+        innerRef={
+          Object {
+            "current": <button
+              class="ui button"
+              id="adminProductFormCreate"
+              type="button"
+            >
+              Create  New Product
+            </button>,
+          }
+        }
+      >
+        <RefFindNode
+          innerRef={
+            Object {
+              "current": <button
+                class="ui button"
+                id="adminProductFormCreate"
+                type="button"
+              >
+                Create  New Product
+              </button>,
+            }
+          }
+        >
+          <button
+            className="ui button"
+            id="adminProductFormCreate"
+            onClick={[Function]}
+            type="button"
+          >
+            Create  New Product
+          </button>
+        </RefFindNode>
+      </Ref>
+    </Button>
   </div>
 </ProductForm>
 `;
@@ -254,7 +254,7 @@ exports[`PRoduct Form Component render tests Form with valid data render tests S
               Product name
             </label>
             <input
-              id="productFormNameInput"
+              id="adminProductFormNameInput"
               onChange={[Function]}
               placeholder="Product name here ..."
               value="name"
@@ -269,7 +269,7 @@ exports[`PRoduct Form Component render tests Form with valid data render tests S
               Product price
             </label>
             <input
-              id="productFormPriceInput"
+              id="adminProductFormPriceInput"
               onChange={[Function]}
               placeholder="Product price here..."
               value="100"
@@ -278,7 +278,7 @@ exports[`PRoduct Form Component render tests Form with valid data render tests S
         </FormField>
         <FormField
           control={[Function]}
-          id="productFormDescInput"
+          id="adminProductFormDescInput"
           label="Product Description"
           onChange={[Function]}
           placeholder="Product description here..."
@@ -288,14 +288,14 @@ exports[`PRoduct Form Component render tests Form with valid data render tests S
             className="field"
           >
             <label
-              htmlFor="productFormDescInput"
+              htmlFor="adminProductFormDescInput"
             >
               Product Description
             </label>
             <TextArea
               aria-describedby={null}
               as="textarea"
-              id="productFormDescInput"
+              id="adminProductFormDescInput"
               onChange={[Function]}
               placeholder="Product description here..."
               rows={3}
@@ -305,7 +305,7 @@ exports[`PRoduct Form Component render tests Form with valid data render tests S
                 innerRef={
                   Object {
                     "current": <textarea
-                      id="productFormDescInput"
+                      id="adminProductFormDescInput"
                       placeholder="Product description here..."
                       rows="3"
                     >
@@ -318,7 +318,7 @@ exports[`PRoduct Form Component render tests Form with valid data render tests S
                   innerRef={
                     Object {
                       "current": <textarea
-                        id="productFormDescInput"
+                        id="adminProductFormDescInput"
                         placeholder="Product description here..."
                         rows="3"
                       >
@@ -329,7 +329,7 @@ exports[`PRoduct Form Component render tests Form with valid data render tests S
                 >
                   <textarea
                     aria-describedby={null}
-                    id="productFormDescInput"
+                    id="adminProductFormDescInput"
                     onChange={[Function]}
                     onInput={[Function]}
                     placeholder="Product description here..."
@@ -343,7 +343,7 @@ exports[`PRoduct Form Component render tests Form with valid data render tests S
         </FormField>
         <FormField
           control={[Function]}
-          id="productFormDetailsInput"
+          id="adminProductFormDetailsInput"
           label="Product Details"
           onChange={[Function]}
           placeholder="Product details here..."
@@ -353,14 +353,14 @@ exports[`PRoduct Form Component render tests Form with valid data render tests S
             className="field"
           >
             <label
-              htmlFor="productFormDetailsInput"
+              htmlFor="adminProductFormDetailsInput"
             >
               Product Details
             </label>
             <TextArea
               aria-describedby={null}
               as="textarea"
-              id="productFormDetailsInput"
+              id="adminProductFormDetailsInput"
               onChange={[Function]}
               placeholder="Product details here..."
               rows={3}
@@ -370,7 +370,7 @@ exports[`PRoduct Form Component render tests Form with valid data render tests S
                 innerRef={
                   Object {
                     "current": <textarea
-                      id="productFormDetailsInput"
+                      id="adminProductFormDetailsInput"
                       placeholder="Product details here..."
                       rows="3"
                     >
@@ -383,7 +383,7 @@ exports[`PRoduct Form Component render tests Form with valid data render tests S
                   innerRef={
                     Object {
                       "current": <textarea
-                        id="productFormDetailsInput"
+                        id="adminProductFormDetailsInput"
                         placeholder="Product details here..."
                         rows="3"
                       >
@@ -394,7 +394,7 @@ exports[`PRoduct Form Component render tests Form with valid data render tests S
                 >
                   <textarea
                     aria-describedby={null}
-                    id="productFormDetailsInput"
+                    id="adminProductFormDetailsInput"
                     onChange={[Function]}
                     onInput={[Function]}
                     placeholder="Product details here..."
@@ -406,52 +406,52 @@ exports[`PRoduct Form Component render tests Form with valid data render tests S
             </TextArea>
           </div>
         </FormField>
-        <Button
-          as="button"
-          content="Update Product"
-          id="adminProductFormUpdate"
-          onClick={[Function]}
-          type="submit"
-        >
-          <Ref
-            innerRef={
-              Object {
-                "current": <button
-                  class="ui button"
-                  id="adminProductFormUpdate"
-                  type="submit"
-                >
-                  Update Product
-                </button>,
-              }
-            }
-          >
-            <RefFindNode
-              innerRef={
-                Object {
-                  "current": <button
-                    class="ui button"
-                    id="adminProductFormUpdate"
-                    type="submit"
-                  >
-                    Update Product
-                  </button>,
-                }
-              }
-            >
-              <button
-                className="ui button"
-                id="adminProductFormUpdate"
-                onClick={[Function]}
-                type="submit"
-              >
-                Update Product
-              </button>
-            </RefFindNode>
-          </Ref>
-        </Button>
       </form>
     </Form>
+    <Button
+      as="button"
+      content="Update Product"
+      id="adminProductFormUpdate"
+      onClick={[Function]}
+      type="button"
+    >
+      <Ref
+        innerRef={
+          Object {
+            "current": <button
+              class="ui button"
+              id="adminProductFormUpdate"
+              type="button"
+            >
+              Update Product
+            </button>,
+          }
+        }
+      >
+        <RefFindNode
+          innerRef={
+            Object {
+              "current": <button
+                class="ui button"
+                id="adminProductFormUpdate"
+                type="button"
+              >
+                Update Product
+              </button>,
+            }
+          }
+        >
+          <button
+            className="ui button"
+            id="adminProductFormUpdate"
+            onClick={[Function]}
+            type="button"
+          >
+            Update Product
+          </button>
+        </RefFindNode>
+      </Ref>
+    </Button>
   </div>
 </ProductForm>
 `;

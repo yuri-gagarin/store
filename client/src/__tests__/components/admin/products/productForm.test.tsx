@@ -36,17 +36,17 @@ describe("PRoduct Form Component render tests", () => {
     it("Should properly mount", () => {
       expect(wrapper).toMatchSnapshot();
     });
-    it("Should render '#productFormNameInput'", () => {
-      expect(wrapper.render().find("#productFormNameInput").length).toEqual(1);
+    it("Should render '#adminProductFormNameInput'", () => {
+      expect(wrapper.render().find("#adminProductFormNameInput").length).toEqual(1);
     });
-    it("Should render '#productFormPriceInput'", () => {
-      expect(wrapper.render().find("#productFormPriceInput").length).toEqual(1);
+    it("Should render '#adminProductFormPriceInput'", () => {
+      expect(wrapper.render().find("#adminProductFormPriceInput").length).toEqual(1);
     });
-    it("Should render '#productFormDescInput'", () => {
-      expect(wrapper.render().find("#productFormDescInput").length).toEqual(1);
+    it("Should render '#adminProductFormDescInput'", () => {
+      expect(wrapper.render().find("#adminProductFormDescInput").length).toEqual(1);
     });
-    it("Should render '#productFormDetailsInput'", () => {
-      expect(wrapper.render().find("#productFormDetailsInput").length).toEqual(1);
+    it("Should render '#adminProductFormDetailsInput'", () => {
+      expect(wrapper.render().find("#adminProductFormDetailsInput").length).toEqual(1);
     });
     it("Should render '#adminProductFormCreate' Button", () => {
       expect(wrapper.render().find("#adminProductFormCreate").length).toEqual(1);
@@ -88,32 +88,32 @@ describe("PRoduct Form Component render tests", () => {
     it("Should properly mount", () => {
       expect(wrapper).toMatchSnapshot();
     });
-    it("Should render '#productFormNameInput'", () => {
-      expect(wrapper.render().find("#productFormNameInput").length).toEqual(1);
+    it("Should render '#adminProductFormNameInput'", () => {
+      expect(wrapper.render().find("#adminProductFormNameInput").length).toEqual(1);
     });
-    it("Should set correct data in '#productFormNameInput'", () => {
-      const input = wrapper.render().find("#productFormNameInput");
+    it("Should set correct data in '#adminProductFormNameInput'", () => {
+      const input = wrapper.render().find("#adminProductFormNameInput");
       expect(input.val()).toEqual(mockData.name);
     });
-    it("Should render '#productFormPriceInput'", () => {
-      expect(wrapper.render().find("#productFormPriceInput").length).toEqual(1);
+    it("Should render '#adminProductFormPriceInput'", () => {
+      expect(wrapper.render().find("#adminProductFormPriceInput").length).toEqual(1);
     });
-    it("Should set correct data in '#productFormPriceInput'", () => {
-      const input = wrapper.render().find("#productFormPriceInput");
+    it("Should set correct data in '#adminProductFormPriceInput'", () => {
+      const input = wrapper.render().find("#adminProductFormPriceInput");
       expect(input.val()).toEqual(mockData.price);
     });
-    it("Should render '#productFormDescInput'", () => {
-      expect(wrapper.render().find("#productFormDescInput").length).toEqual(1);
+    it("Should render '#adminProductFormDescInput'", () => {
+      expect(wrapper.render().find("#adminProductFormDescInput").length).toEqual(1);
     });
-    it("Should set correct data in '#productFormDescInput'", () => {
-      const input = wrapper.render().find("#productFormDescInput");
+    it("Should set correct data in '#adminProductFormDescInput'", () => {
+      const input = wrapper.render().find("#adminProductFormDescInput");
       expect(input.val()).toEqual(mockData.description);
     });
-    it("Should render '#productFormDetailsInput'", () => {
-      expect(wrapper.render().find("#productFormDetailsInput").length).toEqual(1);
+    it("Should render '#adminProductFormDetailsInput'", () => {
+      expect(wrapper.render().find("#adminProductFormDetailsInput").length).toEqual(1);
     });
-    it("Should set correct data in '#productFormDetailsInput'", () => {
-      const input = wrapper.render().find("#productFormDetailsInput");
+    it("Should set correct data in '#adminProductFormDetailsInput'", () => {
+      const input = wrapper.render().find("#adminProductFormDetailsInput");
       expect(input.val()).toEqual(mockData.details);
     });
     it("Should render '#adminProductFormUpdate' Button'", () => {

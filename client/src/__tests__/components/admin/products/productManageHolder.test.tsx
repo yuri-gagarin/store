@@ -11,7 +11,7 @@ import ProductsManageHolder from "../../../../components/admin_components/produc
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
 import ProductCard from "../../../../components/admin_components/products/product_manage/ProductCard";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
-import ProductFormHolder from "../../../../components/admin_components/products/forms/ProductFormContainer";
+import ProductFormContainer from "../../../../components/admin_components/products/forms/ProductFormContainer";
 import ProductForm from "../../../../components/admin_components/products/forms/ProductForm";
 // helpers and state //
 import { TestStateProvider } from "../../../../state/Store";
@@ -276,18 +276,18 @@ describe("Product Manage Holder Tests", () => {
       wrapper.update();
     });
 
-    it("Should render the 'ProductFormHolder' component after 'edit Button click action", () => {
+    it("Should render the 'ProductFormContainer' component after 'edit Button click action", () => {
       const editButton = wrapper.find(ProductCard).at(0).find(".productCardEditBtn").at(0);
       editButton.simulate("click");
-      const productFormHolder = wrapper.find(ProductFormHolder);
-      expect(productFormHolder.length).toEqual(1);
+      const productFormContainer = wrapper.find(ProductFormContainer);
+      expect(productFormContainer.length).toEqual(1);
     });
-    it("Should display the '#productFormHolderDetails' component", () => {
-      const detailsHolder = wrapper.find(ProductFormHolder).render().find("#productFormHolderDetails");
-      expect(detailsHolder.length).toEqual(1);
+    it("Should display the '#productFormContainerDetails' component", () => {
+      const detailsContainer = wrapper.find(ProductFormContainer).render().find("#productFormContainerDetails");
+      expect(detailsContainer.length).toEqual(1);
     });
-    it("Should display the correct data in '.productFormHolderDetailsItem' <div>(s)", () => {
-      const detailsDivs = wrapper.find(ProductFormHolder).find(".productFormHolderDetailsItem");
+    it("Should display the correct data in '.productFormContainerDetailsItem' <div>(s)", () => {
+      const detailsDivs = wrapper.find(ProductFormContainer).find(".productFormContainerDetailsItem");
       expect(detailsDivs.length).toEqual(4);
       expect(detailsDivs.at(0).render().find("p").html()).toEqual(products[0].name);
       expect(detailsDivs.at(1).render().find("p").html()).toEqual(products[0].price);
@@ -295,7 +295,7 @@ describe("Product Manage Holder Tests", () => {
       expect(detailsDivs.at(3).render().find("p").html()).toEqual(products[0].details);
     });
     it("Should correctly render the 'ProductForm' component", () => {
-      const productFormToggleBtnn = wrapper.find(ProductFormHolder).find("#productFormToggleBtn");
+      const productFormToggleBtnn = wrapper.find(ProductFormContainer).find("#productFormToggleBtn");
       // toggle form //
       productFormToggleBtnn.at(0).simulate("click");
       // assert correct rendering //
@@ -318,10 +318,10 @@ describe("Product Manage Holder Tests", () => {
       const { history } = wrapper.find(Router).props();
       expect(history.location.pathname).toEqual(AdminProductRoutes.EDIT_ROUTE);
     });
-    it("Should correctly handle the '#adminProductManageBackBtn' click, close 'ProductFormHHolder' component", () => {
+    it("Should correctly handle the '#adminProductManageBackBtn' click, close 'ProductFormHContainer' component", () => {
       const backBtn = wrapper.find(ProductsManageHolder).find("#adminProductsManageBackBtn");
       backBtn.at(0).simulate("click");
-      expect(wrapper.find(ProductFormHolder).length).toEqual(0);
+      expect(wrapper.find(ProductFormContainer).length).toEqual(0);
     });
     it(`Should route to a correct client route: ${AdminProductRoutes.MANAGE_ROUTE}`, () => {
       const { history } = wrapper.find(Router).props();

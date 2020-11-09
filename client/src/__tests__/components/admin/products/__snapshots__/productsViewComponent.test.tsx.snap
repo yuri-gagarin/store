@@ -24,7 +24,7 @@ exports[`ProductView Component render tests ProductView Component default render
         height="100px"
         width="100%"
       />
-      <withRouter(ProductFormHolder) />
+      <withRouter(ProductFormContainer) />
     </Route>
     <Route
       path="/admin/home/my_products/manage"

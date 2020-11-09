@@ -8,7 +8,7 @@ import { mount, shallow, ReactWrapper, ShallowWrapper } from "enzyme";
 import ProductsViewComponent from "../../../../components/admin_components/products/ProductsView";
 import AdminProductsMenu from "../../../../components/admin_components/menus/AdminProductsMenu";
 import { ProductsPreviewHolder } from "../../../../components/admin_components/products/product_preview/ProductsPreviewHolder";
-import { ProductFormHolder } from "../../../../components/admin_components/products/forms/ProductFormContainer";
+import { ProductFormContainer } from "../../../../components/admin_components/products/forms/ProductFormContainer";
 import { ProductsManageHolder } from "../../../../components/admin_components/products/product_manage/ProductsManageHolder";
 import { AdminProductRoutes } from "../../../../routes/adminRoutes";
 // additional dependencies //
@@ -50,7 +50,7 @@ describe("ProductView Component render tests", () => {
         }
       }
       expect(map[AdminProductRoutes.VIEW_ALL_ROUTE]).toBe(ProductsPreviewHolder);
-      expect(map[AdminProductRoutes.CREATE_ROUTE]).toBe(ProductFormHolder);
+      expect(map[AdminProductRoutes.CREATE_ROUTE]).toBe(ProductFormContainer);
       expect(map[AdminProductRoutes.MANAGE_ROUTE]).toBe(ProductsManageHolder);
     });
   });
@@ -84,7 +84,7 @@ describe("ProductView Component render tests", () => {
         wrapper.update();
         // assert updated compnent //
         expect(wrapper.find(ProductsPreviewHolder).length).toEqual(1);
-        expect(wrapper.find(ProductFormHolder).length).toEqual(0);
+        expect(wrapper.find(ProductFormContainer).length).toEqual(0);
         expect(wrapper.find(ProductsManageHolder).length).toEqual(0);
       });
       it(`Should redirect to "${AdminProductRoutes.VIEW_ALL_ROUTE}" client route`, () => {
@@ -98,7 +98,7 @@ describe("ProductView Component render tests", () => {
         wrapper.update();
         // assert updated wrapper //
         expect(wrapper.find(ProductsPreviewHolder).length).toEqual(0);
-        expect(wrapper.find(ProductFormHolder).length).toEqual(1);
+        expect(wrapper.find(ProductFormContainer).length).toEqual(1);
         expect(wrapper.find(ProductsManageHolder).length).toEqual(0);
       });
       it(`Should redirect to "${AdminProductRoutes.CREATE_ROUTE}" client route`, () => {
@@ -112,7 +112,7 @@ describe("ProductView Component render tests", () => {
         wrapper.update();
         // assert updated wrapper //
         expect(wrapper.find(ProductsPreviewHolder).length).toEqual(0);
-        expect(wrapper.find(ProductFormHolder).length).toEqual(0);
+        expect(wrapper.find(ProductFormContainer).length).toEqual(0);
         expect(wrapper.find(ProductsManageHolder).length).toEqual(1);
       });
       it(`Should redirect to "${AdminProductRoutes.MANAGE_ROUTE}" client route`, () => {
