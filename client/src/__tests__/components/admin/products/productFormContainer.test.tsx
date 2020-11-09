@@ -7,10 +7,10 @@ import { act } from "react-dom/test-utils";
 // client routing //
 import { MemoryRouter, Router } from "react-router-dom";
 // component imports //
-import ProductFormHolder from "../../../../components/admin_components/products/forms/ProductFormHolder";
+import ProductFormContainer from "../../../../components/admin_components/products/forms/ProductFormContainer";
 import ProductForm from "../../../../components/admin_components/products/forms/ProductForm";
 import ProductImageUplForm from "../../../../components/admin_components/products/forms/ProductImgUplForm";
-import ProductImgPreviewHolder from "../../../../components/admin_components/products/image_preview/ProductImgPreviewHolder";
+import ProductImgPreviewContainer from "../../../../components/admin_components/products/image_preview/ProductImgPreviewContainer";
 import ProductImgPreviewThumb from "../../../../components/admin_components/products/image_preview/ProductImgThumb";
 import LoadingBar from "../../../../components/admin_components/miscelaneous/LoadingBar";
 // state React.Context //
@@ -22,37 +22,37 @@ import { AdminProductRoutes } from "../../../../routes/adminRoutes";
 import StoreForm from "../../../../components/admin_components/stores/forms/StoreForm";
 import ErrorBar from "../../../../components/admin_components/miscelaneous/ErrorBar";
 
-describe("ProductFormHolder Component tests", () => {
+describe("'ProductFormContainer' Component tests", () => {
   let wrapper: ReactWrapper; 
   let mockProduct: IProductData;
-  /*
-  describe("Default Form Holder state",  () => {
+  
+  describe("Default 'ProductFormContainer' state",  () => {
 
     beforeAll(() => {
       window.scrollTo = jest.fn();
       wrapper = mount(
         <MemoryRouter keyLength={0}>
-          <ProductFormHolder />
+          <ProductFormContainer />
         </MemoryRouter>
       );
     });
 
-    it("Should Properly Mount Form Holder", () => {
-      expect(wrapper.find(ProductFormHolder)).toMatchSnapshot();
+    it("Should properly mount the component", () => {
+      expect(wrapper.find(ProductFormContainer)).toMatchSnapshot();
     });
     it("Form Should be closed by default", () => {
       const form = wrapper.find(ProductForm);
       expect(form.length).toEqual(0);
     });
     it("Should have a Form toggle Button", () => {
-      const toggleButton = wrapper.find(ProductFormHolder).render().find("#productFormToggleBtn");
+      const toggleButton = wrapper.find(ProductFormContainer).render().find("#productFormToggleBtn");
       expect(toggleButton.length).toEqual(1);
     });
 
   });
   
-  // TEST Form Holder state OPEN - NO Current Product Data //
-  describe("Form Holder state OPEN - NO Current Product Data",  () => {
+  // TEST Form Container state OPEN - NO Current Product Data //
+  describe("Form Container state OPEN - NO Current Product Data",  () => {
     let wrapper: ReactWrapper;
 
     beforeAll(() => {
@@ -60,47 +60,47 @@ describe("ProductFormHolder Component tests", () => {
       wrapper = mount(
         <MemoryRouter keyLength={0}>
           <TestStateProvider>
-            <ProductFormHolder />
+            <ProductFormContainer />
           </TestStateProvider>
         </MemoryRouter>
       );
     });
     it("Should render a Form toggle Button", () => {
-      const toggleButton = wrapper.find(ProductFormHolder).render().find('#productFormToggleBtn');
+      const toggleButton = wrapper.find(ProductFormContainer).render().find('#productFormToggleBtn');
       expect(toggleButton.length).toEqual(1);
     });
-    it("Should Properly Mount Form Holder, respond to '#productToggleBtn' click", () => {
+    it("Should Properly Mount Form Container, respond to '#productToggleBtn' click", () => {
       const toggleButton = wrapper.find("#productFormToggleBtn");
       toggleButton.at(0).simulate("click")
       // open button clicked //
       //wrapper.update()
-      expect(wrapper.find(ProductFormHolder)).toMatchSnapshot();
+      expect(wrapper.find(ProductFormContainer)).toMatchSnapshot();
     });
   
     it("Should have a Form Create Button", () => {
-      const toggleButton = wrapper.find(ProductFormHolder).render().find('#adminProductFormCreate');
+      const toggleButton = wrapper.find(ProductFormContainer).render().find('#adminProductFormCreate');
       expect(toggleButton.length).toEqual(1);
     });
     it("Should have the Form rendered after toggle button", () => {
       const form = wrapper.find(ProductForm);
       expect(form.length).toEqual(1);
     });
-    it("Should NOT render '#productFormHolderDetails", () => {
-      const details = wrapper.find(ProductFormHolder).find("#productFormHolderDetails");
+    it("Should NOT render '#productFormContainerDetails", () => {
+      const details = wrapper.find(ProductFormContainer).find("#productFormContainerDetails");
       expect(details.length).toEqual(0);
     })
     it("Should NOT have the Image Preview rendered", () => {
-      const imgPreviewHolder = wrapper.find(ProductImgPreviewHolder);
-      expect(imgPreviewHolder.length).toEqual(0);
+      const imgPreviewContainer = wrapper.find(ProductImgPreviewContainer);
+      expect(imgPreviewContainer.length).toEqual(0);
     });
     it("Should NOT have the Image Upload Form rendered", () => {
       const imgUploadForm = wrapper.find(ProductImageUplForm);
       expect(imgUploadForm.length).toEqual(0);
     });
   });
-  // END Form Holder state OPEN - NO Current Product Data //
-  // TEST Form Holder state OPEN - WITH Current Product Data - NO IMAGES //
-  describe("Form Holder state OPEN - WITH Current Product Data - NO IMAGES",  () => {
+  // END Form Container state OPEN - NO Current Product Data //
+  // TEST Form Container state OPEN - WITH Current Product Data - NO IMAGES //
+  describe("Form Container state OPEN - WITH Current Product Data - NO IMAGES",  () => {
     let wrapper: ReactWrapper; let state: IGlobalAppState;
 
     beforeAll(() => {
@@ -119,19 +119,19 @@ describe("ProductFormHolder Component tests", () => {
       wrapper = mount(
         <MemoryRouter keyLength={0}>
           <TestStateProvider mockState={state}>
-            <ProductFormHolder />
+            <ProductFormContainer />
           </TestStateProvider>
         </MemoryRouter>
       );
       wrapper.update();
     });
 
-    it("Should Properly render Form Holder", () => {
-      const formHolder = wrapper.find(ProductFormHolder).find("#productFormHolder");
-      expect(formHolder.length).toEqual(1);
+    it("Should Properly render Form Container", () => {
+      const formContainer = wrapper.find(ProductFormContainer).find("#productFormContainer");
+      expect(formContainer.length).toEqual(1);
     });
     it("Should render a Form toggle Button", () => {
-      const toggleButton = wrapper.find(ProductFormHolder).render().find('#productFormToggleBtn');
+      const toggleButton = wrapper.find(ProductFormContainer).render().find('#productFormToggleBtn');
       expect(toggleButton.length).toEqual(1);
     });
     it("Should properly render ProductForm", () => {
@@ -142,23 +142,23 @@ describe("ProductFormHolder Component tests", () => {
       expect(form.length).toEqual(1);
     });
     it("Should render a Form Update Button", () => {
-      const toggleButton = wrapper.find(ProductFormHolder).render().find('#adminProductFormUpdate');
+      const toggleButton = wrapper.find(ProductFormContainer).render().find('#adminProductFormUpdate');
       expect(toggleButton.length).toEqual(1);
     });
-    it("Should render '#productFormHolderDetails", () => {
-      const details = wrapper.find(ProductFormHolder).render().find("#productFormHolderDetails");
+    it("Should render '#productFormContainerDetails", () => {
+      const details = wrapper.find(ProductFormContainer).render().find("#productFormContainerDetails");
       expect(details.length).toEqual(1);
     });
-    it("Should render correct values in '#productFormHolderDetails", () => {
-      const detailsHolders = wrapper.find(ProductFormHolder).find(".productFormHolderDetailsItem");
-      expect(detailsHolders.at(0).find("p").render().text()).toEqual(mockProduct.name);
-      expect(detailsHolders.at(1).find("p").render().text()).toEqual(mockProduct.price);
-      expect(detailsHolders.at(2).find("p").render().text()).toEqual(mockProduct.description);
-      expect(detailsHolders.at(3).find("p").render().text()).toEqual(mockProduct.details);
+    it("Should render correct values in '#productFormContainerDetails", () => {
+      const detailsContainers = wrapper.find(ProductFormContainer).find(".productFormContainerDetailsItem");
+      expect(detailsContainers.at(0).find("p").render().text()).toEqual(mockProduct.name);
+      expect(detailsContainers.at(1).find("p").render().text()).toEqual(mockProduct.price);
+      expect(detailsContainers.at(2).find("p").render().text()).toEqual(mockProduct.description);
+      expect(detailsContainers.at(3).find("p").render().text()).toEqual(mockProduct.details);
     })
     it("Should have the Image Preview rendered", () => {
-      const imgPreviewHolder = wrapper.find(ProductImgPreviewHolder);
-      expect(imgPreviewHolder.length).toEqual(1);
+      const imgPreviewContainer = wrapper.find(ProductImgPreviewContainer);
+      expect(imgPreviewContainer.length).toEqual(1);
     });
     it("Should NOT render any preview images", () => {
       const previewThumb = wrapper.find(ProductImgPreviewThumb);
@@ -169,9 +169,9 @@ describe("ProductFormHolder Component tests", () => {
       expect(imgUploadForm.length).toEqual(1);
     });
   });
-  // END Form Holder state OPEN - WITH Current Product Data - NO IMAGES //
-  // TEST Form Holder state OPEN - WITH Current Product Data - WITH IMAGES //
-  describe("Form Holder state OPEN - WITH Current Product Data - WITH IMAGES",  () => {
+  // END Form Container state OPEN - WITH Current Product Data - NO IMAGES //
+  // TEST Form Container state OPEN - WITH Current Product Data - WITH IMAGES //
+  describe("Form Container state OPEN - WITH Current Product Data - WITH IMAGES",  () => {
     let state: IGlobalAppState; let wrapper: ReactWrapper;
     let mockProduct: IProductData;
 
@@ -212,18 +212,18 @@ describe("ProductFormHolder Component tests", () => {
       wrapper = mount(
         <MemoryRouter keyLength={0}>
           <TestStateProvider mockState={state}>
-            <ProductFormHolder />
+            <ProductFormContainer />
           </TestStateProvider>
         </MemoryRouter>
       );
     });
 
-    it("Should Properly render FormHolder", () => {
-      const formHolder = wrapper.find(ProductFormHolder).find("#productFormHolder");
-      expect(formHolder.length).toEqual(1);
+    it("Should Properly render FormContainer", () => {
+      const formContainer = wrapper.find(ProductFormContainer).find("#productFormContainer");
+      expect(formContainer.length).toEqual(1);
     });
     it("Should render a Form toggle Button", () => {
-      const toggleButton = wrapper.find(ProductFormHolder).render().find('#productFormToggleBtn');
+      const toggleButton = wrapper.find(ProductFormContainer).render().find('#productFormToggleBtn');
       expect(toggleButton.length).toEqual(1);
     });
     it("Should have the Form rendered", () => {
@@ -237,9 +237,9 @@ describe("ProductFormHolder Component tests", () => {
       const toggleButton = wrapper.render().find('#adminProductFormUpdate');
       expect(toggleButton.length).toEqual(1);
     });
-    it("Should redner 'ProductImgPreview Holder'", () => {
-      const imgPreviewHolder = wrapper.find(ProductImgPreviewHolder);
-      expect(imgPreviewHolder.length).toEqual(1);
+    it("Should redner 'ProductImgPreview Container'", () => {
+      const imgPreviewContainer = wrapper.find(ProductImgPreviewContainer);
+      expect(imgPreviewContainer.length).toEqual(1);
     });
     it("Should render a correct number of preview images", () => {
       const previewThumb = wrapper.find(ProductImgPreviewThumb);
@@ -251,10 +251,9 @@ describe("ProductFormHolder Component tests", () => {
       expect(imgUploadForm.length).toEqual(1);
     });
   });
-  */
-  // END Form Holder state OPEN - WITH Current Product Data - WITH IMAGES //
-  // TEST Form Holder state OPEN - MOCK Submit action SUCCESS //
-  describe("'ProductFormHolder' - New Form - MOCK Submit action", () => {
+  // END Form Container state OPEN - WITH Current Product Data - WITH IMAGES //
+  // TEST Form Container state OPEN - MOCK Submit action SUCCESS //
+  describe("'ProductFormContainer' - New Form - MOCK Submit action", () => {
     let mockProductData: IProductData;
     const mockDate = new Date("1/1/2019").toString();
 
@@ -271,8 +270,9 @@ describe("ProductFormHolder Component tests", () => {
         createdAt: mockDate
       }
 
-    })
-    describe("Form Holder state OPEN - New Form - MOCK Submit action SUCCESS",  () => {
+    });
+    
+    describe("Form Container state OPEN - New Form - MOCK Submit action SUCCESS",  () => {
       let wrapper: ReactWrapper;
       
       beforeAll( async () => {
@@ -283,7 +283,7 @@ describe("ProductFormHolder Component tests", () => {
         wrapper = mount(
           <MemoryRouter keyLength={0} initialEntries={[ AdminProductRoutes.CREATE_ROUTE ]} >
             <TestStateProvider>
-              <ProductFormHolder />
+              <ProductFormContainer />
             </TestStateProvider>
           </MemoryRouter>
         );
@@ -326,33 +326,32 @@ describe("ProductFormHolder Component tests", () => {
   
         await act( async () => promise);
   
-        expect(wrapper.find(ProductFormHolder).find(LoadingBar).length).toEqual(1);
-        expect(wrapper.find(ProductFormHolder).find(ErrorBar).length).toEqual(0);
+        expect(wrapper.find(ProductFormContainer).find(LoadingBar).length).toEqual(1);
+        expect(wrapper.find(ProductFormContainer).find(ErrorBar).length).toEqual(0);
       });
       it("Should NOT show the 'LoadingBar', 'ErrorBar' Components after successful API call", () => {
         wrapper.update();
-        expect(wrapper.find(ProductFormHolder).find(LoadingBar).length).toEqual(0);
-        expect(wrapper.find(ProductFormHolder).find(ErrorBar).length).toEqual(0);
+        expect(wrapper.find(ProductFormContainer).find(LoadingBar).length).toEqual(0);
+        expect(wrapper.find(ProductFormContainer).find(ErrorBar).length).toEqual(0);
       });
       it("Should NOT show the 'ProductForm' Component after successful API call", () => {
         expect(wrapper.find(ProductForm).length).toEqual(0);
       });
-      it("Should correctly render '#productFormHolderDetails' 'Grid' item", () => {
-        const details = wrapper.find(ProductFormHolder).render().find("#productFormHolderDetails");
+      it("Should correctly render '#productFormContainerDetails' 'Grid' item", () => {
+        const details = wrapper.find(ProductFormContainer).render().find("#productFormContainerDetails");
         expect(details.length).toEqual(1);
       });
-      it("Should render correct values in '#productFormHolderDetails", () => {
-        const detailsHolders = wrapper.find(ProductFormHolder).find(".productFormHolderDetailsItem");
-        expect(detailsHolders.at(0).find("p").render().text()).toEqual(mockProductData.name);
-        expect(detailsHolders.at(1).find("p").render().text()).toEqual(mockProductData.price);
-        expect(detailsHolders.at(2).find("p").render().text()).toEqual(mockProductData.description);
-        expect(detailsHolders.at(3).find("p").render().text()).toEqual(mockProductData.details);
+      it("Should render correct values in '#productFormContainerDetails", () => {
+        const detailsContainers = wrapper.find(ProductFormContainer).find(".productFormContainerDetailsItem");
+        expect(detailsContainers.at(0).find("p").render().text()).toEqual(mockProductData.name);
+        expect(detailsContainers.at(1).find("p").render().text()).toEqual(mockProductData.price);
+        expect(detailsContainers.at(2).find("p").render().text()).toEqual(mockProductData.description);
+        expect(detailsContainers.at(3).find("p").render().text()).toEqual(mockProductData.details);
       });
     });
-    // END Form Holder state OPEN - MOCK Submit action SUCCESS //
-    // TEST ProductFormHolder component StoreForm open - MOCK Submit Error //
-    /*
-    describe("'ProductFormHolder' state OPEN - New Form - Mock Submit action API ERROR", () => {
+    // END Form Container state OPEN - MOCK Submit action SUCCESS //
+    // TEST ProductFormContainer component StoreForm open - MOCK Submit Error //
+    describe("'ProductFormContainer' state OPEN - New Form - Mock Submit action API ERROR", () => {
       let wrapper: ReactWrapper;
       const error = new Error("An error occured");
 
@@ -364,7 +363,7 @@ describe("ProductFormHolder Component tests", () => {
         wrapper = mount(
           <MemoryRouter keyLength={0} initialEntries={[ AdminProductRoutes.CREATE_ROUTE ]} >
             <TestStateProvider>
-              <ProductFormHolder />
+              <ProductFormContainer />
             </TestStateProvider>
           </MemoryRouter>
         );
@@ -384,8 +383,8 @@ describe("ProductFormHolder Component tests", () => {
         // simulate input //
         productNameInput.simulate("change", { target: { value: mockProductData.name } });
         productPriceInput.simulate("change", { target: { value: mockProductData.price } });
-        productDescInput.at(0).simulate("change", { target: { value: mockProductData.description } });
-        productDetailsInput.at(0).simulate("change", { target: { value: mockProductData.details } });
+        productDescInput.at(1).simulate("change", { target: { value: mockProductData.description } });
+        productDetailsInput.at(1).simulate("change", { target: { value: mockProductData.details } });
         // assert correct rendering
         const adminProductFormCreate = wrapper.find("#adminProductFormCreate").at(0);
         expect(adminProductFormCreate.length).toEqual(1)
@@ -407,16 +406,16 @@ describe("ProductFormHolder Component tests", () => {
   
         await act( async () => promise);
   
-        expect(wrapper.find(ProductFormHolder).find(LoadingBar).length).toEqual(1);
-        expect(wrapper.find(ProductFormHolder).find(ErrorBar).length).toEqual(0);
+        expect(wrapper.find(ProductFormContainer).find(LoadingBar).length).toEqual(1);
+        expect(wrapper.find(ProductFormContainer).find(ErrorBar).length).toEqual(0);
       });
       it("Should NOT render the 'LoadingBar', but render 'ErrorBar' Components after ERROR in API call", () => {
         wrapper.update();
-        expect(wrapper.find(ProductFormHolder).find(LoadingBar).length).toEqual(0);
-        expect(wrapper.find(ProductFormHolder).find(ErrorBar).length).toEqual(1);
+        expect(wrapper.find(ProductFormContainer).find(LoadingBar).length).toEqual(0);
+        expect(wrapper.find(ProductFormContainer).find(ErrorBar).length).toEqual(1);
       });
       it("Should NOT close the 'ProductForm' component after a failed CREATE action", () => {
-        const productForm = wrapper.find(ProductFormHolder).find(ProductForm);
+        const productForm = wrapper.find(ProductFormContainer).find(ProductForm);
         expect(productForm.length).toEqual(1)
       });
       it("Should not reset 'ProductForm' input values", () => {
@@ -431,10 +430,7 @@ describe("ProductFormHolder Component tests", () => {
         expect(productDetailsInput.props().value).toEqual(mockProductData.details);
       });
     });
-    */
 
   });
-  
-  
   
 });

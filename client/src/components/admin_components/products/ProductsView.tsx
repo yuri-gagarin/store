@@ -4,7 +4,7 @@ import AdminProductsMenu from "../menus/AdminProductsMenu";
 import Spacer from "../miscelaneous/Spacer";
 import ProductsManageHolder from "./product_manage/ProductsManageHolder";
 import ProductsPreviewHolder from "./product_preview/ProductsPreviewHolder";
-import ProductFormHolder from "./forms/ProductFormHolder";
+import ProductFormContainer from "./forms/ProductFormContainer";
 // css imports //
 import "./css/productsView.css";
 // routing //
@@ -34,7 +34,7 @@ const ProductsView: React.FC<{}> = (props): JSX.Element => {
         </Route>
         <Route path={AdminProductRoutes.CREATE_ROUTE}>
           <Spacer width="100%" height="100px" />
-          <ProductFormHolder />
+          <ProductFormContainer />
         </Route>
         <Route path={AdminProductRoutes.MANAGE_ROUTE}>
           <Spacer width="100%" height="100px"></Spacer>

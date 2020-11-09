@@ -11,7 +11,7 @@ import ProductsManageHolder from "../../../../components/admin_components/produc
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
 import ProductCard from "../../../../components/admin_components/products/product_manage/ProductCard";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
-import ProductFormHolder from "../../../../components/admin_components/products/forms/ProductFormHolder";
+import ProductFormHolder from "../../../../components/admin_components/products/forms/ProductFormContainer";
 import ProductForm from "../../../../components/admin_components/products/forms/ProductForm";
 // helpers and state //
 import { TestStateProvider } from "../../../../state/Store";

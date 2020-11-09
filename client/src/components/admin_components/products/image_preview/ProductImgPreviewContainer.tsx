@@ -13,7 +13,7 @@ interface Props {
   state: IGlobalAppState;
   dispatch: React.Dispatch<AppAction>
 }
-const ProductImgPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
+const ProductImgPreviewContainer: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   const { images } = state.productState.currentProductData;
 
   const handleDelete = (_id: string) => {
@@ -47,6 +47,6 @@ const ProductImgPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Elem
   }
 };
 
-export default ProductImgPreviewHolder;
+export default ProductImgPreviewContainer;
 
 

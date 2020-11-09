@@ -12,139 +12,110 @@ interface Props {
   handleCreateProduct(data: ProductFormState): void;
   handleUpdateProduct(data: ProductFormState): void;
 }
-class ProductForm extends React.Component<Props, ProductFormState> {
-  constructor(props: Props) {
-    super(props)
-    // this.productFormRef = useRef<HTMLDivElement>(document.createElement("div"));
-    this.state = {
-      name: "",
-      price: "",
-      description: "",
-      details: "",
-    }
-
-  }
+const ProductForm: React.FC<Props> = (props): JSX.Element => {
+  const { name, price, description, details, newForm, handleCreateProduct, handleUpdateProduct } = props;
   // local form state //
+  const [ formState, setFormState ] = useState<ProductFormState>({ 
+    name: name, price: price, description: description, details: details 
+  });
   // form ref //
-  
+  const productFormRef = useRef(document.createElement("div"));
   // form state changes listeners //
-  handleNameChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
-    this.setState({
-      ...this.state,
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
+    setFormState({
+      ...formState,
       name: e.target.value
     });
   };
-  handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    this.setState({
-      ...this.state,
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setFormState({
+      ...formState,
       price: e.target.value
     });
   };
-  hadnleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    this.setState({
-      ...this.state,
+  const hadnleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setFormState({
+      ...formState,
       description: e.target.value
     });
   };
-  handleDetailsChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    this.setState({
-      ...this.state,
+  const handleDetailsChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setFormState({
+      ...formState,
       details: e.target.value
     });
   };
   // submit action //
-  handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (this.props.newForm) {
-      this.props.handleCreateProduct(this.state);
-    } else {
-      this.props.handleUpdateProduct(this.state);
-    }
+    newForm ? handleCreateProduct(formState) : handleUpdateProduct(formState);
   };
-  componentDidMount() {
-
-  }
-  shouldComponentUpdate(nextProps: Props, nextState: ProductFormState) {
-    console.log(nextProps)
-    const { name: newName } = nextProps;
-    if (newName === this.props.name) {
-      console.log("shouldnt");
-      return false
-    }
-    return true;
-  }
-
-  // lifecycle hooks //
-  /*
+  
   useEffect(() => {
-    if (productFormRef.current) {
+    if (productFormRef) {
       const elem = productFormRef.current.getBoundingClientRect();
       window.scrollTo({
         top: elem.bottom,
         behavior: "smooth"
       })
     }
-  }, [productFormRef]);
-  */
-  render() {
-    const { name, price, description, details } = this.state;
-    const { newForm } = this.props;
-    return (
-      <div className="productFormDiv">
-        <Form id="productForm">
-          <Form.Field>
-            <label>Product name</label>
-            <input 
-              id="adminProductFormNameInput"
-              onChange={this.handleNameChange} 
-              placeholder="Product name here ..." 
-              value={name}
-            />
-          </Form.Field>
-          <Form.Field>
-            <label>Product price</label>
-            <input 
-              id="adminProductFormPriceInput"
-              onChange={this.handlePriceChange} 
-              placeholder="Product price here..." 
-              value={price}
-            />
-          </Form.Field>
-          <Form.Field
-            id='adminProductFormDescInput'
-            control={TextArea}
-            label='Product Description'
-            onChange={this.hadnleDescriptionChange}
-            placeholder='Product description here...'
-            value={description}
-           />
-          <Form.Field
-            id='adminProductFormDetailsInput'
-            control={TextArea}
-            label='Product Details'
-            onChange={this.handleDetailsChange}
-            placeholder='Product details here...'
-            value={details}
+  }, [ productFormRef ]);
+
+  return (
+    <div className="productFormDiv" ref={productFormRef}>
+      <Form id="productForm">
+        <Form.Field>
+          <label>Product name</label>
+          <input 
+            id="adminProductFormNameInput"
+            onChange={handleNameChange} 
+            placeholder="Product name here ..." 
+            value={formState.name}
           />
-        </Form>
-        {
-          newForm 
-            ? <Button 
-                id="adminProductFormCreate" 
-                type="button"
-                onClick={this.handleSubmit} 
-                content= "Create  New Product" 
-              />
-            : <Button 
-              id="adminProductFormUpdate" 
-              type='button'
-              onClick={this.handleSubmit} 
-              content="Update Product" 
+        </Form.Field>
+        <Form.Field>
+          <label>Product price</label>
+          <input 
+            id="adminProductFormPriceInput"
+            onChange={handlePriceChange} 
+            placeholder="Product price here..." 
+            value={formState.price}
+          />
+        </Form.Field>
+        <Form.Field
+          id='adminProductFormDescInput'
+          control={TextArea}
+          label='Product Description'
+          onChange={hadnleDescriptionChange}
+          placeholder='Product description here...'
+          value={formState.description}
+          />
+        <Form.Field
+          id='adminProductFormDetailsInput'
+          control={TextArea}
+          label='Product Details'
+          onChange={handleDetailsChange}
+          placeholder='Product details here...'
+          value={formState.details}
+        />
+      </Form>
+      {
+        newForm 
+          ? <Button 
+              id="adminProductFormCreate" 
+              type="button"
+              onClick={handleSubmit} 
+              content= "Create  New Product" 
             />
-        }  
-      </div>
-    );
-  }
+          : <Button 
+            id="adminProductFormUpdate" 
+            type='button'
+            onClick={handleSubmit} 
+            content="Update Product" 
+          />
+      }  
+    </div>
+  );
 }
 
 export default ProductForm;

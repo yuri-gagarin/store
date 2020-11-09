@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ProductFormHolder Component tests Default Form Holder state Should Properly Mount Form Holder 1`] = `
-<withRouter(ProductFormHolder)>
-  <ProductFormHolder
+exports[`'ProductFormContainer' Component tests Default 'ProductFormContainer' state Should properly mount the component 1`] = `
+<withRouter(ProductFormContainer)>
+  <ProductFormContainer
     history={
       Object {
         "action": "POP",
@@ -51,7 +51,7 @@ exports[`ProductFormHolder Component tests Default Form Holder state Should Prop
     }
   >
     <div
-      id="productFormHolder"
+      id="productFormContainer"
     >
       <GridRow>
         <div
@@ -110,13 +110,13 @@ exports[`ProductFormHolder Component tests Default Form Holder state Should Prop
         </div>
       </GridRow>
     </div>
-  </ProductFormHolder>
-</withRouter(ProductFormHolder)>
+  </ProductFormContainer>
+</withRouter(ProductFormContainer)>
 `;
 
-exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current Product Data Should Properly Mount Form Holder, respond to '#productToggleBtn' click 1`] = `
-<withRouter(ProductFormHolder)>
-  <ProductFormHolder
+exports[`'ProductFormContainer' Component tests Form Container state OPEN - NO Current Product Data Should Properly Mount Form Container, respond to '#productToggleBtn' click 1`] = `
+<withRouter(ProductFormContainer)>
+  <ProductFormContainer
     history={
       Object {
         "action": "POP",
@@ -165,7 +165,7 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
     }
   >
     <div
-      id="productFormHolder"
+      id="productFormContainer"
     >
       <GridRow>
         <div
@@ -392,52 +392,52 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
                           </TextArea>
                         </div>
                       </FormField>
-                      <Button
-                        as="button"
-                        content="Create  New Product"
-                        id="adminProductFormCreate"
-                        onClick={[Function]}
-                        type="submit"
-                      >
-                        <Ref
-                          innerRef={
-                            Object {
-                              "current": <button
-                                class="ui button"
-                                id="adminProductFormCreate"
-                                type="submit"
-                              >
-                                Create  New Product
-                              </button>,
-                            }
-                          }
-                        >
-                          <RefFindNode
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui button"
-                                  id="adminProductFormCreate"
-                                  type="submit"
-                                >
-                                  Create  New Product
-                                </button>,
-                              }
-                            }
-                          >
-                            <button
-                              className="ui button"
-                              id="adminProductFormCreate"
-                              onClick={[Function]}
-                              type="submit"
-                            >
-                              Create  New Product
-                            </button>
-                          </RefFindNode>
-                        </Ref>
-                      </Button>
                     </form>
                   </Form>
+                  <Button
+                    as="button"
+                    content="Create  New Product"
+                    id="adminProductFormCreate"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <Ref
+                      innerRef={
+                        Object {
+                          "current": <button
+                            class="ui button"
+                            id="adminProductFormCreate"
+                            type="button"
+                          >
+                            Create  New Product
+                          </button>,
+                        }
+                      }
+                    >
+                      <RefFindNode
+                        innerRef={
+                          Object {
+                            "current": <button
+                              class="ui button"
+                              id="adminProductFormCreate"
+                              type="button"
+                            >
+                              Create  New Product
+                            </button>,
+                          }
+                        }
+                      >
+                        <button
+                          className="ui button"
+                          id="adminProductFormCreate"
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          Create  New Product
+                        </button>
+                      </RefFindNode>
+                    </Ref>
+                  </Button>
                 </div>
               </ProductForm>
             </div>
@@ -445,6 +445,6 @@ exports[`ProductFormHolder Component tests Form Holder state OPEN - NO Current P
         </div>
       </GridRow>
     </div>
-  </ProductFormHolder>
-</withRouter(ProductFormHolder)>
+  </ProductFormContainer>
+</withRouter(ProductFormContainer)>
 `;

@@ -3,10 +3,10 @@ import { Button, Grid } from "semantic-ui-react";
 // client routing //
 import { RouteComponentProps, withRouter } from "react-router-dom";
 // css imports //
-import "./css/productFormHolder.css";
+import "./css/productFormContainer.css";
 // additional components //
 import ProductForm from "./ProductForm";
-import ProductImgPreviewHolder from "../image_preview/ProductImgPreviewHolder";
+import ProductImgPreviewContainer from "../image_preview/ProductImgPreviewContainer";
 import LoadingBar from "../../miscelaneous/LoadingBar";
 import ProductImgUplForm from "./ProductImgUplForm";
 // state //
@@ -30,15 +30,15 @@ interface Props extends RouteComponentProps {
  
 }
 
-const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
+const ProductFormContainer: React.FC<Props> = ({ history }): JSX.Element => {
   const { state, dispatch } = useContext(Store);
   const { loading, currentProductData, productFormOpen, error } = state.productState;
   const { name, description, details, price, createdAt, editedAt } = currentProductData;
   // local component state //
   // const [ formOpen, setFormOpen ] = useState<boolean>(false);
-  const [ productContState, setProductContState ] = useState<ProductFormContState>({
+  const [ productFormContState, setProductFormContState ] = useState<ProductFormContState>({
     newForm: true,
-    productFormState: { name: "", price: "", details: "", description: " "}
+    productFormState: { name: "", price: "", details: "", description: ""}
   });
 
   // ProductForm toggle //
@@ -63,8 +63,9 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
       .catch((_) => {
         // handle error or show modal //
         // set form state //
-        setProductContState({
-          ...productContState,
+        // console.log("create error occured")
+        setProductFormContState({
+          ...productFormContState,
           productFormState: { ...productData }
         });
       });
@@ -89,10 +90,9 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
     }
   }, [ productFormOpen ]);
   useEffect(() => {
-    console.log(currentProductData)
     if (checkSetValues(currentProductData)) {
       const { name, price, description, details } = currentProductData;
-      setProductContState({
+      setProductFormContState({
         newForm: false,
         productFormState: {
           name,
@@ -106,31 +106,31 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   
   // component return //
   return (
-    <div id="productFormHolder">
+    <div id="productFormContainer">
       { loading ? <LoadingBar /> : null }
       {
-        !productContState.newForm ?
-          <div id={"productFormHolderDetails"}>
+        !productFormContState.newForm ?
+          <div id={"productFormContainerDetails"}>
             <Grid.Row> 
               <Grid.Column mobile={16} tablet={14} computer={14}>
                 <h1>Details</h1>
-                <div className="productFormHolderDetailsItem">
+                <div className="productFormContainerDetailsItem">
                   <h3>Product name:</h3>
                   <p>{name}</p>
                 </div>
-                <div className="productFormHolderDetailsItem">
+                <div className="productFormContainerDetailsItem">
                   <h3>Product price:</h3>
                   <p>{price}</p>
                 </div>
-                <div className="productFormHolderDetailsItem">
+                <div className="productFormContainerDetailsItem">
                   <h3>Product description:</h3>
                   <p>{description}</p>
                 </div>
-                <div className="productFormHolderDetailsItem">
+                <div className="productFormContainerDetailsItem">
                   <h3>Product details:</h3>
                   <p>{details}</p>
                 </div>
-                <div className="productFormHolderTimestamps">
+                <div className="productFormContainerTimestamps">
                   <span>Created At: <strong>{ConvertDate.international(createdAt)}</strong></span>
                   <span>Edited At: <strong>{ConvertDate.international(editedAt)}</strong></span>
                 </div>
@@ -138,7 +138,7 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column mobile={16} tablet={14} computer={14}>
-                <ProductImgPreviewHolder state={state} dispatch={dispatch} />
+                <ProductImgPreviewContainer state={state} dispatch={dispatch} />
               </Grid.Column>
             </Grid.Row>
             <ProductImgUplForm />
@@ -156,10 +156,10 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
           {
             productFormOpen ? 
               <ProductForm 
-                newForm={productContState.newForm}
+                newForm={productFormContState.newForm}
                 handleCreateProduct={handleCreateProduct}
                 handleUpdateProduct={handleUpdateProduct}
-                { ...productContState.productFormState }
+                { ...productFormContState.productFormState }
               /> 
             : null
           }
@@ -170,7 +170,7 @@ const ProductFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   );
 };
 // export without router for tests //
-export { ProductFormHolder };
+export { ProductFormContainer };
 // default export //
-export default withRouter(ProductFormHolder);
+export default withRouter(ProductFormContainer);
 
