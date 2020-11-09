@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`StoreFormHolder Component tests Default Form Holder state Should Properly Mount Form Holder 1`] = `
-<withRouter(StoreFormHolder)>
-  <StoreFormHolder
+exports[`StoreFormContainer Component tests Default Form Container state Should Properly Mount Form Container 1`] = `
+<withRouter(StoreFormContainer)>
+  <StoreFormContainer
     history={
       Object {
         "action": "POP",
@@ -51,7 +51,7 @@ exports[`StoreFormHolder Component tests Default Form Holder state Should Proper
     }
   >
     <div
-      id="storeFormHolder"
+      id="storeFormContainer"
     >
       <GridRow>
         <div
@@ -110,11 +110,11 @@ exports[`StoreFormHolder Component tests Default Form Holder state Should Proper
         </div>
       </GridRow>
     </div>
-  </StoreFormHolder>
-</withRouter(StoreFormHolder)>
+  </StoreFormContainer>
+</withRouter(StoreFormContainer)>
 `;
 
-exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Store Data Should Properly Mount Form Holder, respond to '#storeToggleBtn' click 1`] = `
+exports[`StoreFormContainer Component tests Form Container state OPEN - NO Current Store Data Should Properly Mount Form Container, respond to '#storeToggleBtn' click 1`] = `
 <MemoryRouter
   keyLength={0}
 >
@@ -151,8 +151,8 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
     }
   >
     <Component>
-      <withRouter(StoreFormHolder)>
-        <StoreFormHolder
+      <withRouter(StoreFormContainer)>
+        <StoreFormContainer
           history={
             Object {
               "action": "POP",
@@ -201,7 +201,7 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
           }
         >
           <div
-            id="storeFormHolder"
+            id="storeFormContainer"
           >
             <GridRow>
               <div
@@ -403,8 +403,8 @@ exports[`StoreFormHolder Component tests Form Holder state OPEN - NO Current Sto
               </div>
             </GridRow>
           </div>
-        </StoreFormHolder>
-      </withRouter(StoreFormHolder)>
+        </StoreFormContainer>
+      </withRouter(StoreFormContainer)>
     </Component>
   </Router>
 </MemoryRouter>

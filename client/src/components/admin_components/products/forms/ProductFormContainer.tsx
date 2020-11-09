@@ -8,6 +8,7 @@ import "./css/productFormContainer.css";
 import ProductForm from "./ProductForm";
 import ProductImgPreviewContainer from "../image_preview/ProductImgPreviewContainer";
 import LoadingBar from "../../miscelaneous/LoadingBar";
+import ErrorBar from "../../miscelaneous/ErrorBar";
 import ProductImgUplForm from "./ProductImgUplForm";
 // state //
 import { Store } from "../../../../state/Store";
@@ -19,7 +20,6 @@ import { ConvertDate } from "../../../helpers/displayHelpers";
 import { checkSetValues } from "../../../helpers/validationHelpers";
 // types 
 import { ProductData, ProductFormState } from "../type_definitions/productTypes";
-import ErrorBar from "../../miscelaneous/ErrorBar";
 
 interface ProductFormContState {
   productFormState: ProductFormState;

@@ -1,6 +1,6 @@
 import React from "react";
 // css //
-import "./css/storeImgPreviewHolder.css"
+import "./css/storeImgPreviewContainer.css"
 // additional components //
 import StoreImgPreviewThumb from "./StoreImgPreviewThumb";
 // api actions //
@@ -11,7 +11,7 @@ interface Props {
   state: IGlobalAppState;
   dispatch: React.Dispatch<AppAction>
 }
-const StoreImgPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
+const StoreImgPreviewContainer: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   const { images } = state.storeState.currentStoreData;
 
   // delete image handler
@@ -21,8 +21,8 @@ const StoreImgPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
 
   return (
     images.length > 0 ?
-    <div id="storeImgPreviewHolder">
-        <div className="storeImgHolderTitle">Uploaded Images</div>
+    <div id="storeImgPreviewContainer">
+        <div className="storeImgContainerTitle">Uploaded Images</div>
         {
           images.map((image) => {
             return (
@@ -43,4 +43,4 @@ const StoreImgPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Elemen
   );
 };
 
-export default StoreImgPreviewHolder;
+export default StoreImgPreviewContainer;

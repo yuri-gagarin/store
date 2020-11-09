@@ -1,4 +1,4 @@
-#storeImgPreviewHolder {
+#storeImgPreviewContainer {
   display: inline-flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -10,7 +10,7 @@
   box-shadow: 0px 0px 2px 1px rgba(1,28,107,1);
   width: 100%;
 }
-.storeImgHolderTitle {
+.storeImgContainerTitle {
   width: 100%;
   text-align: center;
   height: 1.5em;
