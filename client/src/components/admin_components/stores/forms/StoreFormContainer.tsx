@@ -106,7 +106,7 @@ const StoreFormContainer: React.FC<Props> = ({ history }): JSX.Element => {
     }
     {
       !storeFormContState.newForm ?
-        <div id={"adminStoreFormContainerDetails"}>
+        <div id="adminStoreFormContainerDetails">
           <Grid.Row>
             <Grid.Column mobile={16} tablet={14} computer={14}>
               <h1>Details</h1>

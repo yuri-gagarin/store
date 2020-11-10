@@ -38,7 +38,7 @@ export const openStoreForm = (dispatch: Dispatch<StoreAction>): void => {
   dispatch({ type: "OPEN_STORE_FORM", payload: { storeFormOpen: true } });
 };
 export const closeStoreForm = (dispatch: Dispatch<StoreAction>): void => {
-  dispatch({ type: "CLEAR_CURRENT_STORE", payload: null });
+  // dispatch({ type: "CLEAR_CURRENT_STORE", payload: null });
   dispatch({ type: "CLOSE_STORE_FORM", payload: { storeFormOpen: false } });
 };
 

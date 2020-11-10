@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import StoreFormHolder from "./forms/StoreFormHolder";
+import StoreFormHolder from "./forms/StoreFormContainer";
 // css imports //
 import "./css/adminStoreView.css";
 import AdminStoreMenu from "../menus/AdminStoreMenu";

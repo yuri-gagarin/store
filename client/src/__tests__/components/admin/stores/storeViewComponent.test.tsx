@@ -8,7 +8,7 @@ import { mount, shallow, ReactWrapper , ShallowWrapper} from "enzyme";
 import StoreViewComponent from "../../../../components/admin_components/stores/StoreView";
 import AdminStoreMenu from "../../../../components/admin_components/menus/AdminStoreMenu";
 import { StorePreviewHolder } from "../../../../components/admin_components/stores/store_preview/StorePreviewHolder";
-import { StoreFormHolder } from "../../../../components/admin_components/stores/forms/StoreFormHolder";
+import { StoreFormHolder } from "../../../../components/admin_components/stores/forms/StoreFormContainer";
 import { StoreManageHolder } from "../../../../components/admin_components/stores/store_manage/StoreManageHolder";
 // additional dependencies //
 import { AdminStoreRoutes } from "../../../../routes/adminRoutes";

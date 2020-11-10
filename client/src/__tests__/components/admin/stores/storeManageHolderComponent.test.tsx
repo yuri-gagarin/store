@@ -10,7 +10,7 @@ import StoreManageHolder from "../../../../components/admin_components/stores/st
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
 import StoreCard from "../../../../components/admin_components/stores/store_manage/StoreCard";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
-import StoreFormHolder from "../../../../components/admin_components/stores/forms/StoreFormHolder";
+import StoreFormHolder from "../../../../components/admin_components/stores/forms/StoreFormContainer";
 import StoreForm from "../../../../components/admin_components/stores/forms/StoreForm";
 // helpers and state //
 import { Store, TestStateProvider } from "../../../../state/Store";
