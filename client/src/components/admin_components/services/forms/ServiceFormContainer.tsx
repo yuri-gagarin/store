@@ -92,15 +92,15 @@ const ServiceFormContainer: React.FC<Props> = ({ history }): JSX.Element => {
             <Grid.Row id="serviceFormContainerDetails">
               <Grid.Column mobile={16} tablet={14} computer={14}>
                 <h1>Details</h1>
-                <div className="serviceFormContainerDetailsItem">
+                <div className="adminServiceFormContainerDetailsItem">
                   <h3>Service name:</h3>
                   <p>{name}</p>
                 </div>
-                <div className="serviceFormContainerDetailsItem">
+                <div className="adminServiceFormContainerDetailsItem">
                   <h3>Service price:</h3>
                   <p>{price}</p>
                 </div>
-                <div className="serviceFormContainerDetailsItem">
+                <div className="adminServiceFormContainerDetailsItem">
                   <h3>Service description:</h3>
                   <p>{description}</p>
                 </div>
@@ -122,7 +122,7 @@ const ServiceFormContainer: React.FC<Props> = ({ history }): JSX.Element => {
       <Grid.Row>
         <Grid.Column mobile={16} tablet={15} computer={14}>
           <Button 
-            id="serviceFormToggleBtn" 
+            id="adminServiceFormToggleBtn" 
             onClick={toggleServiceForm} 
             content={ !serviceFormOpen ? "Open Form" : "Close Form"}
           />

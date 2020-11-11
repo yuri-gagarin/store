@@ -260,8 +260,8 @@ describe("'StoreFormContainer' Component tests", () => {
     });
   });
   // END Form Container state OPEN - WITH Current Store Data - WITH IMAGES //
-  // TEST Form Container state OPEN - NEW FORM - MOCK Submit action //
-  describe("'StoreFormContainer' 'StoreForm' OPEN - -NEW FORM - mock Submit action",  () => {
+  // TEST Form Container state OPEN MOCK Submit action //
+  describe("'StoreFormContainer' 'StoreForm' OPEN  mock Submit action",  () => {
     let state: IGlobalAppState; let wrapper: ReactWrapper;
 
     // TEST 'StoreFormContainer' NEW FORM mock SUBMIT SUCCESS //

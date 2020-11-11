@@ -91,8 +91,8 @@ const ServiceForm: React.FC<Props> = ({ name, description, price, newForm, handl
          />
          {
            newForm 
-            ? <Button id="adminServiceFormCreate" type='submit' onClick={handleSubmit} content= "Create  New Service" />
-            : <Button id="adminServiceFormUpdate" type='submit' onClick={handleSubmit} content= "Update Service" />
+            ? <Button id="adminServiceFormCreateBtn" type='submit' onClick={handleSubmit} content= "Create  New Service" />
+            : <Button id="adminServiceFormUpdateBtn" type='submit' onClick={handleSubmit} content= "Update Service" />
          }  
       </Form>
     </div>
