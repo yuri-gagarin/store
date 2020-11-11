@@ -36,7 +36,6 @@ describe("'StoreFormContainer' Component tests", () => {
     };
   });
 
-  /*
   describe("Default 'StoreFormContainer' state",  () => {
 
     beforeAll(() => {
@@ -260,10 +259,9 @@ describe("'StoreFormContainer' Component tests", () => {
       expect(imgUploadForm.length).toEqual(1);
     });
   });
-  */
   // END Form Container state OPEN - WITH Current Store Data - WITH IMAGES //
-  // TEST Form Container state OPEN - MOCK Submit action //
-  describe("Form Container state OPEN - MOCK Submit action",  () => {
+  // TEST Form Container state OPEN - NEW FORM - MOCK Submit action //
+  describe("'StoreFormContainer' 'StoreForm' OPEN - -NEW FORM - mock Submit action",  () => {
     let state: IGlobalAppState; let wrapper: ReactWrapper;
 
     // TEST 'StoreFormContainer' NEW FORM mock SUBMIT SUCCESS //
@@ -333,11 +331,14 @@ describe("'StoreFormContainer' Component tests", () => {
         expect(detailsContainers.at(0).find("p").render().text()).toEqual(mockStore.title);
         expect(detailsContainers.at(1).find("p").render().text()).toEqual(mockStore.description);
       });
+      it(`Should NOT change the client route: ${AdminStoreRoutes.CREATE_ROUTE}`, () => {
+        const { history } = wrapper.find(Router).props();
+        expect(history.location.pathname).toEqual(AdminStoreRoutes.CREATE_ROUTE);
+      });
     });
     // END TEST 'StoreFormContainer' NEW FORM mock SUBMIT SUCCESS //
     // TEST 'StoreFormContainer' NEW FORM mock SUBMIT ERROR //
-    
-    describe("Form Container state OPEN - MOCK Submit action ERROR returned",  () => {
+    describe("'StoreFormContainer' 'StoreForm' state OPEN - NEW FORM - MOCK Submit action ERROR returned",  () => {
       let wrapper: ReactWrapper;
       const error = new Error("Am error occured");
   
@@ -421,15 +422,178 @@ describe("'StoreFormContainer' Component tests", () => {
       it(`Should NOT change the client route: ${AdminStoreRoutes.CREATE_ROUTE}`, () => {
         const { history } = wrapper.find(Router).props();
         expect(history.location.pathname).toEqual(AdminStoreRoutes.CREATE_ROUTE);
-
-      })
+      });
     
     });
-    
     // END TEST StoreFormContainer mock submit action with an API error returned //
   });
-  // END Form Container state OPEN - MOCK Submit action //
-  
+  // END Form Container state OPEN - NEW FORM - MOCK Submit action //
+  // TEST Form Container state OPEN - CURRENT STORE DATA - MOCK Submit action //
+  describe("'StoreFormContainer' 'StoreForm' OPEN - CURRENT STORE DATA - mock Submit action",  () => {
+    let state: IGlobalAppState; let wrapper: ReactWrapper;
 
+    // TEST 'StoreFormContainer' NEW FORM mock SUBMIT SUCCESS //
+    describe("'StoreFormContainer' 'StoreForm' OPEN - NEW FORM - mock SUBMIT SUCCESS", () => {
+
+      beforeAll( async () => {
+        window.scrollTo = jest.fn();
+        state = generateCleanState();
+        state.storeState.currentStoreData = { ...mockStore };
+        // mount and wait //
+        wrapper = mount(
+          <MemoryRouter initialEntries={[ AdminStoreRoutes.EDIT_ROUTE ]} keyLength={0} >
+            <TestStateProvider mockState={state}>
+              <StoreFormContainer />
+            </TestStateProvider>
+          </MemoryRouter>
+        );
+      });
+      afterAll(() => {
+        moxios.uninstall();
+      });
+      
+      it("Should have a '#adminStoreFormUpdateBtn' button", () => {
+        wrapper.find("#adminStoreFormToggleBtn").at(0).simulate("click");
+        const adminStoreFormUpdate = wrapper.find("#adminStoreFormUpdateBtn").at(0);
+        expect(adminStoreFormUpdate.length).toEqual(1)
+      });
+      
+      it("Should handle the 'handleUpdateStoreAction' show 'LoadingBar' Component", async () => {
+        const promise = Promise.resolve();
+        moxios.install();
+        moxios.stubRequest(`/api/stores/update/${mockStore._id}`, {
+          status: 200,
+          response: {
+            responseMsg: "All Good",
+            editedStore: mockStore
+          }
+        });
+        const adminStoreFormUpdate = wrapper.find("#adminStoreFormUpdateBtn").at(0);
+        adminStoreFormUpdate.simulate("click");
+        
+        await act( async () => promise);
+        // assert correct rendering //
+        expect(wrapper.find(StoreFormContainer).find(LoadingBar).length).toEqual(1);
+        expect(wrapper.find(StoreFormContainer).find(ErrorBar).length).toEqual(0);
+        
+      });
+    
+      it("Should NOT show the 'LoadingBar' Component after successful API call", () => {
+        wrapper.update();
+        expect(wrapper.find(StoreFormContainer).find(LoadingBar).length).toEqual(0);
+        expect(wrapper.find(StoreFormContainer).find(ErrorBar).length).toEqual(0);
+      });
+      it("Should NOT show the 'StoreForm' Component after successful API call", () => {
+        expect(wrapper.find(StoreForm).length).toEqual(0);
+      });
+      it("Shohuld correctly render '#adminStoreFormContainerDetails' 'Grid' item", () => {
+        const storeDetails = wrapper.find(StoreFormContainer).render().find("#adminStoreFormContainerDetails");
+        expect(storeDetails.length).toEqual(1);
+      });
+      it("Should render correct values in '#adminStoreFormContainerDetails'", () => {
+        const detailsContainers = wrapper.find(StoreFormContainer).find(".adminStoreFormContainerDetailsItem");
+        expect(detailsContainers.at(0).find("p").render().text()).toEqual(mockStore.title);
+        expect(detailsContainers.at(1).find("p").render().text()).toEqual(mockStore.description);
+      });
+      it(`Should NOT change the client route: ${AdminStoreRoutes.EDIT_ROUTE}`, () => {
+        const { history } = wrapper.find(Router).props();
+        expect(history.location.pathname).toEqual(AdminStoreRoutes.EDIT_ROUTE);
+      });
+    
+    });
+    // END TEST 'StoreFormContainer' CURRENT_STORE_DATA mock SUBMIT SUCCESS //
+    // TEST 'StoreFormContainer' CURRENT_STORE_DATA mock SUBMIT ERROR //
+    describe("'StoreFormContainer' 'StoreForm' state OPEN - CURRENT_STORE_DATA - MOCK Submit action ERROR returned",  () => {
+      let wrapper: ReactWrapper; let state: IGlobalAppState;
+      const error = new Error("Am error occured");
+  
+      beforeAll( async () => {
+        window.scrollTo = jest.fn();
+        state = generateCleanState();
+        state.storeState.currentStoreData = { ...mockStore }
+        // mount and wait //
+        wrapper = mount(
+          <MemoryRouter initialEntries={[ AdminStoreRoutes.EDIT_ROUTE ]} keyLength={0} >
+            <TestStateProvider mockState={state}>
+              <StoreFormContainer />
+            </TestStateProvider>
+          </MemoryRouter>
+        );
+        // set form values //
+      });
+      afterAll(() => {
+        moxios.uninstall();
+      });
+
+      it("Should render 'StoreForm' and the submit button", () => {
+        const toggleBtn = wrapper.find(StoreFormContainer).find("#adminStoreFormToggleBtn");
+        toggleBtn.at(0).simulate("click");
+        // assert correct rendering //
+        const adminStoreFormCreate = wrapper.find("#adminStoreFormUpdateBtn").at(0);
+        expect(adminStoreFormCreate.length).toEqual(1)
+      })
+      
+      it("Should handle the 'handleUpdateStoreAction' show 'LoadingBar' Component", async () => {
+        const promise = Promise.resolve();
+        const url = `/api/stores/update/${mockStore._id}`
+        moxios.install();
+        moxios.stubRequest(url, {
+          status: 500,
+          response: {
+            responseMsg: "Error",
+            error: error
+          }
+        });
+        const adminStoreFormCreate = wrapper.find("#adminStoreFormUpdateBtn").at(0);
+        adminStoreFormCreate.simulate("click");
+
+        await act( async () => promise);
+        // assert correct rendering //
+        expect(wrapper.find(StoreFormContainer).find(LoadingBar).length).toEqual(1);
+        expect(wrapper.find(StoreFormContainer).find(ErrorBar).length).toEqual(0);
+        expect(moxios.requests.mostRecent().url).toEqual(url);
+      });
+      it("Should NOT render the 'LoadingBar' Component after an error in API call", () => {
+        wrapper.update();
+        expect(wrapper.find(StoreFormContainer).find(LoadingBar).length).toEqual(0);
+      });
+      it("Should render the 'ErrorBar' Component after an error in API call", () => {
+        expect(wrapper.find(StoreFormContainer).find(ErrorBar).length).toEqual(1);
+      });
+      it("Should show the 'StoreForm' Component after an error in API call", () => {
+        expect(wrapper.find(StoreForm).length).toEqual(1);
+      });
+      it("Should render the '#adminStoreFormContainerDetails' <div>", () => {
+        expect(wrapper.find(StoreFormContainer).find("#adminStoreFormContainerDetails").length).toEqual(1);
+      });
+      it("Should render correct data in the '#adminStorFormContainerDetails <div>", () => {
+        const detailsItems = wrapper.find(StoreFormContainer).find(".adminStoreFormContainerDetailsItem");
+        expect(detailsItems.length).toEqual(2);
+        expect(detailsItems.at(0).find("p").render().html()).toEqual(mockStore.title);
+        expect(detailsItems.at(1).find("p").render().html()).toEqual(mockStore.description);
+      });
+      it("Should properly dissmiss the 'ErrorBar' component with button click", () => {
+        const dismissErrorIcon = wrapper.find(StoreFormContainer).find(ErrorBar).find(Icon);
+        // simulate the dismissErrorIcon click //
+        dismissErrorIcon.simulate("click");
+        expect(wrapper.find(StoreFormContainer).find(ErrorBar).length).toEqual(0);
+        expect(wrapper.find(StoreFormContainer).find(LoadingBar).length).toEqual(0);
+      });
+      it("Should NOT reset input values of 'StoreForm' inputs", () => {
+        const titleInput = wrapper.find(StoreForm).find("#adminStoreFormTitleInput");
+        const descInput = wrapper.find(StoreForm).find("#adminStoreFormDescInput");
+        // assert correct rendering //
+        expect(titleInput.props().value).toEqual(mockStore.title);
+        expect(descInput.at(1).props().value).toEqual(mockStore.description);
+      });
+      it(`Should NOT change the client route: ${AdminStoreRoutes.EDIT_ROUTE}`, () => {
+        const { history } = wrapper.find(Router).props();
+        expect(history.location.pathname).toEqual(AdminStoreRoutes.EDIT_ROUTE);
+      });
+    
+    });
+    // END TEST StoreFormContainer mock submit action with an API error returned //
+  });
+  // TEST Form Container state OPEN - CURRENT STORE DATA - MOCK Submit action //
   
 });
