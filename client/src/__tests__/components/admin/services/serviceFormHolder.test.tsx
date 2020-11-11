@@ -5,10 +5,10 @@ import { mount, ReactWrapper } from "enzyme";
 // client routing //
 import { MemoryRouter as Router } from "react-router-dom";
 // component imports //
-import ServiceFormHolder from "../../../../components/admin_components/services/forms/ServiceFormHolder";
+import ServiceFormHolder from "../../../../components/admin_components/services/forms/ServiceFormContainer";
 import ServiceForm from "../../../../components/admin_components/services/forms/ServiceForm";
 import ServiceImageUplForm from "../../../../components/admin_components/services/forms/ServiceImgUplForm";
-import ServiceImgPreviewHolder from "../../../../components/admin_components/services/image_preview/ServiceImgPreviewHolder";
+import ServiceImgPreviewHolder from "../../../../components/admin_components/services/image_preview/ServiceImgPreviewContainer";
 import ServiceImgPreviewThumb from "../../../../components/admin_components/services/image_preview/ServiceImgThumb";
 import LoadingBar from "../../../../components/admin_components/miscelaneous/LoadingBar";
 // state React.Context //

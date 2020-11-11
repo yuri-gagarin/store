@@ -6,7 +6,7 @@ import { AdminServiceRoutes } from "../../../routes/adminRoutes";
 import AdminServiceMenu from "../menus/AdminServiceMenu";
 import Spacer from "../miscelaneous/Spacer";
 import ServicePreviewHolder from "./service_preview/ServicePreviewHolder";
-import ServiceFormHolder from "./forms/ServiceFormHolder";
+import ServiceFormHolder from "./forms/ServiceFormContainer";
 import ServiceManageHolder from "./service_manage/ServiceManageHolder";
 // css imports //
 import "./css/serviceView.css";

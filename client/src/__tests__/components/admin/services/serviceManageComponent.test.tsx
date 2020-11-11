@@ -11,7 +11,7 @@ import ServiceManageHolder from "../../../../components/admin_components/service
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
 import ServiceCard from "../../../../components/admin_components/services/service_manage/ServiceCard";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
-import { ServiceFormHolder } from "../../../../components/admin_components/services/forms/ServiceFormHolder";
+import { ServiceFormHolder } from "../../../../components/admin_components/services/forms/ServiceFormContainer";
 import ServiceForm from "../../../../components/admin_components/services/forms/ServiceForm";
 // helpers and state //
 import { TestStateProvider } from "../../../../state/Store";

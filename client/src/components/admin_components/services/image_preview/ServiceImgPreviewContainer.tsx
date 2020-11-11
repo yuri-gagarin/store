@@ -2,7 +2,7 @@ import React from "react";
 // additional components //
 import ServiceImgThumb from "./ServiceImgThumb";
 // css  imports //
-import "./css/serviceImgPreviewHolder.css";
+import "./css/serviceImgPreviewContainer.css";
 // state //
 import { IGlobalAppState, AppAction } from "../../../../state/Store";
 // helpers
@@ -13,7 +13,7 @@ interface Props {
   state: IGlobalAppState;
   dispatch: React.Dispatch<AppAction>
 }
-const ServiceImgPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
+const ServiceImgPreviewContainer: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   const { images } = state.serviceState.currentServiceData;
 
   const handleDelete = (_id: string) => {
@@ -22,8 +22,8 @@ const ServiceImgPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Elem
 
   if (images.length > 0) {
     return (
-      <div id="serviceImgPreviewHolder">
-        <div className="serviceImgHolderTitle">Uploaded Images</div>
+      <div id="serviceImgPreviewContainer">
+        <div className="serviceImgContainerTitle">Uploaded Images</div>
         {
           images.map((image) => {
             return (
@@ -47,6 +47,6 @@ const ServiceImgPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Elem
   }
 };
 
-export default ServiceImgPreviewHolder;
+export default ServiceImgPreviewContainer;
 
 

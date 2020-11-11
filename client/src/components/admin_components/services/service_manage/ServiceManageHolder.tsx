@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Button, Grid } from "semantic-ui-react";
 // additional components //
-import ServiceFormHolder from "../forms/ServiceFormHolder";
+import ServiceFormHolder from "../forms/ServiceFormContainer";
 import ServiceCard from "./ServiceCard";
 import LoadingScreen from "../../miscelaneous/LoadingScreen";
 import ErrorScreen from "../../miscelaneous/ErrorScreen";

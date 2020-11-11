@@ -9,7 +9,7 @@ import { AdminServiceRoutes } from "../../../../routes/adminRoutes";
 import ServiceViewComponent from "../../../../components/admin_components/services/ServiceView";
 import AdminServiceMenu from "../../../../components/admin_components/menus/AdminServiceMenu";
 import { ServicePreviewHolder } from "../../../../components/admin_components/services/service_preview/ServicePreviewHolder";
-import { ServiceFormHolder } from "../../../../components/admin_components/services/forms/ServiceFormHolder";
+import { ServiceFormHolder } from "../../../../components/admin_components/services/forms/ServiceFormContainer";
 import { ServiceManageHolder } from "../../../../components/admin_components/services/service_manage/ServiceManageHolder";
 // additional dependencies //
 

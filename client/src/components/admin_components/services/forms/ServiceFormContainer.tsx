@@ -3,10 +3,10 @@ import { Button, Grid } from "semantic-ui-react";
 // client routing //
 import { withRouter, RouteComponentProps } from "react-router-dom";
 // css imports //
-import "./css/serviceFormHolder.css";
+import "./css/serviceFormContainer.css";
 // additional components //
 import ServiceForm from "./ServiceForm";
-import ServiceImgPreviewHolder from "../image_preview/ServiceImgPreviewHolder";
+import ServiceImgPreviewContainer from "../image_preview/ServiceImgPreviewContainer";
 import ServiceImgUplForm from "./ServiceImgUplForm";
 import LoadingBar from "../../miscelaneous/LoadingBar";
 // state //
@@ -30,7 +30,7 @@ type ServiceData = {
   images: IServiceImgData[];
 }
 
-const ServiceFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
+const ServiceFormContainer: React.FC<Props> = ({ history }): JSX.Element => {
   const { state, dispatch } = useContext(Store);
   const { loading, currentServiceData, serviceFormOpen, error } = state.serviceState;
   const { _id : serviceId, name, description, price, createdAt, editedAt } = currentServiceData;
@@ -84,27 +84,27 @@ const ServiceFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   }, [ currentServiceData ]);
   // component return //
   return (
-    <div id="serviceFormHolder">
+    <div id="serviceFormContainer">
       { loading ? <LoadingBar /> : null }
       {
         !newForm ?
           <React.Fragment>
-            <Grid.Row id="serviceFormHolderDetails">
+            <Grid.Row id="serviceFormContainerDetails">
               <Grid.Column mobile={16} tablet={14} computer={14}>
                 <h1>Details</h1>
-                <div className="serviceFormHolderDetailsItem">
+                <div className="serviceFormContainerDetailsItem">
                   <h3>Service name:</h3>
                   <p>{name}</p>
                 </div>
-                <div className="serviceFormHolderDetailsItem">
+                <div className="serviceFormContainerDetailsItem">
                   <h3>Service price:</h3>
                   <p>{price}</p>
                 </div>
-                <div className="serviceFormHolderDetailsItem">
+                <div className="serviceFormContainerDetailsItem">
                   <h3>Service description:</h3>
                   <p>{description}</p>
                 </div>
-                <div className="serviceFormHolderTimestamps">
+                <div className="serviceFormContainerTimestamps">
                   <span>Created At: <strong>{ConvertDate.international(createdAt)}</strong></span>
                   <span>Edited At: <strong>{ConvertDate.international(editedAt)}</strong></span>
                 </div>
@@ -112,7 +112,7 @@ const ServiceFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column mobile={16} tablet={14} computer={14}>
-                <ServiceImgPreviewHolder state={state} dispatch={dispatch} />
+                <ServiceImgPreviewContainer state={state} dispatch={dispatch} />
               </Grid.Column>
             </Grid.Row>
             <ServiceImgUplForm />
@@ -146,7 +146,7 @@ const ServiceFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
 };
 
 // export for testing withour router //
-export { ServiceFormHolder };
+export { ServiceFormContainer };
 // default export //
-export default withRouter(ServiceFormHolder);
+export default withRouter(ServiceFormContainer);
 
