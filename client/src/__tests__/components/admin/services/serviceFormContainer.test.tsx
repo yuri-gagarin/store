@@ -1,5 +1,5 @@
 import React from "react"
-import { Button } from "semantic-ui-react";
+import { Button, Icon } from "semantic-ui-react";
 // testing utils
 import { mount, ReactWrapper } from "enzyme";
 import moxios from "moxios";
@@ -350,7 +350,7 @@ describe("ServiceFormContainer Component tests", () => {
         const state = generateCleanState();
         // mount and wait //
         wrapper = mount(
-          <MemoryRouter>
+          <MemoryRouter keyLength={0} initialEntries={[ AdminServiceRoutes.CREATE_ROUTE ]}>
             <TestStateProvider mockState={state}>
               <ServiceFormContainer />
             </TestStateProvider>
@@ -396,9 +396,213 @@ describe("ServiceFormContainer Component tests", () => {
         expect(wrapper.find(ServiceFormContainer).find(ErrorBar).length).toEqual(0);
         expect(moxios.requests.mostRecent().url).toEqual(url);
       });
+      it("Should NOT render the 'LoadingBar' component after an error in API call", () => {
+        wrapper.update();
+        expect(wrapper.find(ServiceFormContainer).find(LoadingBar).length).toEqual(0);
+      });
+      it("Should render the 'ErrorBar' component after an error in API call", () => {
+        expect(wrapper.find(ServiceFormContainer).find(ErrorBar).length).toEqual(1);
+      });
+      it("Should render the 'ServiceForm' component after an error in API call", () => {
+        expect(wrapper.find(ServiceFormContainer).find(ServiceForm).length).toEqual(1);
+      });
+      it("Should NOT render the '#adminServiceFormContainerDetails' <div>", () => {
+        expect(wrapper.find(ServiceFormContainer).find("#adminServiceFormContainerDetails").length).toEqual(0);
+      });
+      it("Should properly dismiss the 'ErrorBar' component with button click", () => {
+        const dismissErrorIcon = wrapper.find(ServiceFormContainer).find(ErrorBar).find(Icon);
+        // simulate the dismissErrorIcon click //
+        dismissErrorIcon.simulate("click");
+        expect(wrapper.find(ServiceFormContainer).find(ErrorBar).length).toEqual(0);
+        expect(wrapper.find(ServiceFormContainer).find(LoadingBar).length).toEqual(0);
+      });
+      it("Should NOT reset the input values of 'ServiceForm' component", () => {
+        const nameInput = wrapper.find(ServiceForm).find("#adminServiceFormNameInput");
+        const priceInput = wrapper.find(ServiceForm).find("#adminServiceFormPriceInput");
+        const descInput = wrapper.find(ServiceForm).find("#adminServiceFormDescInput");
+        // assert correct rendering //
+        expect(nameInput.props().value).toEqual(mockService.name);
+        expect(priceInput.props().value).toEqual(mockService.price);
+        expect(descInput.at(0).props().value).toEqual(mockService.description);
+      });
+      it(`Should NOT change the client route: ${AdminServiceRoutes.CREATE_ROUTE}`, () => {
+        const { history } = wrapper.find(Router).props();
+        expect(history.location.pathname).toEqual(AdminServiceRoutes.CREATE_ROUTE);
+      });
+    });
+    // END TEST 'ServiceFormContainer' NEW FORM SUBMIT ERROR //
+  });
+  // END TEST Form Container state OPEN - NEW FORM - MOCK Submit action //
+  // TEST Form Container state OPEN - CURRENT SERVICE DATA - MOCK Submit action //
+  // TEST ServiceFormContainer state OPEN - CURRENT SERVICE DATA - MOCK Submit action //
+  describe("'ServiceFormContainer' 'ServiceForm' OPEN - CURRENT SERVICE DATA - mock Submit action",  () => {
+    let state: IGlobalAppState; let wrapper: ReactWrapper;
+
+    // TEST 'ServiceFormContainer' NEW FORM mock SUBMIT SUCCESS //
+    describe("'ServiceFormContainer' 'ServiceForm' OPEN - NEW FORM - mock SUBMIT SUCCESS", () => {
+
+      beforeAll( async () => {
+        window.scrollTo = jest.fn();
+        state = generateCleanState();
+        state.serviceState.currentServiceData = { ...mockService };
+        // mount and wait //
+        wrapper = mount(
+          <MemoryRouter initialEntries={[ AdminServiceRoutes.EDIT_ROUTE ]} keyLength={0} >
+            <TestStateProvider mockState={state}>
+              <ServiceFormContainer />
+            </TestStateProvider>
+          </MemoryRouter>
+        );
+      });
+      afterAll(() => {
+        moxios.uninstall();
+      });
+      
+      it("Should have a '#adminServiceFormUpdateBtn' button", () => {
+        wrapper.find("#adminServiceFormToggleBtn").at(0).simulate("click");
+        const adminServiceFormUpdate = wrapper.find("#adminServiceFormUpdateBtn").at(0);
+        expect(adminServiceFormUpdate.length).toEqual(1)
+      });
+      
+      it("Should handle the 'handleUpdateServiceAction' show 'LoadingBar' Component", async () => {
+        const promise = Promise.resolve();
+        moxios.install();
+        moxios.stubRequest(`/api/services/update/${mockService._id}`, {
+          status: 200,
+          response: {
+            responseMsg: "All Good",
+            editedService: mockService
+          }
+        });
+        const adminServiceFormUpdate = wrapper.find("#adminServiceFormUpdateBtn").at(0);
+        adminServiceFormUpdate.simulate("click");
+        
+        await act( async () => promise);
+        // assert correct rendering //
+        expect(wrapper.find(ServiceFormContainer).find(LoadingBar).length).toEqual(1);
+        expect(wrapper.find(ServiceFormContainer).find(ErrorBar).length).toEqual(0);
+        
+      });
+    
+      it("Should NOT show the 'LoadingBar' Component after successful API call", () => {
+        wrapper.update();
+        expect(wrapper.find(ServiceFormContainer).find(LoadingBar).length).toEqual(0);
+        expect(wrapper.find(ServiceFormContainer).find(ErrorBar).length).toEqual(0);
+      });
+      it("Should NOT show the 'ServiceForm' Component after successful API call", () => {
+        expect(wrapper.find(ServiceForm).length).toEqual(0);
+      });
+      it("Shohuld correctly render '#adminServiceFormContainerDetails' 'Grid' item", () => {
+        const storeDetails = wrapper.find(ServiceFormContainer).render().find("#adminServiceFormContainerDetails");
+        expect(storeDetails.length).toEqual(1);
+      });
+      it("Should render correct values in '#adminServiceFormContainerDetails'", () => {
+        const detailsContainers = wrapper.find(ServiceFormContainer).find(".adminServiceFormContainerDetailsItem");
+        expect(detailsContainers.at(0).find("p").render().text()).toEqual(mockService.name);
+        expect(detailsContainers.at(1).find("p").render().text()).toEqual(mockService.price);
+        expect(detailsContainers.at(2).find("p").render().text()).toEqual(mockService.description);
+      });
+      it(`Should NOT change the client route: ${AdminServiceRoutes.EDIT_ROUTE}`, () => {
+        const { history } = wrapper.find(Router).props();
+        expect(history.location.pathname).toEqual(AdminServiceRoutes.EDIT_ROUTE);
+      });
     
     });
-
-  });
+    // END TEST 'ServiceFormContainer' CURRENT_SERVICE_DATA mock SUBMIT SUCCESS //
+    // TEST 'ServiceFormContainer' CURRENT_SERVICE_DATA mock SUBMIT ERROR //
+    describe("'ServiceFormContainer' 'ServiceForm' state OPEN - CURRENT_SERVICE_DATA - MOCK Submit action ERROR returned",  () => {
+      let wrapper: ReactWrapper; let state: IGlobalAppState;
+      const error = new Error("Am error occured");
   
+      beforeAll( async () => {
+        window.scrollTo = jest.fn();
+        state = generateCleanState();
+        state.serviceState.currentServiceData = { ...mockService }
+        // mount and wait //
+        wrapper = mount(
+          <MemoryRouter initialEntries={[ AdminServiceRoutes.EDIT_ROUTE ]} keyLength={0} >
+            <TestStateProvider mockState={state}>
+              <ServiceFormContainer />
+            </TestStateProvider>
+          </MemoryRouter>
+        );
+        // set form values //
+      });
+      afterAll(() => {
+        moxios.uninstall();
+      });
+
+      it("Should render 'ServiceForm' and the submit button", () => {
+        const toggleBtn = wrapper.find(ServiceFormContainer).find("#adminServiceFormToggleBtn");
+        toggleBtn.at(0).simulate("click");
+        // assert correct rendering //
+        const adminServiceFormCreate = wrapper.find("#adminServiceFormUpdateBtn").at(0);
+        expect(adminServiceFormCreate.length).toEqual(1)
+      })
+      
+      it("Should handle the 'handleUpdateServiceAction' show 'LoadingBar' Component", async () => {
+        const promise = Promise.resolve();
+        const url = `/api/services/update/${mockService._id}`
+        moxios.install();
+        moxios.stubRequest(url, {
+          status: 500,
+          response: {
+            responseMsg: "Error",
+            error: error
+          }
+        });
+        const adminServiceFormCreate = wrapper.find("#adminServiceFormUpdateBtn").at(0);
+        adminServiceFormCreate.simulate("click");
+
+        await act( async () => promise);
+        // assert correct rendering //
+        expect(wrapper.find(ServiceFormContainer).find(LoadingBar).length).toEqual(1);
+        expect(wrapper.find(ServiceFormContainer).find(ErrorBar).length).toEqual(0);
+        expect(moxios.requests.mostRecent().url).toEqual(url);
+      });
+      it("Should NOT render the 'LoadingBar' Component after an error in API call", () => {
+        wrapper.update();
+        expect(wrapper.find(ServiceFormContainer).find(LoadingBar).length).toEqual(0);
+      });
+      it("Should render the 'ErrorBar' Component after an error in API call", () => {
+        expect(wrapper.find(ServiceFormContainer).find(ErrorBar).length).toEqual(1);
+      });
+      it("Should show the 'ServiceForm' Component after an error in API call", () => {
+        expect(wrapper.find(ServiceForm).length).toEqual(1);
+      });
+      it("Should render the '#adminServiceFormContainerDetails' <div>", () => {
+        expect(wrapper.find(ServiceFormContainer).render().find("#adminServiceFormContainerDetails").length).toEqual(1);
+      });
+      it("Should render correct data in the '#adminStorFormContainerDetails <div>", () => {
+        const detailsItems = wrapper.find(ServiceFormContainer).find(".adminServiceFormContainerDetailsItem");
+        expect(detailsItems.length).toEqual(3);
+        expect(detailsItems.at(0).find("p").render().html()).toEqual(mockService.name);
+        expect(detailsItems.at(1).find("p").render().html()).toEqual(mockService.price);
+        expect(detailsItems.at(2).find("p").render().html()).toEqual(mockService.description);
+      });
+      it("Should properly dissmiss the 'ErrorBar' component with button click", () => {
+        const dismissErrorIcon = wrapper.find(ServiceFormContainer).find(ErrorBar).find(Icon);
+        // simulate the dismissErrorIcon click //
+        dismissErrorIcon.simulate("click");
+        expect(wrapper.find(ServiceFormContainer).find(ErrorBar).length).toEqual(0);
+        expect(wrapper.find(ServiceFormContainer).find(LoadingBar).length).toEqual(0);
+      });
+      it("Should NOT reset input values of 'ServiceForm' inputs", () => {
+        const nameInput = wrapper.find(ServiceForm).find("#adminServiceFormNameInput");
+        const priceInput = wrapper.find(ServiceForm).find("#adminServiceFormPriceInput");
+        const descInput = wrapper.find(ServiceForm).find("#adminServiceFormDescInput");
+        // assert correct rendering //
+        expect(nameInput.props().value).toEqual(mockService.name);
+        expect(priceInput.props().value).toEqual(mockService.price);
+        expect(descInput.at(0).props().value).toEqual(mockService.description);
+      });
+      it(`Should NOT change the client route: ${AdminServiceRoutes.EDIT_ROUTE}`, () => {
+        const { history } = wrapper.find(Router).props();
+        expect(history.location.pathname).toEqual(AdminServiceRoutes.EDIT_ROUTE);
+      });
+    
+    });
+    // END TEST ServiceFormContainer mock submit action with an API error returned //
+  });
+  // END TEST
 });

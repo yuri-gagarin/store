@@ -21,3 +21,7 @@ export const closeServiceForm = (dispatch: Dispatch<ServiceAction>): void => {
   dispatch({ type: "CLOSE_SERVICE_FORM", payload: { serviceFormOpen: false } });
 };
 
+export const clearServiceError = (dispatch: Dispatch<ServiceAction>): void => {
+  dispatch({ type: "ClEAR_SERVICE_ERROR", payload: { responseMsg: "", loading: false, error: null } });
+};
+

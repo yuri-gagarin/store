@@ -13,12 +13,13 @@ import LoadingBar from "../../miscelaneous/LoadingBar";
 import { Store } from "../../../../state/Store";
 // api and ui actions //
 import { createService, editService } from "../actions/APIServiceActions";
-import { openServiceForm, closeServiceForm } from "../actions/UIServiceActions";
+import { openServiceForm, closeServiceForm, clearServiceError } from "../actions/UIServiceActions";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
 import { checkSetValues } from "../../../helpers/validationHelpers";
 // types 
 import { FormState } from "./ServiceForm";
+import ErrorBar from "../../miscelaneous/ErrorBar";
 interface Props extends RouteComponentProps {
   
 }
@@ -41,6 +42,10 @@ const ServiceFormContainer: React.FC<Props> = ({ history }): JSX.Element => {
   const toggleServiceForm = () => {
     serviceFormOpen ? closeServiceForm(dispatch) : openServiceForm(dispatch);
   };
+  // ERROR clear handler //
+  const handleClearError = () => {
+    clearServiceError(dispatch);
+  }
   // API handlers CREATE - EDIT //
   const handleCreateService = ({ name, price, description }: FormState): void => {
     const serviceData: ServiceData = {
@@ -86,10 +91,11 @@ const ServiceFormContainer: React.FC<Props> = ({ history }): JSX.Element => {
   return (
     <div id="serviceFormContainer">
       { loading ? <LoadingBar /> : null }
+      { error ? <ErrorBar clearError={handleClearError} error={error} /> : null }
       {
         !newForm ?
           <React.Fragment>
-            <Grid.Row id="serviceFormContainerDetails">
+            <Grid.Row id="adminServiceFormContainerDetails">
               <Grid.Column mobile={16} tablet={14} computer={14}>
                 <h1>Details</h1>
                 <div className="adminServiceFormContainerDetailsItem">
