@@ -24,7 +24,7 @@ exports[`StoreView Component render tests StoreView Component default render tes
         height="100px"
         width="100%"
       />
-      <withRouter(StoreFormHolder) />
+      <withRouter(StoreFormContainer) />
     </Route>
     <Route
       path="/admin/home/my_stores/manage"

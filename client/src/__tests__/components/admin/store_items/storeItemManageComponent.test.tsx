@@ -12,7 +12,7 @@ import StoreItemsManageHolder from "../../../../components/admin_components/stor
 import StoreItemCard from "../../../../components/admin_components/store_items/store_items_manage/StoreItemCard";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
-import { StoreItemFormHolder } from "../../../../components/admin_components/store_items/forms/StoreItemFormHolder";
+import { StoreItemFormHolder } from "../../../../components/admin_components/store_items/forms/StoreItemFormContainer";
 import StoreItemForm from "../../../../components/admin_components/store_items/forms/StoreItemForm";
 
 // helpers and state //

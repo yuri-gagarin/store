@@ -10,7 +10,7 @@ import StoreManageHolder from "../../../../components/admin_components/stores/st
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
 import StoreCard from "../../../../components/admin_components/stores/store_manage/StoreCard";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
-import StoreFormHolder from "../../../../components/admin_components/stores/forms/StoreFormContainer";
+import StoreFormContainer from "../../../../components/admin_components/stores/forms/StoreFormContainer";
 import StoreForm from "../../../../components/admin_components/stores/forms/StoreForm";
 // helpers and state //
 import { Store, TestStateProvider } from "../../../../state/Store";
@@ -288,22 +288,22 @@ describe("Store Manage Holder Tests", () => {
       it("Should render the 'StoreFormHolder' component after EDIT Button click", () => {
         const editButton = wrapper.find(StoreCard).at(0).find(".storeCardEditBtn");
         editButton.at(0).simulate("click");
-        const storeFormholder = wrapper.find(StoreFormHolder);
+        const storeFormholder = wrapper.find(StoreFormContainer);
         // console.log(wra)
         expect(storeFormholder.length).toEqual(1);
       });
-      it("Should render the '#storeFormHolderDetails' component", () => {
-        const detailsHolder = wrapper.find(StoreFormHolder).render().find("#adminStoreFormHolderDetails");
+      it("Should render the '#storeFormContainerDetails' component", () => {
+        const detailsHolder = wrapper.find(StoreFormContainer).render().find("#adminStoreFormContainerDetails");
         expect(detailsHolder.length).toEqual(1);
       });
-      it("Should display the correct data in '.storeFormHolderDetailsItem' components", () => {
-        const detailsDivs = wrapper.find(StoreFormHolder).find(".adminStoreFormHolderDetailsItem");
+      it("Should display the correct data in '.storeFormHolderContainerDetailsItem' components", () => {
+        const detailsDivs = wrapper.find(StoreFormContainer).find(".adminStoreFormContainerDetailsItem");
         expect(detailsDivs.length).toEqual(2);
         expect(detailsDivs.at(0).find("p").text()).toEqual(mockStores[0].title);
         expect(detailsDivs.at(1).find("p").text()).toEqual(mockStores[1].description);
       });
       it("Should correctly render the 'StoreForm' component", () => {
-        const storeFormToggleBtn = wrapper.find(StoreFormHolder).find("#adminStoreFormToggleBtn");
+        const storeFormToggleBtn = wrapper.find(StoreFormContainer).find("#adminStoreFormToggleBtn");
         // toggle StoreForm //
         storeFormToggleBtn.at(0).simulate("click");
         // assert correct rendering //
@@ -325,7 +325,7 @@ describe("Store Manage Holder Tests", () => {
       it("Should correctly handle the '#adminStoreManageBackBtn' click and close 'StoreFormHolder' component", () => {
         const backBtn = wrapper.find(StoreManageHolder).find("#adminStoreManageBackBtn");
         backBtn.at(0).simulate("click");
-        expect(wrapper.find(StoreFormHolder).length).toEqual(0);
+        expect(wrapper.find(StoreFormContainer).length).toEqual(0);
       });
       it(`Should route to a correct client route: ${AdminStoreRoutes.MANAGE_ROUTE}`, () => {
         const { history } = wrapper.find(Router).props();

@@ -4,7 +4,7 @@ import AdminStoreItemsMenu from "../menus/AdminStoreItemsMenu";
 import Spacer from "../miscelaneous/Spacer";
 import StoreItemsManageHolder from "./store_items_manage/StoreItemsManageHolder";
 import StoreItemsPreviewHolder from "./store_items_preview/StoreItemsPreviewHolder";
-import StoreItemFormHolder from "./forms/StoreItemFormHolder";
+import StoreItemFormHolder from "./forms/StoreItemFormContainer";
 // css imports //
 import "./css/storeItemsView.css";
 // routing //

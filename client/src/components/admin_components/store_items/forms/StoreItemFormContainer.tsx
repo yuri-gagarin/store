@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Button, Grid, List } from "semantic-ui-react";
 // css imports //
-import "./css/storeItemFormHolder.css";
+import "./css/storeItemFormContainer.css";
 // additional components //
 import StoreItemForm from "./StoreItemForm";
-import StoreItemImgPreviewHolder from "../image_preview/StoreItemImgPreviewHolder";
+import StoreItemImgPreviewContainer from "../image_preview/StoreItemImgPreviewContainer";
 import StoreItemImgUplForm from "./StoreItemImgUplForm";
 import FormErrorComponent from "../../popups/FormErrorComponent";
 import LoadingBar from "../../miscelaneous/LoadingBar";
@@ -27,7 +27,7 @@ import { StoreItemFormState, StoreItemData, StoreDropdownData } from "../type_de
 interface Props extends RouteComponentProps {
 
 }
-const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
+const StoreItemFormContainer: React.FC<Props> = ({ history }): JSX.Element => {
   const { state, dispatch } = useContext(Store);
   const { loading, currentStoreItemData, storeItemFormOpen, error } = state.storeItemState;
   const { storeId, storeName, name, description, details, price, categories, createdAt, editedAt } = currentStoreItemData;
@@ -109,32 +109,32 @@ const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   }, [ currentStoreItemData]);
   // component return //
   return (
-    <div id="storeItemFormHolder">
+    <div id="storeItemFormContainer">
       { loading ? <LoadingBar /> : null }
       <FormErrorComponent error={error as AxiosError} />
       {
         !newForm ?
-          <div id="storeItemFormHolderDetailsHolder">
+          <div id="storeItemFormContainerDetailsContainer">
             <Grid.Row>
               <Grid.Column mobile={16} tablet={14} computer={14}>
                 <h1>Details</h1>
-                <div className="storeItemFormHolderDetail">
+                <div className="storeItemFormContainerDetail">
                   <h3>Store Item name:</h3>
                   <p>{name}</p>
                 </div>
-                <div className="storeItemFormHolderDetail">
+                <div className="storeItemFormContainerDetail">
                   <h3>Store Item price:</h3>
                   <p>{price}</p>
                 </div>
-                <div className="storeItemFormHolderDetail">
+                <div className="storeItemFormContainerDetail">
                   <h3>Store Item description:</h3>
                   <p>{description}</p>
                 </div>
-                <div className="storeItemFormHolderDetail">
+                <div className="storeItemFormContainerDetail">
                   <h3>Store Item details:</h3>
                   <p>{details}</p>
                 </div>
-                <div className="storeItemFormHolderCategories">
+                <div className="storeItemFormContainerCategories">
                   <h3>Listed Store Item categories: </h3>
                   { categories.length === 0 ? "no categories listed" : null}
                   <List horizontal>
@@ -151,7 +151,7 @@ const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
                     }
                   </List>
                 </div>
-                <div className="storeItemFormHolderTimestamps">
+                <div className="storeItemFormContainerTimestamps">
                   <span>Created At: <strong>{ConvertDate.international(createdAt)}</strong></span>
                   <span>Edited At: <strong>{ConvertDate.international(editedAt)}</strong></span>
                 </div>
@@ -159,7 +159,7 @@ const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column mobile={16} tablet={14} computer={14}>
-                <StoreItemImgPreviewHolder state={state} dispatch={dispatch} />
+                <StoreItemImgPreviewContainer state={state} dispatch={dispatch} />
               </Grid.Column>
             </Grid.Row>
             <StoreItemImgUplForm />
@@ -195,7 +195,7 @@ const StoreItemFormHolder: React.FC<Props> = ({ history }): JSX.Element => {
   );
 };
 // export for render tests //
-export { StoreItemFormHolder }
+export { StoreItemFormContainer }
 // default export //
-export default withRouter(StoreItemFormHolder);
+export default withRouter(StoreItemFormContainer);
 

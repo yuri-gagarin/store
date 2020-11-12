@@ -8,7 +8,7 @@ import { mount, shallow, ReactWrapper , ShallowWrapper} from "enzyme";
 import StoreViewComponent from "../../../../components/admin_components/stores/StoreView";
 import AdminStoreMenu from "../../../../components/admin_components/menus/AdminStoreMenu";
 import { StorePreviewHolder } from "../../../../components/admin_components/stores/store_preview/StorePreviewHolder";
-import { StoreFormHolder } from "../../../../components/admin_components/stores/forms/StoreFormContainer";
+import { StoreFormContainer } from "../../../../components/admin_components/stores/forms/StoreFormContainer";
 import { StoreManageHolder } from "../../../../components/admin_components/stores/store_manage/StoreManageHolder";
 // additional dependencies //
 import { AdminStoreRoutes } from "../../../../routes/adminRoutes";
@@ -50,7 +50,7 @@ describe("StoreView Component render tests", () => {
         }
       }
       expect(map[AdminStoreRoutes.VIEW_ALL_ROUTE]).toBe(StorePreviewHolder);
-      expect(map[AdminStoreRoutes.CREATE_ROUTE]).toBe(StoreFormHolder);
+      expect(map[AdminStoreRoutes.CREATE_ROUTE]).toBe(StoreFormContainer);
       expect(map[AdminStoreRoutes.MANAGE_ROUTE]).toBe(StoreManageHolder);
     });
   });
@@ -79,7 +79,7 @@ describe("StoreView Component render tests", () => {
         component.update();
         // assert updated component //
         expect(component.find(StorePreviewHolder).length).toEqual(1);
-        expect(component.find(StoreFormHolder).length).toEqual(0);
+        expect(component.find(StoreFormContainer).length).toEqual(0);
         expect(component.find(StoreManageHolder).length).toEqual(0);
       });
       it("'Create Store' link should properly function", () => {
@@ -89,7 +89,7 @@ describe("StoreView Component render tests", () => {
         component.update();
         // assert updated component //
         expect(component.find(StorePreviewHolder).length).toEqual(0);
-        expect(component.find(StoreFormHolder).length).toEqual(1);
+        expect(component.find(StoreFormContainer).length).toEqual(1);
         expect(component.find(StoreManageHolder).length).toEqual(0);
       });
       it("'Manage Stores' link should properly function", () => {
@@ -99,7 +99,7 @@ describe("StoreView Component render tests", () => {
         component.update();
         // assert updated component //
         expect(component.find(StorePreviewHolder).length).toEqual(0);
-        expect(component.find(StoreFormHolder).length).toEqual(0);
+        expect(component.find(StoreFormContainer).length).toEqual(0);
         expect(component.find(StoreManageHolder).length).toEqual(1);
       });
 

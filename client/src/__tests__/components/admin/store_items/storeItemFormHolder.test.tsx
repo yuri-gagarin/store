@@ -7,7 +7,7 @@ import { act } from "react-dom/test-utils";
 // client routing //
 import { MemoryRouter as Router } from "react-router-dom";
 // component imports //
-import StoreItemFormHolder from "../../../../components/admin_components/store_items/forms/StoreItemFormHolder";
+import StoreItemFormHolder from "../../../../components/admin_components/store_items/forms/StoreItemFormContainer";
 import StoreItemForm from "../../../../components/admin_components/store_items/forms/StoreItemForm";
 import StoreItemImageUplForm from "../../../../components/admin_components/store_items/forms/StoreItemImgUplForm";
 import StoreItemImgPreviewHolder from "../../../../components/admin_components/store_items/image_preview/StoreItemImgPreviewHolder";

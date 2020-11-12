@@ -5,7 +5,7 @@ import { mount, ReactWrapper } from "enzyme";
 import StoreItemsViewComponent from "../../../../components/admin_components/store_items/StoreItemsView";
 import AdminStoreItemsMenu from "../../../../components/admin_components/menus/AdminStoreItemsMenu";
 import { StoreItemsPreviewHolder } from "../../../../components/admin_components/store_items/store_items_preview/StoreItemsPreviewHolder";
-import { StoreItemFormHolder } from "../../../../components/admin_components/store_items/forms/StoreItemFormHolder";
+import { StoreItemFormHolder } from "../../../../components/admin_components/store_items/forms/StoreItemFormContainer";
 // additional dependencies //
 import  { BrowserRouter as Router, Switch, MemoryRouter } from "react-router-dom";
 import { StoreItemsManageHolder } from "../../../../components/admin_components/store_items/store_items_manage/StoreItemsManageHolder";

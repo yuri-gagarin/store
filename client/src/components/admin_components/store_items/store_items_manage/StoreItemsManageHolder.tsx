@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Button, Grid } from "semantic-ui-react";
 // additional components //
-import StoreItemFormHolder from "../forms/StoreItemFormHolder";
+import StoreItemFormHolder from "../forms/StoreItemFormContainer";
 import StoreItemCard from "./StoreItemCard";
 import StoreItemControls from "../store_items_preview/StoreItemsControls";
 import LoadingScreen from "../../miscelaneous/LoadingScreen";

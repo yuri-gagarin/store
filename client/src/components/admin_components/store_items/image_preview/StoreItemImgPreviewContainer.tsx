@@ -2,7 +2,7 @@ import React from "react";
 // additional components //
 import StoreItemImgThumb from "./StoreItemImgThumb";
 // css  imports //
-import "./css/storeItemImgPreviewHolder.css";
+import "./css/storeItemImgPreviewContainer.css";
 // state //
 import { IGlobalAppState, AppAction } from "../../../../state/Store";
 // helpers
@@ -13,7 +13,7 @@ interface Props {
   state: IGlobalAppState;
   dispatch: React.Dispatch<AppAction>
 }
-const StoreItemImgPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
+const StoreItemImgPreviewContainer: React.FC<Props> = ({ state, dispatch }): JSX.Element => {
   const { images } = state.storeItemState.currentStoreItemData;
 
   const handleDelete = (_id: string) => {
@@ -22,8 +22,8 @@ const StoreItemImgPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.El
 
   if (images.length > 0) {
     return (
-      <div id="storeItemImgPreviewHolder">
-        <div className="storeItemImgHolderTitle">Uploaded Images</div>
+      <div id="storeItemImgPreviewContainer">
+        <div className="storeItemImgContainerTitle">Uploaded Images</div>
         {
           images.map((image) => {
             return (
@@ -47,6 +47,6 @@ const StoreItemImgPreviewHolder: React.FC<Props> = ({ state, dispatch }): JSX.El
   }
 };
 
-export default StoreItemImgPreviewHolder;
+export default StoreItemImgPreviewContainer;
 
 
