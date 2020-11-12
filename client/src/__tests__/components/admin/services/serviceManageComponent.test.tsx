@@ -11,7 +11,7 @@ import ServiceManageHolder from "../../../../components/admin_components/service
 import LoadingScreen from "../../../../components/admin_components/miscelaneous/LoadingScreen";
 import ServiceCard from "../../../../components/admin_components/services/service_manage/ServiceCard";
 import ErrorScreen from "../../../../components/admin_components/miscelaneous/ErrorScreen";
-import { ServiceFormHolder } from "../../../../components/admin_components/services/forms/ServiceFormContainer";
+import { ServiceFormContainer } from "../../../../components/admin_components/services/forms/ServiceFormContainer";
 import ServiceForm from "../../../../components/admin_components/services/forms/ServiceForm";
 // helpers and state //
 import { TestStateProvider } from "../../../../state/Store";
@@ -271,22 +271,22 @@ describe("Service Manage Holder Tests", () => {
       const editButton = wrapper.find(ServiceCard).at(0).find(".serviceCardEditBtn").at(0);
       // simulate click event and assert correct rendering //
       editButton.simulate("click");
-      const serviceFormHolder = wrapper.find(ServiceFormHolder);
+      const serviceFormHolder = wrapper.find(ServiceFormContainer);
       expect(serviceFormHolder.length).toEqual(1);
     });
-    it("Should render the '#serviceFormHolderDetails' component", () => {
-      const detailsHolder = wrapper.find(ServiceFormHolder).render().find("#serviceFormHolderDetails");
+    it("Should render the '#serviceFormContainerDetails' component", () => {
+      const detailsHolder = wrapper.find(ServiceFormContainer).render().find("#adminServiceFormContainerDetails");
       expect(detailsHolder.length).toEqual(1);
     });
-    it("Should display yhe correct data in '.serviceFormHolderDetailsItem' <div>(s)", () => {
-      const detailsDivs = wrapper.find(ServiceFormHolder).find(".serviceFormHolderDetailsItem");
+    it("Should display yhe correct data in '.adminServiceFormContainerDetailsItem' <div>(s)", () => {
+      const detailsDivs = wrapper.find(ServiceFormContainer).find(".adminServiceFormContainerDetailsItem");
       expect(detailsDivs.length).toEqual(3);
       expect(detailsDivs.at(0).render().find("p").html()).toEqual(mockServices[0].name);
       expect(detailsDivs.at(1).render().find("p").html()).toEqual(mockServices[0].price);
       expect(detailsDivs.at(2).render().find("p").html()).toEqual(mockServices[0].description);
     });
     it("Should correctly render the 'ServiceForm' component", () => {
-      const serviceFormToggleBtn = wrapper.find(ServiceFormHolder).find("#serviceFormToggleBtn");
+      const serviceFormToggleBtn = wrapper.find(ServiceFormContainer).find("#adminServiceFormToggleBtn");
       // toggle form //
       serviceFormToggleBtn.at(0).simulate("click");
       // assert correct rendering //
@@ -309,7 +309,7 @@ describe("Service Manage Holder Tests", () => {
     it("Should correctly handle the '#adminServiceManageBackBtn' click and close 'ServiceFormHolder' component", () => {
       const backBtn = wrapper.find(ServiceManageHolder).find("#adminServiceManageBackBtn");
       backBtn.at(0).simulate("click");
-      expect(wrapper.find(ServiceFormHolder).length).toEqual(0);
+      expect(wrapper.find(ServiceFormContainer).length).toEqual(0);
     });
     it(`Should route to a correct client route: ${AdminServiceRoutes.MANAGE_ROUTE}`, () => {
       const { history } = wrapper.find(Router).props();

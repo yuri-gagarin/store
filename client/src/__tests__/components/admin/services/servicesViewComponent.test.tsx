@@ -52,7 +52,7 @@ describe("ServiceView Component render tests", () => {
         }
       }
       expect(map[AdminServiceRoutes.VIEW_ALL_ROUTE]).toBe(ServicePreviewHolder);
-      expect(map[AdminServiceRoutes.CREATE_ROUTE]).toBe(ServiceFormHolder);
+      expect(map[AdminServiceRoutes.CREATE_ROUTE]).toBe(ServiceFormContainer);
       expect(map[AdminServiceRoutes.MANAGE_ROUTE]).toBe(ServiceManageHolder);
     });
   });
@@ -86,7 +86,7 @@ describe("ServiceView Component render tests", () => {
         component.update();
         // assert updated component //
         expect(component.find(ServicePreviewHolder).length).toEqual(1);
-        expect(component.find(ServiceFormHolder).length).toEqual(0);
+        expect(component.find(ServiceFormContainer).length).toEqual(0);
         expect(component.find(ServiceManageHolder).length).toEqual(0);
       });
       it("'Create Service' link should properly function", () => {
@@ -96,7 +96,7 @@ describe("ServiceView Component render tests", () => {
         // assert updated component //
         component.update();
         expect(component.find(ServicePreviewHolder).length).toEqual(0);
-        expect(component.find(ServiceFormHolder).length).toEqual(1);
+        expect(component.find(ServiceFormContainer).length).toEqual(1);
         expect(component.find(ServiceManageHolder).length).toEqual(0);
       });
       it("'Manage Services' link should properly function", () => {
@@ -106,7 +106,7 @@ describe("ServiceView Component render tests", () => {
         component.update();
         // assert updated component //
         expect(component.find(ServicePreviewHolder).length).toEqual(0);
-        expect(component.find(ServiceFormHolder).length).toEqual(0);
+        expect(component.find(ServiceFormContainer).length).toEqual(0);
         expect(component.find(ServiceManageHolder).length).toEqual(1);
       });
 

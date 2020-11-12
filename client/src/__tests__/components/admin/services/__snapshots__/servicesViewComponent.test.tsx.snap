@@ -24,7 +24,7 @@ exports[`ServiceView Component render tests ServiceView Component default render
         height="100px"
         width="100%"
       />
-      <withRouter(ServiceFormHolder) />
+      <withRouter(ServiceFormContainer) />
     </Route>
     <Route
       path="/admin/home/my_services/manage"

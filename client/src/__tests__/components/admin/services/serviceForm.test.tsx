@@ -44,10 +44,10 @@ describe("Service Form Component render tests", () => {
       expect(wrapper.render().find("#adminServiceFormDescInput").length).toEqual(1);
     });
     it("Should render '#adminServiceFormCreate' Button", () => {
-      expect(wrapper.render().find("#adminServiceFormCreate").length).toEqual(1);
+      expect(wrapper.render().find("#adminServiceFormCreateBtn").length).toEqual(1);
     });
     it("Should NOT render '#adminServiceFormUpdate' Button'", () => {
-      expect(wrapper.render().find("#adminServiceFormUpdate").length).toEqual(0);
+      expect(wrapper.render().find("#adminServiceFormUpdateBtn").length).toEqual(0);
     });
   });
   
@@ -103,10 +103,10 @@ describe("Service Form Component render tests", () => {
       expect(input.val()).toEqual(mockData.description);
     });
     it("Should render '#adminServiceFormUpdate' Button'", () => {
-      expect(wrapper.render().find("#adminServiceFormUpdate").length).toEqual(1);
+      expect(wrapper.render().find("#adminServiceFormUpdateBtn").length).toEqual(1);
     });
     it("Should NOT render '#adminServiceFormCreate' Button", () => {
-      expect(wrapper.render().find("#adminServiceFormCreate").length).toEqual(0);
+      expect(wrapper.render().find("#adminServiceFormCreateBtn").length).toEqual(0);
     });
   });
 });

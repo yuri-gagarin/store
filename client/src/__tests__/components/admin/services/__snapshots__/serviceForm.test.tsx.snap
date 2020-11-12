@@ -115,7 +115,7 @@ exports[`Service Form Component render tests Empty Form render tests Should prop
         <Button
           as="button"
           content="Create  New Service"
-          id="adminServiceFormCreate"
+          id="adminServiceFormCreateBtn"
           onClick={[Function]}
           type="submit"
         >
@@ -124,7 +124,7 @@ exports[`Service Form Component render tests Empty Form render tests Should prop
               Object {
                 "current": <button
                   class="ui button"
-                  id="adminServiceFormCreate"
+                  id="adminServiceFormCreateBtn"
                   type="submit"
                 >
                   Create  New Service
@@ -137,7 +137,7 @@ exports[`Service Form Component render tests Empty Form render tests Should prop
                 Object {
                   "current": <button
                     class="ui button"
-                    id="adminServiceFormCreate"
+                    id="adminServiceFormCreateBtn"
                     type="submit"
                   >
                     Create  New Service
@@ -147,7 +147,7 @@ exports[`Service Form Component render tests Empty Form render tests Should prop
             >
               <button
                 className="ui button"
-                id="adminServiceFormCreate"
+                id="adminServiceFormCreateBtn"
                 onClick={[Function]}
                 type="submit"
               >
@@ -281,7 +281,7 @@ exports[`Service Form Component render tests Form with valid data render tests S
         <Button
           as="button"
           content="Update Service"
-          id="adminServiceFormUpdate"
+          id="adminServiceFormUpdateBtn"
           onClick={[Function]}
           type="submit"
         >
@@ -290,7 +290,7 @@ exports[`Service Form Component render tests Form with valid data render tests S
               Object {
                 "current": <button
                   class="ui button"
-                  id="adminServiceFormUpdate"
+                  id="adminServiceFormUpdateBtn"
                   type="submit"
                 >
                   Update Service
@@ -303,7 +303,7 @@ exports[`Service Form Component render tests Form with valid data render tests S
                 Object {
                   "current": <button
                     class="ui button"
-                    id="adminServiceFormUpdate"
+                    id="adminServiceFormUpdateBtn"
                     type="submit"
                   >
                     Update Service
@@ -313,7 +313,7 @@ exports[`Service Form Component render tests Form with valid data render tests S
             >
               <button
                 className="ui button"
-                id="adminServiceFormUpdate"
+                id="adminServiceFormUpdateBtn"
                 onClick={[Function]}
                 type="submit"
               >
