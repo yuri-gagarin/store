@@ -35,7 +35,7 @@ describe("ServiceFormContainer Component tests", () => {
       createdAt: mockDate
     };
   });
-  /*
+  
   describe("Default 'ServiceFormContainer' state",  () => {
 
     beforeAll(() => {
@@ -261,7 +261,7 @@ describe("ServiceFormContainer Component tests", () => {
       expect(imgUploadForm.length).toEqual(1);
     });
   });
-  */
+  
   // END Form Container state OPEN - WITH Current Service Data - WITH IMAGES //
   // TEST Form Container state OPEN - MOCK Submit action //
   describe("'ServiceFormContainer' state OPEN - MOCK Submit action",  () => {
