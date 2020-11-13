@@ -5,7 +5,7 @@ import { mount, ReactWrapper } from "enzyme";
 import StoreItemsViewComponent from "../../../../components/admin_components/store_items/StoreItemsView";
 import AdminStoreItemsMenu from "../../../../components/admin_components/menus/AdminStoreItemsMenu";
 import { StoreItemsPreviewHolder } from "../../../../components/admin_components/store_items/store_items_preview/StoreItemsPreviewHolder";
-import { StoreItemFormHolder } from "../../../../components/admin_components/store_items/forms/StoreItemFormContainer";
+import { StoreItemFormContainer } from "../../../../components/admin_components/store_items/forms/StoreItemFormContainer";
 // additional dependencies //
 import  { BrowserRouter as Router, Switch, MemoryRouter } from "react-router-dom";
 import { StoreItemsManageHolder } from "../../../../components/admin_components/store_items/store_items_manage/StoreItemsManageHolder";
@@ -51,7 +51,7 @@ describe("StoreItemView Component test", () => {
         }
       }
       expect(map[AdminStoreItemRoutes.VIEW_ALL_ROUTE]).toBe(StoreItemsPreviewHolder);
-      expect(map[AdminStoreItemRoutes.CREATE_ROUTE]).toBe(StoreItemFormHolder);
+      expect(map[AdminStoreItemRoutes.CREATE_ROUTE]).toBe(StoreItemFormContainer);
       expect(map[AdminStoreItemRoutes.MANAGE_ROUTE]).toBe(StoreItemsManageHolder);
     });
   });
@@ -66,7 +66,7 @@ describe("StoreItemView Component test", () => {
         expect(wrapper.find(StoreItemsPreviewHolder).length).toEqual(1);
       });
       it("Should NOT render 'StoreItemFormHolder' component", () => {
-        expect(wrapper.find(StoreItemFormHolder).length).toEqual(0);
+        expect(wrapper.find(StoreItemFormContainer).length).toEqual(0);
       });
       it("Should NOT render 'StoreItemsManageHolder' compnent", () => {
         expect(wrapper.find(StoreItemsManageHolder).length).toEqual(0);
@@ -78,7 +78,7 @@ describe("StoreItemView Component test", () => {
         const viewAllLink = wrapper.find(AdminStoreItemsMenu).find(Menu.Item).at(1);
         viewAllLink.simulate("click");
         wrapper.update();
-        expect(wrapper.find(StoreItemFormHolder).length).toEqual(1);
+        expect(wrapper.find(StoreItemFormContainer).length).toEqual(1);
       });
       it("Should NOT render 'StoreItemsPreviewHolder' component", () => {
         expect(wrapper.find(StoreItemsPreviewHolder).length).toEqual(0);
@@ -96,7 +96,7 @@ describe("StoreItemView Component test", () => {
         expect(wrapper.find(StoreItemsManageHolder).length).toEqual(1);
       });
       it("Should NOT redner 'StoreItemsFormHolder' component", () => {
-        expect(wrapper.find(StoreItemFormHolder).length).toEqual(0);
+        expect(wrapper.find(StoreItemFormContainer).length).toEqual(0);
       });
       it("Should NOT redner 'StoreItemsPreviewHolder' component", () => {
         expect(wrapper.find(StoreItemsPreviewHolder).length).toEqual(0);

@@ -151,8 +151,8 @@ const StoreItemForm: React.FC<Props> = ( props ): JSX.Element => {
          />
          {
            newForm 
-            ? <Button id="adminStoreItemFormCreate" type='submit' onClick={handleSubmit} content= "Create  New Store Item" />
-            : <Button id="adminStoreItemFormUpdate" type='submit' onClick={handleSubmit} content= "Update Store Item" />
+            ? <Button id="adminStoreItemFormCreateBtn" type='submit' onClick={handleSubmit} content= "Create  New Store Item" />
+            : <Button id="adminStoreItemFormUpdateBtn" type='submit' onClick={handleSubmit} content= "Update Store Item" />
          }  
       </Form>
     </div>

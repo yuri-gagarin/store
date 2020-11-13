@@ -8,24 +8,36 @@ type ErrorResponse = {
   responseMsg: string;
   messages: string[];
 }
+type FormErrorCompState = {
+  visible: boolean;
+  header: string;
+  errors: string[];
+}
 interface Props {
-  error: AxiosError<ErrorResponse> | null;
+  error: AxiosError<ErrorResponse> | Error;
+  handleClearError: () => void;
 }
 const FormErrorComponent: React.FC<Props> = ({ error }): JSX.Element | null => {
-  const [ visible, setVisible ] = useState<boolean>(false);
-  const [ header, setHeader ] = useState<string>("");
-  const [ errors, setErrors ] = useState<string[]>([]);
+  const [ formErrorCompState, setFormErrorCompState ] = useState<FormErrorCompState>({
+    visible: false,
+    header: "",
+    errors: []
+  });
 
   const handleDismiss = () => {
-    setVisible(false)
+    setFormErrorCompState({
+      visible: false,
+
+    })
   }
 
   useEffect(() => {
-    if (error) {
-      const { responseMsg, messages } = (error.response!.data)
-      setHeader(responseMsg);
-      setErrors([ ...messages ]);
-      setVisible(true);
+    if (error instanceof AxiosError)
+    if (error && error.response) {
+      if(error.response.data) {
+        const { responseMsg, messages } = error.response.data; 
+      }
+      
     }
   }, [error]);
   

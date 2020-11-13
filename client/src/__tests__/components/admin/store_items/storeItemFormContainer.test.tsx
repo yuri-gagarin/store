@@ -7,7 +7,7 @@ import { act } from "react-dom/test-utils";
 // client routing //
 import { MemoryRouter, Router } from "react-router-dom";
 // component imports //
-import StoreItemFormHolder from "../../../../components/admin_components/store_items/forms/StoreItemFormContainer";
+import StoreItemFormContainer from "../../../../components/admin_components/store_items/forms/StoreItemFormContainer";
 import StoreItemForm from "../../../../components/admin_components/store_items/forms/StoreItemForm";
 import StoreItemImageUplForm from "../../../../components/admin_components/store_items/forms/StoreItemImgUplForm";
 import StoreItemImgPreviewContainer from "../../../../components/admin_components/store_items/image_preview/StoreItemImgPreviewContainer";
@@ -40,20 +40,20 @@ describe("'StoreItemFormContainer' Component tests", () => {
       createdAt: mockDate
     };
   });
-  
+  /*
   describe("Default 'StoreItemFormContainer' state",  () => {
 
     beforeAll(() => {
       window.scrollTo = jest.fn();
       wrapper = mount(
         <MemoryRouter keyLength={0}>
-          <StoreItemFormHolder />
+          <StoreItemFormContainer />
         </MemoryRouter>
       );
     });
 
-    it("Should Properly Mount Form Holder", () => {
-      expect(wrapper.find(StoreItemFormHolder)).toMatchSnapshot();
+    it("Should Properly Mount Form Container", () => {
+      expect(wrapper.find(StoreItemFormContainer)).toMatchSnapshot();
     });
     it("Form Should be closed by default", () => {
       const form = wrapper.find(StoreItemForm);
@@ -65,8 +65,8 @@ describe("'StoreItemFormContainer' Component tests", () => {
     });
 
   });
-  // TEST Form Holder state OPEN - NO Current StoreItem Data //
-  describe("Form Holder state OPEN - NO Current StoreItem Data",  () => {
+  // TEST Form Container state OPEN - NO Current StoreItem Data //
+  describe("Form Container state OPEN - NO Current StoreItem Data",  () => {
     let wrapper: ReactWrapper;
 
     beforeAll(() => {
@@ -74,7 +74,7 @@ describe("'StoreItemFormContainer' Component tests", () => {
       wrapper = mount(
         <MemoryRouter keyLength={0}>
           <TestStateProvider>
-            <StoreItemFormHolder />
+            <StoreItemFormContainer />
           </TestStateProvider>
         </MemoryRouter>
       );
@@ -84,7 +84,7 @@ describe("'StoreItemFormContainer' Component tests", () => {
       const toggleButton = wrapper.find("#adminStoreItemFormToggleBtn");
       toggleButton.at(0).simulate("click")
       // open button clicked //
-      expect(wrapper.find(StoreItemFormHolder)).toMatchSnapshot();
+      expect(wrapper.find(StoreItemFormContainer)).toMatchSnapshot();
     });
     it("Should have a 'SttoreItemForm' toggle Button", () => {
       const toggleButton = wrapper.render().find('#adminStoreItemFormToggleBtn');
@@ -99,16 +99,16 @@ describe("'StoreItemFormContainer' Component tests", () => {
       expect(form.length).toEqual(1);
     });
     it("Should NOT have the Image Preview rendered", () => {
-      const imgPreviewHolder = wrapper.find(StoreItemImgPreviewContainer);
-      expect(imgPreviewHolder.length).toEqual(0);
+      const imgPreviewContainer = wrapper.find(StoreItemImgPreviewContainer);
+      expect(imgPreviewContainer.length).toEqual(0);
     });
     it("Should NOT have the Image Upload Form rendered", () => {
       const imgUploadForm = wrapper.find(StoreItemImageUplForm);
       expect(imgUploadForm.length).toEqual(0);
     });
   });
-   // END Form Holder state OPEN - NO Current StoreItem Data //
-   // TEST Form Holder state OPEN - WITH Current StoreItem Data - NO IMAGES //
+   // END Form Container state OPEN - NO Current StoreItem Data //
+   // TEST Form Container state OPEN - WITH Current StoreItem Data - NO IMAGES //
   describe("'StoreItemFormContainer' 'StoreItemForm' OPEN - WITH Current StoreItem Data - NO IMAGES",  () => {
     let wrapper: ReactWrapper; let state: IGlobalAppState;
 
@@ -119,7 +119,7 @@ describe("'StoreItemFormContainer' Component tests", () => {
       wrapper = mount(
         <MemoryRouter keyLength={0} initialEntries={[ AdminStoreItemRoutes.EDIT_ROUTE ]}>
           <TestStateProvider mockState={state}>
-            <StoreItemFormHolder />
+            <StoreItemFormContainer />
           </TestStateProvider>
         </MemoryRouter>
       );
@@ -130,12 +130,12 @@ describe("'StoreItemFormContainer' Component tests", () => {
       expect(wrapper.find("#adminStoreItemFormContainer").length).toEqual(1);
     });
     it("Should have a 'StoreItemForm' toggle Button", () => {
-      const toggleButton = wrapper.find(StoreItemFormHolder).render().find('#storeItemFormToggleBtn');
+      const toggleButton = wrapper.find(StoreItemFormContainer).render().find('#adminStoreItemFormToggleBtn');
       expect(toggleButton.length).toEqual(1);
     });
     it("Should render 'StoreItemForm' after toggle click", () => {
-      const toggleButton = wrapper.find(StoreItemFormHolder).find("#storeItemFormToggleBtn").at(0);
-      toggleButton.simulate("click");
+      const toggleButton = wrapper.find(StoreItemFormContainer).find("#adminStoreItemFormToggleBtn");
+      toggleButton.at(0).simulate("click");
       /// wrapper.update();
       // assert that the StoreItemForm is open //
       const form = wrapper.find(StoreItemForm);
@@ -146,11 +146,11 @@ describe("'StoreItemFormContainer' Component tests", () => {
       expect(toggleButton.length).toEqual(1);
     });
     it("Should render '#storeItemFormContainerDetails'", () => {
-      const detailsHolder = wrapper.find(StoreItemFormHolder).render().find("#storeItemFormContainerDetails");
-      expect(detailsHolder.length).toEqual(1);
+      const detailsContainer = wrapper.find(StoreItemFormContainer).render().find("#storeItemFormContainerDetails");
+      expect(detailsContainer.length).toEqual(1);
     });
     it("Should render correct information in '.storeItemFormContainerDetailsItem' <divs>", () => {
-      const storeItemDetails = wrapper.find(StoreItemFormHolder).find(".storeItemFormContainerDetailsItem");
+      const storeItemDetails = wrapper.find(StoreItemFormContainer).find(".storeItemFormContainerDetailsItem");
       expect(storeItemDetails.length).toEqual(4);
       // assert correct detail rendering //
       const { currentStoreItemData } = state.storeItemState;
@@ -160,16 +160,16 @@ describe("'StoreItemFormContainer' Component tests", () => {
       expect(storeItemDetails.at(3).find("p").text()).toEqual(currentStoreItemData.details);
     });
     it("Should render 'StoreItem' 'categories' and correct number of 'categories'", () => {
-      const categoriesHolder = wrapper.find(".storeItemFormContainerCategories").find(List);
-      const categories = categoriesHolder.find(List.Item);
+      const categoriesContainer = wrapper.find(".storeItemFormContainerCategories").find(List);
+      const categories = categoriesContainer.find(List.Item);
       const { currentStoreItemData } = state.storeItemState;
       // assert correct rendering //
-      expect(categoriesHolder.length).toEqual(1)
+      expect(categoriesContainer.length).toEqual(1)
       expect(categories.length).toEqual(currentStoreItemData.categories.length);
     });
     it("Should have the Image Preview rendered", () => {
-      const imgPreviewHolder = wrapper.find(StoreItemImgPreviewContainer);
-      expect(imgPreviewHolder.length).toEqual(1);
+      const imgPreviewContainer = wrapper.find(StoreItemImgPreviewContainer);
+      expect(imgPreviewContainer.length).toEqual(1);
     });
     it("Should NOT render any preview images", () => {
       const previewThumb = wrapper.find(StoreItemImgPreviewThumb);
@@ -180,32 +180,52 @@ describe("'StoreItemFormContainer' Component tests", () => {
       expect(imgUploadForm.length).toEqual(1);
     });
   });
-  // END Form Holder state OPEN - WITH Current StoreItem Data - NO IMAGES //
-  // TEST Form Holder state OPEN - WITH Current StoreItem Data - WITH IMAGES //
+  // END Form Container state OPEN - WITH Current StoreItem Data - NO IMAGES //
+  // TEST Form Container state OPEN - WITH Current StoreItem Data - WITH IMAGES //
   describe("'StoreItemFormContainer' 'StoreItemForm' state OPEN - WITH Current StoreItem Data - WITH IMAGES",  () => {
     let state: IGlobalAppState; let wrapper: ReactWrapper;
 
     beforeAll(() => {
       window.scrollTo = jest.fn();
-      state = setMockStoreItemState({ currentStoreItem: true, storeItemImages: 3 });
+      state = generateCleanState();
+      mockStoreItem.images = [
+        {
+          _id: "1",
+          url: "url",
+          imagePath: "image path",
+          absolutePath: "absolute path",
+          fileName: "filename",
+          createdAt: mockDate
+        },
+        {
+          _id: "2",
+          url: "url",
+          imagePath: "image path",
+          absolutePath: "absolute path",
+          fileName: "filename",
+          createdAt: mockDate
+        }
+      ];
+      state.storeItemState.currentStoreItemData = { ...mockStoreItem };
+      // mount //
       wrapper = mount(
         <MemoryRouter keyLength={0}>
           <TestStateProvider mockState={state}>
-            <StoreItemFormHolder />
+            <StoreItemFormContainer />
           </TestStateProvider>
         </MemoryRouter>
       );
     });
 
-    it("Should properly mound 'StoreItemFormContainer'", () => {
-      expect(wrapper.find("#storeItemFormContainer").length).toEqual(1);
+    it("Should properly render 'StoreItemFormContainer'", () => {
+      expect(wrapper.find(StoreItemFormContainer).find("#adminStoreItemFormContainer").length).toEqual(1);
     });
     it("Should have a 'StoreItemForm' toggle Button", () => {
       const toggleButton = wrapper.render().find('#adminStoreItemFormToggleBtn');
       expect(toggleButton.length).toEqual(1);
     });
     it("Should render 'StoreItemForm' component after toggle click", () => {
-      const toggleButton = wrapper.find(StoreItemFormHolder).find("#adminStoreItemFormToggleBtn").at(0);
+      const toggleButton = wrapper.find(StoreItemFormContainer).find("#adminStoreItemFormToggleBtn").at(0);
       toggleButton.simulate("click");
       // assert correct rendering //
       const form = wrapper.find(StoreItemForm);
@@ -216,11 +236,11 @@ describe("'StoreItemFormContainer' Component tests", () => {
       expect(toggleButton.length).toEqual(1);
     });
     it("Should render '#storeItemFormContainerDetails'", () => {
-      const detailsHolder = wrapper.find(StoreItemFormHolder).render().find("#storeItemFormContainerDetails");
-      expect(detailsHolder.length).toEqual(1);
+      const detailsContainer = wrapper.find(StoreItemFormContainer).render().find("#storeItemFormContainerDetails");
+      expect(detailsContainer.length).toEqual(1);
     });
     it("Should render correct information in '.storeItemFormContainerDetailsItem' <divs>", () => {
-      const storeItemDetails = wrapper.find(StoreItemFormHolder).find(".storeItemFormContainerDetailsItem");
+      const storeItemDetails = wrapper.find(StoreItemFormContainer).find(".storeItemFormContainerDetailsItem");
       expect(storeItemDetails.length).toEqual(4);
       // assert correct detail rendering //
       const { currentStoreItemData } = state.storeItemState;
@@ -230,16 +250,16 @@ describe("'StoreItemFormContainer' Component tests", () => {
       expect(storeItemDetails.at(3).find("p").text()).toEqual(currentStoreItemData.details);
     });
     it("Should render 'StoreItem' 'categories' and correct number of 'categories'", () => {
-      const categoriesHolder = wrapper.find(".storeItemFormContainerCategories").find(List);
-      const categories = categoriesHolder.find(List.Item);
+      const categoriesContainer = wrapper.find(".storeItemFormContainerCategories").find(List);
+      const categories = categoriesContainer.find(List.Item);
       const { currentStoreItemData } = state.storeItemState;
       // assert correct rendering //
-      expect(categoriesHolder.length).toEqual(1)
+      expect(categoriesContainer.length).toEqual(1)
       expect(categories.length).toEqual(currentStoreItemData.categories.length);
     });
     it("Should have the Image Preview rendered", () => {
-      const imgPreviewHolder = wrapper.find(StoreItemImgPreviewContainer);
-      expect(imgPreviewHolder.length).toEqual(1);
+      const imgPreviewContainer = wrapper.find(StoreItemImgPreviewContainer);
+      expect(imgPreviewContainer.length).toEqual(1);
     });
     it("Should render a correct number of preview images", () => {
       const previewThumb = wrapper.find(StoreItemImgPreviewThumb);
@@ -251,9 +271,10 @@ describe("'StoreItemFormContainer' Component tests", () => {
       expect(imgUploadForm.length).toEqual(1);
     });
   });
-  // END Form Holder state OPEN - WITH Current StoreItem Data - WITH IMAGES //
-  // TEST Form Holder state OPEN - MOCK Submit action //
-  describe("Form Holder state OPEN - MOCK Submit action",  () => {
+  */
+  // END Form Container state OPEN - WITH Current StoreItem Data - WITH IMAGES //
+  // TEST Form Container state OPEN - NEW FORM - MOCK Submit action //
+  describe("Form Container state OPEN - MOCK Submit action",  () => {
     let state: IGlobalAppState; let wrapper: ReactWrapper;
 
     beforeAll( async () => {
@@ -268,36 +289,40 @@ describe("'StoreItemFormContainer' Component tests", () => {
           stores: createMockStores(5)
         }
       });
+      moxios.stubRequest("/api/store_items/create", {
+        status: 200,
+        response: {
+          responseMsg: "All Good",
+          newStoreItem: mockStoreItem
+        }
+      });
       // mount and wait for '/api/stores mock API call //
       wrapper = mount(
         <MemoryRouter initialEntries={[ AdminStoreItemRoutes.CREATE_ROUTE ]} keyLength={0}>
           <TestStateProvider>
-            <StoreItemFormHolder />
+            <StoreItemFormContainer />
           </TestStateProvider>
         </MemoryRouter>
         
       );
       await act( async() => promise);
-      moxios.uninstall()
+      wrapper.update();
     });
+    afterAll(() => {
+      moxios.uninstall();
+    })
     it("Should have a submit button", () => {
       wrapper.update();
-      wrapper.find("#adminStoreItemFormToggleBtn").at(0).simulate("click").update();
+      wrapper.find("#adminStoreItemFormToggleBtn").at(0).simulate("click");
       const adminStoreItemFormCreate = wrapper.find("#adminStoreItemFormCreateBtn").at(0);
       expect(adminStoreItemFormCreate.length).toEqual(1)
     });
     it("Should handle the 'handleCreateStoreItemAction, show 'LoadingBar' Component", async () => {
       const promise = Promise.resolve();
       moxios.install();
-      moxios.stubRequest("/api/store_items/create", {
-        status: 200,
-        response: {
-          responseMsg: "All Good",
-          newStoreItem: createMockStoreItems(1)[0]
-        }
-      });
-      const adminStoreItemFormCreate = wrapper.find("#adminStoreItemFormCreate").at(0);
-      adminStoreItemFormCreate.simulate("click");
+      
+      const adminStoreItemFormCreate = wrapper.find("#adminStoreItemFormCreateBtn").at(0);
+      adminStoreItemFormCreate.at(0).simulate("click");
       //expect(wrapper.find(LoadingBar).length).toEqual(1);
       // expect(sinon.spy(createStoreItem)).toHaveBeenCalled()
       await act( async () => promise);
@@ -305,12 +330,13 @@ describe("'StoreItemFormContainer' Component tests", () => {
     });
     it("Should NOT show the 'LoadingBar' Component after successful API call", () => {
       wrapper.update();
+     // console.log(wrapper.find(StoreItemFormContainer).debug())
       expect(wrapper.find(LoadingBar).length).toEqual(0);
     });
     it("Should NOT show the 'StoreItemForm' Component after successful API call", () => {
       expect(wrapper.find(StoreItemForm).length).toEqual(0);
     });
-    // END Form Holder state OPEN - MOCK Submit action //
+    // END Form Container state OPEN - MOCK Submit action //
   });
 
 });

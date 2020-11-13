@@ -107,30 +107,33 @@ const StoreItemFormContainer: React.FC<Props> = ({ history }): JSX.Element => {
   useEffect(() => {
     checkSetValues(currentStoreItemData) ? setNewForm(false) : setNewForm(true);
   }, [ currentStoreItemData]);
+  useEffect(() => {
+    console.log(loading)
+  },  [ loading ])
   // component return //
   return (
-    <div id="storeItemFormContainer">
+    <div id="adminStoreItemFormContainer">
       { loading ? <LoadingBar /> : null }
       <FormErrorComponent error={error as AxiosError} />
       {
         !newForm ?
-          <div id="storeItemFormContainerDetailsContainer">
+          <div id="storeItemFormContainerDetails">
             <Grid.Row>
-              <Grid.Column mobile={16} tablet={14} computer={14}>
+              <Grid.Column mobile={16} tablet={14} computer={14} >
                 <h1>Details</h1>
-                <div className="storeItemFormContainerDetail">
+                <div className="storeItemFormContainerDetailsItem">
                   <h3>Store Item name:</h3>
                   <p>{name}</p>
                 </div>
-                <div className="storeItemFormContainerDetail">
+                <div className="storeItemFormContainerDetailsItem">
                   <h3>Store Item price:</h3>
                   <p>{price}</p>
                 </div>
-                <div className="storeItemFormContainerDetail">
+                <div className="storeItemFormContainerDetailsItem">
                   <h3>Store Item description:</h3>
                   <p>{description}</p>
                 </div>
-                <div className="storeItemFormContainerDetail">
+                <div className="storeItemFormContainerDetailsItem">
                   <h3>Store Item details:</h3>
                   <p>{details}</p>
                 </div>
@@ -168,7 +171,7 @@ const StoreItemFormContainer: React.FC<Props> = ({ history }): JSX.Element => {
       }
       <Grid.Row>
         <Grid.Column mobile={16} tablet={15} computer={14}>
-          <Button  id="storeItemFormToggleBtn" 
+          <Button  id="adminStoreItemFormToggleBtn" 
             onClick={toggleForm} 
             content={ !storeItemFormOpen ? "Open Form" : "Close Form"}
           />
