@@ -16,7 +16,7 @@ import { RouteComponentProps, withRouter } from "react-router-dom";
 import { createStoreItem, editStoreItem } from "../actions/APIStoreItemActions";
 import { getAllStores } from "../../stores/actions/APIstoreActions";
 // ui actions //
-import { openStoreItemForm, closeStoreItemForm } from "../actions/UIStoreItemActions";
+import { openStoreItemForm, closeStoreItemForm, clearStoreItemError } from "../actions/UIStoreItemActions";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
 import { checkSetValues } from "../../../helpers/validationHelpers";
@@ -39,6 +39,10 @@ const StoreItemFormContainer: React.FC<Props> = ({ history }): JSX.Element => {
   // StoreItemForm toggle //
   const toggleForm = () => {
     storeItemFormOpen ? closeStoreItemForm(dispatch) : openStoreItemForm(dispatch);
+  };
+  // ERROR Clear //
+  const handleClearStoreItemError = () => {
+    clearStoreItemError(dispatch);
   };
   // API call handlers CREATE - EDIT //
   const handleCreateStoreItem = ({ storeId, storeName, name, price, description, details, categories }: StoreItemFormState): void => {
@@ -114,7 +118,7 @@ const StoreItemFormContainer: React.FC<Props> = ({ history }): JSX.Element => {
   return (
     <div id="adminStoreItemFormContainer">
       { loading ? <LoadingBar /> : null }
-      <FormErrorComponent error={error as AxiosError} />
+      <FormErrorComponent error={error as AxiosError} handleClearError={handleClearStoreItemError} />
       {
         !newForm ?
           <div id="storeItemFormContainerDetails">

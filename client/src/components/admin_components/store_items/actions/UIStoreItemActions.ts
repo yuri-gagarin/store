@@ -22,3 +22,7 @@ export const closeStoreItemForm = (dispatch: Dispatch<StoreItemAction>): void =>
   dispatch({ type: "CLOSE_STORE_ITEM_FORM", payload: { storeItemFormOpen: false } });
 };
 
+export const clearStoreItemError = (dispatch: Dispatch<StoreItemAction>): void => {
+  dispatch({ type: "ClEAR_STORE_ITEM_ERROR", payload: { responseMsg: "", loading: false, error: null } });
+};
+
