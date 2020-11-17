@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`StoreItem Manage Holder Tests State after a successful API call Should correctly render the 'StoreItemsManageHold' 'Grid' after a 'successful' API call 1`] = `
+exports[`StoreItem Manage Holder Tests State after a successful API call Should correctly render the 'StoreItemsManageHolder' 'Grid' after a 'successful' API call 1`] = `
 <withRouter(StoreItemsManageHolder)>
   <StoreItemsManageHolder
     history={
@@ -400,39 +400,6 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                         }
                       }
                     >
-                      <Confirm
-                        cancelButton="Cancel"
-                        confirmButton="OK"
-                        content="Are you sure?"
-                        onCancel={[Function]}
-                        onConfirm={[Function]}
-                        open={false}
-                        size="small"
-                      >
-                        <Modal
-                          centered={true}
-                          closeOnDimmerClick={true}
-                          closeOnDocumentClick={false}
-                          dimmer={true}
-                          eventPool="Modal"
-                          onClose={[Function]}
-                          open={false}
-                          size="small"
-                        >
-                          <Portal
-                            closeOnDocumentClick={false}
-                            closeOnEscape={true}
-                            eventPool="Modal"
-                            mountNode={<body />}
-                            onClose={[Function]}
-                            onMount={[Function]}
-                            onOpen={[Function]}
-                            onUnmount={[Function]}
-                            open={false}
-                            openOnTriggerClick={true}
-                          />
-                        </Modal>
-                      </Confirm>
                       <GridRow
                         style={
                           Object {
@@ -450,6 +417,39 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                             }
                           }
                         >
+                          <Confirm
+                            cancelButton="Cancel"
+                            confirmButton="OK"
+                            content="Are you sure?"
+                            onCancel={[Function]}
+                            onConfirm={[Function]}
+                            open={false}
+                            size="small"
+                          >
+                            <Modal
+                              centered={true}
+                              closeOnDimmerClick={true}
+                              closeOnDocumentClick={false}
+                              dimmer={true}
+                              eventPool="Modal"
+                              onClose={[Function]}
+                              open={false}
+                              size="small"
+                            >
+                              <Portal
+                                closeOnDocumentClick={false}
+                                closeOnEscape={true}
+                                eventPool="Modal"
+                                mountNode={<body />}
+                                onClose={[Function]}
+                                onMount={[Function]}
+                                onOpen={[Function]}
+                                onUnmount={[Function]}
+                                open={false}
+                                openOnTriggerClick={true}
+                              />
+                            </Modal>
+                          </Confirm>
                           <div
                             className="storeItemManageDesc"
                           >
@@ -925,39 +925,6 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                         }
                       }
                     >
-                      <Confirm
-                        cancelButton="Cancel"
-                        confirmButton="OK"
-                        content="Are you sure?"
-                        onCancel={[Function]}
-                        onConfirm={[Function]}
-                        open={false}
-                        size="small"
-                      >
-                        <Modal
-                          centered={true}
-                          closeOnDimmerClick={true}
-                          closeOnDocumentClick={false}
-                          dimmer={true}
-                          eventPool="Modal"
-                          onClose={[Function]}
-                          open={false}
-                          size="small"
-                        >
-                          <Portal
-                            closeOnDocumentClick={false}
-                            closeOnEscape={true}
-                            eventPool="Modal"
-                            mountNode={<body />}
-                            onClose={[Function]}
-                            onMount={[Function]}
-                            onOpen={[Function]}
-                            onUnmount={[Function]}
-                            open={false}
-                            openOnTriggerClick={true}
-                          />
-                        </Modal>
-                      </Confirm>
                       <GridRow
                         style={
                           Object {
@@ -975,6 +942,39 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                             }
                           }
                         >
+                          <Confirm
+                            cancelButton="Cancel"
+                            confirmButton="OK"
+                            content="Are you sure?"
+                            onCancel={[Function]}
+                            onConfirm={[Function]}
+                            open={false}
+                            size="small"
+                          >
+                            <Modal
+                              centered={true}
+                              closeOnDimmerClick={true}
+                              closeOnDocumentClick={false}
+                              dimmer={true}
+                              eventPool="Modal"
+                              onClose={[Function]}
+                              open={false}
+                              size="small"
+                            >
+                              <Portal
+                                closeOnDocumentClick={false}
+                                closeOnEscape={true}
+                                eventPool="Modal"
+                                mountNode={<body />}
+                                onClose={[Function]}
+                                onMount={[Function]}
+                                onOpen={[Function]}
+                                onUnmount={[Function]}
+                                open={false}
+                                openOnTriggerClick={true}
+                              />
+                            </Modal>
+                          </Confirm>
                           <div
                             className="storeItemManageDesc"
                           >
@@ -1450,39 +1450,6 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                         }
                       }
                     >
-                      <Confirm
-                        cancelButton="Cancel"
-                        confirmButton="OK"
-                        content="Are you sure?"
-                        onCancel={[Function]}
-                        onConfirm={[Function]}
-                        open={false}
-                        size="small"
-                      >
-                        <Modal
-                          centered={true}
-                          closeOnDimmerClick={true}
-                          closeOnDocumentClick={false}
-                          dimmer={true}
-                          eventPool="Modal"
-                          onClose={[Function]}
-                          open={false}
-                          size="small"
-                        >
-                          <Portal
-                            closeOnDocumentClick={false}
-                            closeOnEscape={true}
-                            eventPool="Modal"
-                            mountNode={<body />}
-                            onClose={[Function]}
-                            onMount={[Function]}
-                            onOpen={[Function]}
-                            onUnmount={[Function]}
-                            open={false}
-                            openOnTriggerClick={true}
-                          />
-                        </Modal>
-                      </Confirm>
                       <GridRow
                         style={
                           Object {
@@ -1500,6 +1467,39 @@ exports[`StoreItem Manage Holder Tests State after a successful API call Should 
                             }
                           }
                         >
+                          <Confirm
+                            cancelButton="Cancel"
+                            confirmButton="OK"
+                            content="Are you sure?"
+                            onCancel={[Function]}
+                            onConfirm={[Function]}
+                            open={false}
+                            size="small"
+                          >
+                            <Modal
+                              centered={true}
+                              closeOnDimmerClick={true}
+                              closeOnDocumentClick={false}
+                              dimmer={true}
+                              eventPool="Modal"
+                              onClose={[Function]}
+                              open={false}
+                              size="small"
+                            >
+                              <Portal
+                                closeOnDocumentClick={false}
+                                closeOnEscape={true}
+                                eventPool="Modal"
+                                mountNode={<body />}
+                                onClose={[Function]}
+                                onMount={[Function]}
+                                onOpen={[Function]}
+                                onUnmount={[Function]}
+                                open={false}
+                                openOnTriggerClick={true}
+                              />
+                            </Modal>
+                          </Confirm>
                           <div
                             className="storeItemManageDesc"
                           >

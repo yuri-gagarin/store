@@ -306,12 +306,12 @@ describe("StoreItem Manage Holder Tests", () => {
       const storeItmFormHold = wrapper.find(StoreItemFormContainer);
       expect(storeItmFormHold.length).toEqual(1);
     });
-    it("Should display the in '#storeItemFormHolderDetailsHolder' component", () => {
-      const detailsHolder = wrapper.find(StoreItemFormContainer).render().find("#storeItemFormHolderDetailsHolder");
+    it("Should display the in '#storeItemFormContainerDetails' component", () => {
+      const detailsHolder = wrapper.find(StoreItemFormContainer).render().find("#storeItemFormContainerDetails");
       expect(detailsHolder.length).toEqual(1);
     });
-    it("Should display correct data in '.storeItemFormHolderDetail' '<div>'s", () => {
-      const detailsDivs = wrapper.find(StoreItemFormContainer).find(".storeItemFormHolderDetail");
+    it("Should display correct data in '.storeItemFormContainerDetailsItem' '<div>'s", () => {
+      const detailsDivs = wrapper.find(StoreItemFormContainer).find(".storeItemFormContainerDetailsItem");
       expect(detailsDivs.length).toEqual(4);
       // assert correct data rendering //
       expect(detailsDivs.at(0).render().find("p").html()).toEqual(mockStoreItems[0].name);
@@ -320,7 +320,7 @@ describe("StoreItem Manage Holder Tests", () => {
       expect(detailsDivs.at(3).render().find("p").html()).toEqual(mockStoreItems[0].details);
     });
     it("Should correctly render the 'StoreItemForm' component", () => {
-      const storeItemFormToggleBtn = wrapper.find(StoreItemFormContainer).find("#storeItemFormToggleBtn");
+      const storeItemFormToggleBtn = wrapper.find(StoreItemFormContainer).find("#adminStoreItemFormToggleBtn");
       // toggle form //
       storeItemFormToggleBtn.at(0).simulate("click");
       // assert correct rendering //
@@ -329,17 +329,16 @@ describe("StoreItem Manage Holder Tests", () => {
     });
     it("Should correctly render the 'currentStoreItem' data within 'StoreItemForm' component", () => {
       const currentStoreItem = mockStoreItems[0];
-      const nameInput = wrapper.find(StoreItemForm).find("#storeItemFormNameInput");
-      const priceInput = wrapper.find(StoreItemForm).find("#storeItemFormPriceInput");
-      const detailsInput = wrapper.find(StoreItemForm).find("#storeItemFormDetailsInput");
-      const descriptionInput = wrapper.find(StoreItemForm).find("#storeItemFormDescInput");
+      const nameInput = wrapper.find(StoreItemForm).find("#adminStoreItemFormNameInput");
+      const priceInput = wrapper.find(StoreItemForm).find("#adminStoreItemFormPriceInput");
+      const descriptionInput = wrapper.find(StoreItemForm).find("#adminStoreItemFormDescInput");
+      const detailsInput = wrapper.find(StoreItemForm).find("#adminStoreItemFormDetailsInput");
       // assert correct rendering //
       expect(nameInput.props().value).toEqual(currentStoreItem.name);
       expect(priceInput.props().value).toEqual(currentStoreItem.price);
-      expect(detailsInput.at(0).props().value).toEqual(currentStoreItem.details);
       expect(descriptionInput.at(0).props().value).toEqual(currentStoreItem.description);
-
-    })
+      expect(detailsInput.at(0).props().value).toEqual(currentStoreItem.details);
+    });
     it(`Should route to a correct client route: ${AdminStoreItemRoutes.EDIT_ROUTE}`, () => {
       const router = wrapper.find(Router);
       expect(router.props().history.location.pathname).toEqual(AdminStoreItemRoutes.EDIT_ROUTE);

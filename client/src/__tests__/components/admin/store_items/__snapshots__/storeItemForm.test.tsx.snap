@@ -30,7 +30,7 @@ exports[`StoreItem Form Component render tests Empty Form render tests Should pr
   storeName=""
 >
   <div
-    className="createStoreItemFormHolder"
+    className="createStoreItemFormDiv"
   >
     <Form
       as="form"
@@ -393,7 +393,7 @@ exports[`StoreItem Form Component render tests Empty Form render tests Should pr
               Store Item name
             </label>
             <input
-              id="storeItemFormNameInput"
+              id="adminStoreItemFormNameInput"
               onChange={[Function]}
               placeholder="Store Item name here ..."
               value=""
@@ -408,7 +408,7 @@ exports[`StoreItem Form Component render tests Empty Form render tests Should pr
               Store Item price
             </label>
             <input
-              id="storeItemFormPriceInput"
+              id="adminStoreItemFormPriceInput"
               onChange={[Function]}
               placeholder="Store Item price here..."
               value=""
@@ -959,68 +959,7 @@ exports[`StoreItem Form Component render tests Empty Form render tests Should pr
         </FormField>
         <FormField
           control={[Function]}
-          id="storeItemFormDetailsInput"
-          label="Store Item Details"
-          onChange={[Function]}
-          placeholder="Store Item details here..."
-          value=""
-        >
-          <div
-            className="field"
-          >
-            <label
-              htmlFor="storeItemFormDetailsInput"
-            >
-              Store Item Details
-            </label>
-            <TextArea
-              aria-describedby={null}
-              as="textarea"
-              id="storeItemFormDetailsInput"
-              onChange={[Function]}
-              placeholder="Store Item details here..."
-              rows={3}
-              value=""
-            >
-              <Ref
-                innerRef={
-                  Object {
-                    "current": <textarea
-                      id="storeItemFormDetailsInput"
-                      placeholder="Store Item details here..."
-                      rows="3"
-                    />,
-                  }
-                }
-              >
-                <RefFindNode
-                  innerRef={
-                    Object {
-                      "current": <textarea
-                        id="storeItemFormDetailsInput"
-                        placeholder="Store Item details here..."
-                        rows="3"
-                      />,
-                    }
-                  }
-                >
-                  <textarea
-                    aria-describedby={null}
-                    id="storeItemFormDetailsInput"
-                    onChange={[Function]}
-                    onInput={[Function]}
-                    placeholder="Store Item details here..."
-                    rows={3}
-                    value=""
-                  />
-                </RefFindNode>
-              </Ref>
-            </TextArea>
-          </div>
-        </FormField>
-        <FormField
-          control={[Function]}
-          id="storeItemFormDescInput"
+          id="adminStoreItemFormDescInput"
           label="Store Item Description"
           onChange={[Function]}
           placeholder="Store Item description here..."
@@ -1030,14 +969,14 @@ exports[`StoreItem Form Component render tests Empty Form render tests Should pr
             className="field"
           >
             <label
-              htmlFor="storeItemFormDescInput"
+              htmlFor="adminStoreItemFormDescInput"
             >
               Store Item Description
             </label>
             <TextArea
               aria-describedby={null}
               as="textarea"
-              id="storeItemFormDescInput"
+              id="adminStoreItemFormDescInput"
               onChange={[Function]}
               placeholder="Store Item description here..."
               rows={3}
@@ -1047,7 +986,7 @@ exports[`StoreItem Form Component render tests Empty Form render tests Should pr
                 innerRef={
                   Object {
                     "current": <textarea
-                      id="storeItemFormDescInput"
+                      id="adminStoreItemFormDescInput"
                       placeholder="Store Item description here..."
                       rows="3"
                     />,
@@ -1058,7 +997,7 @@ exports[`StoreItem Form Component render tests Empty Form render tests Should pr
                   innerRef={
                     Object {
                       "current": <textarea
-                        id="storeItemFormDescInput"
+                        id="adminStoreItemFormDescInput"
                         placeholder="Store Item description here..."
                         rows="3"
                       />,
@@ -1067,7 +1006,7 @@ exports[`StoreItem Form Component render tests Empty Form render tests Should pr
                 >
                   <textarea
                     aria-describedby={null}
-                    id="storeItemFormDescInput"
+                    id="adminStoreItemFormDescInput"
                     onChange={[Function]}
                     onInput={[Function]}
                     placeholder="Store Item description here..."
@@ -1079,10 +1018,71 @@ exports[`StoreItem Form Component render tests Empty Form render tests Should pr
             </TextArea>
           </div>
         </FormField>
+        <FormField
+          control={[Function]}
+          id="adminStoreItemFormDetailsInput"
+          label="Store Item Details"
+          onChange={[Function]}
+          placeholder="Store Item details here..."
+          value=""
+        >
+          <div
+            className="field"
+          >
+            <label
+              htmlFor="adminStoreItemFormDetailsInput"
+            >
+              Store Item Details
+            </label>
+            <TextArea
+              aria-describedby={null}
+              as="textarea"
+              id="adminStoreItemFormDetailsInput"
+              onChange={[Function]}
+              placeholder="Store Item details here..."
+              rows={3}
+              value=""
+            >
+              <Ref
+                innerRef={
+                  Object {
+                    "current": <textarea
+                      id="adminStoreItemFormDetailsInput"
+                      placeholder="Store Item details here..."
+                      rows="3"
+                    />,
+                  }
+                }
+              >
+                <RefFindNode
+                  innerRef={
+                    Object {
+                      "current": <textarea
+                        id="adminStoreItemFormDetailsInput"
+                        placeholder="Store Item details here..."
+                        rows="3"
+                      />,
+                    }
+                  }
+                >
+                  <textarea
+                    aria-describedby={null}
+                    id="adminStoreItemFormDetailsInput"
+                    onChange={[Function]}
+                    onInput={[Function]}
+                    placeholder="Store Item details here..."
+                    rows={3}
+                    value=""
+                  />
+                </RefFindNode>
+              </Ref>
+            </TextArea>
+          </div>
+        </FormField>
         <Button
           as="button"
           content="Create  New Store Item"
-          id="adminStoreItemFormCreate"
+          id="adminStoreItemFormCreateBtn"
           onClick={[Function]}
           type="submit"
         >
@@ -1091,7 +1091,7 @@ exports[`StoreItem Form Component render tests Empty Form render tests Should pr
               Object {
                 "current": <button
                   class="ui button"
-                  id="adminStoreItemFormCreate"
+                  id="adminStoreItemFormCreateBtn"
                   type="submit"
                 >
                   Create  New Store Item
@@ -1104,7 +1104,7 @@ exports[`StoreItem Form Component render tests Empty Form render tests Should pr
                 Object {
                   "current": <button
                     class="ui button"
-                    id="adminStoreItemFormCreate"
+                    id="adminStoreItemFormCreateBtn"
                     type="submit"
                   >
                     Create  New Store Item
@@ -1114,7 +1114,7 @@ exports[`StoreItem Form Component render tests Empty Form render tests Should pr
             >
               <button
                 className="ui button"
-                id="adminStoreItemFormCreate"
+                id="adminStoreItemFormCreateBtn"
                 onClick={[Function]}
                 type="submit"
               >
@@ -1144,7 +1144,7 @@ exports[`StoreItem Form Component render tests Form with valid data render tests
   storeName="store1"
 >
   <div
-    className="createStoreItemFormHolder"
+    className="createStoreItemFormDiv"
   >
     <Form
       as="form"
@@ -1357,7 +1357,7 @@ exports[`StoreItem Form Component render tests Form with valid data render tests
               Store Item name
             </label>
             <input
-              id="storeItemFormNameInput"
+              id="adminStoreItemFormNameInput"
               onChange={[Function]}
               placeholder="Store Item name here ..."
               value="name"
@@ -1372,7 +1372,7 @@ exports[`StoreItem Form Component render tests Form with valid data render tests
               Store Item price
             </label>
             <input
-              id="storeItemFormPriceInput"
+              id="adminStoreItemFormPriceInput"
               onChange={[Function]}
               placeholder="Store Item price here..."
               value="100"
@@ -1923,72 +1923,7 @@ exports[`StoreItem Form Component render tests Form with valid data render tests
         </FormField>
         <FormField
           control={[Function]}
-          id="storeItemFormDetailsInput"
-          label="Store Item Details"
-          onChange={[Function]}
-          placeholder="Store Item details here..."
-          value="details"
-        >
-          <div
-            className="field"
-          >
-            <label
-              htmlFor="storeItemFormDetailsInput"
-            >
-              Store Item Details
-            </label>
-            <TextArea
-              aria-describedby={null}
-              as="textarea"
-              id="storeItemFormDetailsInput"
-              onChange={[Function]}
-              placeholder="Store Item details here..."
-              rows={3}
-              value="details"
-            >
-              <Ref
-                innerRef={
-                  Object {
-                    "current": <textarea
-                      id="storeItemFormDetailsInput"
-                      placeholder="Store Item details here..."
-                      rows="3"
-                    >
-                      details
-                    </textarea>,
-                  }
-                }
-              >
-                <RefFindNode
-                  innerRef={
-                    Object {
-                      "current": <textarea
-                        id="storeItemFormDetailsInput"
-                        placeholder="Store Item details here..."
-                        rows="3"
-                      >
-                        details
-                      </textarea>,
-                    }
-                  }
-                >
-                  <textarea
-                    aria-describedby={null}
-                    id="storeItemFormDetailsInput"
-                    onChange={[Function]}
-                    onInput={[Function]}
-                    placeholder="Store Item details here..."
-                    rows={3}
-                    value="details"
-                  />
-                </RefFindNode>
-              </Ref>
-            </TextArea>
-          </div>
-        </FormField>
-        <FormField
-          control={[Function]}
-          id="storeItemFormDescInput"
+          id="adminStoreItemFormDescInput"
           label="Store Item Description"
           onChange={[Function]}
           placeholder="Store Item description here..."
@@ -1998,14 +1933,14 @@ exports[`StoreItem Form Component render tests Form with valid data render tests
             className="field"
           >
             <label
-              htmlFor="storeItemFormDescInput"
+              htmlFor="adminStoreItemFormDescInput"
             >
               Store Item Description
             </label>
             <TextArea
               aria-describedby={null}
               as="textarea"
-              id="storeItemFormDescInput"
+              id="adminStoreItemFormDescInput"
               onChange={[Function]}
               placeholder="Store Item description here..."
               rows={3}
@@ -2015,7 +1950,7 @@ exports[`StoreItem Form Component render tests Form with valid data render tests
                 innerRef={
                   Object {
                     "current": <textarea
-                      id="storeItemFormDescInput"
+                      id="adminStoreItemFormDescInput"
                       placeholder="Store Item description here..."
                       rows="3"
                     >
@@ -2028,7 +1963,7 @@ exports[`StoreItem Form Component render tests Form with valid data render tests
                   innerRef={
                     Object {
                       "current": <textarea
-                        id="storeItemFormDescInput"
+                        id="adminStoreItemFormDescInput"
                         placeholder="Store Item description here..."
                         rows="3"
                       >
@@ -2039,7 +1974,7 @@ exports[`StoreItem Form Component render tests Form with valid data render tests
                 >
                   <textarea
                     aria-describedby={null}
-                    id="storeItemFormDescInput"
+                    id="adminStoreItemFormDescInput"
                     onChange={[Function]}
                     onInput={[Function]}
                     placeholder="Store Item description here..."
@@ -2051,10 +1986,75 @@ exports[`StoreItem Form Component render tests Form with valid data render tests
             </TextArea>
           </div>
         </FormField>
+        <FormField
+          control={[Function]}
+          id="adminStoreItemFormDetailsInput"
+          label="Store Item Details"
+          onChange={[Function]}
+          placeholder="Store Item details here..."
+          value="details"
+        >
+          <div
+            className="field"
+          >
+            <label
+              htmlFor="adminStoreItemFormDetailsInput"
+            >
+              Store Item Details
+            </label>
+            <TextArea
+              aria-describedby={null}
+              as="textarea"
+              id="adminStoreItemFormDetailsInput"
+              onChange={[Function]}
+              placeholder="Store Item details here..."
+              rows={3}
+              value="details"
+            >
+              <Ref
+                innerRef={
+                  Object {
+                    "current": <textarea
+                      id="adminStoreItemFormDetailsInput"
+                      placeholder="Store Item details here..."
+                      rows="3"
+                    >
+                      details
+                    </textarea>,
+                  }
+                }
+              >
+                <RefFindNode
+                  innerRef={
+                    Object {
+                      "current": <textarea
+                        id="adminStoreItemFormDetailsInput"
+                        placeholder="Store Item details here..."
+                        rows="3"
+                      >
+                        details
+                      </textarea>,
+                    }
+                  }
+                >
+                  <textarea
+                    aria-describedby={null}
+                    id="adminStoreItemFormDetailsInput"
+                    onChange={[Function]}
+                    onInput={[Function]}
+                    placeholder="Store Item details here..."
+                    rows={3}
+                    value="details"
+                  />
+                </RefFindNode>
+              </Ref>
+            </TextArea>
+          </div>
+        </FormField>
         <Button
           as="button"
           content="Update Store Item"
-          id="adminStoreItemFormUpdate"
+          id="adminStoreItemFormUpdateBtn"
           onClick={[Function]}
           type="submit"
         >
@@ -2063,7 +2063,7 @@ exports[`StoreItem Form Component render tests Form with valid data render tests
               Object {
                 "current": <button
                   class="ui button"
-                  id="adminStoreItemFormUpdate"
+                  id="adminStoreItemFormUpdateBtn"
                   type="submit"
                 >
                   Update Store Item
@@ -2076,7 +2076,7 @@ exports[`StoreItem Form Component render tests Form with valid data render tests
                 Object {
                   "current": <button
                     class="ui button"
-                    id="adminStoreItemFormUpdate"
+                    id="adminStoreItemFormUpdateBtn"
                     type="submit"
                   >
                     Update Store Item
@@ -2086,7 +2086,7 @@ exports[`StoreItem Form Component render tests Form with valid data render tests
             >
               <button
                 className="ui button"
-                id="adminStoreItemFormUpdate"
+                id="adminStoreItemFormUpdateBtn"
                 onClick={[Function]}
                 type="submit"
               >

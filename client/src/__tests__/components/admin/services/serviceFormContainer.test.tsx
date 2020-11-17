@@ -89,12 +89,12 @@ describe("ServiceFormContainer Component tests", () => {
       expect(wrapper.find(ServiceFormContainer)).toMatchSnapshot();
     });
   
-    it("Should render a '#adminServiceFormCreate' Button", () => {
-      const toggleButton = wrapper.find(ServiceFormContainer).render().find('#adminServiceFormCreate');
+    it("Should render a '#adminServiceFormCreateBtn' Button", () => {
+      const toggleButton = wrapper.find(ServiceFormContainer).render().find('#adminServiceFormCreateBtn');
       expect(toggleButton.length).toEqual(1);
     });
-    it("Should NOT render a '#adminServiceFormUpdate' Button", () => {
-      const toggleButton = wrapper.find(ServiceFormContainer).render().find('#adminServiceFormUpdate');
+    it("Should NOT render a '#adminServiceFormUpdateBtn' Button", () => {
+      const toggleButton = wrapper.find(ServiceFormContainer).render().find('#adminServiceFormUpdateBtn');
       expect(toggleButton.length).toEqual(0);
     });
     it("Should have the 'ServiceForm' rendered after toggle button", () => {
@@ -143,24 +143,24 @@ describe("ServiceFormContainer Component tests", () => {
       const form = wrapper.find(ServiceForm);
       expect(form.length).toEqual(1);
     });
-    it("Should render '#serviceFormDetails'", () => {
-      const serviceFormDetails = wrapper.find(ServiceFormContainer).render().find("#serviceFormContainerDetails");
+    it("Should render '#adminServiceFormDetails'", () => {
+      const serviceFormDetails = wrapper.find(ServiceFormContainer).render().find("#adminServiceFormContainerDetails");
       //console.log(wrapper.find(ServiceFormContainer).debug())
       expect(serviceFormDetails.length).toEqual(1);
     });
-    it("Should correctly render '.serviceFormContainerDetailsItem' <divs> and their data", () => {
-      const serviceDetails = wrapper.find(ServiceFormContainer).find(".serviceFormContainerDetailsItem");
+    it("Should correctly render '.adminServiceFormContainerDetailsItem' <divs> and their data", () => {
+      const serviceDetails = wrapper.find(ServiceFormContainer).find(".adminServiceFormContainerDetailsItem");
       expect(serviceDetails.length).toEqual(3);
       expect(serviceDetails.at(0).find("p").text()).toEqual(mockService.name);
       expect(serviceDetails.at(1).find("p").text()).toEqual(mockService.price);
       expect(serviceDetails.at(2).find("p").text()).toEqual(mockService.description);
     });
-    it("Should render a '#adminServiceFormUpdate' Button", () => {
-      const toggleButton = wrapper.find(ServiceFormContainer).render().find('#adminServiceFormUpdate');
+    it("Should render a '#adminServiceFormUpdateBtn' Button", () => {
+      const toggleButton = wrapper.find(ServiceFormContainer).render().find('#adminServiceFormUpdateBtn');
       expect(toggleButton.length).toEqual(1);
     });
-    it("Should NOT have a '#adminServiceFormCreate' Button", () => {
-      const toggleButton = wrapper.find(ServiceFormContainer).render().find('#adminServiceFormCreate');
+    it("Should NOT have a '#adminServiceFormCreateBtn' Button", () => {
+      const toggleButton = wrapper.find(ServiceFormContainer).render().find('#adminServiceFormCreateBtn');
       expect(toggleButton.length).toEqual(0);
     });
     it("Should have the Image Preview rendered", () => {
@@ -229,22 +229,22 @@ describe("ServiceFormContainer Component tests", () => {
       expect(form.length).toEqual(1);
     });
     it("Should render '#serviceFormDetails'", () => {
-      const serviceFormDetails = wrapper.find(ServiceFormContainer).render().find("#serviceFormContainerDetails");
+      const serviceFormDetails = wrapper.find(ServiceFormContainer).render().find("#adminServiceFormContainerDetails");
       expect(serviceFormDetails.length).toEqual(1);
     });
-    it("Should correctly render '.serviceFormContainerDetailsItem' <divs> and their data", () => {
-      const serviceDetails = wrapper.find(ServiceFormContainer).find(".serviceFormContainerDetailsItem");
+    it("Should correctly render '.adminServiceFormContainerDetailsItem' <divs> and their data", () => {
+      const serviceDetails = wrapper.find(ServiceFormContainer).find(".adminServiceFormContainerDetailsItem");
       expect(serviceDetails.length).toEqual(3);
       expect(serviceDetails.at(0).find("p").text()).toEqual(mockService.name);
       expect(serviceDetails.at(1).find("p").text()).toEqual(mockService.price);
       expect(serviceDetails.at(2).find("p").text()).toEqual(mockService.description);
     });
-    it("Should have a '#adminServiceFormUpdate' Button", () => {
-      const toggleButton = wrapper.find(ServiceFormContainer).render().find('#adminServiceFormUpdate');
+    it("Should have a '#adminServiceFormUpdateBtn' Button", () => {
+      const toggleButton = wrapper.find(ServiceFormContainer).render().find('#adminServiceFormUpdateBtn');
       expect(toggleButton.length).toEqual(1);
     });
     it("Should NOT have a '#adminServiceFormCreate' Button", () => {
-      const toggleButton = wrapper.find(ServiceFormContainer).render().find('#adminServiceCreate');
+      const toggleButton = wrapper.find(ServiceFormContainer).render().find('#adminServiceCreateBtn');
       expect(toggleButton.length).toEqual(0);
     });
     it("Should have the Image Preview rendered", () => {

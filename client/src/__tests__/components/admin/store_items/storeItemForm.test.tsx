@@ -7,7 +7,7 @@ import { Dropdown } from "semantic-ui-react";
 
 describe("StoreItem Form Component render tests", () => {
   let mockStoreDropdownData: StoreDropdownData[];
-
+  
   beforeAll(() => {
     mockStoreDropdownData = [
       {
@@ -69,29 +69,30 @@ describe("StoreItem Form Component render tests", () => {
       const firstStoreSelect = dropdown.find(Dropdown.Item).first();
       firstStoreSelect.simulate("click")
     })
-    it("Should render '#storeItemFormNameInput'", () => {
-      expect(wrapper.render().find("#storeItemFormNameInput").length).toEqual(1);
+    it("Should render '#adminStoreItemFormNameInput'", () => {
+      expect(wrapper.render().find("#adminStoreItemFormNameInput").length).toEqual(1);
     });
-    it("Should render '#storeItemFormPriceInput'", () => {
-      expect(wrapper.render().find("#storeItemFormPriceInput").length).toEqual(1);
+    it("Should render '#adminStoreItemFormPriceInput'", () => {
+      expect(wrapper.render().find("#adminStoreItemFormPriceInput").length).toEqual(1);
     });
-    it("Should render '#storeItemFormDescInput'", () => {
-      expect(wrapper.render().find("#storeItemFormDescInput").length).toEqual(1);
+    it("Should render '#adminStoreItemFormDescInput'", () => {
+      expect(wrapper.render().find("#adminStoreItemFormDescInput").length).toEqual(1);
     });
-    it("Should render '#storeItemFormDetailsInput'", () => {
-      expect(wrapper.render().find("#storeItemFormDetailsInput").length).toEqual(1);
+    it("Should render '#adminStoreItemFormDetailsInput'", () => {
+      expect(wrapper.render().find("#adminStoreItemFormDetailsInput").length).toEqual(1);
     });
-    it("Should render '#adminStoreItemFormCreate' Button", () => {
-      expect(wrapper.render().find("#adminStoreItemFormCreate").length).toEqual(1);
+    it("Should render '#adminStoreItemFormCreateBtn' Button", () => {
+      expect(wrapper.render().find("#adminStoreItemFormCreateBtn").length).toEqual(1);
     });
-    it("Should NOT render '#adminStoreItemFormUpdate' Button'", () => {
-      expect(wrapper.render().find("#adminStoreItemFormUpdate").length).toEqual(0);
+    it("Should NOT render '#adminStoreItemFormUpdateBtn' Button'", () => {
+      expect(wrapper.render().find("#adminStoreItemFormUpdateBtn").length).toEqual(0);
     });
   });
   
   describe("Form with valid data render tests", () => {
     let wrapper: ReactWrapper; let mockData: IStoreItemData;
     let mockStoreData: StoreItemFormStoreDropdownData[];
+    const mockDate: string = new Date("1/1/2019").toString();
 
     beforeAll(() => {
       window.scrollTo = jest.fn;
@@ -106,7 +107,7 @@ describe("StoreItem Form Component render tests", () => {
         description: "description",
         categories: [],
         images: [],
-        createdAt: "now"
+        createdAt: mockDate
       };
 
       wrapper = mount(
@@ -129,32 +130,32 @@ describe("StoreItem Form Component render tests", () => {
     it("Should properly mount", () => {
       expect(wrapper).toMatchSnapshot();
     });
-    it("Should render '#storeItemFormNameInput'", () => {
-      expect(wrapper.render().find("#storeItemFormNameInput").length).toEqual(1);
+    it("Should render '#adminStoreItemFormNameInput'", () => {
+      expect(wrapper.render().find("#adminStoreItemFormNameInput").length).toEqual(1);
     });
-    it("Should set correct data in '#storeItemFormNameInput'", () => {
-      const input = wrapper.render().find("#storeItemFormNameInput");
+    it("Should set correct data in '#adminStoreItemFormNameInput'", () => {
+      const input = wrapper.render().find("#adminStoreItemFormNameInput");
       expect(input.val()).toEqual(mockData.name);
     });
-    it("Should render '#storeItemFormPriceInput'", () => {
-      expect(wrapper.render().find("#storeItemFormPriceInput").length).toEqual(1);
+    it("Should render '#adminStoreItemFormPriceInput'", () => {
+      expect(wrapper.render().find("#adminStoreItemFormPriceInput").length).toEqual(1);
     });
-    it("Should set correct data in '#storeItemFormPriceInput'", () => {
-      const input = wrapper.render().find("#storeItemFormPriceInput");
+    it("Should set correct data in '#adminStoreItemFormPriceInput'", () => {
+      const input = wrapper.render().find("#adminStoreItemFormPriceInput");
       expect(input.val()).toEqual(mockData.price);
     });
-    it("Should render '#storeItemFormDescInput'", () => {
-      expect(wrapper.render().find("#storeItemFormDescInput").length).toEqual(1);
+    it("Should render 'adminStoreItemFormDescInput'", () => {
+      expect(wrapper.render().find("#adminStoreItemFormDescInput").length).toEqual(1);
     });
-    it("Should set correct data in '#storeItemFormDescInput'", () => {
-      const input = wrapper.render().find("#storeItemFormDescInput");
+    it("Should set correct data in '#adminStoreItemFormDescInput'", () => {
+      const input = wrapper.render().find("#adminStoreItemFormDescInput");
       expect(input.val()).toEqual(mockData.description);
     });
-    it("Should NOT render '#adminStoreItemFormCreate' Button", () => {
-      expect(wrapper.render().find("#adminStoreItemFormCreate").length).toEqual(0);
+    it("Should NOT render '#adminStoreItemFormCreateBtn' Button", () => {
+      expect(wrapper.render().find("#adminStoreItemFormCreateBtn").length).toEqual(0);
     });
-    it("Should render '#storeItemFormUpdate' Button'", () => {
-      expect(wrapper.render().find("#adminStoreItemFormUpdate").length).toEqual(1);
+    it("Should render '#storeItemFormUpdateBtn' Button'", () => {
+      expect(wrapper.render().find("#adminStoreItemFormUpdateBtn").length).toEqual(1);
     });
   });
 })
