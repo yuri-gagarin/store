@@ -1,8 +1,8 @@
 import React from "react";
-import { Dropdown, DropdownItemProps } from "semantic-ui-react";
+import { Dropdown, DropdownItemProps, DropdownProps } from "semantic-ui-react";
 
 interface Props {
-  _handleCategoryChange(categry: string): void;
+  _handleCategoryChange(categry: string[]): void;
 }
 const options = [ "sports", "wood", "outdoors", "indoors", "tools"];
 
@@ -16,8 +16,9 @@ const stateOptions: DropdownItemProps[] = options.map((option) => {
 
 const StoreItemCategoriesSelection: React.FC<Props> = ({ _handleCategoryChange }) => {
 
-  const handleCategoryChange = (e: React.SyntheticEvent) => {
-    console.log(e.target)
+  const handleCategoryChange = (e: React.SyntheticEvent, data: DropdownProps) => {
+    const selectedCtageories: string[] = data.value as string[];
+    _handleCategoryChange(selectedCtageories);
   }
   return (
     <Dropdown

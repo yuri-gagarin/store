@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Grid } from "semantic-ui-react";
+import React, { useEffect, useState } from "react";
+import { Button, Confirm, Grid } from "semantic-ui-react";
 // additional components //
 import EditControls from "./EditControls"
 // css imports //
@@ -12,6 +12,7 @@ import { IGlobalAppState, AppAction } from "../../../../state/Store";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 // helpers //
 import { ConvertDate } from "../../../helpers/displayHelpers";
+import { AdminStoreItemRoutes } from "../../../../routes/adminRoutes";
 
 interface Props extends RouteComponentProps {
   storeItem: IStoreItemData;
@@ -22,7 +23,9 @@ interface Props extends RouteComponentProps {
 
 const StoreItemCard: React.FC<Props> = ({ storeItem, imageCount, state, dispatch, history }): JSX.Element => {
   const [ editing, setEditing ] = useState<boolean>(false);
-  const baseUrl = "/admin/home/my_store_items/manage"
+  const [ confirmDeleteOpen, setConfirmDeleteOpen ] = useState<boolean>(false);
+
+  const baseUrl = AdminStoreItemRoutes.MANAGE_ROUTE
   const { _id, name, price, description, details, images, createdAt, editedAt } = storeItem;
 
   const handleStoreItemOpen = (e: React.MouseEvent<HTMLButtonElement>): void => {
@@ -31,7 +34,7 @@ const StoreItemCard: React.FC<Props> = ({ storeItem, imageCount, state, dispatch
   const handleStoreItemEdit = (e: React.MouseEvent<HTMLButtonElement>): void => {
     if (!editing) {
       setCurrentStoreItem(_id, dispatch, state);
-      history.push(baseUrl + "/edit");
+      history.push(AdminStoreItemRoutes.EDIT_ROUTE);
       setEditing(true);
     } else {
       clearCurrentStoreItem(dispatch);
@@ -39,16 +42,32 @@ const StoreItemCard: React.FC<Props> = ({ storeItem, imageCount, state, dispatch
       setEditing(false);
     }
   }
-  const handleStoreItemDelete = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    deleteStoreItem( _id, dispatch, state)
-      .then((success) => {
-        
+  // delete StoreItem actions and popup actions //
+  const handleStoreItemDeleteClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    setConfirmDeleteOpen(true);
+  };
+  const confirmStoreItemDeleteAction = () :void => {
+    const { _id: storeItemId } = storeItem;
+    deleteStoreItem(storeItemId, dispatch, state)
+      .then((_) => {
+        // setConfirmDeleteOpen(false);
       })
-  }
+      .catch((_) => {
+        // handle a delete error //
+      });
+  };
+  const cancelStoreItemDeleteAction = () :void => {
+    setConfirmDeleteOpen(false);
+  };
 
   return (
     <React.Fragment>
       <Grid.Row style={{ padding: "0.5em", marginTop: "1em" }}>
+        <Confirm 
+          open={confirmDeleteOpen}
+          onCancel={cancelStoreItemDeleteAction}
+          onConfirm={confirmStoreItemDeleteAction}
+        />
         <div className="storeItemManageDesc">
           <h3>Name: {name}</h3>
           <p><strong>Description:</strong> {description}</p>
@@ -57,25 +76,25 @@ const StoreItemCard: React.FC<Props> = ({ storeItem, imageCount, state, dispatch
         </div> 
         <div className="storeItemManageCtrls">
           <Button 
+            className="storeItemCardOpenBtn"
             inverted
             color="green"
-            className="storeItemCardBtn" 
             content="Open" 
             onClick={handleStoreItemOpen} 
           />
           <Button 
+            className="storeItemCardEditBtn"
             inverted
             color="orange"
-            className="storeItemCardBtn" 
             content="Edit" 
             onClick={handleStoreItemEdit}  
           />
           <Button 
+            className="storeItemCardDeleteBtn"
             inverted
             color="red"
-            className="storeItemCardBtn" 
             content="Delete" 
-            onClick={handleStoreItemDelete}
+            onClick={handleStoreItemDeleteClick}
           />
         </div> 
       </Grid.Row>

@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdminServiceenu component render tests Default component render Should properly render and match snapshot 1`] = `
+<withRouter(AdminServiceMenu)
+  dispatch={[Function]}
+>
+  <AdminServiceMenu
+    dispatch={[Function]}
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "canGo": [Function],
+        "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "pathname": "/admin/home/my_services",
+            "search": "",
+            "state": undefined,
+          },
+        ],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "index": 0,
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/admin/home/my_services",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+    location={
+      Object {
+        "hash": "",
+        "pathname": "/admin/home/my_services",
+        "search": "",
+        "state": undefined,
+      }
+    }
+    match={
+      Object {
+        "isExact": false,
+        "params": Object {},
+        "path": "/",
+        "url": "/",
+      }
+    }
+  >
+    <div
+      className="adminServiceMenuFixed"
+    >
+      <Menu
+        className="adminServiceMenu"
+        tabular={true}
+      >
+        <div
+          className="ui tabular adminServiceMenu menu"
+        >
+          <MenuItem
+            active={false}
+            content="View All Services"
+            name="view_all"
+            onClick={[Function]}
+          >
+            <a
+              className="item"
+              onClick={[Function]}
+            >
+              View All Services
+            </a>
+          </MenuItem>
+          <MenuItem
+            active={false}
+            content="Create New Service"
+            name="create"
+            onClick={[Function]}
+          >
+            <a
+              className="item"
+              onClick={[Function]}
+            >
+              Create New Service
+            </a>
+          </MenuItem>
+          <MenuItem
+            active={false}
+            content="Manage Services"
+            name="manage"
+            onClick={[Function]}
+          >
+            <a
+              className="item"
+              onClick={[Function]}
+            >
+              Manage Services
+            </a>
+          </MenuItem>
+          <MenuItem
+            active={false}
+            content="Sort Services"
+            name="view_sorted"
+            onClick={[Function]}
+          >
+            <a
+              className="item"
+              onClick={[Function]}
+            >
+              Sort Services
+            </a>
+          </MenuItem>
+        </div>
+      </Menu>
+    </div>
+  </AdminServiceMenu>
+</withRouter(AdminServiceMenu)>
+`;

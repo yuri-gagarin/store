@@ -7,6 +7,7 @@ import "./css/popularStoreItemsHolder.css";
 
 interface Props {
   popularStoreItems: IStoreItemData[];
+  // loading: boolean;
 }
 
 const PopularStoreItemHolder: React.FC<Props> = ({ popularStoreItems }): JSX.Element => {
@@ -15,9 +16,9 @@ const PopularStoreItemHolder: React.FC<Props> = ({ popularStoreItems }): JSX.Ele
       <div className="popStoreItemsHolTitle">Popular Store Items</div>
       <Item.Group divided>
         {
-          popularStoreItems.map((product) => {
+          popularStoreItems.map((storeItem) => {
             return (
-              <PopularStoreItem key={product._id}  popularStoreItem={product} />
+              <PopularStoreItem key={storeItem._id}  popularStoreItem={storeItem} />
             );
           })
         }

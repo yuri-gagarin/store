@@ -1,43 +1,26 @@
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
+// type definitions //
 import { Dispatch } from "react";
 import { IGlobalAppState } from "../../../../state/Store";
-import { AppAction } from "../../../../state/Store";
+import { IBonusVideoServerResData, IBonusVideoServerRes, ClientBonusVideoData } from "../type_definitions/bonusVideoTypes";
 
-interface IBonusVideoServerResData {
-  responseMsg: string;
-  bonusVideo?: IBonusVideoData;
-  newBonusVideo?: IBonusVideoData;
-  editedBonusVideo?: IBonusVideoData;
-  deletedBonusVideo?: IBonusVideoData;
-  bonusVideos?: IBonusVideoData[];
-}
-interface IBonusVideoServerRes {
-  data: IBonusVideoServerResData
-}
-
-type NewBonusVideoData = {
-  description: string;
-  youTubeURL: string;
-  vimeoURL: string;
-}
-type EditedBonusVideoData = NewBonusVideoData;
-
-export const getAllBonusVideos = (dispatch: Dispatch<BonusVideoAction>): Promise<boolean> => {
+export const getAllBonusVideos = (dispatch: Dispatch<BonusVideoAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/bonus_videos"
   };
+  dispatch({ type: "BONUS_VIDEOS_API_REQUEST", payload: { loading: true } });
   return axios.request<IBonusVideoServerResData, IBonusVideoServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const bonusVideos = data.bonusVideos;
+      const { responseMsg, bonusVideos } = data;
       dispatch({ type: "GET_ALL_BONUS_VIDEOS", payload: {
         loading: false,
-        responseMsg: data.responseMsg,
-        loadedBonusVideos: bonusVideos,
+        responseMsg: responseMsg,
+        loadedBonusVideos: bonusVideos ? bonusVideos : [],
         error: null
-      }});
-      return true;
+      }})
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_BONUS_VIDEO_ERROR", payload: {
@@ -45,26 +28,27 @@ export const getAllBonusVideos = (dispatch: Dispatch<BonusVideoAction>): Promise
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const getBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoAction>): Promise<boolean> => {
+export const getBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/bonus_videos/" + _id,
   };
+  dispatch({ type: "BONUS_VIDEOS_API_REQUEST", payload: { loading: true } });
   return axios.request<IBonusVideoServerResData, IBonusVideoServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const bonusVideo  = data.bonusVideo;
+      const { responseMsg, bonusVideo }  = data;
       dispatch({ type: "GET_BONUS_VIDEO", payload: {
         loading: false,
-        responseMsg: data.responseMsg,
-        currentBonusVideoData: bonusVideo,
+        responseMsg: responseMsg,
+        currentBonusVideoData: bonusVideo ? bonusVideo : {} as IBonusVideoData,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_BONUS_VIDEO_ERROR", payload: {
@@ -72,11 +56,11 @@ export const getBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoAction>)
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const createBonusVideo = ({ description, youTubeURL, vimeoURL }: NewBonusVideoData, dispatch: Dispatch<BonusVideoAction>): Promise<boolean> => {
+export const createBonusVideo = ({ description, youTubeURL, vimeoURL }: ClientBonusVideoData, dispatch: Dispatch<BonusVideoAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/bonus_videos/create",
@@ -86,43 +70,42 @@ export const createBonusVideo = ({ description, youTubeURL, vimeoURL }: NewBonus
       vimeoURL: vimeoURL
     }
   };
-
+  dispatch({ type: "BONUS_VIDEOS_API_REQUEST", payload: { loading: true } });
   return axios.request<IBonusVideoServerResData, IBonusVideoServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const newBonusVideo = data.newBonusVideo;
+      const newBonusVideo = data.newBonusVideo!;
       dispatch({ type: "CREATE_BONUS_VIDEO", payload: {
         loading: false,
         responseMsg: data.responseMsg,
         newBonusVideo: newBonusVideo,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
-      console.error(error)
       dispatch({ type: "SET_BONUS_VIDEO_ERROR", payload: {
         loading: false,
-        responseMsg: "An Error occured",
+        responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const editBonusVideo = (_id: string, data: EditedBonusVideoData, dispatch: Dispatch<BonusVideoAction>, state: IGlobalAppState) => {
+export const editBonusVideo = (_id: string, data: ClientBonusVideoData, dispatch: Dispatch<BonusVideoAction>, state: IGlobalAppState): Promise<void> => {
   const { loadedBonusVideos } = state.bonusVideoState;
   const requestOptions: AxiosRequestConfig = {
     method: "patch",
     url: "/api/bonus_videos/update/" + _id,
-    data: {
-      ...data,
-    }
+    data: data
   };
+  dispatch({ type: "BONUS_VIDEOS_API_REQUEST", payload: { loading: true } });
   return axios.request<IBonusVideoServerResData, IBonusVideoServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const editedBonusVideo = data.editedBonusVideo!;
+      const { responseMsg } = data;
+      let editedBonusVideo = data.editedBonusVideo!;
       const updatedBonusVideos = loadedBonusVideos.map((video) => {
         if (video._id === editedBonusVideo._id) {
           return editedBonusVideo;
@@ -132,27 +115,30 @@ export const editBonusVideo = (_id: string, data: EditedBonusVideoData, dispatch
       });
       dispatch({ type: "EDIT_BONUS_VIDEO", payload: {
         loading: false,
-        responseMsg: data.responseMsg,
+        responseMsg: responseMsg,
+        editedBonusVideo: editedBonusVideo,
         loadedBonusVideos: updatedBonusVideos,
         error: null
-      }});
-      return true;
+      }})
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_BONUS_VIDEO_ERROR", payload: {
         loading: false,
-        responseMsg: "An error occured",
+        responseMsg: error.message,
         error: error
       }});
+      return Promise.reject();
     });
 };
 
-export const deleteBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoAction>, state: IGlobalAppState): Promise<boolean> => {
+export const deleteBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoAction>, state: IGlobalAppState): Promise<void> => {
   const { loadedBonusVideos } = state.bonusVideoState;
   const requestOptions: AxiosRequestConfig = {
     method: "delete",
     url: "/api/bonus_videos/delete/" + _id,
   };
+  dispatch({ type: "BONUS_VIDEOS_API_REQUEST", payload: { loading: true } });
   return axios.request<IBonusVideoServerResData, IBonusVideoServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -167,14 +153,14 @@ export const deleteBonusVideo = (_id: string, dispatch: Dispatch<BonusVideoActio
         loadedBonusVideos: updatedBonusVideos,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_BONUS_VIDEO_ERROR", payload: {
         loading: false,
-        responseMsg: "A delete error occured",
+        responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };

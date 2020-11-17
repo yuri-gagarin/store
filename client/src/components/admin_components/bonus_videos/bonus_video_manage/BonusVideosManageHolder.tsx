@@ -1,31 +1,55 @@
-import React, { useEffect  } from "react";
+import React, { useEffect, useContext, useRef, useState } from "react";
 import { Button, Grid } from "semantic-ui-react";
 // additional components //
 import BonusVideoFormHolder from "../forms/BonusVideosFormHolder";
 import BonusVideoCard from "./BonusVideoCard";
+import LoadingScreen from "../../miscelaneous/LoadingScreen";
+import ErrorScreen from "../../miscelaneous/ErrorScreen";
 // actions and state //
 import { getAllBonusVideos } from "../actions/APIBonusVideoActions";
-import { IGlobalAppState, AppAction } from "../../../../state/Store";
+import { Store } from "../../../../state/Store";
 // additional dependencies //
 import { withRouter, RouteComponentProps, useRouteMatch, Route } from "react-router-dom";
 
 interface Props extends RouteComponentProps {
-  state: IGlobalAppState;
-  dispatch: React.Dispatch<AppAction>;
 };
 
-const BonusVideosManageHolder: React.FC<Props> = ({ state, dispatch, history }): JSX.Element => {
-  const { loadedBonusVideos } = state.bonusVideoState;
+const BonusVideosManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
+  const { state, dispatch } = useContext(Store);
+  const { loading, loadedBonusVideos , error } = state.bonusVideoState;
+  // local state //
+  const [ newDataLoaded, setNewDataLoaded ] = useState<boolean>(false);
+  const newBonusVideosRef = useRef(loadedBonusVideos);
+  // match route to conditionall render //
   const match = useRouteMatch("/admin/home/my_bonus_videos/manage");
 
   const handleBack = () => {
     history.goBack();
   };
+  // lifycle hooks //
   useEffect(() => {
-    getAllBonusVideos(dispatch);
-  }, []); 
-
+    let isMounted = true;
+    if (isMounted) {
+      getAllBonusVideos(dispatch)
+        .then((_) => {
+          setNewDataLoaded(true);
+        })
+        .catch((_) => {
+          // handle an error ? //
+          setNewDataLoaded(false);
+        })
+    }
+    return () => { isMounted = false };
+  }, [ dispatch ]); 
+  
+  useEffect(() => {
+    if (newBonusVideosRef.current != loadedBonusVideos && !loading && !error) {
+      setNewDataLoaded(true);
+    }
+  }, [ newBonusVideosRef.current, loadedBonusVideos, loading, error ]);
+  // component render //
   return (
+    newDataLoaded ?   
     <Grid padded stackable columns={2}>
       <Route path={match?.url + "/edit"}> 
         <Grid.Row>
@@ -34,7 +58,7 @@ const BonusVideosManageHolder: React.FC<Props> = ({ state, dispatch, history }):
             <Button inverted color="green" content="Back" onClick={handleBack}></Button>
           </Grid.Column>
         </Grid.Row>
-        <BonusVideoFormHolder state={state} dispatch={dispatch} />
+        <BonusVideoFormHolder />
       </Route>
       <Route exact path={match?.url}>
         <Grid.Row>
@@ -58,7 +82,13 @@ const BonusVideosManageHolder: React.FC<Props> = ({ state, dispatch, history }):
         </Grid.Row>
       </Route>
     </Grid>
-  );
+    :
+    (
+      error ? <ErrorScreen lastRequest={ () => getAllBonusVideos(dispatch) } /> : <LoadingScreen />
+    )
+  )
 };
-
+// export without router for tests //
+export { BonusVideosManageHolder };
+// default export //
 export default withRouter(BonusVideosManageHolder);

@@ -1,3 +1,9 @@
+type BonusVideosAPIRequest = {
+  readonly type: "BONUS_VIDEOS_API_REQUEST";
+  readonly payload: {
+    loading: boolean;
+  }
+}
 type GetAllBonusVideos = {
   readonly type: "GET_ALL_BONUS_VIDEOS";
   readonly payload: {
@@ -9,13 +15,25 @@ type GetAllBonusVideos = {
 }
 type SetCurrentBonusVideo = {
   readonly type: "SET_CURRENT_BONUS_VIDEO";
-  payload: {
+  readonly payload: {
     currentBonusVideoData: IBonusVideoData;
   }
 }
 type ClearCurrentBonusVideo = {
   readonly type: "CLEAR_CURRENT_BONUS_VIDEO";
-  payload: null;
+  readonly payload: null;
+}
+type OpenBonusVideoForm = {
+  readonly type: "OPEN_BONUS_VIDEO_FORM";
+  readonly payload: {
+    bonusVideoFormOpen: boolean;
+  }
+}
+type CloseBonusVideoForm = {
+  readonly type: "CLOSE_BONUS_VIDEO_FORM";
+  readonly payload: {
+    bonusVideoFormOpen: boolean;
+  }
 }
 type GetBonusVideo = {
   readonly type: "GET_BONUS_VIDEO";
@@ -77,7 +95,7 @@ type ClearBonusVideoError = {
   };
 }
 
-declare interface IBonusVideoData {
+interface IBonusVideoData {
   _id: string;
   description: string;
   youTubeURL: string;
@@ -85,12 +103,12 @@ declare interface IBonusVideoData {
   createdAt: string;
   editedAt?: string;
 }
-declare interface IBonusVideoState {
+interface IBonusVideoState {
   loading: boolean;
   responseMsg: string;
   currentBonusVideoData: IBonusVideoData;
-  loadedBonusVideos: IBonusVideoData[]
+  loadedBonusVideos: IBonusVideoData[];
+  bonusVideoFormOpen: boolean;
   error: null | Error;
 }
-declare type BonusVideoAction = GetAllBonusVideos | GetBonusVideo | SetCurrentBonusVideo | ClearCurrentBonusVideo | CreateBonusVideo | EditBonusVideo | 
-                          DeleteBonusVideo | SetBonusVideoError | ClearBonusVideoError | UploadNewBonusVideoImg | UpdateBonusVideoImgs | DeleteBonusVideoImg;
+type BonusVideoAction = BonusVideosAPIRequest | GetAllBonusVideos | GetBonusVideo | OpenBonusVideoForm | CloseBonusVideoForm | SetCurrentBonusVideo | ClearCurrentBonusVideo | CreateBonusVideo | EditBonusVideo | DeleteBonusVideo | SetBonusVideoError | ClearBonusVideoError;

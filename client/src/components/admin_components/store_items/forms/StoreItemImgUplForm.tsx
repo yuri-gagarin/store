@@ -9,8 +9,11 @@ import { Store } from "../../../../state/Store";
 
 const StoreItemImageUplForm: React.FC<{}> = (props): JSX.Element => {
   const { state, dispatch } = useContext(Store);
+  const { loading, currentStoreItemData } = state.storeItemState;
+  // local component state //
   const [ file, setFile ] = useState<File>();
-  const { currentStoreItemData } = state.storeItemState;
+  const [ imgUploadError, setImgUploadError ] = useState<boolean>(false);
+  // event handlers and listeners //
   const handleButtonClick = () => {
 
   };
@@ -20,17 +23,19 @@ const StoreItemImageUplForm: React.FC<{}> = (props): JSX.Element => {
       const { _id } = currentStoreItemData;
       formData.append("storeItemImage", file);
       uploadStoreItemImage(_id, formData, state, dispatch)
-        .then((success) => {
-          if (success) {
-            setFile(undefined)
-          }
+        .then((_) => {
+          setFile(undefined);
+          setImgUploadError(false);
         })
+        .catch((_) => {
+          // handle error ? show error screen? for later ... //
+          setImgUploadError(true);
+        });
     }
-  }
+  };
   const cancelFile = () => {
     setFile(undefined);
-  }
-
+  };
   const fileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFile(e.target.files[0])
@@ -42,9 +47,42 @@ const StoreItemImageUplForm: React.FC<{}> = (props): JSX.Element => {
       <div><p>Image Uploader</p></div>
       <Form id="storeItemImgUploadForm">
         {
-          !file ?
+          file ?  
+          <div id="storeItemImgUploadControlls">
+            {
+              !imgUploadError ?
+              <Button 
+                id="storeItemImgUploadBtn"
+                as="label"
+                content="Upload"
+                icon="upload"
+                onClick={uploadFile}
+                loading={loading}
+              />
+              :
+              <Button 
+                id="storeItemImgRetryUplBtn"
+                as="label"
+                content="Cancel"
+                labelPosition="left"
+                icon="cancel"
+                onClick={cancelFile}
+                loading={loading}
+              />
+            }
+            <Button 
+              id="storeItemImgCancelBtn"
+              as="label"
+              content="Cancel"
+              labelPosition="left"
+              icon="cancel"
+              onClick={cancelFile}
+            />
+          </div>
+          : 
           <div id="storeItemImgInputControlls"> 
             <Button
+              id="storeItemImgSelectBtn"
               as="label"
               content="Choose Image"
               labelPosition="left"
@@ -54,29 +92,6 @@ const StoreItemImageUplForm: React.FC<{}> = (props): JSX.Element => {
             />
             <input type="file" id="storeItemImgFile" hidden onChange={fileChange} />
           </div>
-          : null
-        }
-        
-        {
-          file ?  
-          <div id="storeItemImgUploadControlls">
-            <Button 
-              id="storeItemImgCancelBtn"
-              as="label"
-              content="Cancel"
-              labelPosition="left"
-              icon="cancel"
-              onClick={cancelFile}
-            />
-            <Button 
-              id="storeItemImgUploadBtn"
-              as="label"
-              content="Upload"
-              icon="upload"
-              onClick={uploadFile}
-            />
-          </div>
-          : null
         }
        
 

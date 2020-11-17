@@ -1,4 +1,4 @@
-import fs, { Dirent, readdirSync } from "fs";
+import fs, { readdirSync } from "fs";
 import path from "path";
 import chalk from "chalk";
 import readLine from "readline";
@@ -40,14 +40,14 @@ const rl = readLine.createInterface({
 });
 
 const startQuestion = chalk.bgWhite.bold.black(`
-What would you like to do?
-${chalk.bold.blue(1)}: Delete all uploaded ${chalk.bold.red("ProductImages")}
-${chalk.bold.blue(2)}: Delete all uploaded ${chalk.bold.red("ServiceImages")}
-${chalk.bold.blue(3)}: Delete all uploaded ${chalk.bold.red("StoreImages")}
-${chalk.bold.blue(4)}: Delete all uploaded ${chalk.bold.red("StoreItemImages")}
-${chalk.bold.blue(5)}: Delete All uploaded ${chalk.bold.red("Images")}
-${chalk.bold.blue(0)}: Exit
-input:`);
+  What would you like to do?
+  ${chalk.bold.blue(1)}: Delete all uploaded ${chalk.bold.red("Product Images")}
+  ${chalk.bold.blue(2)}: Delete all uploaded ${chalk.bold.red("Service Images")}
+  ${chalk.bold.blue(3)}: Delete all uploaded ${chalk.bold.red("Store Images")}
+  ${chalk.bold.blue(4)}: Delete All uploaded ${chalk.bold.red("Store Item Images")}
+  ${chalk.bold.blue(5)}: Delete All uploaded ${chalk.bold.red("Images")}
+  ${chalk.bold.blue(0)}: Exit
+  input:`);
 
 
 
@@ -56,24 +56,32 @@ const recursiveQuestion = (question: string) => {
     const imagePaths: ImagePaths = {
       "1": "/public/uploads/product_images/",
       "2": "/public/uploads/service_images/",
-      "3": "/public/uploads/store_images",
-      "4": "/public/uploads/store_item_images"
+      "3": "/public/uploads/store_images/",
+      "4": "/public/uploads/store_item_images/"
     };
     if (option === 5) {
-      try {
-        // delete all images from all directories //
-        let total = 0;
-        for (const key in imagePaths) {
-          console.log(chalk.bgYellowBright.bold.black(`Deleting images in ${chalk.bold.blue(imagePaths[key])}.`));
-          const result = await clearFiles(imagePaths[key]);
-          console.log(chalk.bgBlue.bold.black("Result " + chalk.bold.red(result.length)));
-          total += result.length;
+      const startDirectory =  path.join(path.resolve(), "public", "uploads")
+      const files = fs.readdirSync(startDirectory);
+      for (const file of files) {
+        const stats = fs.statSync(path.join(startDirectory, file))
+        if (stats.isFile()) {
+          fs.unlink(path.join(startDirectory, file), (err) => {
+            if (err) {
+              console.log(chalk.bgRed.bold.white("An ERROR occured"));
+              console.log(chalk.bgRed.bold.white(err.message));
+            }
+            console.log(chalk.bgGreen.bold.red(`Deleted File: ${file}`));
+          });
+        } else if (stats.isDirectory()) {
+          fs.rmdir(path.join(startDirectory, file), { recursive: true }, (err) => {
+            if (err) {
+              console.log(chalk.bgRed.bold.white("An ERROR occured"));
+              console.log(chalk.bgRed.bold.white(err.message));
+            }
+            console.log(chalk.bgGreen.bold.red(`Delted Directory ${path.join(startDirectory, file)}`));
+          });
         }
-        console.log(chalk.bgGreen.bold.white(`Deleted ${chalk.bold.yellow(total)} images,`));
-        recursiveQuestion(startQuestion);
-      } catch (err) {
-        throw(err);
-      }  
+      }
     } else {
       try {
         let result: boolean[] = [];
@@ -126,6 +134,9 @@ const recursiveQuestion = (question: string) => {
         console.log(chalk.bgWhiteBright.bold.blue("Deleting all uploaded Images"));
         //rl.close();
         return(deleteImages(5));
+      }
+      case 5: {
+        return deleteImages(5);
       }
       case 0: {
         process.exit(0);

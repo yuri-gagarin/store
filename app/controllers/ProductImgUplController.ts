@@ -22,7 +22,7 @@ class ProductImageUploadController implements IGenericImgUploadCtrl {
     let newImage: IProductImage;
 
     if (success && imagePath && absolutePath) {
-      return normalizeImgUrl(absolutePath)
+      return normalizeImgUrl(imagePath, fileName)
         .then((imgUrl) => {
           return ProductImage.create({
             productId: productId,

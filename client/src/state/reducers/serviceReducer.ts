@@ -1,5 +1,5 @@
 // types //
-const emptyServiceData = (): IServiceData => {
+export const emptyServiceData = (): IServiceData => {
   return {
     _id: "",
     name: "",
@@ -15,11 +15,18 @@ export const initialServiceState: IServiceState = {
   responseMsg: "",
   currentServiceData: emptyServiceData(),
   loadedServices: [],
+  serviceFormOpen: false,
   error: null
 };
 
 const serviceReducer = (state: IServiceState = initialServiceState, action: ServiceAction): IServiceState => {
   switch (action.type) {
+    case "DISPATCH_SERVICE_API_REQUEST": 
+      return {
+        ...state,
+        loading: action.payload.loading,
+        error: action.payload.error
+      };
     case "GET_ALL_SERVICES": 
       return {
         ...state,
@@ -46,8 +53,19 @@ const serviceReducer = (state: IServiceState = initialServiceState, action: Serv
         ...state,
         currentServiceData: { ...emptyServiceData() }
       };
+    case "OPEN_SERVICE_FORM": 
+      return {
+        ...state,
+        serviceFormOpen: action.payload.serviceFormOpen
+      };
+    case "CLOSE_SERVICE_FORM": 
+      return {
+        ...state,
+        serviceFormOpen: action.payload.serviceFormOpen
+      };
     case "UPLOAD_NEW_SERVICE_IMG": 
       return {
+        ...state,
         loading: action.payload.loading,
         responseMsg: action.payload.responseMsg,
         currentServiceData: { ...action.payload.editedService },
@@ -56,6 +74,7 @@ const serviceReducer = (state: IServiceState = initialServiceState, action: Serv
       };
     case "DELETE_SERVICE_IMG": {
       return {
+        ...state,
         loading: action.payload.loading,
         responseMsg: action.payload.responseMsg,
         currentServiceData: { ...action.payload.editedService },

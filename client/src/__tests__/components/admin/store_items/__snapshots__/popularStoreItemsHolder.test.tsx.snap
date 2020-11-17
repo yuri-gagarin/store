@@ -1,0 +1,427 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`'PopularStoreItemsHolder' component render tests Rendering in its default state Should correctly render and match snapshot 1`] = `
+<PopularStoreItemHolder
+  popularStoreItems={
+    Array [
+      Object {
+        "_id": "111",
+        "categories": Array [
+          "sports",
+          "outdoors",
+        ],
+        "createdAt": "Tue Jan 01 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
+        "description": "description",
+        "details": "details",
+        "images": Array [],
+        "name": "name",
+        "price": "100",
+        "storeId": "1",
+        "storeName": "title",
+      },
+      Object {
+        "_id": "112",
+        "categories": Array [
+          "sports",
+        ],
+        "createdAt": "Tue Jan 01 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
+        "description": "description",
+        "details": "details",
+        "images": Array [],
+        "name": "name",
+        "price": "100",
+        "storeId": "1",
+        "storeName": "title",
+      },
+      Object {
+        "_id": "113",
+        "categories": Array [
+          "sports",
+          "outdoors",
+          "education",
+        ],
+        "createdAt": "Tue Jan 01 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
+        "description": "description",
+        "details": "details",
+        "images": Array [],
+        "name": "name",
+        "price": "100",
+        "storeId": "1",
+        "storeName": "title",
+      },
+    ]
+  }
+>
+  <div
+    className="popStoreItemsHolder"
+  >
+    <div
+      className="popStoreItemsHolTitle"
+    >
+      Popular Store Items
+    </div>
+    <ItemGroup
+      divided={true}
+    >
+      <div
+        className="ui divided items"
+      >
+        <PopularStoreItem
+          key="111"
+          popularStoreItem={
+            Object {
+              "_id": "111",
+              "categories": Array [
+                "sports",
+                "outdoors",
+              ],
+              "createdAt": "Tue Jan 01 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
+              "description": "description",
+              "details": "details",
+              "images": Array [],
+              "name": "name",
+              "price": "100",
+              "storeId": "1",
+              "storeName": "title",
+            }
+          }
+        >
+          <Item>
+            <div
+              className="item"
+            >
+              <ItemImage
+                size="tiny"
+                src="https://react.semantic-ui.com/images/wireframe/image.png"
+              >
+                <Image
+                  as="img"
+                  size="tiny"
+                  src="https://react.semantic-ui.com/images/wireframe/image.png"
+                  ui={true}
+                  wrapped={true}
+                >
+                  <div
+                    className="ui tiny image"
+                  >
+                    <img
+                      src="https://react.semantic-ui.com/images/wireframe/image.png"
+                    />
+                  </div>
+                </Image>
+              </ItemImage>
+              <ItemContent>
+                <div
+                  className="content"
+                >
+                  <ItemHeader>
+                    <div
+                      className="header"
+                    >
+                      name
+                    </div>
+                  </ItemHeader>
+                  <ItemMeta>
+                    <div
+                      className="meta"
+                    >
+                      <span>
+                        Priced At: 
+                        <strong>
+                          100
+                        </strong>
+                      </span>
+                      <span>
+                        -
+                      </span>
+                      <span>
+                        Posted: 
+                        <strong>
+                          2019-Jan-1
+                        </strong>
+                      </span>
+                    </div>
+                  </ItemMeta>
+                  <Button
+                    as="button"
+                    basic={true}
+                    color="blue"
+                    content="More..."
+                  >
+                    <Ref
+                      innerRef={
+                        Object {
+                          "current": <button
+                            class="ui blue basic button"
+                          >
+                            More...
+                          </button>,
+                        }
+                      }
+                    >
+                      <RefFindNode
+                        innerRef={
+                          Object {
+                            "current": <button
+                              class="ui blue basic button"
+                            >
+                              More...
+                            </button>,
+                          }
+                        }
+                      >
+                        <button
+                          className="ui blue basic button"
+                          onClick={[Function]}
+                        >
+                          More...
+                        </button>
+                      </RefFindNode>
+                    </Ref>
+                  </Button>
+                </div>
+              </ItemContent>
+            </div>
+          </Item>
+        </PopularStoreItem>
+        <PopularStoreItem
+          key="112"
+          popularStoreItem={
+            Object {
+              "_id": "112",
+              "categories": Array [
+                "sports",
+              ],
+              "createdAt": "Tue Jan 01 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
+              "description": "description",
+              "details": "details",
+              "images": Array [],
+              "name": "name",
+              "price": "100",
+              "storeId": "1",
+              "storeName": "title",
+            }
+          }
+        >
+          <Item>
+            <div
+              className="item"
+            >
+              <ItemImage
+                size="tiny"
+                src="https://react.semantic-ui.com/images/wireframe/image.png"
+              >
+                <Image
+                  as="img"
+                  size="tiny"
+                  src="https://react.semantic-ui.com/images/wireframe/image.png"
+                  ui={true}
+                  wrapped={true}
+                >
+                  <div
+                    className="ui tiny image"
+                  >
+                    <img
+                      src="https://react.semantic-ui.com/images/wireframe/image.png"
+                    />
+                  </div>
+                </Image>
+              </ItemImage>
+              <ItemContent>
+                <div
+                  className="content"
+                >
+                  <ItemHeader>
+                    <div
+                      className="header"
+                    >
+                      name
+                    </div>
+                  </ItemHeader>
+                  <ItemMeta>
+                    <div
+                      className="meta"
+                    >
+                      <span>
+                        Priced At: 
+                        <strong>
+                          100
+                        </strong>
+                      </span>
+                      <span>
+                        -
+                      </span>
+                      <span>
+                        Posted: 
+                        <strong>
+                          2019-Jan-1
+                        </strong>
+                      </span>
+                    </div>
+                  </ItemMeta>
+                  <Button
+                    as="button"
+                    basic={true}
+                    color="blue"
+                    content="More..."
+                  >
+                    <Ref
+                      innerRef={
+                        Object {
+                          "current": <button
+                            class="ui blue basic button"
+                          >
+                            More...
+                          </button>,
+                        }
+                      }
+                    >
+                      <RefFindNode
+                        innerRef={
+                          Object {
+                            "current": <button
+                              class="ui blue basic button"
+                            >
+                              More...
+                            </button>,
+                          }
+                        }
+                      >
+                        <button
+                          className="ui blue basic button"
+                          onClick={[Function]}
+                        >
+                          More...
+                        </button>
+                      </RefFindNode>
+                    </Ref>
+                  </Button>
+                </div>
+              </ItemContent>
+            </div>
+          </Item>
+        </PopularStoreItem>
+        <PopularStoreItem
+          key="113"
+          popularStoreItem={
+            Object {
+              "_id": "113",
+              "categories": Array [
+                "sports",
+                "outdoors",
+                "education",
+              ],
+              "createdAt": "Tue Jan 01 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
+              "description": "description",
+              "details": "details",
+              "images": Array [],
+              "name": "name",
+              "price": "100",
+              "storeId": "1",
+              "storeName": "title",
+            }
+          }
+        >
+          <Item>
+            <div
+              className="item"
+            >
+              <ItemImage
+                size="tiny"
+                src="https://react.semantic-ui.com/images/wireframe/image.png"
+              >
+                <Image
+                  as="img"
+                  size="tiny"
+                  src="https://react.semantic-ui.com/images/wireframe/image.png"
+                  ui={true}
+                  wrapped={true}
+                >
+                  <div
+                    className="ui tiny image"
+                  >
+                    <img
+                      src="https://react.semantic-ui.com/images/wireframe/image.png"
+                    />
+                  </div>
+                </Image>
+              </ItemImage>
+              <ItemContent>
+                <div
+                  className="content"
+                >
+                  <ItemHeader>
+                    <div
+                      className="header"
+                    >
+                      name
+                    </div>
+                  </ItemHeader>
+                  <ItemMeta>
+                    <div
+                      className="meta"
+                    >
+                      <span>
+                        Priced At: 
+                        <strong>
+                          100
+                        </strong>
+                      </span>
+                      <span>
+                        -
+                      </span>
+                      <span>
+                        Posted: 
+                        <strong>
+                          2019-Jan-1
+                        </strong>
+                      </span>
+                    </div>
+                  </ItemMeta>
+                  <Button
+                    as="button"
+                    basic={true}
+                    color="blue"
+                    content="More..."
+                  >
+                    <Ref
+                      innerRef={
+                        Object {
+                          "current": <button
+                            class="ui blue basic button"
+                          >
+                            More...
+                          </button>,
+                        }
+                      }
+                    >
+                      <RefFindNode
+                        innerRef={
+                          Object {
+                            "current": <button
+                              class="ui blue basic button"
+                            >
+                              More...
+                            </button>,
+                          }
+                        }
+                      >
+                        <button
+                          className="ui blue basic button"
+                          onClick={[Function]}
+                        >
+                          More...
+                        </button>
+                      </RefFindNode>
+                    </Ref>
+                  </Button>
+                </div>
+              </ItemContent>
+            </div>
+          </Item>
+        </PopularStoreItem>
+      </div>
+    </ItemGroup>
+  </div>
+</PopularStoreItemHolder>
+`;

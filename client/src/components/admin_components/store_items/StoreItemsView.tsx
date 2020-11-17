@@ -4,11 +4,12 @@ import AdminStoreItemsMenu from "../menus/AdminStoreItemsMenu";
 import Spacer from "../miscelaneous/Spacer";
 import StoreItemsManageHolder from "./store_items_manage/StoreItemsManageHolder";
 import StoreItemsPreviewHolder from "./store_items_preview/StoreItemsPreviewHolder";
-import StoreItemFormHolder from "./forms/StoreItemFormHolder";
+import StoreItemFormHolder from "./forms/StoreItemFormContainer";
 // css imports //
 import "./css/storeItemsView.css";
 // routing //
-import { Route, Switch } from "react-router-dom";
+import {  Route, Switch, withRouter } from "react-router-dom";
+import { AdminStoreItemRoutes } from "../../../routes/adminRoutes";
 // state //
 import { Store } from "../../../state/Store";
 
@@ -21,28 +22,27 @@ const StoreItemsView: React.FC<{}> = (props): JSX.Element => {
     setPopularStoreItems(() => {
       return popularStoreItems.slice(0, 4);
     });
-    console.log("loaded")
   }, []);
 
   return (
     <div id="adminStoreItemsViewHolder">
       <AdminStoreItemsMenu dispatch={dispatch} />
       <Switch>
-        <Route path="/admin/home/store_items/all">
+        <Route path={AdminStoreItemRoutes.VIEW_ALL_ROUTE}>
           <Spacer width="100%" height="100px"/>
-          <StoreItemsPreviewHolder state={state} dispatch={dispatch} />
+          <StoreItemsPreviewHolder />
         </Route>
-        <Route path="/admin/home/store_items/create">
+        <Route path={AdminStoreItemRoutes.CREATE_ROUTE}>
           <Spacer width="100%" height="100px" />
-          <StoreItemFormHolder state={state} dispatch={dispatch} />
+          <StoreItemFormHolder />
         </Route>
-        <Route path="/admin/home/store_items/manage">
+        <Route path={AdminStoreItemRoutes.MANAGE_ROUTE}>
           <Spacer width="100%" height="100px"></Spacer>
-          <StoreItemsManageHolder state={state} dispatch={dispatch} />
+          <StoreItemsManageHolder />
         </Route>
       </Switch>
     </div>
   );
 };
 
-export default StoreItemsView;
+export default withRouter(StoreItemsView);

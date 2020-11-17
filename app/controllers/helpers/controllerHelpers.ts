@@ -1,10 +1,14 @@
 import { Response } from "express";
 import fs from "fs";
+import path from "path";
+import { IStoreItemImage } from "../../models/StoreItemImage";
+import { IStore } from "../../models/Store";
 
-export const respondWithInputError = (res: Response, msg?: string, status?: number): Promise<Response> => {
+export const respondWithInputError = (res: Response, msg?: string, status?: number, messages?: string[]): Promise<Response> => {
   return new Promise((resolve) =>{
     return resolve(res.status(status ? status : 400).json({
-      responseMsg: msg ? msg : "Seems like an error occured"
+      responseMsg: msg ? msg : "Seems like an error occured",
+      messages: messages ? messages : ""
     }));
   });
 };
@@ -37,11 +41,81 @@ export const deleteFile = (filePath: string): Promise<boolean> => {
   });
 };
 
-export const normalizeImgUrl = (uploadPath: string): Promise<string> => {
+export const resolveDirectoryOfImg = (absolutePath: string): string => {
+  const pathArr = absolutePath.split("/");
+  const pathArrLength = pathArr.length;
+  return pathArr.slice(0, pathArrLength - 1).join("/");
+};
+
+export type RemoveResponse = {
+  success: boolean;
+  numberRemoved: number;
+  message: string;
+}
+export const removeDirectoryWithFiles = (directoryPath: string): Promise<RemoveResponse> => {
+  // files array and removed number //
+  let foundFiles: string[]; 
+
+  const removeFilesInDir = (files: string[]) => {
+    const promiseArr: Promise<void>[] = [];
+    for (let i = 0; i < files.length;  i++) {
+      const filePath = path.join(directoryPath, files[i]);
+      promiseArr.push(fs.promises.unlink(filePath));
+    }
+    return Promise.all(promiseArr);
+  };
+  
+  return new Promise<RemoveResponse>((resolve, reject) => {
+    let numberRemoved = 0;
+    return fs.promises.readdir(directoryPath)
+      .then((files) => {
+        // empty directory, remove it //
+        if (files.length === 0) {
+          return fs.promises.rmdir(directoryPath)
+            .then(() => {
+              resolve({ 
+                success: true, 
+                numberRemoved: numberRemoved,
+                message: `Removed empty directory ${directoryPath}` 
+              });
+            })
+            .catch((error) => {
+              reject(error);
+            });
+        } else {
+          return removeFilesInDir(files)
+            .then((response) => {
+              numberRemoved= response.length;
+              return fs.promises.rmdir(directoryPath);
+            })
+            .then(() => {
+              resolve({
+                success: true, 
+                numberRemoved: numberRemoved,
+                message: `Removed empty directory ${directoryPath}`
+              });
+            })
+            .catch((error) => {
+              reject(error);
+            });
+        }
+      });
+  });
+};
+
+export const resolveStoreItemImgDirectories = (storeItemImages: IStoreItemImage[]): string[] => {
+  // return unique ids //
+  const storeItemIds = storeItemImages.map((img) => img.storeItemId.toString()).filter((value, index, self) => self.indexOf(value) === index);
+  const directoriesToDelete = storeItemIds.map((storeItemId) => {
+    return path.join(path.resolve(), "public", "uploads", "store_item_images", storeItemId);
+  });
+  return directoriesToDelete;
+};
+
+export const normalizeImgUrl = (uploadPath: string, fileName: string): Promise<string> => {
   return new Promise((resolve) => {
-    console.log(uploadPath)
-    const normaLizedUrl = "/" + (uploadPath.split("/").slice(1).join("/"));
-    resolve(normaLizedUrl);
+    const normaLizedUrl = uploadPath.split("/").slice(1).join("/") + "/" + fileName;
+    resolve(`/${normaLizedUrl}`);
   });
 };
 

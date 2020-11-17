@@ -54,7 +54,6 @@ const AdminBonusVideosMenu: React.FC<Props> = ({ history, location, dispatch }):
   // lifecycle hooks //
   useEffect(() => {
     const currentURL = location.pathname;
-    console.log("menu open")
     setTimeout(() => {
       setMenuOpen(true);
     }, 200);

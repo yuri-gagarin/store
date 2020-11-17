@@ -5,7 +5,7 @@ import { IServiceImage } from "./ServiceImage";
 export interface IService extends Document {
   name: string;
   description: string;
-  price: string;
+  price: number;
   images: (IServiceImage | mongoose.Types.ObjectId)[];
   createdAt: Date;
   editedAt?: Date;
@@ -21,7 +21,7 @@ const ServiceSchema: Schema = new Schema({
     required: true
   },
   price: {
-    type: String,
+    type: Number,
     required: true
   },
   images: [

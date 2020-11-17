@@ -11,6 +11,7 @@ describe("StoreItem Unit Tests", () => {
   });
   const mockStoreItem = {
     storeId: mongoose.Types.ObjectId(),
+    storeName: faker.lorem.word(),
     name: faker.lorem.words(2),
     details: faker.lorem.paragraph(),
     description: faker.lorem.paragraph(4),
@@ -39,7 +40,7 @@ describe("StoreItem Unit Tests", () => {
     it("Should have valid properties", (done) => {
       expect(createdStoreItem.name).to.be.a("string");
       expect(createdStoreItem.description).to.be.a("string");
-      expect(createdStoreItem.price).to.be.a("string");
+      expect(createdStoreItem.price).to.be.a("number");
       expect(createdStoreItem.categories).to.be.an("array");
       expect(createdStoreItem.images).to.be.an("array");
       done();
@@ -49,6 +50,22 @@ describe("StoreItem Unit Tests", () => {
   describe("Create StoreItem Test", () => {
     describe("Invalid StoreItem Data", () => {
       
+      it("Should NOT create a new {StoreItem} without a {storeId} property", (done) => {
+        StoreItem.create({ ...mockStoreItem, storeId: "" })
+          .catch((err: Error.ValidationError ) => {
+            expect(err).to.not.be.undefined;
+            expect(err.errors.storeId).to.exist;
+            done();
+          });
+      });
+      it("Should NOT create a new {StoreItem} without a {storeName} property", (done) => {
+        StoreItem.create({ ...mockStoreItem, storeName: "" })
+          .catch((err: Error.ValidationError ) => {
+            expect(err).to.not.be.undefined;
+            expect(err.errors.storeName).to.exist;
+            done();
+          });
+      });
       it("Should NOT create a new {StoreItem} without a {name} property", (done) => {
         StoreItem.create({ ...mockStoreItem, name: "" })
           .catch((err: Error.ValidationError ) => {

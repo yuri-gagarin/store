@@ -4,10 +4,11 @@ type StoreItemImgRef = mongoose.Types.ObjectId;
 
 export interface IStoreItem extends Document {
   storeId: mongoose.Types.ObjectId;
+  storeName: string;
   name: string;
   description: string;
   details: string;
-  price: string;
+  price: number;
   categories: string[];
   images: (StoreItemImgRef | IStoreItemImage )[];
   createdAt: Date;
@@ -19,6 +20,10 @@ const StoreItemSchema: Schema = new Schema({
     required: true,
     type: Schema.Types.ObjectId,
     ref: "Store"
+  },
+  storeName: {
+    type: String,
+    required: true
   },
   name: {
     type: String,
@@ -33,7 +38,7 @@ const StoreItemSchema: Schema = new Schema({
     required: false
   },
   price: {
-    type: String,
+    type: Number,
     required: true
   },
   categories: {

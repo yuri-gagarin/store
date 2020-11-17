@@ -1,0 +1,297 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Store Form Component render tests Empty Form render tests Should properly mount 1`] = `
+<StoreForm
+  description=""
+  handleCreateStore={[Function]}
+  handleUpdateStore={[Function]}
+  newForm={true}
+  title=""
+>
+  <div
+    id="createStoreFormHolder"
+  >
+    <Form
+      as="form"
+      id="createStoreForm"
+    >
+      <form
+        className="ui form"
+        id="createStoreForm"
+        onSubmit={[Function]}
+      >
+        <FormField>
+          <div
+            className="field"
+          >
+            <label>
+              Store title
+            </label>
+            <input
+              id="adminStoreFormTitleInput"
+              onChange={[Function]}
+              placeholder="Store title here ..."
+              value=""
+            />
+          </div>
+        </FormField>
+        <FormField
+          control={[Function]}
+          id="adminStoreFormDescInput"
+          label="Store Description"
+          onChange={[Function]}
+          placeholder="Store description here..."
+          value=""
+        >
+          <div
+            className="field"
+          >
+            <label
+              htmlFor="adminStoreFormDescInput"
+            >
+              Store Description
+            </label>
+            <TextArea
+              aria-describedby={null}
+              as="textarea"
+              id="adminStoreFormDescInput"
+              onChange={[Function]}
+              placeholder="Store description here..."
+              rows={3}
+              value=""
+            >
+              <Ref
+                innerRef={
+                  Object {
+                    "current": <textarea
+                      id="adminStoreFormDescInput"
+                      placeholder="Store description here..."
+                      rows="3"
+                    />,
+                  }
+                }
+              >
+                <RefFindNode
+                  innerRef={
+                    Object {
+                      "current": <textarea
+                        id="adminStoreFormDescInput"
+                        placeholder="Store description here..."
+                        rows="3"
+                      />,
+                    }
+                  }
+                >
+                  <textarea
+                    aria-describedby={null}
+                    id="adminStoreFormDescInput"
+                    onChange={[Function]}
+                    onInput={[Function]}
+                    placeholder="Store description here..."
+                    rows={3}
+                    value=""
+                  />
+                </RefFindNode>
+              </Ref>
+            </TextArea>
+          </div>
+        </FormField>
+        <Button
+          as="button"
+          content="Create Store"
+          id="adminStoreFormCreateBtn"
+          onClick={[Function]}
+          type="submit"
+        >
+          <Ref
+            innerRef={
+              Object {
+                "current": <button
+                  class="ui button"
+                  id="adminStoreFormCreateBtn"
+                  type="submit"
+                >
+                  Create Store
+                </button>,
+              }
+            }
+          >
+            <RefFindNode
+              innerRef={
+                Object {
+                  "current": <button
+                    class="ui button"
+                    id="adminStoreFormCreateBtn"
+                    type="submit"
+                  >
+                    Create Store
+                  </button>,
+                }
+              }
+            >
+              <button
+                className="ui button"
+                id="adminStoreFormCreateBtn"
+                onClick={[Function]}
+                type="submit"
+              >
+                Create Store
+              </button>
+            </RefFindNode>
+          </Ref>
+        </Button>
+      </form>
+    </Form>
+  </div>
+</StoreForm>
+`;
+
+exports[`Store Form Component render tests Form with valid data render tests Should properly mount 1`] = `
+<StoreForm
+  description="description"
+  handleCreateStore={[Function]}
+  handleUpdateStore={[Function]}
+  newForm={false}
+  title="title"
+>
+  <div
+    id="createStoreFormHolder"
+  >
+    <Form
+      as="form"
+      id="createStoreForm"
+    >
+      <form
+        className="ui form"
+        id="createStoreForm"
+        onSubmit={[Function]}
+      >
+        <FormField>
+          <div
+            className="field"
+          >
+            <label>
+              Store title
+            </label>
+            <input
+              id="adminStoreFormTitleInput"
+              onChange={[Function]}
+              placeholder="Store title here ..."
+              value="title"
+            />
+          </div>
+        </FormField>
+        <FormField
+          control={[Function]}
+          id="adminStoreFormDescInput"
+          label="Store Description"
+          onChange={[Function]}
+          placeholder="Store description here..."
+          value="description"
+        >
+          <div
+            className="field"
+          >
+            <label
+              htmlFor="adminStoreFormDescInput"
+            >
+              Store Description
+            </label>
+            <TextArea
+              aria-describedby={null}
+              as="textarea"
+              id="adminStoreFormDescInput"
+              onChange={[Function]}
+              placeholder="Store description here..."
+              rows={3}
+              value="description"
+            >
+              <Ref
+                innerRef={
+                  Object {
+                    "current": <textarea
+                      id="adminStoreFormDescInput"
+                      placeholder="Store description here..."
+                      rows="3"
+                    >
+                      description
+                    </textarea>,
+                  }
+                }
+              >
+                <RefFindNode
+                  innerRef={
+                    Object {
+                      "current": <textarea
+                        id="adminStoreFormDescInput"
+                        placeholder="Store description here..."
+                        rows="3"
+                      >
+                        description
+                      </textarea>,
+                    }
+                  }
+                >
+                  <textarea
+                    aria-describedby={null}
+                    id="adminStoreFormDescInput"
+                    onChange={[Function]}
+                    onInput={[Function]}
+                    placeholder="Store description here..."
+                    rows={3}
+                    value="description"
+                  />
+                </RefFindNode>
+              </Ref>
+            </TextArea>
+          </div>
+        </FormField>
+        <Button
+          as="button"
+          content="Update Store"
+          id="adminStoreFormUpdateBtn"
+          onClick={[Function]}
+          type="submit"
+        >
+          <Ref
+            innerRef={
+              Object {
+                "current": <button
+                  class="ui button"
+                  id="adminStoreFormUpdateBtn"
+                  type="submit"
+                >
+                  Update Store
+                </button>,
+              }
+            }
+          >
+            <RefFindNode
+              innerRef={
+                Object {
+                  "current": <button
+                    class="ui button"
+                    id="adminStoreFormUpdateBtn"
+                    type="submit"
+                  >
+                    Update Store
+                  </button>,
+                }
+              }
+            >
+              <button
+                className="ui button"
+                id="adminStoreFormUpdateBtn"
+                onClick={[Function]}
+                type="submit"
+              >
+                Update Store
+              </button>
+            </RefFindNode>
+          </Ref>
+        </Button>
+      </form>
+    </Form>
+  </div>
+</StoreForm>
+`;

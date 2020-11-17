@@ -7,15 +7,34 @@
       error: null | Error;
     };
   }
+  type DispatchStoreAPIRequest = {
+    readonly type: "DISPATCH_STORE_API_REQUEST",
+    readonly payload: {
+      loading: boolean;
+      error: null;
+    }
+  }
   type SetCurrentStore = {
     readonly type: "SET_CURRENT_STORE";
-    payload: {
+    readonly payload: {
       currentStoreData: IStoreData;
     }
   }
   type ClearCurrentStore = {
     readonly type: "CLEAR_CURRENT_STORE";
-    payload: null;
+    readonly payload: null;
+  }
+  type OpenStoreForm = {
+    readonly type: "OPEN_STORE_FORM";
+    readonly payload: {
+      storeFormOpen: boolean;
+    }
+  }
+  type CloseStoreform = {
+    readonly type: "CLOSE_STORE_FORM";
+    readonly payload: {
+      storeFormOpen: boolean;
+    }
   }
   type GetStore = {
     readonly type: "GET_STORE";
@@ -103,7 +122,7 @@
     };
   }
   
-  declare interface IStoreImgData {
+  interface IStoreImgData {
     _id: string;
     description?: string;
     url: string;
@@ -113,7 +132,7 @@
     createdAt: string;
     editedAt?: string;
   }
-  declare interface IStoreData {
+  interface IStoreData {
     _id: string;
     title: string;
     description: string;
@@ -121,12 +140,12 @@
     createdAt: string;
     editedAt?: string;
   }
-  declare interface IStoreState {
+  interface IStoreState {
     loading: boolean;
     responseMsg: string;
     currentStoreData: IStoreData;
-    loadedStores: IStoreData[]
+    loadedStores: IStoreData[];
+    storeFormOpen: boolean;
     error: null | Error;
   }
-  declare type StoreAction = GetAllStores | GetStore | SetCurrentStore | ClearCurrentStore | CreateStore | EditStore | 
-                            DeleteStore | SetStoreError | ClearStoreError | UploadNewStoreImg | UpdateStoreImgs | DeleteStoreImg;
+  type StoreAction = DispatchStoreAPIRequest | GetAllStores | GetStore | SetCurrentStore | ClearCurrentStore | OpenStoreForm | CloseStoreform | CreateStore | EditStore | DeleteStore | SetStoreError | ClearStoreError | UploadNewStoreImg | UpdateStoreImgs | DeleteStoreImg;

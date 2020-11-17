@@ -1,8 +1,9 @@
 // types //
-const emptyStoreItemData = (): IStoreItemData => {
+export const emptyStoreItemData = (): IStoreItemData => {
   return {
     _id: "",
     storeId: "",
+    storeName: "",
     name: "",
     description: "",
     details: "",
@@ -15,18 +16,37 @@ const emptyStoreItemData = (): IStoreItemData => {
 
 export const initialStoreItemState: IStoreItemState = {
   loading: false,
+  numberOfItems: 0,
   responseMsg: "",
   currentStoreItemData: emptyStoreItemData(),
   loadedStoreItems: [],
+  storeItemFormOpen: false,
   error: null
 };
 
-const storeReducer = (state: IStoreItemState = initialStoreItemState, action: StoreItemAction): IStoreItemState => {
+const storeItemReducer = (state: IStoreItemState = initialStoreItemState, action: StoreItemAction): IStoreItemState => {
   switch (action.type) {
+    case "OPEN_STORE_ITEM_FORM": 
+      return {
+        ...state,
+        storeItemFormOpen: action.payload.storeItemFormOpen
+      };
+    case "CLOSE_STORE_ITEM_FORM": 
+      return {
+        ...state,
+        storeItemFormOpen: action.payload.storeItemFormOpen
+      };
+    case "DISPATCH_STORE_ITEM_API_REQUEST":
+      return {
+        ...state,
+        loading: action.payload.loading,
+        error: action.payload.error
+      };
     case "GET_ALL_STORE_ITEMS": 
       return {
         ...state,
         loading: action.payload.loading,
+        numberOfItems: action.payload.numberOfItems ? action.payload.numberOfItems : state.numberOfItems,
         responseMsg: action.payload.responseMsg,
         loadedStoreItems: [ ...action.payload.loadedStoreItems],
         error: action.payload.error
@@ -42,15 +62,18 @@ const storeReducer = (state: IStoreItemState = initialStoreItemState, action: St
     case "SET_CURRENT_STORE_ITEM": 
       return {
         ...state,
-        currentStoreItemData: { ...action.payload.currentStoreItemData }
+        currentStoreItemData: { ...action.payload.currentStoreItemData },
+        error: action.payload.error
       };
     case "CLEAR_CURRENT_STORE_ITEM": 
       return {
         ...state,
-        currentStoreItemData: { ...emptyStoreItemData() }
+        currentStoreItemData: { ...emptyStoreItemData() },
+        error: action.payload.error
       };
     case "UPLOAD_NEW_STORE_ITEM_IMG": 
       return {
+        ...state,
         loading: action.payload.loading,
         responseMsg: action.payload.responseMsg,
         currentStoreItemData: { ...action.payload.editedStoreItem },
@@ -59,6 +82,7 @@ const storeReducer = (state: IStoreItemState = initialStoreItemState, action: St
       };
     case "DELETE_STORE_ITEM_IMG": {
       return {
+        ...state,
         loading: action.payload.loading,
         responseMsg: action.payload.responseMsg,
         currentStoreItemData: { ...action.payload.editedStoreItem },
@@ -116,4 +140,4 @@ const storeReducer = (state: IStoreItemState = initialStoreItemState, action: St
   }
 };
 
-export default storeReducer;
+export default storeItemReducer;

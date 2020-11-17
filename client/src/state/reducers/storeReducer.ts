@@ -1,5 +1,5 @@
 // types //
-const emptyStoreData = (): IStoreData => {
+export const emptyStoreData = (): IStoreData => {
   return {
     _id: "",
     title: "",
@@ -14,11 +14,18 @@ export const initialStoreState: IStoreState = {
   responseMsg: "",
   currentStoreData: emptyStoreData(),
   loadedStores: [],
+  storeFormOpen: false,
   error: null
 };
 
 const storeReducer = (state: IStoreState = initialStoreState, action: StoreAction): IStoreState => {
   switch (action.type) {
+    case "DISPATCH_STORE_API_REQUEST": 
+      return {
+        ...state,
+        loading: action.payload.loading,
+        error: action.payload.error
+      };
     case "GET_ALL_STORES": 
       return {
         ...state,
@@ -45,8 +52,19 @@ const storeReducer = (state: IStoreState = initialStoreState, action: StoreActio
         ...state,
         currentStoreData: { ...emptyStoreData() }
       };
+    case "OPEN_STORE_FORM": 
+      return {
+        ...state,
+        storeFormOpen: action.payload.storeFormOpen
+      };
+    case "CLOSE_STORE_FORM": 
+      return {
+        ...state,
+        storeFormOpen: action.payload.storeFormOpen
+      };
     case "UPLOAD_NEW_STORE_IMG": 
       return {
+        ...state,
         loading: action.payload.loading,
         responseMsg: action.payload.responseMsg,
         currentStoreData: { ...action.payload.editedStore },
@@ -55,6 +73,7 @@ const storeReducer = (state: IStoreState = initialStoreState, action: StoreActio
       };
     case "DELETE_STORE_IMG": {
       return {
+        ...state,
         loading: action.payload.loading,
         responseMsg: action.payload.responseMsg,
         currentStoreData: { ...action.payload.editedStore },

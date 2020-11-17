@@ -1,0 +1,2189 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StoreItemPreviewHolder Component render tests 'StoreItemPreviewHolder' after a successful API call Should correctly render the 'StoreItemsPreviewHolder' 'Grid' after successful API call 1`] = `
+<withRouter(StoreItemsPreviewHolder)>
+  <StoreItemsPreviewHolder
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "canGo": [Function],
+        "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "pathname": "/admin/home/my_store_items/view_all",
+            "search": "",
+            "state": undefined,
+          },
+        ],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "index": 0,
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/admin/home/my_store_items/view_all",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+    location={
+      Object {
+        "hash": "",
+        "pathname": "/admin/home/my_store_items/view_all",
+        "search": "",
+        "state": undefined,
+      }
+    }
+    match={
+      Object {
+        "isExact": false,
+        "params": Object {},
+        "path": "/",
+        "url": "/",
+      }
+    }
+  >
+    <Grid
+      columns={2}
+      padded={true}
+      stackable={true}
+    >
+      <div
+        className="ui stackable padded two column grid"
+      >
+        <GridRow>
+          <div
+            className="row"
+          >
+            <GridColumn
+              computer={10}
+              mobile={16}
+              tablet={8}
+            >
+              <div
+                className="ten wide computer sixteen wide mobile eight wide tablet column"
+              >
+                <ItemGroup>
+                  <div
+                    className="ui items"
+                  >
+                    <StoreItemPreview
+                      key="1"
+                      storeItem={
+                        Object {
+                          "_id": "1",
+                          "categories": Array [
+                            "sports",
+                            "outdoors",
+                          ],
+                          "createdAt": "Tue Jan 01 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
+                          "description": "description",
+                          "details": "details",
+                          "images": Array [],
+                          "name": "first",
+                          "price": "100",
+                          "storeId": "1",
+                          "storeName": "store",
+                        }
+                      }
+                    >
+                      <Item
+                        className="storeItemPreviewItem"
+                      >
+                        <div
+                          className="item storeItemPreviewItem"
+                        >
+                          <ItemImage
+                            size="small"
+                            src="https://react.semantic-ui.com/images/wireframe/image.png"
+                          >
+                            <Image
+                              as="img"
+                              size="small"
+                              src="https://react.semantic-ui.com/images/wireframe/image.png"
+                              ui={true}
+                              wrapped={true}
+                            >
+                              <div
+                                className="ui small image"
+                              >
+                                <img
+                                  src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                />
+                              </div>
+                            </Image>
+                          </ItemImage>
+                          <ItemContent>
+                            <div
+                              className="content"
+                            >
+                              <ItemMeta>
+                                <div
+                                  className="meta"
+                                >
+                                  Displayed name: 
+                                  <strong>
+                                    first
+                                  </strong>
+                                </div>
+                              </ItemMeta>
+                              <ItemMeta>
+                                <div
+                                  className="meta"
+                                >
+                                  Store name: 
+                                  <strong>
+                                    Store Name Here
+                                  </strong>
+                                </div>
+                              </ItemMeta>
+                              <ItemMeta>
+                                <div
+                                  className="meta"
+                                >
+                                  Categories:
+                                  <List
+                                    className="storeItemCategoryList"
+                                    horizontal={true}
+                                  >
+                                    <div
+                                      className="ui horizontal list storeItemCategoryList"
+                                      role="list"
+                                    >
+                                      <ListItem
+                                        className="storeItemCategory"
+                                        key="sports"
+                                      >
+                                        <div
+                                          className="item storeItemCategory"
+                                          onClick={[Function]}
+                                          role="listitem"
+                                        >
+                                          <ListContent>
+                                            <div
+                                              className="content"
+                                            >
+                                              sports
+                                            </div>
+                                          </ListContent>
+                                        </div>
+                                      </ListItem>
+                                      <ListItem
+                                        className="storeItemCategory"
+                                        key="outdoors"
+                                      >
+                                        <div
+                                          className="item storeItemCategory"
+                                          onClick={[Function]}
+                                          role="listitem"
+                                        >
+                                          <ListContent>
+                                            <div
+                                              className="content"
+                                            >
+                                              outdoors
+                                            </div>
+                                          </ListContent>
+                                        </div>
+                                      </ListItem>
+                                    </div>
+                                  </List>
+                                </div>
+                              </ItemMeta>
+                              <ItemMeta>
+                                <div
+                                  className="meta"
+                                >
+                                  <span
+                                    className="storeItemPrice"
+                                  >
+                                    Displayed Price: 
+                                    <strong>
+                                      100
+                                    </strong>
+                                  </span>
+                                  <span
+                                    className="storeItemCreated"
+                                  >
+                                    Created At: 
+                                    <strong>
+                                      2019-Jan-1
+                                    </strong>
+                                  </span>
+                                </div>
+                              </ItemMeta>
+                              <ItemDescription>
+                                <div
+                                  className="description"
+                                >
+                                  description...
+                                </div>
+                              </ItemDescription>
+                              <Button
+                                as="button"
+                                basic={true}
+                                color="green"
+                                content="View"
+                              >
+                                <Ref
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui green basic button"
+                                      >
+                                        View
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <RefFindNode
+                                    innerRef={
+                                      Object {
+                                        "current": <button
+                                          class="ui green basic button"
+                                        >
+                                          View
+                                        </button>,
+                                      }
+                                    }
+                                  >
+                                    <button
+                                      className="ui green basic button"
+                                      onClick={[Function]}
+                                    >
+                                      View
+                                    </button>
+                                  </RefFindNode>
+                                </Ref>
+                              </Button>
+                            </div>
+                          </ItemContent>
+                        </div>
+                      </Item>
+                    </StoreItemPreview>
+                    <StoreItemPreview
+                      key="2"
+                      storeItem={
+                        Object {
+                          "_id": "2",
+                          "categories": Array [
+                            "sports",
+                            "outdoors",
+                            "camping",
+                          ],
+                          "createdAt": "Tue Jan 01 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
+                          "description": "description",
+                          "details": "details",
+                          "images": Array [],
+                          "name": "second",
+                          "price": "200",
+                          "storeId": "1",
+                          "storeName": "store",
+                        }
+                      }
+                    >
+                      <Item
+                        className="storeItemPreviewItem"
+                      >
+                        <div
+                          className="item storeItemPreviewItem"
+                        >
+                          <ItemImage
+                            size="small"
+                            src="https://react.semantic-ui.com/images/wireframe/image.png"
+                          >
+                            <Image
+                              as="img"
+                              size="small"
+                              src="https://react.semantic-ui.com/images/wireframe/image.png"
+                              ui={true}
+                              wrapped={true}
+                            >
+                              <div
+                                className="ui small image"
+                              >
+                                <img
+                                  src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                />
+                              </div>
+                            </Image>
+                          </ItemImage>
+                          <ItemContent>
+                            <div
+                              className="content"
+                            >
+                              <ItemMeta>
+                                <div
+                                  className="meta"
+                                >
+                                  Displayed name: 
+                                  <strong>
+                                    second
+                                  </strong>
+                                </div>
+                              </ItemMeta>
+                              <ItemMeta>
+                                <div
+                                  className="meta"
+                                >
+                                  Store name: 
+                                  <strong>
+                                    Store Name Here
+                                  </strong>
+                                </div>
+                              </ItemMeta>
+                              <ItemMeta>
+                                <div
+                                  className="meta"
+                                >
+                                  Categories:
+                                  <List
+                                    className="storeItemCategoryList"
+                                    horizontal={true}
+                                  >
+                                    <div
+                                      className="ui horizontal list storeItemCategoryList"
+                                      role="list"
+                                    >
+                                      <ListItem
+                                        className="storeItemCategory"
+                                        key="sports"
+                                      >
+                                        <div
+                                          className="item storeItemCategory"
+                                          onClick={[Function]}
+                                          role="listitem"
+                                        >
+                                          <ListContent>
+                                            <div
+                                              className="content"
+                                            >
+                                              sports
+                                            </div>
+                                          </ListContent>
+                                        </div>
+                                      </ListItem>
+                                      <ListItem
+                                        className="storeItemCategory"
+                                        key="outdoors"
+                                      >
+                                        <div
+                                          className="item storeItemCategory"
+                                          onClick={[Function]}
+                                          role="listitem"
+                                        >
+                                          <ListContent>
+                                            <div
+                                              className="content"
+                                            >
+                                              outdoors
+                                            </div>
+                                          </ListContent>
+                                        </div>
+                                      </ListItem>
+                                      <ListItem
+                                        className="storeItemCategory"
+                                        key="camping"
+                                      >
+                                        <div
+                                          className="item storeItemCategory"
+                                          onClick={[Function]}
+                                          role="listitem"
+                                        >
+                                          <ListContent>
+                                            <div
+                                              className="content"
+                                            >
+                                              camping
+                                            </div>
+                                          </ListContent>
+                                        </div>
+                                      </ListItem>
+                                    </div>
+                                  </List>
+                                </div>
+                              </ItemMeta>
+                              <ItemMeta>
+                                <div
+                                  className="meta"
+                                >
+                                  <span
+                                    className="storeItemPrice"
+                                  >
+                                    Displayed Price: 
+                                    <strong>
+                                      200
+                                    </strong>
+                                  </span>
+                                  <span
+                                    className="storeItemCreated"
+                                  >
+                                    Created At: 
+                                    <strong>
+                                      2019-Jan-1
+                                    </strong>
+                                  </span>
+                                </div>
+                              </ItemMeta>
+                              <ItemDescription>
+                                <div
+                                  className="description"
+                                >
+                                  description...
+                                </div>
+                              </ItemDescription>
+                              <Button
+                                as="button"
+                                basic={true}
+                                color="green"
+                                content="View"
+                              >
+                                <Ref
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui green basic button"
+                                      >
+                                        View
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <RefFindNode
+                                    innerRef={
+                                      Object {
+                                        "current": <button
+                                          class="ui green basic button"
+                                        >
+                                          View
+                                        </button>,
+                                      }
+                                    }
+                                  >
+                                    <button
+                                      className="ui green basic button"
+                                      onClick={[Function]}
+                                    >
+                                      View
+                                    </button>
+                                  </RefFindNode>
+                                </Ref>
+                              </Button>
+                            </div>
+                          </ItemContent>
+                        </div>
+                      </Item>
+                    </StoreItemPreview>
+                  </div>
+                </ItemGroup>
+              </div>
+            </GridColumn>
+            <GridColumn
+              computer={6}
+              mobile={16}
+              tablet={8}
+            >
+              <div
+                className="six wide computer sixteen wide mobile eight wide tablet column"
+              >
+                <StoreItemsControls
+                  dispatch={[Function]}
+                  state={
+                    Object {
+                      "bonusVideoState": Object {
+                        "bonusVideoFormOpen": false,
+                        "currentBonusVideoData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "vimeoURL": "",
+                          "youTubeURL": "",
+                        },
+                        "error": null,
+                        "loadedBonusVideos": Array [],
+                        "loading": false,
+                        "responseMsg": "",
+                      },
+                      "productState": Object {
+                        "currentProductData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "details": "",
+                          "images": Array [],
+                          "name": "",
+                          "price": "",
+                        },
+                        "error": null,
+                        "loadedProducts": Array [],
+                        "loading": false,
+                        "productFormOpen": false,
+                        "responseMsg": "",
+                      },
+                      "serviceState": Object {
+                        "currentServiceData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "images": Array [],
+                          "name": "",
+                          "price": "",
+                        },
+                        "error": null,
+                        "loadedServices": Array [],
+                        "loading": false,
+                        "responseMsg": "",
+                        "serviceFormOpen": false,
+                      },
+                      "storeItemState": Object {
+                        "currentStoreItemData": Object {
+                          "_id": "",
+                          "categories": Array [],
+                          "createdAt": "",
+                          "description": "",
+                          "details": "",
+                          "images": Array [],
+                          "name": "",
+                          "price": "",
+                          "storeId": "",
+                          "storeName": "",
+                        },
+                        "error": null,
+                        "loadedStoreItems": Array [
+                          Object {
+                            "_id": "1",
+                            "categories": Array [
+                              "sports",
+                              "outdoors",
+                            ],
+                            "createdAt": "Tue Jan 01 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
+                            "description": "description",
+                            "details": "details",
+                            "images": Array [],
+                            "name": "first",
+                            "price": "100",
+                            "storeId": "1",
+                            "storeName": "store",
+                          },
+                          Object {
+                            "_id": "2",
+                            "categories": Array [
+                              "sports",
+                              "outdoors",
+                              "camping",
+                            ],
+                            "createdAt": "Tue Jan 01 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
+                            "description": "description",
+                            "details": "details",
+                            "images": Array [],
+                            "name": "second",
+                            "price": "200",
+                            "storeId": "1",
+                            "storeName": "store",
+                          },
+                        ],
+                        "loading": false,
+                        "numberOfItems": 0,
+                        "responseMsg": "All ok",
+                        "storeItemFormOpen": false,
+                      },
+                      "storeState": Object {
+                        "currentStoreData": Object {
+                          "_id": "",
+                          "createdAt": "",
+                          "description": "",
+                          "images": Array [],
+                          "title": "",
+                        },
+                        "error": null,
+                        "loadedStores": Array [],
+                        "loading": true,
+                        "responseMsg": "",
+                        "storeFormOpen": false,
+                      },
+                    }
+                  }
+                >
+                  <div
+                    className="adminStoreItemControlsHolder"
+                  >
+                    <div
+                      className="adminStoreItemControlsTitle"
+                    >
+                      Store Item Controls
+                    </div>
+                    <StoreItemsControlMenu
+                      dispatch={[Function]}
+                      state={
+                        Object {
+                          "bonusVideoState": Object {
+                            "bonusVideoFormOpen": false,
+                            "currentBonusVideoData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "vimeoURL": "",
+                              "youTubeURL": "",
+                            },
+                            "error": null,
+                            "loadedBonusVideos": Array [],
+                            "loading": false,
+                            "responseMsg": "",
+                          },
+                          "productState": Object {
+                            "currentProductData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "details": "",
+                              "images": Array [],
+                              "name": "",
+                              "price": "",
+                            },
+                            "error": null,
+                            "loadedProducts": Array [],
+                            "loading": false,
+                            "productFormOpen": false,
+                            "responseMsg": "",
+                          },
+                          "serviceState": Object {
+                            "currentServiceData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "images": Array [],
+                              "name": "",
+                              "price": "",
+                            },
+                            "error": null,
+                            "loadedServices": Array [],
+                            "loading": false,
+                            "responseMsg": "",
+                            "serviceFormOpen": false,
+                          },
+                          "storeItemState": Object {
+                            "currentStoreItemData": Object {
+                              "_id": "",
+                              "categories": Array [],
+                              "createdAt": "",
+                              "description": "",
+                              "details": "",
+                              "images": Array [],
+                              "name": "",
+                              "price": "",
+                              "storeId": "",
+                              "storeName": "",
+                            },
+                            "error": null,
+                            "loadedStoreItems": Array [
+                              Object {
+                                "_id": "1",
+                                "categories": Array [
+                                  "sports",
+                                  "outdoors",
+                                ],
+                                "createdAt": "Tue Jan 01 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
+                                "description": "description",
+                                "details": "details",
+                                "images": Array [],
+                                "name": "first",
+                                "price": "100",
+                                "storeId": "1",
+                                "storeName": "store",
+                              },
+                              Object {
+                                "_id": "2",
+                                "categories": Array [
+                                  "sports",
+                                  "outdoors",
+                                  "camping",
+                                ],
+                                "createdAt": "Tue Jan 01 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
+                                "description": "description",
+                                "details": "details",
+                                "images": Array [],
+                                "name": "second",
+                                "price": "200",
+                                "storeId": "1",
+                                "storeName": "store",
+                              },
+                            ],
+                            "loading": false,
+                            "numberOfItems": 0,
+                            "responseMsg": "All ok",
+                            "storeItemFormOpen": false,
+                          },
+                          "storeState": Object {
+                            "currentStoreData": Object {
+                              "_id": "",
+                              "createdAt": "",
+                              "description": "",
+                              "images": Array [],
+                              "title": "",
+                            },
+                            "error": null,
+                            "loadedStores": Array [],
+                            "loading": true,
+                            "responseMsg": "",
+                            "storeFormOpen": false,
+                          },
+                        }
+                      }
+                    >
+                      <div>
+                        <Menu
+                          className="storeItemsControlsMenu"
+                        >
+                          <div
+                            className="ui storeItemsControlsMenu menu"
+                          >
+                            <Dropdown
+                              additionLabel="Add "
+                              additionPosition="top"
+                              closeOnBlur={true}
+                              closeOnEscape={true}
+                              deburr={false}
+                              disabled={true}
+                              icon="dropdown"
+                              id="adminStoreItemControlsStoreDropdown"
+                              item={true}
+                              loading={true}
+                              minCharacters={1}
+                              noResultsMessage="No results found."
+                              openOnFocus={true}
+                              options={Array []}
+                              renderLabel={[Function]}
+                              searchInput="text"
+                              selectOnBlur={true}
+                              selectOnNavigation={true}
+                              text="Sort by Store Name"
+                              wrapSelection={true}
+                            >
+                              <Ref
+                                innerRef={
+                                  Object {
+                                    "current": <div
+                                      aria-busy="true"
+                                      aria-disabled="true"
+                                      aria-expanded="false"
+                                      class="ui disabled loading item dropdown"
+                                      id="adminStoreItemControlsStoreDropdown"
+                                      role="listbox"
+                                      tabindex="-1"
+                                    >
+                                      <div
+                                        aria-atomic="true"
+                                        aria-live="polite"
+                                        class="text"
+                                        role="alert"
+                                      >
+                                        Sort by Store Name
+                                      </div>
+                                      <i
+                                        aria-hidden="true"
+                                        class="dropdown icon"
+                                      />
+                                      <div
+                                        class="menu transition"
+                                      />
+                                    </div>,
+                                  }
+                                }
+                              >
+                                <RefFindNode
+                                  innerRef={
+                                    Object {
+                                      "current": <div
+                                        aria-busy="true"
+                                        aria-disabled="true"
+                                        aria-expanded="false"
+                                        class="ui disabled loading item dropdown"
+                                        id="adminStoreItemControlsStoreDropdown"
+                                        role="listbox"
+                                        tabindex="-1"
+                                      >
+                                        <div
+                                          aria-atomic="true"
+                                          aria-live="polite"
+                                          class="text"
+                                          role="alert"
+                                        >
+                                          Sort by Store Name
+                                        </div>
+                                        <i
+                                          aria-hidden="true"
+                                          class="dropdown icon"
+                                        />
+                                        <div
+                                          class="menu transition"
+                                        />
+                                      </div>,
+                                    }
+                                  }
+                                >
+                                  <div
+                                    aria-busy={true}
+                                    aria-disabled={true}
+                                    aria-expanded={false}
+                                    className="ui disabled loading item dropdown"
+                                    id="adminStoreItemControlsStoreDropdown"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    onClick={[Function]}
+                                    onFocus={[Function]}
+                                    onMouseDown={[Function]}
+                                    role="listbox"
+                                    tabIndex={-1}
+                                  >
+                                    <div
+                                      aria-atomic={true}
+                                      aria-live="polite"
+                                      className="text"
+                                      role="alert"
+                                    >
+                                      Sort by Store Name
+                                    </div>
+                                    <Icon
+                                      as="i"
+                                      className=""
+                                      name="dropdown"
+                                      onClick={[Function]}
+                                    >
+                                      <i
+                                        aria-hidden="true"
+                                        className="dropdown icon"
+                                        onClick={[Function]}
+                                      />
+                                    </Icon>
+                                    <DropdownMenu>
+                                      <div
+                                        className="menu transition"
+                                      />
+                                    </DropdownMenu>
+                                  </div>
+                                </RefFindNode>
+                              </Ref>
+                            </Dropdown>
+                            <MenuItem>
+                              <div
+                                className="item"
+                                onClick={[Function]}
+                              >
+                                <Dropdown
+                                  additionLabel="Add "
+                                  additionPosition="top"
+                                  closeOnBlur={true}
+                                  closeOnEscape={true}
+                                  deburr={false}
+                                  disabled={true}
+                                  icon="dropdown"
+                                  id="adminStoreItemControlsDateDropdown"
+                                  loading={true}
+                                  minCharacters={1}
+                                  noResultsMessage="No results found."
+                                  openOnFocus={true}
+                                  renderLabel={[Function]}
+                                  searchInput="text"
+                                  selectOnBlur={true}
+                                  selectOnNavigation={true}
+                                  text="Sort by Date"
+                                  wrapSelection={true}
+                                >
+                                  <Ref
+                                    innerRef={
+                                      Object {
+                                        "current": <div
+                                          aria-busy="true"
+                                          aria-disabled="true"
+                                          aria-expanded="false"
+                                          class="ui disabled loading dropdown"
+                                          id="adminStoreItemControlsDateDropdown"
+                                          role="listbox"
+                                          tabindex="-1"
+                                        >
+                                          <div
+                                            aria-atomic="true"
+                                            aria-live="polite"
+                                            class="text"
+                                            role="alert"
+                                          >
+                                            Sort by Date
+                                          </div>
+                                          <i
+                                            aria-hidden="true"
+                                            class="dropdown icon"
+                                          />
+                                          <div
+                                            class="menu transition"
+                                          >
+                                            <div
+                                              class="item"
+                                              id="adminStoreItemDateDescQuery"
+                                              role="option"
+                                            >
+                                              <span
+                                                class="description"
+                                              >
+                                                newest first
+                                              </span>
+                                              <span
+                                                class="text"
+                                              >
+                                                Descending
+                                              </span>
+                                            </div>
+                                            <div
+                                              class="item"
+                                              id="adminStoreItemDateAscQuery"
+                                              role="option"
+                                            >
+                                              <span
+                                                class="description"
+                                              >
+                                                oldest first
+                                              </span>
+                                              <span
+                                                class="text"
+                                              >
+                                                Ascending
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>,
+                                      }
+                                    }
+                                  >
+                                    <RefFindNode
+                                      innerRef={
+                                        Object {
+                                          "current": <div
+                                            aria-busy="true"
+                                            aria-disabled="true"
+                                            aria-expanded="false"
+                                            class="ui disabled loading dropdown"
+                                            id="adminStoreItemControlsDateDropdown"
+                                            role="listbox"
+                                            tabindex="-1"
+                                          >
+                                            <div
+                                              aria-atomic="true"
+                                              aria-live="polite"
+                                              class="text"
+                                              role="alert"
+                                            >
+                                              Sort by Date
+                                            </div>
+                                            <i
+                                              aria-hidden="true"
+                                              class="dropdown icon"
+                                            />
+                                            <div
+                                              class="menu transition"
+                                            >
+                                              <div
+                                                class="item"
+                                                id="adminStoreItemDateDescQuery"
+                                                role="option"
+                                              >
+                                                <span
+                                                  class="description"
+                                                >
+                                                  newest first
+                                                </span>
+                                                <span
+                                                  class="text"
+                                                >
+                                                  Descending
+                                                </span>
+                                              </div>
+                                              <div
+                                                class="item"
+                                                id="adminStoreItemDateAscQuery"
+                                                role="option"
+                                              >
+                                                <span
+                                                  class="description"
+                                                >
+                                                  oldest first
+                                                </span>
+                                                <span
+                                                  class="text"
+                                                >
+                                                  Ascending
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>,
+                                        }
+                                      }
+                                    >
+                                      <div
+                                        aria-busy={true}
+                                        aria-disabled={true}
+                                        aria-expanded={false}
+                                        className="ui disabled loading dropdown"
+                                        id="adminStoreItemControlsDateDropdown"
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        onClick={[Function]}
+                                        onFocus={[Function]}
+                                        onMouseDown={[Function]}
+                                        role="listbox"
+                                        tabIndex={-1}
+                                      >
+                                        <div
+                                          aria-atomic={true}
+                                          aria-live="polite"
+                                          className="text"
+                                          role="alert"
+                                        >
+                                          Sort by Date
+                                        </div>
+                                        <Icon
+                                          as="i"
+                                          className=""
+                                          name="dropdown"
+                                          onClick={[Function]}
+                                        >
+                                          <i
+                                            aria-hidden="true"
+                                            className="dropdown icon"
+                                            onClick={[Function]}
+                                          />
+                                        </Icon>
+                                        <DropdownMenu
+                                          className=""
+                                        >
+                                          <div
+                                            className="menu transition"
+                                          >
+                                            <DropdownItem
+                                              description="newest first"
+                                              id="adminStoreItemDateDescQuery"
+                                              onClick={[Function]}
+                                              text="Descending"
+                                              value="desc"
+                                            >
+                                              <div
+                                                className="item"
+                                                id="adminStoreItemDateDescQuery"
+                                                onClick={[Function]}
+                                                role="option"
+                                              >
+                                                <span
+                                                  className="description"
+                                                >
+                                                  newest first
+                                                </span>
+                                                <span
+                                                  className="text"
+                                                >
+                                                  Descending
+                                                </span>
+                                              </div>
+                                            </DropdownItem>
+                                            <DropdownItem
+                                              description="oldest first"
+                                              id="adminStoreItemDateAscQuery"
+                                              onClick={[Function]}
+                                              text="Ascending"
+                                              value="asc"
+                                            >
+                                              <div
+                                                className="item"
+                                                id="adminStoreItemDateAscQuery"
+                                                onClick={[Function]}
+                                                role="option"
+                                              >
+                                                <span
+                                                  className="description"
+                                                >
+                                                  oldest first
+                                                </span>
+                                                <span
+                                                  className="text"
+                                                >
+                                                  Ascending
+                                                </span>
+                                              </div>
+                                            </DropdownItem>
+                                          </div>
+                                        </DropdownMenu>
+                                      </div>
+                                    </RefFindNode>
+                                  </Ref>
+                                </Dropdown>
+                              </div>
+                            </MenuItem>
+                            <MenuItem>
+                              <div
+                                className="item"
+                                onClick={[Function]}
+                              >
+                                <Dropdown
+                                  additionLabel="Add "
+                                  additionPosition="top"
+                                  closeOnBlur={true}
+                                  closeOnEscape={true}
+                                  deburr={false}
+                                  disabled={true}
+                                  icon="dropdown"
+                                  id="adminStoreItemControlsPriceDropdown"
+                                  loading={true}
+                                  minCharacters={1}
+                                  noResultsMessage="No results found."
+                                  openOnFocus={true}
+                                  renderLabel={[Function]}
+                                  searchInput="text"
+                                  selectOnBlur={true}
+                                  selectOnNavigation={true}
+                                  text="Sort By Price"
+                                  wrapSelection={true}
+                                >
+                                  <Ref
+                                    innerRef={
+                                      Object {
+                                        "current": <div
+                                          aria-busy="true"
+                                          aria-disabled="true"
+                                          aria-expanded="false"
+                                          class="ui disabled loading dropdown"
+                                          id="adminStoreItemControlsPriceDropdown"
+                                          role="listbox"
+                                          tabindex="-1"
+                                        >
+                                          <div
+                                            aria-atomic="true"
+                                            aria-live="polite"
+                                            class="text"
+                                            role="alert"
+                                          >
+                                            Sort By Price
+                                          </div>
+                                          <i
+                                            aria-hidden="true"
+                                            class="dropdown icon"
+                                          />
+                                          <div
+                                            class="menu transition"
+                                          >
+                                            <div
+                                              class="item"
+                                              id="adminStoreItemPriceDescQuery"
+                                              role="option"
+                                            >
+                                              <span
+                                                class="description"
+                                              >
+                                                expensive first
+                                              </span>
+                                              <span
+                                                class="text"
+                                              >
+                                                Descending
+                                              </span>
+                                            </div>
+                                            <div
+                                              class="item"
+                                              id="adminStoreItemPriceAscQuery"
+                                              role="option"
+                                            >
+                                              <span
+                                                class="description"
+                                              >
+                                                cheapest first
+                                              </span>
+                                              <span
+                                                class="text"
+                                              >
+                                                Ascending
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>,
+                                      }
+                                    }
+                                  >
+                                    <RefFindNode
+                                      innerRef={
+                                        Object {
+                                          "current": <div
+                                            aria-busy="true"
+                                            aria-disabled="true"
+                                            aria-expanded="false"
+                                            class="ui disabled loading dropdown"
+                                            id="adminStoreItemControlsPriceDropdown"
+                                            role="listbox"
+                                            tabindex="-1"
+                                          >
+                                            <div
+                                              aria-atomic="true"
+                                              aria-live="polite"
+                                              class="text"
+                                              role="alert"
+                                            >
+                                              Sort By Price
+                                            </div>
+                                            <i
+                                              aria-hidden="true"
+                                              class="dropdown icon"
+                                            />
+                                            <div
+                                              class="menu transition"
+                                            >
+                                              <div
+                                                class="item"
+                                                id="adminStoreItemPriceDescQuery"
+                                                role="option"
+                                              >
+                                                <span
+                                                  class="description"
+                                                >
+                                                  expensive first
+                                                </span>
+                                                <span
+                                                  class="text"
+                                                >
+                                                  Descending
+                                                </span>
+                                              </div>
+                                              <div
+                                                class="item"
+                                                id="adminStoreItemPriceAscQuery"
+                                                role="option"
+                                              >
+                                                <span
+                                                  class="description"
+                                                >
+                                                  cheapest first
+                                                </span>
+                                                <span
+                                                  class="text"
+                                                >
+                                                  Ascending
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>,
+                                        }
+                                      }
+                                    >
+                                      <div
+                                        aria-busy={true}
+                                        aria-disabled={true}
+                                        aria-expanded={false}
+                                        className="ui disabled loading dropdown"
+                                        id="adminStoreItemControlsPriceDropdown"
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        onClick={[Function]}
+                                        onFocus={[Function]}
+                                        onMouseDown={[Function]}
+                                        role="listbox"
+                                        tabIndex={-1}
+                                      >
+                                        <div
+                                          aria-atomic={true}
+                                          aria-live="polite"
+                                          className="text"
+                                          role="alert"
+                                        >
+                                          Sort By Price
+                                        </div>
+                                        <Icon
+                                          as="i"
+                                          className=""
+                                          name="dropdown"
+                                          onClick={[Function]}
+                                        >
+                                          <i
+                                            aria-hidden="true"
+                                            className="dropdown icon"
+                                            onClick={[Function]}
+                                          />
+                                        </Icon>
+                                        <DropdownMenu
+                                          className=""
+                                        >
+                                          <div
+                                            className="menu transition"
+                                          >
+                                            <DropdownItem
+                                              description="expensive first"
+                                              id="adminStoreItemPriceDescQuery"
+                                              onClick={[Function]}
+                                              text="Descending"
+                                              value="desc"
+                                            >
+                                              <div
+                                                className="item"
+                                                id="adminStoreItemPriceDescQuery"
+                                                onClick={[Function]}
+                                                role="option"
+                                              >
+                                                <span
+                                                  className="description"
+                                                >
+                                                  expensive first
+                                                </span>
+                                                <span
+                                                  className="text"
+                                                >
+                                                  Descending
+                                                </span>
+                                              </div>
+                                            </DropdownItem>
+                                            <DropdownItem
+                                              description="cheapest first"
+                                              id="adminStoreItemPriceAscQuery"
+                                              onClick={[Function]}
+                                              text="Ascending"
+                                              value="asc"
+                                            >
+                                              <div
+                                                className="item"
+                                                id="adminStoreItemPriceAscQuery"
+                                                onClick={[Function]}
+                                                role="option"
+                                              >
+                                                <span
+                                                  className="description"
+                                                >
+                                                  cheapest first
+                                                </span>
+                                                <span
+                                                  className="text"
+                                                >
+                                                  Ascending
+                                                </span>
+                                              </div>
+                                            </DropdownItem>
+                                          </div>
+                                        </DropdownMenu>
+                                      </div>
+                                    </RefFindNode>
+                                  </Ref>
+                                </Dropdown>
+                              </div>
+                            </MenuItem>
+                          </div>
+                        </Menu>
+                        <Menu
+                          id="storeItemsControlsSecondMenu"
+                        >
+                          <div
+                            className="ui menu"
+                            id="storeItemsControlsSecondMenu"
+                          >
+                            <MenuItem>
+                              <div
+                                className="item"
+                                onClick={[Function]}
+                              >
+                                <Dropdown
+                                  additionLabel="Add "
+                                  additionPosition="top"
+                                  closeOnBlur={true}
+                                  closeOnEscape={true}
+                                  deburr={false}
+                                  disabled={true}
+                                  icon="dropdown"
+                                  id="adminStoreITemContolsNameDropdown"
+                                  loading={true}
+                                  minCharacters={1}
+                                  noResultsMessage="No results found."
+                                  openOnFocus={true}
+                                  renderLabel={[Function]}
+                                  searchInput="text"
+                                  selectOnBlur={true}
+                                  selectOnNavigation={true}
+                                  text="Sort by name"
+                                  wrapSelection={true}
+                                >
+                                  <Ref
+                                    innerRef={
+                                      Object {
+                                        "current": <div
+                                          aria-busy="true"
+                                          aria-disabled="true"
+                                          aria-expanded="false"
+                                          class="ui disabled loading dropdown"
+                                          id="adminStoreITemContolsNameDropdown"
+                                          role="listbox"
+                                          tabindex="-1"
+                                        >
+                                          <div
+                                            aria-atomic="true"
+                                            aria-live="polite"
+                                            class="text"
+                                            role="alert"
+                                          >
+                                            Sort by name
+                                          </div>
+                                          <i
+                                            aria-hidden="true"
+                                            class="dropdown icon"
+                                          />
+                                          <div
+                                            class="menu transition"
+                                          >
+                                            <div
+                                              class="item"
+                                              id="adminStoreItemNameDescQuery"
+                                              role="option"
+                                            >
+                                              <span
+                                                class="description"
+                                              >
+                                                Z - A
+                                              </span>
+                                              <span
+                                                class="text"
+                                              >
+                                                Descending
+                                              </span>
+                                            </div>
+                                            <div
+                                              class="item"
+                                              id="adminStoreItemNameAscQuery"
+                                              role="option"
+                                            >
+                                              <span
+                                                class="description"
+                                              >
+                                                A - Z
+                                              </span>
+                                              <span
+                                                class="text"
+                                              >
+                                                Ascending
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>,
+                                      }
+                                    }
+                                  >
+                                    <RefFindNode
+                                      innerRef={
+                                        Object {
+                                          "current": <div
+                                            aria-busy="true"
+                                            aria-disabled="true"
+                                            aria-expanded="false"
+                                            class="ui disabled loading dropdown"
+                                            id="adminStoreITemContolsNameDropdown"
+                                            role="listbox"
+                                            tabindex="-1"
+                                          >
+                                            <div
+                                              aria-atomic="true"
+                                              aria-live="polite"
+                                              class="text"
+                                              role="alert"
+                                            >
+                                              Sort by name
+                                            </div>
+                                            <i
+                                              aria-hidden="true"
+                                              class="dropdown icon"
+                                            />
+                                            <div
+                                              class="menu transition"
+                                            >
+                                              <div
+                                                class="item"
+                                                id="adminStoreItemNameDescQuery"
+                                                role="option"
+                                              >
+                                                <span
+                                                  class="description"
+                                                >
+                                                  Z - A
+                                                </span>
+                                                <span
+                                                  class="text"
+                                                >
+                                                  Descending
+                                                </span>
+                                              </div>
+                                              <div
+                                                class="item"
+                                                id="adminStoreItemNameAscQuery"
+                                                role="option"
+                                              >
+                                                <span
+                                                  class="description"
+                                                >
+                                                  A - Z
+                                                </span>
+                                                <span
+                                                  class="text"
+                                                >
+                                                  Ascending
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>,
+                                        }
+                                      }
+                                    >
+                                      <div
+                                        aria-busy={true}
+                                        aria-disabled={true}
+                                        aria-expanded={false}
+                                        className="ui disabled loading dropdown"
+                                        id="adminStoreITemContolsNameDropdown"
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        onClick={[Function]}
+                                        onFocus={[Function]}
+                                        onMouseDown={[Function]}
+                                        role="listbox"
+                                        tabIndex={-1}
+                                      >
+                                        <div
+                                          aria-atomic={true}
+                                          aria-live="polite"
+                                          className="text"
+                                          role="alert"
+                                        >
+                                          Sort by name
+                                        </div>
+                                        <Icon
+                                          as="i"
+                                          className=""
+                                          name="dropdown"
+                                          onClick={[Function]}
+                                        >
+                                          <i
+                                            aria-hidden="true"
+                                            className="dropdown icon"
+                                            onClick={[Function]}
+                                          />
+                                        </Icon>
+                                        <DropdownMenu
+                                          className=""
+                                        >
+                                          <div
+                                            className="menu transition"
+                                          >
+                                            <DropdownItem
+                                              description="Z - A"
+                                              id="adminStoreItemNameDescQuery"
+                                              onClick={[Function]}
+                                              text="Descending"
+                                              value="desc"
+                                            >
+                                              <div
+                                                className="item"
+                                                id="adminStoreItemNameDescQuery"
+                                                onClick={[Function]}
+                                                role="option"
+                                              >
+                                                <span
+                                                  className="description"
+                                                >
+                                                  Z - A
+                                                </span>
+                                                <span
+                                                  className="text"
+                                                >
+                                                  Descending
+                                                </span>
+                                              </div>
+                                            </DropdownItem>
+                                            <DropdownItem
+                                              description="A - Z"
+                                              id="adminStoreItemNameAscQuery"
+                                              onClick={[Function]}
+                                              text="Ascending"
+                                              value="asc"
+                                            >
+                                              <div
+                                                className="item"
+                                                id="adminStoreItemNameAscQuery"
+                                                onClick={[Function]}
+                                                role="option"
+                                              >
+                                                <span
+                                                  className="description"
+                                                >
+                                                  A - Z
+                                                </span>
+                                                <span
+                                                  className="text"
+                                                >
+                                                  Ascending
+                                                </span>
+                                              </div>
+                                            </DropdownItem>
+                                          </div>
+                                        </DropdownMenu>
+                                      </div>
+                                    </RefFindNode>
+                                  </Ref>
+                                </Dropdown>
+                              </div>
+                            </MenuItem>
+                            <MenuItem>
+                              <div
+                                className="item"
+                                onClick={[Function]}
+                              >
+                                <Dropdown
+                                  additionLabel="Add "
+                                  additionPosition="top"
+                                  closeOnBlur={true}
+                                  closeOnEscape={true}
+                                  deburr={false}
+                                  icon="dropdown"
+                                  minCharacters={1}
+                                  noResultsMessage="No results found."
+                                  openOnFocus={true}
+                                  renderLabel={[Function]}
+                                  searchInput="text"
+                                  selectOnBlur={true}
+                                  selectOnNavigation={true}
+                                  text="Sort by category"
+                                  wrapSelection={true}
+                                >
+                                  <Ref
+                                    innerRef={
+                                      Object {
+                                        "current": <div
+                                          aria-expanded="false"
+                                          class="ui dropdown"
+                                          role="listbox"
+                                          tabindex="0"
+                                        >
+                                          <div
+                                            aria-atomic="true"
+                                            aria-live="polite"
+                                            class="text"
+                                            role="alert"
+                                          >
+                                            Sort by category
+                                          </div>
+                                          <i
+                                            aria-hidden="true"
+                                            class="dropdown icon"
+                                          />
+                                          <div
+                                            class="menu transition"
+                                          >
+                                            <div
+                                              class="item"
+                                              role="option"
+                                            >
+                                              <span
+                                                class="description"
+                                              >
+                                                Z - A
+                                              </span>
+                                              <span
+                                                class="text"
+                                              >
+                                                Descending
+                                              </span>
+                                            </div>
+                                            <div
+                                              class="item"
+                                              role="option"
+                                            >
+                                              <span
+                                                class="description"
+                                              >
+                                                A - Z
+                                              </span>
+                                              <span
+                                                class="text"
+                                              >
+                                                Ascending
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>,
+                                      }
+                                    }
+                                  >
+                                    <RefFindNode
+                                      innerRef={
+                                        Object {
+                                          "current": <div
+                                            aria-expanded="false"
+                                            class="ui dropdown"
+                                            role="listbox"
+                                            tabindex="0"
+                                          >
+                                            <div
+                                              aria-atomic="true"
+                                              aria-live="polite"
+                                              class="text"
+                                              role="alert"
+                                            >
+                                              Sort by category
+                                            </div>
+                                            <i
+                                              aria-hidden="true"
+                                              class="dropdown icon"
+                                            />
+                                            <div
+                                              class="menu transition"
+                                            >
+                                              <div
+                                                class="item"
+                                                role="option"
+                                              >
+                                                <span
+                                                  class="description"
+                                                >
+                                                  Z - A
+                                                </span>
+                                                <span
+                                                  class="text"
+                                                >
+                                                  Descending
+                                                </span>
+                                              </div>
+                                              <div
+                                                class="item"
+                                                role="option"
+                                              >
+                                                <span
+                                                  class="description"
+                                                >
+                                                  A - Z
+                                                </span>
+                                                <span
+                                                  class="text"
+                                                >
+                                                  Ascending
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>,
+                                        }
+                                      }
+                                    >
+                                      <div
+                                        aria-expanded={false}
+                                        className="ui dropdown"
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        onClick={[Function]}
+                                        onFocus={[Function]}
+                                        onMouseDown={[Function]}
+                                        role="listbox"
+                                        tabIndex={0}
+                                      >
+                                        <div
+                                          aria-atomic={true}
+                                          aria-live="polite"
+                                          className="text"
+                                          role="alert"
+                                        >
+                                          Sort by category
+                                        </div>
+                                        <Icon
+                                          as="i"
+                                          className=""
+                                          name="dropdown"
+                                          onClick={[Function]}
+                                        >
+                                          <i
+                                            aria-hidden="true"
+                                            className="dropdown icon"
+                                            onClick={[Function]}
+                                          />
+                                        </Icon>
+                                        <DropdownMenu
+                                          className=""
+                                        >
+                                          <div
+                                            className="menu transition"
+                                          >
+                                            <DropdownItem
+                                              description="Z - A"
+                                              onClick={[Function]}
+                                              text="Descending"
+                                              value="desc"
+                                            >
+                                              <div
+                                                className="item"
+                                                onClick={[Function]}
+                                                role="option"
+                                              >
+                                                <span
+                                                  className="description"
+                                                >
+                                                  Z - A
+                                                </span>
+                                                <span
+                                                  className="text"
+                                                >
+                                                  Descending
+                                                </span>
+                                              </div>
+                                            </DropdownItem>
+                                            <DropdownItem
+                                              description="A - Z"
+                                              onClick={[Function]}
+                                              text="Ascending"
+                                              value="asc"
+                                            >
+                                              <div
+                                                className="item"
+                                                onClick={[Function]}
+                                                role="option"
+                                              >
+                                                <span
+                                                  className="description"
+                                                >
+                                                  A - Z
+                                                </span>
+                                                <span
+                                                  className="text"
+                                                >
+                                                  Ascending
+                                                </span>
+                                              </div>
+                                            </DropdownItem>
+                                          </div>
+                                        </DropdownMenu>
+                                      </div>
+                                    </RefFindNode>
+                                  </Ref>
+                                </Dropdown>
+                              </div>
+                            </MenuItem>
+                          </div>
+                        </Menu>
+                      </div>
+                    </StoreItemsControlMenu>
+                    <div
+                      className="adminStoreItemControls"
+                    >
+                      <div
+                        className="adminStoreItemCounter"
+                      >
+                        <div>
+                          Total Store Items:
+                        </div>
+                        <div
+                          className="adminStoreItemsCount"
+                        >
+                          0
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </StoreItemsControls>
+                <PopularStoreItemHolder
+                  popularStoreItems={
+                    Array [
+                      Object {
+                        "_id": "1",
+                        "categories": Array [
+                          "sports",
+                          "outdoors",
+                        ],
+                        "createdAt": "Tue Jan 01 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
+                        "description": "description",
+                        "details": "details",
+                        "images": Array [],
+                        "name": "first",
+                        "price": "100",
+                        "storeId": "1",
+                        "storeName": "store",
+                      },
+                      Object {
+                        "_id": "2",
+                        "categories": Array [
+                          "sports",
+                          "outdoors",
+                          "camping",
+                        ],
+                        "createdAt": "Tue Jan 01 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
+                        "description": "description",
+                        "details": "details",
+                        "images": Array [],
+                        "name": "second",
+                        "price": "200",
+                        "storeId": "1",
+                        "storeName": "store",
+                      },
+                    ]
+                  }
+                >
+                  <div
+                    className="popStoreItemsHolder"
+                  >
+                    <div
+                      className="popStoreItemsHolTitle"
+                    >
+                      Popular Store Items
+                    </div>
+                    <ItemGroup
+                      divided={true}
+                    >
+                      <div
+                        className="ui divided items"
+                      >
+                        <PopularStoreItem
+                          key="1"
+                          popularStoreItem={
+                            Object {
+                              "_id": "1",
+                              "categories": Array [
+                                "sports",
+                                "outdoors",
+                              ],
+                              "createdAt": "Tue Jan 01 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
+                              "description": "description",
+                              "details": "details",
+                              "images": Array [],
+                              "name": "first",
+                              "price": "100",
+                              "storeId": "1",
+                              "storeName": "store",
+                            }
+                          }
+                        >
+                          <Item>
+                            <div
+                              className="item"
+                            >
+                              <ItemImage
+                                size="tiny"
+                                src="https://react.semantic-ui.com/images/wireframe/image.png"
+                              >
+                                <Image
+                                  as="img"
+                                  size="tiny"
+                                  src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                  ui={true}
+                                  wrapped={true}
+                                >
+                                  <div
+                                    className="ui tiny image"
+                                  >
+                                    <img
+                                      src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                    />
+                                  </div>
+                                </Image>
+                              </ItemImage>
+                              <ItemContent>
+                                <div
+                                  className="content"
+                                >
+                                  <ItemHeader>
+                                    <div
+                                      className="header"
+                                    >
+                                      first
+                                    </div>
+                                  </ItemHeader>
+                                  <ItemMeta>
+                                    <div
+                                      className="meta"
+                                    >
+                                      <span>
+                                        Priced At: 
+                                        <strong>
+                                          100
+                                        </strong>
+                                      </span>
+                                      <span>
+                                        -
+                                      </span>
+                                      <span>
+                                        Posted: 
+                                        <strong>
+                                          2019-Jan-1
+                                        </strong>
+                                      </span>
+                                    </div>
+                                  </ItemMeta>
+                                  <Button
+                                    as="button"
+                                    basic={true}
+                                    color="blue"
+                                    content="More..."
+                                  >
+                                    <Ref
+                                      innerRef={
+                                        Object {
+                                          "current": <button
+                                            class="ui blue basic button"
+                                          >
+                                            More...
+                                          </button>,
+                                        }
+                                      }
+                                    >
+                                      <RefFindNode
+                                        innerRef={
+                                          Object {
+                                            "current": <button
+                                              class="ui blue basic button"
+                                            >
+                                              More...
+                                            </button>,
+                                          }
+                                        }
+                                      >
+                                        <button
+                                          className="ui blue basic button"
+                                          onClick={[Function]}
+                                        >
+                                          More...
+                                        </button>
+                                      </RefFindNode>
+                                    </Ref>
+                                  </Button>
+                                </div>
+                              </ItemContent>
+                            </div>
+                          </Item>
+                        </PopularStoreItem>
+                        <PopularStoreItem
+                          key="2"
+                          popularStoreItem={
+                            Object {
+                              "_id": "2",
+                              "categories": Array [
+                                "sports",
+                                "outdoors",
+                                "camping",
+                              ],
+                              "createdAt": "Tue Jan 01 2019 00:00:00 GMT+0200 (Eastern European Standard Time)",
+                              "description": "description",
+                              "details": "details",
+                              "images": Array [],
+                              "name": "second",
+                              "price": "200",
+                              "storeId": "1",
+                              "storeName": "store",
+                            }
+                          }
+                        >
+                          <Item>
+                            <div
+                              className="item"
+                            >
+                              <ItemImage
+                                size="tiny"
+                                src="https://react.semantic-ui.com/images/wireframe/image.png"
+                              >
+                                <Image
+                                  as="img"
+                                  size="tiny"
+                                  src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                  ui={true}
+                                  wrapped={true}
+                                >
+                                  <div
+                                    className="ui tiny image"
+                                  >
+                                    <img
+                                      src="https://react.semantic-ui.com/images/wireframe/image.png"
+                                    />
+                                  </div>
+                                </Image>
+                              </ItemImage>
+                              <ItemContent>
+                                <div
+                                  className="content"
+                                >
+                                  <ItemHeader>
+                                    <div
+                                      className="header"
+                                    >
+                                      second
+                                    </div>
+                                  </ItemHeader>
+                                  <ItemMeta>
+                                    <div
+                                      className="meta"
+                                    >
+                                      <span>
+                                        Priced At: 
+                                        <strong>
+                                          200
+                                        </strong>
+                                      </span>
+                                      <span>
+                                        -
+                                      </span>
+                                      <span>
+                                        Posted: 
+                                        <strong>
+                                          2019-Jan-1
+                                        </strong>
+                                      </span>
+                                    </div>
+                                  </ItemMeta>
+                                  <Button
+                                    as="button"
+                                    basic={true}
+                                    color="blue"
+                                    content="More..."
+                                  >
+                                    <Ref
+                                      innerRef={
+                                        Object {
+                                          "current": <button
+                                            class="ui blue basic button"
+                                          >
+                                            More...
+                                          </button>,
+                                        }
+                                      }
+                                    >
+                                      <RefFindNode
+                                        innerRef={
+                                          Object {
+                                            "current": <button
+                                              class="ui blue basic button"
+                                            >
+                                              More...
+                                            </button>,
+                                          }
+                                        }
+                                      >
+                                        <button
+                                          className="ui blue basic button"
+                                          onClick={[Function]}
+                                        >
+                                          More...
+                                        </button>
+                                      </RefFindNode>
+                                    </Ref>
+                                  </Button>
+                                </div>
+                              </ItemContent>
+                            </div>
+                          </Item>
+                        </PopularStoreItem>
+                      </div>
+                    </ItemGroup>
+                  </div>
+                </PopularStoreItemHolder>
+              </div>
+            </GridColumn>
+          </div>
+        </GridRow>
+      </div>
+    </Grid>
+  </StoreItemsPreviewHolder>
+</withRouter(StoreItemsPreviewHolder)>
+`;

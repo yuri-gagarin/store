@@ -19,11 +19,11 @@ class StoreImageUploadController implements IGenericImgUploadCtrl {
   createImage (req: Request, res: Response<StoreImageResponse>): Promise<Response> {
     const { _store_id: storeId } = req.params;
     const uploadDetails: IImageUploadDetails = res.locals.uploadDetails as IImageUploadDetails;
-    const { success, imagePath, fileName, absolutePath } = uploadDetails;
+    const { success, imagePath, absolutePath, fileName } = uploadDetails;
     let newImage: IStoreImage;
 
-    if (success && imagePath && absolutePath) {
-      return normalizeImgUrl(absolutePath)
+    if (success && imagePath && fileName) {
+      return normalizeImgUrl(imagePath, fileName)
         .then((imgUrl) => {
           return StoreImage.create({
             storeId: storeId,

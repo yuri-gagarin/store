@@ -1,25 +1,22 @@
 import React, { useState, useEffect, useRef }  from "react";
 import { Button, Form, TextArea } from "semantic-ui-react";
-
-export type FormState = {
-  description: string;
-  youTubeURL: string;
-  vimeoURL: string;
-}
+// type definitions //
+import { FormState } from "../type_definitions/bonusVideoTypes";
+// helpers //
 
 interface Props {
-  description: string;
-  youTubeURL: string;
-  vimeoURL: string;
+  description?: string;
+  youTubeURL?: string;
+  vimeoURL?: string;
+  newForm: boolean;
   handleCreateBonusVideo(data: FormState): void;
   handleUpdateBonusVideo(data: FormState): void;
 }
 
-
-const ProductForm: React.FC<Props> = ({ description, youTubeURL, vimeoURL, handleCreateBonusVideo, handleUpdateBonusVideo }): JSX.Element => {
-  
-  const [ newForm, setNewForm ] = useState<boolean>(true)
+const BonusVideoForm: React.FC<Props> = ({ description, youTubeURL, vimeoURL, newForm, handleCreateBonusVideo, handleUpdateBonusVideo }): JSX.Element => {
+  // local form state //
   const [ formState, setFormState ] = useState<FormState>({ description, youTubeURL, vimeoURL });
+  // form ref //
   const bonusVideoFormRef = useRef<HTMLDivElement>(document.createElement("div"));
   
   const handleYouTubeURLChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
@@ -49,15 +46,7 @@ const ProductForm: React.FC<Props> = ({ description, youTubeURL, vimeoURL, handl
       handleUpdateBonusVideo(formState);
     }
   };
-
-  useEffect(() => {
-    if (description || youTubeURL || vimeoURL) {
-      setNewForm(false);
-    } else {
-      setNewForm(true);
-    }
-  },  [description, youTubeURL, vimeoURL]);
-
+  // lifecycle hooks //
   useEffect(() => {
     if (bonusVideoFormRef.current) {
       const elem = bonusVideoFormRef.current.getBoundingClientRect();
@@ -66,14 +55,15 @@ const ProductForm: React.FC<Props> = ({ description, youTubeURL, vimeoURL, handl
         behavior: "smooth"
       })
     }
-  }, [bonusVideoFormRef]);
+  }, [ bonusVideoFormRef.current ]);
   
   return (
-    <div className="createProductFormHolder" ref={bonusVideoFormRef}>
-      <Form id="createProductForm">
+    <div id="createBonusVideoForm" ref={bonusVideoFormRef}>
+      <Form>
         <Form.Field>
           <label>Video YouTube URL:</label>
           <input 
+            id="bonusVideoYoutubeInput"
             onChange={handleYouTubeURLChange} 
             placeholder="YouTube URL here ..." 
             value={formState.youTubeURL}
@@ -82,13 +72,14 @@ const ProductForm: React.FC<Props> = ({ description, youTubeURL, vimeoURL, handl
         <Form.Field>
           <label>Video Vimeo URL:</label>
           <input 
+            id="bonusVideoVimeoInput"
             onChange={handleVimeoURLChange} 
             placeholder="Vimeo URL here..." 
             value={formState.vimeoURL}
           />
         </Form.Field>
         <Form.Field
-          id='form-textarea-control-opinion'
+          id="bonusVideoDescInput"
           control={TextArea}
           label='Video Description'
           onChange={hadnleDescriptionChange}
@@ -97,12 +88,12 @@ const ProductForm: React.FC<Props> = ({ description, youTubeURL, vimeoURL, handl
          />
          {
            newForm 
-            ? <Button type='submit' onClick={handleSubmit} content= "Save New Bonus Video" />
-            : <Button type='submit' onClick={handleSubmit} content= "Update Bonus Video" />
+            ? <Button id="bonusVideoFormCreate" type='submit' onClick={handleSubmit} content= "Save New Bonus Video" />
+            : <Button id="bonusVideoFormUpdate" type='submit' onClick={handleSubmit} content= "Update Bonus Video" />
          }  
       </Form>
     </div>
   );
 };
 
-export default ProductForm;
+export default BonusVideoForm;

@@ -3,19 +3,42 @@ type GetAllStoreItems = {
   readonly payload: {
     loading: boolean;
     responseMsg: string;
+    numberOfItems?: number;
     loadedStoreItems: IStoreItemData[];
     error: null | Error;
   };
+}
+type DispatchStoreItemAPIReq = {
+  readonly type: "DISPATCH_STORE_ITEM_API_REQUEST",
+  readonly payload: {
+    loading: boolean;
+    error: null;
+  }
+}
+type OpenStoreItemForm = {
+  readonly type: "OPEN_STORE_ITEM_FORM",
+  readonly payload: {
+    storeItemFormOpen: boolean;
+  }
+}
+type CloseStoreItemForm = {
+  readonly type: "CLOSE_STORE_ITEM_FORM",
+  readonly payload: {
+    storeItemFormOpen: boolean;
+  }
 }
 type SetCurrentStoreItem = {
   readonly type: "SET_CURRENT_STORE_ITEM";
   payload: {
     currentStoreItemData: IStoreItemData;
+    error: null | Error
   }
 }
 type ClearCurrentStoreItem = {
   readonly type: "CLEAR_CURRENT_STORE_ITEM";
-  payload: null;
+  payload: {
+    error: null | Error
+  }
 }
 type GetStoreItem = {
   readonly type: "GET_STORE_ITEM";
@@ -60,6 +83,7 @@ type DeleteStoreItemImg = {
   readonly payload: {
     loading: boolean;
     responseMsg: string;
+    numberOfItems?: number;
     editedStoreItem: IStoreItemData;
     loadedStoreItems: IStoreItemData[];
     error: null;
@@ -103,19 +127,11 @@ type ClearStoreItemError = {
   };
 }
 
-declare interface IStoreItemImgData {
-  _id: string;
-  description?: string;
-  url: string;
-  fileName: string;
-  imagePath: string;
-  absolutePath: string;
-  createdAt: string;
-  editedAt?: string;
-}
-declare interface IStoreItemData {
+
+interface IStoreItemData {
   _id: string;
   storeId: string;
+  storeName: string;
   name: string;
   description: string;
   details: string;
@@ -125,12 +141,24 @@ declare interface IStoreItemData {
   createdAt: string;
   editedAt?: string;
 }
-declare interface IStoreItemState {
+interface IStoreItemState {
   loading: boolean;
   responseMsg: string;
+  numberOfItems: number;
+  storeItemFormOpen: boolean;
   currentStoreItemData: IStoreItemData;
-  loadedStoreItems: IStoreItemData[]
-  error: null | Error;
+  loadedStoreItems: IStoreItemData[];
+  storeItemFormOpen: boolean;
+  error: null | Error | import("axios").AxiosError<Error>;
 }
-declare type StoreItemAction = GetAllStoreItems | GetStoreItem | SetCurrentStoreItem | ClearCurrentStoreItem | CreateStoreItem | EditStoreItem | 
-                          DeleteStoreItem | SetStoreItemError | ClearStoreItemError | UploadNewStoreItemImg | UpdateStoreItemImgs | DeleteStoreItemImg;
+interface IStoreItemImgData {
+  _id: string;
+  description?: string;
+  url: string;
+  fileName: string;
+  imagePath: string;
+  absolutePath: string;
+  createdAt: string;
+  editedAt?: string;
+}
+type StoreItemAction = GetAllStoreItems | DispatchStoreItemAPIReq | GetStoreItem | SetCurrentStoreItem | ClearCurrentStoreItem | OpenStoreItemForm | CloseStoreItemForm | CreateStoreItem | EditStoreItem | DeleteStoreItem | SetStoreItemError | ClearStoreItemError | UploadNewStoreItemImg | UpdateStoreItemImgs | DeleteStoreItemImg;

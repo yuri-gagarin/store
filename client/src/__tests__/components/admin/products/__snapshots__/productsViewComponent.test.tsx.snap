@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProductView Component render tests ProductView Component default render test Should Properly render Products View 1`] = `
+<div
+  id="adminProductsViewHolder"
+>
+  <withRouter(AdminProductsMenu)
+    dispatch={[Function]}
+  />
+  <Switch>
+    <Route
+      path="/admin/home/my_products/view_all"
+    >
+      <Component
+        height="100px"
+        width="100%"
+      />
+      <withRouter(ProductsPreviewHolder) />
+    </Route>
+    <Route
+      path="/admin/home/my_products/create"
+    >
+      <Component
+        height="100px"
+        width="100%"
+      />
+      <withRouter(ProductFormContainer) />
+    </Route>
+    <Route
+      path="/admin/home/my_products/manage"
+    >
+      <Component
+        height="100px"
+        width="100%"
+      />
+      <withRouter(ProductsManageHolder) />
+    </Route>
+  </Switch>
+</div>
+`;

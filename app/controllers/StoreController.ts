@@ -1,15 +1,16 @@
 import { Request, Response } from "express";
+import fs from "fs";
+import path from "path";
 import { Types } from "mongoose";
 import Store, { IStore } from "../models/Store";
-import StorePicture, { IStoreImage } from "../models/StoreImage";
+import StoreImage, { IStoreImage } from "../models/StoreImage";
 import { IGenericController } from "./helpers/controllerInterfaces";
+import { RemoveResponse, resolveStoreItemImgDirectories } from "./helpers/controllerHelpers"
 // helpers //
-import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
-import ProductImage from "../models/ProductImage";
-type StoreImg = {
-  _id: string;
-  url: string;
-}
+import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError, resolveDirectoryOfImg, removeDirectoryWithFiles } from "./helpers/controllerHelpers";
+import StoreItem from "../models/StoreItem";
+import StoreItemImage from "../models/StoreItemImage";
+
 interface IGenericStoreResponse {
   responseMsg: string;
   newStore?: IStore;
@@ -21,16 +22,80 @@ interface IGenericStoreResponse {
 export type StoreParams = {
   title: string;
   description: string;
-  storeImages: IStoreImage[];
+  images: IStoreImage[];
+}
+type StoreQueryPar = {
+  title?: string;
+  items?: string;
+  date?: string;
+  limit?: string;
 }
 class StoresController implements IGenericController {
   index (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
-    console.log("called index");
+    const { title, items, date, limit } : StoreQueryPar = req.query;
+    const queryLimit = limit ? parseInt(limit, 10) : 5;
+    // custom queries //
+    // sort by title alphabetically //
+    if (title) {
+      return (
+        Store.find({})
+          .sort({ title: title })
+          .limit(queryLimit)
+          .populate("images").exec()
+      )
+      .then((stores) => {
+        return res.status(200).json({
+          responseMsg: `Loaded ${stores.length} stores and sorted by Store title ${title.toUpperCase()}`,
+          stores: stores
+        });
+      })
+      .catch((error) => {
+        return respondWithDBError(res, error);
+      });
+    }
+    // sort by number of items //
+    if (items) {
+      return (
+        Store.find({})
+          .sort({ numOfItems: items })
+          .limit(queryLimit)
+          .populate("images").exec()
+      )
+      .then((stores) => {
+        return res.status(200).json({
+          responseMsg: `Loaded ${stores.length} stores and sorted by Store Item count ${items.toUpperCase()}`,
+          stores: stores
+        });
+      })
+      .catch((error) => {
+        return respondWithDBError(res, error);
+      });
+    }
+    // sort by date created //
+    if (date) {
+      return (
+        Store.find({})
+          .sort({ createdAt: date })
+          .limit(queryLimit)
+          .populate("images").exec()
+      )
+      .then((stores) => {
+        return res.status(200).json({
+          responseMsg: `Loaded ${stores.length} stores and sorted by date created ${date.toUpperCase()}`,
+          stores: stores
+        });
+      })
+      .catch((error) => {
+        return respondWithDBError(res, error);
+      });
+    }
+    // generic response //
     return Store.find({})
+      .limit(queryLimit)
       .populate("images").exec()
       .then((stores) => {
         return res.status(200).json({
-          responseMsg: "Loaded all stores",
+          responseMsg: `Loaded ${stores.length} stores`,
           stores: stores
         });
       })
@@ -39,7 +104,6 @@ class StoresController implements IGenericController {
       });
   }
   get (req: Request, res: Response<IGenericStoreResponse>): Promise<Response>  {
-    console.log("called get")
     const _id: string = req.params._id;
 
     if (!_id) return respondWithInputError(res, "Can't find store");
@@ -60,7 +124,7 @@ class StoresController implements IGenericController {
       });
   }
   create (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
-    const { title, description, storeImages }: StoreParams = req.body;
+    const { title, description, images : storeImages }: StoreParams = req.body;
     const imgIds: Types.ObjectId[] = [];
 
     if (storeImages.length > 1) {
@@ -72,6 +136,7 @@ class StoresController implements IGenericController {
     const newStore = new Store({
       title: title,
       description: description,
+      numOfItems: 0,
       images: [ ...imgIds ]
     });
 
@@ -88,7 +153,7 @@ class StoresController implements IGenericController {
   }
   edit (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
     const { _id } = req.params;
-    const { title, description, storeImages }: StoreParams = req.body;
+    const { title, description, images : storeImages }: StoreParams = req.body;
     const updatesStoreImgs = storeImages.map((img) => Types.ObjectId(img._id));
     if (!_id) {
       return respondWithInputError(res, "Can't resolve store", 400);
@@ -104,7 +169,10 @@ class StoresController implements IGenericController {
         },
       },
       { new: true }
-     ).populate("images").exec()
+     )
+      .then((store) => {
+        return store?.populate("images")
+      })
       .then((store) => {
         return res.status(200).json({
           responseMsg: "Store Updates",
@@ -119,56 +187,89 @@ class StoresController implements IGenericController {
   }
 
   delete (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
-   const { _id } = req.params;
-   let deletedImages: number;
-   if (!_id) {
+   const { _id : storeId } = req.params;
+   let numOfDeletedStoreImages: number; 
+   let numOfDeletedStoreItems: number;
+   let numOfDeletedStoreItemImages: number;
+   let storeItemIds: string[];
+
+   if (!storeId) {
      return respondWithInputError(res, "Can't find store");
    }
-   return Store.findOne({ _id: _id})
-    .populate("images")
-    .then((store) => {
-      // first delete all store images //
-      if (store) {
-        const storeImgPaths = store.images.map((image) => {
-          return (image as IStoreImage).absolutePath;
-        });
-        const storeImgIds: Types.ObjectId[] = store.images.map((image) => {
-          return (image as IStoreImage)._id;
-        });
-        const deletePromises: Promise<boolean>[] = [];
-        for (const path of storeImgPaths) {
-          deletePromises.push(deleteFile(path));
+   else {
+    return StoreImage.find({ storeId: storeId })
+      .then((storeImages) => {
+        if (storeImages.length > 0) {
+          const imagesDirectory = resolveDirectoryOfImg(storeImages[0].absolutePath)
+          return removeDirectoryWithFiles(imagesDirectory);
+        } else {
+          return Promise.resolve({ success: true, numberRemoved: 0, message: "No Images to remove" });
         }
-        return Promise.all(deletePromises)
-          .then(() => {
-            return StorePicture.deleteMany({ _id: { $in: [ ...storeImgIds ] } })
-              .then(({ n }) => {
-                n ? deletedImages = n : 0;
-                return Store.findOneAndDelete({ _id: _id });
-              })
-              .then((store) => {
-                if (store) {
-                  return res.status(200).json({
-                    responseMsg: "Deleted the store and " + deletedImages,
-                    deletedStore: store
-                  });
-                }
-                else {
-                  return respondWithDBError(res, new Error("Can't resolve delete"));
-                }
-                
-              })
-              .catch((error) => {
-                return respondWithDBError(res, error);
-              });
-          })
-          .catch((err: Error) => {
-            return respondWithGeneralError(res, err.message, 400);
+      }) 
+      .then(({ success, numberRemoved, message }: RemoveResponse) => {
+        // delete StoreImage models from DB //
+        return StoreImage.deleteMany({ storeId: storeId });
+      })
+      .then(({ n }) => {
+        numOfDeletedStoreImages = n ? n : 0;
+        // find and delete StoreItems //
+        return StoreItem.find({ storeId: storeId });
+      })
+      .then((storeItems) => {
+        if (storeItems.length > 0) {
+          storeItemIds = storeItems.map((storeItem) => storeItem._id);
+          return StoreItem.deleteMany({ storeId: storeId });
+        } else {
+          return Promise.resolve({ n: 0 })
+        }
+      })
+      .then(({ n }) => {
+        numOfDeletedStoreItems = n ? n : 0;
+        // deal with potential store item images //
+        return StoreItemImage.find({ storeItemId: { $in: storeItemIds } });
+      })
+      .then((storeItemImages) => {
+        if (storeItemImages.length > 0) {
+          // proceed with removing images and data //
+          // resolve directories first //
+          const directoriesToDelete: string[] = resolveStoreItemImgDirectories(storeItemImages);
+          const removeResponses: Promise<RemoveResponse>[] = []; 
+          for (const directory of directoriesToDelete) {
+            removeResponses.push(removeDirectoryWithFiles(directory));
+          }
+          return Promise.all(removeResponses);
+        } else {
+          Promise.resolve<[RemoveResponse]>([{ success: true, numberRemoved: 0, message: "No Store Item Images to remove" }]);
+        }
+      })  
+      .then((response) => {
+        if (response && response.length > 0) {
+          const totalStoreItemImgsDeleted: RemoveResponse = response.reduce((prev, next) => { 
+            return {
+              numberRemoved: prev.numberRemoved + next.numberRemoved,
+              success: true,
+              message: `Total removed`
+            }
           });
-      } else {
-        return respondWithInputError(res, "Can't find store to delete");
-      }
-    });
+          return StoreItemImage.deleteMany({ storeItemId: { $in: storeItemIds }})
+        } else {
+          return Promise.resolve({ n: 0 });
+        }
+      })
+      .then(({ n }) => {
+        return Store.findOneAndDelete({ _id: storeId })
+      })
+      .then((deletedStore) => {
+        return res.status(200).json({
+          responseMsg: `Removed Store`,
+          deletedStore: deletedStore!
+        });
+      })
+      .catch((error) => {
+        console.log(error)
+        return respondWithDBError(res, error);
+      })
+    }
   }
 }
 

@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ServiceView Component render tests ServiceView Component default render test Should Properly render Services View 1`] = `
+<div
+  id="adminServiceViewHolder"
+>
+  <withRouter(AdminServiceMenu)
+    dispatch={[Function]}
+  />
+  <Switch>
+    <Route
+      path="/admin/home/my_services/view_all"
+    >
+      <Component
+        height="100px"
+        width="100%"
+      />
+      <withRouter(ServicePreviewHolder) />
+    </Route>
+    <Route
+      path="/admin/home/my_services/create"
+    >
+      <Component
+        height="100px"
+        width="100%"
+      />
+      <withRouter(ServiceFormContainer) />
+    </Route>
+    <Route
+      path="/admin/home/my_services/manage"
+    >
+      <Component
+        height="100px"
+        width="100%"
+      />
+      <withRouter(ServiceManageHolder) />
+    </Route>
+  </Switch>
+</div>
+`;

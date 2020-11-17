@@ -17,7 +17,6 @@ const BonusVideoPreview: React.FC<Props> = ({ bonusVideo }): JSX.Element => {
       <div className="youtubeBonusVideo">
         <Embed
           url={bonusVideo.youTubeURL}
-          source="youtube"
         />
         <div className="bonusVideoDesc">
           {description}
@@ -29,7 +28,6 @@ const BonusVideoPreview: React.FC<Props> = ({ bonusVideo }): JSX.Element => {
       <div>
         <Embed 
           url={bonusVideo.vimeoURL}
-          source="vimeo"
         />
         <div className="bonusVideoDesc">
           {description}

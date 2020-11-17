@@ -1,0 +1,179 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StoreItemView Component test StoreItemView Component render test Should Properly render StoreItemsView 1`] = `
+<withRouter(StoreItemsView)>
+  <StoreItemsView
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "canGo": [Function],
+        "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "pathname": "/admin/home/my_store_items",
+            "search": "",
+            "state": undefined,
+          },
+        ],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "index": 0,
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/admin/home/my_store_items",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+    location={
+      Object {
+        "hash": "",
+        "pathname": "/admin/home/my_store_items",
+        "search": "",
+        "state": undefined,
+      }
+    }
+    match={
+      Object {
+        "isExact": false,
+        "params": Object {},
+        "path": "/",
+        "url": "/",
+      }
+    }
+  >
+    <div
+      id="adminStoreItemsViewHolder"
+    >
+      <withRouter(AdminStoreItemsMenu)
+        dispatch={[Function]}
+      >
+        <AdminStoreItemsMenu
+          dispatch={[Function]}
+          history={
+            Object {
+              "action": "POP",
+              "block": [Function],
+              "canGo": [Function],
+              "createHref": [Function],
+              "entries": Array [
+                Object {
+                  "hash": "",
+                  "pathname": "/admin/home/my_store_items",
+                  "search": "",
+                  "state": undefined,
+                },
+              ],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "index": 0,
+              "length": 1,
+              "listen": [Function],
+              "location": Object {
+                "hash": "",
+                "pathname": "/admin/home/my_store_items",
+                "search": "",
+                "state": undefined,
+              },
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+          location={
+            Object {
+              "hash": "",
+              "pathname": "/admin/home/my_store_items",
+              "search": "",
+              "state": undefined,
+            }
+          }
+          match={
+            Object {
+              "isExact": false,
+              "params": Object {},
+              "path": "/",
+              "url": "/",
+            }
+          }
+        >
+          <div
+            className="adminStoreItemsMenuFixed"
+          >
+            <Menu
+              className="adminStoreItemsMenu"
+              tabular={true}
+            >
+              <div
+                className="ui tabular adminStoreItemsMenu menu"
+              >
+                <MenuItem
+                  active={false}
+                  content="View All StoreItems"
+                  name="view_all"
+                  onClick={[Function]}
+                >
+                  <a
+                    className="item"
+                    onClick={[Function]}
+                  >
+                    View All StoreItems
+                  </a>
+                </MenuItem>
+                <MenuItem
+                  active={false}
+                  content="Create New Store Item"
+                  name="create"
+                  onClick={[Function]}
+                >
+                  <a
+                    className="item"
+                    onClick={[Function]}
+                  >
+                    Create New Store Item
+                  </a>
+                </MenuItem>
+                <MenuItem
+                  active={false}
+                  content="Manage Store Items"
+                  name="manage"
+                  onClick={[Function]}
+                >
+                  <a
+                    className="item"
+                    onClick={[Function]}
+                  >
+                    Manage Store Items
+                  </a>
+                </MenuItem>
+                <MenuItem
+                  active={false}
+                  content="Sort Store Items"
+                  name="view_sorted"
+                  onClick={[Function]}
+                >
+                  <a
+                    className="item"
+                    onClick={[Function]}
+                  >
+                    Sort Store Items
+                  </a>
+                </MenuItem>
+              </div>
+            </Menu>
+          </div>
+        </AdminStoreItemsMenu>
+      </withRouter(AdminStoreItemsMenu)>
+      <Switch />
+    </div>
+  </StoreItemsView>
+</withRouter(StoreItemsView)>
+`;

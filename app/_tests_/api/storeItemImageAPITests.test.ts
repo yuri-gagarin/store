@@ -61,11 +61,31 @@ describe("StoreItemImage API tests", () => {
           done();
         });
     });
+    it("Should respond with correct image", (done) => {
+      chai.request(server)
+        .get(createdImage.url)
+        .end((err, response) => {
+          if (err) {
+            done(err)
+          }
+          expect(response.type).to.equal("image/jpeg");
+          done();
+        });
+    });
     it("Should set the correct storeItemId property on {StoreItemImage} model", (done) => {
       expect(createdImage.storeItemId).to.equal(updatedStoreItem._id);
       done();
     });
-    it("Should place the image into the correct directory", (done) => {
+    it("Should place the image into the correct directory with correct file name", (done) => {
+      const imageDirectory = path.join(path.resolve(), "public", "uploads", "store_item_images", createdStoreItem._id.toString())
+      fs.readdir(imageDirectory, (err, files) => {
+        expect(err).to.equal(null);
+        expect(files.length).to.equal(1);
+        expect(files[0]).to.equal(createdImage.fileName);
+        done();
+      });
+    });
+    it("Should set the correct absolute path on the Image model", (done) => {
       fs.access(createdImage.absolutePath, fs.constants.R_OK | fs.constants.F_OK, (err) => {
         expect(err).to.equal(null);
         done();
@@ -112,7 +132,7 @@ describe("StoreItemImage API tests", () => {
         });
     });
     it("Should delete the image from its directory", (done) => {
-      const imagePath = path.join(__dirname, "/../../../", deletedImage.absolutePath);
+      const imagePath = deletedImage.absolutePath;
       fs.access(imagePath, fs.constants.F_OK, (err) => {
         expect(err!.code).to.equal("ENOENT");
         done();

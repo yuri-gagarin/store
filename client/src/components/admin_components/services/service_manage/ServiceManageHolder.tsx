@@ -1,42 +1,70 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Button, Grid } from "semantic-ui-react";
 // additional components //
-import ServiceFormHolder from "../forms/ServiceFormHolder";
+import ServiceFormHolder from "../forms/ServiceFormContainer";
 import ServiceCard from "./ServiceCard";
+import LoadingScreen from "../../miscelaneous/LoadingScreen";
+import ErrorScreen from "../../miscelaneous/ErrorScreen";
 // actions and state //
 import { getAllServices } from "../actions/APIServiceActions";
-import { IGlobalAppState, AppAction } from "../../../../state/Store";
-// additional dependencies //
+import { Store } from "../../../../state/Store";
+// client routing //
 import { withRouter, RouteComponentProps, useRouteMatch, Route } from "react-router-dom";
+import { AdminServiceRoutes } from "../../../../routes/adminRoutes";
 
 interface Props extends RouteComponentProps {
-  state: IGlobalAppState;
-  dispatch: React.Dispatch<AppAction>;
 };
 
-const ServiceManageHolder: React.FC<Props> = ({ state, dispatch, history }): JSX.Element => {
-  const { loadedServices } = state.serviceState;
-  const match = useRouteMatch("/admin/home/my_services/manage");
-
+const ServiceManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
+  const { state, dispatch } = useContext(Store);
+  const { loading, loadedServices, error } = state.serviceState;
+  // local state //
+  const [ newDataLoaded, setNewDataLoaded ] = useState<boolean>(false);
+  const servicesRef = useRef(loadedServices);
+  // routing //
+  // const match = useRouteMatch("/admin/home/my_services/manage");
   const handleBack = () => {
     history.goBack();
   };
+
   useEffect(() => {
-    getAllServices(dispatch);
-  }, []); 
+    let isMounted = true;
+    if (isMounted) {
+      getAllServices(dispatch)
+        .then(_ => {
+          setNewDataLoaded(true);
+        })
+        .catch(_ => {
+          setNewDataLoaded(false);
+        })
+    }
+    return () => { isMounted = false };
+  }, [dispatch]); 
+
+  useEffect(() => {
+    if (servicesRef.current != loadedServices && !error && !loading) {
+      setNewDataLoaded(true);
+    }
+  }, [ servicesRef.current, loadedServices, error, loading ])
 
   return (
-    <Grid padded stackable columns={2}>
-      <Route path={match?.url + "/edit"}> 
+    newDataLoaded ?
+    <Grid padded stackable columns={2} id="serviceManageHolder">
+      <Route path={AdminServiceRoutes.EDIT_ROUTE}> 
         <Grid.Row>
           <Grid.Column computer={12} tablet={6} mobile={16}>
             <h3>Editing Service: { state.serviceState.currentServiceData.name }</h3>
-            <Button inverted color="green" content="Back" onClick={handleBack}></Button>
+            <Button 
+              id="adminServiceManageBackBtn"
+              inverted color="green" 
+              content="Back" 
+              onClick={handleBack}
+            />
           </Grid.Column>
         </Grid.Row>
-        <ServiceFormHolder state={state} dispatch={dispatch} />
+        <ServiceFormHolder />
       </Route>
-      <Route exact path={match?.url}>
+      <Route exact path={AdminServiceRoutes.MANAGE_ROUTE}>
         <Grid.Row>
           <Grid.Column computer={12} tablet={8} mobile={16}>
           {
@@ -59,7 +87,14 @@ const ServiceManageHolder: React.FC<Props> = ({ state, dispatch, history }): JSX
         </Grid.Row>
       </Route>
     </Grid>
+    : 
+    (
+      error ? <ErrorScreen lastRequest={ () => getAllServices(dispatch) }/> : <LoadingScreen />
+    )
   );
 };
 
+// export without router for tests //
+export { ServiceManageHolder };
+//
 export default withRouter(ServiceManageHolder);

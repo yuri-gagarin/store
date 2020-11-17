@@ -1,40 +1,43 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Menu, MenuItemProps } from "semantic-ui-react";
+// routing //
+import { withRouter, RouteComponentProps, useRouteMatch } from "react-router-dom";
+import { AdminStoreRoutes } from "../../../routes/adminRoutes";
 // css imports //
 import "./css/adminStoreMenu.css";
 // state and actions //
-import { AppAction } from "../../../state/Store";
-// routing //
-import { withRouter, RouteComponentProps } from "react-router-dom"
 
 interface Props extends RouteComponentProps {
-  dispatch: React.Dispatch<AppAction>
+  dispatch: React.Dispatch<StoreAction>
 }
 const AdminStoreMenu: React.FC<Props> = ({ history, location,  dispatch }): JSX.Element => {
+  // local component state //
   const [ scrolled, setScrolled ] = useState<boolean>(false);
-  const [ activeItem, setActiveItem ] = useState<string>("view_all");
+  const [ activeItem, setActiveItem ] = useState<string>("");
   const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
-
+  // route match for correct links //
+  const match = useRouteMatch(AdminStoreRoutes.HOME_ROUTE);
   const adminStoreMenuRef = useRef<HTMLDivElement>(document.createElement("div"));
 
+  // event and handler listeners //
   const handleItemClick = (e: React.MouseEvent, { name }: MenuItemProps): void => {
     setActiveItem(String(name));
-    const baseUrl: string = "/admin/home/my_stores";
+
     switch (name) {
       case "view_all": 
-        history.push(baseUrl + "/all");
+        history.push(match?.path + "/view_all");
         window.scrollTo({ top: 0, behavior: "smooth" });
         break;
       case "create":
-        history.push(baseUrl + "/create");
+        history.push(match?.path + "/create");
         dispatch({ type: "CLEAR_CURRENT_STORE", payload: null });
         window.scrollTo({ top: 0, behavior: "smooth" });
         break;
       case "manage":
-        history.push(baseUrl + "/manage");
+        history.push(match?.path + "/manage");
         window.scrollTo({ top: 0, behavior: "smooth" });
         break;
-      default: history.push(baseUrl);
+      default: history.push(AdminStoreRoutes.HOME_ROUTE);
     }
   };
   const scrollListener = () => {
@@ -47,7 +50,8 @@ const AdminStoreMenu: React.FC<Props> = ({ history, location,  dispatch }): JSX.
   // lifecycle hooks //
   useEffect(() => {
     const currentURL = location.pathname;
-    if (currentURL.match(/all/)) {
+
+    if (currentURL.match(/view_all/)) {
       setActiveItem("view_all");
     } else if (currentURL.match(/create/)) {
       setActiveItem("create");
@@ -59,10 +63,16 @@ const AdminStoreMenu: React.FC<Props> = ({ history, location,  dispatch }): JSX.
       setMenuOpen(true);
     }, 200);
   }, []);
-  useEffect(() => {
 
-    window.addEventListener("scroll", scrollListener, true);
-    return () => window.removeEventListener("scroll", scrollListener);
+  useEffect(() => {
+    let componentLoaded = true;
+    if (componentLoaded) {
+      window.addEventListener("scroll", scrollListener, true);
+    }
+    return () => {
+      componentLoaded = false;
+      window.removeEventListener("scroll", scrollListener)
+    };
 
   }, [adminStoreMenuRef]);
 
@@ -70,18 +80,21 @@ const AdminStoreMenu: React.FC<Props> = ({ history, location,  dispatch }): JSX.
     <div className={ scrolled ? "adminStoreMenuFixed menuScrolled" : "adminStoreMenuFixed"} ref={adminStoreMenuRef}>
       <Menu tabular className={ menuOpen ? "adminStoreMenu storeMenuOpen" : "adminStoreMenu" }>
       <Menu.Item
+          className="adminMenuLink"
           name='view_all'
           content="View All"
           active={activeItem === 'view_all'}
           onClick={handleItemClick}
         />
         <Menu.Item
+          className="adminMenuLink"
           name='create'
           content="Create Store"
           active={activeItem === 'create'}
           onClick={handleItemClick}
         />
         <Menu.Item
+          className="adminMenuLink"
           name='manage'
           content="Manage"
           active={activeItem === 'manage'}

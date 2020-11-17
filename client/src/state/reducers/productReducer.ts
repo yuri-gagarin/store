@@ -1,5 +1,5 @@
 // types //
-const emptyProductData = (): IProductData => {
+export const emptyProductData = (): IProductData => {
   return {
     _id: "",
     name: "",
@@ -16,6 +16,7 @@ export const initialProductState: IProductState = {
   responseMsg: "",
   currentProductData: emptyProductData(),
   loadedProducts: [],
+  productFormOpen: false,
   error: null
 };
 
@@ -27,6 +28,12 @@ const productReducer = (state: IProductState = initialProductState, action: Prod
         loading: action.payload.loading,
         responseMsg: action.payload.responseMsg,
         loadedProducts: [ ...action.payload.loadedProducts],
+        error: action.payload.error
+      };
+    case "DISPATCH_PRODUCT_API_REQUEST": 
+      return {
+        ...state,
+        loading: action.payload.loading,
         error: action.payload.error
       };
     case "GET_PRODUCT": 
@@ -47,8 +54,19 @@ const productReducer = (state: IProductState = initialProductState, action: Prod
         ...state,
         currentProductData: { ...emptyProductData() }
       };
+    case "OPEN_PRODUCT_FORM": 
+      return {
+        ...state,
+        productFormOpen: action.payload.productFormOpen
+      };
+    case "CLOSE_PRODUCT_FORM": 
+      return {
+        ...state,
+        productFormOpen: action.payload.productFormOpen
+      };
     case "UPLOAD_NEW_PRODUCT_IMG": 
       return {
+        ...state,
         loading: action.payload.loading,
         responseMsg: action.payload.responseMsg,
         currentProductData: { ...action.payload.editedProduct },
@@ -57,6 +75,7 @@ const productReducer = (state: IProductState = initialProductState, action: Prod
       };
     case "DELETE_PRODUCT_IMG": {
       return {
+        ...state,
         loading: action.payload.loading,
         responseMsg: action.payload.responseMsg,
         currentProductData: { ...action.payload.editedProduct },

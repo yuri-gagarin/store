@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
-import { AppAction, IGlobalAppState } from "../../../../state/Store";
+import { IGlobalAppState } from "../../../../state/Store";
 
-export const setCurrentProduct = (_id: string, dispatch: Dispatch<AppAction>, state: IGlobalAppState): void => {
+export const setCurrentProduct = (_id: string, dispatch: Dispatch<ProductAction>, state: IGlobalAppState): void => {
   const loadedPRoducts: IProductData[] = state.productState.loadedProducts;
   const newCurrentProduct: IProductData = loadedPRoducts.filter((product) => product._id === _id)[0];
   dispatch({ type: "SET_CURRENT_PRODUCT", payload: {
@@ -9,6 +9,18 @@ export const setCurrentProduct = (_id: string, dispatch: Dispatch<AppAction>, st
   }});
 };
 
-export const clearCurrentProduct = (dispatch: Dispatch<AppAction>): void => {
+export const clearCurrentProduct = (dispatch: Dispatch<ProductAction>): void => {
   dispatch({ type: "CLEAR_CURRENT_PRODUCT", payload: null });
 };
+
+export const openProductForm = (dispatch: Dispatch<ProductAction>): void => {
+  dispatch({ type: "OPEN_PRODUCT_FORM", payload: { productFormOpen: true } });
+};
+export const closeProductForm = (dispatch: Dispatch<ProductAction>): void => {
+  // dispatch({ type: "CLEAR_CURRENT_PRODUCT", payload: null });
+  dispatch({ type: "CLOSE_PRODUCT_FORM", payload: { productFormOpen: false } });
+};
+export const clearProductAPIError = (dispatch: Dispatch<ProductAction>): void => {
+  dispatch({ type: "ClEAR_PRODUCT_ERROR", payload: { loading: false, responseMsg: "", error: null } });
+};
+

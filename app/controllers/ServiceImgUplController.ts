@@ -23,7 +23,7 @@ class ServiceImgUploadController implements IGenericImgUploadCtrl {
     let newImage: IServiceImage;
 
     if (success && imagePath && absolutePath) {
-      return normalizeImgUrl(absolutePath)
+      return normalizeImgUrl(imagePath, fileName)
         .then((imgUrl) => {
           return ServiceImage.create({
             serviceId: serviceId,
@@ -59,7 +59,6 @@ class ServiceImgUploadController implements IGenericImgUploadCtrl {
   deleteImage (req: Request, res: Response<ServiceImgResponse>): Promise<Response> {
     const { _id: imgId, _service_id: serviceId } = req.params;
     let deletedImage: IServiceImage;
-    console.log(61);
     if (!imgId) {
       return respondWithInputError(res, "Can't resolve image to delete", 400);
     }

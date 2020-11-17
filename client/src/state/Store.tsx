@@ -14,14 +14,14 @@ export interface IGlobalAppState {
   serviceState: IServiceState;
 }
 // app actions //
-export type AppAction = StoreAction | StoreItemAction | ServiceAction | ProductAction | BonusVideoAction;
+export type AppAction = StoreAction | StoreItemAction | ServiceAction  | ProductAction | BonusVideoAction;
 // global app context //
 export interface IGlobalAppContext {
   state: IGlobalAppState;
   dispatch: React.Dispatch<AppAction>;
 }
 // context initialization //
-const initialContext: IGlobalAppContext = {
+export const initialContext: IGlobalAppContext = {
   state: {
     bonusVideoState: { ...initialBonusVideoState },
     productState: { ...initialProductState },
@@ -45,7 +45,6 @@ const logStateChanges = (state: IGlobalAppState): void => {
 
 export const StateProvider: React.FC<{}> = ({ children }): JSX.Element => {
   const [ globalState, dispatch ] = useReducer(indexReducer, rootState);
-
   const usePrevious = (state: IGlobalAppState) => {
     const ref = useRef<IGlobalAppState>();
     useEffect(() => {
@@ -55,13 +54,28 @@ export const StateProvider: React.FC<{}> = ({ children }): JSX.Element => {
       console.log("Current State");
       console.log(state);
     }, [state])
-   
   };
 
-  usePrevious(globalState)
+  if (process.env.NODE_ENV === "development") {
+    usePrevious(globalState);
+  }
+
 
   return  (
     <Store.Provider value={{ state: globalState, dispatch: dispatch }}>
+      {children}
+    </Store.Provider>
+  );
+};
+
+type TestStateProviderProps = {
+  mockState?: IGlobalAppState
+}
+export const TestStateProvider: React.FC<TestStateProviderProps> = ({ mockState, children }): JSX.Element => {
+  let testState = mockState ? mockState : rootState
+  const [ state, dispatch ] = useReducer(indexReducer, testState);
+  return  (
+    <Store.Provider value={{ state: state, dispatch: dispatch }}>
       {children}
     </Store.Provider>
   );

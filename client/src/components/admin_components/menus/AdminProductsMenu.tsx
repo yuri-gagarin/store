@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Menu, MenuItemProps } from "semantic-ui-react";
 // routing //
-import { withRouter, RouteComponentProps, useRouteMatch } from "react-router-dom"
+import { withRouter, RouteComponentProps, useRouteMatch } from "react-router-dom";
+import { AdminProductRoutes } from "../../../routes/adminRoutes";
 // css imports //
 import "./css/adminProductsMenu.css";
 // actions and state //
@@ -12,10 +13,10 @@ interface Props extends RouteComponentProps {
 }
 const AdminProductsMenu: React.FC<Props> = ({ history, location, dispatch }): JSX.Element => {
   const [ scrolled, setScrolled ] = useState<boolean>(false);
-  const [ activeItem, setActiveItem ] = useState<string>("view_all");
+  const [ activeItem, setActiveItem ] = useState<string>("");
   const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
 
-  const match = useRouteMatch("/admin/home/my_products");
+  const match = useRouteMatch(AdminProductRoutes.HOME_ROUTE);
   const adminProductsMenuRef = useRef<HTMLDivElement>(document.createElement("div"));
 
   const handleItemClick = (e: React.MouseEvent, { name }: MenuItemProps): void => {
@@ -24,7 +25,7 @@ const AdminProductsMenu: React.FC<Props> = ({ history, location, dispatch }): JS
 
     switch (name) {
       case "view_all": {
-        history.push(match?.path + "/all");
+        history.push(match?.path + "/view_all");
         break;
       }
       case "create": {
@@ -40,7 +41,7 @@ const AdminProductsMenu: React.FC<Props> = ({ history, location, dispatch }): JS
         history.push(match?.path + "/view_sorted");
         break;
       }
-      default: history.push("/admin/home");
+      default: history.push(AdminProductRoutes.HOME_ROUTE);
     }
   }
  
@@ -57,7 +58,7 @@ const AdminProductsMenu: React.FC<Props> = ({ history, location, dispatch }): JS
     setTimeout(() => {
       setMenuOpen(true);
     }, 200);
-    if (currentURL.match(/all/)) {
+    if (currentURL.match(/view_all/)) {
       setActiveItem("view_all");
     } else if (currentURL.match(/create/)) {
       setActiveItem("create");

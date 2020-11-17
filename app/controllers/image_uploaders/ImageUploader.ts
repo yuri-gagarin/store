@@ -11,6 +11,7 @@ class ImageUploader {
   private maxFileSize: number;
   private fileName = "";
   private imagePath = "";
+  private subdir: string = "";
   private path: string;
   private name: string;
   private modelName: string;
@@ -42,7 +43,7 @@ class ImageUploader {
     // console.log("image path is " + this.imagePath)
   }
   private setPath (...path: string[]): string {
-    return PATH.join(...path);
+    return PATH.join(PATH.resolve(), ...path);
   }
 
   private fileFilter (req: Request, file: Express.Multer.File, done: any): void {
@@ -59,12 +60,11 @@ class ImageUploader {
   }
   
   public runUpload (req: Request, res: Response, next: NextFunction): void {
-    const modelIdParam = "_" + camelToSnake(this.modelName) + "_id";
-    console.log(modelIdParam)
-    this.path = this.path + "/" + req.params[modelIdParam];
+    this.subdir = req.params._store_id || req.params._product_id || req.params._store_item_id || req.params._service_id;
+    this.path = PATH.join(this.path, this.subdir);
     fs.access(this.path, (err) => {
       if (err && err.code === "ENOENT") {
-        console.error(err);
+        console.log("\tMaking directory");
         fs.mkdir(this.path, { recursive : true }, (err) => {
           if (err) {
             console.error(err);
@@ -129,7 +129,7 @@ class ImageUploader {
         this.uploadDetails = { 
           responseMsg: "Success", 
           success: true, 
-          imagePath: this.imagePath,
+          imagePath: PATH.join("public", "uploads", this.imagePath, this.subdir),
           fileName: this.fileName,
           absolutePath: this.path + "/" + this.fileName
          };

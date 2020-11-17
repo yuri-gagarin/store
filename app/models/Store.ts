@@ -5,6 +5,7 @@ export interface IStore extends Document {
   title: string;
   description: string;
   images: (IStoreImage | mongoose.Types.ObjectId)[];
+  numOfItems: number;
   createdAt: Date;
   editedAt?: Date;
 }
@@ -24,6 +25,11 @@ const StoreSchema: Schema = new Schema({
       ref: "StoreImage"
     }
   ],
+  numOfItems: {
+    type: Number,
+    required: true,
+    default: 0
+  },
   createdAt: {
     type: Date,
     default: Date.now,

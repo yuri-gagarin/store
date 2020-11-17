@@ -3,11 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
     "@tinymce/tinymce-react": "^3.6.0",
-    "@types/jest": "^24.0.0",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
@@ -22,10 +18,54 @@
     "typescript": "~3.7.2",
     "websocket-extensions": "^0.1.4"
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts",
+      "!src/index.tsx",
+      "!src/serviceWorker.ts",
+      "helpers"
+    ],
+    "coveragePathIgnorePatterns": [
+      "./src/*/*.types.{ts,tsx}",
+      "./src/index.tsx",
+      "./src/serviceWorker.ts"
+    ],
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text-summary",
+      "clover"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 95,
+        "branches": 95,
+        "lines": 95,
+        "functions": 95
+      }
+    },
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
+      "^.+\\.module\\.(css|sass|scss)$"
+    ],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web",
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
+      "src/(.*)$": "<rootDir>/src/$1"
+    }
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:coverage": "react-scripts test --coverage --runInBand --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -44,11 +84,25 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react-hooks": "^3.4.1",
     "@types/axios": "^0.14.0",
+    "@types/enzyme": "^3.10.5",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/jest": "^26.0.13",
+    "@types/moxios": "^0.4.9",
     "@types/react-combine-reducers": "^1.0.0",
     "@types/react-image-gallery": "^0.9.3",
     "@types/react-router-dom": "^5.1.5",
-    "react-combine-reducers": "^1.0.3"
+    "@types/redux-mock-store": "^1.0.2",
+    "@types/sinon": "^9.0.5",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.5.0",
+    "moxios": "^0.4.0",
+    "react-combine-reducers": "^1.0.3",
+    "react-test-renderer": "^16.13.1",
+    "sinon": "^9.0.3",
+    "ts-jest": "^26.1.4"
   },
   "proxy": "http://localhost:8080"
 }

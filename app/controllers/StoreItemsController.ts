@@ -1,13 +1,16 @@
 import { Request, Response } from "express";
-import { Types } from "mongoose";
+import { Types, isValidObjectId } from "mongoose";
+import Store, { IStore } from "../models/Store";
 import StoreItem, { IStoreItem } from "../models/StoreItem";
 import StoreItemImage, { IStoreItemImage } from "../models/StoreItemImage";
 import { IGenericController } from "./helpers/controllerInterfaces";
 // helpers //
 import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
+import { validateStoreItems } from "./validators/formValidators";
 
 interface IGenericStoreImgRes {
   responseMsg: string;
+  numberOfItems?: number;
   newStoreItem?: IStoreItem;
   editedStoreItem?: IStoreItem;
   deletedStoreItem?: IStoreItem;
@@ -15,30 +18,153 @@ interface IGenericStoreImgRes {
   storeItems?: IStoreItem[];
 }
 export type StoreItemParams = {
-  storeId: string;
-  name: string;
-  description: string;
-  details: string;
-  price: string;
-  categories: string[];
-  storeItemImages: IStoreItemImage[];
+  storeId?: string;
+  storeName?: string;
+  name?: string;
+  description?: string;
+  details?: string;
+  price?: string | number;
+  categories?: string[];
+  images?: IStoreItemImage[];
+}
+type StoreItemQueryPar = {
+  storeName?: string;
+  storeId?: string;
+  limit?: string;
+  date?: string;
+  price?: string;
+  name?: string;
 }
 
 class StoreItemsController implements IGenericController {
 
   index (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
-    const itemLimit = req.query.limit as string;
-    return StoreItem.find({}).limit(itemLimit ? parseInt(itemLimit, 10) : 10)
-      .populate("images").exec()
-      .then((storeItems) => {
-        return res.status(200).json({
-          responseMsg: "Loaded all Store Items",
-          storeItems: storeItems
+    let foundStore: IStore; let storeItems: IStoreItem[];
+    const { storeName, storeId, limit, date, price, name }  = req.query as StoreItemQueryPar;
+    // return store items by store name //
+    if (storeName && !price && !date) {
+      return Store.find({ title: storeName })
+        .then((stores) => {
+          foundStore = stores[0];
+          return (
+            StoreItem.find({ storeId: foundStore._id })
+              .limit(limit ? parseInt(limit, 10) : 10)
+              .populate("images").exec()
+          );
+        })
+        .then((storeItems) => {
+          return res.status(200).json({
+            responseMsg: `Loaded all Store Item from Store: ${foundStore.title}`,
+            storeItems: storeItems
+          });
+        })
+        .catch((error) => {
+          return respondWithDBError(res, error);
         });
-      })
-      .catch((error) => {
-        return respondWithDBError(res, error);
-      });
+    }
+    // return store items by date //
+    if (date) {
+      if (storeName) {
+        // return store items from a specific store by date //
+        return Store.find({ title: storeName })
+          .then((stores) => {
+            foundStore = stores[0];
+            return (
+              StoreItem.find({ storeId: foundStore._id})
+                .sort({ createdAt: date })
+                .limit(limit ? parseInt(limit, 10) : 10)
+                .populate("images").exec()
+            );
+          })
+          .then((storeItems) => {
+            return res.status(200).json({
+              responseMsg: `Loaded all Store Items from Store ${foundStore.title}`,
+              storeItems: storeItems
+            });
+          })
+          .catch((error) => {
+            return respondWithDBError(res, error);
+          });
+      } else {
+        return ( 
+          StoreItem.find({})
+            .sort({ createdAt: date })
+            .limit(limit ? parseInt(limit, 10) : 10)
+            .populate("images").exec()
+          )
+          .then((storeItems) => {
+            return res.status(200).json({
+              responseMsg: `Loaded all Store Items by date in order: ${date}`,
+              storeItems: storeItems
+            });
+          })
+          .catch((error) => {
+            return respondWithDBError(res, error);
+          })
+      }  
+    }
+    // return store items by price //
+    if (price) {
+      if (storeName) {
+        // return store items form a specific store by price //
+        return Store.find(({ title: storeName }))
+          .then((stores) => {
+            foundStore = stores[0];
+            return (
+              StoreItem.find({ storeId: foundStore._id })
+                .sort({ price: price })
+                .limit(limit ? parseInt(limit, 10) : 10)
+                .populate("images").exec()
+            );
+          })
+          .then((storeItems) => {
+            return res.status(200).json({
+              responseMsg: `Loaded Store Items from store ${storeName} and sorted by price ${price}`,
+              storeItems: storeItems
+            });
+          })
+          .catch((error) => {
+            return respondWithDBError(res, error);
+          })
+      }
+      else {
+        return (
+          StoreItem.find({})
+            .sort({ price: price })
+            .limit(limit ? parseInt(limit, 10) : 10)
+            .populate("images").exec()
+        )
+        .then((storeItems) => {
+          return res.status(200).json({
+            responseMsg: `Loaded Store Items and sorted by price ${price}`,
+            storeItems: storeItems
+          });
+        })
+        .catch((error) => {
+          return respondWithDBError(res, error);
+        });
+      }
+    }
+    // a query with no specific params only possible limit //
+    return (
+      StoreItem.find({})
+        .limit(limit ? parseInt(limit, 10) : 10)
+        .populate("images").exec()
+        .then((foundStoreItems) => {
+          storeItems = foundStoreItems;
+          return StoreItem.countDocuments();
+        })
+        .then((value) => {
+          return res.status(200).json({
+            responseMsg: "Loaded all Store Items",
+            numberOfItems: value,
+            storeItems: storeItems
+          });
+        })
+        .catch((error) => {
+          return respondWithDBError(res, error);
+        })
+    );
   }
 
   get (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response>  {
@@ -64,10 +190,17 @@ class StoreItemsController implements IGenericController {
   }
 
   create (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
-    const { name, description, details, price, storeItemImages, categories }: StoreItemParams = req.body;
-    const storeId = req.body.storeId as unknown as Types.ObjectId;
-    const imgIds: Types.ObjectId[] = [];
+    // immediate data validation //
+    const { isValid, errors } = validateStoreItems(req.body);
+    if (!isValid) {
+      return respondWithInputError(res, "Validation Error", 422, errors);
+    }
 
+    const { name, description, details, price, images : storeItemImages, categories }: StoreItemParams = req.body;
+    const storeId = req.body.storeId as unknown as Types.ObjectId;
+    const storeName: string = req.body.storeName;
+    const imgIds: Types.ObjectId[] = [];
+    
     if (Array.isArray(storeItemImages) && (storeItemImages.length > 1)) {
       for (const newImg of storeItemImages) {
         imgIds.push(Types.ObjectId(newImg.url));
@@ -76,30 +209,41 @@ class StoreItemsController implements IGenericController {
 
     const newStoreItem = new StoreItem({
       storeId: storeId,
+      storeName: storeName,
       name: name,
       description: description,
       details: details,
-      price: price,
+      price: price as number,
       images: [ ...imgIds ],
       categories: categories
     });
-
-    return newStoreItem.save()
-      .then((newStoreItem) => {
-        return res.status(200).json({
-          responseMsg: "New StoreItem created",
-          newStoreItem: newStoreItem
-        });
+    return Store.findByIdAndUpdate({ _id: storeId }, { $inc : { numOfItems: 1 } })
+      .then((store) => {
+        if (!store) {
+          return respondWithInputError(res, "Can't resolve Store for new Item");
+        } else {
+          return newStoreItem.save()
+            .then((newStoreItem) => {
+              return res.status(200).json({
+                responseMsg: "New StoreItem created",
+                newStoreItem: newStoreItem
+              });
+            })
+            .catch((err) => {
+              console.error(err)
+              return respondWithDBError(res, err);
+            });
+        }
       })
-      .catch((err) => {
-        console.error(err)
-        return respondWithDBError(res, err);
-      });
+      .catch((error) => {
+        return respondWithDBError(res, error);
+      })
+    
   }
 
   edit (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
     const { _id } = req.params;
-    const { name, description, details, price, storeItemImages, categories }: StoreItemParams = req.body;
+    const { name, description, details, price, images : storeItemImages, categories = [] }: StoreItemParams = req.body;
     const storeId = req.body.storeId as unknown as Types.ObjectId;
     const updatedStoreItemImgs: Types.ObjectId[] = [];
 
@@ -120,7 +264,7 @@ class StoreItemsController implements IGenericController {
           name: name,
           description: description,
           details: details,
-          price: price,
+          price: price as number,
           images: [ ...updatedStoreItemImgs ],
           categories: [ ...categories ],
           editedAt: new Date()
@@ -144,7 +288,7 @@ class StoreItemsController implements IGenericController {
   delete (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
    const { _id } = req.params;
 
-   let deletedImages: number;
+   let deletedImages: number; let deletedItem: IStoreItem;
    const storeItemImagePaths: string[] = [];
    const storeItemImageIds: string[] = [];
    const deleteStoreImgPromises: Promise<boolean>[] = [];
@@ -175,15 +319,22 @@ class StoreItemsController implements IGenericController {
               })
               .then((storeItem) => {
                 if (storeItem) {
-                  return res.status(200).json({
-                    responseMsg: "Deleted the Store Item and " + deletedImages,
-                    deletedStoreItem: storeItem
-                  });
+                  const storeId = storeItem.storeId;
+                  deletedItem = storeItem;
+                  return Store.findByIdAndUpdate({ _id: storeId }, { $inc: { numOfItems: -1 } })
+                    .then((store) => {
+                      return res.status(200).json({
+                        responseMsg: "Deleted the Store Item and " + deletedImages,
+                        deletedStoreItem: deletedItem
+                      });
+                    })
+                    .catch((error) => {
+                      return respondWithDBError(res, error);
+                    });
                 }
                 else {
                   return respondWithDBError(res, new Error("Can't resolve delete"));
-                }
-                
+                } 
               })
               .catch((error) => {
                 return respondWithDBError(res, error);

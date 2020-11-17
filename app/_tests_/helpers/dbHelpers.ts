@@ -1,5 +1,6 @@
 import mongoose, { Error } from "mongoose";
 import config from "../../config/config";
+import chalk from "chalk";
 
 export const setupDB = (): Promise<boolean> => {
   return new Promise((resolve, reject) => {
@@ -18,14 +19,12 @@ export const clearDB = (): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     mongoose.connection.db.dropDatabase()
       .then(() => {
-        mongoose.connection.close((err) => {
-          if (err) console.log(err);
-          resolve(true);
-        });
+        console.log(chalk.bgBlue.bold.white(`Dropped Database, Moving to next test suite`));
+        resolve(true);
       })
-    .catch((err: Error) => {
-      reject(err);
-    });
+      .catch((err: Error) => {
+        reject(err);
+      });
   });
 };
 

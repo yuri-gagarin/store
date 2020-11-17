@@ -1,36 +1,75 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { Button, Grid } from "semantic-ui-react";
-import StoreFormHolder from "../forms/StoreFormHolder";
+// additional components //
+import StoreFormHolder from "../forms/StoreFormContainer";
 import StoreCard from "./StoreCard";
-import { withRouter, RouteComponentProps, useRouteMatch, Route } from "react-router-dom";
-import { Store } from "../../../../state/Store";
+import LoadingScreen from "../../miscelaneous/LoadingScreen";
+import ErrorScreen from "../../miscelaneous/ErrorScreen";
+// actions and state //
 import { getAllStores } from "../actions/APIstoreActions";
+import { Store } from "../../../../state/Store";
+// routing and dependencies //
+import { withRouter, RouteComponentProps, useRouteMatch, Route } from "react-router-dom";
+import { AdminStoreRoutes } from "../../../../routes/adminRoutes";
 
 interface Props extends RouteComponentProps {};
 
 const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
   const { state, dispatch } = useContext(Store);
-  const { loadedStores } = state.storeState;
-  const match = useRouteMatch("/admin/home/my_store/manage");
-
+  const { loading, loadedStores, error } = state.storeState;
+  // local state //
+  const [ newDataLoaded, setNewDataLoaded ] = useState<boolean>(false);
+  const storesRef = useRef(loadedStores);
+  // routing //
+  const match = useRouteMatch(AdminStoreRoutes.MANAGE_ROUTE);
   const handleBack = () => {
     history.goBack();
   }
   useEffect(() => {
-    getAllStores(dispatch);
-  }, []); 
+    let isMounted = true;
+    if (isMounted) {
+      getAllStores(dispatch)
+        .then((_) => {
+          setNewDataLoaded(true)
+        })
+        .catch(_ => {
+          setNewDataLoaded(false)
+        })
+    }
+    return () => { isMounted = false }; 
+
+  }, []);
+
+  useEffect(() => {
+    if (storesRef.current != loadedStores && !error && !loading) {
+      setNewDataLoaded(true);
+    }
+  }, [ storesRef.current, loadedStores, error, loading ]);
+
+
+  /*
+  useEffect(() => {
+    console.log(state.storeState)
+  }, [state.storeState])
+  */
 
   return (
-    <Grid padded>
-       
-      <Route path={match?.url + "/edit"}> 
+    newDataLoaded ?
+    <Grid padded id="storeManageHolder">
+      <Route path={AdminStoreRoutes.EDIT_ROUTE}> 
         <Grid.Row>
           <Grid.Column>
             <h3>Editing Store: { state.storeState.currentStoreData.title }</h3>
-            <Button inverted color="green" content="Back" onClick={handleBack}></Button>
+            <Button 
+              id="adminStoreManageBackBtn"
+              inverted 
+              color="green" 
+              content="Back" 
+              onClick={handleBack}
+            />
           </Grid.Column>
         </Grid.Row>
-        <StoreFormHolder state={state} dispatch={dispatch} />
+        <StoreFormHolder />
       </Route>
       <Route exact path={match?.url}>
         {
@@ -53,7 +92,14 @@ const StoreManageHolder: React.FC<Props> = ({ history }): JSX.Element => {
       </Route>
      
     </Grid>
+    :
+    (
+      error ? <ErrorScreen lastRequest={() => getAllStores(dispatch)} /> : <LoadingScreen />
+    )
   );
 };
+
+// for unit testing //
+export { StoreManageHolder };
 
 export default withRouter(StoreManageHolder);

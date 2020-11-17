@@ -1,42 +1,19 @@
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
 import { Dispatch } from "react";
 import { IGlobalAppState } from "../../../../state/Store";
-import { AppAction } from "../../../../state/Store";
+// type definitions //
+import {
+  IServiceServerResData, IServiceServerRes,
+  IServiceImgServerResData, IServiceImgServerRes,
+  ClientServiceData
+} from "../type_definitions/serviceTypes";
 
-interface IServiceImgServerResData {
-  responseMsg: string;
-  newServiceImage?: IServiceImgData;
-  deletedServiceImage?: IServiceImgData;
-  updatedService: IServiceData;
-}
-interface IServiceImgServerRes {
-  data: IServiceImgServerResData;
-}
-
-interface IServiceServerResData {
-  responseMsg: string;
-  service?: IServiceData;
-  newService?: IServiceData;
-  editedService?: IServiceData;
-  deletedService?: IServiceData;
-  services?: IServiceData[];
-}
-interface IServiceServerRes {
-  data: IServiceServerResData
-}
-
-type NewServiceData = {
-  name: string;
-  description: string;
-  serviceImages: IServiceImgData[]
-}
-type EditedServiceData = NewServiceData;
-
-export const getAllServices = (dispatch: Dispatch<AppAction>): Promise<boolean> => {
+export const getAllServices = (dispatch: Dispatch<ServiceAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/services"
   };
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IServiceServerResData, IServiceServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -47,7 +24,7 @@ export const getAllServices = (dispatch: Dispatch<AppAction>): Promise<boolean> 
         loadedServices: services,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_SERVICE_ERROR", payload: {
@@ -55,15 +32,16 @@ export const getAllServices = (dispatch: Dispatch<AppAction>): Promise<boolean> 
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const getService = (_id: string, dispatch: Dispatch<AppAction>): Promise<boolean> => {
+export const getService = (_id: string, dispatch: Dispatch<ServiceAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "get",
     url: "/api/services/" + _id,
   };
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IServiceServerResData, IServiceServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -74,7 +52,7 @@ export const getService = (_id: string, dispatch: Dispatch<AppAction>): Promise<
         currentServiceData: service,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_SERVICE_ERROR", payload: {
@@ -82,21 +60,22 @@ export const getService = (_id: string, dispatch: Dispatch<AppAction>): Promise<
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const createService = ({ name, description, serviceImages }: NewServiceData, dispatch: Dispatch<AppAction>): Promise<boolean> => {
+export const createService = ({ name, description, price, images }: ClientServiceData, dispatch: Dispatch<ServiceAction>): Promise<void> => {
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/services/create",
     data: {
       name: name,
+      price: price,
       description: description,
-      serviceImages: serviceImages,
+      images: images
     }
   };
-
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IServiceServerResData, IServiceServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -107,20 +86,19 @@ export const createService = ({ name, description, serviceImages }: NewServiceDa
         newService: newService,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
-      console.error(error)
       dispatch({ type: "SET_SERVICE_ERROR", payload: {
         loading: false,
-        responseMsg: "An Error occured",
+        responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const editService = (_id: string, data: EditedServiceData, dispatch: Dispatch<AppAction>, state: IGlobalAppState) => {
+export const editService = (_id: string, data: ClientServiceData, dispatch: Dispatch<ServiceAction>, state: IGlobalAppState): Promise<void> => {
   const { loadedServices } = state.serviceState;
   const requestOptions: AxiosRequestConfig = {
     method: "patch",
@@ -129,6 +107,7 @@ export const editService = (_id: string, data: EditedServiceData, dispatch: Disp
       ...data,
     }
   };
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IServiceServerResData, IServiceServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -147,23 +126,25 @@ export const editService = (_id: string, data: EditedServiceData, dispatch: Disp
         loadedServices: updatedServices,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_SERVICE_ERROR", payload: {
         loading: false,
-        responseMsg: "An error occured",
+        responseMsg: error.message,
         error: error
       }});
+      return Promise.reject();
     });
 };
 
-export const deleteService = (_id: string, dispatch: Dispatch<AppAction>, state: IGlobalAppState): Promise<boolean> => {
+export const deleteService = (_id: string, dispatch: Dispatch<ServiceAction>, state: IGlobalAppState): Promise<void> => {
   const { loadedServices } = state.serviceState;
   const requestOptions: AxiosRequestConfig = {
     method: "delete",
     url: "/api/services/delete/" + _id,
   };
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IServiceServerResData, IServiceServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
@@ -178,31 +159,30 @@ export const deleteService = (_id: string, dispatch: Dispatch<AppAction>, state:
         loadedServices: updatedServices,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_SERVICE_ERROR", payload: {
         loading: false,
-        responseMsg: "A delete error occured",
+        responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const uploadServiceImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<AppAction>): Promise<boolean> => {
-  const { currentServiceData, loadedServices } = state.serviceState;
+export const uploadServiceImage = (_id: string, imageFile: FormData, state: IGlobalAppState, dispatch: Dispatch<ServiceAction>): Promise<void> => {
+  const { loadedServices } = state.serviceState;
   const requestOptions: AxiosRequestConfig = {
     method: "post",
     url: "/api/uploads/service_images/" + _id,
     data: imageFile
   };
-
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IServiceImgServerResData, IServiceImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const { responseMsg, newServiceImage, updatedService } = data;
-
+      const { responseMsg, updatedService } = data;
       const updatedServices = loadedServices.map((service) => {
         if (service._id === updatedService._id) {
           return updatedService;
@@ -217,32 +197,31 @@ export const uploadServiceImage = (_id: string, imageFile: FormData, state: IGlo
         loadedServices: updatedServices,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
-      console.error(error);
       dispatch({ type: "SET_SERVICE_ERROR", payload: {
         loading: false,
         responseMsg: error.message,
         error: error
       }});
-      return false;
+      return Promise.reject();
     });
 };
 
-export const deleteServiceImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<AppAction>): Promise<boolean> => {
-  const { loadedServices, currentServiceData } = state.serviceState; 
+export const deleteServiceImage = (imgId: string, state: IGlobalAppState, dispatch: Dispatch<ServiceAction>): Promise<void> => {
+  const { loadedServices } = state.serviceState; 
   const { _id: serviceId } = state.serviceState.currentServiceData;
 
   const requestOptions: AxiosRequestConfig = {
     method: "delete",
     url: "/api/uploads/service_images/" + imgId + "/" + serviceId
   };
-
+  dispatch({ type: "DISPATCH_SERVICE_API_REQUEST", payload: { loading: true, error: null } });
   return axios.request<IServiceImgServerResData, IServiceImgServerRes>(requestOptions)
     .then((response) => {
       const { data } = response;
-      const { responseMsg, deletedServiceImage, updatedService } = data;
+      const { responseMsg, updatedService } = data;
       
      
       const updatedServices = loadedServices.map((service) => {
@@ -259,7 +238,7 @@ export const deleteServiceImage = (imgId: string, state: IGlobalAppState, dispat
         loadedServices: updatedServices,
         error: null
       }});
-      return true;
+      return Promise.resolve();
     })
     .catch((error: AxiosError) => {
       dispatch({ type: "SET_SERVICE_ERROR", payload: {
@@ -267,8 +246,8 @@ export const deleteServiceImage = (imgId: string, state: IGlobalAppState, dispat
         responseMsg: error.message,
         error: error
       }});
-      return false;
-    })
+      return Promise.reject();
+    });
 };
 
 

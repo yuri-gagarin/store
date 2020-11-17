@@ -1,28 +1,39 @@
-import React, { useState, useEffect, useRef }  from "react";
+import React, { useState, useEffect, useRef, useContext }  from "react";
 import { Button, Form, TextArea } from "semantic-ui-react";
 // additional components //
 import StoreItemCategories from "./StoreItemCategories";
+import StoreDetails from "./StoreDetails";
+import StoreItemFormStoreDropdown from "./StoreItemFormStoreDropdown";
+// actions and state //
+import { Store } from "../../../../state/Store";
+// types //
+import { StoreItemFormState, StoreDropdownData } from "../type_definitions/storeItemTypes";
 
-export type FormState = {
-  name: string;
-  description: string;
-  details: string;
-  price: string;
-  categories: string[];
-}
 
 interface Props {
-  storeItem: IStoreItemData;
-  handleCreateStoreItem(data: FormState): void;
-  handleUpdateStoreItem(data: FormState): void;
+  storeId: string;
+  storeName: string;
+  name: string;
+  price: string;
+  description: string;
+  details: string;
+  categories: string[];
+  activeStores: StoreDropdownData[];
+  newForm: boolean;
+  handleCreateStoreItem(data: StoreItemFormState): void;
+  handleUpdateStoreItem(data: StoreItemFormState): void;
 }
 
+const StoreItemForm: React.FC<Props> = ( props ): JSX.Element => {
+  const { storeId, storeName, name, description, details, price, categories } = props;
+  const { activeStores } = props;
+  const { newForm } = props;
+  const { currentStoreData } = useContext(Store).state.storeState;
+  const { handleCreateStoreItem, handleUpdateStoreItem } = props;
 
-const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, handleUpdateStoreItem }): JSX.Element => {
-  const { name, description, details, price, categories } = storeItem;
-  // state and refs //
-  const [ newForm, setNewForm ] = useState<boolean>(true)
-  const [ formState, setFormState ] = useState<FormState>({ name, description, details, price, categories });
+  // local state and refs //
+  const [ formState, setFormState ] = useState<StoreItemFormState>({ storeId, storeName, name, description, details, price, categories });
+  const [ currentStore, setCurrentStore ] = useState<IStoreData>();
   const storeItemFormRef = useRef<HTMLDivElement>(document.createElement("div"));
   
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
@@ -47,10 +58,22 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
     setFormState({
       ...formState,
       details: e.target.value
-    })
+    });
   };
-  const handleCategoryChange = (category: string): void => {
+  const handleCategoryChange = (categories: string[]): void => {
+    setFormState({
+      ...formState,
+      categories: [ ...categories ]
+    });
+  };
 
+  const setStoreItemStore = (data: StoreDropdownData) => {
+    setFormState({
+      ...formState,
+      storeId: data.storeId,
+      storeName: data.storeName
+    });
+    
   };
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -63,14 +86,6 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
   };
 
   useEffect(() => {
-    if (name && description && price) {
-      setNewForm(false);
-    } else {
-      setNewForm(true);
-    }
-  },  [name, description, price]);
-
-  useEffect(() => {
     if (storeItemFormRef.current) {
       const elem = storeItemFormRef.current.getBoundingClientRect();
       window.scrollTo({
@@ -79,13 +94,27 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
       })
     }
   }, [storeItemFormRef]);
+  useEffect(() => {
+    if(!newForm) setCurrentStore(currentStoreData);
+  }, [newForm, currentStoreData ])
   
   return (
-    <div className="createStoreItemFormHolder" ref={storeItemFormRef}>
+    <div className="createStoreItemFormDiv" ref={storeItemFormRef}>
       <Form id="createStoreItemForm">
+        {
+        !newForm ? <StoreDetails storeId={storeId} storeName={storeName} /> : null
+        }
+        <Form.Field>
+          <label>Which Store to place the item in?</label>
+          <StoreItemFormStoreDropdown 
+            activeStores={activeStores} 
+            setStoreItemStore={setStoreItemStore}
+          />
+        </Form.Field>
         <Form.Field>
           <label>Store Item name</label>
           <input 
+            id="adminStoreItemFormNameInput"
             onChange={handleTitleChange} 
             placeholder="Store Item name here ..." 
             value={formState.name}
@@ -94,30 +123,36 @@ const StoreItemForm: React.FC<Props> = ({ storeItem, handleCreateStoreItem, hand
         <Form.Field>
           <label>Store Item price</label>
           <input 
+            id="adminStoreItemFormPriceInput"
             onChange={handlePriceChange} 
             placeholder="Store Item price here..." 
             value={formState.price}
           />
         </Form.Field>
-        <StoreItemCategories _handleCategoryChange={handleCategoryChange} />
+        <Form.Field>
+          <label>Categories</label>
+          <StoreItemCategories _handleCategoryChange={handleCategoryChange} />
+        </Form.Field>
         <Form.Field
-          control={TextArea}
-          label='Store Item Details'
-          onChange={hadnleDescriptionChange}
-          placeholder='Store Item details here...'
-          value={formState.description}
-         />
-        <Form.Field
+          id="adminStoreItemFormDescInput"
           control={TextArea}
           label='Store Item Description'
           onChange={hadnleDescriptionChange}
           placeholder='Store Item description here...'
           value={formState.description}
          />
+         <Form.Field
+          id="adminStoreItemFormDetailsInput"
+          control={TextArea}
+          label='Store Item Details'
+          onChange={handleDetailsChange}
+          placeholder='Store Item details here...'
+          value={formState.details}
+         />
          {
            newForm 
-            ? <Button type='submit' onClick={handleSubmit} content= "Create  New Store Item" />
-            : <Button type='submit' onClick={handleSubmit} content= "Update Store Item" />
+            ? <Button id="adminStoreItemFormCreateBtn" type='submit' onClick={handleSubmit} content= "Create  New Store Item" />
+            : <Button id="adminStoreItemFormUpdateBtn" type='submit' onClick={handleSubmit} content= "Update Store Item" />
          }  
       </Form>
     </div>

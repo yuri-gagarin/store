@@ -1,5 +1,5 @@
 // types //
-const emptyBonusVideoData = (): IBonusVideoData => {
+export const emptyBonusVideoData = (): IBonusVideoData => {
   return {
     _id: "",
     description: "",
@@ -14,11 +14,17 @@ export const initialBonusVideoState: IBonusVideoState = {
   responseMsg: "",
   currentBonusVideoData: emptyBonusVideoData(),
   loadedBonusVideos: [],
+  bonusVideoFormOpen: false,
   error: null
 };
 
 const serviceReducer = (state: IBonusVideoState = initialBonusVideoState, action: BonusVideoAction): IBonusVideoState => {
   switch (action.type) {
+    case "BONUS_VIDEOS_API_REQUEST": 
+      return {
+        ...state,
+        loading: action.payload.loading
+      };
     case "GET_ALL_BONUS_VIDEOS": 
       return {
         ...state,
@@ -34,6 +40,16 @@ const serviceReducer = (state: IBonusVideoState = initialBonusVideoState, action
         responseMsg: action.payload.responseMsg,
         currentBonusVideoData: { ...action.payload.currentBonusVideoData },
         error: action.payload.error
+      };
+    case "OPEN_BONUS_VIDEO_FORM":
+      return {
+        ...state,
+        bonusVideoFormOpen: action.payload.bonusVideoFormOpen
+      };
+    case "CLOSE_BONUS_VIDEO_FORM": 
+      return {
+        ...state,
+        bonusVideoFormOpen: action.payload.bonusVideoFormOpen
       };
     case "SET_CURRENT_BONUS_VIDEO": 
       return {

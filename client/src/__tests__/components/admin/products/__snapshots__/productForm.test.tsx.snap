@@ -1,0 +1,457 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PRoduct Form Component render tests Empty Form render tests Should properly mount 1`] = `
+<ProductForm
+  description=""
+  details=""
+  handleCreateProduct={[Function]}
+  handleUpdateProduct={[Function]}
+  name=""
+  newForm={true}
+  price=""
+>
+  <div
+    className="productFormDiv"
+  >
+    <Form
+      as="form"
+      id="productForm"
+    >
+      <form
+        className="ui form"
+        id="productForm"
+        onSubmit={[Function]}
+      >
+        <FormField>
+          <div
+            className="field"
+          >
+            <label>
+              Product name
+            </label>
+            <input
+              id="adminProductFormNameInput"
+              onChange={[Function]}
+              placeholder="Product name here ..."
+              value=""
+            />
+          </div>
+        </FormField>
+        <FormField>
+          <div
+            className="field"
+          >
+            <label>
+              Product price
+            </label>
+            <input
+              id="adminProductFormPriceInput"
+              onChange={[Function]}
+              placeholder="Product price here..."
+              value=""
+            />
+          </div>
+        </FormField>
+        <FormField
+          control={[Function]}
+          id="adminProductFormDescInput"
+          label="Product Description"
+          onChange={[Function]}
+          placeholder="Product description here..."
+          value=""
+        >
+          <div
+            className="field"
+          >
+            <label
+              htmlFor="adminProductFormDescInput"
+            >
+              Product Description
+            </label>
+            <TextArea
+              aria-describedby={null}
+              as="textarea"
+              id="adminProductFormDescInput"
+              onChange={[Function]}
+              placeholder="Product description here..."
+              rows={3}
+              value=""
+            >
+              <Ref
+                innerRef={
+                  Object {
+                    "current": <textarea
+                      id="adminProductFormDescInput"
+                      placeholder="Product description here..."
+                      rows="3"
+                    />,
+                  }
+                }
+              >
+                <RefFindNode
+                  innerRef={
+                    Object {
+                      "current": <textarea
+                        id="adminProductFormDescInput"
+                        placeholder="Product description here..."
+                        rows="3"
+                      />,
+                    }
+                  }
+                >
+                  <textarea
+                    aria-describedby={null}
+                    id="adminProductFormDescInput"
+                    onChange={[Function]}
+                    onInput={[Function]}
+                    placeholder="Product description here..."
+                    rows={3}
+                    value=""
+                  />
+                </RefFindNode>
+              </Ref>
+            </TextArea>
+          </div>
+        </FormField>
+        <FormField
+          control={[Function]}
+          id="adminProductFormDetailsInput"
+          label="Product Details"
+          onChange={[Function]}
+          placeholder="Product details here..."
+          value=""
+        >
+          <div
+            className="field"
+          >
+            <label
+              htmlFor="adminProductFormDetailsInput"
+            >
+              Product Details
+            </label>
+            <TextArea
+              aria-describedby={null}
+              as="textarea"
+              id="adminProductFormDetailsInput"
+              onChange={[Function]}
+              placeholder="Product details here..."
+              rows={3}
+              value=""
+            >
+              <Ref
+                innerRef={
+                  Object {
+                    "current": <textarea
+                      id="adminProductFormDetailsInput"
+                      placeholder="Product details here..."
+                      rows="3"
+                    />,
+                  }
+                }
+              >
+                <RefFindNode
+                  innerRef={
+                    Object {
+                      "current": <textarea
+                        id="adminProductFormDetailsInput"
+                        placeholder="Product details here..."
+                        rows="3"
+                      />,
+                    }
+                  }
+                >
+                  <textarea
+                    aria-describedby={null}
+                    id="adminProductFormDetailsInput"
+                    onChange={[Function]}
+                    onInput={[Function]}
+                    placeholder="Product details here..."
+                    rows={3}
+                    value=""
+                  />
+                </RefFindNode>
+              </Ref>
+            </TextArea>
+          </div>
+        </FormField>
+      </form>
+    </Form>
+    <Button
+      as="button"
+      content="Create  New Product"
+      id="adminProductFormCreate"
+      onClick={[Function]}
+      type="button"
+    >
+      <Ref
+        innerRef={
+          Object {
+            "current": <button
+              class="ui button"
+              id="adminProductFormCreate"
+              type="button"
+            >
+              Create  New Product
+            </button>,
+          }
+        }
+      >
+        <RefFindNode
+          innerRef={
+            Object {
+              "current": <button
+                class="ui button"
+                id="adminProductFormCreate"
+                type="button"
+              >
+                Create  New Product
+              </button>,
+            }
+          }
+        >
+          <button
+            className="ui button"
+            id="adminProductFormCreate"
+            onClick={[Function]}
+            type="button"
+          >
+            Create  New Product
+          </button>
+        </RefFindNode>
+      </Ref>
+    </Button>
+  </div>
+</ProductForm>
+`;
+
+exports[`PRoduct Form Component render tests Form with valid data render tests Should properly mount 1`] = `
+<ProductForm
+  description="description"
+  details="details"
+  handleCreateProduct={[Function]}
+  handleUpdateProduct={[Function]}
+  name="name"
+  newForm={false}
+  price="100"
+>
+  <div
+    className="productFormDiv"
+  >
+    <Form
+      as="form"
+      id="productForm"
+    >
+      <form
+        className="ui form"
+        id="productForm"
+        onSubmit={[Function]}
+      >
+        <FormField>
+          <div
+            className="field"
+          >
+            <label>
+              Product name
+            </label>
+            <input
+              id="adminProductFormNameInput"
+              onChange={[Function]}
+              placeholder="Product name here ..."
+              value="name"
+            />
+          </div>
+        </FormField>
+        <FormField>
+          <div
+            className="field"
+          >
+            <label>
+              Product price
+            </label>
+            <input
+              id="adminProductFormPriceInput"
+              onChange={[Function]}
+              placeholder="Product price here..."
+              value="100"
+            />
+          </div>
+        </FormField>
+        <FormField
+          control={[Function]}
+          id="adminProductFormDescInput"
+          label="Product Description"
+          onChange={[Function]}
+          placeholder="Product description here..."
+          value="description"
+        >
+          <div
+            className="field"
+          >
+            <label
+              htmlFor="adminProductFormDescInput"
+            >
+              Product Description
+            </label>
+            <TextArea
+              aria-describedby={null}
+              as="textarea"
+              id="adminProductFormDescInput"
+              onChange={[Function]}
+              placeholder="Product description here..."
+              rows={3}
+              value="description"
+            >
+              <Ref
+                innerRef={
+                  Object {
+                    "current": <textarea
+                      id="adminProductFormDescInput"
+                      placeholder="Product description here..."
+                      rows="3"
+                    >
+                      description
+                    </textarea>,
+                  }
+                }
+              >
+                <RefFindNode
+                  innerRef={
+                    Object {
+                      "current": <textarea
+                        id="adminProductFormDescInput"
+                        placeholder="Product description here..."
+                        rows="3"
+                      >
+                        description
+                      </textarea>,
+                    }
+                  }
+                >
+                  <textarea
+                    aria-describedby={null}
+                    id="adminProductFormDescInput"
+                    onChange={[Function]}
+                    onInput={[Function]}
+                    placeholder="Product description here..."
+                    rows={3}
+                    value="description"
+                  />
+                </RefFindNode>
+              </Ref>
+            </TextArea>
+          </div>
+        </FormField>
+        <FormField
+          control={[Function]}
+          id="adminProductFormDetailsInput"
+          label="Product Details"
+          onChange={[Function]}
+          placeholder="Product details here..."
+          value="details"
+        >
+          <div
+            className="field"
+          >
+            <label
+              htmlFor="adminProductFormDetailsInput"
+            >
+              Product Details
+            </label>
+            <TextArea
+              aria-describedby={null}
+              as="textarea"
+              id="adminProductFormDetailsInput"
+              onChange={[Function]}
+              placeholder="Product details here..."
+              rows={3}
+              value="details"
+            >
+              <Ref
+                innerRef={
+                  Object {
+                    "current": <textarea
+                      id="adminProductFormDetailsInput"
+                      placeholder="Product details here..."
+                      rows="3"
+                    >
+                      details
+                    </textarea>,
+                  }
+                }
+              >
+                <RefFindNode
+                  innerRef={
+                    Object {
+                      "current": <textarea
+                        id="adminProductFormDetailsInput"
+                        placeholder="Product details here..."
+                        rows="3"
+                      >
+                        details
+                      </textarea>,
+                    }
+                  }
+                >
+                  <textarea
+                    aria-describedby={null}
+                    id="adminProductFormDetailsInput"
+                    onChange={[Function]}
+                    onInput={[Function]}
+                    placeholder="Product details here..."
+                    rows={3}
+                    value="details"
+                  />
+                </RefFindNode>
+              </Ref>
+            </TextArea>
+          </div>
+        </FormField>
+      </form>
+    </Form>
+    <Button
+      as="button"
+      content="Update Product"
+      id="adminProductFormUpdate"
+      onClick={[Function]}
+      type="button"
+    >
+      <Ref
+        innerRef={
+          Object {
+            "current": <button
+              class="ui button"
+              id="adminProductFormUpdate"
+              type="button"
+            >
+              Update Product
+            </button>,
+          }
+        }
+      >
+        <RefFindNode
+          innerRef={
+            Object {
+              "current": <button
+                class="ui button"
+                id="adminProductFormUpdate"
+                type="button"
+              >
+                Update Product
+              </button>,
+            }
+          }
+        >
+          <button
+            className="ui button"
+            id="adminProductFormUpdate"
+            onClick={[Function]}
+            type="button"
+          >
+            Update Product
+          </button>
+        </RefFindNode>
+      </Ref>
+    </Button>
+  </div>
+</ProductForm>
+`;
