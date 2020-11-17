@@ -35,7 +35,6 @@ const FormErrorComponent: React.FC<Props> = ({ error, handleClearError }): JSX.E
   useEffect(() => {
     if (error && error.response) {
       if(error.response.data && error.response.data.messages) {
-        console.log(38)
         const { responseMsg, messages } = error.response.data; 
         setFormErrorCompState({
           header: responseMsg,

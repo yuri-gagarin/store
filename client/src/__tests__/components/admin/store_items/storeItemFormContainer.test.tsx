@@ -44,17 +44,31 @@ describe("'StoreItemFormContainer' Component tests", () => {
     };
   });
   mockStores = createMockStores(5);
-  /*
+  
   describe("Default 'StoreItemFormContainer' state",  () => {
 
-    beforeAll(() => {
+    beforeAll( async () => {
+      const promise = Promise.resolve();
+      moxios.install();
+      moxios.stubRequest("/api/stores", {
+        status: 200,
+        response: {
+          responseMsg: 'ok',
+          stores: []
+        }
+      })
       window.scrollTo = jest.fn();
       wrapper = mount(
         <MemoryRouter keyLength={0}>
           <StoreItemFormContainer />
         </MemoryRouter>
       );
+
+      await act( async () => promise);
     });
+    afterAll(() => {
+      moxios.uninstall();
+    })
 
     it("Should Properly Mount Form Container", () => {
       expect(wrapper.find(StoreItemFormContainer)).toMatchSnapshot();
@@ -73,7 +87,16 @@ describe("'StoreItemFormContainer' Component tests", () => {
   describe("Form Container state OPEN - NO Current StoreItem Data",  () => {
     let wrapper: ReactWrapper;
 
-    beforeAll(() => {
+    beforeAll( async () => {
+      const promise = Promise.resolve();
+      moxios.install();
+      moxios.stubRequest("/api/stores", {
+        status: 200,
+        response: {
+          responseMsg: 'ok',
+          stores: []
+        }
+      })
       window.scrollTo = jest.fn();
       wrapper = mount(
         <MemoryRouter keyLength={0}>
@@ -82,7 +105,12 @@ describe("'StoreItemFormContainer' Component tests", () => {
           </TestStateProvider>
         </MemoryRouter>
       );
+
+      await act( async () => promise);
     });
+    afterAll(() => {
+      moxios.uninstall();
+    })
 
     it("Should render 'StoreItemFormContainer', respond to '#adminStoreItemFormToggleBtn' click", () => {
       const toggleButton = wrapper.find("#adminStoreItemFormToggleBtn");
@@ -116,7 +144,16 @@ describe("'StoreItemFormContainer' Component tests", () => {
   describe("'StoreItemFormContainer' 'StoreItemForm' OPEN - WITH Current StoreItem Data - NO IMAGES",  () => {
     let wrapper: ReactWrapper; let state: IGlobalAppState;
 
-    beforeAll(() => {
+    beforeAll( async () => {
+      const promise = Promise.resolve();
+      moxios.install();
+      moxios.stubRequest("/api/stores", {
+        status: 200,
+        response: {
+          responseMsg: 'ok',
+          stores: []
+        }
+      });
       window.scrollTo = jest.fn();
       state = generateCleanState();
       state.storeItemState.currentStoreItemData = { ...mockStoreItem }
@@ -127,8 +164,13 @@ describe("'StoreItemFormContainer' Component tests", () => {
           </TestStateProvider>
         </MemoryRouter>
       );
+
+      await act( async () => promise);
       wrapper.update()
     });
+    afterAll(() => {
+      moxios.uninstall();
+    })
 
     it("Should properly render '#adminStoreItemFormContainer'", () => {
       expect(wrapper.find("#adminStoreItemFormContainer").length).toEqual(1);
@@ -189,7 +231,16 @@ describe("'StoreItemFormContainer' Component tests", () => {
   describe("'StoreItemFormContainer' 'StoreItemForm' state OPEN - WITH Current StoreItem Data - WITH IMAGES",  () => {
     let state: IGlobalAppState; let wrapper: ReactWrapper;
 
-    beforeAll(() => {
+    beforeAll( async () => {
+      const promise = Promise.resolve();
+      moxios.install();
+      moxios.stubRequest("/api/stores", {
+        status: 200,
+        response: {
+          responseMsg: 'ok',
+          stores: []
+        }
+      })
       window.scrollTo = jest.fn();
       state = generateCleanState();
       mockStoreItem.images = [
@@ -219,6 +270,7 @@ describe("'StoreItemFormContainer' Component tests", () => {
           </TestStateProvider>
         </MemoryRouter>
       );
+      await act( async () => promise);
     });
 
     it("Should properly render 'StoreItemFormContainer'", () => {
@@ -275,10 +327,10 @@ describe("'StoreItemFormContainer' Component tests", () => {
       expect(imgUploadForm.length).toEqual(1);
     });
   });
-  */
+
   // END Form Container state OPEN - WITH Current StoreItem Data - WITH IMAGES //
   // TEST Form Container state OPEN - NEW FORM - MOCK Submit action //
-  /*
+  
   describe("Form Container state OPEN - NEW FORM - MOCK Submit action",  () => {
     let wrapper: ReactWrapper;
     
@@ -407,6 +459,9 @@ describe("'StoreItemFormContainer' Component tests", () => {
         storeItemDescInput.at(1).simulate("change", { target: { value: mockStoreItem.description } });
         storeItemDetailsInput.at(1).simulate("change", { target: { value: mockStoreItem.details } });
       });
+      afterAll(() => {
+        moxios.uninstall();
+      })
 
       it("Should have a submit button", () => {
         const adminStoreItemFormCreate = wrapper.find("#adminStoreItemFormCreateBtn").at(0);
@@ -414,7 +469,6 @@ describe("'StoreItemFormContainer' Component tests", () => {
       });
       it("Should handle the 'handleCreateStoreItemAction, show 'LoadingBar' Component", async () => {
         const promise = Promise.resolve();
-        moxios.install();
         
         const adminStoreItemFormCreate = wrapper.find("#adminStoreItemFormCreateBtn").at(0);
         adminStoreItemFormCreate.at(0).simulate("click");
@@ -444,14 +498,13 @@ describe("'StoreItemFormContainer' Component tests", () => {
     // TEST Form Container state OPEN - NEW FORM - MOCK Submit action FAILURE //
   });
   // END Form Container state OPEN - NEW FORM - MOCK Submit action //
-  */
   // TEST Form Container state OPEN - CURRENT_STORE_ITEM_DATA - MOCK Submit action //
   describe("'StoreItemFormContainer' - CURRENT STORE ITEM DATA - MOCK Submit action", () => {
     let state: IGlobalAppState; let wrapper: ReactWrapper;
     const editDate: string = new Date("1/2/2019").toString();
     let storeAPIUrl: string;
     let storeItemUpdUrl: string;
-
+    
     // TEST Form Container state OPEN - CURRENT STORE_ITEM_DATA - MOCK Submit action success //
     describe("'StoreItemFormContainer - CURRENT STORE ITEM DATA - Mock SUBMIT action success", () => {
 
@@ -496,6 +549,9 @@ describe("'StoreItemFormContainer' Component tests", () => {
 
         const toggleBtn = wrapper.find(StoreItemFormContainer).find("#adminStoreItemFormToggleBtn");
         toggleBtn.at(0).simulate("click");
+      });
+      afterAll(() => {
+        moxios.uninstall();
       });
 
       it("Should correctly render and respond to 'adminStoreItemFormUpdateBtn' click action",  async () => {
@@ -544,9 +600,116 @@ describe("'StoreItemFormContainer' Component tests", () => {
     });
     // END TEST Form Container state OPEN - CURRENT STORE_ITEM DATA - MOCK Submit action success //
     // TEST Form Container state OPEN - CURRENT STORE_ITEM DATA - MOCK Submit action failure //
-    // END TEST Form Container state OPEN - CURRENT STORE_ITEM DATA - MOCK Submit action failure //
+    describe("'StoreItemFormContainer - CURRENT STORE ITEM DATA - Mock SUBMIT action failure", () => {
+      const error = new Error("500 Server error");
 
-  })
+      beforeAll( async () => {
+        // 'AdminStoreItemFormContainer' has an API call to /stores //
+        // mock functions //
+        window.scrollTo = jest.fn;
+        const promise = Promise.resolve();
+        state = generateCleanState();
+        state.storeItemState.currentStoreItemData = { ...mockStoreItem };
+        // urls //
+        storeAPIUrl = "/api/stores";
+        storeItemUpdUrl = `/api/store_items/update/${mockStoreItem._id}`
+        // mock api calls //
+        moxios.install();
+        moxios.stubRequest(storeAPIUrl, {
+          status: 200,
+          response: {
+            responseMsg: "All ok",
+            stores: mockStores
+          }
+        });
+        moxios.stubRequest(storeItemUpdUrl,  {
+          status: 500,
+          response: {
+            responseMsg: "An Error occcured",
+            error: error,
+            messages: [ error.message ]
+          }
+        });
+        // mount and wait //
+        wrapper = mount(
+          <MemoryRouter keyLength={0} initialEntries={[ AdminStoreItemRoutes.EDIT_ROUTE ]}>
+            <TestStateProvider mockState={state}>
+              <StoreItemFormContainer />
+            </TestStateProvider>
+          </MemoryRouter>
+        );
+
+        await act( async () => promise);
+
+        const toggleBtn = wrapper.find(StoreItemFormContainer).find("#adminStoreItemFormToggleBtn");
+        toggleBtn.at(0).simulate("click");
+      });
+      afterAll(() => {
+        moxios.uninstall();
+      });
+
+      it("Should correctly render and respond to 'adminStoreItemFormUpdateBtn' click action",  async () => {
+        const promise = Promise.resolve();
+        wrapper.update();
+        const updateBtn = wrapper.find(StoreItemFormContainer).find("#adminStoreItemFormUpdateBtn");
+        // simulate update click //
+        updateBtn.at(0).simulate("click");
+        await act( async () => promise);
+        // asser correct rendering //
+        expect(wrapper.find(StoreItemFormContainer).find(LoadingBar).length).toEqual(1);
+        expect(wrapper.find(StoreItemFormContainer).find(FormErrorComponent).length).toEqual(0);
+      });
+      it("Should NOT render 'LoadingBar' component after 'error' response", () => {
+        wrapper.update();
+        // assert correct rendering //
+        expect(wrapper.find(StoreItemFormContainer).find(LoadingBar).length).toEqual(0);
+        expect(wrapper.find(StoreItemFormContainer).find(FormErrorComponent).length).toEqual(1);
+      });
+      it("Should corectly dismiss the 'FormErrorComponent'", () => {
+        const dismissIcon = wrapper.find(StoreItemFormContainer).find(FormErrorComponent).find(Icon);
+        dismissIcon.simulate("click");
+        // assert correct rendering //
+        expect(wrapper.find(StoreItemFormContainer).find(LoadingBar).length).toEqual(0);
+        expect(wrapper.find(StoreItemFormContainer).find(FormErrorComponent).length).toEqual(0);
+      });
+      it("Should correctly render the '#storeItemFormContainerDetails' component", () => {
+        const formContDetails = wrapper.find(StoreItemFormContainer).find("#storeItemFormContainerDetails");
+        const formContDetailsItems = wrapper.find(StoreItemFormContainer).find(".storeItemFormContainerDetailsItem");
+        // assert correct rendering //
+        expect(formContDetails.length).toEqual(1);
+        expect(formContDetailsItems.length).toEqual(4);
+        // assert correct data //
+        expect(formContDetailsItems.at(0).find("p").render().text()).toEqual(mockStoreItem.name);
+        expect(formContDetailsItems.at(1).find("p").render().text()).toEqual(mockStoreItem.price);
+        expect(formContDetailsItems.at(2).find("p").render().text()).toEqual(mockStoreItem.description);
+        expect(formContDetailsItems.at(3).find("p").render().text()).toEqual(mockStoreItem.details);
+      });
+      it("Should correctly render timestamps", () => {
+        const timestamps = wrapper.find(StoreItemFormContainer).find(".storeItemFormContainerTimestamps").find("span");
+        // assert correct rendering //
+        expect(timestamps.at(0).find("strong").render().text()).toEqual(ConvertDate.international(mockStoreItem.createdAt));
+        expect(timestamps.at(1).find("strong").render().text()).toEqual(ConvertDate.international(mockStoreItem.editedAt));
+      });
+      it(`Should NOT change the client route: ${AdminStoreItemRoutes.EDIT_ROUTE}`, () => {
+        const { history } = wrapper.find(Router).props();
+        expect(moxios.requests.mostRecent().url).toEqual(storeItemUpdUrl);
+        expect(history.location.pathname).toEqual(AdminStoreItemRoutes.EDIT_ROUTE);
+      });
+      it("Should render the 'StoreItemForm' component and NOT reset form input values", () => {
+        expect(wrapper.find(StoreItemFormContainer).find(StoreItemForm).length).toEqual(1);
+        // assert corect input renders //
+        const nameInput = wrapper.find(StoreItemForm).find("#adminStoreItemFormNameInput");
+        const priceInput = wrapper.find(StoreItemForm).find("#adminStoreItemFormPriceInput");
+        const descInput = wrapper.find(StoreItemForm).find("#adminStoreItemFormDescInput");
+        const detailsInput = wrapper.find(StoreItemForm).find("#adminStoreItemFormDetailsInput");
+        expect(nameInput.props().value).toEqual(mockStoreItem.name);
+        expect(priceInput.props().value).toEqual(mockStoreItem.price);
+        expect(descInput.at(0).props().value).toEqual(mockStoreItem.description);
+        expect(detailsInput.at(0).props().value).toEqual(mockStoreItem.details);
+      });
+    });
+    // END TEST Form Container state OPEN - CURRENT STORE_ITEM DATA - MOCK Submit action failure //
+  });
   // END TEST Form Container state OPEN - CURRENT_STORE_ITEM_DATA - MOCK Submit action //
 
 });
