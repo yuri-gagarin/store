@@ -18,11 +18,12 @@ export const openStoreItemForm = (dispatch: Dispatch<StoreItemAction>): void => 
   dispatch({ type: "OPEN_STORE_ITEM_FORM", payload: { storeItemFormOpen: true } });
 };
 export const closeStoreItemForm = (dispatch: Dispatch<StoreItemAction>): void => {
-  dispatch({ type: "CLEAR_CURRENT_STORE_ITEM", payload: { error: null } });
+  // dispatch({ type: "CLEAR_CURRENT_STORE_ITEM", payload: { error: null } });
   dispatch({ type: "CLOSE_STORE_ITEM_FORM", payload: { storeItemFormOpen: false } });
 };
 
 export const clearStoreItemError = (dispatch: Dispatch<StoreItemAction>): void => {
+  // console.log("clicked")
   dispatch({ type: "ClEAR_STORE_ITEM_ERROR", payload: { responseMsg: "", loading: false, error: null } });
 };
 

@@ -9,7 +9,6 @@ type ErrorResponse = {
   messages?: string[];
 }
 type FormErrorCompState = {
-  visible: boolean;
   header: string;
   errors: string[];
 }
@@ -17,34 +16,34 @@ interface Props {
   error: AxiosError<ErrorResponse>;
   handleClearError: () => void;
 }
-const FormErrorComponent: React.FC<Props> = ({ error }): JSX.Element | null => {
+const FormErrorComponent: React.FC<Props> = ({ error, handleClearError }): JSX.Element | null => {
   const [ formErrorCompState, setFormErrorCompState ] = useState<FormErrorCompState>({
-    visible: false,
     header: "",
     errors: []
   });
 
   const handleDismiss = () => {
+    handleClearError();
+    /*
     setFormErrorCompState({
-      visible: false,
       header: "",
       errors: []
     })
+    */
   }
 
   useEffect(() => {
     if (error && error.response) {
       if(error.response.data && error.response.data.messages) {
+        console.log(38)
         const { responseMsg, messages } = error.response.data; 
         setFormErrorCompState({
-          visible: true,
           header: responseMsg,
           errors: [ ...messages ]
         })
       } else  {
         // set a general error //
         setFormErrorCompState({
-          visible: true,
           header: "An error occured",
           errors: [ "Please try again"]
         })
@@ -53,7 +52,6 @@ const FormErrorComponent: React.FC<Props> = ({ error }): JSX.Element | null => {
   }, [error]);
   
   return (
-    formErrorCompState.visible ?
     <div className="formErrorComponentHolder">
       <Message
         onDismiss={handleDismiss}
@@ -62,7 +60,6 @@ const FormErrorComponent: React.FC<Props> = ({ error }): JSX.Element | null => {
         list={formErrorCompState.errors}
       />
     </div>
-    : null
   );
 };
 

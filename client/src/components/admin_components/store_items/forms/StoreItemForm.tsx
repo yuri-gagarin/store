@@ -99,7 +99,7 @@ const StoreItemForm: React.FC<Props> = ( props ): JSX.Element => {
   }, [newForm, currentStoreData ])
   
   return (
-    <div className="createStoreItemFormHolder" ref={storeItemFormRef}>
+    <div className="createStoreItemFormDiv" ref={storeItemFormRef}>
       <Form id="createStoreItemForm">
         {
         !newForm ? <StoreDetails storeId={storeId} storeName={storeName} /> : null
@@ -114,7 +114,7 @@ const StoreItemForm: React.FC<Props> = ( props ): JSX.Element => {
         <Form.Field>
           <label>Store Item name</label>
           <input 
-            id="storeItemFormNameInput"
+            id="adminStoreItemFormNameInput"
             onChange={handleTitleChange} 
             placeholder="Store Item name here ..." 
             value={formState.name}
@@ -123,7 +123,7 @@ const StoreItemForm: React.FC<Props> = ( props ): JSX.Element => {
         <Form.Field>
           <label>Store Item price</label>
           <input 
-            id="storeItemFormPriceInput"
+            id="adminStoreItemFormPriceInput"
             onChange={handlePriceChange} 
             placeholder="Store Item price here..." 
             value={formState.price}
@@ -134,20 +134,20 @@ const StoreItemForm: React.FC<Props> = ( props ): JSX.Element => {
           <StoreItemCategories _handleCategoryChange={handleCategoryChange} />
         </Form.Field>
         <Form.Field
-          id="storeItemFormDetailsInput"
-          control={TextArea}
-          label='Store Item Details'
-          onChange={handleDetailsChange}
-          placeholder='Store Item details here...'
-          value={formState.details}
-         />
-        <Form.Field
-          id="storeItemFormDescInput"
+          id="adminStoreItemFormDescInput"
           control={TextArea}
           label='Store Item Description'
           onChange={hadnleDescriptionChange}
           placeholder='Store Item description here...'
           value={formState.description}
+         />
+         <Form.Field
+          id="adminStoreItemFormDetailsInput"
+          control={TextArea}
+          label='Store Item Details'
+          onChange={handleDetailsChange}
+          placeholder='Store Item details here...'
+          value={formState.details}
          />
          {
            newForm 

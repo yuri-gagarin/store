@@ -30,6 +30,7 @@ interface Props extends RouteComponentProps {
 const StoreItemFormContainer: React.FC<Props> = ({ history }): JSX.Element => {
   const { state, dispatch } = useContext(Store);
   const { loading, currentStoreItemData, storeItemFormOpen, error } = state.storeItemState;
+  const { loading: storesLoading } = state.storeState;
   const { storeId, storeName, name, description, details, price, categories, createdAt, editedAt } = currentStoreItemData;
   // local component state //
   // const [ formOpen, setFormOpen ] = useState<boolean>(false);
@@ -111,14 +112,12 @@ const StoreItemFormContainer: React.FC<Props> = ({ history }): JSX.Element => {
   useEffect(() => {
     checkSetValues(currentStoreItemData) ? setNewForm(false) : setNewForm(true);
   }, [ currentStoreItemData]);
-  useEffect(() => {
-    console.log(loading)
-  },  [ loading ])
+  
   // component return //
   return (
     <div id="adminStoreItemFormContainer">
-      { loading ? <LoadingBar /> : null }
-      <FormErrorComponent error={error as AxiosError} handleClearError={handleClearStoreItemError} />
+      { (loading || storesLoading) ? <LoadingBar /> : null }
+      { error ? <FormErrorComponent error={error as AxiosError} handleClearError={handleClearStoreItemError} /> : null }
       {
         !newForm ?
           <div id="storeItemFormContainerDetails">
