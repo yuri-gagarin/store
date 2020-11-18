@@ -7,7 +7,7 @@ enum MemberLevel {
   Elite
 }
 export interface IUser extends Document {
-  name: string;
+  firstName: string;
   lastName: string;
   handle?: string;
   email: string;
@@ -20,7 +20,7 @@ export interface IUser extends Document {
 
 
 const UserSchema: Schema = new Schema<IUser>({
-  name: {
+  firstName: {
     type: String,
     required: true
   },

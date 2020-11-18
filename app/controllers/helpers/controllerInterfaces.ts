@@ -11,3 +11,11 @@ export interface  IGenericImgUploadCtrl {
   createImage(req: Request, res: Response): Promise<Response>;
   deleteImage(req: Request, res: Response): Promise<Response>;
 }
+
+export interface IGenericAuthController {
+  register(req: Request, res: Response): Promise<Response>;
+  editRegistration(req: Request, res: Response): Promise<Response>;
+  deleteRegistration(req: Request, res: Response): Promise<Response>;
+  login(req: Request, res: Response): Promise<Response>;
+  logout(req: Request, res: Response): Promise<Response>;
+}

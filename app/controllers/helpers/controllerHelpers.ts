@@ -16,7 +16,8 @@ export const respondWithDBError = (res: Response, err: Error): Promise<Response>
   return new Promise((resolve) => {
     return resolve(res.status(500).json({
       responseMsg: "An Error occured",
-      error: err
+      error: err,
+      messages: [ err.message ]
     }));
   });
 };
