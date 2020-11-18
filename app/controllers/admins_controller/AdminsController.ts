@@ -1,107 +1,20 @@
-import { IGenericAuthController } from "./helpers/controllerInterfaces";
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
-import { respondWithDBError, respondWithGeneralError, respondWithInputError } from "./helpers/controllerHelpers";
-import Administrator, { IAdministrator } from "../models/Administrator";
-import { resolve } from "path";
-import jsonWebToken from "jsonwebtoken";
-import passportJwt, { StrategyOptions } from "passport-jwt";
-const { ExtractJwt, Strategy: JWTStrategy } = passportJwt;
+import Administrator, { IAdministrator } from "../../models/Administrator";
+// helpers and validators //
+import { validateNewAdmin } from "./helpers/validationHelpers";
+import { respondWithDBError, respondWithGeneralError, respondWithInputError } from "../helpers/controllerHelpers";
+import { issueJWT } from "../helpers/authHelpers"
+// type declrations //
+import { IGenericAuthController } from "../helpers/controllerInterfaces";
+import {
+  AdminData, AdminParams, AdminLoginRequest, AdminControllerRes
+} from "./type_declarations/adminsControllerTypes";
 
 
-const opts: StrategyOptions = {
-  jwtFromRequest:  ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: "somethingdumbhere",
-  issuer: "we@us.com",
-  audience: "ouradress.net"
-};
 
-const issueJWT = (user: IAdministrator) => {
-  const _id: string  = user._id;
-  const expiresIn = "1d";
-  const payload = { 
-    sub: _id,
-    iat: Date.now()
-  };
 
-  const signedToken = jsonWebToken.sign(payload, <string>opts.secretOrKey, { expiresIn: expiresIn });
-  return {
-    token: `Beared ${signedToken}`,
-    expires: expiresIn
-  }
-}
 
-type AdminData = {
-  firstName: string;
-  lastName: string;
-  handle?: string;
-  email: string;
-  phoneNumber?: string;
-  birthdate?: string;
-  oldPassword?: string;
-  password: string;
-  passwordConfirm: string;
-}
-type AdminLoginRequest = {
-  email: string;
-  password: string;
-}
-type AdminParams = {
-  adminId: string;
-}
-type AdminControllerRes = {
-  responseMsg: string;
-  newAdmin?: IAdministrator;
-  editedAdmin?: IAdministrator;
-  deletedAdmin?: IAdministrator;
-  success?: boolean;
-  jwtToken?: {
-    token: string;
-    expiresIn: string;
-  },
-  error?: Error;
-}
-type ValidationResponse = {
-  valid: boolean;
-  errorMessages: string[]
-}
-const validateNewAdmin = (data: AdminData): ValidationResponse => {
-  const validationRes: ValidationResponse = {
-    valid: true,
-    errorMessages: []
-  }
-  const { firstName, lastName, email, password, passwordConfirm }  = data;
-  // validate first name //
-  if (!firstName) {
-    validationRes.valid = false;
-    validationRes.errorMessages.push("A first name is required");
-  }
-  // validate last name //
-  if (!lastName) {
-    validationRes.valid = false;
-    validationRes.errorMessages.push("A last name is required");
-  }
-  // validate email //
-  if (!email) {
-    validationRes.valid = false;
-    validationRes.errorMessages.push("An email is required");
-  }
-  if(!password) {
-    validationRes.valid = false;
-    validationRes.errorMessages.push("A password is required");
-  }
-  if(!passwordConfirm) {
-    validationRes.valid = false;
-    validationRes.errorMessages.push("A password confirmation is required");
-  }
-  if (password && passwordConfirm) {
-    if (passwordConfirm !== passwordConfirm) {
-      validationRes.valid = false;
-      validationRes.errorMessages.push("Your passwords do not match");
-    }
-  }
-  return validationRes
-}
 class AdminsController implements IGenericAuthController {
   register(req: Request<{}, {}, AdminData>, res: Response<AdminControllerRes>): Promise<Response> {
     const saltRounds = 10;
@@ -173,14 +86,14 @@ class AdminsController implements IGenericAuthController {
               }
             })
             .catch((err) => {
-              return respondWithGeneralError(res, "Couldn't update administrator", 500);
+              return respondWithGeneralError(res, err.message, 500);
             })
         } else {
           return respondWithInputError(res, "Your old password is incorrect", 401);
         }
       })
       .catch((err) => {
-        return respondWithGeneralError(res, "Coundnt reslove an Admin", 404);
+        return respondWithDBError(res, err.message);
       })
   }
   deleteRegistration(req: Request<{}, {} >, res: Response): Promise<Response> {
@@ -248,4 +161,6 @@ class AdminsController implements IGenericAuthController {
   logout(req: Request, res: Response): Promise<Response> {
     return Promise.resolve(res);
   }
-}
+};
+
+export default AdminsController;
