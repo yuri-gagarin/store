@@ -1,4 +1,4 @@
-import { Router} from "express";
+import { Router } from "express";
 import { RouteConstructor } from "./helpers/routeInterfaces";
 import { IGenericController } from "../controllers/helpers/controllerInterfaces";
 

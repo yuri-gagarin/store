@@ -135,9 +135,9 @@ class UsersController implements IGenericAuthController {
     
   }
 
-  editRegistration(req: Request<UserParams, {}, UserData>, res: Response<UserControllerRes>) {
+  editRegistration(req: Request<{}, {}, UserData>, res: Response<UserControllerRes>): Promise<Response> {
     const userData: UserData = req.body;
-    const { userId } = req.params;
+    const { userId } = req.params as UserParams;
     // validate correct input //
     const { valid, errorMessages } = validateNewUser(userData);
     // respond with invalid 422 if bad user input //

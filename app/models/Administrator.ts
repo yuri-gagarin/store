@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, Schema, Model } from "mongoose";
 import { IStore } from "./Store";
 
 enum AdminLevel {
@@ -14,22 +14,24 @@ type AvatarImage = {
 }
 type StoreRef = mongoose.Types.ObjectId;
 export interface IAdministrator extends Document {
-  name: string;
+  firstName: string;
   lastName: string;
+  fullName: string;
   handle?: string;
   email: string;
   birthDate: string;
   password: string;
-  registered: Date;
-  lastLogin?: Date;
   avatarImage?: AvatarImage;
   membershipLevel: AdminLevel;
   storesManaged: (StoreRef | IStore)[];
+  approved: boolean;
+  registered: Date;
+  lastLogin?: Date;
 };
 
 
 const AdministratorSchema: Schema = new Schema<IAdministrator>({
-  name: {
+  firstName: {
     type: String,
     required: true
   },
@@ -53,17 +55,11 @@ const AdministratorSchema: Schema = new Schema<IAdministrator>({
     type: String,
     required: true
   },
-  registered: {
-    type: Date,
-    required: true
-  },
-  lastLogin: {
-    type: Date,
-    required: false
-  },
+  
   adminLevel: {
     type: AdminLevel,
-    required: true
+    required: true,
+    default: AdminLevel.Administrator
   },
   storesManaged: [
     {
@@ -83,7 +79,22 @@ const AdministratorSchema: Schema = new Schema<IAdministrator>({
     imagePath: {
       type: String
     }
-  }
+  },
+  approved: {
+    type: Boolean,
+    required: true
+  },
+  registered: {
+    type: Date,
+    required: true
+  },
+  lastLogin: {
+    type: Date,
+    required: false
+  },
 });
 
+AdministratorSchema.virtual("fullName").get(function(this: IAdministrator) {
+  return this.firstName + this.lastName;
+})
 export default mongoose.model<IAdministrator>("Administrator", AdministratorSchema);
