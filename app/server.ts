@@ -65,7 +65,7 @@ app.use(function (err: MulterError, req: Express.Request, res: Express.Response,
 
 app.on("dbReady", () => {
   server.listen(PORT, () => {
-    // console.info(`Listening at PORT: ${PORT}`);
+    console.info(`Listening at PORT: ${PORT}`);
     //createImages("Product")
   });
 });

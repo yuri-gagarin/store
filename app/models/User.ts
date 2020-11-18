@@ -30,11 +30,13 @@ const UserSchema: Schema = new Schema<IUser>({
   },
   handle: {
     type: String,
-    required: false
+    required: false,
+    unique: true
   },
   email: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   birthDate: {
     type: String,
@@ -57,5 +59,18 @@ const UserSchema: Schema = new Schema<IUser>({
     required: true
   }
 });
+
+UserSchema.pre("validate", function(this: IUser, next) {
+  if (!this.membershipLevel) {
+    this.membershipLevel = MemberLevel.Rookie;
+  }
+  next();
+});
+UserSchema.pre("validate", function(this: IUser, next) {
+  if (!this.registered) {
+    this.registered = new Date(Date.now());
+  }
+  next();
+})
 
 export default mongoose.model<IUser>("User", UserSchema);

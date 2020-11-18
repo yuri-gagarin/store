@@ -1,105 +1,16 @@
 import { Request, Response } from "express";
-import User, { IUser } from "../models/User";
-import { respondWithDBError, respondWithGeneralError, respondWithInputError } from "./helpers/controllerHelpers";
-import { IGenericAuthController } from "./helpers/controllerInterfaces";
 import bcrypt from "bcrypt";
-// passport authentication //
-import passport from "passport";
-import jsonWebToken from "jsonwebtoken"
-import passportJwt, { StrategyOptions } from "passport-jwt";
-const { ExtractJwt, Strategy: JWTStrategy } = passportJwt;
-const opts: StrategyOptions = {
-  jwtFromRequest:  ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: "somethingdumbhere",
-  issuer: "we@us.com",
-  audience: "ouradress.net"
-};
+import User from "../../models/User";
+// helpers //
+import { checkDuplicateEmail, validateNewUser } from "./helpers/validationHelpers";
+import { issueJWT } from "../helpers/authHelpers";
+import { respondWithDBError, respondWithGeneralError, respondWithInputError } from "../helpers/controllerHelpers";
+// additional types //
+import { IGenericAuthController } from "../helpers/controllerInterfaces";
+import { 
+  UserData, UserControllerRes, UserLoginReq, UserParams 
+} from "./type_declarations/usersControllerTypes";
 
-
-type ValidationResponse = {
-  valid: boolean;
-  errorMessages: string[];
-}
-type UserLoginReq = {
-  email: string;
-  password: string;
-}
-const validateNewUser = (data: UserData): ValidationResponse => {
-  const validationRes: ValidationResponse = {
-    valid: true,
-    errorMessages: []
-  }
-  const { firstName, lastName, email, password, passwordConfirm }  = data;
-  // validate first name //
-  if (!firstName) {
-    validationRes.valid = false;
-    validationRes.errorMessages.push("A first name is required");
-  }
-  // validate last name //
-  if (!lastName) {
-    validationRes.valid = false;
-    validationRes.errorMessages.push("A last name is required");
-  }
-  // validate email //
-  if (!email) {
-    validationRes.valid = false;
-    validationRes.errorMessages.push("An email is required");
-  }
-  if(!password) {
-    validationRes.valid = false;
-    validationRes.errorMessages.push("A password is required");
-  }
-  if(!passwordConfirm) {
-    validationRes.valid = false;
-    validationRes.errorMessages.push("A password confirmation is required");
-  }
-  if (password && passwordConfirm) {
-    if (passwordConfirm !== passwordConfirm) {
-      validationRes.valid = false;
-      validationRes.errorMessages.push("Your passwords do not match");
-    }
-  }
-  return validationRes
-}
-export type UserData = {
-  firstName: string;
-  lastName: string;
-  handle?: string;
-  email: string;
-  birthDate?: string;
-  password: string;
-  passwordConfirm: string;
-}
-type UserControllerRes = {
-  responseMsg: string;
-  messages?: string[];
-  user?: IUser;
-  deletedUser?: IUser;
-  editedUser?: IUser;
-  error?: Error;
-  jwtToken?: {
-    token: string;
-    expiresIn: string;
-  }
-  success?: boolean;
-}
-type UserParams = {
-  userId: string;
-}
-const issueJWT = (user: IUser) => {
-  const _id: string  = user._id;
-  const expiresIn = "1d";
-  const payload = { 
-    sub: _id,
-    iat: Date.now()
-  };
-
-  const signedToken = jsonWebToken.sign(payload, <string>opts.secretOrKey, { expiresIn: expiresIn });
-  return {
-    token: `Beared ${signedToken}`,
-    expires: expiresIn
-  }
-}
 class UsersController implements IGenericAuthController {
   register(req: Request<{}, {}, UserData>, res: Response<UserControllerRes>): Promise<Response> {
     const saltRounds = 10;
@@ -108,31 +19,41 @@ class UsersController implements IGenericAuthController {
     const { valid, errorMessages } = validateNewUser(req.body);
     // respond with invalid 400 if bad user input //
     if (!valid) {
-      respondWithInputError(res, "User input error", 422, errorMessages);
+      return respondWithInputError(res, "User input error", 422, errorMessages);
     }
-    const { password } = userData;
-    return bcrypt.hash(password, saltRounds)
-      .then((passwordHash) => {
-        return User.create({ ...userData, password: passwordHash })
-      .then((user) => {
-        const { token, expires } = issueJWT(user);
-        return res.status(200).json({
-          responseMsg: `Welcome ${user.firstName}`,
-          user: user,
-          jwtToken: {
-            token: token,
-            expiresIn: expires
-          }
-        });
-      })
-      .catch((err) => {
-        return respondWithDBError(res, err);
-      });
+    const { email, password } = userData;
+    return checkDuplicateEmail(email)
+      .then((validationRes) => {
+        const { valid, errorMessages } = validationRes;
+        if (valid) {
+          return bcrypt.hash(password, saltRounds)
+            .then((passwordHash) => {
+              return User.create({ ...userData, password: passwordHash })
+            .then((user) => {
+              const { token, expires } = issueJWT(user);
+              return res.status(200).json({
+                responseMsg: `Welcome ${user.firstName}`,
+                user: user,
+                jwtToken: {
+                  token: token,
+                  expiresIn: expires
+                }
+              });
+            })
+            .catch((err) => {
+              return respondWithDBError(res, err);
+            });
+          })
+          .catch((err) => {
+            return respondWithGeneralError(res, err.message, 500);
+          });
+        } else {
+          return respondWithInputError(res, "User input error", 422, errorMessages);
+        }
     })
-    .catch((err) => {
+    .catch((err: Error) => {
       return respondWithGeneralError(res, err.message, 500);
     });
-    
   }
 
   editRegistration(req: Request<{}, {}, UserData>, res: Response<UserControllerRes>): Promise<Response> {

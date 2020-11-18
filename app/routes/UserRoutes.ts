@@ -1,12 +1,12 @@
-import UsersController from "../controllers/UsersController";
+import UsersController from "../controllers/users_controller/UsersController";
 import { RouteConstructor } from "./helpers/routeInterfaces";
 
 import  { Router } from "express";
 
 class UserRoutes extends RouteConstructor<UsersController> {
   private registerUserRoute = "/api/users/register";
-  private updateUserRoute = "/api/users/update";
-  private deleteUserRoute = "/api/users/delete";
+  private updateUserRoute = "/api/users/update/:userId";
+  private deleteUserRoute = "/api/users/delete/:userId";
   private loginUserRoute = "/api/users/login";
   private logoutUserRoute = "/api/users/logout"
 

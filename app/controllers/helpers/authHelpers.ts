@@ -23,7 +23,7 @@ export const issueJWT = (user: IAdministrator | IUser) => {
 
   const signedToken = jsonWebToken.sign(payload, <string>opts.secretOrKey, { expiresIn: expiresIn });
   return {
-    token: `Beared ${signedToken}`,
+    token: `Bearer ${signedToken}`,
     expires: expiresIn
   }
 };

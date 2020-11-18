@@ -26,8 +26,14 @@ import ServiceImgUploadController from "../controllers/ServiceImgUplController";
 import BonusVideosController from "../controllers/BonusVideosController";
 import BonnusVideosRoutes from "../routes/BonusVideoRoutes";
 // users //
-import UsersController from "../controllers/UsersController";
+import UsersController from "../controllers/users_controller/UsersController";
 import UsersRoutes from "../routes/UserRoutes";
+// admins //
+import AdminsController from "../controllers/admins_controller/AdminsController";
+import AdminsRoutes from "../routes/AdminsRoutes";
+// TESTS REMOVE LATER //
+import TestsController from "../controllers/TestsController"
+import TestRoutes from "../routes/TestRoutes";
 
 class CombineRoutes {
   constructor(router: Router) {
@@ -50,6 +56,10 @@ class CombineRoutes {
     new BonnusVideosRoutes(Router, new BonusVideosController());
     // users //
     new UsersRoutes(Router, new UsersController());
+    // admins //
+    new AdminsRoutes(Router, new AdminsController());
+    // test routes remove later //
+    new TestRoutes(Router, new TestsController());
   }
 }
 
