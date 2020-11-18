@@ -1,11 +1,28 @@
 import { Request, Response } from "express";
 import User, { IUser } from "../models/User";
-import { respondWithDBError, respondWithInputError } from "./helpers/controllerHelpers";
+import { respondWithDBError, respondWithGeneralError, respondWithInputError } from "./helpers/controllerHelpers";
 import { IGenericAuthController } from "./helpers/controllerInterfaces";
+import bcrypt from "bcrypt";
+// passport authentication //
+import passport from "passport";
+import jsonWebToken from "jsonwebtoken"
+import passportJwt, { StrategyOptions } from "passport-jwt";
+const { ExtractJwt, Strategy: JWTStrategy } = passportJwt;
+const opts: StrategyOptions = {
+  jwtFromRequest:  ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: "somethingdumbhere",
+  issuer: "we@us.com",
+  audience: "ouradress.net"
+};
+
 
 type ValidationResponse = {
   valid: boolean;
   errorMessages: string[];
+}
+type UserLoginReq = {
+  email: string;
+  password: string;
 }
 const validateNewUser = (data: UserData): ValidationResponse => {
   const validationRes: ValidationResponse = {
@@ -60,12 +77,32 @@ type UserControllerRes = {
   deletedUser?: IUser;
   editedUser?: IUser;
   error?: Error;
+  jwtToken?: {
+    token: string;
+    expiresIn: string;
+  }
+  success?: boolean;
 }
 type UserParams = {
   userId: string;
 }
-class UserController implements IGenericAuthController {
+const issueJWT = (user: IUser) => {
+  const _id: string  = user._id;
+  const expiresIn = "1d";
+  const payload = { 
+    sub: _id,
+    iat: Date.now()
+  };
+
+  const signedToken = jsonWebToken.sign(payload, <string>opts.secretOrKey, { expiresIn: expiresIn });
+  return {
+    token: `Beared ${signedToken}`,
+    expires: expiresIn
+  }
+}
+class UsersController implements IGenericAuthController {
   register(req: Request<{}, {}, UserData>, res: Response<UserControllerRes>): Promise<Response> {
+    const saltRounds = 10;
     const userData: UserData = req.body;
     // validate correct input //
     const { valid, errorMessages } = validateNewUser(req.body);
@@ -73,17 +110,29 @@ class UserController implements IGenericAuthController {
     if (!valid) {
       respondWithInputError(res, "User input error", 422, errorMessages);
     }
-    
-    return User.create({ ...userData })
+    const { password } = userData;
+    return bcrypt.hash(password, saltRounds)
+      .then((passwordHash) => {
+        return User.create({ ...userData, password: passwordHash })
       .then((user) => {
+        const { token, expires } = issueJWT(user);
         return res.status(200).json({
           responseMsg: `Welcome ${user.firstName}`,
-          user: user
-        })
+          user: user,
+          jwtToken: {
+            token: token,
+            expiresIn: expires
+          }
+        });
       })
       .catch((err) => {
         return respondWithDBError(res, err);
       });
+    })
+    .catch((err) => {
+      return respondWithGeneralError(res, err.message, 500);
+    });
+    
   }
 
   editRegistration(req: Request<UserParams, {}, UserData>, res: Response<UserControllerRes>) {
@@ -136,10 +185,45 @@ class UserController implements IGenericAuthController {
         return respondWithDBError(res, error)
       });
   }
-  login(req: Request, res: Response) {
-    return Promise.resolve(res)
+  login(req: Request<{}, {}, UserLoginReq>, res: Response<UserControllerRes>) {
+    const { email, password } = req.body;
+    if (!email && !password) {
+      return respondWithInputError(res, "Email or password required", 400);
+    }
+    return User.findOne({ email: email }) 
+      .then((user) => {
+        if (user) {
+          // check password //
+          return bcrypt.compare(password, user.password)
+            .then((match) => {
+              if (match) {
+                const { token, expires } = issueJWT(user);
+                return res.status(200).json({
+                  responseMsg: `Welcome back ${user.firstName}`,
+                  jwtToken: {
+                    token: token,
+                    expiresIn: expires
+                  }
+                });
+              } else {
+                return res.status(401).json({
+                  responseMsg: "Wrong password"
+                });
+              }
+            })
+            .catch((err) => {
+              return respondWithGeneralError(res, err.message, 500);
+            })
+        } else {
+          return res.status(401).json({
+            responseMsg: "Could not find the user for login"
+          })
+        }
+      })
   }
   logout(req: Request, res: Response) {
     return Promise.resolve(res)
   }
-}
+};
+
+export default UsersController;

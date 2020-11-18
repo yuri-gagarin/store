@@ -6,6 +6,8 @@ import CombineRoutes from "./routes/CombineRoutes";
 import config from "./config/config";
 import bodyParser from "body-parser";
 import { MulterError } from "multer";
+import passport from "passport";
+import jwtPass from "./auth/passport";
 
 // app declarations and constants //
 const app: express.Application = express();
@@ -32,6 +34,10 @@ mongoose.connection.once("open", () => {
 
 app.use(jsonParser);
 app.use(urlEncodedParser);
+// passport authentication //
+jwtPass(passport);
+app.use(passport.initialize());
+// 
 
 if (process.env.NODE_ENV && process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, '/../client/build')));
