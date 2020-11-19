@@ -9,8 +9,8 @@ const { ExtractJwt, Strategy: JWTStrategy } = passportJwt;
 const opts: StrategyOptions = {
   jwtFromRequest:  ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: "somethingdumbhere",
-  issuer: "we@us.com",
-  audience: "ouradress.net"
+  //issuer: "we@us.com",
+  // audience: "ouradress.net"
 };
 
 export const issueJWT = (user: IAdministrator | IUser) => {

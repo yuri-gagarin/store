@@ -10,6 +10,7 @@ import { IGenericAuthController } from "../helpers/controllerInterfaces";
 import { 
   UserData, UserControllerRes, UserLoginReq, UserParams 
 } from "./type_declarations/usersControllerTypes";
+import { IUser } from "../../models/User";
 
 class UsersController implements IGenericAuthController {
   register(req: Request<{}, {}, UserData>, res: Response<UserControllerRes>): Promise<Response> {
@@ -63,30 +64,49 @@ class UsersController implements IGenericAuthController {
     const { valid, errorMessages } = validateNewUser(userData);
     // respond with invalid 422 if bad user input //
     if (!valid) {
-      respondWithInputError(res, "User input error", 422, errorMessages);
+      return respondWithInputError(res, "User input error", 422, errorMessages);
     }
-
-    return User.findOneAndUpdate({ _id: userId }, userData, { new: true })
-      .then((updatedUser) => {
-        if (updatedUser) {
-          return res.status(200).json({
-            responseMsg: `Updated user ${updatedUser.firstName}`,
-            editedUser: updatedUser
-          });
+    const { password, oldPassword } = req.body;
+    if (!oldPassword) {
+      return respondWithInputError(res, "You need to enter your old password", 400);
+    }
+    return User.findOne({ _id: userId })
+      .then((user) => {
+        if (user) {
+          return bcrypt.compare(oldPassword, user.password)
+            .then((success) => {
+              if (success) {
+                // update user //
+                return User.findOneAndUpdate({ _id: userId}, userData , { new: true })
+                  .then((user) => {
+                    if (user) {
+                      return res.status(200).json({
+                        responseMsg: `Updated user ${user.firstName}`,
+                        editedUser: user
+                      })
+                    } else {
+                      return respondWithGeneralError(res, "Could not resolve user", 404);
+                    }
+                  })
+                  .catch((err: Error) => respondWithDBError(res, err));
+              } else {
+                return respondWithInputError(res, "Your old password is incorrect");
+              }
+            })
+            .catch((err) => respondWithGeneralError(res, "Something went wrong on our end"));
         } else {
-          return respondWithInputError(res, "Could not find user to update", 404)
+          return respondWithInputError(res, "Could not resolve user", 404);
         }
       })
-      .catch((err) => {
-        return respondWithDBError(res, err);
-      });
-  }
+      .catch((err: Error) => respondWithDBError(res, err));
+    }
 
   deleteRegistration(req: Request, res: Response<UserControllerRes>): Promise<Response> {
     const { userId } = req.params;
     if (!userId) {
       respondWithInputError(res, "Cant resolve User to delete", 422, []);
     }
+    const user = req.user as IUser
 
     return User.findOneAndDelete({ _id: userId })
       .then((deletedUser) => {
@@ -108,11 +128,13 @@ class UsersController implements IGenericAuthController {
   }
   login(req: Request<{}, {}, UserLoginReq>, res: Response<UserControllerRes>) {
     const { email, password } = req.body;
+    console.log(req.body)
     if (!email && !password) {
       return respondWithInputError(res, "Email or password required", 400);
     }
     return User.findOne({ email: email }) 
       .then((user) => {
+        // console.log(117)
         if (user) {
           // check password //
           return bcrypt.compare(password, user.password)

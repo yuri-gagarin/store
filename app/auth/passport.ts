@@ -6,11 +6,12 @@ const { ExtractJwt, Strategy : JWTStrategy } = passportJWT;
 
 const options: StrategyOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: "changeLater",
+  secretOrKey: "somethingdumbhere",
   //algorithms: ["RS256"]
 }
 
 const strategy = new JWTStrategy(options, (payload, done) => {
+  console.log(14)
   User.findOne({ _id: payload.sub })
     .then((user) => {
       if (user) {

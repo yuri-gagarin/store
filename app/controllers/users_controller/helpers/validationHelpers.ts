@@ -52,7 +52,7 @@ export const checkDuplicateEmail = (email: string): Promise<ValidationResponse> 
       if (user) {
         return {
           valid: false,
-          errorMessages: [ "A user with email already exists" ]
+          errorMessages: [ "A user with this email already exists" ]
         };
       } else {
         return {

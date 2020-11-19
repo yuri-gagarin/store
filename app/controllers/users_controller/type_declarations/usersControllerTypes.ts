@@ -14,6 +14,7 @@ export type UserData = {
   birthDate?: string;
   password: string;
   passwordConfirm: string;
+  oldPassword: string;
 };
 // general UsersController Response //
 export type UserControllerRes = {

@@ -35,8 +35,9 @@ mongoose.connection.once("open", () => {
 app.use(jsonParser);
 app.use(urlEncodedParser);
 // passport authentication //
-jwtPass(passport);
 app.use(passport.initialize());
+jwtPass(passport);
+
 // 
 
 if (process.env.NODE_ENV && process.env.NODE_ENV === "production") {
