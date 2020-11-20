@@ -63,13 +63,15 @@ class UsersController implements IGenericAuthController {
     // validate correct input //
     const { valid, errorMessages } = validateNewUser(userData);
     // respond with invalid 422 if bad user input //
+    const { password, oldPassword } = req.body;
+
+    if (!oldPassword) {
+      return respondWithInputError(res, "Input error", 400, [ "You need to enter your old password" ]);
+    }
     if (!valid) {
       return respondWithInputError(res, "User input error", 422, errorMessages);
     }
-    const { password, oldPassword } = req.body;
-    if (!oldPassword) {
-      return respondWithInputError(res, "You need to enter your old password", 400);
-    }
+    
     return User.findOne({ _id: userId })
       .then((user) => {
         if (user) {
