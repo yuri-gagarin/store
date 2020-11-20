@@ -2,7 +2,7 @@ import mongoose, { Document, Schema, Model } from "mongoose";
 import { IAdministrator } from "./Administrator";
 import { IStore } from "./Store";
 
-enum AccountLevel {
+export enum AccountLevel {
   Standard,
   Professional,
   Elite

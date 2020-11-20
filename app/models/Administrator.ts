@@ -22,7 +22,8 @@ export interface IAdministrator extends Document {
   birthDate: string;
   password: string;
   avatarImage?: AvatarImage;
-  membershipLevel: AdminLevel;
+  adminLevel: AdminLevel;
+  adminAccountId?: mongoose.Types.ObjectId;
   storesManaged: (StoreRef | IStore)[];
   approved: boolean;
   registered: Date;
@@ -55,7 +56,6 @@ const AdministratorSchema: Schema = new Schema<IAdministrator>({
     type: String,
     required: true
   },
-  
   adminLevel: {
     type: AdminLevel,
     required: true,
@@ -91,7 +91,7 @@ const AdministratorSchema: Schema = new Schema<IAdministrator>({
   lastLogin: {
     type: Date,
     required: false
-  },
+  }
 });
 
 AdministratorSchema.virtual("fullName").get(function(this: IAdministrator) {
