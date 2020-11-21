@@ -4,7 +4,7 @@ import { Types } from "mongoose";
 import AdminAccount,  { AccountLevel, IAdminAccount } from "../../models/AdminAccount";
 import { IAdministrator } from "../../models/Administrator";
 import Product from "../../models/Product";
-import { IProductImage } from "../../models/ProductImage";
+import ProductImage, { IProductImage } from "../../models/ProductImage";
 import Service from "../../models/Service";
 import ServiceImage, { IServiceImage } from "../../models/ServiceImage";
 import Store from "../../models/Store";
@@ -23,6 +23,16 @@ type AdminAccountsContRes = {
   adminAccount?: IAdminAccount;
   editedAdminAccount?: IAdminAccount;
   deletedAdminAccount?: IAdminAccount;
+  deletedAdminAccountInfo?: {
+    deletedStores: number;
+    deletedStoreImages: number;
+    deletedStoreItems: number;
+    deletedStoreItemImages: number;
+    deletedServices: number;
+    deletedServiceImages: number;
+    deletedProducts: number;
+    deletedProductImages: number;
+  }
   error?: Error;
 }
 type CreteAccountBodyReq = {
@@ -33,16 +43,73 @@ type EditAccountBodyReq = {
   linkedStores: Types.ObjectId[];
   linkedServices: Types.ObjectId[];
   linkedProducts: Types.ObjectId[];
+  accountLevel?: string; 
 }
 type AdminAccountsContReqParams = {
   adminAccountId: string;
 }
+type AdminAccountsIndexSortQuery = {
+  createdAt?: "desc" | "asc";
+  editedAt?: "desc" | "asc"
+  lastLogin?: string;
+  accountLevel?: "desc" | "asc";
+  limit?: string;
+}
 class AdminAccountsController implements IGenericController {
-  index(req: Request, res: Response): Promise<Response> {
+  index(req: Request<{}, {}, {}, AdminAccountsIndexSortQuery>, res: Response<AdminAccountsContRes>): Promise<Response> {
     const user = req.user as IAdministrator;
+    const { createdAt, editedAt, accountLevel, limit } = req.query;
     if (!user) {
-
+      return respondWithGeneralError(res, "Cant resolve current user", 401);
     }
+
+    if (createdAt || editedAt || accountLevel) {
+      let sortOption: any = {};
+      let sortType: string; 
+      if (createdAt) {
+        sortType = "Date Created";
+        sortOption.createdAt = createdAt;
+      } 
+      if (editedAt) {
+        sortType = "Date Edited"
+        sortOption.editedAt = editedAt;
+      }
+      if (accountLevel) {
+        sortType = "Account Level"
+        sortOption.accountLevel = accountLevel
+      }
+      
+      return AdminAccount.find({})
+        .sort(sortOption)
+        .limit(limit ? parseInt(limit, 10) : 10)
+        .populate("linkedAdmins")
+        .populate({ path: "linkedStores", model: "store", select: "-images" })
+        .populate({ path: "linkedServices", model: "service", select: "-images" })
+        .populate({ path: "linkedProducts", model: "product", select: "-images" })
+        .exec()
+        .then((adminAccounts) => {
+          return res.status(200).json({
+            responseMsg: `Fetched ${adminAccounts.length} admins. Sorted by ${sortType} created ${createdAt}`,
+            adminAccounts: adminAccounts
+          });
+        })  
+        .catch((err) => respondWithDBError(res, err));
+    }
+    return AdminAccount.find({})
+      .sort({ createdAt: "desc "})
+      .limit(10)
+      .populate("linkedAdmins")
+      .populate({ path: "linkedStores", model: "store", select: "-images" })
+      .populate({ path: "linkedServices", model: "service", select: "-images" })
+      .populate({ path: "linkedProducts", model: "product", select: "-images" })
+      .exec()
+      .then((adminAccounts) => {
+        return res.status(200).json({
+          responseMsg: `Fetched ${adminAccounts.length} admins. Sorted by Date Created DESC`,
+          adminAccounts: adminAccounts
+        });
+      })   
+      .catch((err) => respondWithDBError(res, err)); 
   }
   get(req: Request<AdminAccountsContReqParams>, res: Response<AdminAccountsContRes>): Promise<Response> {
     const { adminAccountId } = req.params;
@@ -50,8 +117,10 @@ class AdminAccountsController implements IGenericController {
       return respondWithInputError(res, "Cant resolve an account to look for", 422);
     }
     return AdminAccount.findOne({ _id: adminAccountId })
-      .populate({ path: "stores", model: "store", select: "-images" })
-      .populate({ path: "services", model: "service", select: "-images" })
+      .populate({ path: "linkedAdmins", model: "administrator" })
+      .populate({ path: "linkedStores", model: "store", select: "-images" })
+      .populate({ path: "linkedServices", model: "service", select: "-images" })
+      .populate({ path: "linkedProducts", model: "product", select: "-images" })
       .exec()
       .then((adminAccount) => {
         if (adminAccount) {
@@ -87,7 +156,7 @@ class AdminAccountsController implements IGenericController {
   } 
   edit(req: Request<AdminAccountsContReqParams, {},EditAccountBodyReq>, res: Response<AdminAccountsContRes>): Promise<Response> {
     const { adminAccountId } = req.params;
-    const { linkedAdmins, linkedStores, linkedServices } = req.body;
+    const { linkedAdmins, linkedStores, linkedServices, accountLevel } = req.body;
     if (adminAccountId) {
       return respondWithInputError(res, "Cannot resolve account to edit", 422);
     }
@@ -98,6 +167,7 @@ class AdminAccountsController implements IGenericController {
         linkedAdmins: [ ...linkedAdmins ],
         linkedStores: [ ...linkedStores ],
         linkedServices: [ ...linkedServices ],
+        accountLevel: accountLevel ? parseInt(accountLevel, 10) : 0,
         editedAt: new Date(Date.now())
       },
       {
@@ -116,12 +186,15 @@ class AdminAccountsController implements IGenericController {
     })
     .catch((err) => respondWithDBError(res, err));
   }
-  delete(req: Request<AdminAccountsContReqParams>, res: Response<AdminControllerRes>): Promise<Response> {
+
+  delete(req: Request<AdminAccountsContReqParams>, res: Response<AdminAccountsContRes>): Promise<Response> {
     const { adminAccountId } = req.params;
     const storeImgDirectories: string[] = [];
     const storeItemImgDirectories: string[] = []
     const serviceImgDirectories: string[] = [];
     const productImgDirectories: string[] = [];
+    // 
+    let deletedAccount: IAdminAccount;
     //
     let linkedStores: Types.ObjectId[];
     let storeItemIds: Types.ObjectId[];
@@ -135,6 +208,7 @@ class AdminAccountsController implements IGenericController {
     let numOfServicesDeleted: number = 0;
     let numOfServiceImagesDeleted: number = 0;
     let numOfProductsDeleted: number = 0;
+    let numOfProductImagesDeleted: number = 0;
 
     if (!adminAccountId) {
       return respondWithInputError(res, "Cannot resolve account to delete", 422);
@@ -142,6 +216,7 @@ class AdminAccountsController implements IGenericController {
     return AdminAccount.findOneAndDelete({ _id: adminAccountId })
       .then((adminAccount) => {
         if(adminAccount) { 
+          deletedAccount = adminAccount;
           // delete the admin acccount check for stores and services //
           linkedStores = adminAccount.linkedStores as Types.ObjectId[];
           linkedServices = adminAccount.linkedServices as Types.ObjectId[];
@@ -308,23 +383,43 @@ class AdminAccountsController implements IGenericController {
         }
       })
       .then(({ ok, n }) => {
+        if (ok && n && (n > 0) && (productImgDirectories.length > 0)) {
+          numOfProductsDeleted = n;
+          return ProductImage.deleteMany({ productId: { $in: linkedProducts } });
+        } else {
+          numOfProductsDeleted = n ? n : 0;
+          return Promise.resolve({ result: { ok: true, n: 0 }, deletedCount: 0 });
+        }
+      })
+      .then(({ ok, n }) => {
         const prodImgRemovePromises: Promise<RemoveResponse>[] = [];
 
         if (ok && n && (n > 0) && (productImgDirectories.length > 0)) {
-          numOfProductsDeleted = n;
+          numOfProductImagesDeleted = n;
           // remove service images from their directories //
           for (const imgDirectory of productImgDirectories) {
             prodImgRemovePromises.push(removeDirectoryWithFiles(imgDirectory));
           }
           return Promise.all(prodImgRemovePromises);
         } else {
-          numOfProductsDeleted = n ? n : 0;
+          numOfProductImagesDeleted = n ? n : 0;
           return Promise.resolve([]);
         } 
       })
       .then((_) => {
         return res.status(200).json({
-          responseMsg: "You have sucessfully removed your business account"
+          responseMsg: "You have sucessfully removed your business account",
+          deletedAdminAccount: deletedAccount,
+          deletedAdminAccountInfo: {
+            deletedStores: numOfStoresDeleted,
+            deletedStoreImages: numOfStoreImagesDeleted,
+            deletedStoreItems: numOfStoreItemsDeleted,
+            deletedStoreItemImages: numOfStoreItemImagesDeleted,
+            deletedProducts: numOfProductsDeleted,
+            deletedProductImages: numOfProductImagesDeleted,
+            deletedServices: numOfServicesDeleted,
+            deletedServiceImages: numOfServiceImagesDeleted
+          }
         });
       })
       .catch((err) => {
