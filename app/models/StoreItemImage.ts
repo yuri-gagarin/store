@@ -3,6 +3,7 @@ import mongoose, { Schema, Document } from "mongoose";
 export interface IStoreItemImage extends Document {
   description?: string;
   storeItemId: mongoose.Types.ObjectId;
+  parentStoreId?: mongoose.Types.ObjectId;
   url: string;
   fileName: string;
   imagePath: string;
@@ -20,6 +21,10 @@ const StoreItemImageSchema: Schema = new Schema({
     type: Schema.Types.ObjectId,
     required: true,
     ref: "StoreItem"
+  },
+  parentStoreId: {
+    type: Schema.Types.ObjectId,
+    ref: "Store"
   },
   url: {
     type: String,
