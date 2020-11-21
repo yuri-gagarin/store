@@ -1,5 +1,6 @@
 import mongoose, { Document, Schema, Model } from "mongoose";
 import { IAdministrator } from "./Administrator";
+import { IService } from "./Service";
 import { IStore } from "./Store";
 
 export enum AccountLevel {
@@ -8,14 +9,15 @@ export enum AccountLevel {
   Elite
 }
 export interface IAdminAccount extends Document {
-  adminAccounts: (mongoose.Types.ObjectId | IAdministrator)[];
-  stores: (mongoose.Types.ObjectId | IStore)[];
+  linkedAdmins: (mongoose.Types.ObjectId | IAdministrator)[];
+  linkedStores: (mongoose.Types.ObjectId | IStore)[];
+  linkedServices: (mongoose.Types.ObjectId | IService)[];
   accountLevel: AccountLevel;
   createdAt: Date;
   editedAt: Date; 
 }
 const AdminAccountSchema = new Schema({
-  adminAccounts: [
+  linkedAdmins: [
     {
       type: Schema.Types.ObjectId,
       ref: "Administrator"

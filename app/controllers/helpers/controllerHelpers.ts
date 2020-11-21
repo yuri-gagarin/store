@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import { IStoreItemImage } from "../../models/StoreItemImage";
 import { IStore } from "../../models/Store";
+import { Error } from "mongoose";
 
 export const respondWithInputError = (res: Response, msg?: string, status?: number, messages?: string[]): Promise<Response> => {
   return new Promise((resolve) =>{
@@ -28,6 +29,13 @@ export const respondWithGeneralError = (res: Response, msg: string, status?: num
       responseMsg: "Error",
       error: new Error(msg ? msg: "General error occured")
     }));
+  });
+};
+
+export const rejectWithGenError = (res: Response, message: string, status?: number): Promise<null> => {
+  res.status(status ? status : 500);
+  return new Promise((_, rej) => {
+    rej(new Error(message));
   });
 };
 
@@ -93,7 +101,7 @@ export const removeDirectoryWithFiles = (directoryPath: string): Promise<RemoveR
               resolve({
                 success: true, 
                 numberRemoved: numberRemoved,
-                message: `Removed empty directory ${directoryPath}`
+                message: `Removed directory ${directoryPath}`
               });
             })
             .catch((error) => {
