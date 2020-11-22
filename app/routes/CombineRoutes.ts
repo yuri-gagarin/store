@@ -31,6 +31,9 @@ import UsersRoutes from "../routes/UserRoutes";
 // admins //
 import AdminsController from "../controllers/admins_controller/AdminsController";
 import AdminsRoutes from "../routes/AdminsRoutes";
+// business accounts //
+import BusinessAccountsController from "../controllers/business_accounts/BusinessAccountsController";
+import BusinessAccountRoutes from "./BusinessAccountRoutes";
 // TESTS REMOVE LATER //
 import TestsController from "../controllers/TestsController"
 import TestRoutes from "../routes/TestRoutes";
@@ -58,6 +61,8 @@ class CombineRoutes {
     new UsersRoutes(Router, new UsersController());
     // admins //
     new AdminsRoutes(Router, new AdminsController());
+    // business accounts routes //
+    new BusinessAccountRoutes(Router, new BusinessAccountsController());
     // test routes remove later //
     new TestRoutes(Router, new TestsController());
   }

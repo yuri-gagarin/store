@@ -34,9 +34,7 @@ export const respondWithGeneralError = (res: Response, msg: string, status?: num
 
 export const rejectWithGenError = (res: Response, message: string, status?: number): Promise<null> => {
   res.status(status ? status : 500);
-  return new Promise((_, rej) => {
-    rej(new Error(message));
-  });
+  return Promise.reject(new Error(message));
 };
 
 export const deleteFile = (filePath: string): Promise<boolean> => {

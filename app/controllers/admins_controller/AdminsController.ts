@@ -1,9 +1,9 @@
 import bcrypt from "bcrypt";
-import { Request, Response } from "express";
+import e, { Request, Response } from "express";
 import Administrator, { IAdministrator } from "../../models/Administrator";
 // helpers and validators //
 import { validateNewAdmin } from "./helpers/validationHelpers";
-import { respondWithDBError, respondWithGeneralError, respondWithInputError } from "../helpers/controllerHelpers";
+import { rejectWithGenError, respondWithDBError, respondWithGeneralError, respondWithInputError } from "../helpers/controllerHelpers";
 import { issueJWT } from "../helpers/authHelpers"
 // type declrations //
 import { IGenericAuthController } from "../helpers/controllerInterfaces";
@@ -25,31 +25,30 @@ class AdminsController implements IGenericAuthController {
       return respondWithInputError(res, "User input error", 422, errorMessages);
     }
     const { password } = adminData;
+    
     return bcrypt.hash(password, saltRounds)
       .then((passwordHash) => {
         return Administrator.create({
           ...adminData,
           password: passwordHash,
           approved: false
-        })
-        .then((newAdmin) => {
-          return res.status(200).json({
-            responseMsg: "Administrator account created but not yet approved",
-            newAdmin: newAdmin
-          });
-        })
-        .catch((err) => {
-          return respondWithDBError(res, err);
-        })
+        });
+      })
+      .then((newAdmin) => {
+        return res.status(200).json({
+          responseMsg: "Administrator account created but not yet approved",
+          newAdmin: newAdmin
+        });
       })
       .catch((error) => {
         return respondWithGeneralError(res, error.message, 500);
-      })
+      });
   }
-  editRegistration(req: Request<{}, {}, AdminData>, res: Response): Promise<Response> {
+  editRegistration(req: Request<{}, {}, AdminData>, res: Response<AdminControllerRes>): Promise<Response> {
     const saltRounds = 10;
     const adminData: AdminData = req.body;
     const { adminId } = req.params as AdminParams;
+    let foundAdmin: IAdministrator;
     // validate correct input /
     const { valid, errorMessages } = validateNewAdmin(adminData);
     if (!adminData.oldPassword) {
@@ -59,7 +58,43 @@ class AdminsController implements IGenericAuthController {
     if (!valid) {
       return respondWithInputError(res, "User input error", 422, errorMessages);
     }
-    const { oldPassword } = adminData;
+    const { oldPassword, password } = adminData;
+    /*
+    return Administrator.findOne({ _id: adminId })
+      .then((foundAdmin) => {
+        if(foundAdmin) {
+          return bcrypt.compare(oldPassword, foundAdmin.password);
+        } else {
+          return rejectWithGenError(res, "Could find the admin data", 404);
+        }
+      })
+      .then((success) => {
+        if(success) {
+          return bcrypt.hash(password, saltRounds);
+        } else {
+          return rejectWithGenError(res, "Your old password is incorrect", 401);
+        }
+      })
+      .then((value) => {
+        return Administrator.findOneAndUpdate(
+          { _id: adminId },
+          { ...adminData },
+          { new: true }
+        )
+      })
+      .then((updatedAdmin) => {
+        if (updatedAdmin) {
+          return res.status(200).json({
+            responseMsg: `Administrator ${updatedAdmin.fullName()} has been updated`,
+            editedAdmin: updatedAdmin
+          })
+        } else {
+          return rejectWithGenError(res, "Did not update admin", 404);
+        }
+      })
+      .catch((err) => respondWithDBError(res, err))
+     
+    */
     return Administrator.findOne({ _id: adminId })
       .then((foundAdmin) => {
         if (!foundAdmin) {
@@ -95,6 +130,7 @@ class AdminsController implements IGenericAuthController {
       .catch((err) => {
         return respondWithDBError(res, err.message);
       })
+      
   }
   deleteRegistration(req: Request<{}, {} >, res: Response): Promise<Response> {
     const { adminId } = req.params as AdminParams;

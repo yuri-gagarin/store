@@ -9,8 +9,8 @@ export enum AccountLevel {
   Professional,
   Elite
 }
-export interface IAdminAccount extends Document {
-  linkedAdmins: (mongoose.Types.ObjectId | IAdministrator)[];
+export interface IBusinessAccount extends Document {
+  linkedBusinesss: (mongoose.Types.ObjectId | IAdministrator)[];
   linkedStores: (mongoose.Types.ObjectId | IStore)[];
   linkedServices: (mongoose.Types.ObjectId | IService)[];
   linkedProducts: (mongoose.Types.ObjectId | IProduct)[];
@@ -18,7 +18,7 @@ export interface IAdminAccount extends Document {
   createdAt: Date;
   editedAt: Date; 
 }
-const AdminAccountSchema = new Schema({
+const BusinessAccountSchema = new Schema({
   linkedAdmins: [
     {
       type: Schema.Types.ObjectId,
@@ -60,4 +60,4 @@ const AdminAccountSchema = new Schema({
   }
 });
 
-export default mongoose.model<IAdminAccount>("AdminAccount", AdminAccountSchema);
+export default mongoose.model<IBusinessAccount>("BusinessAccount", BusinessAccountSchema);

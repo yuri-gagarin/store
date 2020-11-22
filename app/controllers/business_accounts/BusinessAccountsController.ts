@@ -1,62 +1,28 @@
 import { Request, Response } from "express";
-import { link } from "fs";
 import { Types } from "mongoose";
-import AdminAccount,  { AccountLevel, IAdminAccount } from "../../models/AdminAccount";
+// models and model interfaces //
 import { IAdministrator } from "../../models/Administrator";
-import Product from "../../models/Product";
-import ProductImage, { IProductImage } from "../../models/ProductImage";
-import Service from "../../models/Service";
-import ServiceImage, { IServiceImage } from "../../models/ServiceImage";
+import { IGenericController } from "../helpers/controllerInterfaces"
+import BusinessAccount,  { AccountLevel, IBusinessAccount } from "../../models/BusinessAccount";
 import Store from "../../models/Store";
 import StoreImage, { IStoreImage } from "../../models/StoreImage";
 import StoreItem from "../../models/StoreItem";
 import StoreItemImage, { IStoreItemImage } from "../../models/StoreItemImage";
-import { AdminControllerRes } from "../admins_controller/type_declarations/adminsControllerTypes";
+import Product from "../../models/Product";
+import ProductImage, { IProductImage } from "../../models/ProductImage";
+import Service from "../../models/Service";
+import ServiceImage, { IServiceImage } from "../../models/ServiceImage";
+// controller types and interfaces //
+import {
+  BusinessAccountsContReqParams, BusinessAccountsContRes, 
+  BusinessAccountsIndexSortQuery, CreateBusAccountBodyReq, EditAccountBodyReq
+} from "./type_declarations/businessAccoountsContTypes";
+// helpers //
 import { removeDirectoryWithFiles, RemoveResponse, resolveDirectoryOfImg, respondWithDBError, respondWithGeneralError, respondWithInputError, rejectWithGenError } from "../helpers/controllerHelpers";
-import { IGenericController } from "../helpers/controllerInterfaces"
-import ServicesController from "../ServicesController";
 
-type AdminAccountsContRes = {
-  responseMsg: string;
-  adminAccounts?: IAdminAccount[];
-  newAdminAcccount?: IAdminAccount;
-  adminAccount?: IAdminAccount;
-  editedAdminAccount?: IAdminAccount;
-  deletedAdminAccount?: IAdminAccount;
-  deletedAdminAccountInfo?: {
-    deletedStores: number;
-    deletedStoreImages: number;
-    deletedStoreItems: number;
-    deletedStoreItemImages: number;
-    deletedServices: number;
-    deletedServiceImages: number;
-    deletedProducts: number;
-    deletedProductImages: number;
-  }
-  error?: Error;
-}
-type CreteAccountBodyReq = {
 
-}
-type EditAccountBodyReq = {
-  linkedAdmins: Types.ObjectId[];
-  linkedStores: Types.ObjectId[];
-  linkedServices: Types.ObjectId[];
-  linkedProducts: Types.ObjectId[];
-  accountLevel?: string; 
-}
-type AdminAccountsContReqParams = {
-  adminAccountId: string;
-}
-type AdminAccountsIndexSortQuery = {
-  createdAt?: "desc" | "asc";
-  editedAt?: "desc" | "asc"
-  lastLogin?: string;
-  accountLevel?: "desc" | "asc";
-  limit?: string;
-}
-class AdminAccountsController implements IGenericController {
-  index(req: Request<{}, {}, {}, AdminAccountsIndexSortQuery>, res: Response<AdminAccountsContRes>): Promise<Response> {
+class BusinessAccountsController implements IGenericController {
+  index(req: Request<{}, {}, {}, BusinessAccountsIndexSortQuery>, res: Response<BusinessAccountsContRes>): Promise<Response> {
     const user = req.user as IAdministrator;
     const { createdAt, editedAt, accountLevel, limit } = req.query;
     if (!user) {
@@ -79,54 +45,54 @@ class AdminAccountsController implements IGenericController {
         sortOption.accountLevel = accountLevel
       }
       
-      return AdminAccount.find({})
+      return BusinessAccount.find({})
         .sort(sortOption)
         .limit(limit ? parseInt(limit, 10) : 10)
-        .populate("linkedAdmins")
+        .populate("linkedBusinesss")
         .populate({ path: "linkedStores", model: "store", select: "-images" })
         .populate({ path: "linkedServices", model: "service", select: "-images" })
         .populate({ path: "linkedProducts", model: "product", select: "-images" })
         .exec()
-        .then((adminAccounts) => {
+        .then((businessAccounts) => {
           return res.status(200).json({
-            responseMsg: `Fetched ${adminAccounts.length} admins. Sorted by ${sortType} created ${createdAt}`,
-            adminAccounts: adminAccounts
+            responseMsg: `Fetched ${businessAccounts.length} admins. Sorted by ${sortType} created ${createdAt}`,
+            businessAccounts: businessAccounts
           });
         })  
         .catch((err) => respondWithDBError(res, err));
     }
-    return AdminAccount.find({})
+    return BusinessAccount.find({})
       .sort({ createdAt: "desc "})
       .limit(10)
-      .populate("linkedAdmins")
+      .populate("linkedBusinesss")
       .populate({ path: "linkedStores", model: "store", select: "-images" })
       .populate({ path: "linkedServices", model: "service", select: "-images" })
       .populate({ path: "linkedProducts", model: "product", select: "-images" })
       .exec()
-      .then((adminAccounts) => {
+      .then((businessAccounts) => {
         return res.status(200).json({
-          responseMsg: `Fetched ${adminAccounts.length} admins. Sorted by Date Created DESC`,
-          adminAccounts: adminAccounts
+          responseMsg: `Fetched ${businessAccounts.length} admins. Sorted by Date Created DESC`,
+          businessAccounts: businessAccounts
         });
       })   
       .catch((err) => respondWithDBError(res, err)); 
   }
-  get(req: Request<AdminAccountsContReqParams>, res: Response<AdminAccountsContRes>): Promise<Response> {
-    const { adminAccountId } = req.params;
-    if (!adminAccountId) {
+  get(req: Request, res: Response<BusinessAccountsContRes>): Promise<Response> {
+    const { busAccountId } = req.params as BusinessAccountsContReqParams ;
+    if (!busAccountId) {
       return respondWithInputError(res, "Cant resolve an account to look for", 422);
     }
-    return AdminAccount.findOne({ _id: adminAccountId })
-      .populate({ path: "linkedAdmins", model: "administrator" })
+    return BusinessAccount.findOne({ _id: busAccountId })
+      .populate({ path: "linkedBusinesss", model: "administrator" })
       .populate({ path: "linkedStores", model: "store", select: "-images" })
       .populate({ path: "linkedServices", model: "service", select: "-images" })
       .populate({ path: "linkedProducts", model: "product", select: "-images" })
       .exec()
-      .then((adminAccount) => {
-        if (adminAccount) {
+      .then((businessAccount) => {
+        if (businessAccount) {
           return res.status(200).json({
-            responseMsg: `Account with id of ${adminAccountId}`,
-            adminAccount: adminAccount
+            responseMsg: `Account with id of ${busAccountId}`,
+            businessAccount: businessAccount
           })
         } else {
           return respondWithGeneralError(res, "Could not find an account", 404);
@@ -135,12 +101,12 @@ class AdminAccountsController implements IGenericController {
       .catch((err) => respondWithDBError(res, err));
   }
   create(req: Request, res: Response): Promise<Response> {
-    const admin = req.user  as IAdministrator;
+    const admin = req.user as IAdministrator;
     const { _id: adminId } = admin;
     if (admin.adminAccountId) {
       return respondWithGeneralError(res, "You already have an account set up", 422);
     }
-    return AdminAccount.create({ 
+    return BusinessAccount.create({ 
       adminAccounts: [ adminId ],
       linkedStores: [],
       linkedServices: [],
@@ -149,22 +115,22 @@ class AdminAccountsController implements IGenericController {
     .then((adminAccount) => {
       return res.status(200).json({
         responseMsg: "Created a new admin account",
-        newAdminAcccount: adminAccount
+        newBusinessAcccount: adminAccount
       });
     })
     .catch((err) => respondWithDBError(res, err));
   } 
-  edit(req: Request<AdminAccountsContReqParams, {},EditAccountBodyReq>, res: Response<AdminAccountsContRes>): Promise<Response> {
-    const { adminAccountId } = req.params;
-    const { linkedAdmins, linkedStores, linkedServices, accountLevel } = req.body;
-    if (adminAccountId) {
+  edit(req: Request<{}, {},EditAccountBodyReq>, res: Response<BusinessAccountsContRes>): Promise<Response> {
+    const { busAccountId } = req.params as BusinessAccountsContReqParams;
+    const { linkedBusinesss, linkedStores, linkedServices, accountLevel } = req.body;
+    if (busAccountId) {
       return respondWithInputError(res, "Cannot resolve account to edit", 422);
     }
 
-    return AdminAccount.findOneAndUpdate(
-      { _id: adminAccountId },
+    return BusinessAccount.findOneAndUpdate(
+      { _id: busAccountId },
       { 
-        linkedAdmins: [ ...linkedAdmins ],
+        linkedBusinesss: [ ...linkedBusinesss ],
         linkedStores: [ ...linkedStores ],
         linkedServices: [ ...linkedServices ],
         accountLevel: accountLevel ? parseInt(accountLevel, 10) : 0,
@@ -178,7 +144,7 @@ class AdminAccountsController implements IGenericController {
       if (updatedAccount) {
         return res.status(200).json({
           responseMsg: `Updated account ${updatedAccount._id}`,
-          editedAdminAccount: updatedAccount
+          editedBusinessAccount: updatedAccount
         })
       } else {
         return respondWithGeneralError(res, "Could not find the account to update", 404);
@@ -187,14 +153,15 @@ class AdminAccountsController implements IGenericController {
     .catch((err) => respondWithDBError(res, err));
   }
 
-  delete(req: Request<AdminAccountsContReqParams>, res: Response<AdminAccountsContRes>): Promise<Response> {
-    const { adminAccountId } = req.params;
+  delete(req: Request, res: Response<BusinessAccountsContRes>): Promise<Response> {
+    console.log("called")
+    const { busAccountId } = req.params as BusinessAccountsContReqParams;
     const storeImgDirectories: string[] = [];
     const storeItemImgDirectories: string[] = []
     const serviceImgDirectories: string[] = [];
     const productImgDirectories: string[] = [];
     // 
-    let deletedAccount: IAdminAccount;
+    let deletedAccount: IBusinessAccount;
     //
     let linkedStores: Types.ObjectId[];
     let storeItemIds: Types.ObjectId[];
@@ -210,10 +177,10 @@ class AdminAccountsController implements IGenericController {
     let numOfProductsDeleted: number = 0;
     let numOfProductImagesDeleted: number = 0;
 
-    if (!adminAccountId) {
+    if (!busAccountId) {
       return respondWithInputError(res, "Cannot resolve account to delete", 422);
     }
-    return AdminAccount.findOneAndDelete({ _id: adminAccountId })
+    return BusinessAccount.findOneAndDelete({ _id: busAccountId })
       .then((adminAccount) => {
         if(adminAccount) { 
           deletedAccount = adminAccount;
@@ -409,8 +376,8 @@ class AdminAccountsController implements IGenericController {
       .then((_) => {
         return res.status(200).json({
           responseMsg: "You have sucessfully removed your business account",
-          deletedAdminAccount: deletedAccount,
-          deletedAdminAccountInfo: {
+          deletedBusinessAccount: deletedAccount,
+          deletedBusinessAccountInfo: {
             deletedStores: numOfStoresDeleted,
             deletedStoreImages: numOfStoreImagesDeleted,
             deletedStoreItems: numOfStoreItemsDeleted,
@@ -432,4 +399,4 @@ class AdminAccountsController implements IGenericController {
   }
 };
 
-export default AdminAccountsController;
+export default BusinessAccountsController;
