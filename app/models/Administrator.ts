@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema, Model } from "mongoose";
 import { IStore } from "./Store";
 
-enum AdminLevel {
+export enum EAdminLevel {
   Moderator,
   Administrator,
   Owner
@@ -22,11 +22,12 @@ export interface IAdministrator extends Document {
   birthDate: string;
   password: string;
   avatarImage?: AvatarImage;
-  adminLevel: AdminLevel;
+  adminLevel: EAdminLevel;
   adminAccountId?: mongoose.Types.ObjectId;
   storesManaged: (StoreRef | IStore)[];
   approved: boolean;
-  registered: Date;
+  createdAt: Date;
+  editedAt: Date;
   lastLogin?: Date;
 };
 
@@ -57,9 +58,9 @@ const AdministratorSchema: Schema = new Schema<IAdministrator>({
     required: true
   },
   adminLevel: {
-    type: AdminLevel,
+    type: EAdminLevel,
     required: true,
-    default: AdminLevel.Administrator
+    default: EAdminLevel.Administrator
   },
   storesManaged: [
     {
@@ -82,11 +83,18 @@ const AdministratorSchema: Schema = new Schema<IAdministrator>({
   },
   approved: {
     type: Boolean,
-    required: true
+    required: true,
+    defaul: false
   },
-  registered: {
+  createdAt: {
     type: Date,
-    required: true
+    required: true,
+    default: new Date(Date.now())
+  },
+  editedAt: {
+    type: Date,
+    required: true,
+    default: new Date(Date.now())
   },
   lastLogin: {
     type: Date,

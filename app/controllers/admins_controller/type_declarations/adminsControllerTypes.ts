@@ -5,6 +5,7 @@ export type AdminData = {
   lastName: string;
   handle?: string;
   email: string;
+  newEmail?: string;
   phoneNumber?: string;
   birthdate?: string;
   oldPassword?: string;

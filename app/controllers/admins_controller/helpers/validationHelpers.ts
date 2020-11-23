@@ -4,7 +4,7 @@ type ValidationResponse = {
   valid: boolean;
   errorMessages: string[]
 }
-export const validateNewAdmin = (data: AdminData): ValidationResponse => {
+export const validateAdminModel = (data: AdminData): ValidationResponse => {
   const validationRes: ValidationResponse = {
     valid: true,
     errorMessages: []
@@ -34,7 +34,7 @@ export const validateNewAdmin = (data: AdminData): ValidationResponse => {
     validationRes.errorMessages.push("A password confirmation is required");
   }
   if (password && passwordConfirm) {
-    if (passwordConfirm !== passwordConfirm) {
+    if (password !== passwordConfirm) {
       validationRes.valid = false;
       validationRes.errorMessages.push("Your passwords do not match");
     }

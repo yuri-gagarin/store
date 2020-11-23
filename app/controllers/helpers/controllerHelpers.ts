@@ -3,13 +3,16 @@ import fs from "fs";
 import path from "path";
 import { IStoreItemImage } from "../../models/StoreItemImage";
 import { IStore } from "../../models/Store";
-import { Error } from "mongoose";
+import { Document, Error, Model } from "mongoose";
+import { IAdministrator } from "../../models/Administrator";
+import { IUser } from "../../models/User";
 
-export const respondWithInputError = (res: Response, msg?: string, status?: number, messages?: string[]): Promise<Response> => {
+export const respondWithInputError = (res: Response, msg: string, status?: number, messages?: string[]): Promise<Response> => {
   return new Promise((resolve) =>{
     return resolve(res.status(status ? status : 400).json({
-      responseMsg: msg ? msg : "Seems like an error occured",
-      messages: messages ? messages : ""
+      responseMsg: "Input error",
+      error: new Error(msg),
+      messages: messages ? messages : []
     }));
   });
 };
@@ -140,3 +143,28 @@ export const snakeToCamel = (string: string): string => {
   });
   return arr.join("");
 };
+
+type ModelType = IAdministrator | IUser;
+type ValidationResponse = {
+  valid: boolean;
+  errorMessages: string[];
+}
+export const checkDuplicateEmail = (email: string, mongooseModel: Model<ModelType> ): Promise<ValidationResponse> => {
+  return mongooseModel.findOne({ email: email })
+    .then((user) => {
+      if (user) {
+        return {
+          valid: false,
+          errorMessages: [ "A user with this email already exists" ]
+        };
+      } else {
+        return {
+          valid: true,
+          errorMessages: []
+        };
+      }
+    })
+    .catch((err: Error) => {
+      throw err;
+    });
+}

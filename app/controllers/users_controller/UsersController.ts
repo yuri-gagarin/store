@@ -23,6 +23,7 @@ class UsersController implements IGenericAuthController {
       return respondWithInputError(res, "User input error", 422, errorMessages);
     }
     const { email, password } = userData;
+    
     return checkDuplicateEmail(email)
       .then((validationRes) => {
         const { valid, errorMessages } = validationRes;
