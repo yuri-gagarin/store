@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import e, { Request, Response } from "express";
+import { Request, Response } from "express";
 import Administrator, { IAdministrator, EAdminLevel } from "../../models/Administrator";
 // helpers and validators //
 import { validateAdminModel } from "./helpers/validationHelpers";
@@ -38,6 +38,7 @@ class GeneralError extends Error {
 };
 type ErrorResponse = {
   responseMsg: string;
+  errorMessages?: string[]
   error: GeneralError;
 }
 
@@ -48,23 +49,27 @@ const processErrorResponse = (res: Response<ErrorResponse>, err: GenControllerEr
       const { statusCode, errorMessages } = err; 
       return res.status(statusCode).json({
         responseMsg: "Validation error",
+        errorMessages: errorMessages,
         error: err
       })
     } else if (err instanceof NotFoundError) {
       const { statusCode } = err;
       return res.status(statusCode).json({
         responseMsg: "Not found",
+        errorMessages: [ err.message ],
         error: err
       })
     } else if (err instanceof GeneralError) {
       const { statusCode } = err;
       return res.status(statusCode).json({
         responseMsg: "An error occured",
+        errorMessages: [ err.message ],
         error: err
       })
     } else {
       return res.status(500).json({
         responseMsg: "Something went wrong on our side",
+        errorMessages: [ (err as Error).message ],
         error: err
       })
     }
@@ -183,7 +188,7 @@ class AdminsController implements IGenericAuthController {
   deleteRegistration(req: Request, res: Response<AdminControllerRes>): Promise<Response> {
     const { adminId } = req.params as AdminParams;
     const admin: IAdministrator = req.user as IAdministrator;
-    const password: string = req.query.password as string;
+    const password: string = req.body.password as string;
 
     if (!adminId) {
       return respondWithInputError(res, "Could resolve a user id", 422);
@@ -246,6 +251,7 @@ class AdminsController implements IGenericAuthController {
           const { token, expires } = issueJWT(_foundAdmin);
           return res.status(200).json({
             responseMsg: `Welcome back ${_foundAdmin.fullName}`,
+            admin: _foundAdmin,
             success: true,
             jwtToken: {
               token: token,
@@ -253,7 +259,7 @@ class AdminsController implements IGenericAuthController {
             }
           });
         } else {
-          throw new GeneralError("Incorrect password provided");
+          throw new ValidationError("Login Error", [ "Incorrect passwrod" ], 401);
         }
       })
       .catch((err) => {

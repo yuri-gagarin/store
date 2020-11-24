@@ -1,17 +1,32 @@
-import passport, { PassportStatic } from "passport";
-import jwt from "jsonwebtoken";
+import { Document, Model } from "mongoose";
+import { PassportStatic } from "passport";
 import passportJWT, { StrategyOptions } from "passport-jwt";
-import User from "../models/User";
+import User, { IUser } from "../models/User";
+import Administrator, { IAdministrator } from "../models/Administrator";
+import { NextFunction, Request, Response } from "express";
+
 const { ExtractJwt, Strategy : JWTStrategy } = passportJWT;
 
-const options: StrategyOptions = {
+export const options: StrategyOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: "somethingdumbhere",
-  //algorithms: ["RS256"]
+  secretOrKey: "somethingverysecret",
 }
 
-const strategy = new JWTStrategy(options, (payload, done) => {
-  console.log(14)
+const adminJWTStrategy = new JWTStrategy(options, (payload, done) =>  {
+  Administrator.findOne({ _id: payload.sub })
+    .then((admin) => {
+      if (admin) {
+        done(null, admin);
+      } else {
+        done(null, false);
+      }
+    })
+    .catch((err) => {
+      done(err, null);
+    });
+});
+
+const userJWTStrategy = new JWTStrategy(options, (payload, done) => {
   User.findOne({ _id: payload.sub })
     .then((user) => {
       if (user) {
@@ -22,10 +37,10 @@ const strategy = new JWTStrategy(options, (payload, done) => {
     })
     .catch((err) => {
       done(err, null);
-    });
+    })
 })
-
 export default function (passport: PassportStatic) {
-  passport.use(strategy);
+  passport.use("adminJWT", adminJWTStrategy);
+  passport.use("userJWT", userJWTStrategy);
 }
 

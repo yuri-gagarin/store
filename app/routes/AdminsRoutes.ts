@@ -1,3 +1,4 @@
+import passport from "passport";
 import AdminsController from "../controllers/admins_controller/AdminsController";
 import { RouteConstructor } from "./helpers/routeInterfaces";
 
@@ -29,7 +30,7 @@ class AdminRoutes extends RouteConstructor<AdminsController> {
     this.Router.route(this.updateAdminRoute).patch(this.controller.editRegistration);
   }
   private deleteAdmin (): void {
-    this.Router.route(this.deleteAdminRoute).delete(this.controller.deleteRegistration);
+    this.Router.route(this.deleteAdminRoute).delete(passport.authenticate("adminJWT", { session: false }), this.controller.deleteRegistration);
   }
   private loginAdmin (): void {
     this.Router.route(this.loginAdminRoute).post(this.controller.login);

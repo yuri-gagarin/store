@@ -24,6 +24,7 @@ export type AdminParams = {
 // generic AdminsController response object //
 export type AdminControllerRes = {
   responseMsg: string;
+  admin?: IAdministrator;
   newAdmin?: IAdministrator;
   editedAdmin?: IAdministrator;
   deletedAdmin?: IAdministrator;
@@ -33,4 +34,5 @@ export type AdminControllerRes = {
     expiresIn: string;
   },
   error?: Error;
+  errorMessages?: string[];
 };
