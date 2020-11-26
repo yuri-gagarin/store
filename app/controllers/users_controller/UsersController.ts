@@ -11,7 +11,7 @@ import {
   UserData, UserControllerRes, UserLoginReq, UserParams 
 } from "./type_declarations/usersControllerTypes";
 import { IUser } from "../../models/User";
-import { processErrorResponse, ValidationError } from "../helpers/errorHandlers";
+import { NotFoundError, processErrorResponse, ValidationError } from "../helpers/errorHandlers";
 
 class UsersController implements IGenericAuthController {
   register(req: Request<{}, {}, UserData>, res: Response<UserControllerRes>): Promise<Response> {
@@ -60,12 +60,14 @@ class UsersController implements IGenericAuthController {
   }
 
   editRegistration(req: Request<{}, {}, UserData>, res: Response<UserControllerRes>): Promise<Response> {
+    const saltRound = 10;
     const userData: UserData = req.body;
     const { userId } = req.params as UserParams;
+    let foundUser: IUser;
     // validate correct input //
     const { valid, errorMessages } = validateNewUser(userData);
     // respond with invalid 422 if bad user input //
-    const { password, oldPassword } = req.body;
+    const { email, password, oldPassword } = req.body;
 
     if (!oldPassword) {
       return respondWithInputError(res, "Input error", 400, [ "You need to enter your old password" ]);
@@ -77,59 +79,88 @@ class UsersController implements IGenericAuthController {
     return User.findOne({ _id: userId })
       .then((user) => {
         if (user) {
-          return bcrypt.compare(oldPassword, user.password)
-            .then((success) => {
-              if (success) {
-                // update user //
-                return User.findOneAndUpdate({ _id: userId}, userData , { new: true })
-                  .then((user) => {
-                    if (user) {
-                      return res.status(200).json({
-                        responseMsg: `Updated user ${user.firstName}`,
-                        editedUser: user
-                      })
-                    } else {
-                      return respondWithGeneralError(res, "Could not resolve user", 404);
-                    }
-                  })
-                  .catch((err: Error) => respondWithDBError(res, err));
-              } else {
-                return respondWithInputError(res, "Your old password is incorrect");
-              }
-            })
-            .catch((err) => respondWithGeneralError(res, "Something went wrong on our end"));
+          foundUser = user;
+          return bcrypt.compare(oldPassword, user.password);
         } else {
-          return respondWithInputError(res, "Could not resolve user", 404);
+          throw new NotFoundError("Could not reslove user account", 404);
         }
       })
-      .catch((err: Error) => respondWithDBError(res, err));
+      .then((match) => {
+        if (match) {
+          // update user //
+          if (foundUser.email === email) {
+            return Promise.resolve(null);
+          } else {
+            return User.findOne({ email: email })
+          }
+        } else {
+          throw new ValidationError("User input error", [ "Incorrect password"], 401);
+        }
+      })
+      .then((foundUserWithEmail) => {
+        if (foundUserWithEmail) {
+          throw new ValidationError("User input error", [ "Another user account exists with this email"], 422);
+        } else {
+          return bcrypt.hash(password, saltRounds);
+        }
+      })
+      .then((hashedPassword) => {
+        return User.findOneAndUpdate(
+          { _id: userId },
+          { ...userData, password: hashedPassword, editedAt: new Date(Date.now()) },
+          { new: true }
+        );
+      })   
+      .then((updatedUser) => {
+        if (updatedUser) {
+          return res.status(200).json({
+            responseMsg: `User ${updatedUser.firstName} has been updated`,
+            editedUser: updatedUser
+          });
+        } else {
+          throw new NotFoundError("Couldn't find the user profile to update", 404);
+        }
+      })
+      .catch((err) => {
+        return processErrorResponse(res, err);
+      }) 
     }
 
   deleteRegistration(req: Request, res: Response<UserControllerRes>): Promise<Response> {
-    const { userId } = req.params;
-    if (!userId) {
-      respondWithInputError(res, "Cant resolve User to delete", 422, []);
-    }
-    const user = req.user as IUser
+    const { userId } = req.params as UserParams;
+    const user: IUser = req.user as IUser;
+    const password: string = req.body.password as string;
 
-    return User.findOneAndDelete({ _id: userId })
-      .then((deletedUser) => {
-        if (deletedUser) {
-          return res.status(200).json({
-            responseMsg: `Deleted user: ${deletedUser.firstName}`,
-            deletedUser: deletedUser
-          });
+    if (!userId) {
+      return respondWithInputError(res, "Cant resolve User to delete", 422, []);
+    }
+    if (String(user._id) !== userId) {
+      return respondWithInputError(res, "Not allowed to delete another user profile", 401);
+    }
+    if (!password) {
+      return respondWithInputError(res, "Must enter your password to delete account", 401);
+    }
+
+    return User.findOne({ _id: userId })
+      .then((foundUser) => {
+        if (foundUser) {
+          return bcrypt.compare(password, foundUser.password);
         } else {
-          return res.status(404).json({
-            responseMsg: `An error occured`,
-            messages: [`Could not delete find the user`]
-          });
+          throw new NotFoundError("Not able to resolve user to delete", 404);
         }
       })
-      .catch((error) => {
-        return respondWithDBError(res, error)
-      });
+      .then((match) => {
+        if (match) {
+          return User.findOneAndDelete({ _id: userId });
+        } else {
+          throw new ValidationError("Unable to complete", [ "Your password is incorrect "], 401);
+        }
+      })
+      .then((deletedUser) => {
+        if (deletedUser)
+      })
   }
+
   login(req: Request<{}, {}, UserLoginReq>, res: Response<UserControllerRes>) {
     const { email, password } = req.body;
     console.log(req.body)
