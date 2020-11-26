@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-import User from "../../models/User";
+import User, { MemberLevel } from "../../models/User";
 // helpers //
 import { checkDuplicateEmail, validateNewUser } from "./helpers/validationHelpers";
 import { issueJWT } from "../helpers/authHelpers";
@@ -11,6 +11,7 @@ import {
   UserData, UserControllerRes, UserLoginReq, UserParams 
 } from "./type_declarations/usersControllerTypes";
 import { IUser } from "../../models/User";
+import { processErrorResponse, ValidationError } from "../helpers/errorHandlers";
 
 class UsersController implements IGenericAuthController {
   register(req: Request<{}, {}, UserData>, res: Response<UserControllerRes>): Promise<Response> {
@@ -29,33 +30,33 @@ class UsersController implements IGenericAuthController {
         const { valid, errorMessages } = validationRes;
         if (valid) {
           return bcrypt.hash(password, saltRounds)
-            .then((passwordHash) => {
-              return User.create({ ...userData, password: passwordHash })
-            .then((user) => {
-              const { token, expires } = issueJWT(user);
-              return res.status(200).json({
-                responseMsg: `Welcome ${user.firstName}`,
-                user: user,
-                jwtToken: {
-                  token: token,
-                  expiresIn: expires
-                }
-              });
-            })
-            .catch((err) => {
-              return respondWithDBError(res, err);
-            });
-          })
-          .catch((err) => {
-            return respondWithGeneralError(res, err.message, 500);
-          });
         } else {
-          return respondWithInputError(res, "User input error", 422, errorMessages);
+          throw new ValidationError("Registration Error", errorMessages, 422)
         }
-    })
-    .catch((err: Error) => {
-      return respondWithGeneralError(res, err.message, 500);
-    });
+      })
+      .then((passwordHash) => {
+        return User.create({ 
+          ...userData, 
+          password: passwordHash,
+          membershipLevel: MemberLevel.Rookie,
+          createdAt: new Date(Date.now()),
+          editedAt: new Date(Date.now())
+        });
+      })
+      .then((user) => {
+        const { token, expires } = issueJWT(user);
+        return res.status(200).json({
+          responseMsg: `Welcome ${user.firstName}`,
+          user: user,
+          jwtToken: {
+            token: token,
+            expiresIn: expires
+          }
+        });
+      })
+      .catch((err) => {
+        return processErrorResponse(res, err);
+      });
   }
 
   editRegistration(req: Request<{}, {}, UserData>, res: Response<UserControllerRes>): Promise<Response> {

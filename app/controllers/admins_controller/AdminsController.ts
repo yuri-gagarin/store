@@ -174,7 +174,7 @@ class AdminsController implements IGenericAuthController {
           return res.status(200).json({
             responseMsg: `Administrator ${updatedAdmin.fullName} has been updated`,
             editedAdmin: updatedAdmin
-          })
+          });
         } else {
           throw new NotFoundError("Couldn't find admin profile to update", 404);
         }

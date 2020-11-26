@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-enum MemberLevel {
+export enum MemberLevel {
   Rookie,
   Veteran,
   Pro,
@@ -46,9 +46,15 @@ const UserSchema: Schema = new Schema<IUser>({
     type: String,
     required: true
   },
-  registered: {
+  createdAt: {
     type: Date,
-    required: true
+    required: true,
+    default: new Date(Date.now())
+  },
+  editedAt: {
+    type: Date,
+    required: true,
+    default: new Date(Date.now())
   },
   lastLogin: {
     type: Date,
