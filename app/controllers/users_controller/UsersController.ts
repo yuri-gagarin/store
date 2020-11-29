@@ -4,7 +4,7 @@ import User, { MemberLevel } from "../../models/User";
 // helpers //
 import { checkDuplicateEmail, validateNewUser } from "./helpers/validationHelpers";
 import { issueJWT } from "../helpers/authHelpers";
-import { respondWithDBError, respondWithGeneralError, respondWithInputError } from "../helpers/controllerHelpers";
+import { respondWithInputError } from "../helpers/controllerHelpers";
 // additional types //
 import { IGenericAuthController } from "../helpers/controllerInterfaces";
 import { 
@@ -60,7 +60,7 @@ class UsersController implements IGenericAuthController {
   }
 
   editRegistration(req: Request<{}, {}, UserData>, res: Response<UserControllerRes>): Promise<Response> {
-    const saltRound = 10;
+    const saltRounds = 10;
     const userData: UserData = req.body;
     const { userId } = req.params as UserParams;
     let foundUser: IUser;
@@ -157,13 +157,24 @@ class UsersController implements IGenericAuthController {
         }
       })
       .then((deletedUser) => {
-        if (deletedUser)
+        if (deletedUser) {
+          return res.status(200).json({
+            responseMsg: `Deleted user ${deletedUser.firstName}`,
+            deletedUser: deletedUser
+          });
+        } else {
+          throw new NotFoundError("User to delete was not found", 404);
+        }
       })
+      .catch((err) => {
+        return processErrorResponse(res, err);
+      });
   }
 
   login(req: Request<{}, {}, UserLoginReq>, res: Response<UserControllerRes>) {
+    let user: IUser;
     const { email, password } = req.body;
-    console.log(req.body)
+
     if (!email && !password) {
       return respondWithInputError(res, "Email or password required", 400);
     }
@@ -172,31 +183,27 @@ class UsersController implements IGenericAuthController {
         // console.log(117)
         if (user) {
           // check password //
-          return bcrypt.compare(password, user.password)
-            .then((match) => {
-              if (match) {
-                const { token, expires } = issueJWT(user);
-                return res.status(200).json({
-                  responseMsg: `Welcome back ${user.firstName}`,
-                  jwtToken: {
-                    token: token,
-                    expiresIn: expires
-                  }
-                });
-              } else {
-                return res.status(401).json({
-                  responseMsg: "Wrong password"
-                });
-              }
-            })
-            .catch((err) => {
-              return respondWithGeneralError(res, err.message, 500);
-            })
+          return bcrypt.compare(password, user.password);
         } else {
-          return res.status(401).json({
-            responseMsg: "Could not find the user for login"
-          })
+          throw new NotFoundError("Could not find a user with that email");
         }
+      })
+      .then((match) => {
+        if (match) {
+          const { token, expires } = issueJWT(user);
+          return res.status(200).json({
+            responseMsg: `Welcome back ${user.firstName}`,
+            jwtToken: {
+              token: token,
+              expiresIn: expires
+            }
+          });
+        } else {
+          throw new ValidationError("Login error", [ "Incorrect password" ], 401);
+        }
+      })
+      .catch((err) => {
+        return processErrorResponse(res, err);
       })
   }
   logout(req: Request, res: Response) {
