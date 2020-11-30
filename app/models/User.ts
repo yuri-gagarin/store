@@ -13,7 +13,8 @@ export interface IUser extends Document {
   email: string;
   birthDate: string;
   password: string;
-  registered: Date;
+  createdAt: Date;
+  editedAt: Date;
   lastLogin?: Date;
   membershipLevel: MemberLevel;
 };
@@ -62,7 +63,8 @@ const UserSchema: Schema = new Schema<IUser>({
   },
   membershipLevel: {
     type: MemberLevel,
-    required: true
+    required: true,
+    default: MemberLevel.Rookie
   }
 });
 
@@ -73,10 +75,22 @@ UserSchema.pre("validate", function(this: IUser, next) {
   next();
 });
 UserSchema.pre("validate", function(this: IUser, next) {
-  if (!this.registered) {
-    this.registered = new Date(Date.now());
+  if (!this.createdAt) {
+    this.createdAt = new Date(Date.now());
   }
   next();
-})
+});
+UserSchema.pre("validate", function(this: IUser, next) {
+  if (!this.editedAt) {
+    this.editedAt = new Date(Date.now());
+  }
+  next();
+});
+UserSchema.pre("validate", function(this: IUser, next) {
+  if (!this.membershipLevel) {
+    this.membershipLevel = MemberLevel.Rookie;
+  }
+  next();
+});
 
 export default mongoose.model<IUser>("User", UserSchema);
