@@ -12,7 +12,7 @@ export const respondWithInputError = (res: Response, msg: string, status?: numbe
     return resolve(res.status(status ? status : 400).json({
       responseMsg: "Input error",
       error: new Error(msg),
-      messages: messages ? messages : []
+      errorMessages: messages ? messages : []
     }));
   });
 };
@@ -21,7 +21,7 @@ export const respondWithDBError = (res: Response, err: Error): Promise<Response>
     return resolve(res.status(500).json({
       responseMsg: "An Error occured",
       error: err,
-      messages: [ err.message ]
+      errorMessages: [ err.message ]
     }));
   });
 };
@@ -30,7 +30,7 @@ export const respondWithGeneralError = (res: Response, msg: string, status?: num
   return new Promise((resolve) => {
     return resolve(res.status(status ? status : 500).json({
       responseMsg: "Error",
-      error: new Error(msg ? msg: "General error occured")
+      errorMessage: new Error(msg ? msg: "General error occured")
     }));
   });
 };

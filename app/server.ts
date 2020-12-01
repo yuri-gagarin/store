@@ -8,6 +8,8 @@ import bodyParser from "body-parser";
 import { MulterError } from "multer";
 import passport from "passport";
 import jwtPass from "./auth/passport";
+// custom middleware //
+import { POSTRequestTrimmer } from "./custom_middleware/customMiddlewares";
 
 // app declarations and constants //
 const app: express.Application = express();
@@ -17,15 +19,9 @@ const Router: express.Router = express.Router();
 const jsonParser = bodyParser.json();
 const urlEncodedParser = bodyParser.urlencoded({ extended: true });
 
-const mongoOptions = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-  user: config.dbSettings.username,
-  pass: config.dbSettings.password
-};
+const { mongoURI, connectionOptions } = config.dbSettings;
 
-mongoose.connect(config.dbSettings.mongoURI, mongoOptions, (err) => {
+mongoose.connect(mongoURI, connectionOptions, (err) => {
   if (err) { console.error(err); }
 });
 mongoose.connection.once("open", () => {
@@ -34,6 +30,9 @@ mongoose.connection.once("open", () => {
 
 app.use(jsonParser);
 app.use(urlEncodedParser);
+// custom body parsing - trim trailing whitespace //
+app.use(POSTRequestTrimmer);
+// 
 // passport authentication //
 app.use(passport.initialize());
 jwtPass(passport);
@@ -68,7 +67,7 @@ app.use(function (err: MulterError, req: Express.Request, res: Express.Response,
 
 app.on("dbReady", () => {
   server.listen(PORT, () => {
-    console.info(`Listening at PORT: ${PORT}`);
+    // console.info(`Listening at PORT: ${PORT}`);
     //createImages("Product")
   });
 });

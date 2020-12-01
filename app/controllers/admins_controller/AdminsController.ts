@@ -11,71 +11,7 @@ import { IGenericAuthController } from "../helpers/controllerInterfaces";
 import {
   AdminData, AdminParams, AdminLoginRequest, AdminControllerRes
 } from "./type_declarations/adminsControllerTypes";
-
-class ValidationError extends Error {
-  public errorMessages: string[];
-  public statusCode: number;
-  constructor(errMessage: string, messages: string[], statusCode?: number) {
-    super (errMessage);
-    this.errorMessages = messages;
-    this.statusCode = statusCode ? statusCode : 400;
-  } 
-};
-class NotFoundError extends Error {
-  public statusCode: number;
-  constructor(errMessage: string, statusCode?: number) {
-    super(errMessage);
-
-    this.statusCode = statusCode ? statusCode : 404;
-  }
-};
-class GeneralError extends Error {
-  public statusCode: number;
-  constructor(errMessage: string, statusCode?: number) {
-    super(errMessage);
-    this.statusCode = statusCode ? statusCode : 500;
-  }
-};
-type ErrorResponse = {
-  responseMsg: string;
-  errorMessages?: string[]
-  error: GeneralError;
-}
-
-type GenControllerError = (ValidationError | NotFoundError | GeneralError) & Error;
-const processErrorResponse = (res: Response<ErrorResponse>, err: GenControllerError): Promise<Response> => {
-  return Promise.resolve().then(() => {
-    if (err instanceof ValidationError) {
-      const { statusCode, errorMessages } = err; 
-      return res.status(statusCode).json({
-        responseMsg: "Validation error",
-        errorMessages: errorMessages,
-        error: err
-      })
-    } else if (err instanceof NotFoundError) {
-      const { statusCode } = err;
-      return res.status(statusCode).json({
-        responseMsg: "Not found",
-        errorMessages: [ err.message ],
-        error: err
-      })
-    } else if (err instanceof GeneralError) {
-      const { statusCode } = err;
-      return res.status(statusCode).json({
-        responseMsg: "An error occured",
-        errorMessages: [ err.message ],
-        error: err
-      })
-    } else {
-      return res.status(500).json({
-        responseMsg: "Something went wrong on our side",
-        errorMessages: [ (err as Error).message ],
-        error: err
-      })
-    }
-  });
-}
-
+import { NotFoundError, processErrorResponse, ValidationError } from "../helpers/errorHandlers";
 
 class AdminsController implements IGenericAuthController {
   register(req: Request<{}, {}, AdminData>, res: Response<AdminControllerRes>): Promise<Response> {
@@ -146,7 +82,7 @@ class AdminsController implements IGenericAuthController {
           foundAdminData = foundAdmin;
           return bcrypt.compare(oldPassword, foundAdmin.password);
         } else {
-          throw new NotFoundError("Could not resolve admin profile");
+          throw new NotFoundError("Not Found", [ "Could not resolve admin profile" ]);
         }
       })
       .then((success) => {
@@ -181,7 +117,7 @@ class AdminsController implements IGenericAuthController {
             editedAdmin: updatedAdmin
           });
         } else {
-          throw new NotFoundError("Couldn't find admin profile to update", 404);
+          throw new NotFoundError("Not Found", [ "Couldn't find admin profile to update" ], 404);
         }
       })
       .catch((err) => {
@@ -209,14 +145,14 @@ class AdminsController implements IGenericAuthController {
         if (foundAdmin) {
           return bcrypt.compare(password, foundAdmin.password);
         } else {
-          throw new NotFoundError("Admin to delete not found", 404);
+          throw new NotFoundError("Not Found", [ "Admin to delete not found" ], 404);
         }
       })
       .then((match) => {
         if (match) {
           return Administrator.findOneAndDelete({ _id: adminId });
         } else {
-          throw new GeneralError("Incorrect password", 401);
+          throw new ValidationError("Wrong Input", [ "Incorrect password" ], 401);
         }
       })
       .then((deletedAdmin) => {
@@ -226,7 +162,7 @@ class AdminsController implements IGenericAuthController {
             deletedAdmin: deletedAdmin
           });
         } else {
-          throw new NotFoundError("Admin to delete not found in database", 404);
+          throw new NotFoundError("Not Found", [ "Admin to delete not found in database" ], 404);
         }
       })
       .catch((err) => {
@@ -239,7 +175,7 @@ class AdminsController implements IGenericAuthController {
     let _foundAdmin: IAdministrator;
 
     if (!email || !password) {
-      return respondWithInputError(res, "Email and password are required", 422);
+      return respondWithInputError(res, "Login error", 422, [ "Email and password are required" ]);
     }
     // find admin, verify password //
     return Administrator.findOne({ email: email })
@@ -248,7 +184,7 @@ class AdminsController implements IGenericAuthController {
           _foundAdmin = foundAdmin;
           return bcrypt.compare(password, foundAdmin.password);
         } else {
-          throw new NotFoundError("Did not find an account with this email", 404);
+          throw new NotFoundError("Not Found", [ "Did not find an account with this email" ], 404);
         }
       })
       .then((match) => {
@@ -264,7 +200,7 @@ class AdminsController implements IGenericAuthController {
             }
           });
         } else {
-          throw new ValidationError("Login Error", [ "Incorrect passwrod" ], 401);
+          throw new ValidationError("Login Error", [ "Incorrect password" ], 401);
         }
       })
       .catch((err) => {

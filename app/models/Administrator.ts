@@ -16,6 +16,7 @@ type AvatarImage = {
 }
 type StoreRef = mongoose.Types.ObjectId;
 export interface IAdministrator extends Document {
+  [key: string]: any;
   firstName: string;
   lastName: string;
   fullName: string;

@@ -82,7 +82,7 @@ class UsersController implements IGenericAuthController {
           foundUser = user;
           return bcrypt.compare(oldPassword, user.password);
         } else {
-          throw new NotFoundError("Could not reslove user account", 404);
+          throw new NotFoundError("Not Found", [ "Could not resolve user account" ], 404);
         }
       })
       .then((match) => {
@@ -118,7 +118,7 @@ class UsersController implements IGenericAuthController {
             editedUser: updatedUser
           });
         } else {
-          throw new NotFoundError("Couldn't find the user profile to update", 404);
+          throw new NotFoundError("Not Found", ["Couldn't find the user profile to update"], 404);
         }
       })
       .catch((err) => {
@@ -146,7 +146,7 @@ class UsersController implements IGenericAuthController {
         if (foundUser) {
           return bcrypt.compare(password, foundUser.password);
         } else {
-          throw new NotFoundError("Not able to resolve user to delete", 404);
+          throw new NotFoundError("Not Found", [ "Not able to resolve user to delete" ], 404);
         }
       })
       .then((match) => {
@@ -163,7 +163,7 @@ class UsersController implements IGenericAuthController {
             deletedUser: deletedUser
           });
         } else {
-          throw new NotFoundError("User to delete was not found", 404);
+          throw new NotFoundError("Not Found", [ "User to delete was not found" ], 404);
         }
       })
       .catch((err) => {
@@ -185,7 +185,7 @@ class UsersController implements IGenericAuthController {
           // check password //
           return bcrypt.compare(password, user.password);
         } else {
-          throw new NotFoundError("Could not find a user with that email");
+          throw new NotFoundError("Not Found", [ "Could not find a user with that email"], 404);
         }
       })
       .then((match) => {

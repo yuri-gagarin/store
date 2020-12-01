@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import faker from "faker";
+import bcrypt from "bcrypt";
 import Service, { IService } from "../../models/Service";
 import Store, { IStore } from "../../models/Store";
 import StoreItem, { IStoreItem } from "../../models/StoreItem";
@@ -14,7 +15,11 @@ import Administrator, { IAdministrator } from "../../models/Administrator";
 // data //
 import storeItemCategories from "./storeItemMockCategories";
 import { AdminData } from "../../controllers/admins_controller/type_declarations/adminsControllerTypes";
-
+/*
+  TODO 
+  this module is getting extremely crowded with multiple data generators 
+  split into multiple modules based on a model which is related to a data generator function
+*/
 const  ensureDirectoryExistence = (filePath: string): void => {
   var dirname = path.dirname(filePath);
   if (fs.existsSync(dirname)) {
@@ -412,16 +417,26 @@ export const generateMockAdminData = (): AdminData => {
 };
 
 
-export const createAdmins = (number: number): Promise<IAdministrator[]> => {
+export const createAdmins = async (number: number): Promise<IAdministrator[]> => {
   const createdAdminPromises: Promise<IAdministrator>[] = [];
   for (let i = 0; i < number; i++) {
+    const adminData: AdminData = {
+      firstName: faker.name.firstName(),
+      lastName: faker.name.lastName(),
+      handle: faker.internet.userName(),
+      email: faker.internet.email(),
+      password: "password",
+      passwordConfirm: "password"
+    }
+    const passwordHash = await new Promise<string>((res, rej) => {
+      bcrypt.hash(adminData.password, 10, (err, passHash) => {
+        res(passHash)
+      })
+    })
     createdAdminPromises.push(
       Administrator.create({
-        firstName: faker.name.firstName(),
-        lastName: faker.name.lastName(),
-        handle: faker.internet.userName(),
-        email: faker.internet.email(),
-        password: "password"
+        ...adminData,
+        password: passwordHash
       })
     );
   }

@@ -9,6 +9,10 @@ import { setupDB, clearDB } from "../helpers/dbHelpers";
 import { createAdmins, generateMockAdminData } from "../helpers/dataGeneration";
 import { AdminData } from "../../controllers/admins_controller/type_declarations/adminsControllerTypes";
 import { Error } from "mongoose";
+import { keyword } from "chalk";
+
+chai.use(chaiHTTP);
+
 describe("Administrator API tests", () => {
   let createdAdmins: IAdministrator[];
   let numberOfAdmins: number;
@@ -115,8 +119,8 @@ describe("Administrator API tests", () => {
             expect(res.body.newAdmin).to.be.undefined;
             expect(res.body.responseMsg).to.be.a("string");
             expect(res.body.error).to.be.an("object");
-            expect(res.body.messages).to.be.an("array");
-            expect(res.body.messages[0]).to.be.a("string");
+            expect(res.body.errorMessages).to.be.an("array");
+            expect(res.body.errorMessages[0]).to.be.a("string");
             done();
           });
       });
@@ -134,8 +138,8 @@ describe("Administrator API tests", () => {
             expect(res.body.newAdmin).to.be.undefined;
             expect(res.body.responseMsg).to.be.a("string");
             expect(res.body.error).to.be.an("object");
-            expect(res.body.messages).to.be.an("array");
-            expect(res.body.messages[0]).to.be.a("string");
+            expect(res.body.errorMessages).to.be.an("array");
+            expect(res.body.errorMessages[0]).to.be.a("string");
             done();
           });       
       });
@@ -153,8 +157,8 @@ describe("Administrator API tests", () => {
             expect(res.body.newAdmin).to.be.undefined;
             expect(res.body.responseMsg).to.be.a("string");
             expect(res.body.error).to.be.an("object");
-            expect(res.body.messages).to.be.an("array");
-            expect(res.body.messages[0]).to.be.a("string");
+            expect(res.body.errorMessages).to.be.an("array");
+            expect(res.body.errorMessages[0]).to.be.a("string");
             done();
           });
       });
@@ -181,8 +185,8 @@ describe("Administrator API tests", () => {
                 expect(res.body.newAdmin).to.be.undefined;
                 expect(res.body.responseMsg).to.be.a("string");
                 expect(res.body.error).to.be.an("object");
-                expect(res.body.messages).to.be.an("array");
-                expect(res.body.messages[0]).to.be.a("string");                
+                expect(res.body.errorMessages).to.be.an("array");
+                expect(res.body.errorMessages[0]).to.be.a("string");                
                 done();
               });
           })
@@ -204,8 +208,8 @@ describe("Administrator API tests", () => {
             expect(res.body.newAdmin).to.be.undefined;
             expect(res.body.responseMsg).to.be.a("string");
             expect(res.body.error).to.be.an("object");
-            expect(res.body.messages).to.be.an("array");
-            expect(res.body.messages[0]).to.be.a("string");  
+            expect(res.body.errorMessages).to.be.an("array");
+            expect(res.body.errorMessages[0]).to.be.a("string");  
             done();
           });
       });
@@ -223,8 +227,8 @@ describe("Administrator API tests", () => {
             expect(res.body.newAdmin).to.be.undefined;
             expect(res.body.responseMsg).to.be.a("string");
             expect(res.body.error).to.be.an("object");
-            expect(res.body.messages).to.be.an("array");
-            expect(res.body.messages[0]).to.be.a("string");  
+            expect(res.body.errorMessages).to.be.an("array");
+            expect(res.body.errorMessages[0]).to.be.a("string");  
             done();
           });
       });
@@ -243,8 +247,8 @@ describe("Administrator API tests", () => {
             expect(res.body.newAdmin).to.be.undefined;
             expect(res.body.responseMsg).to.be.a("string");
             expect(res.body.error).to.be.an("object");
-            expect(res.body.messages).to.be.an("array");
-            expect(res.body.messages[0]).to.be.a("string");  
+            expect(res.body.errorMessages).to.be.an("array");
+            expect(res.body.errorMessages[0]).to.be.a("string");  
             done();
           });
       });
@@ -254,14 +258,14 @@ describe("Administrator API tests", () => {
           .send({})
           .end((err, res) => {
             if (err) done(err);
-            const messages: string[] = res.body.messages;
+            const messages: string[] = res.body.errorMessages;
             expect(res.status).to.equal(422);
             expect(res.body.jwtToken).to.be.undefined;
             expect(res.body.newAdmin).to.be.undefined;
             expect(res.body.responseMsg).to.be.a("string");
             expect(res.body.error).to.be.an("object");
-            expect(res.body.messages).to.be.an("array");
-            expect(res.body.messages.length).to.equal(5);
+            expect(res.body.errorMessages).to.be.an("array");
+            expect(res.body.errorMessages.length).to.equal(5);
 
             for (const message of messages) {
               expect(message).to.be.a("string");
@@ -283,7 +287,7 @@ describe("Administrator API tests", () => {
     });
     // END TEST new Administrator REGISTER API Action invalid data //
     // TEST update Administrator  EDIT_REGISTRATION Action invalid data //
-    describe("PATCH '/api/admins/register' - New Administrator registration with valid data", () => {
+    describe("PATCH '/api/admins/update/:adminId' - 'Administrator' update with valid data", () => {
       let foundAdmin: IAdministrator;
       let adminUpdate: AdminData;
 
@@ -320,15 +324,8 @@ describe("Administrator API tests", () => {
       it("Should NOT modify the 'Administrator' model in the database", (done) => {
         Administrator.findOne({ _id: foundAdmin._id })
           .then((adminModel) => {
-            if (!adminModel) {
-              done(new Error("Didnt find the admin"));
-            } else {
-              expect(adminModel.firstName).to.equal(foundAdmin.firstName);
-              expect(adminModel.lastName).to.equal(foundAdmin.lastName);
-              expect(adminModel.password).to.equal(foundAdmin.password);
-              expect(adminModel.handle).to.equal(foundAdmin.handle);
-              done();
-            }
+            expect(JSON.stringify(adminModel)).to.equal(JSON.stringify(foundAdmin));
+            done();
           })
           .catch((err) => {
             done(err);
@@ -390,7 +387,207 @@ describe("Administrator API tests", () => {
     })
   });
   // END CONTEXT Administrator API tests without login/authorization //
+  // CONTEXT Administrator LOGIN / LOGOUT tests //
+  
+  context("Administrator API tests LOGIN/LOGOUT functionality", () => {
+    // TEST POST Administrator LOGIN functionallity with valid credentials //
+    describe("POST '/api/admins/login' - LOGIN with VALID credentials", () => {
+      let admin: IAdministrator;
+      let adminResponse: IAdministrator;
+      let jwtToken: {
+        token: string;
+        expiresIn: string;
+      };
 
+      before((done) => {
+        Administrator.find({}).limit(1).exec()
+          .then((adminArr) => {
+            admin = adminArr[0];
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+
+      it("Should properly respond to a login request, send correct response", (done) => {
+        chai.request(server)
+          .post("/api/admins/login")
+          .send({
+            email: admin.email,
+            password: "password"
+          })
+          .end((err, res) => {
+            if (err) done(err);
+            expect(res.status).to.equal(200);
+            expect(res.body.responseMsg).to.be.a("string");
+            expect(res.body.admin).to.be.an("object");
+            expect(res.body.success).to.equal(true);
+            expect(res.body.jwtToken).to.be.an("object");
+            // assign for assertion //
+            adminResponse = res.body.admin;
+            jwtToken = res.body.jwtToken;
+            done();
+          });
+      });
+      it("Should send back correct 'Administrator' data", () => {
+       expect(JSON.stringify(admin)).to.equal(JSON.stringify(adminResponse));
+      });
+      it("Should send back a correct JWT token response", () => {
+        expect(jwtToken.token).to.be.a("string");
+        expect(jwtToken.expiresIn).to.be.a("string");
+      });
+    });
+    // END TEST POST Administrator LOGIN functionallity with valid credentials //
+    // TEST POST Administrator LOGIN functionallity with invalid credentials //
+    describe("POST '/api/admins/login - LOGIN with INVALID credentials", () => {
+
+      let admin: IAdministrator;
+      let adminResponse: IAdministrator;
+      let jwtToken: {
+        token: string;
+        expiresIn: string;
+      };
+
+      before((done) => {
+        Administrator.find({}).limit(1).exec()
+          .then((adminArr) => {
+            admin = adminArr[0];
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+      // TEST login without an email sent //
+      describe("Attempted LOGIN without an email", () => {
+
+        it("Should properly respond to a LOGIN request WITHOUT an email", (done) => {
+          chai.request(server)
+            .post("/api/admins/login")
+            .send({
+              email: "",
+              password: "password"
+            })
+            .end((err, res) => {
+              if (err) done(err);
+              expect(res.status).to.equal(422);
+              expect(res.body.responseMsg).to.be.a("string");
+              expect(res.body.errorMessages).to.be.an("array");
+              expect(res.body.errorMessages[0]).to.be.a("string");
+              // assign undefined values //
+              adminResponse = res.body.admin;
+              jwtToken = res.body.jwtToken;
+              done();
+            });
+        });
+        it("Should NOT send back any 'Administrator' data", () => {
+          expect(adminResponse).to.be.undefined;
+        });
+        it("Should NOT send back any JWT token response", () => {
+          expect(jwtToken).to.be.undefined;
+        });
+
+      });
+      // END TEST login without an email sent //
+      // TEST login without a password sent //
+      describe("Attempted LOGIN without a password", () => {
+
+        it("Should properly respond to a LOGIN request WITHOUT a password", (done) => {
+          chai.request(server)
+            .post("/api/admins/login")
+            .send({
+              email: admin.email,
+              password: " "
+            })
+            .end((err, res) => {
+              if (err) done(err);
+              expect(res.status).to.equal(422);
+              expect(res.body.responseMsg).to.be.a("string");
+              expect(res.body.errorMessages).to.be.an("array");
+              expect(res.body.errorMessages[0]).to.be.a("string");
+              // assign undefined values //
+              adminResponse = res.body.admin;
+              jwtToken = res.body.jwtToken;
+              done();
+            });
+        });
+        it("Should NOT send back any 'Administrator' data", () => {
+          expect(adminResponse).to.be.undefined;
+        });
+        it("Should NOT send back any JWT token response", () => {
+          expect(jwtToken).to.be.undefined;
+        });
+
+      });
+      // END TEST login without a password sent //
+      // TEST login with an incorrect email sent //
+      describe("Attempted LOGIN with an INCORRECT email", () => {
+
+        it("Should properly respond to a LOGIN request withn an INCORRECT emai", (done) => {
+          chai.request(server)
+            .post("/api/admins/login")
+            .send({
+              email: "thisdoesnotexist",
+              password: "password"
+            })
+            .end((err, res) => {
+              if (err) done(err);
+              expect(res.status).to.equal(404);
+              expect(res.body.responseMsg).to.be.a("string");
+              expect(res.body.errorMessages).to.be.an("array");
+              expect(res.body.errorMessages[0]).to.be.a("string");
+              // assign undefined values //
+              adminResponse = res.body.admin;
+              jwtToken = res.body.jwtToken;
+              done();
+            });
+        });
+        it("Should NOT send back any 'Administrator' data", () => {
+          expect(adminResponse).to.be.undefined;
+        });
+        it("Should NOT send back any JWT token response", () => {
+          expect(jwtToken).to.be.undefined;
+        });
+
+      });
+      // END TEST login with an incorrect email sent //
+      // TEST login with an incorrect password sent //
+      describe("Attempted LOGIN with an INCORRECT password", () => {
+
+        it("Should properly respond to a LOGIN request with an INCORRECT password", (done) => {
+          chai.request(server)
+            .post("/api/admins/login")
+            .send({
+              email: admin.email,
+              password: "definitelywrong"
+            })
+            .end((err, res) => {
+              if (err) done(err);
+              expect(res.status).to.equal(401);
+              expect(res.body.responseMsg).to.be.a("string");
+              expect(res.body.errorMessages).to.be.an("array");
+              expect(res.body.errorMessages[0]).to.be.a("string");
+              // assign undefined values //
+              adminResponse = res.body.admin;
+              jwtToken = res.body.jwtToken;
+              done();
+            });
+        });
+        it("Should NOT send back any 'Administrator' data", () => {
+          expect(adminResponse).to.be.undefined;
+        });
+        it("Should NOT send back any JWT token response", () => {
+          expect(jwtToken).to.be.undefined;
+        });
+
+      });
+      // END TEST login with an incorrect password sent //
+    });
+    // END TEST POST Administrator LOGIN functionality with invalid credentials //
+  });
+  // END CONTEXT Administrator LOGIN / LOGOUT tests //
+  
   /*
   context("Administrator API tests logged in (with JWT token)", () => {
 

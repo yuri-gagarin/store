@@ -14,12 +14,11 @@ export class ValidationError extends GeneralError {
     this.errorMessages = messages;
   } 
 };
-export class NotFoundError extends Error {
-  public statusCode: number;
-  constructor(errMessage: string, statusCode?: number) {
-    super(errMessage);
-
-    this.statusCode = statusCode ? statusCode : 404;
+export class NotFoundError extends GeneralError {
+  public errorMessages: string[];
+  constructor(errMessage: string, messages: string[], statusCode?: number) {
+    super(errMessage, (statusCode ? statusCode : 404));
+    this.errorMessages = messages;
   }
 };
 export type ErrorResponse = {
@@ -39,10 +38,10 @@ export const processErrorResponse = (res: Response<ErrorResponse>, err: GenContr
         error: err
       })
     } else if (err instanceof NotFoundError) {
-      const { statusCode } = err;
+      const { statusCode, errorMessages } = err;
       return res.status(statusCode).json({
         responseMsg: "Not found",
-        errorMessages: [ err.message ],
+        errorMessages: errorMessages,
         error: err
       })
     } else if (err instanceof GeneralError) {
