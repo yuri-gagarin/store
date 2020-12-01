@@ -95,12 +95,7 @@ describe("Administrator API tests", () => {
     // TEST new Administrator CREATE API Action invalid data //
     describe("'POST '/api/admins/register' New Administrator registration with INVALID data", () => {
       let adminData: AdminData; 
-      let newAdmin: IAdministrator;
-      let jwtToken: {
-        token: string;
-        expiresIn: string;
-      };
-
+  
       before(() => {
         adminData = generateMockAdminData();
       });
@@ -120,27 +115,169 @@ describe("Administrator API tests", () => {
             expect(res.body.responseMsg).to.be.a("string");
             expect(res.body.error).to.be.an("object");
             expect(res.body.messages).to.be.an("array");
-            expect(res.body.messages[0]).be.a("string");
+            expect(res.body.messages[0]).to.be.a("string");
             done();
           });
       });
       it("Should NOT register a new Administrator without a 'lastName' property", (done) => {
-        done();
+        chai.request(server)
+          .post("/api/admins/register")
+          .send({
+            ...adminData,
+            lastName: ""
+          })
+          .end((err, res) => {
+            if (err) done(err);
+            expect(res.status).to.equal(422);
+            expect(res.body.jwtToken).to.be.undefined;
+            expect(res.body.newAdmin).to.be.undefined;
+            expect(res.body.responseMsg).to.be.a("string");
+            expect(res.body.error).to.be.an("object");
+            expect(res.body.messages).to.be.an("array");
+            expect(res.body.messages[0]).to.be.a("string");
+            done();
+          });       
       });
       it("Should NOT register a new Administrator without an 'email' property", (done) => {
-        done();
+        chai.request(server)
+          .post("/api/admins/register")
+          .send({
+            ...adminData,
+            email: ""
+          })
+          .end((err, res) => {
+            if (err) done(err);
+            expect(res.status).to.equal(422);
+            expect(res.body.jwtToken).to.be.undefined;
+            expect(res.body.newAdmin).to.be.undefined;
+            expect(res.body.responseMsg).to.be.a("string");
+            expect(res.body.error).to.be.an("object");
+            expect(res.body.messages).to.be.an("array");
+            expect(res.body.messages[0]).to.be.a("string");
+            done();
+          });
       });
       it("Should NOT register a new Administrator if an email already exists in database", (done) => {
-        done();
+        let dataWithDuplicateEmail: AdminData;
+        Administrator.find({}).limit(1).exec()
+          .then((admin) => {
+            dataWithDuplicateEmail = {
+              ...adminData,
+              email: admin[0].email
+            }
+            return Promise.resolve();
+          })
+          .then((_) => {
+            chai.request(server)
+              .post("/api/admins/register")
+              .send({
+                ...dataWithDuplicateEmail
+              })
+              .end((err, res) => {
+                if (err) done(err);
+                expect(res.status).to.equal(400);
+                expect(res.body.jwtToken).to.be.undefined;
+                expect(res.body.newAdmin).to.be.undefined;
+                expect(res.body.responseMsg).to.be.a("string");
+                expect(res.body.error).to.be.an("object");
+                expect(res.body.messages).to.be.an("array");
+                expect(res.body.messages[0]).to.be.a("string");                
+                done();
+              });
+          })
+          .catch((err) => {
+            done(err);
+          });
       });
       it("Should NOT register a new Administrator without a 'password' property", (done) => {
-        done();
+        chai.request(server)
+          .post("/api/admins/register")
+          .send({
+            ...adminData,
+            password: ""
+          })
+          .end((err, res) => {
+            if (err) done(err);
+            expect(res.status).to.equal(422);
+            expect(res.body.jwtToken).to.be.undefined;
+            expect(res.body.newAdmin).to.be.undefined;
+            expect(res.body.responseMsg).to.be.a("string");
+            expect(res.body.error).to.be.an("object");
+            expect(res.body.messages).to.be.an("array");
+            expect(res.body.messages[0]).to.be.a("string");  
+            done();
+          });
       });
       it("Should NOT register a new Administrator without a 'passwordConfirm' property", (done) => {
-        done()
+        chai.request(server)
+          .post("/api/admins/register")
+          .send({
+            ...adminData,
+            passwordConfirm: ""
+          })
+          .end((err, res) => {
+            if (err) done(err);
+            expect(res.status).to.equal(422);
+            expect(res.body.jwtToken).to.be.undefined;
+            expect(res.body.newAdmin).to.be.undefined;
+            expect(res.body.responseMsg).to.be.a("string");
+            expect(res.body.error).to.be.an("object");
+            expect(res.body.messages).to.be.an("array");
+            expect(res.body.messages[0]).to.be.a("string");  
+            done();
+          });
       });
       it("Should NOT register a new Administrator if 'password' and 'passwordConfirm' properties do not match", (done) => {
-        done();
+        chai.request(server)
+          .post("/api/admins/register")
+          .send({
+            ...adminData,
+            password: "password",
+            passwordConfirm: "password1"
+          })
+          .end((err, res) => {
+            if (err) done(err);
+            expect(res.status).to.equal(422);
+            expect(res.body.jwtToken).to.be.undefined;
+            expect(res.body.newAdmin).to.be.undefined;
+            expect(res.body.responseMsg).to.be.a("string");
+            expect(res.body.error).to.be.an("object");
+            expect(res.body.messages).to.be.an("array");
+            expect(res.body.messages[0]).to.be.a("string");  
+            done();
+          });
+      });
+      it("Should NOT register a new Administrator if all fields are empty and return proper error messages", (done) => {
+        chai.request(server)
+          .post("/api/admins/register")
+          .send({})
+          .end((err, res) => {
+            if (err) done(err);
+            const messages: string[] = res.body.messages;
+            expect(res.status).to.equal(422);
+            expect(res.body.jwtToken).to.be.undefined;
+            expect(res.body.newAdmin).to.be.undefined;
+            expect(res.body.responseMsg).to.be.a("string");
+            expect(res.body.error).to.be.an("object");
+            expect(res.body.messages).to.be.an("array");
+            expect(res.body.messages.length).to.equal(5);
+
+            for (const message of messages) {
+              expect(message).to.be.a("string");
+            }
+
+            done();
+          });
+      });
+      it("Should NOT increase the count of Administrator models in the database", (done) => {
+        Administrator.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(numberOfAdmins);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
       });
     });
     // END TEST new Administrator CREATE API Action invalid data //
