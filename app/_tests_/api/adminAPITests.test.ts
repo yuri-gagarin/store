@@ -8,6 +8,7 @@ import Administrator, { IAdministrator, EAdminLevel } from "../../models/Adminis
 import { setupDB, clearDB } from "../helpers/dbHelpers";
 import { createAdmins, generateMockAdminData } from "../helpers/dataGeneration";
 import { AdminData } from "../../controllers/admins_controller/type_declarations/adminsControllerTypes";
+import { Error } from "mongoose";
 describe("Administrator API tests", () => {
   let createdAdmins: IAdministrator[];
   let numberOfAdmins: number;
@@ -92,8 +93,8 @@ describe("Administrator API tests", () => {
       });
     });
     // END TEST new Administrator CREATE API Action valid data //
-    // TEST new Administrator CREATE API Action invalid data //
-    describe("'POST '/api/admins/register' New Administrator registration with INVALID data", () => {
+    // TEST new Administrator REGISTER API Action invalid data //
+    describe("POST '/api/admins/register' New Administrator registration with INVALID data", () => {
       let adminData: AdminData; 
   
       before(() => {
@@ -280,7 +281,113 @@ describe("Administrator API tests", () => {
           });
       });
     });
-    // END TEST new Administrator CREATE API Action invalid data //
+    // END TEST new Administrator REGISTER API Action invalid data //
+    // TEST update Administrator  EDIT_REGISTRATION Action invalid data //
+    describe("PATCH '/api/admins/register' - New Administrator registration with valid data", () => {
+      let foundAdmin: IAdministrator;
+      let adminUpdate: AdminData;
+
+      before((done) => {
+       
+        Administrator.find({}).limit(1).exec()
+          .then((admins) => {
+            foundAdmin = admins[0];
+            adminUpdate = {
+              firstName: "First",
+              lastName: "Last",
+              email: foundAdmin.email,
+              password: "password",
+              passwordConfirm: "password"
+            }
+            done();
+          })
+          .catch((err) => { 
+            done(err);
+          });
+      });
+
+      it("Should not allow an update without proper authorization", (done) => {
+        chai.request(server)
+          .patch("/api/admins/update/" + (foundAdmin._id as string))
+          .send(adminUpdate)
+          .end((err, res) => {
+            if (err) done(err);
+            expect(res.status).to.equal(401);
+            expect(res.error.text).to.equal("Unauthorized");
+            done();
+          });
+      });
+      it("Should NOT modify the 'Administrator' model in the database", (done) => {
+        Administrator.findOne({ _id: foundAdmin._id })
+          .then((adminModel) => {
+            if (!adminModel) {
+              done(new Error("Didnt find the admin"));
+            } else {
+              expect(adminModel.firstName).to.equal(foundAdmin.firstName);
+              expect(adminModel.lastName).to.equal(foundAdmin.lastName);
+              expect(adminModel.password).to.equal(foundAdmin.password);
+              expect(adminModel.handle).to.equal(foundAdmin.handle);
+              done();
+            }
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+      it("Should NOT change the number of 'Administrator' models in the database", (done) => {
+        Administrator.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(numberOfAdmins);
+            done();
+          })
+          .catch((err) => done(err));
+      });
+    });
+    // END TEST update Administrator  EDIT_REGISTRATION Action invalid data //
+    // TEST delete Administrator DELETE_REGISTRATION Action //
+    describe("DELETE '/api/admins/delete/:adminId", () => {
+      let foundAdmin: IAdministrator;
+
+      before((done) => {
+        Administrator.find({}).limit(1).exec()
+          .then((adminArr) => {
+            foundAdmin = adminArr[0];
+            done();
+          })
+          .catch((err) => done(err));
+      });
+
+      it("Should NOT allow a DELETE action without proper authorization", (done) => {
+        chai.request(server)
+          .delete("/api/admins/delete/" + (foundAdmin._id as string))
+          .end((err, res) => {
+            if (err) done(err);
+            expect(res.status).to.equal(401);
+            expect(res.error.text).to.equal("Unauthorized");
+            done();            
+          });
+      });
+      it("Should not remove the particular 'Admininstrator' model from the database", (done) => {
+        Administrator.exists({ _id: foundAdmin._id })
+          .then((exists) => {
+            expect(exists).to.equal(true);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+      it("Should not alter the number of 'Administrator' models", (done) => {
+        Administrator.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(numberOfAdmins);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          })
+      })
+    })
   });
   // END CONTEXT Administrator API tests without login/authorization //
 

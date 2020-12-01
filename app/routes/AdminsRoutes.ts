@@ -27,7 +27,7 @@ class AdminRoutes extends RouteConstructor<AdminsController> {
     this.Router.route(this.registerAdminRoute).post(this.controller.register);
   }
   private updateAdmin (): void {
-    this.Router.route(this.updateAdminRoute).patch(this.controller.editRegistration);
+    this.Router.route(this.updateAdminRoute).patch(passport.authenticate("adminJWT", { session: false  }), this.controller.editRegistration);
   }
   private deleteAdmin (): void {
     this.Router.route(this.deleteAdminRoute).delete(passport.authenticate("adminJWT", { session: false }), this.controller.deleteRegistration);
