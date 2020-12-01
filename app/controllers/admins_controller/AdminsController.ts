@@ -100,15 +100,20 @@ class AdminsController implements IGenericAuthController {
         return Administrator.create({
           ...adminData,
           password: hashedPassword,
-          adminLevel: EAdminLevel.Administrator,
+          adminLevel: EAdminLevel.Moderator,
           approved: false,
           createdAt: new Date(Date.now())
         })
       })
       .then((createdAdmin) => {
+        const { token, expires } = issueJWT(createdAdmin);
         return res.status(200).json({
           responseMsg: "New administrator profile created, you will need to be approved",
-          newAdmin: createdAdmin
+          newAdmin: createdAdmin,
+          jwtToken: {
+            token: token,
+            expiresIn: expires
+          }
         });
       })
       .catch((err) => {

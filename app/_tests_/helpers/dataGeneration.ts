@@ -10,8 +10,10 @@ import StoreImage, { IStoreImage } from "../../models/StoreImage";
 import ServiceImage, { IServiceImage } from "../../models/ServiceImage";
 import ProductImage, { IProductImage } from "../../models/ProductImage";
 import BonusVideo, { IBonusVideo } from "../../models/BonusVideo";
+import Administrator, { IAdministrator } from "../../models/Administrator";
 // data //
 import storeItemCategories from "./storeItemMockCategories";
+import { AdminData } from "../../controllers/admins_controller/type_declarations/adminsControllerTypes";
 
 const  ensureDirectoryExistence = (filePath: string): void => {
   var dirname = path.dirname(filePath);
@@ -394,4 +396,34 @@ export const createStoreItemImages = (storeItems: IStoreItem[], numberofImages?:
     }
   }
   return Promise.all(imagePromises);
+};
+
+
+export const generateMockAdminData = (): AdminData => {
+  const newAdmin: AdminData = {
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    handle: faker.internet.userName(),
+    email: faker.internet.email(),
+    password: "password",
+    passwordConfirm: "password",
+  };
+  return newAdmin;
+};
+
+
+export const createAdmins = (number: number): Promise<IAdministrator[]> => {
+  const createdAdminPromises: Promise<IAdministrator>[] = [];
+  for (let i = 0; i < number; i++) {
+    createdAdminPromises.push(
+      Administrator.create({
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
+        handle: faker.internet.userName(),
+        email: faker.internet.email(),
+        password: "password"
+      })
+    );
+  }
+  return Promise.all(createdAdminPromises);
 };

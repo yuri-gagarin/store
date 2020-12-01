@@ -1,13 +1,17 @@
 import { expect } from "chai";
+import { Error as MongooseErrors } from "mongoose";
 import faker from "faker";
 import { AdminData } from "../../../controllers/admins_controller/type_declarations/adminsControllerTypes";
 import Admin, { IAdministrator, EAdminLevel } from "../../../models/Administrator";
 import { setupDB, clearDB } from "../../helpers/dbHelpers";
 
+const { ValidationError } = MongooseErrors
+
 const generateMockAdmin = (): AdminData => {
   const newAdmin: AdminData = {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
+    handle: faker.internet.userName(),
     email: faker.internet.email(),
     password: "password",
     passwordConfirm: "password",
@@ -15,7 +19,7 @@ const generateMockAdmin = (): AdminData => {
   return newAdmin;
 };
 
-describe("'Admin' model unit tests", () => {
+describe("'Administrator' model unit tests", () => {
 
   before((done) => {
     setupDB().then(() => done()).catch((err) => done(err));
@@ -48,6 +52,7 @@ describe("'Admin' model unit tests", () => {
       expect(createdAdmin.lastName).to.eql(mockAdmin.lastName);
       expect(createdAdmin.password).to.eql(mockAdmin.password);
       expect(createdAdmin.adminLevel).to.eql(EAdminLevel.Administrator);
+      expect(createdAdmin.approved).to.eql(false);
       expect(createdAdmin.createdAt instanceof Date).to.eq(true);
       expect(createdAdmin.editedAt instanceof Date).to.eq(true);
     });
@@ -66,7 +71,9 @@ describe("'Admin' model unit tests", () => {
         .then(() => {})
         .catch((err) => {
           expect(err).to.not.be.undefined;
-          expect(err instanceof Error).to.eq(true);
+          expect(err instanceof ValidationError).to.eq(true);
+          expect(err.errors).to.haveOwnProperty("firstName");
+          expect(err.errors.firstName.message).to.be.a("string");
           done();
         });
     });
@@ -75,7 +82,9 @@ describe("'Admin' model unit tests", () => {
         .then(() => {})
         .catch((err) => {
           expect(err).to.not.be.undefined;
-          expect(err instanceof Error).to.eq(true);
+          expect(err instanceof ValidationError).to.eq(true);
+          expect(err.errors).to.haveOwnProperty("lastName");
+          expect(err.errors.lastName.message).to.be.a("string");
           done();
         });
     });
@@ -84,7 +93,9 @@ describe("'Admin' model unit tests", () => {
         .then(() => {})
         .catch((err) => {
           expect(err).to.not.be.undefined;
-          expect(err instanceof Error).to.eq(true);
+          expect(err instanceof ValidationError).to.eq(true);
+          expect(err.errors).to.haveOwnProperty("password");
+          expect(err.errors.password.message).to.be.a("string");
           done();
         });
     });
@@ -94,20 +105,30 @@ describe("'Admin' model unit tests", () => {
       secondMockAdmin.email = "email";
 
       Admin.create(mockAdmin)
-        .then((_) => {
-          return Admin.create(secondMockAdmin);
-        })
-        .then((user) => {
-          console.log(user);
-          return Admin.find({})
-        })
-        .then((users) => {
-          console.log(users)
-          done();
-        })
+        .then((_) => Admin.create(secondMockAdmin))
         .catch((err) => {
           expect(err).to.not.be.undefined;
-          expect(err instanceof Error).to.eq(true);
+          expect(err instanceof ValidationError).to.eq(true);
+          expect(err.errors).to.haveOwnProperty("email");
+          expect(err.errors.email.message).to.be.a("string");
+          done();
+        });
+    });
+    it("Should NOT create a new 'Admin' model with a duplicate 'handle' field", (done) => {
+      mockAdmin.email = faker.internet.email();
+      mockAdmin.handle = "handle";
+      // second mock admin model with duplicate handle //
+      secondMockAdmin.email = faker.internet.email();
+      secondMockAdmin.handle = "handle";
+
+      Admin.create(mockAdmin)
+        .then((_) => Admin.create(secondMockAdmin))
+        .catch((err) => {
+          //console.log(error.ValidationError.messages)
+          expect(err).to.not.be.undefined;
+          expect(err instanceof ValidationError).to.eq(true);
+          expect(err.errors).to.haveOwnProperty("handle");
+          expect(err.errors.handle.message).to.be.a("string");
           done();
         });
     });
