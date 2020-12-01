@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, Mongoose, Schema } from "mongoose";
 
 export enum MemberLevel {
   Rookie,
@@ -37,7 +37,7 @@ const UserSchema: Schema = new Schema<IUser>({
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   birthDate: {
     type: String,
@@ -92,5 +92,23 @@ UserSchema.pre("validate", function(this: IUser, next) {
   }
   next();
 });
+
+
+UserSchema.pre("save", true, function(this: IUser, next, done) {
+  let self = this;
+  mongoose.models["User"].findOne({ email: this.email }, (err: Error, user: IUser) => {
+    if (err) {
+      done(err);
+    } else if (user) {
+      this.invalidate("email", "email must be unique");
+      done(new Error("email must be unique"));
+    } else {
+      done();
+    }
+  });
+  next();
+});
+
+
 
 export default mongoose.model<IUser>("User", UserSchema);

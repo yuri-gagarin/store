@@ -16,7 +16,7 @@ const generateMockUser = (): UserData => {
 };
 
 describe("'User' model unit tests", () => {
-  
+
   before((done) => {
     setupDB().then(() => done()).catch((err) => done(err));
   });
@@ -48,8 +48,8 @@ describe("'User' model unit tests", () => {
       expect(createdUser.lastName).to.eql(mockUser.lastName);
       expect(createdUser.password).to.eql(mockUser.password);
       expect(createdUser.membershipLevel).to.eql(MemberLevel.Rookie);
-      expect(createdUser.createdAt).to.be.a("string");
-      expect(createdUser.editedAt).to.be.a("string");
+      expect(createdUser.createdAt instanceof Date).to.eq(true);
+      expect(createdUser.editedAt instanceof Date).to.eq(true);
     });
   });
 
@@ -89,15 +89,22 @@ describe("'User' model unit tests", () => {
         });
     });
     it("Should NOT create a new 'User' model if an email already exists in the DB", (done) => {
+      mockUser.email = "email";
       secondMockUser = generateMockUser();
       secondMockUser.email = "email";
-      mockUser.email = "email";
 
       User.create(mockUser)
         .then((_) => {
           return User.create(secondMockUser);
         })
-        .then(() => {})
+        .then((user) => {
+          console.log(user);
+          return User.find({})
+        })
+        .then((users) => {
+          console.log(users)
+          done();
+        })
         .catch((err) => {
           expect(err).to.not.be.undefined;
           expect(err instanceof Error).to.eq(true);
