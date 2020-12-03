@@ -732,6 +732,7 @@ describe("Administrator API tests", () => {
         });
       });
       // END TEST PATCH request with invalid data supplied //
+      // TEST PATCH request with valid data supplied //
       describe("PATCH '/api/admins/update/:adminId' with valid data supplied", () => {
         let adminResponse: IAdministrator;
 
@@ -768,9 +769,109 @@ describe("Administrator API tests", () => {
             })
             .catch((err) => {
               done(err);
+            });
+        });
+      });
+      // END TEST PATCH request with valid data supplied //
+      // TEST DELETE request with valid credentials //
+      describe("DELETE '/api/admins/delete/:adminId' with an INCORRECT password supplied", () => {
+        it("Should NOT delete 'Administrator' model without a password supplied", (done) => {
+          chai.request(server)
+            .delete("/api/admins/delete/" + (admin._id as string))
+            .set({ "Authorization": jwtToken })
+            .send({
+              password: ""
+            })
+            .end((err, res) => {
+              if (err) done(err);
+              expect(res.status).to.equal(401);
+              expect(res.body.responseMsg).to.be.a("string");
+              expect(res.body.deletedAdmin).to.be.undefined;
+              expect(res.body.error).to.be.an("object");
+              expect(res.body.errorMessages).to.be.an("array");
+              done();
+            });
+        });
+        it("Should NOT delete 'Administrator' model with a WRONG password supplied", (done) => {
+          chai.request(server)
+            .delete("/api/admins/delete/" + (admin._id as string))
+            .set({ "Authorization": jwtToken })
+            .send({
+              password: "definitelywrong"
+            })
+            .end((err, res) => {
+              if (err) done(err);
+              expect(res.status).to.equal(401);
+              expect(res.body.responseMsg).to.be.a("string");
+              expect(res.body.deletedAdmin).to.be.undefined;
+              expect(res.body.error).to.be.an("object");
+              expect(res.body.errorMessages).to.be.an("array");
+              done();
+            });
+        });
+        it("Should NOT alter the number of 'Administrator' models", (done) => {
+          Administrator.countDocuments().exec()
+            .then((number) => {
+              expect(number).to.equal(numberOfAdmins);
+              done();
+            })
+            .catch((err) => {
+              done(err);
+            })
+        });
+        it("Should have the the attempted deleted model in the database", (done) => {
+          Administrator.findOne({ _id: admin._id })
+            .then((admin) => {
+              expect(admin).to.be.an("object")
+              done();
+            })
+            .catch((err) => {
+              done(err);
+            });
+        });
+      });
+      // END TEST DELETE request with valid credentials
+      // TEST DELETE request with valid credentials //
+      describe("DELETE '/api/admins/delete/:adminId' with CORRECT password supplied", () => {
+        it("Should correctly handle 'deleteRegistration' action and send correct response", (done) => {
+          chai.request(server)
+            .delete("/api/admins/delete/" + (admin._id as string))
+            .set({ "Authorization": jwtToken })
+            .send({
+              password: "password"
+            })
+            .end((err, res) => {
+              if (err) done(err);
+              expect(res.status).to.equal(200);
+              expect(res.body.deletedAdmin).to.be.an("object");
+              expect(res.body.error).to.be.undefined;
+              expect(res.body.errorMessages).to.be.undefined;
+              done();
+            });
+        });
+        it("Should decrease the number of 'Administrator' models by one", (done) => {
+          Administrator.countDocuments().exec()
+            .then((number) => {
+              expect(number).to.equal(numberOfAdmins - 1);
+              numberOfAdmins = number;
+              done();
+            })
+            .catch((err) => {
+              done(err);
+            })
+        });
+        it("Should NOT have the deleted model in the database", (done) => {
+          Administrator.findOne({ _id: admin._id })
+            .then((admin) => {
+              expect(admin).to.be.null;
+              done();
+            })
+            .catch((err) => {
+              done(err);
             })
         })
-      })
+      });
+      // END TEST DELETE request with valid credentials
     })
   })
   
