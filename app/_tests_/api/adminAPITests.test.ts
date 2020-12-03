@@ -1,5 +1,5 @@
 import chaiHTTP from "chai-http";
-import chai, { expect } from "chai";
+import chai, { expect, use } from "chai";
 import { Response } from "express";
 import fs from "fs";
 // server, models //
@@ -10,6 +10,7 @@ import { createAdmins, generateMockAdminData } from "../helpers/dataGeneration";
 import { AdminData } from "../../controllers/admins_controller/type_declarations/adminsControllerTypes";
 import { Error } from "mongoose";
 import { keyword } from "chalk";
+import { UserData } from "../../controllers/users_controller/type_declarations/usersControllerTypes";
 
 chai.use(chaiHTTP);
 
@@ -588,9 +589,189 @@ describe("Administrator API tests", () => {
   });
   // END CONTEXT Administrator LOGIN / LOGOUT tests //
   
-  /*
+  // CONTEXT AdminsController API tests logged in //
   context("Administrator API tests logged in (with JWT token)", () => {
+    let admin: IAdministrator;
+    let secondAdmin: IAdministrator;
+    let jwtToken: string;
 
+    before((done) => {
+      Administrator.find({}).limit(2).exec()
+        .then((adminArr) => {
+          admin = adminArr[0];
+          secondAdmin = adminArr[1];
+          done();
+        })
+        .catch((err) => done(err));
+    });
+    // login an admin and get back a jwtToken //
+    before((done) => {
+      chai.request(server)
+        .post("/api/admins/login")
+        .send({
+          email: admin.email,
+          password: "password"
+        })
+        .end((err, res) => {
+          if (err) done(err);
+          jwtToken = res.body.jwtToken.token;
+          done()
+        });
+    });
+
+    describe("Admin EDIT and DELETE on an account they own", () => {
+      const userUpdate: UserData = {
+        firstName: "newname",
+        email: "newlast",
+        lastName: "newlast",
+        oldPassword: "password",
+        password: "password",
+        passwordConfirm: "password"
+      }
+      // TEST PATCH request with invalid data supplied //
+      describe("PATCH '/api/admins/update/:adminId' with invalid data supplied", () => {
+        it("Should not update the Admin without a 'firstName' field supplied", (done) => {
+          chai.request(server)
+            .patch("/api/admins/update/" + (admin._id as string)) 
+            .set({
+              "Authorization": jwtToken
+            })
+            .send({
+              ...userUpdate,
+              firstName: ""
+            })
+            .end((err, res) => {
+              if (err) done(err);
+              expect(res.status).to.equal(422);
+              expect(res.body.responseMsg).to.be.a("string");
+              expect(res.body.error).to.be.an("object");
+              expect(res.body.errorMessages).to.be.an("array");
+              expect(res.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+        it("Should not update the Admin without a 'lastName' field supplied", (done) => {
+          chai.request(server)
+            .patch("/api/admins/update/" + (admin._id as string)) 
+            .set({
+              "Authorization": jwtToken
+            })
+            .send({
+              ...userUpdate,
+              lastName: ""
+            })
+            .end((err, res) => {
+              if (err) done(err);
+              expect(res.status).to.equal(422);
+              expect(res.body.responseMsg).to.be.a("string");
+              expect(res.body.error).to.be.an("object");
+              expect(res.body.errorMessages).to.be.an("array");
+              expect(res.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+        it("Should not update the Admin without an 'email' field supplied", (done) => {
+          chai.request(server)
+            .patch("/api/admins/update/" + (admin._id as string)) 
+            .set({
+              "Authorization": jwtToken
+            })
+            .send({
+              ...userUpdate,
+              email: ""
+            })
+            .end((err, res) => {
+              if (err) done(err);
+              expect(res.status).to.equal(422);
+              expect(res.body.responseMsg).to.be.a("string");
+              expect(res.body.error).to.be.an("object");
+              expect(res.body.errorMessages).to.be.an("array");
+              expect(res.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+        it("Should not update the Admin if an admin with 'email' already exists", (done) => {
+          chai.request(server)
+            .patch("/api/admins/update/" + (admin._id as string)) 
+            .set({
+              "Authorization": jwtToken
+            })
+            .send({
+              ...userUpdate,
+              email: secondAdmin.email
+            })
+            .end((err, res) => {
+              if (err) done(err);
+              expect(res.status).to.equal(422);
+              expect(res.body.responseMsg).to.be.a("string");
+              expect(res.body.error).to.be.an("object");
+              expect(res.body.errorMessages).to.be.an("array");
+              expect(res.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+        it("Should not update the Admin without a 'oldPassword' field supplied", (done) => {
+          chai.request(server)
+            .patch("/api/admins/update/" + (admin._id as string)) 
+            .set({
+              "Authorization": jwtToken
+            })
+            .send({
+              ...userUpdate,
+              oldPassword: ""
+            })
+            .end((err, res) => {
+              if (err) done(err);
+              expect(res.status).to.equal(401);
+              expect(res.body.responseMsg).to.be.a("string");
+              expect(res.body.error).to.be.an("object");
+              expect(res.body.errorMessages).to.be.an("array");
+              expect(res.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+      });
+      // END TEST PATCH request with invalid data supplied //
+      describe("PATCH '/api/admins/update/:adminId' with valid data supplied", () => {
+        let adminResponse: IAdministrator;
+
+        it("Should properly update the 'Administrator' model, send back correct response", (done) => {
+          chai.request(server)
+            .patch("/api/admins/update/" + (admin._id as string)) 
+            .set({
+              "Authorization": jwtToken
+            })
+            .send({
+              ...userUpdate
+            })
+            .end((err, res) => {
+              if (err) done(err);
+              expect(res.status).to.equal(200);
+              expect(res.body.responseMsg).to.be.a("string");
+              expect(res.body.editedAdmin).to.be.an("object");
+              expect(res.body.error).to.be.undefined;
+              expect(res.body.errorMessages).to.be.undefined;
+              adminResponse = res.body.editedAdmin;
+              done();
+            });
+        });
+        it("Should send back the 'editedAdmin' model and set correct fields", () => {
+          expect(adminResponse.firstName).to.equal(userUpdate.firstName);
+          expect(adminResponse.lastName).to.equal(userUpdate.lastName);
+          expect(adminResponse.email).to.equal(userUpdate.email);
+        });
+        it("Should NOT alter the count of 'Administrator' model in database", (done) => {
+          Administrator.countDocuments().exec()
+            .then((number) => {
+              expect(number).to.equal(numberOfAdmins);
+              done();
+            })
+            .catch((err) => {
+              done(err);
+            })
+        })
+      })
+    })
   })
-  */
+  
 })

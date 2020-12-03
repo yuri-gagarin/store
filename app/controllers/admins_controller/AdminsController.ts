@@ -68,8 +68,8 @@ class AdminsController implements IGenericAuthController {
     let foundAdminData: IAdministrator;
      // validate old password first //
      if (!adminData.oldPassword) {
-      return respondWithInputError(res, "Must enter old password to make changes", 401);
-    }
+      return respondWithInputError(res, "Can't process request", 401, ["Your current password is required"]);
+    };
     // validate correct input /
     const { valid, errorMessages } = validateAdminModel(adminData);
     if (!valid) {
@@ -121,7 +121,6 @@ class AdminsController implements IGenericAuthController {
         }
       })
       .catch((err) => {
-        console.log(err)
         return processErrorResponse(res, err);
       });
   }
