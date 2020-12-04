@@ -1,3 +1,4 @@
+import passport from "passport";
 import UsersController from "../controllers/users_controller/UsersController";
 import { RouteConstructor } from "./helpers/routeInterfaces";
 
@@ -26,10 +27,10 @@ class UserRoutes extends RouteConstructor<UsersController> {
     this.Router.route(this.registerUserRoute).post(this.controller.register);
   }
   private updateUser (): void {
-    this.Router.route(this.updateUserRoute).patch(this.controller.editRegistration);
+    this.Router.route(this.updateUserRoute).patch(passport.authenticate("userJWT", { session: false }), this.controller.editRegistration);
   }
   private deleteUser (): void {
-    this.Router.route(this.deleteUserRoute).delete(this.controller.deleteRegistration);
+    this.Router.route(this.deleteUserRoute).delete(passport.authenticate("userJWT", { session: false}), this.controller.deleteRegistration);
   }
   private loginUser (): void {
     this.Router.route(this.loginUserRoute).post(this.controller.login);

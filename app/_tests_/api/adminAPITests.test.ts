@@ -379,9 +379,9 @@ describe("Administrator API tests", () => {
           })
           .catch((err) => {
             done(err);
-          })
-      })
-    })
+          });
+      });
+    });
   });
   // END CONTEXT Administrator API tests without login/authorization //
   // CONTEXT Administrator LOGIN / LOGOUT tests //
@@ -611,7 +611,7 @@ describe("Administrator API tests", () => {
         .end((err, res) => {
           if (err) done(err);
           jwtToken = res.body.jwtToken.token;
-          done()
+          done();
         });
     });
     // TEST Admin EDIT and DELETE on an account they DONT own //
