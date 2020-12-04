@@ -75,7 +75,7 @@ class UsersController implements IGenericAuthController {
       return respondWithInputError(res, "Not Allowed", 401, [ "You may not delete another user's account" ]);
     }
     if (!oldPassword) {
-      return respondWithInputError(res, "Input error", 400, [ "You need to enter your old password" ]);
+      return respondWithInputError(res, "Input error", 401, [ "You need to enter your old password" ]);
     }
     if (!valid) {
       return respondWithInputError(res, "User input error", 422, errorMessages);
@@ -144,7 +144,7 @@ class UsersController implements IGenericAuthController {
       return respondWithInputError(res, "Action not allowed", 401,  [ "Cannot delete another users' account" ]);
     }
     if (!password) {
-      return respondWithInputError(res, "Must enter your password to delete account", 401);
+      return respondWithInputError(res, "Not allowed to delete", 401,  [ "Must enter your old password to delete account" ]);
     }
 
     return User.findOne({ _id: userId })

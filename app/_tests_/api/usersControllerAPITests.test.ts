@@ -435,7 +435,7 @@ describe("'UsersController' API tests", () => {
       // END TEST PATCH request on a user model they dont own //
 
       // TEST DELETE request on a user model they dont own //
-      describe("'/api/users/delete/:userId' action on another Users' account", () => {
+      describe("DELETE '/api/users/delete/:userId' action on another Users' account", () => {
         it("Should NOT delete the User account and send back the correct response", (done) => {
           chai.request(server)
             .delete("/api/users/delete/" + String(secondUser._id))
@@ -480,12 +480,314 @@ describe("'UsersController' API tests", () => {
 
     // TEST User EDIT and DELETE actions on an account they do own //
     describe("'UsersController' 'editRegistration' and 'deleteRegistration' actions on an account they DO OWN", () => {
+      const userUpdate: UserData = {
+        firstName: "newname",
+        lastName: "newLast",
+        email: "newemail",
+        handle: "handle",
+        oldPassword: "password",
+        password: "password",
+        passwordConfirm: "password"
+      };
+      // TEST PATCH request with invalid data supplied //
+      describe("PATCH '/api/users/update/:userId' INVALID data supplied", () => {
+        it("Should NOT update the User without an 'oldPassword' property", (done) => {
+          chai.request(server)
+            .patch("/api/users/update/" + String(user._id))
+            .set({ "Authorization": jwtToken })
+            .end((err, response) => {
+              if (err) done(err);
+              // assert correct response //
+              expect(response.status).to.equal(401);
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.editedUser).to.be.undefined;
+              expect(response.body.error).to.be.an("object");
+              expect(response.body.errorMessages).to.be.an("array");
+              expect(response.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+        it("Should NOT update the User without a 'firstName' property", (done) => {
+          chai.request(server)
+            .patch("/api/users/update/" + String(user._id))
+            .set({ "Authorization": jwtToken })
+            .send({
+              ...userUpdate,
+              firstName: ""
+            })
+            .end((err, response) => {
+              if (err) done(err);
+              // assert correct response //
+              expect(response.status).to.equal(422);
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.editedUser).to.be.undefined;
+              expect(response.body.error).to.be.an("object");
+              expect(response.body.errorMessages).to.be.an("array");
+              expect(response.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+        it("Should NOT update the User without a 'lastName' property", (done) => {
+          chai.request(server)
+            .patch("/api/users/update/" + String(user._id))
+            .set({ "Authorization": jwtToken })
+            .send({
+              ...userUpdate,
+              lastName: ""
+            })
+            .end((err, response) => {
+              if (err) done(err);
+              // assert correct response //
+              expect(response.status).to.equal(422);
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.editedUser).to.be.undefined;
+              expect(response.body.error).to.be.an("object");
+              expect(response.body.errorMessages).to.be.an("array");
+              expect(response.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+        it("Should NOT update the User without an 'email' property", (done) => {
+          chai.request(server)
+            .patch("/api/users/update/" + String(user._id))
+            .set({ "Authorization": jwtToken })
+            .send({
+              ...userUpdate,
+              firstName: ""
+            })
+            .end((err, response) => {
+              if (err) done(err);
+              // assert correct response //
+              expect(response.status).to.equal(422);
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.editedUser).to.be.undefined;
+              expect(response.body.error).to.be.an("object");
+              expect(response.body.errorMessages).to.be.an("array");
+              expect(response.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+        it("Should NOT update the User without if an 'email' property already exists in database", (done) => {
+          chai.request(server)
+            .patch("/api/users/update/" + String(user._id))
+            .set({ "Authorization": jwtToken })
+            .send({
+              ...userUpdate,
+              email: createdUsers[1].email
+            })
+            .end((err, response) => {
+              if (err) done(err);
+              // assert correct response //
+              expect(response.status).to.equal(422);
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.editedUser).to.be.undefined;
+              expect(response.body.error).to.be.an("object");
+              expect(response.body.errorMessages).to.be.an("array");
+              expect(response.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+        it("Should NOT update the User if 'password' and 'passwordConfirm' properties do NOT match", (done) => {
+          chai.request(server)
+            .patch("/api/users/update/" + String(user._id))
+            .set({ "Authorization": jwtToken })
+            .send({
+              ...userUpdate,
+              passwordConfirm: "definitelywrong"
+            })
+            .end((err, response) => {
+              if (err) done(err);
+              // assert correct response //
+              expect(response.status).to.equal(422);
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.editedUser).to.be.undefined;
+              expect(response.body.error).to.be.an("object");
+              expect(response.body.errorMessages).to.be.an("array");
+              expect(response.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+        it("The NOT alter number of 'User' model in the database", (done) => {
+          User.countDocuments().exec()
+            .then((number) => {
+              expect(number).to.equal(numberOfUsers);
+              done();
+            })
+            .catch((err) => {
+              done(err);
+            });
+        });
+        it("Should NOT edit the User model with incorrect data", (done) => {
+          User.findOne({ _id: user._id }).exec()
+            .then((foundUser) => {
+              expect(JSON.stringify(foundUser)).to.equal(JSON.stringify(user));
+              done();
+            })
+            .catch((err) => {
+              done(err);
+            });
+        });
+      });
+      // END TEST PATCH request with invalid data supplied //
 
-    })
+      // TEST PATCH request with valid data supplied //
+      describe("PATCH '/api/users/update/:userId' with VALID data supplied", () => {
+        let editedUserResponse: IUser;
+
+        it("Should correctly edit the 'User' model, send back the correct response", (done) => {
+          chai.request(server)
+            .patch("/api/users/update/" + String(user._id))
+            .set({ "Authorization": jwtToken })
+            .send({
+              ...userUpdate
+            })
+            .end((err, response) => {
+              if (err) done(err);
+              // assert correct response //
+              expect(response.status).to.equal(200);
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.editedUser).to.be.an("object");
+              expect(response.body.error).to.be.undefined;
+              expect(response.body.errorMessages).to.be.undefined;
+              editedUserResponse = response.body.editedUser;
+              done();
+            });
+        });
+        it("Should set the correct edited fields in the edited 'User' model", (done) => {
+          User.findOne({ _id: user._id }).exec()
+            .then((updatedUser) => {
+              expect(updatedUser!.firstName).to.equal(userUpdate.firstName);
+              expect(updatedUser!.lastName).to.equal(userUpdate.lastName);
+              expect(updatedUser!.email).to.equal(userUpdate.email);
+              expect(updatedUser!.handle).to.equal(userUpdate.handle);
+              expect(updatedUser!.createdAt.toString()).to.be.a("string");
+              expect(updatedUser!.editedAt.toString()).to.be.a("string");
+              expect(updatedUser!.createdAt.toString()).to.not.equal(updatedUser!.editedAt.toString());
+              done();
+            })
+            .catch((err) => {
+              done(err);
+            });
+        });
+        it("Should NOT alter the number of 'User' model in the database", (done) => {
+          User.countDocuments().exec()
+            .then((number) => {
+              expect(number).to.equal(numberOfUsers);
+              done();
+            })
+            .catch((err) => {
+              done(err);
+            });
+        });
+      });
+      // END TEST PATCH request with valid data supplied //
+
+      // TEST DELETE request with invalid data supplied //
+      describe("DELETE '/api/users/delete/:userId' with INVALID data supplied", () => {
+
+        it("Should NOT delete the 'User' model and account without a password supplied, send back the correct response", (done) => {
+          chai.request(server)
+            .delete("/api/users/delete/" + String(user._id))
+            .set({ "Authorization": jwtToken })
+            .send({ password: "" })
+            .end((err, response) => {
+              if (err) done(err);
+              // assert correct response //
+              expect(response.status).to.equal(401);
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.deletedUser).to.be.undefined;
+              expect(response.body.error).to.be.an("object");
+              expect(response.body.errorMessages).to.be.an("array");
+              expect(response.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+        it("Should NOT delete the 'User' model and account with a WRONG password supplied and send back he correct response", (done) => {
+          chai.request(server)
+          .delete("/api/users/delete/" + String(user._id))
+          .set({ "Authorization": jwtToken })
+          .send({ password: "" })
+          .end((err, response) => {
+            if (err) done(err);
+            // assert correct response //
+            expect(response.status).to.equal(401);
+            expect(response.body.responseMsg).to.be.a("string");
+            expect(response.body.deletedUser).to.be.undefined;
+            expect(response.body.error).to.be.an("object");
+            expect(response.body.errorMessages).to.be.an("array");
+            expect(response.body.errorMessages[0]).to.be.a("string");
+            done();
+          });
+        });
+        it("Should NOT alter the number of 'User' models in the database", (done) => {
+          User.countDocuments().exec()
+            .then((number) => {
+              expect(number).to.equal(numberOfUsers);
+              done();
+            })
+            .catch((err) => {
+              done(err);
+            });
+        });
+        it("Should keep the 'User' model in the database and NOT remove it", (done) => {
+          User.exists({ _id: user._id })
+            .then((exists) => {
+              expect(exists).to.equal(true);
+              done();
+            })
+            .catch((err) => {
+              done();
+            });
+        });
+      });
+      // END TEST DELETE request with invalid data supplied //
+
+      // TEST DELETE request with VALID data supplied //
+      describe("DELETE '/api/users/delete/:userId' with VALID data supplied", () => {
+
+        it("Should delete the 'User' model and account  send back the correct response", (done) => {
+          chai.request(server)
+            .delete("/api/users/delete/" + String(user._id))
+            .set({ "Authorization": jwtToken })
+            .send({ password: "password" })
+            .end((err, response) => {
+              if (err) done(err);
+              // assert correct response //
+              expect(response.status).to.equal(200);
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.deletedUser).to.be.an("object");
+              expect(response.body.error).to.be.undefined;
+              expect(response.body.errorMessages).to.be.undefined;
+              done();
+            });
+        });
+        it("Should alter the number of 'User' models in the database and decrease by 1", (done) => {
+          User.countDocuments().exec()
+            .then((number) => {
+              expect(number).to.equal(numberOfUsers - 1);
+              numberOfUsers = number;
+              done();
+            })
+            .catch((err) => {
+              done(err);
+            });
+        });
+        it("Should NOT keep the 'User' model in the database and remove it", (done) => {
+          User.exists({ _id: user._id })
+            .then((exists) => {
+              expect(exists).to.equal(false);
+              done();
+            })
+            .catch((err) => {
+              done();
+            });
+        });
+      });
+      // END TEST DELETE request with INVALID data supplied //
+    });
     // END TEST User EDIT and DELETE acions on an account they do own //
-
   });
   // END CONTEXT UsersController API tets with valid login and credentials //
 
 
-})
+});
