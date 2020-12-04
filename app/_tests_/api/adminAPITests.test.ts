@@ -1,17 +1,12 @@
 import chaiHTTP from "chai-http";
-import chai, { expect, use } from "chai";
-import { Response } from "express";
-import fs from "fs";
+import chai, { expect } from "chai";
 // server, models //
 import server from "../../server";
 import Administrator, { IAdministrator, EAdminLevel } from "../../models/Administrator";
 import { setupDB, clearDB } from "../helpers/dbHelpers";
 import { createAdmins, generateMockAdminData } from "../helpers/dataGeneration";
 import { AdminData } from "../../controllers/admins_controller/type_declarations/adminsControllerTypes";
-import { Error } from "mongoose";
-import { keyword } from "chalk";
-import { UserData } from "../../controllers/users_controller/type_declarations/usersControllerTypes";
-import { doesNotMatch } from "assert";
+// import { UserData } from "../../controllers/users_controller/type_declarations/usersControllerTypes";
 
 chai.use(chaiHTTP);
 
@@ -86,7 +81,7 @@ describe("Administrator API tests", () => {
         expect(jwtToken.token).to.be.a("string");
         expect(jwtToken.expiresIn).to.be.a("string");
       });
-      it("Should increast the number of 'Administrator' model by 1", (done) => {
+      it("Should increase the number of 'Administrator' model by 1", (done) => {
         Administrator.countDocuments().exec()
           .then((number) => {
             expect(number).to.equal(numberOfAdmins + 1);
@@ -697,7 +692,7 @@ describe("Administrator API tests", () => {
     // END TEST Admin EDIT and DELETE on an account they DONT own //
     // TEST Admin EDIT and DELETE on an account they own //
     describe("Admin EDIT and DELETE on an account they own", () => {
-      const userUpdate: UserData = {
+      const userUpdate: AdminData = {
         firstName: "newname",
         email: "newlast",
         lastName: "newlast",
@@ -910,7 +905,7 @@ describe("Administrator API tests", () => {
         });
       });
       // END TEST DELETE request with invalid data //
-      
+
       // TEST DELETE request with valid credentials //
       describe("DELETE '/api/admins/delete/:adminId' with CORRECT password supplied", () => {
         it("Should correctly handle 'deleteRegistration' action and send correct response", (done) => {

@@ -12,7 +12,6 @@ export const validateNewUser = (data: UserData): ValidationResponse => {
     errorMessages: []
   }
   const { firstName, lastName, email, password, passwordConfirm }  = data;
-  console.log(data)
   // validate first name //
   if (!firstName) {
     validationRes.valid = false;
@@ -20,7 +19,6 @@ export const validateNewUser = (data: UserData): ValidationResponse => {
   }
   // validate last name //
   if (!lastName) {
-    console.log(20)
     validationRes.valid = false;
     validationRes.errorMessages.push("A last name is required");
   }

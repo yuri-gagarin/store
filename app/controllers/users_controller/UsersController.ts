@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-import User, { MemberLevel } from "../../models/User";
+import User, { EMemberLevel } from "../../models/User";
 // helpers //
 import { checkDuplicateEmail, validateNewUser } from "./helpers/validationHelpers";
 import { issueJWT } from "../helpers/authHelpers";
@@ -38,7 +38,7 @@ class UsersController implements IGenericAuthController {
         return User.create({ 
           ...userData, 
           password: passwordHash,
-          membershipLevel: MemberLevel.Rookie,
+          membershipLevel: EMemberLevel.Rookie,
           createdAt: new Date(Date.now()),
           editedAt: new Date(Date.now())
         });
@@ -47,7 +47,7 @@ class UsersController implements IGenericAuthController {
         const { token, expires } = issueJWT(user);
         return res.status(200).json({
           responseMsg: `Welcome ${user.firstName}`,
-          user: user,
+          newUser: user,
           jwtToken: {
             token: token,
             expiresIn: expires

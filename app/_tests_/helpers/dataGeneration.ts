@@ -15,6 +15,8 @@ import Administrator, { IAdministrator } from "../../models/Administrator";
 // data //
 import storeItemCategories from "./storeItemMockCategories";
 import { AdminData } from "../../controllers/admins_controller/type_declarations/adminsControllerTypes";
+import User, { IUser } from "../../models/User";
+import { UserData } from "../../controllers/users_controller/type_declarations/usersControllerTypes";
 /*
   TODO 
   this module is getting extremely crowded with multiple data generators 
@@ -442,3 +444,32 @@ export const createAdmins = async (number: number): Promise<IAdministrator[]> =>
   }
   return Promise.all(createdAdminPromises);
 };
+
+// User model generation //
+export const generateMockUserData = (): UserData => {
+  const newAdmin: UserData = {
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    handle: faker.internet.userName(),
+    email: faker.internet.email(),
+    password: "password",
+    passwordConfirm: "password",
+  };
+  return newAdmin;
+};
+export const createUsers = async (number: number): Promise<IUser[]> => {
+  const createdUserPromises: Promise<IUser>[] = [];
+  for (let i = 0; i < number; i ++) {
+    const userData = generateMockUserData();
+    const passHash = await new Promise<string>((res) => {
+      bcrypt.hash(userData.password, 10, (err, passHash) => {
+        res(passHash);
+      });
+    });
+    createdUserPromises.push(
+      User.create({ ...userData, password: passHash })
+    );
+  }
+  return Promise.all(createdUserPromises);
+
+}

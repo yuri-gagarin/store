@@ -21,6 +21,7 @@ export type UserControllerRes = {
   responseMsg: string;
   messages?: string[];
   user?: IUser;
+  newUser?: IUser;
   deletedUser?: IUser;
   editedUser?: IUser;
   error?: Error;

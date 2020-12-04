@@ -64,6 +64,15 @@ app.use(function (err: MulterError, req: Express.Request, res: Express.Response,
   next(err);
 });
 
+/*
+let log = console.log;
+console.log = function() {
+    log.apply(console, arguments);
+    // Print the stack trace
+    console.trace();
+};
+
+*/
 
 app.on("dbReady", () => {
   server.listen(PORT, () => {

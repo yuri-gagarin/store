@@ -1,6 +1,6 @@
 import mongoose, { Document, Mongoose, Schema } from "mongoose";
 
-export enum MemberLevel {
+export enum EMemberLevel {
   Rookie,
   Veteran,
   Pro,
@@ -16,7 +16,7 @@ export interface IUser extends Document {
   createdAt: Date;
   editedAt: Date;
   lastLogin?: Date;
-  membershipLevel: MemberLevel;
+  membershipLevel: EMemberLevel;
 };
 
 
@@ -38,6 +38,7 @@ const UserSchema: Schema = new Schema<IUser>({
     type: String,
     required: true,
     unique: true,
+    index: true
   },
   birthDate: {
     type: String,
@@ -62,15 +63,15 @@ const UserSchema: Schema = new Schema<IUser>({
     required: false
   },
   membershipLevel: {
-    type: MemberLevel,
+    type: EMemberLevel,
     required: true,
-    default: MemberLevel.Rookie
+    default: EMemberLevel.Rookie
   }
 });
 
 UserSchema.pre("validate", function(this: IUser, next) {
   if (!this.membershipLevel) {
-    this.membershipLevel = MemberLevel.Rookie;
+    this.membershipLevel = EMemberLevel.Rookie;
   }
   next();
 });
@@ -83,12 +84,6 @@ UserSchema.pre("validate", function(this: IUser, next) {
 UserSchema.pre("validate", function(this: IUser, next) {
   if (!this.editedAt) {
     this.editedAt = new Date(Date.now());
-  }
-  next();
-});
-UserSchema.pre("validate", function(this: IUser, next) {
-  if (!this.membershipLevel) {
-    this.membershipLevel = MemberLevel.Rookie;
   }
   next();
 });
