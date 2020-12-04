@@ -65,9 +65,14 @@ class AdminsController implements IGenericAuthController {
     const saltRounds = 10;
     const adminData: AdminData = req.body;
     const { adminId } = req.params as AdminParams;
+    const currentAdmin = req.user as IAdministrator;
     let foundAdminData: IAdministrator;
-     // validate old password first //
-     if (!adminData.oldPassword) {
+    // check for correct admin //
+    if (String(currentAdmin._id) !== adminId) {
+      return respondWithInputError(res, "Can't process request", 401, ["Not allowed to edit another admin account"]);
+    }
+    // validate old password first //
+    if (!adminData.oldPassword) {
       return respondWithInputError(res, "Can't process request", 401, ["Your current password is required"]);
     };
     // validate correct input /
@@ -82,7 +87,7 @@ class AdminsController implements IGenericAuthController {
           foundAdminData = foundAdmin;
           return bcrypt.compare(oldPassword, foundAdmin.password);
         } else {
-          throw new NotFoundError("Not Found", [ "Could not resolve admin profile" ]);
+          throw new NotFoundError("Not Found", [ "Could not resolve admin profile" ], 404);
         }
       })
       .then((success) => {
@@ -131,13 +136,13 @@ class AdminsController implements IGenericAuthController {
     const password: string = req.body.password as string;
 
     if (!adminId) {
-      return respondWithInputError(res, "Could resolve a user id", 422);
+      return respondWithInputError(res, "User input error", 422, [ "Could not resolve a user id" ]);
     }
     if (String(admin._id) !== adminId) {
-      return respondWithInputError(res, "Not Allowed to delete another admin", 401);
+      return respondWithInputError(res, "Not allowed", 401, [ "NOt allowed to delete another admin" ]);
     }
     if (!password) {
-      return respondWithInputError(res, "Must enter your password to delete account", 401);
+      return respondWithInputError(res, "User input error", 401, [ "Must enter your password to delete account" ]);
     }
     return Administrator.findOne({ _id: adminId })
       .then((foundAdmin) => {

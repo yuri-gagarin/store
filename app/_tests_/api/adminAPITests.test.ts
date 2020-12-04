@@ -11,6 +11,7 @@ import { AdminData } from "../../controllers/admins_controller/type_declarations
 import { Error } from "mongoose";
 import { keyword } from "chalk";
 import { UserData } from "../../controllers/users_controller/type_declarations/usersControllerTypes";
+import { doesNotMatch } from "assert";
 
 chai.use(chaiHTTP);
 
@@ -618,7 +619,83 @@ describe("Administrator API tests", () => {
           done()
         });
     });
-
+    // TEST Admin EDIT and DELETE on an account they DONT own //
+    describe("Admin EDIT and DELETE on an account they DONT own", () => {
+      // TEST PATCH request on a Administrator model they don'w own //
+      describe("PATCH '/api/admins/update/:adminId' action on another 'Admins' acccount", () => {
+        it("Should NOT edit the account and send back the correct response", (done) => {
+          chai.request(server)
+            .patch("/api/admins/update/" + secondAdmin._id)
+            .set({
+              "Authorization": jwtToken
+            })
+            .end((err, res) => {
+              if (err) done(err);
+              //console.log(res.body)
+              expect(res.status).to.equal(401);
+              expect(res.body.responseMsg).to.be.a("string");
+              expect(res.body.editedAdmin).to.be.undefined;
+              expect(res.body.error).to.be.an("object");
+              expect(res.body.errorMessages).to.be.an("array");
+              expect(res.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+        it("Should NOT alter the count of 'Administartor' models in the database", (done) => {
+          Administrator.countDocuments().exec()
+            .then((number) => {
+              expect(number).to.equal(numberOfAdmins);
+              done();
+            })
+            .catch((err) => {
+              done(err);
+            });
+        });
+      });
+      // END TEST PATCH request on a Administrator model they dont own //
+      // TEST DELETE request on a Administrator model they dont own //
+      describe("DELETE '/api/admins/delete/:adminId' action on another 'Admins' acccount", () => {
+        it("Should NOT delete the account and send back the correct response", (done) => {
+          chai.request(server)
+            .delete("/api/admins/delete/" + String(secondAdmin._id))
+            .set({
+              "Authorization": jwtToken
+            })
+            .end((err, res) => {
+              if (err) done(err);
+              expect(res.status).to.equal(401);
+              expect(res.body.responseMsg).to.be.a("string");
+              expect(res.body.editedAdmin).to.be.undefined;
+              expect(res.body.error).to.be.an("object");
+              expect(res.body.errorMessages).to.be.an("array");
+              expect(res.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+        it("Should have the attempted deleted 'Administrator' model in the database", (done) => {
+          Administrator.findOne({ _id: secondAdmin._id }).exec()
+            .then((admin) => {
+              expect(admin).to.be.an("object");
+              done();
+            })
+            .catch((err) => {
+              done(err);
+            });
+        });
+        it("Should NOT alter the count of 'Administartor' models in the database", (done) => {
+          Administrator.countDocuments().exec()
+            .then((number) => {
+              expect(number).to.equal(numberOfAdmins);
+              done();
+            })
+            .catch((err) => {
+              done(err);
+            });
+        });
+      });
+    });
+    // END TEST Admin EDIT and DELETE on an account they DONT own //
+    // TEST Admin EDIT and DELETE on an account they own //
     describe("Admin EDIT and DELETE on an account they own", () => {
       const userUpdate: UserData = {
         firstName: "newname",
@@ -773,7 +850,7 @@ describe("Administrator API tests", () => {
         });
       });
       // END TEST PATCH request with valid data supplied //
-      // TEST DELETE request with valid credentials //
+      // TEST DELETE request with invalid data //
       describe("DELETE '/api/admins/delete/:adminId' with an INCORRECT password supplied", () => {
         it("Should NOT delete 'Administrator' model without a password supplied", (done) => {
           chai.request(server)
@@ -789,6 +866,7 @@ describe("Administrator API tests", () => {
               expect(res.body.deletedAdmin).to.be.undefined;
               expect(res.body.error).to.be.an("object");
               expect(res.body.errorMessages).to.be.an("array");
+              expect(res.body.errorMessages[0]).to.be.a("string");
               done();
             });
         });
@@ -806,6 +884,7 @@ describe("Administrator API tests", () => {
               expect(res.body.deletedAdmin).to.be.undefined;
               expect(res.body.error).to.be.an("object");
               expect(res.body.errorMessages).to.be.an("array");
+              expect(res.body.errorMessages[0]).to.be.a("string");
               done();
             });
         });
@@ -830,7 +909,8 @@ describe("Administrator API tests", () => {
             });
         });
       });
-      // END TEST DELETE request with valid credentials
+      // END TEST DELETE request with invalid data //
+      
       // TEST DELETE request with valid credentials //
       describe("DELETE '/api/admins/delete/:adminId' with CORRECT password supplied", () => {
         it("Should correctly handle 'deleteRegistration' action and send correct response", (done) => {
@@ -872,7 +952,10 @@ describe("Administrator API tests", () => {
         })
       });
       // END TEST DELETE request with valid credentials
-    })
+    });
+    // END TEST Admin EDIT and DELETE on an account they own //
+    
+
   })
   
 })
