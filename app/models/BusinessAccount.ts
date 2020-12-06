@@ -4,17 +4,17 @@ import { IProduct } from "./Product";
 import { IService } from "./Service";
 import { IStore } from "./Store";
 
-export enum AccountLevel {
+export enum EAccountLevel {
   Standard,
   Professional,
   Elite
 }
 export interface IBusinessAccount extends Document {
-  linkedBusinesss: (mongoose.Types.ObjectId | IAdministrator)[];
+  linkedAdmins: (mongoose.Types.ObjectId | IAdministrator)[];
   linkedStores: (mongoose.Types.ObjectId | IStore)[];
   linkedServices: (mongoose.Types.ObjectId | IService)[];
   linkedProducts: (mongoose.Types.ObjectId | IProduct)[];
-  accountLevel: AccountLevel;
+  accountLevel: EAccountLevel;
   createdAt: Date;
   editedAt: Date; 
 }
@@ -44,9 +44,9 @@ const BusinessAccountSchema = new Schema({
     }
   ],
   accountLevel: {
-    type: AccountLevel,
+    type: EAccountLevel,
     required: true,
-    default: AccountLevel.Standard
+    default: EAccountLevel.Standard
   },
   createdAt: {
     type: Date,

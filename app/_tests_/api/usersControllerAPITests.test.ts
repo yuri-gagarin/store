@@ -278,7 +278,7 @@ describe("'UsersController' API tests", () => {
     // END TEST UsersController 'register' action with invalid data //
 
     // TEST Users controller 'editRegistration' action without credentials //
-    describe("PATCH '/api/users/updated/:userId' - User update WITHOUT a valid JWT token", () => {
+    describe("PATCH '/api/users/update/:userId' - User update WITHOUT a valid JWT token", () => {
       
       it("Should NOT allow an update without proper authorization", (done) => {
         chai.request(server)

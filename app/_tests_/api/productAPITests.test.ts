@@ -7,17 +7,22 @@ import Product, { IProduct} from "../../models/Product";
 import { ProductParams } from "../../controllers/ProductsController";
 // helpers //
 import { setupDB, clearDB } from "../helpers/dbHelpers";
-import { createProducts } from "../helpers/dataGeneration";
+import { createAdmins, createProducts } from "../helpers/dataGeneration";
 
 chai.use(chaiHttp);
 
-describe ("Product API tests", () => {
+describe ("'ProductsController' API tests", () => {
   let totalProducts: number;
 
   before((done) => {
     setupDB()
-      .then(() => createProducts(20))
-      .then(() => Product.countDocuments())
+      .then(() => {
+        return createAdmins(2);
+      })
+      .then((createdAdmins) => {
+        return Promise.all([ createProducts(5, createdAdmins[0]), createProducts(5, createdAdmins[1]) ]);
+      })
+      .then(() => Product.countDocuments().exec())
       .then((number) => { totalProducts = number; done(); })
       .catch((error) => { done(error); });
   });
@@ -241,6 +246,35 @@ describe ("Product API tests", () => {
   })
   // END GET requests with queries tests //
   // GET request for specific product tests //
+  // CONTEXT TEST PRODUCT CRUD without login credentials //
+  context("'ProductsController' CRUD API tets without login credentials", () => {
+    before(() => {
+
+    })
+    describe("POST '/api/products/create/' - CREATE action WITHOUT a proper login", () => {
+      it("Should not not allow the 'ProductsController' CREATE action and respond properly", (done) => {
+        chai.request(server)
+          .post("/api/products/create")
+          .end((err, response) => {
+            if (err) done(err);
+            // assert correct response //
+            expect(response.status).to.equal(401);
+            expect(response.body.responseMsg).to.be.a("string");
+            expect(response.body.newProduct).to.be.undefined;
+            expect(response.body.error.message).to.equal("Unauthorized");
+            done();
+          });
+      })
+    });
+    describe("PATCH '/api/products/update/:productId' - UPDATE action without a proper login", () => {
+
+    });
+    describe("DELETE '/api/products/delete/:productId - DELETE action without a proper login", () => {
+
+    })
+  });
+  // END  CONTEXT TEST PRODUCT CRUD without login credentials //
+  /*
   context("GET Request for specific Product", () => {
     describe("GET { '/api/products/:_id }", () => {
       let product: IProduct, requestedProduct: IProduct; 
@@ -418,5 +452,5 @@ describe ("Product API tests", () => {
     });
   })
   // END DELETE requests tests //
-  
+  */
 });

@@ -1,8 +1,10 @@
 import mongoose, { Document, Schema } from "mongoose";
+import { IAdministrator } from "./Administrator";
 import { IProductImage } from "./ProductImage";
 type ProductImgRef = mongoose.Types.ObjectId;
 
 export interface IProduct extends Document {
+  creatorId: (mongoose.Types.ObjectId | IAdministrator);
   name: string;
   description: string;
   details: string;
@@ -13,6 +15,11 @@ export interface IProduct extends Document {
 }
 
 const ProductSchema: Schema = new Schema({
+  creatorId: {
+    type: Schema.Types.ObjectId, 
+    ref: "Administrator",
+    required: true
+  },
   name: {
     type: String,
     required: true

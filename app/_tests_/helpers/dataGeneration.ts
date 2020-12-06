@@ -159,11 +159,12 @@ export const createServices = (numOfServices: number): Promise<IService[]> => {
  * Creates a set number of mock {Product} objects.
  * @param numOfProducts 
  */
-export const createProducts = (numOfProducts: number): Promise<IProduct[]> => {
+export const createProducts = (numOfProducts: number, admin: IAdministrator): Promise<IProduct[]> => {
   const createdProducts: Promise<IProduct>[] = [];
 
   for (let i = 0; i < numOfProducts; i++) {
     createdProducts.push(Product.create({
+      creatorId: admin._id,
       name: faker.lorem.word(),
       description: faker.lorem.paragraph(),
       details: faker.lorem.paragraphs(3),

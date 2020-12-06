@@ -9,7 +9,7 @@ import { IProduct } from "../../models/Product";
 import ProductImage, { IProductImage } from "../../models/ProductImage";
 // helpers //
 import { setupDB, clearDB } from "../helpers/dbHelpers";
-import { createProducts } from "../helpers/dataGeneration";
+import { createAdmins, createProducts } from "../helpers/dataGeneration";
 
 chai.use(chaiHTTP);
 
@@ -19,7 +19,8 @@ describe("ProductImage API tests", () => {
 
   before((done) => {
     setupDB()
-      .then(() => createProducts(1))
+      .then(() => createAdmins(1))
+      .then((admins) => createProducts(1, admins[0] ))
       .then((products) => {
         createdProduct = products[0];
         return ProductImage.countDocuments();
