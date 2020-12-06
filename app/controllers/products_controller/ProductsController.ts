@@ -6,6 +6,7 @@ import { IGenericController } from "./../helpers/controllerInterfaces";
 // helpers //
 import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "./../helpers/controllerHelpers";
 import { IAdministrator } from "../../models/Administrator";
+import { validateProductData } from "../products_controller/helpers/validationHelpers"; 
 
 interface IGenericProdRes {
   responseMsg: string;
@@ -120,14 +121,20 @@ class ProductsController implements IGenericController {
     const imgIds: Types.ObjectId[] = [];
     
     const user: IAdministrator = req.user as IAdministrator;
+    // assert that a user is present //
+    if(!user) {
+      return respondWithGeneralError(res, "Cannot resolve user", 401);
+    }
     // assert that an admin has a BusinessAccount set up //
     if (!user.businessAccountId) {
-      console.log(125)
       return respondWithInputError(res, "Account error", 401, [ "You must have or be tied to an account to create a Product "]);
     }
-    /*
-    if ()
-    */
+    // validate form input //
+    const { valid, errorMessages } = validateProductData({ name, price, description, details });
+    if(!valid) {
+      return respondWithInputError(res, "Input eror", 422, errorMessages );
+    }
+    
     if (Array.isArray(productImages) && (productImages.length > 1)) {
       for (const newImg of productImages) {
         imgIds.push(Types.ObjectId(newImg.url));

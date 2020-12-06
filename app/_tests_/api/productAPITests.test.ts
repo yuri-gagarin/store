@@ -391,7 +391,7 @@ describe ("'ProductsController' API tests", () => {
           newProduct = {
             name: faker.commerce.product(),
             price: faker.commerce.price(10, 100),
-            description: faker.commerce.color(),
+            description: faker.lorem.paragraph(),
             details: faker.lorem.paragraph()
           };
 
@@ -433,6 +433,7 @@ describe ("'ProductsController' API tests", () => {
               if (err) done(err);
               // assert correct response //
               expect(response.status).to.equal(401);
+              expect(response.body.newProduct).to.be.undefined;
               expect(response.body.responseMsg).to.be.a("string");
               expect(response.body.error).to.be.an("object");
               expect(response.body.errorMessages).to.be.an("array");
@@ -451,7 +452,9 @@ describe ("'ProductsController' API tests", () => {
             })
             .end((err, response) => {
               if (err) done(err);
+              // assert correct response //
               expect(response.status).to.equal(422);
+              expect(response.body.newProduct).to.be.undefined;
               expect(response.body.responseMsg).to.be.a("string");
               expect(response.body.error).to.be.an("object");
               expect(response.body.errorMessages).to.be.an("array");
@@ -469,7 +472,9 @@ describe ("'ProductsController' API tests", () => {
             })
             .end((err, response) => {
               if (err) done(err);
+              // assert correct response //
               expect(response.status).to.equal(422);
+              expect(response.body.newProduct).to.be.undefined;
               expect(response.body.responseMsg).to.be.a("string");
               expect(response.body.error).to.be.an("object");
               expect(response.body.errorMessages).to.be.an("array");
@@ -487,7 +492,9 @@ describe ("'ProductsController' API tests", () => {
             })
             .end((err, response) => {
               if (err) done(err);
+              // assert correct response //
               expect(response.status).to.equal(422);
+              expect(response.body.newProduct).to.be.undefined;
               expect(response.body.responseMsg).to.be.a("string");
               expect(response.body.error).to.be.an("object");
               expect(response.body.errorMessages).to.be.an("array");
@@ -505,13 +512,44 @@ describe ("'ProductsController' API tests", () => {
             })
             .end((err, response) => {
               if (err) done(err);
+              // assert correct response //
               expect(response.status).to.equal(422);
+              expect(response.body.newProduct).to.be.undefined;
               expect(response.body.responseMsg).to.be.a("string");
               expect(response.body.error).to.be.an("object");
               expect(response.body.errorMessages).to.be.an("array");
               expect(response.body.errorMessages[0]).to.be.a("string");
               done();
             });
+        });
+        it("Should NOT create a new product if aLL properties are empty", (done) => {
+          chai.request(server)
+            .post("/api/products/create")
+            .set({ "Authorization": tokenWithAccount })
+            .send({})
+            .end((err, response) => {
+              if (err) done(err);
+              // assert correct response //
+              let errorMessages: string[];
+              errorMessages = response.body.errorMessages as string[];
+              expect(response.status).to.equal(422);
+              expect(response.body.newProduct).to.be.undefined;
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.error).to.be.an("object");
+              expect(response.body.errorMessages).to.be.an("array");
+              for( const message of errorMessages) {
+                expect(message).to.be.a("string");
+              }
+              done();
+            });
+        });
+        it("Should NOT add a new 'Product' to the database", (done) => {
+          Product.countDocuments().exec()
+            .then((number) => {
+              expect(number).to.equal(totalProducts);
+              done()
+            })
+            .catch((err) => done(err));
         });
       });
       // END TEST POST '/api/products/create' CREATE action with invalid 'Product' data //
