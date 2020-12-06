@@ -380,51 +380,68 @@ describe ("'ProductsController' API tests", () => {
   // END  CONTEXT TEST PRODUCT CRUD without login credentials //
   // TEST CONTEXT TEST PRODUCT CRUD with proper login credentials //
   context("'ProductsController' CRUD API tests with proper login credentials", () => {
-    describe("'ProductsController' CRUD actions on a 'Product' they are able to EDIT with INVALID data input", () => {
-      // TEST POST '/api/products/create' CREATE action with invalid 'Product' data //
-      describe("POST '/api/products/create' CREATE action with invalid 'Product' data", () => {
-        let newProduct: ProductData;
-        let tokenWithAccount: string;
-        let tokenWithoutAccount: string;
+    let newProduct: ProductData;
+    let productUpdate: ProductData;
+    let tokenWithAccount: string;
+    let tokenWithoutAccount: string;
+    let productToUpdate: IProduct;
 
-        before((done) => {
-          newProduct = {
-            name: faker.commerce.product(),
-            price: faker.commerce.price(10, 100),
-            description: faker.lorem.paragraph(),
-            details: faker.lorem.paragraph()
-          };
 
-          chai.request(server)
-            .post("/api/admins/login")
-            .send({
-              email: firstAdmin.email,
-              password: "password"
-            })
-            .end((err, response) => {
-              if (err) done(err);
-              ({ token : tokenWithAccount } = response.body.jwtToken);
-              done();
-            });
+    before((done) => {
+      newProduct = {
+        name: faker.commerce.product(),
+        price: faker.commerce.price(10, 100),
+        description: faker.lorem.paragraph(),
+        details: faker.lorem.paragraph()
+      };
+      productUpdate = {
+        name: "new name",
+        price: "999",
+        description: "a new description",
+        details: "a new details paragraph"
+      };
+
+      chai.request(server)
+        .post("/api/admins/login")
+        .send({
+          email: firstAdmin.email,
+          password: "password"
+        })
+        .end((err, response) => {
+          if (err) done(err);
+          ({ token : tokenWithAccount } = response.body.jwtToken);
+          done();
         });
-        // set a token for an admin without a BusinessAccount //
-        before((done) => {
-          chai.request(server) 
-            .post("/api/admins/login")
-            .send({
-              email: thirdAdmin.email,
-              password: "password"
-            })
-            .end((err, response) => {
-              if (err) done(err);
-              ({ token: tokenWithoutAccount } = response.body.jwtToken);
-              done();
-            });
+    });
+    // set a token for an admin without a BusinessAccount //
+    before((done) => {
+      chai.request(server) 
+        .post("/api/admins/login")
+        .send({
+          email: thirdAdmin.email,
+          password: "password"
+        })
+        .end((err, response) => {
+          if (err) done(err);
+          ({ token: tokenWithoutAccount } = response.body.jwtToken);
+          done();
         });
+    });
+    before((done) => {
+      Product.findOne({ businessAccountId: firstAccountId })
+        .then((foundProduct) => {
+          productToUpdate = foundProduct!;
+          done();
+        })
+        .catch((err) => done(err));
+    });
 
-        it("Should NOT create a new 'Product' if admin does not have a 'BusinessAccount' set up", (done) => {
+    describe("'ProductsController' CRUD actions on a 'Product' a user CANNOT EDIT or DELETE", () => {
+      describe("PATCH '/api/products/update/:productId' EDIT action when a User DOES NOT have a 'BusinessAccount' set up", () => {
+
+        it("Should NOT Update a 'Product' if admin does not have a 'BusinessAccount' set up", (done) => {
           chai.request(server)
-            .post("/api/products/create")
+            .patch("/api/products/update/" + String(productToUpdate._id))
             .set({ "Authorization": tokenWithoutAccount })
             .send({
               ...newProduct
@@ -432,6 +449,7 @@ describe ("'ProductsController' API tests", () => {
             .end((err, response) => {
               if (err) done(err);
               // assert correct response //
+              console.log(response.body)
               expect(response.status).to.equal(401);
               expect(response.body.newProduct).to.be.undefined;
               expect(response.body.responseMsg).to.be.a("string");
@@ -441,6 +459,14 @@ describe ("'ProductsController' API tests", () => {
               done();
             });
         });
+  
+      })
+    });
+    /*
+    describe("'ProductsController' CRUD actions on a 'Product' a user IS able to EDIT with INVALID data input", () => {
+      
+      // TEST POST '/api/products/create' CREATE action with invalid 'Product' data //
+      describe("POST '/api/products/create' CREATE action with invalid 'Product' data", () => {
         
         it("Should NOT create a new product WITHOUT a 'name' property", (done) => {
           chai.request(server)
@@ -553,11 +579,140 @@ describe ("'ProductsController' API tests", () => {
         });
       });
       // END TEST POST '/api/products/create' CREATE action with invalid 'Product' data //
+      // TEST PATCH '/api/products/update/:productId action with invalid 'Product' data //
+      describe("PATCH '/api/products/update/:productId' EDIT action with invalid 'Product' data", () => {
+        
+        it("Should NOT update a 'Product' WITHOUT a 'name' property", (done) => {
+          chai.request(server)
+            .patch("/api/products/update/" + String(productToUpdate._id))
+            .set({ "Authorization": tokenWithAccount })
+            .send({
+              ...productUpdate,
+              name: ""
+            })
+            .end((err, response) => {
+              if (err) done(err);
+              // assert correct response //
+              expect(response.status).to.equal(422);
+              expect(response.body.editedProduct).to.be.undefined;
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.error).to.be.an("object");
+              expect(response.body.errorMessages).to.be.an("array");
+              expect(response.body.errorMessages[0]).to.be.a("string");
+              done();
+            });     
+        });
+        it("Should NOT update a 'Product' WITHOUT a 'price' property", (done) => {
+          chai.request(server)
+            .patch("/api/products/update/" + String(productToUpdate._id))
+            .set({ "Authorization": tokenWithAccount })
+            .send({
+              ...productUpdate,
+              price: ""
+            })
+            .end((err, response) => {
+              if (err) done(err);
+              // assert correct response //
+              expect(response.status).to.equal(422);
+              expect(response.body.editedProduct).to.be.undefined;
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.error).to.be.an("object");
+              expect(response.body.errorMessages).to.be.an("array");
+              expect(response.body.errorMessages[0]).to.be.a("string");
+              done();
+            });     
+        });
+        it("Should NOT update a 'Product' WITHOUT a 'description' property", (done) => {
+          chai.request(server)
+            .patch("/api/products/update/" + String(productToUpdate._id))
+            .set({ "Authorization": tokenWithAccount })
+            .send({
+              ...productUpdate,
+              description: ""
+            })
+            .end((err, response) => {
+              if (err) done(err);
+              // assert correct response //
+              expect(response.status).to.equal(422);
+              expect(response.body.editedProduct).to.be.undefined;
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.error).to.be.an("object");
+              expect(response.body.errorMessages).to.be.an("array");
+              expect(response.body.errorMessages[0]).to.be.a("string");
+              done();
+            });     
+        });
+        it("Should NOT update a 'Product' WITHOUT a 'details' property", (done) => {
+          chai.request(server)
+            .patch("/api/products/update/" + String(productToUpdate._id))
+            .set({ "Authorization": tokenWithAccount })
+            .send({
+              ...productUpdate,
+              details: ""
+            })
+            .end((err, response) => {
+              if (err) done(err);
+              // assert correct response //
+              expect(response.status).to.equal(422);
+              expect(response.body.editedProduct).to.be.undefined;
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.error).to.be.an("object");
+              expect(response.body.errorMessages).to.be.an("array");
+              expect(response.body.errorMessages[0]).to.be.a("string");
+              done();
+            });     
+        });
+        it("Should NOT update a 'Product' WITHOUT ANY properties", (done) => {
+          chai.request(server)
+            .patch("/api/products/update/" + String(productToUpdate._id))
+            .set({ "Authorization": tokenWithAccount })
+            .send({})
+            .end((err, response) => {
+              if (err) done(err);
+              // assert correct response //
+              const errorMessages: string[] = response.body.errorMessages  || [];
+              expect(response.status).to.equal(422);
+              expect(response.body.editedProduct).to.be.undefined;
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.error).to.be.an("object");
+              expect(response.body.errorMessages).to.be.an("array");
+              expect(response.body.errorMessages.length).to.equal(4);
 
+              for (const message of errorMessages) {
+                expect(message).to.be.a("string");
+              }
+              done();
+            });     
+        });
+        it("Should NOT alter the 'Product' model in any way", (done) => {
+          Product.findOne({ _id: productToUpdate._id }).exec()
+            .then((foundProduct) => {
+              expect(JSON.stringify(foundProduct)).to.equal(JSON.stringify(productToUpdate));
+              done();
+            })
+            .catch((err) => {
+              done(err);
+            });
+        });
+        it("Should NOT alter the number 'Product' models in the database", (done) => {
+          Product.countDocuments().exec()
+            .then((number) => {
+              expect(number).to.equal(totalProducts);
+              done();
+            })
+            .catch((err) => {
+              done(err);
+            });
+        });
+
+      });
+      // END TEST PATCH '/api/products/update/:productId action with invalid 'Product' data //
+      
     })
+    */
   })
   // END TEST CONTEXT TEST PRODUCT CRUD with proper login credentials //
-
+  
   /*
   context("GET Request for specific Product", () => {
     describe("GET { '/api/products/:_id }", () => {

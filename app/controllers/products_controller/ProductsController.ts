@@ -162,13 +162,28 @@ class ProductsController implements IGenericController {
   }
 
   edit (req: Request, res: Response<IGenericProdRes>): Promise<Response> {
-    const { _id } = req.params;
+    const { _id : productId } = req.params;
     const { name, description, details, price, images : productImages }: ProductParams = req.body;
     const updatedProductImgs: Types.ObjectId[] = [];
-
-    if (!_id) {
+    const user: IAdministrator = req.user as IAdministrator;
+    if (!productId) {
       return respondWithInputError(res, "Can't resolve Product", 400);
     }
+    // ensure that a user has an account set up and that a user can edit this product //
+    if(user) {
+      if(!user.businessAccountId) {
+        return respondWithInputError(res, "Account error", 401, [ "You must have or be tied to an account to update a Product" ]);
+      }
+    } else {
+      return respondWithGeneralError(res, "Cannot resolve user", 401);
+    }
+    //
+    // validate correct data //
+    const { valid, errorMessages } = validateProductData({ name, price, description, details });
+    if (!valid) {
+      return respondWithInputError(res, "Input Error", 422, errorMessages);
+    }
+    //
     if (Array.isArray(productImages) && (productImages.length > 0)) {
       for (const img of productImages) {
         updatedProductImgs.push(img._id);
@@ -176,7 +191,7 @@ class ProductsController implements IGenericController {
     }
 
     return Product.findOneAndUpdate(
-      { _id: _id },
+      { _id: productId },
       { 
         $set: {
           name: name,
