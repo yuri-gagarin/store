@@ -3,7 +3,7 @@ import { Types } from "mongoose";
 // models and model interfaces //
 import { IAdministrator } from "../../models/Administrator";
 import { IGenericController } from "../helpers/controllerInterfaces"
-import BusinessAccount,  { AccountLevel, IBusinessAccount } from "../../models/BusinessAccount";
+import BusinessAccount,  { EAccountLevel, IBusinessAccount } from "../../models/BusinessAccount";
 import Store from "../../models/Store";
 import StoreImage, { IStoreImage } from "../../models/StoreImage";
 import StoreItem from "../../models/StoreItem";
@@ -110,7 +110,7 @@ class BusinessAccountsController implements IGenericController {
       adminAccounts: [ adminId ],
       linkedStores: [],
       linkedServices: [],
-      accountLevel: AccountLevel.Standard
+      accountLevel: EAccountLevel.Standard
     })
     .then((adminAccount) => {
       return res.status(200).json({

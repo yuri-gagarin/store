@@ -11,7 +11,7 @@ type GenerateAccountArguments = {
   services?: IService[];
   
 }
-export const generateBusinessAcccount = ({ admins, stores = [], products = [], services = [] }: GenerateAccountArguments): Promise<IBusinessAccount> => {
+export const createBusinessAcccount = ({ admins, stores = [], products = [], services = [] }: GenerateAccountArguments): Promise<IBusinessAccount> => {
   const adminIDs: string[] = admins.map((admin) => (admin._id as string));
   const storeIDs: string[] = stores.map((store) => (store._id as string));
   const productsIDs: string[] = products.map((product) => (product._id as string));

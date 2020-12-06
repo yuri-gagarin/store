@@ -27,12 +27,14 @@ export interface IAdministrator extends Document {
   avatarImage?: AvatarImage;
   adminLevel: EAdminLevel;
   adminAccountId?: mongoose.Types.ObjectId;
+  businessAccountId?: mongoose.Types.ObjectId;
   storesManaged: (StoreRef | IStore)[];
   approved: boolean;
   createdAt: Date;
   editedAt: Date;
   lastLogin?: Date;
 };
+
 // custom validators //
 function adminHandleValidator(handle: string): Promise<boolean> {
   return mongoose.models["Administrator"].findOne({ handle: handle }).exec()
@@ -101,6 +103,11 @@ const AdministratorSchema: Schema = new Schema<IAdministrator>({
     type: EAdminLevel,
     required: true,
     default: EAdminLevel.Moderator
+  },
+  businessAccountId: {
+    type: Schema.Types.ObjectId, 
+    ref: "BusinessAccount",
+    default: null
   },
   storesManaged: [
     {

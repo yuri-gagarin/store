@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import { Types } from "mongoose";
-import Product, { IProduct } from "../models/Product";
-import ProductImage, { IProductImage } from "../models/ProductImage";
-import { IGenericController } from "./helpers/controllerInterfaces";
+import Product, { IProduct } from "../../models/Product";
+import ProductImage, { IProductImage } from "../../models/ProductImage";
+import { IGenericController } from "./../helpers/controllerInterfaces";
 // helpers //
-import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
+import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "./../helpers/controllerHelpers";
+import { IAdministrator } from "../../models/Administrator";
 
 interface IGenericProdRes {
   responseMsg: string;
@@ -117,7 +118,16 @@ class ProductsController implements IGenericController {
   create (req: Request, res: Response<IGenericProdRes>): Promise<Response> {
     const { name, description, details, price, images : productImages }: ProductParams = req.body;
     const imgIds: Types.ObjectId[] = [];
-
+    
+    const user: IAdministrator = req.user as IAdministrator;
+    // assert that an admin has a BusinessAccount set up //
+    if (!user.businessAccountId) {
+      console.log(125)
+      return respondWithInputError(res, "Account error", 401, [ "You must have or be tied to an account to create a Product "]);
+    }
+    /*
+    if ()
+    */
     if (Array.isArray(productImages) && (productImages.length > 1)) {
       for (const newImg of productImages) {
         imgIds.push(Types.ObjectId(newImg.url));

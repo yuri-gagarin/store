@@ -4,25 +4,55 @@ import faker from "faker";
 // server, models //
 import server from "../../server";
 import Product, { IProduct} from "../../models/Product";
-import { ProductParams } from "../../controllers/ProductsController";
+import { ProductParams } from "../../controllers/products_controller/ProductsController";
 // helpers //
 import { setupDB, clearDB } from "../helpers/dbHelpers";
 import { createAdmins, createProducts } from "../helpers/dataGeneration";
-
+import { createBusinessAcccount } from "../helpers/data_generations/businessAccontsGeneration";
+import Administrator, { IAdministrator } from "../../models/Administrator";
+import { ProductData } from "../../controllers/products_controller/type_declarations/productsControllerTypes";
 chai.use(chaiHttp);
 
 describe ("'ProductsController' API tests", () => {
   let totalProducts: number;
+  let firstAdmin: IAdministrator;
+  let secondAdmin: IAdministrator;
+  let thirdAdmin: IAdministrator;
+  ///
+  let firstAccountId: string;
+  let secondAccountId: string;
 
   before((done) => {
     setupDB()
       .then(() => {
-        return createAdmins(2);
+        return createAdmins(3);
       })
       .then((createdAdmins) => {
-        return Promise.all([ createProducts(5, createdAdmins[0]), createProducts(5, createdAdmins[1]) ]);
+        firstAdmin = createdAdmins[0];
+        secondAdmin = createdAdmins[1];
+        thirdAdmin = createdAdmins[2];
+
+        return Promise.all([
+          createBusinessAcccount({ admins: [ firstAdmin ] }),
+          createBusinessAcccount({ admins: [ secondAdmin ] })
+        ]);
       })
-      .then(() => Product.countDocuments().exec())
+      .then((busAcccounts) => {
+        firstAccountId = busAcccounts[0]._id as string;
+        secondAccountId = busAcccounts[1]._id as string;
+
+        return Promise.all([
+          createProducts(5, busAcccounts[0]),
+          createProducts(5, busAcccounts[1])
+        ]);
+      })
+      .then(() => {
+        return Promise.all([
+          Administrator.findOneAndUpdate({ _id: firstAdmin.id }, { $set: { businessAccountId: firstAccountId } }),
+          Administrator.findOneAndUpdate({ _id: secondAdmin.id }, { $set: { businessAccountId: secondAccountId } })
+        ]);
+      })
+      .then((_) => Product.countDocuments().exec())
       .then((number) => { totalProducts = number; done(); })
       .catch((error) => { done(error); });
   });
@@ -247,10 +277,18 @@ describe ("'ProductsController' API tests", () => {
   // END GET requests with queries tests //
   // GET request for specific product tests //
   // CONTEXT TEST PRODUCT CRUD without login credentials //
-  context("'ProductsController' CRUD API tets without login credentials", () => {
-    before(() => {
+  context("'ProductsController' CRUD API tets WITHOUT login credentials", () => {
+    let product: IProduct;
 
-    })
+    before((done) => {
+      Product.findOne({})
+        .then((foundProduct) => {
+          product = foundProduct!;
+          done();
+        })
+        .catch((err) => done(err));
+    });
+
     describe("POST '/api/products/create/' - CREATE action WITHOUT a proper login", () => {
       it("Should not not allow the 'ProductsController' CREATE action and respond properly", (done) => {
         chai.request(server)
@@ -259,21 +297,229 @@ describe ("'ProductsController' API tests", () => {
             if (err) done(err);
             // assert correct response //
             expect(response.status).to.equal(401);
-            expect(response.body.responseMsg).to.be.a("string");
-            expect(response.body.newProduct).to.be.undefined;
-            expect(response.body.error.message).to.equal("Unauthorized");
+            expect(response.error.text).to.equal("Unauthorized");
+            expect(response.body.createdProduct).to.be.undefined;
             done();
           });
-      })
+      });
+      it("Should NOT increase the number of 'Product' models in the database", (done) => {
+        Product.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(totalProducts);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
     });
     describe("PATCH '/api/products/update/:productId' - UPDATE action without a proper login", () => {
-
+      it("Should NOT allow the 'ProductsController' EDIT action and respond properly", (done) => {
+        chai.request(server)
+          .patch("/api/products/update/" + String(product._id))
+          .send({
+            firstName: "newname"
+          })
+          .end((err, response) => {
+            if (err) done(err);
+            // assert correct response //
+            expect(response.status).to.equal(401);
+            expect(response.error.text).to.equal("Unauthorized");
+            expect(response.body.editedProduct).to.be.undefined;
+            done();
+        });
+      });
+      it("Should NOT alter the 'Product' model in the database", (done) => {
+        Product.findOne({ _id: product._id }).exec()
+          .then((foundProduct) => {
+            expect(JSON.stringify(foundProduct)).to.equal(JSON.stringify(product));
+            done();
+          })
+          .catch((err) => done(err));
+      });
+      it("Should NOT modify the number of 'Product' model in the database", (done) => {
+        Product.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(totalProducts);
+            done();
+          })
+          .catch((err) => done(err));
+      });
     });
     describe("DELETE '/api/products/delete/:productId - DELETE action without a proper login", () => {
-
-    })
+      it("Should NOT allow the 'ProductsController' EDIT action and respond properly", (done) => {
+        chai.request(server)
+          .delete("/api/products/delete/" + String(product._id))
+          .end((err, response) => {
+            if (err) done(err);
+            // assert correct response //
+            expect(response.status).to.equal(401);
+            expect(response.error.text).to.equal("Unauthorized");
+            expect(response.body.createdProduct).to.be.undefined;
+            done();
+        });
+      });
+      it("Should NOT remove the 'Product' model from the database", (done) => {
+        Product.exists({ _id: product._id })
+          .then((exists) => {
+            expect(exists).to.equal(true);
+            done();
+          })
+          .catch((err) => done(err));
+      });
+      it("Should NOT modify the number of 'Product' model in the database", (done) => {
+        Product.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(totalProducts);
+            done();
+          })
+          .catch((err) => done(err));
+      });
+    });
   });
   // END  CONTEXT TEST PRODUCT CRUD without login credentials //
+  // TEST CONTEXT TEST PRODUCT CRUD with proper login credentials //
+  context("'ProductsController' CRUD API tests with proper login credentials", () => {
+    describe("'ProductsController' CRUD actions on a 'Product' they are able to EDIT with INVALID data input", () => {
+      // TEST POST '/api/products/create' CREATE action with invalid 'Product' data //
+      describe("POST '/api/products/create' CREATE action with invalid 'Product' data", () => {
+        let newProduct: ProductData;
+        let tokenWithAccount: string;
+        let tokenWithoutAccount: string;
+
+        before((done) => {
+          newProduct = {
+            name: faker.commerce.product(),
+            price: faker.commerce.price(10, 100),
+            description: faker.commerce.color(),
+            details: faker.lorem.paragraph()
+          };
+
+          chai.request(server)
+            .post("/api/admins/login")
+            .send({
+              email: firstAdmin.email,
+              password: "password"
+            })
+            .end((err, response) => {
+              if (err) done(err);
+              ({ token : tokenWithAccount } = response.body.jwtToken);
+              done();
+            });
+        });
+        // set a token for an admin without a BusinessAccount //
+        before((done) => {
+          chai.request(server) 
+            .post("/api/admins/login")
+            .send({
+              email: thirdAdmin.email,
+              password: "password"
+            })
+            .end((err, response) => {
+              if (err) done(err);
+              ({ token: tokenWithoutAccount } = response.body.jwtToken);
+              done();
+            });
+        });
+
+        it("Should NOT create a new 'Product' if admin does not have a 'BusinessAccount' set up", (done) => {
+          chai.request(server)
+            .post("/api/products/create")
+            .set({ "Authorization": tokenWithoutAccount })
+            .send({
+              ...newProduct
+            })
+            .end((err, response) => {
+              if (err) done(err);
+              // assert correct response //
+              expect(response.status).to.equal(401);
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.error).to.be.an("object");
+              expect(response.body.errorMessages).to.be.an("array");
+              expect(response.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+        
+        it("Should NOT create a new product WITHOUT a 'name' property", (done) => {
+          chai.request(server)
+            .post("/api/products/create")
+            .set({ "Authorization": tokenWithAccount })
+            .send({
+              ...newProduct,
+              name: ""
+            })
+            .end((err, response) => {
+              if (err) done(err);
+              expect(response.status).to.equal(422);
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.error).to.be.an("object");
+              expect(response.body.errorMessages).to.be.an("array");
+              expect(response.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+        it("Should NOT create a new product WITHOUT a 'price' property", (done) => {
+          chai.request(server)
+            .post("/api/products/create")
+            .set({ "Authorization": tokenWithAccount })
+            .send({
+              ...newProduct,
+              price: ""
+            })
+            .end((err, response) => {
+              if (err) done(err);
+              expect(response.status).to.equal(422);
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.error).to.be.an("object");
+              expect(response.body.errorMessages).to.be.an("array");
+              expect(response.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+        it("Should NOT create a new product WITHOUT a 'description' property", (done) => {
+          chai.request(server)
+            .post("/api/products/create")
+            .set({ "Authorization": tokenWithAccount })
+            .send({
+              ...newProduct,
+              description: ""
+            })
+            .end((err, response) => {
+              if (err) done(err);
+              expect(response.status).to.equal(422);
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.error).to.be.an("object");
+              expect(response.body.errorMessages).to.be.an("array");
+              expect(response.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+        it("Should NOT create a new product WITHOUT a 'details' property", (done) => {
+          chai.request(server)
+            .post("/api/products/create")
+            .set({ "Authorization": tokenWithAccount })
+            .send({
+              ...newProduct,
+              details: ""
+            })
+            .end((err, response) => {
+              if (err) done(err);
+              expect(response.status).to.equal(422);
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.error).to.be.an("object");
+              expect(response.body.errorMessages).to.be.an("array");
+              expect(response.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+      });
+      // END TEST POST '/api/products/create' CREATE action with invalid 'Product' data //
+
+    })
+  })
+  // END TEST CONTEXT TEST PRODUCT CRUD with proper login credentials //
+
   /*
   context("GET Request for specific Product", () => {
     describe("GET { '/api/products/:_id }", () => {

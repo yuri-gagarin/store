@@ -14,11 +14,21 @@ export interface IProduct extends Document {
   editedAt?: Date;
 }
 
+function validateBusinessAccount (businessAccountId: string) {
+  if (!businessAccountId) {
+    return false;
+  }
+  return true;
+}
 const ProductSchema: Schema = new Schema({
-  creatorId: {
+  businessAccountId: {
     type: Schema.Types.ObjectId, 
-    ref: "Administrator",
-    required: true
+    ref: "BusinessAccount",
+    required: true,
+    validate: {
+      validator: validateBusinessAccount,
+      message: "A valid business account Id is requited to create a new product"
+    }
   },
   name: {
     type: String,
@@ -41,7 +51,8 @@ const ProductSchema: Schema = new Schema({
   ],
   createdAt: {
     type: Date,
-    default: Date.now
+    default: new Date(Date.now()),
+    required: true
   },
   editedAt: {
     type: Date

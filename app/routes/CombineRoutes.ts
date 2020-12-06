@@ -13,7 +13,7 @@ import StoreItemRoutes from "../routes/StoreItemRoutes";
 import StoreItemImageRoutes from "./StoreItemImageRoutes";
 import StoreItemImgUploadController from "../controllers/StoreItemImgUplController";
 // products //
-import ProductsController from "../controllers/ProductsController";
+import ProductsController from "../controllers/products_controller/ProductsController";
 import ProductRoutes from "./ProductRoutes";
 import ProductImageRoutes from "./ProductImageRoutes";
 import ProductImageUploadController from "../controllers/ProductImgUplController";

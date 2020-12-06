@@ -17,6 +17,7 @@ import storeItemCategories from "./storeItemMockCategories";
 import { AdminData } from "../../controllers/admins_controller/type_declarations/adminsControllerTypes";
 import User, { IUser } from "../../models/User";
 import { UserData } from "../../controllers/users_controller/type_declarations/usersControllerTypes";
+import { IBusinessAccount } from "../../models/BusinessAccount";
 /*
   TODO 
   this module is getting extremely crowded with multiple data generators 
@@ -157,14 +158,16 @@ export const createServices = (numOfServices: number): Promise<IService[]> => {
 
 /**
  * Creates a set number of mock {Product} objects.
- * @param numOfProducts 
+ * @param numOfProducts - Number of products to create.
+ * @param busAccount - BusinessAccount model to tie the product to.
+ * @returns Promise<IProduct[]>
  */
-export const createProducts = (numOfProducts: number, admin: IAdministrator): Promise<IProduct[]> => {
+export const createProducts = (numOfProducts: number, busAccount: IBusinessAccount): Promise<IProduct[]> => {
   const createdProducts: Promise<IProduct>[] = [];
 
   for (let i = 0; i < numOfProducts; i++) {
     createdProducts.push(Product.create({
-      creatorId: admin._id,
+      businessAccountId: busAccount._id,
       name: faker.lorem.word(),
       description: faker.lorem.paragraph(),
       details: faker.lorem.paragraphs(3),

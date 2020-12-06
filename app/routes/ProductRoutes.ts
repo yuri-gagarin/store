@@ -1,4 +1,5 @@
 import { Router} from "express";
+import passport from "passport";
 import { RouteConstructor } from "./helpers/routeInterfaces";
 import { IGenericController } from "../controllers/helpers/controllerInterfaces";
 
@@ -27,13 +28,19 @@ class ProductRoutes extends RouteConstructor<IGenericController> {
     this.Router.route(this.viewProductRoute).get(this.controller.get);
   }
   private createProduct (): void {
-    this.Router.route(this.createProductRoute).post(this.controller.create);
+    this.Router
+      .route(this.createProductRoute)
+      .post(passport.authenticate("adminJWT", { session: false }), this.controller.create);
   }
   private editProduct (): void {
-    this.Router.route(this.editProductRoute).patch(this.controller.edit);
+    this.Router
+      .route(this.editProductRoute)
+      .patch(passport.authenticate("adminJWT", { session: false }), this.controller.edit);
   }
   private deleteProduct (): void {
-    this.Router.route(this.deleteProductRoute).delete(this.controller.delete);
+    this.Router
+      .route(this.deleteProductRoute)
+      .delete(passport.authenticate("adminJWT", { session: false }), this.controller.delete);
   }
 }
 
