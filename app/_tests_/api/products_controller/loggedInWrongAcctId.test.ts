@@ -1,22 +1,23 @@
-import chai, { expect } from "chai"
-import faker from "faker";
+// testing dependecies //
+import chai, { expect } from "chai";
 import chaiHTTP from "chai-http";
-import { ProductData } from "../../../controllers/products_controller/type_declarations/productsControllerTypes";
-import Administrator, { IAdministrator } from "../../../models/Administrator";
-import Product, { IProduct } from "../../../models/Product";
-import { createAdmins, createProducts } from "../../helpers/dataGeneration";
-import { createBusinessAcccount } from "../../helpers/data_generations/businessAccontsGeneration";
-import { clearDB, setupDB } from "../../helpers/dbHelpers";
+import faker from "faker";
+// server import /
 import server from "../../../server";
-import { doesNotMatch } from "assert";
+// models and model interfaces //
+import { ProductData } from "../../../controllers/products_controller/type_declarations/productsControllerTypes";
+import { IAdministrator } from "../../../models/Administrator";
+import Product, { IProduct } from "../../../models/Product";
+// helpers //
+import { clearDB } from "../../helpers/dbHelpers";
+import { setupProdControllerTests, loginAdmins } from "./helpers/setupProdControllerTest";
 
 chai.use(chaiHTTP);
 
-describe("'ProductsController' - Logged In WITH WRONG or MISSING BusinessAccount ID - API tests", () => {
+describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount ID - API tests", () => {
   let newProductData: ProductData;
   let updateProductData: ProductData;
   let productToUpdate: IProduct;
-  let updatedProduct: IProduct;
   let totalNumberOfProducts: number;
   // admin models first two have a 'BusinessAccount' set up, third does not //
   let firstAdmin: IAdministrator;
@@ -26,72 +27,29 @@ describe("'ProductsController' - Logged In WITH WRONG or MISSING BusinessAccount
   let firstAdminToken: string;
   let secondAdminToken: string;
   let thirdAdminToken: string;
-  // BusinessAccount ids //
-  let firstAdminBusAcctId: string;
-  let secondAdminBusAcctId: string;
   // setup DB, create models, count products //
   before((done) => {
-    setupDB()
-      .then(() => {
-        return createAdmins(3);
-      }) 
-      .then((adminsArr) => {
-        [ firstAdmin, secondAdmin, thirdAdmin ] = adminsArr;
-        return Promise.all([
-          createBusinessAcccount({ admins: [ firstAdmin ] }),
-          createBusinessAcccount({ admins: [ secondAdmin ] })
-        ]);
-      })
-      .then((busAccountArr) => {
-        [ firstAdminBusAcctId, secondAdminBusAcctId ] = busAccountArr.map((acc) => String(acc._id));
-        return Promise.all([
-          createProducts(5, busAccountArr[0]),
-          createProducts(5, busAccountArr[1])
-        ]);
-      })
-      .then((products) => {
-        productToUpdate = products[0][0];
-        return Promise.all([
-          Administrator.findOneAndUpdate({ _id: firstAdmin._id }, { $set: { businessAccountId: firstAdminBusAcctId } }, { new: true }),
-          Administrator.findOneAndUpdate({ _id: secondAdmin._id }, { $set: { businessAccountId: secondAdminBusAcctId } }, { new: true })
-        ]);
-      })
-      .then((updatedAdminArr) => {
-        [ firstAdmin, secondAdmin ] = (updatedAdminArr as IAdministrator[]);
+    setupProdControllerTests()
+      .then((response) => {
+        const { admins, products } = response;
+        ({ firstAdmin, secondAdmin, thirdAdmin } = admins);
+        ({ productToUpdate } = products);
         return Product.countDocuments().exec();
       })
-      .then((num) => {
-        totalNumberOfProducts = num;
+      .then((number) => {
+        totalNumberOfProducts = number;
         done();
       })
       .catch((err) => {
-        done(err)
-      });
+        done(err);
+      })
   });
   // login all admins and set the tokens //
   // yay callbacks //
   before((done) => {
-    Promise.all([
-      chai.request(server)
-        .post("/api/admins/login")
-        .send({ email: firstAdmin.email, password: "password" })
-        .then((res) => {
-          firstAdminToken = res.body.jwtToken.token;
-        }),
-      chai.request(server)
-        .post("/api/admins/login")
-        .send({ email: secondAdmin.email, password: "password" })
-        .then((res) => {
-          secondAdminToken = res.body.jwtToken.token;
-        }),
-      chai.request(server)
-        .post("/api/admins/login")
-        .send({ email: thirdAdmin.email, password: "password" })
-        .then((res) => {
-          thirdAdminToken = res.body.jwtToken.token;
-      }),
-    ])
-    .then((_) => {
+    loginAdmins(chai, server, [ firstAdmin, secondAdmin, thirdAdmin ])
+    .then((tokensArr) => {
+      [ firstAdminToken, secondAdminToken, thirdAdminToken ] = tokensArr;
       done();
     })
     .catch((err) => {
@@ -115,7 +73,7 @@ describe("'ProductsController' - Logged In WITH WRONG or MISSING BusinessAccount
   });
   after((done) => {
     clearDB().then(() => done()).catch((err) => done(err));
-  })
+  });
   
   // CONTEXT 'ProductsController' CREATE EDIT DELETE actions without 'BusinessAccount' set up //
   context("User without a 'BusinessAccount' set up, CREATE, EDIT, DELETE actions", () => {
@@ -298,7 +256,7 @@ describe("'ProductsController' - Logged In WITH WRONG or MISSING BusinessAccount
 
     // TEST Admin with wrong BusinessAccount DELETE action //
     
-    describe("DELETE '/api/products/update/:productId' - WRONG 'BusinessAccount' - DELETE action", () => {
+    describe("DELETE '/api/products/delete/:productId' - WRONG 'BusinessAccount' - DELETE action", () => {
       it("Should NOT allow DELETE of a 'Product' if Admin's  'BusinessAccount' _id doesnt match 'Product'", (done) => {
         chai.request(server)
           .delete("/api/products/delete/" + String(productToUpdate._id))
