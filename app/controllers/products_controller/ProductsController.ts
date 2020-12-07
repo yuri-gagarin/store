@@ -121,13 +121,13 @@ class ProductsController implements IGenericController {
     const { name, description, details, price, images : productImages }: ProductParams = req.body;
     const imgIds: Types.ObjectId[] = [];
     
-    const user: IAdministrator = req.user as IAdministrator;
+    const admin: IAdministrator = req.user as IAdministrator;
     // assert that a user is present //
-    if(!user) {
+    if(!admin) {
       return respondWithGeneralError(res, "Cannot resolve user", 401);
     }
     // assert that an admin has a BusinessAccount set up //
-    if (!user.businessAccountId) {
+    if (!admin.businessAccountId) {
       return respondWithInputError(res, "Account error", 401, [ "You must have or be tied to an account to create a Product "]);
     }
     // validate form input //
@@ -143,11 +143,14 @@ class ProductsController implements IGenericController {
     }
 
     const newProduct = new Product({
+      businessAccountId: admin.businessAccountId,
       name: name,
       description: description,
       details: details,
       price: price as number,
-      images: [ ...imgIds ]
+      images: [ ...imgIds ],
+      createdAt: new Date(Date.now()),
+      editedAt: new Date(Date.now())
     });
 
     return newProduct.save()
