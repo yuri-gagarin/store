@@ -22,10 +22,14 @@ class ProductRoutes extends RouteConstructor<IGenericController> {
     this.deleteProduct();
   }
   private getAllProducts (): void {
-    this.Router.route(this.viewAllProductsRoute).get(this.controller.index!);
+    this.Router
+      .route(this.viewAllProductsRoute)
+      .get(passport.authenticate("adminJWT", { session: false }), this.controller.index);
   }
   private getProduct (): void {
-    this.Router.route(this.viewProductRoute).get(this.controller.get);
+    this.Router
+      .route(this.viewProductRoute)
+      .get(passport.authenticate("adminJWT", { session: false }), this.controller.get);
   }
   private createProduct (): void {
     this.Router
