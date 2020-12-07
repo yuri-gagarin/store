@@ -167,16 +167,17 @@ class ProductsController implements IGenericController {
 
   edit (req: Request, res: Response<IGenericProdRes>): Promise<Response> {
     const { _id : productId } = req.params;
-    const { name, description, details, price, images : productImages }: ProductParams = req.body;
+    const { name, description, details, price, images : productImages = [] }: ProductParams = req.body;
     const updatedProductImgs: Types.ObjectId[] = [];
-    const user: IAdministrator = req.user as IAdministrator;
+
+    const admin: IAdministrator = req.user as IAdministrator;
 
     if (!productId) {
       return respondWithInputError(res, "Can't resolve Product", 400);
     }
     // ensure that a user has an account set up and that a user can edit this product //
-    if(user) {
-      if(!user.businessAccountId) {
+    if(admin) {
+      if(!admin.businessAccountId) {
         return respondWithInputError(res, "Account error", 401, [ "You must have or be tied to an account to update a Product" ]);
       }
     } else {
@@ -199,10 +200,18 @@ class ProductsController implements IGenericController {
       .then((product) => {
         
         if (product) {
-          if (String(product.businessAccountId) === String(user.businessAccountId)) {
+          if (String(product.businessAccountId) === String(admin.businessAccountId)) {
             return Product.findOneAndUpdate(
-              { _dd: product._id },
-              { $set: { name: name, price: (price as number), description: description, details: details, images: [ ...productImages ] } },
+              { _id: product._id },
+              { $set: { 
+                  name: name, 
+                  price: (price as number),
+                  description: description, 
+                  details: details, 
+                  editedAt: new Date(Date.now()), 
+                  images: [ ...productImages ] 
+                } 
+              },
               { new: true }
             )
             .populate("images").exec();

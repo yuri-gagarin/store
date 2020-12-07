@@ -18,6 +18,8 @@ chai.use(chaiHTTP);
 describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID DATA  - API tests", () => {
   let firstAdmin: IAdministrator;
   let createdProduct: IProduct;
+  let updatedProduct: IProduct;
+  let deletedProduct: IProduct;
   let productToUpdate: IProduct;
   let firstToken: string;
   let totalProducts: number;
@@ -55,6 +57,7 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID
   });
 
   context("Admin WITH a 'BusinessAccount' set up, CREATE, EDIT, DELETE actions", () => {
+    
     // TEST POST CREATE action Correct BusinessAccount - Invalid Data //
     describe("POST '/api/producs/create' - CORRECT 'BusinessAccount' - VALID DATA", () => {
       it("Should create a new 'Product' model, send back correct response", (done) => {
@@ -108,121 +111,60 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID
       });
 
     });
-    // END TEST POST CREATE action Correct BusinessAccount - Invalid Data //
-    /*
-    // TEST PATCH EDIT action Correct BusinessAccount - Invalid Data //
-    describe("PATCH '/api/producs/update/:productId' - CORRECT 'BusinessAccount' - INVALID DATA", () => {
-      it("Should NOT update an existing 'Product' model without a 'name' property", (done) => {
+    // END TEST POST CREATE action Correct BusinessAccount - VALID Data //
+    
+    // TEST PATCH EDIT action Correct BusinessAccount - VALID Data //
+    describe("PATCH '/api/producs/update/:productId' - CORRECT 'BusinessAccount' - VALID DATA", () => {
+      it("Should correctly update a 'Product' model, send back correct response", (done) => {
         chai.request(server)
-          .patch("/api/products/update/" + String(productToUpdate._id ))
+          .patch("/api/products/update/" + (productToUpdate._id))
           .set({ "Authorization": firstToken })
-          .send({
-            ...newProductData,
-            name: ""
-          })
+          .send({ ...updateProductData })
           .end((err, res) => {
             if (err) done(err);
-            expect(res.status).to.equal(422);
+            updatedProduct = res.body.editedProduct;
+            // asssert correct response //
+            expect(res.status).to.equal(200);
             expect(res.body.responseMsg).be.a("string");
-            expect(res.body.error).to.be.an("object");
-            expect(res.body.errorMessages).to.be.an("array");
-            expect(res.body.errorMessages.length).to.equal(1);
-            expect(res.body.errorMessages[0]).to.be.a("string");
-            expect(res.body.editedProduct).to.be.undefined;
+            expect(res.body.editedProduct).to.be.an("object");
+            expect(res.body.error).to.be.undefined;
+            expect(res.body.errorMessages).to.be.undefined;
             done();
           });
       });
-      it("Should NOT update an existing 'Product' model without a 'price' property", (done) => {
-        chai.request(server)
-          .patch("/api/products/update/" + String(productToUpdate._id ))
-          .set({ "Authorization": firstToken })
-          .send({
-            ...newProductData,
-            price: ""
-          })
-          .end((err, res) => {
-            if (err) done(err);
-            expect(res.status).to.equal(422);
-            expect(res.body.responseMsg).be.a("string");
-            expect(res.body.error).to.be.an("object");
-            expect(res.body.errorMessages).to.be.an("array");
-            expect(res.body.errorMessages.length).to.equal(1);
-            expect(res.body.errorMessages[0]).to.be.a("string");
-            expect(res.body.editedProduct).to.be.undefined;
-            done();
-          });
+      it("Should correctly set all properties on an updated 'Product' model", () => {
+        expect(String(updatedProduct.businessAccountId)).to.equal(String(firstAdmin.businessAccountId));
+        expect(updatedProduct.name).to.equal(updateProductData.name);
+        expect(updatedProduct.price.toString()).to.equal(parseInt((updateProductData.price as string)).toString());
+        expect(updatedProduct.description).to.equal(updateProductData.description);
+        expect(updatedProduct.details).to.equal(updateProductData.details);
+        expect(updatedProduct.images).to.be.an("array");
+        expect(updatedProduct.images.length).to.equal(0);
+        expect(updatedProduct.createdAt).to.be.a("string");
+        expect(updatedProduct.editedAt).to.be.a("string");
+        expect(updatedProduct.createdAt).to.not.equal(updatedProduct.editedAt);
       });
-      it("Should NOT update an existing 'Product' model without a 'description' property", (done) => {
-        chai.request(server)
-          .patch("/api/products/update/" + String(productToUpdate._id ))
-          .set({ "Authorization": firstToken })
-          .send({
-            ...newProductData,
-            description: ""
-          })
-          .end((err, res) => {
-            if (err) done(err);
-            expect(res.status).to.equal(422);
-            expect(res.body.responseMsg).be.a("string");
-            expect(res.body.error).to.be.an("object");
-            expect(res.body.errorMessages).to.be.an("array");
-            expect(res.body.errorMessages.length).to.equal(1);
-            expect(res.body.errorMessages[0]).to.be.a("string");
-            expect(res.body.editedProduct).to.be.undefined;
-            done();
-          });
-      });
-      it("Should NOT update an existing 'Product' model without a 'details' property", (done) => {
-        chai.request(server)
-          .patch("/api/products/update/" + String(productToUpdate._id ))
-          .set({ "Authorization": firstToken })
-          .send({
-            ...newProductData,
-            details: ""
-          })
-          .end((err, res) => {
-            if (err) done(err);
-            expect(res.status).to.equal(422);
-            expect(res.body.responseMsg).be.a("string");
-            expect(res.body.error).to.be.an("object");
-            expect(res.body.errorMessages).to.be.an("array");
-            expect(res.body.errorMessages.length).to.equal(1);
-            expect(res.body.errorMessages[0]).to.be.a("string");
-            expect(res.body.editedProduct).to.be.undefined;
-            done();
-          });
-      });
-      it("Should NOT update an existing 'Product' model with all empty properties", (done) => {
-        chai.request(server)
-          .patch("/api/products/update/" + String(productToUpdate._id ))
-          .set({ "Authorization": firstToken })
-          .send({})
-          .end((err, res) => {
-            if (err) done(err);
-            const errorsArr: string[] = res.body.errorMessages;
-            expect(res.status).to.equal(422);
-            expect(res.body.responseMsg).be.a("string");
-            expect(res.body.error).to.be.an("object");
-            expect(res.body.errorMessages).to.be.an("array");
-            expect(res.body.errorMessages.length).to.equal(4);
-            expect(res.body.editedProduct).to.be.undefined;
-            for (const errorMsg of errorsArr) {
-              expect(errorMsg).to.be.a("string");
-            }
-            done();
-          });
-      });
-      it("Should NOT alter the 'Product' model in question in any way", (done) => {
-        Product.findOne({ _id: productToUpdate._id }).exec()
-          .then((product) => {
-            expect(JSON.stringify(product)).to.equal(JSON.stringify(productToUpdate));
+      it("Should save the new 'Product' model in the database", (done) => {
+        Product.exists({ _id: updatedProduct._id })
+          .then((exists) => {
+            expect(exists).to.equal(true);
             done();
           })
           .catch((err) => {
             done(err);
           });
       });
-      it("Should NOT alter the number 'Product' models in the database", (done) => {
+      it("Should correctly save all fields in database, edited Product", (done) => {
+        Product.findOne({ _id: updatedProduct._id })
+          .then((savedProduct) => {
+            expect(JSON.stringify(savedProduct)).to.equal(JSON.stringify(updatedProduct));
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+      it("Should NOT alter the number of 'Product' model in the database", (done) => {
         Product.countDocuments().exec()
           .then((number) => {
             expect(number).to.equal(totalProducts);
@@ -233,9 +175,51 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID
           });
       });
 
-    })
-    // END TEST PATCH EDIT action Correct BusinessAccount - Invalid Data //
-    */
+    });
+    
+    // END TEST PATCH EDIT action Correct BusinessAccount - VALID Data //
+
+    // TEST DELETE DELETE action Correct BusinessAccount - Valid Data //
+    describe("DELETE '/api/producs/delete/:productId' - CORRECT 'BusinessAccount' - VALID DATA", () => {
+      it("Should correctly delete a 'Product' model, send back correct response", (done) => {
+        chai.request(server)
+          .delete("/api/products/delete/" + (productToUpdate._id))
+          .set({ "Authorization": firstToken })
+          .end((err, res) => {
+            if (err) done(err);
+            deletedProduct = res.body.deletedProduct;
+            // asssert correct response //
+            expect(res.status).to.equal(200);
+            expect(res.body.responseMsg).be.a("string");
+            expect(res.body.deletedProduct).to.be.an("object");
+            expect(res.body.error).to.be.undefined;
+            expect(res.body.errorMessages).to.be.undefined;
+            done();
+          });
+      });
+      it("Should remove the 'Product' model from the database", (done) => {
+        Product.exists({ _id: deletedProduct._id })
+          .then((exists) => {
+            expect(exists).to.equal(false);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+      it("Should DECREMENT number of 'Product' models in the database exactly by 1", (done) => {
+        Product.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(totalProducts - 1);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+    });
+    // END TEST DELETE DELETE action Correct BusinessAccount - Valid Data //
+
   });
  
 });
