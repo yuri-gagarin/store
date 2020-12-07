@@ -1,10 +1,10 @@
 import mongoose, { Document, Schema } from "mongoose";
-import { IAdministrator } from "./Administrator";
+import { IBusinessAccount } from "./BusinessAccount";
 import { IProductImage } from "./ProductImage";
 type ProductImgRef = mongoose.Types.ObjectId;
 
 export interface IProduct extends Document {
-  creatorId: (mongoose.Types.ObjectId | IAdministrator);
+  businessAccountId: (mongoose.Types.ObjectId | IBusinessAccount);
   name: string;
   description: string;
   details: string;

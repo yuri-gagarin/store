@@ -28,7 +28,7 @@ export const validateProductData = ({ name, price, description, details } : Prod
   }
   // validate details //
   if(details) {
-    if (details.length) {
+    if (details.length < 5) {
       response.valid = false;
       response.errorMessages.push("Please type in at least 5 letters into details field");
     } 

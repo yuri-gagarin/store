@@ -21,6 +21,13 @@ export class NotFoundError extends GeneralError {
     this.errorMessages = messages;
   }
 };
+export class NotAllowedError extends GeneralError {
+  public errorMessages: string[];
+  constructor(errMessage: string, messages: string[], statuscode?: number) {
+    super(errMessage, (statuscode ? statuscode : 401));
+    this.errorMessages = messages;
+  }
+};
 export type ErrorResponse = {
   responseMsg: string;
   errorMessages?: string[]
@@ -30,33 +37,26 @@ export type GenControllerError = (ValidationError | NotFoundError | GeneralError
 
 export const processErrorResponse = (res: Response<ErrorResponse>, err: GenControllerError): Promise<Response> => {
   return Promise.resolve().then(() => {
-    if (err instanceof ValidationError) {
+    if ((err instanceof ValidationError) || (err instanceof NotFoundError) || (err instanceof NotAllowedError)) {
       const { statusCode, errorMessages } = err; 
       return res.status(statusCode).json({
         responseMsg: "Validation error",
         errorMessages: errorMessages,
         error: err
-      })
-    } else if (err instanceof NotFoundError) {
-      const { statusCode, errorMessages } = err;
-      return res.status(statusCode).json({
-        responseMsg: "Not found",
-        errorMessages: errorMessages,
-        error: err
-      })
+      });
     } else if (err instanceof GeneralError) {
       const { statusCode } = err;
       return res.status(statusCode).json({
-        responseMsg: "An error occured",
+        responseMsg: "General Error",
         errorMessages: [ err.message ],
         error: err
-      })
+      });
     } else {
       return res.status(500).json({
         responseMsg: "Something went wrong on our side",
         errorMessages: [ (err as Error).message ],
         error: err
-      })
+      });
     }
   });
 };

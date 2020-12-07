@@ -439,10 +439,33 @@ describe ("'ProductsController' API tests", () => {
     describe("'ProductsController' CRUD actions on a 'Product' a user CANNOT EDIT or DELETE", () => {
       describe("PATCH '/api/products/update/:productId' EDIT action when a User DOES NOT have a 'BusinessAccount' set up", () => {
 
-        it("Should NOT Update a 'Product' if admin does not have a 'BusinessAccount' set up", (done) => {
+        it("Should NOT allow EDIT of a 'Product' if admin does not have a 'BusinessAccount' set up", (done) => {
           chai.request(server)
             .patch("/api/products/update/" + String(productToUpdate._id))
             .set({ "Authorization": tokenWithoutAccount })
+            .send({
+              ...newProduct
+            })
+            .end((err, response) => {
+              if (err) done(err);
+              // assert correct response //
+              expect(response.status).to.equal(401);
+              expect(response.body.newProduct).to.be.undefined;
+              expect(response.body.responseMsg).to.be.a("string");
+              expect(response.body.error).to.be.an("object");
+              expect(response.body.errorMessages).to.be.an("array");
+              expect(response.body.errorMessages[0]).to.be.a("string");
+              done();
+            });
+        });
+  
+      });
+      describe("PATCH '/api/products/update/:productId' EDIT action when a User's 'BusinessAccount' '_id' doen't match with 'Product'", () => {
+
+        it("Should NOT allow EDIT of a 'Product' if admin does not have a matching 'BusinessAccount' '_id'", (done) => {
+          chai.request(server)
+            .patch("/api/products/update/" + String(productToUpdate._id))
+            .set({ "Authorization": secondAdmin })
             .send({
               ...newProduct
             })

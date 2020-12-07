@@ -1,12 +1,13 @@
-import { Request, Response } from "express";
+import e, { Request, Response } from "express";
 import { Types } from "mongoose";
 import Product, { IProduct } from "../../models/Product";
 import ProductImage, { IProductImage } from "../../models/ProductImage";
 import { IGenericController } from "./../helpers/controllerInterfaces";
 // helpers //
-import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "./../helpers/controllerHelpers";
+import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError, resolveStoreItemImgDirectories, resolveDirectoryOfImg, removeDirectoryWithFiles } from "./../helpers/controllerHelpers";
 import { IAdministrator } from "../../models/Administrator";
 import { validateProductData } from "../products_controller/helpers/validationHelpers"; 
+import { NotFoundError, ValidationError, NotAllowedError, processErrorResponse, GeneralError } from "../helpers/errorHandlers";
 
 interface IGenericProdRes {
   responseMsg: string;
@@ -122,6 +123,7 @@ class ProductsController implements IGenericController {
     
     const user: IAdministrator = req.user as IAdministrator;
     // assert that a user is present //
+    console.log(user)
     if(!user) {
       return respondWithGeneralError(res, "Cannot resolve user", 401);
     }
@@ -157,7 +159,7 @@ class ProductsController implements IGenericController {
         });
       })
       .catch((err) => {
-        return respondWithDBError(res, err);
+        return processErrorResponse(res, err);
       });
   }
 
@@ -166,6 +168,7 @@ class ProductsController implements IGenericController {
     const { name, description, details, price, images : productImages }: ProductParams = req.body;
     const updatedProductImgs: Types.ObjectId[] = [];
     const user: IAdministrator = req.user as IAdministrator;
+
     if (!productId) {
       return respondWithInputError(res, "Can't resolve Product", 400);
     }
@@ -190,20 +193,24 @@ class ProductsController implements IGenericController {
       }
     }
 
-    return Product.findOneAndUpdate(
-      { _id: productId },
-      { 
-        $set: {
-          name: name,
-          description: description,
-          details: details,
-          price: price as number,
-          images: [ ...updatedProductImgs ],
-          editedAt: new Date()
-        },
-      },
-      { new: true }
-     ).populate("images").exec()
+    return Product.findOne({ _id: productId })
+      .then((product) => {
+        
+        if (product) {
+          if (String(product.businessAccountId) === String(user.businessAccountId)) {
+            return Product.findOneAndUpdate(
+              { _dd: product._id },
+              { $set: { name: name, price: (price as number), description: description, details: details, images: [ ...productImages ] } },
+              { new: true }
+            )
+            .populate("images").exec();
+          } else {
+            throw new NotAllowedError("Updated not allowed", [ "Cannot update a Product which doesnt belong to your account "], 401);
+          }
+        } else {
+          throw new NotFoundError("Not found", [ "Cannot resolve Product to update" ], 404);
+        }
+      })
       .then((editedProduct) => {
         return res.status(200).json({
           responseMsg: "Product updated",
@@ -211,69 +218,78 @@ class ProductsController implements IGenericController {
         });
       })
       .catch((error) => {
-        console.error(error);
-        return respondWithDBError(res, error);
+        return processErrorResponse(res, error);
       });
-       
   }
 
   delete (req: Request, res: Response<IGenericProdRes>): Promise<Response> {
-   const { _id } = req.params;
+    let deletedImages: number;
+    let productImage: IProductImage;
+    const productImagePaths: string[] = [];
+    const productImageIds: string[] = [];
+    const deletePromises: Promise<boolean>[] = [];
 
-   let deletedImages: number;
-   const productImagePaths: string[] = [];
-   const productImageIds: string[] = [];
-   const deletePromises: Promise<boolean>[] = [];
+    const { _id: productId } = req.params;
+    
+    const admin: IAdministrator = req.user as IAdministrator;
+    if (!admin) {
+      return respondWithGeneralError(res, "Cannot resolve Admin", 401);
+    }
+   
+    if (!productId) {
+      return respondWithInputError(res, "Can't resolve Product");
+    }
 
-   if (!_id) {
-     return respondWithInputError(res, "Can't resolve Product");
-   }
-
-   return Product.findOne({ _id: _id})
-    .populate("images")
-    .then((product) => {
-      // first delete all Product images //
-      if (product) {
-        for (const image of product.images) {
-          const img = image as IProductImage;
-          productImagePaths.push(img.absolutePath);
-          productImageIds.push(img._id);
+    return Product.findOne({ _id: productId })
+      .populate({ path: "images", options: { limit: 1 } })
+      .exec()
+      .then((product) => {
+        // first assert that a correct admin is deleting //
+        if (product) {
+          return Promise.resolve(product);
+        } else {
+          throw new NotFoundError("Not found", [ "Can't resolve Product to delete" ], 404);
         }
-        for (const path of productImagePaths) {
-          deletePromises.push(deleteFile(path));
+      })
+      .then((product) => {
+        if (String(product.businessAccountId) === String(admin.businessAccountId)) {
+          // assuming the right account is deleting first resolve images //
+          if (product.images.length > 0) productImage = (product.images[0] as IProductImage);
+          return Promise.resolve();
+        } else {
+          throw new NotAllowedError("Operation not allowed", [ "Not allowed to delete a Product which does not belong to your Account" ], 401);
         }
-        return Promise.all(deletePromises)
-          .then(() => {
-            return ProductImage.deleteMany({ _id: { $in: [ ...productImageIds ] } })
-              .then(({ n }) => {
-                n ? deletedImages = n : 0;
-                return Product.findOneAndDelete({ _id: _id });
-              })
-              .then((product) => {
-                if (product) {
-                  return res.status(200).json({
-                    responseMsg: "Deleted the Product and " + deletedImages,
-                    deletedProduct: product
-                  });
-                }
-                else {
-                  return respondWithDBError(res, new Error("Can't resolve delete"));
-                }
-                
-              })
-              .catch((error) => {
-                return respondWithDBError(res, error);
-              });
-          })
-          .catch((err: Error) => {
-            return respondWithGeneralError(res, err.message, 400);
+      })
+      .then((_) => {
+        if (productImage && productImage.absolutePath) {
+          const imagesDirectory = resolveDirectoryOfImg(productImage.absolutePath);
+          return removeDirectoryWithFiles(imagesDirectory);
+        } else {
+          return Promise.resolve({ success: true, numberRemoved: 0, message: "No images" });
+        }
+      })
+      .then((_) => {
+        return ProductImage.deleteMany({ productId: productId }).exec();
+      })
+      .then(({ n }) => {
+        n ? deletedImages = n : 0;
+        return Product.findOneAndDelete({ _id: productId }).exec();
+      })  
+      .then((product) => {
+        if (product) {
+          return res.status(200).json({
+            responseMsg: "Deleted the Product and " + deletedImages,
+            deletedProduct: product
           });
-      } else {
-        return respondWithInputError(res, "Can't find Product to delete");
-      }
-    });
+        } else {
+          throw new GeneralError("Something went very wrong", 500);
+        }
+      })
+      .catch((err) => {
+        return processErrorResponse(res, err);
+      });
+    
   }
-
 }
 
 export default ProductsController;

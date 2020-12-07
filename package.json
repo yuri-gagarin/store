@@ -47,7 +47,7 @@
     "start:watch": "env NODE_ENV=development nodemon",
     "build": "rimraf ./build && tsc",
     "lint": "eslint . --ext .ts",
-    "test:api": "env NODE_ENV=test mocha -r ts-node/register ./app/_tests_/api/*.test.ts --recursive --exit",
+    "test:api": "env NODE_ENV=test mocha -r ts-node/register ./app/_tests_/api/**/*.test.ts --recursive --exit",
     "test:unit": "env NODE_ENV=test mocha -r ts-node/register ./app/_tests_/unit/**/*.test.ts --recursive --exit",
     "seedDB": "env NODE_ENV=development node -r ts-node/register ./app/db/seeds.ts",
     "dropDB": "env NODE_ENV=development node -r ts-node/register ./app/db/dropDB.ts",
