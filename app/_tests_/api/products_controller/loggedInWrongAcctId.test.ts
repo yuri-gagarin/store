@@ -12,7 +12,7 @@ import { doesNotMatch } from "assert";
 
 chai.use(chaiHTTP);
 
-describe("'ProductsController' - Logged In - API tests", () => {
+describe("'ProductsController' - Logged In WITH WRONG or MISSING BusinessAccount ID - API tests", () => {
   let newProductData: ProductData;
   let updateProductData: ProductData;
   let productToUpdate: IProduct;
@@ -116,13 +116,15 @@ describe("'ProductsController' - Logged In - API tests", () => {
   after((done) => {
     clearDB().then(() => done()).catch((err) => done(err));
   })
-  /*
+  
   // CONTEXT 'ProductsController' CREATE EDIT DELETE actions without 'BusinessAccount' set up //
   context("User without a 'BusinessAccount' set up, CREATE, EDIT, DELETE actions", () => {
+    // TEST Admin with no business account CREATE action //
     describe("POST '/api/products/create' - NO 'BusinessAccount' - CREATE action", () => {
+
       it("Should NOT allow CREATE of a 'Product' if admin does not have a 'BusinessAccount' set up", (done) => {
         chai.request(server)
-          .post("/api/products/create/")
+          .post("/api/products/create")
           .set({ "Authorization": thirdAdminToken })
           .send({
             ...newProductData
@@ -139,11 +141,114 @@ describe("'ProductsController' - Logged In - API tests", () => {
             done();
           });
       });
-      
+      it("Should NOT add a new 'Product' model to the database", (done) => {
+        Product.countDocuments().exec()
+         .then((number) => {
+          expect(number).to.equal(totalNumberOfProducts);
+          done();
+         })
+         .catch((err) => {
+           done(err);
+         });
+      });
+
     });
+    // END TEST Admin with no business account CREATE action //
+
+    // TEST Admin with no Business account EDIT action //
+    describe("PATCH '/api/products/edit/:productId' - NO 'BusinessAccount' - EDIT action", () => {
+
+      it("Should NOT allow EDIT of a 'Product' if admin does not have a 'BusinessAccount' set up", (done) => {
+        chai.request(server)
+          .patch("/api/products/update/" + String(productToUpdate._id))
+          .set({ "Authorization": thirdAdminToken })
+          .send({
+            ...updateProductData
+          })
+          .end((err, response) => {
+            if (err) done(err);
+            // assert correct response //
+            expect(response.status).to.equal(401);
+            expect(response.body.newProduct).to.be.undefined;
+            expect(response.body.responseMsg).to.be.a("string");
+            expect(response.body.error).to.be.an("object");
+            expect(response.body.errorMessages).to.be.an("array");
+            expect(response.body.errorMessages[0]).to.be.a("string");
+            done();
+          });
+      });
+      it("Should NOT alter the 'Product' model in question in the database", (done) => {
+        Product.findOne({ _id: productToUpdate._id }).exec()
+          .then((product) => {
+            expect(JSON.stringify(product)).to.equal(JSON.stringify(productToUpdate));
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+      it("Should NOT alter the number of 'Product' models in the database", (done) => {
+        Product.countDocuments().exec()
+          .then((val) => {
+            expect(val).to.equal(totalNumberOfProducts);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+
+    });
+    // END TEST Admin with no Busniess accoint EDIT action //
+
+    // TEST Admin with no Busniess account DELETE action //
+    describe("DELETE '/api/products/delete/:productId' - NO 'BusinessAccount' - delete action", () => {
+
+      it("Should NOT allow DELETE of a 'Product' if admin does not have a 'BusinessAccount' set up", (done) => {
+        chai.request(server)
+          .delete("/api/products/delete/" + String(productToUpdate._id))
+          .set({ "Authorization": thirdAdminToken })
+          .send({
+            ...updateProductData
+          })
+          .end((err, response) => {
+            if (err) done(err);
+            // assert correct response //
+            expect(response.status).to.equal(401);
+            expect(response.body.newProduct).to.be.undefined;
+            expect(response.body.responseMsg).to.be.a("string");
+            expect(response.body.error).to.be.an("object");
+            expect(response.body.errorMessages).to.be.an("array");
+            expect(response.body.errorMessages[0]).to.be.a("string");
+            done();
+          });
+      });
+      it("Should NOT alter the 'Product' model in question in the database", (done) => {
+        Product.findOne({ _id: productToUpdate._id }).exec()
+          .then((product) => {
+            expect(JSON.stringify(product)).to.equal(JSON.stringify(productToUpdate));
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+      it("Should NOT alter the number of 'Product' models in the database", (done) => {
+        Product.countDocuments().exec()
+          .then((val) => {
+            expect(val).to.equal(totalNumberOfProducts);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+
+    });
+    // END TEST Admin with no Busniess account DELETE action //
   });
   // END CONTEXT 'ProductsController' CREATE EDIT DELETE actions without 'BusinessAccount' set up //
-  */
+  
   // CONTEXT 'ProductsController' EDIT DELETE actions with wrong 'BusinessAccount //
   context("User with a wrong 'BusinessAccount' set up EDIT, DELETE actions", () => {
     // TEST Admin with wrong business account EDIT action //
@@ -236,4 +341,5 @@ describe("'ProductsController' - Logged In - API tests", () => {
     
   });
   // END CONTEXT 'ProductsController' EDIT DELETE actions with wrong 'BusinessAcccount //
+  
 });

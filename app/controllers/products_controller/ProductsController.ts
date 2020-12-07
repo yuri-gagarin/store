@@ -123,7 +123,6 @@ class ProductsController implements IGenericController {
     
     const user: IAdministrator = req.user as IAdministrator;
     // assert that a user is present //
-    console.log(user)
     if(!user) {
       return respondWithGeneralError(res, "Cannot resolve user", 401);
     }
