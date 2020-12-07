@@ -6,13 +6,15 @@ import { IStore } from "../../models/Store";
 import { Document, Error, Model } from "mongoose";
 import { IAdministrator } from "../../models/Administrator";
 import { IUser } from "../../models/User";
-
+import { ValidationError } from "../helpers/errorHandlers"
 export const respondWithInputError = (res: Response, msg: string, status?: number, messages?: string[]): Promise<Response> => {
-  return new Promise((resolve) =>{
-    return resolve(res.status(status ? status : 400).json({
+  return new Promise((resolve) => {
+    messages = messages ? messages : [ "Something went wrong "];
+    const error  = new ValidationError(msg, messages, status);
+    return resolve(res.status(error.statusCode).json({
       responseMsg: "Input error",
-      error: new Error(msg),
-      errorMessages: messages ? messages : []
+      error: error,
+      errorMessages: error.errorMessages
     }));
   });
 };
