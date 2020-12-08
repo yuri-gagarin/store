@@ -17,8 +17,9 @@ chai.use(chaiHTTP);
 describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount ID - GET/POST/PATCH/DELETE - API tests", () => {
   let newProductData: ProductData;
   let updateProductData: ProductData;
+  // product models //
   let firstAdminsProduct: IProduct;
-  let totalNumberOfProducts: number;
+  let secondAdminsProduct: IProduct;
   // admin models first two have a 'BusinessAccount' set up, third does not //
   let firstAdmin: IAdministrator;
   let secondAdmin: IAdministrator;
@@ -27,13 +28,15 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
   let firstAdminToken: string;
   let secondAdminToken: string;
   let thirdAdminToken: string;
+  // total number of Product models in database //
+  let totalNumberOfProducts: number;
   // setup DB, create models, count products //
   before((done) => {
     setupProdControllerTests()
       .then((response) => {
         const { admins, products } = response;
         ({ firstAdmin, secondAdmin, thirdAdmin } = admins);
-        ({ firstAdminsProduct } = products);
+        ({ firstAdminsProduct, secondAdminsProduct } = products);
         return Product.countDocuments().exec();
       })
       .then((number) => {
@@ -74,13 +77,14 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
   after((done) => {
     clearDB().then(() => done()).catch((err) => done(err));
   });
-  /*
-  // CONTEXT 'ProductsController' CREATE EDIT DELETE actions without 'BusinessAccount' set up //
-  context("User without a 'BusinessAccount' set up, GET_MANY, GET_ONE, CREATE, EDIT, DELETE actions", () => {
-    // TEST GET with no business account INDEX action //
+  
+  // CONTEXT 'ProductsController' GET_MANY GET_ONE CREATE EDIT DELETE actions without 'BusinessAccount' set up //
+  context("Admin without a 'BusinessAccount' set up, GET_MANY, GET_ONE, CREATE, EDIT, DELETE actions", () => {
+
+    // TEST GET with no business account GET_MANY action //
     describe("GET '/api/products - NO 'NO BusinessAccount' - GET_MANY action", () => {
 
-      it("Should NOT allow the INDEX action of 'ProductsController' and return correct response", (done) => {
+      it("Should NOT allow the GET_MANY action of 'ProductsController' and return correct response", (done) => {
         chai.request(server)
           .get("/api/products")
           .set({ "Authorization": thirdAdminToken })
@@ -109,14 +113,14 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
       });
 
     });
-    // END TEST GET with no business account INDEX ation //
+    // END TEST GET with no business account GET_MANY action //
 
-    // TEST GET with no business account GET action //
+    // TEST GET with no business account GET_ONE action //
     describe("GET '/api/products/:productId' - NO 'BusinessAccont' - GET_ONE action", () => {
 
-      it("Should NOT allow the GET action of 'ProductsController' and return correct response", (done) => {
+      it("Should NOT allow the GET_ONE action of 'ProductsController' and return correct response", (done) => {
         chai.request(server)
-          .get("/api/products/" + (productToUpdate._id as string))
+          .get("/api/products/" + (firstAdminsProduct._id as string))
           .set({ "Authorization": thirdAdminToken })
           .end((err, response) => {
             if (err) done(err);
@@ -132,9 +136,9 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
           });
       });
       it("Should NOT edit the 'Product' in question in any way", (done) => {
-        Product.findOne({ _id: productToUpdate._id })
+        Product.findOne({ _id: firstAdminsProduct._id })
           .then((foundProduct) => {
-            expect(JSON.stringify(foundProduct)).to.equal(JSON.stringify(productToUpdate));
+            expect(JSON.stringify(foundProduct)).to.equal(JSON.stringify(firstAdminsProduct));
             done();
           })
           .catch((err) => {
@@ -153,7 +157,7 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
       });
       
     });
-    // END TEST GET with no business acount GET action //
+    // END TEST GET with no business acount GET_ONE action //
     
     // TEST Admin with no business account CREATE action //
     describe("POST '/api/products/create' - NO 'BusinessAccount' - CREATE action", () => {
@@ -196,7 +200,7 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
 
       it("Should NOT allow EDIT of a 'Product' if admin does not have a 'BusinessAccount' set up", (done) => {
         chai.request(server)
-          .patch("/api/products/update/" + String(productToUpdate._id))
+          .patch("/api/products/update/" + String(firstAdminsProduct._id))
           .set({ "Authorization": thirdAdminToken })
           .send({
             ...updateProductData
@@ -214,9 +218,9 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
           });
       });
       it("Should NOT alter the 'Product' model in question in the database", (done) => {
-        Product.findOne({ _id: productToUpdate._id }).exec()
+        Product.findOne({ _id: firstAdminsProduct._id }).exec()
           .then((product) => {
-            expect(JSON.stringify(product)).to.equal(JSON.stringify(productToUpdate));
+            expect(JSON.stringify(product)).to.equal(JSON.stringify(firstAdminsProduct));
             done();
           })
           .catch((err) => {
@@ -242,7 +246,7 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
 
       it("Should NOT allow DELETE of a 'Product' if admin does not have a 'BusinessAccount' set up", (done) => {
         chai.request(server)
-          .delete("/api/products/delete/" + String(productToUpdate._id))
+          .delete("/api/products/delete/" + String(firstAdminsProduct._id))
           .set({ "Authorization": thirdAdminToken })
           .send({
             ...updateProductData
@@ -260,9 +264,9 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
           });
       });
       it("Should NOT alter the 'Product' model in question in the database", (done) => {
-        Product.findOne({ _id: productToUpdate._id }).exec()
+        Product.findOne({ _id: firstAdminsProduct._id }).exec()
           .then((product) => {
-            expect(JSON.stringify(product)).to.equal(JSON.stringify(productToUpdate));
+            expect(JSON.stringify(product)).to.equal(JSON.stringify(firstAdminsProduct));
             done();
           })
           .catch((err) => {
@@ -285,9 +289,53 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
     
   });
   // END CONTEXT 'ProductsController' INDEX GET CREATE EDIT DELETE actions without 'BusinessAccount' set up //
-  */
-  // CONTEXT 'ProductsController' INDEX GET EDIT DELETE actions with wrong 'BusinessAccount //
-  context("User with a wrong 'BusinessAccount' set up EDIT, DELETE actions", () => {
+  
+  // CONTEXT 'ProductsController' GET_ONE GET EDIT DELETE actions with wrong 'BusinessAccount //
+  context("Admin with a wrong 'BusinessAccount' set up GET_ONE, EDIT, DELETE actions", () => {
+    // TEST GET GET_ONE controller action with wrong 'BusinesAccount' //
+    describe("GET '/api/products/:productId' - WRONG 'BusinessAccount' - GET_ONE action", () => {
+
+      it("Should NOT return a 'Product' model which belongs to another account", (done) => {
+        chai.request(server)
+          .get("/api/products/" + String(firstAdminsProduct._id) )
+          .set({ "Authorization": secondAdminToken })
+          .end((err, response) => {
+            if (err) done(err);
+            // assert correct response //
+            expect(response.status).to.equal(401);
+            expect(response.body.product).to.be.undefined;
+            expect(response.body.responseMsg).to.be.a("string");
+            expect(response.body.error).to.be.an("object");
+            expect(response.body.errorMessages).to.be.an("array");
+            expect(response.body.errorMessages.length).to.equal(1);
+            expect(response.body.errorMessages[0]).to.be.a("string");
+            done();
+          });
+      });
+      it("Should NOT edit a 'Product' model in the database in any way", (done) => {
+        Product.findOne({ _id: firstAdminsProduct._id }).exec()
+          .then((product) => {
+            expect(JSON.stringify(product)).to.equal(JSON.stringify(firstAdminsProduct));
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+      it("Should NOT alter the number of 'Product' models in the database", (done) => {
+        Product.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(totalNumberOfProducts);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+    
+    });
+    // END TEST GET GET_ONE controller action with wrong 'BusinessAccount' //
+    
     // TEST Admin with wrong business account EDIT action //
     describe("PATCH '/api/products/update/:productId' - WRONG 'BusinessAccount' - EDIT action", () => {
       it("Should NOT allow EDIT of a 'Product' if Admin's  'BusinessAccount' _id doesnt match 'Product'", (done) => {
@@ -334,7 +382,6 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
     // END TEST Admin with wrong business account EDIT action //
 
     // TEST Admin with wrong BusinessAccount DELETE action //
-    
     describe("DELETE '/api/products/delete/:productId' - WRONG 'BusinessAccount' - DELETE action", () => {
       it("Should NOT allow DELETE of a 'Product' if Admin's  'BusinessAccount' _id doesnt match 'Product'", (done) => {
         chai.request(server)

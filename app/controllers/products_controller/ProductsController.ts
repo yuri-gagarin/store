@@ -123,19 +123,27 @@ class ProductsController implements IGenericController {
     }
     //
     return Product.findOne({ _id: productId })
-      .populate("images").exec()
       .then((product) => {
         if (product) {
-          return res.status(200).json({
-            responseMsg: "Returned product",
-            product: product
-          });
+          if ((product.businessAccountId as Types.ObjectId).equals(admin.businessAccountId!)) {
+            return (
+              product.populate("images").execPopulate()
+            );
+          } else {
+            throw new NotAllowedError("Not Allowed", [ "Your account canot access other accounts Products" ]);
+          }
         } else {
-          return respondWithInputError(res, "Could not find Product", 404);
+          throw new NotFoundError("Not Found", [ "Product was not found" ]);
         }
       })
+      .then((product) => {
+        return res.status(200).json({
+          responseMsg: "Returned product",
+          product: product
+        });
+      })
       .catch((error) => {
-        return respondWithDBError(res, error);
+        return processErrorResponse(res, error);
       });
   }
 

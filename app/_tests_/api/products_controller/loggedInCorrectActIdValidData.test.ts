@@ -58,7 +58,7 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID
 
   context("Admin WITH a 'BusinessAccount' set up, GET_MANY, GET_ONE, CREATE, EDIT, DELETE actions", () => {
     // TEST GET GET_MANY action correct BusinessAccount //
-    describe("GET '/api/products' - CORRECT 'BusinessAccount'", () => {
+    describe("GET '/api/products' - CORRECT 'BusinessAccount' - GET_MANY action", () => {
 
       it("Should fetch 'Product' models and return a correct response", (done) => {
         chai.request(server)
@@ -96,7 +96,7 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID
     // END TEST GET GET_MANY action correct BusinessAccount //
     
     // TEST GET GET_ONE action correct BusinessAccount //
-    describe("GET '/api/products/:productId' - CORRECT 'BusinessAccount'", () => {
+    describe("GET '/api/products/:productId' - CORRECT 'BusinessAccount' - GET_ONE action", () => {
       let product: IProduct;
 
       it("Should fetch 'Product' models and return a correct response", (done) => {
@@ -143,7 +143,7 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID
     // END TEST GET_ONE action correct BusinessAccount //
 
     // TEST POST CREATE action Correct BusinessAccount - valid Data //
-    describe("POST '/api/producs/create' - CORRECT 'BusinessAccount' - VALID DATA", () => {
+    describe("POST '/api/producs/create' - CORRECT 'BusinessAccount' - VALID DATA - CREATE action", () => {
       it("Should create a new 'Product' model, send back correct response", (done) => {
         chai.request(server)
           .post("/api/products/create")
@@ -198,7 +198,7 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID
     // END TEST POST CREATE action Correct BusinessAccount - VALID Data //
     
     // TEST PATCH EDIT action Correct BusinessAccount - VALID Data //
-    describe("PATCH '/api/producs/update/:productId' - CORRECT 'BusinessAccount' - VALID DATA", () => {
+    describe("PATCH '/api/producs/update/:productId' - CORRECT 'BusinessAccount' - VALID DATA - EDIT action", () => {
       it("Should correctly update a 'Product' model, send back correct response", (done) => {
         chai.request(server)
           .patch("/api/products/update/" + (firstAdminsProduct._id))
@@ -264,7 +264,7 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID
     // END TEST PATCH EDIT action Correct BusinessAccount - VALID Data //
 
     // TEST DELETE DELETE action Correct BusinessAccount - Valid Data //
-    describe("DELETE '/api/producs/delete/:productId' - CORRECT 'BusinessAccount' - VALID DATA", () => {
+    describe("DELETE '/api/producs/delete/:productId' - CORRECT 'BusinessAccount' - VALID DATA - DELETE action", () => {
       it("Should correctly delete a 'Product' model, send back correct response", (done) => {
         chai.request(server)
           .delete("/api/products/delete/" + (firstAdminsProduct._id))

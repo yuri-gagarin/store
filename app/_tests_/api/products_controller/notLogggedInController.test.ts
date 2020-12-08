@@ -36,7 +36,7 @@ describe("ProductsController - NOT LOGGED IN - API tests", () => {
   // CONTEXT 'ProductsController' API tests Admin not logged in //
   context("'ProductsController' API tests - ADMIN NOT LOGGED IN (NO JWT token)", () => {
     // TEST GET INDEX action admin not logged in //
-    describe("GET '/api/products - NO LOGIN - INDEX action", () => {
+    describe("GET '/api/products - NO LOGIN - GET_MANY action", () => {
 
       it("Should not return any 'Product' models and send the correct response", (done) => {
         chai.request(server)
@@ -65,7 +65,7 @@ describe("ProductsController - NOT LOGGED IN - API tests", () => {
     // END TEST GET INDEX action admin not logged in //
 
     // TEST GET GET action admin not logged in //
-    describe("GET '/api/products/:productId - NO LOGIN - GET action", () => {
+    describe("GET '/api/products/:productId - NO LOGIN - GET_ONE action", () => {
       it("Should not return a 'Product' model and send the correct response", (done) => {
         chai.request(server)
           .get("/api/products")
