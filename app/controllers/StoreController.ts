@@ -31,7 +31,7 @@ type StoreQueryPar = {
   limit?: string;
 }
 class StoresController implements IGenericController {
-  index (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
+  getMany (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
     const { title, items, date, limit } : StoreQueryPar = req.query;
     const queryLimit = limit ? parseInt(limit, 10) : 5;
     // custom queries //
@@ -103,7 +103,7 @@ class StoresController implements IGenericController {
         return respondWithDBError(res, error);
       });
   }
-  get (req: Request, res: Response<IGenericStoreResponse>): Promise<Response>  {
+  getOne (req: Request, res: Response<IGenericStoreResponse>): Promise<Response>  {
     const _id: string = req.params._id;
 
     if (!_id) return respondWithInputError(res, "Can't find store");

@@ -22,7 +22,7 @@ export type BonusVideoParams = {
 
 class BonusVideosController implements IGenericController {
 
-  index (req: Request, res: Response<IGenericVideoRes>): Promise<Response> {
+  getMany (req: Request, res: Response<IGenericVideoRes>): Promise<Response> {
     return BonusVideo.find({})
       .then((videos) => {
         return res.status(200).json({
@@ -35,7 +35,7 @@ class BonusVideosController implements IGenericController {
       });
   }
 
-  get (req: Request, res: Response<IGenericVideoRes>): Promise<Response>  {
+  getOne (req: Request, res: Response<IGenericVideoRes>): Promise<Response>  {
     const _id: string = req.params._id;
   
     if (!_id) return respondWithInputError(res, "Can't find video");

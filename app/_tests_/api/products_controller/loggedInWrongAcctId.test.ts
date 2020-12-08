@@ -11,7 +11,6 @@ import Product, { IProduct } from "../../../models/Product";
 // helpers //
 import { clearDB } from "../../helpers/dbHelpers";
 import { setupProdControllerTests, loginAdmins } from "./helpers/setupProdControllerTest";
-import { response } from "express";
 
 chai.use(chaiHTTP);
 
@@ -77,9 +76,9 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
   });
   
   // CONTEXT 'ProductsController' CREATE EDIT DELETE actions without 'BusinessAccount' set up //
-  context("User without a 'BusinessAccount' set up, INDEX, GET, CREATE, EDIT, DELETE actions", () => {
+  context("User without a 'BusinessAccount' set up, GET_MANY, GET_ONE, CREATE, EDIT, DELETE actions", () => {
     // TEST GET with no business account INDEX action //
-    describe("GET '/api/products - NO 'NO BusinessAccount' - INDEX action", () => {
+    describe("GET '/api/products - NO 'NO BusinessAccount' - GET_MANY action", () => {
 
       it("Should NOT allow the INDEX action of 'ProductsController' and return correct response", (done) => {
         chai.request(server)
@@ -113,7 +112,7 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
     // END TEST GET with no business account INDEX ation //
 
     // TEST GET with no business account GET action //
-    describe("GET '/api/products/:productId' - NO 'BusinessAccont' - GET action", () => {
+    describe("GET '/api/products/:productId' - NO 'BusinessAccont' - GET_ONE action", () => {
 
       it("Should NOT allow the GET action of 'ProductsController' and return correct response", (done) => {
         chai.request(server)
@@ -239,7 +238,7 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
     // END TEST Admin with no Busniess accoint EDIT action //
 
     // TEST Admin with no Busniess account DELETE action //
-    describe("DELETE '/api/products/delete/:productId' - NO 'BusinessAccount' - delete action", () => {
+    describe("DELETE '/api/products/delete/:productId' - NO 'BusinessAccount' - DELETE action", () => {
 
       it("Should NOT allow DELETE of a 'Product' if admin does not have a 'BusinessAccount' set up", (done) => {
         chai.request(server)
@@ -287,8 +286,8 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
   });
   // END CONTEXT 'ProductsController' INDEX GET CREATE EDIT DELETE actions without 'BusinessAccount' set up //
   /*
-  // CONTEXT 'ProductsController' EDIT DELETE actions with wrong 'BusinessAccount //
-  context("User with a wrong 'BusinessAccount' set up EDIT, DELETE actions", () => {
+  // CONTEXT 'ProductsController' INDEX GET EDIT DELETE actions with wrong 'BusinessAccount //
+  context("User with a wrong 'BusinessAccount' set up INDEX, GET, EDIT, DELETE actions", () => {
     // TEST Admin with wrong business account EDIT action //
     describe("PATCH '/api/products/update/:productId' - WRONG 'BusinessAccount' - EDIT action", () => {
       it("Should NOT allow EDIT of a 'Product' if Admin's  'BusinessAccount' _id doesnt match 'Product'", (done) => {

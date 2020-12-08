@@ -21,10 +21,10 @@ class ServicesRoutes extends RouteConstructor<IGenericController> {
     this.deleteService();
   }
   private getAllServices (): void {
-    this.Router.route(this.viewAllServicesRoute).get(this.controller.index!);
+    this.Router.route(this.viewAllServicesRoute).get(this.controller.getMany);
   }
   private getService (): void {
-    this.Router.route(this.viewServiceRoute).get(this.controller.get);
+    this.Router.route(this.viewServiceRoute).get(this.controller.getOne);
   }
   private createService (): void {
     this.Router.route(this.createServiceRoute).post(this.controller.create);

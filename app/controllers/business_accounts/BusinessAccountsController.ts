@@ -22,7 +22,8 @@ import { removeDirectoryWithFiles, RemoveResponse, resolveDirectoryOfImg, respon
 
 
 class BusinessAccountsController implements IGenericController {
-  index(req: Request<{}, {}, {}, BusinessAccountsIndexSortQuery>, res: Response<BusinessAccountsContRes>): Promise<Response> {
+
+  getOne(req: Request<{}, {}, {}, BusinessAccountsIndexSortQuery>, res: Response<BusinessAccountsContRes>): Promise<Response> {
     const user = req.user as IAdministrator;
     const { createdAt, editedAt, accountLevel, limit } = req.query;
     if (!user) {
@@ -77,7 +78,7 @@ class BusinessAccountsController implements IGenericController {
       })   
       .catch((err) => respondWithDBError(res, err)); 
   }
-  get(req: Request, res: Response<BusinessAccountsContRes>): Promise<Response> {
+  getMany(req: Request, res: Response<BusinessAccountsContRes>): Promise<Response> {
     const { busAccountId } = req.params as BusinessAccountsContReqParams ;
     if (!busAccountId) {
       return respondWithInputError(res, "Cant resolve an account to look for", 422);

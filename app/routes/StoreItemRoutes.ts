@@ -21,10 +21,10 @@ class StoreItemRoutes extends RouteConstructor<IGenericController> {
     this.deleteStoreItem();
   }
   private getAllStoreItems (): void {
-    this.Router.route(this.viewAllStoreItemsRoute).get(this.controller.index!);
+    this.Router.route(this.viewAllStoreItemsRoute).get(this.controller.getMany);
   }
   private getStoreItem (): void {
-    this.Router.route(this.viewStoreItemRoute).get(this.controller.get);
+    this.Router.route(this.viewStoreItemRoute).get(this.controller.getOne);
   }
   private createStoreItem (): void {
     this.Router.route(this.createStoreItemRoute).post(this.controller.create);

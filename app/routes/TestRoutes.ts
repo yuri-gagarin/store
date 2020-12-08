@@ -16,7 +16,7 @@ class TestRoutes extends RouteConstructor<IGenericController> {
     this.testRoute();
   }
   private testRoute (): void {
-    this.Router.route(this.testPath).get([logger, passport.authenticate("jwt", { session: false , failWithError: true }) ], this.controller.get);
+    this.Router.route(this.testPath).get([logger, passport.authenticate("jwt", { session: false , failWithError: true }) ], this.controller.getMany);
   }
 }
 

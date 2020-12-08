@@ -21,10 +21,10 @@ class BonusVideoRoutes extends RouteConstructor<IGenericController> {
     this.deleteBonusVideo();
   }
   private getAllBonusVideos (): void {
-    this.Router.route(this.viewAllBonusVideosRoute).get(this.controller.index!);
+    this.Router.route(this.viewAllBonusVideosRoute).get(this.controller.getMany);
   }
   private getBonusVideo (): void {
-    this.Router.route(this.viewBonusVideoRoute).get(this.controller.get);
+    this.Router.route(this.viewBonusVideoRoute).get(this.controller.getOne);
   }
   private createBonusVideo (): void {
     this.Router.route(this.createBonusVideoRoute).post(this.controller.create);

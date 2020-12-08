@@ -23,13 +23,13 @@ class BusinessAccountRoutes extends RouteConstructor<BusinessAccountsController>
   }
 
   private getAllBusAccounts(): void {
-    this.Router.route(this.getAllBusAccountsRoute).get(this.controller.index);
+    this.Router.route(this.getAllBusAccountsRoute).get(this.controller.getMany);
   }
   private getOneBusAccount(): void {
-    this.Router.route(this.getOneBusAccountRoute).get(this.controller.get);
+    this.Router.route(this.getOneBusAccountRoute).get(this.controller.getOne);
   }
   private createBusAccount(): void {
-    this.Router.route(this.createBusAccountRoute).post(this.controller.get);
+    this.Router.route(this.createBusAccountRoute).post(this.controller.create);
   }
   private editBusAccount(): void {
     this.Router.route(this.editBusAccountRoute).patch(this.controller.edit);

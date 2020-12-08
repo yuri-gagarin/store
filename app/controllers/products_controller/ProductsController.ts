@@ -33,7 +33,7 @@ type ProducQueryPar = {
 
 class ProductsController implements IGenericController {
 
-  index (req: Request, res: Response<IGenericProdRes>): Promise<Response> {
+  getMany (req: Request, res: Response<IGenericProdRes>): Promise<Response> {
     const { name, price, date, limit }: ProducQueryPar = req.query;
     const queryLimit = limit ? parseInt(limit, 10) : 10;
 
@@ -106,7 +106,7 @@ class ProductsController implements IGenericController {
       });
   }
 
-  get (req: Request, res: Response<IGenericProdRes>): Promise<Response>  {
+  getOne (req: Request, res: Response<IGenericProdRes>): Promise<Response>  {
     const productId: string = req.params._id;
     const admin: IAdministrator = req.user as IAdministrator;
     // assert that an admin sent a product id //

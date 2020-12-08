@@ -24,12 +24,12 @@ class ProductRoutes extends RouteConstructor<IGenericController> {
   private getAllProducts (): void {
     this.Router
       .route(this.viewAllProductsRoute)
-      .get(passport.authenticate("adminJWT", { session: false }), this.controller.index);
+      .get(passport.authenticate("adminJWT", { session: false }), this.controller.getMany);
   }
   private getProduct (): void {
     this.Router
       .route(this.viewProductRoute)
-      .get(passport.authenticate("adminJWT", { session: false }), this.controller.get);
+      .get(passport.authenticate("adminJWT", { session: false }), this.controller.getOne);
   }
   private createProduct (): void {
     this.Router

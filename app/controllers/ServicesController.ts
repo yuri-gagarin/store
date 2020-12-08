@@ -37,7 +37,7 @@ type ServiceQueryPar = {
 
 class ServicesController implements IGenericController {
 
-  index (req: Request, res: Response<GenericServiceResponse>): Promise<Response> {
+  getMany (req: Request, res: Response<GenericServiceResponse>): Promise<Response> {
     const { price, name, popularity, date, limit } = req.query as ServiceQueryPar;
     const queryLimit = limit ? parseInt(limit, 10) : 10;
     // optional queries //
@@ -104,7 +104,7 @@ class ServicesController implements IGenericController {
       });
   }
 
-  get (req: Request, res: Response<GenericServiceResponse>): Promise<Response>  {
+  getOne (req: Request, res: Response<GenericServiceResponse>): Promise<Response>  {
     const _id: string = req.params._id;
     if (!_id) return respondWithInputError(res, "Can't find specific service");
 

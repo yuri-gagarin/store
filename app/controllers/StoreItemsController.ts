@@ -38,7 +38,7 @@ type StoreItemQueryPar = {
 
 class StoreItemsController implements IGenericController {
 
-  index (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
+  getMany (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
     let foundStore: IStore; let storeItems: IStoreItem[];
     const { storeName, storeId, limit, date, price, name }  = req.query as StoreItemQueryPar;
     // return store items by store name //
@@ -167,7 +167,7 @@ class StoreItemsController implements IGenericController {
     );
   }
 
-  get (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response>  {
+  getOne (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response>  {
     const _id: string = req.params._id;
   
     if (!_id) return respondWithInputError(res, "Can't find Store Item");
