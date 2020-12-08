@@ -1,3 +1,4 @@
+import passport from "passport";
 import { Router} from "express";
 import { RouteConstructor } from "./helpers/routeInterfaces";
 import { IGenericController } from "../controllers/helpers/controllerInterfaces";
@@ -21,21 +22,31 @@ class StoreRoutes extends RouteConstructor<IGenericController> {
     this.deleteStore();
   }
   private getAllStores (): void {
-    this.Router.route(this.viewAllStoreRoute).get(this.controller.getMany);
+    this.Router
+      .route(this.viewAllStoreRoute)
+      .get(passport.authenticate("adminJWT", { session: false }), this.controller.getMany);
   }
   private getStore (): void {
-    this.Router.route(this.viewStoreRoute).get(this.controller.getOne);
+    this.Router
+      .route(this.viewStoreRoute)
+      .get(passport.authenticate("adminJWT", { session: false }), this.controller.getOne);
   }
   private createStore (): void {
-    this.Router.route(this.createStoreRoute).post(this.controller.create);
+    this.Router
+      .route(this.createStoreRoute)
+      .post(passport.authenticate("adminJWT", { session: false }), this.controller.create);
   }
   private editStore (): void {
-    this.Router.route(this.editStoreRoute).patch(this.controller.edit);
+    this.Router
+      .route(this.editStoreRoute)
+      .patch(passport.authenticate("adminJWT", { session: false }), this.controller.edit);
   }
   private deleteStore (): void {
-    this.Router.route(this.deleteStoreRoute).delete(this.controller.delete);
+    this.Router
+      .route(this.deleteStoreRoute)
+      .delete(passport.authenticate("adminJWT", { session: false }), this.controller.delete);
   }
 
-}
+};
 
 export default StoreRoutes;

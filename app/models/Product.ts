@@ -11,7 +11,7 @@ export interface IProduct extends Document {
   price: number;
   images: (ProductImgRef | IProductImage )[];
   createdAt: Date;
-  editedAt?: Date;
+  editedAt: Date;
 }
 
 function validateBusinessAccount (businessAccountId: string) {
@@ -55,7 +55,9 @@ const ProductSchema: Schema = new Schema({
     required: true
   },
   editedAt: {
-    type: Date
+    type: Date,
+    default: new Date(Date.now()),
+    required: true
   }
 });
 

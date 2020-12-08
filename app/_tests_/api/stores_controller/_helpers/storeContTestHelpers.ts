@@ -1,11 +1,11 @@
-import chaiHTTP from "chai-http";
-import { setupDB, clearDB } from "../../../helpers/dbHelpers";
-import { createProducts, createAdmins } from "../../../helpers/dataGeneration";
+import { setupDB } from "../../../helpers/dbHelpers";
+import { createStores } from "../../../helpers/data_generation/storesDataGeneration";
+import { createAdmins } from "../../../helpers/dataGeneration";
 import { createBusinessAcccount } from "../../../helpers/data_generation/businessAccontsGeneration";
 import Administrator, { IAdministrator } from "../../../../models/Administrator";
-import Product, { IProduct } from "../../../../models/Product";
+import { IStore } from "../../../../models/Store";
 
-type SetupProdContTestRes = {
+type SetupStoresContTestRes = {
   admins: {
     firstAdmin: IAdministrator,
     secondAdmin: IAdministrator,
@@ -16,16 +16,16 @@ type SetupProdContTestRes = {
     secondAdminBusAcctId: string;
     thirdAdminBusAcctId: string;
   }
-  products: {
-    firstAdminsProduct: IProduct;
-    secondAdminsProduct: IProduct;
+  stores: {
+    firstAdminsStore: IStore;
+    secondAdminsStore: IStore;
   }
 };
 
-export const setupProdControllerTests = (): Promise<SetupProdContTestRes> => {
+export const setupStoreControllerTests = (): Promise<SetupStoresContTestRes> => {
   let firstAdmin: IAdministrator, secondAdmin: IAdministrator, thirdAdmin: IAdministrator;
   let firstAdminBusAcctId: string, secondAdminBusAcctId: string, thirdAdminBusAcctId: string;
-  let firstAdminsProduct: IProduct, secondAdminsProduct: IProduct;
+  let firstAdminsStore: IStore, secondAdminsStore: IStore;
 
   return setupDB()
     .then(() => {
@@ -41,13 +41,13 @@ export const setupProdControllerTests = (): Promise<SetupProdContTestRes> => {
     .then((busAccountArr) => {
       [ firstAdminBusAcctId, secondAdminBusAcctId ] = busAccountArr.map((acc) => String(acc._id));
       return Promise.all([
-        createProducts(5, busAccountArr[0]),
-        createProducts(5, busAccountArr[1])
+        createStores(5, busAccountArr[0]),
+        createStores(5, busAccountArr[1])
       ]);
     })
-    .then((products) => {
-      firstAdminsProduct = products[0][0];
-      secondAdminsProduct = products[1][0];
+    .then((storesArr) => {
+      firstAdminsStore = storesArr[0][0];
+      secondAdminsStore = storesArr[1][0];
       return Promise.all([
         Administrator.findOneAndUpdate({ _id: firstAdmin._id }, { $set: { businessAccountId: firstAdminBusAcctId } }, { new: true }),
         Administrator.findOneAndUpdate({ _id: secondAdmin._id }, { $set: { businessAccountId: secondAdminBusAcctId } }, { new: true })
@@ -66,9 +66,9 @@ export const setupProdControllerTests = (): Promise<SetupProdContTestRes> => {
           secondAdminBusAcctId,
           thirdAdminBusAcctId
         },
-        products: {
-          firstAdminsProduct,
-          secondAdminsProduct
+        stores: {
+          firstAdminsStore,
+          secondAdminsStore
         }
       };
     })
@@ -76,28 +76,3 @@ export const setupProdControllerTests = (): Promise<SetupProdContTestRes> => {
       throw err;
     });
 };
-
-export const loginAdmins = async (chai: Chai.ChaiStatic, server: Express.Application, admins: IAdministrator[]): Promise<string[]> => {
-  const tokensArr: string[] = [];
-  chai.use(chaiHTTP)
-  for (let i = 0; i < admins.length; i++) {
-    await new Promise<boolean>((resolve, reject) => {
-      chai.request(server)
-        .post("/api/admins/login")
-        .send({
-          email: admins[i].email,
-          password: "password"
-        })
-        .then((res) => {
-          const token = res.body.jwtToken.token as string;
-          tokensArr.push(token);
-          resolve(true);
-        })
-        .catch((err) =>{
-          reject(err);
-        });
-    });
-    
-  };
-  return Promise.resolve(tokensArr);
-}

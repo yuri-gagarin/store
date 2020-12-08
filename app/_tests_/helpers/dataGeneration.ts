@@ -57,22 +57,6 @@ export const createBonusVideos = (numOfVideos: number): Promise<IBonusVideo[]> =
   return Promise.all(createdVideos);
 };
 
-/**
- * Creates a set number of mock {Store} objects.
- * @param numberOfStores - number of mock {Store} models to create.
- */
-export const createStores = (numberOfStores: number): Promise<IStore[]> => {
-  const createdStores: Promise<IStore>[] = [];
-
-  for (let i = 0; i < numberOfStores; i++) {
-    createdStores.push(Store.create({
-      title: faker.lorem.word(),
-      description: faker.lorem.paragraphs(3),
-      images: []
-    }));
-  }
-  return Promise.all(createdStores);
-};
 
 const createStoreItem = (store: IStore): Promise<IStoreItem> => {
   let createdItem: IStoreItem;
@@ -186,7 +170,9 @@ export const createProducts = (numOfProducts: number, busAccount: IBusinessAccou
       description: faker.lorem.paragraph(),
       details: faker.lorem.paragraphs(3),
       price: faker.commerce.price(1, 100),
-      images: []
+      images: [],
+      createdAt: new Date(Date.now()),
+      editedAt: new Date(Date.now())
     }));
   }
   return Promise.all(createdProducts);

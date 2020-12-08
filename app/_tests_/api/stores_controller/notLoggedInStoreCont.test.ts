@@ -7,6 +7,8 @@ import server from "../../../server";
 import Store, { IStore } from "../../../models/Store";
 // helpers and data generators //
 import { isEmptyObj } from "../../../controllers/helpers/queryHelpers";
+import { setupStoreControllerTests } from "./_helpers/storeContTestHelpers";
+import { clearDB } from "../../helpers/dbHelpers";
 
 chai.use(chaiHTTP);
 
@@ -14,6 +16,23 @@ describe("StoresController - NOT LOGGED IN  - API tests", () => {
   let firstAdminsStore: IStore;
   let numberOfStores: number;
 
+  before((done) => {
+    setupStoreControllerTests()
+      .then((response) => {
+        ({ firstAdminsStore } = response.stores);
+        return Store.countDocuments().exec();
+      })
+      .then((number) => {
+        numberOfStores = number;
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+  after((done) => {
+    clearDB().then(() => done()).catch((err) => done(err));
+  });
   // CONTEXT StoresController API tests Admin is not logged in //
   context("'StoresController API tests - NOT LOGGED IN - GET_MANY, GET_ONE, CREATE, EDIT, DELETE actions", () => {
 
@@ -37,6 +56,7 @@ describe("StoresController - NOT LOGGED IN  - API tests", () => {
         Store.countDocuments().exec()
           .then((number) => {
             expect(number).to.equal(numberOfStores);
+            done();
           })
           .catch((err) => {
             done(err);
