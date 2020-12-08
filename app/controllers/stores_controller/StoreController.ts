@@ -1,15 +1,14 @@
 import { Request, Response } from "express";
-import fs from "fs";
-import path from "path";
 import { Types } from "mongoose";
-import Store, { IStore } from "../models/Store";
-import StoreImage, { IStoreImage } from "../models/StoreImage";
-import { IGenericController } from "./helpers/controllerInterfaces";
-import { RemoveResponse, resolveStoreItemImgDirectories } from "./helpers/controllerHelpers"
+import Store, { IStore } from "../../models/Store";
+import StoreImage, { IStoreImage } from "../../models/StoreImage";
+import { IGenericController } from "../helpers/controllerInterfaces";
+import { RemoveResponse, resolveStoreItemImgDirectories, respondWithNotAllowedErr } from "../helpers/controllerHelpers"
 // helpers //
-import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError, resolveDirectoryOfImg, removeDirectoryWithFiles } from "./helpers/controllerHelpers";
-import StoreItem from "../models/StoreItem";
-import StoreItemImage from "../models/StoreItemImage";
+import { respondWithDBError, respondWithInputError, resolveDirectoryOfImg, removeDirectoryWithFiles } from "../helpers/controllerHelpers";
+import StoreItem from "../../models/StoreItem";
+import StoreItemImage from "../../models/StoreItemImage";
+import { IAdministrator } from "../../models/Administrator";
 
 interface IGenericStoreResponse {
   responseMsg: string;
@@ -34,6 +33,16 @@ class StoresController implements IGenericController {
   getMany (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
     const { title, items, date, limit } : StoreQueryPar = req.query;
     const queryLimit = limit ? parseInt(limit, 10) : 5;
+    
+    const admin: IAdministrator = req.user as IAdministrator;
+    // validate user and a business account set up //
+    if (admin) {
+      if (!admin.businessAccountId) {
+        return respondWithNotAllowedErr(res, "Action not allowed", 401, [ "Create a Business Acccount or request to be added to one to get all features"]);
+      }
+    } else {
+      return respondWithNotAllowedErr(res);
+    }
     // custom queries //
     // sort by title alphabetically //
     if (title) {
@@ -105,6 +114,15 @@ class StoresController implements IGenericController {
   }
   getOne (req: Request, res: Response<IGenericStoreResponse>): Promise<Response>  {
     const _id: string = req.params._id;
+    const admin: IAdministrator = req.user as IAdministrator;
+    // validate user and a business account set up //
+    if (admin) {
+      if (!admin.businessAccountId) {
+        return respondWithNotAllowedErr(res, "Action not allowed", 401, [ "Create a Business Acccount or request to be added to one to get all features"]);
+      }
+    } else {
+      return respondWithNotAllowedErr(res);
+    }
 
     if (!_id) return respondWithInputError(res, "Can't find store");
     return Store.findOne({ _id: _id })
@@ -126,7 +144,15 @@ class StoresController implements IGenericController {
   create (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
     const { title, description, images : storeImages }: StoreParams = req.body;
     const imgIds: Types.ObjectId[] = [];
-
+    const admin: IAdministrator = req.user as IAdministrator;
+    // validate user and a business account set up //
+    if (admin) {
+      if (!admin.businessAccountId) {
+        return respondWithNotAllowedErr(res, "Action not allowed", 401, [ "Create a Business Acccount or be added to one to create Stores" ]);
+      }
+    } else {
+      return respondWithNotAllowedErr(res);
+    }
     if (storeImages.length > 1) {
       // let imgPromises: [Promise<Query<StoreImg>>];
       for (const newImg of storeImages) {
@@ -154,10 +180,21 @@ class StoresController implements IGenericController {
   edit (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
     const { _id } = req.params;
     const { title, description, images : storeImages }: StoreParams = req.body;
-    const updatesStoreImgs = storeImages.map((img) => Types.ObjectId(img._id));
+    const admin: IAdministrator = req.user as IAdministrator;
+    // validate user and a business account set up //
+    if (admin) {
+      if (!admin.businessAccountId) {
+        return respondWithNotAllowedErr(res, "Action not allowed", 401, [ "Create a Business Acccount or be added to one to edit Stores" ]);
+      }
+    } else {
+      return respondWithNotAllowedErr(res);
+    }
     if (!_id) {
       return respondWithInputError(res, "Can't resolve store", 400);
     }
+
+    const updatesStoreImgs = storeImages.map((img) => Types.ObjectId(img._id));
+
     return Store.findOneAndUpdate(
       { _id: _id },
       { 
@@ -192,6 +229,16 @@ class StoresController implements IGenericController {
    let numOfDeletedStoreItems: number;
    let numOfDeletedStoreItemImages: number;
    let storeItemIds: string[];
+
+   const admin: IAdministrator = req.user as IAdministrator;
+    // validate user and a business account set up //
+    if (admin) {
+      if (!admin.businessAccountId) {
+        return respondWithNotAllowedErr(res, "Action not allowed", 401, [ "Create a Business Acccount or be added to one to delete and manage Stores" ]);
+      }
+    } else {
+      return respondWithNotAllowedErr(res);
+    }
 
    if (!storeId) {
      return respondWithInputError(res, "Can't find store");

@@ -47,11 +47,13 @@ const StoreSchema: Schema = new Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: new Date(Date.now()),
     required: true
   },
   editedAt: {
-    type: Date
+    type: Date,
+    default: new Date(Date.now()),
+    required: true
   }
 });
 

@@ -3,7 +3,7 @@ import { Router } from "express";
 import ImageUploader from "../controllers/image_uploaders/ImageUploader";
 // routes imports and controllers //
 // stores //
-import StoreController from "../controllers/StoreController";
+import StoreController from "../controllers/stores_controller/StoreController";
 import StoreRoutes from "./StoreRoutes";
 import StoreImageRoutes from "./StoreImageRoutes";
 import StoreImageUploadController from "../controllers/StoreImgUplController";

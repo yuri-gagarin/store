@@ -1,25 +1,26 @@
-// testing dependecies //
+// testing dependencies //
 import chai, { expect } from "chai";
 import chaiHTTP from "chai-http";
 import faker from "faker";
 // server import //
 import server from "../../../server";
 // models and model interfaces //
-import { ProductData } from "../../../controllers/products_controller/type_declarations/productsControllerTypes";
+import { StoreData } from "../../../controllers/stores_controller/type_declarations/storesControllerTypes";
 import { IAdministrator } from "../../../models/Administrator";
-import Product, { IProduct } from "../../../models/Product";
+import Store, { IStore } from "../../../models/Store";
 // helpers //
 import { clearDB } from "../../helpers/dbHelpers";
-import { setupProdControllerTests, loginAdmins } from "./helpers/setupProdControllerTest";
+import { setupStoreControllerTests } from "./_helpers/storeContTestHelpers";
+import { loginAdmins } from "../../helpers/auth_helpers/authHelpers";
 
 chai.use(chaiHTTP);
 
-describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount ID - GET/POST/PATCH/DELETE - API tests", () => {
-  let newProductData: ProductData;
-  let updateProductData: ProductData;
-  // product models //
-  let firstAdminsProduct: IProduct;
-  let secondAdminsProduct: IProduct;
+describe("StoresController - Logged In WITH WRONG or MISSING BusinessAccount ID - GET/POST/PATCH/DELETE - API tests", () => {
+  let newStoreData: StoreData;
+  let updateStoreData: StoreData;
+  // store models //
+  let firstAdminsStore: IStore;
+  let secondAdminsStore: IStore;
   // admin models first two have a 'BusinessAccount' set up, third does not //
   let firstAdmin: IAdministrator;
   let secondAdmin: IAdministrator;
@@ -28,19 +29,19 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
   let firstAdminToken: string;
   let secondAdminToken: string;
   let thirdAdminToken: string;
-  // total number of Product models in database //
-  let totalNumberOfProducts: number;
-  // setup DB, create models, count products //
+  // total number of Store models in database //
+  let totalNumberOfStores: number;
+  // setup DB, create models, count stores //
   before((done) => {
-    setupProdControllerTests()
+    setupStoreControllerTests()
       .then((response) => {
-        const { admins, products } = response;
+        const { admins, stores } = response;
         ({ firstAdmin, secondAdmin, thirdAdmin } = admins);
-        ({ firstAdminsProduct, secondAdminsProduct } = products);
-        return Product.countDocuments().exec();
+        ({ firstAdminsStore, secondAdminsStore } = stores);
+        return Store.countDocuments().exec();
       })
       .then((number) => {
-        totalNumberOfProducts = number;
+        totalNumberOfStores = number;
         done();
       })
       .catch((err) => {
@@ -61,38 +62,34 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
   });
   // generate mock data for CREATE EDIT actions //
   before(() => {
-    newProductData = {
-      name: faker.commerce.product(),
-      price: faker.commerce.price(100),
-      description: faker.lorem.paragraph(),
-      details: faker.lorem.paragraph()
+    newStoreData = {
+      title: faker.commerce.product(),
+      description: faker.lorem.paragraph()
     };
-    updateProductData = {
-      name: "updatedName",
-      price: "200",
-      description: "updated description",
-      details: "updated details"
+    updateStoreData = {
+      title: "updatedTitle",
+      description: "updated description"
     };
   });
   after((done) => {
     clearDB().then(() => done()).catch((err) => done(err));
   });
   
-  // CONTEXT 'ProductsController' GET_MANY GET_ONE CREATE EDIT DELETE actions without 'BusinessAccount' set up //
+  // CONTEXT 'StoresController' GET_MANY GET_ONE CREATE EDIT DELETE actions without 'BusinessAccount' set up //
   context("Admin without a 'BusinessAccount' set up, GET_MANY, GET_ONE, CREATE, EDIT, DELETE actions", () => {
-
+    
     // TEST GET with no business account GET_MANY action //
-    describe("GET '/api/products - NO 'NO BusinessAccount' - GET_MANY action", () => {
+    describe("GET '/api/stores - NO 'NO BusinessAccount' - GET_MANY action", () => {
 
-      it("Should NOT allow the GET_MANY action of 'ProductsController' and return correct response", (done) => {
+      it("Should NOT allow the GET_MANY action of 'StoresController' and return correct response", (done) => {
         chai.request(server)
-          .get("/api/products")
+          .get("/api/stores")
           .set({ "Authorization": thirdAdminToken })
           .end((err, response) => {
             if (err) done(err);
             // assert correct response //
             expect(response.status).to.equal(401);
-            expect(response.body.products).to.be.undefined;
+            expect(response.body.stores).to.be.undefined;
             expect(response.body.responseMsg).to.be.a("string");
             expect(response.body.error).to.be.an("object");
             expect(response.body.errorMessages).to.be.an("array");
@@ -101,10 +98,10 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
             done();
           });
       });
-      it("Should NOT modify anything in the 'Product' models in the database", (done) => {
-        Product.countDocuments().exec()
+      it("Should NOT modify anything in the 'Store' models in the database", (done) => {
+        Store.countDocuments().exec()
           .then((number) => {
-            expect(number).to.equal(totalNumberOfProducts);
+            expect(number).to.equal(totalNumberOfStores);
             done();
           })
           .catch((err) => {
@@ -116,17 +113,17 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
     // END TEST GET with no business account GET_MANY action //
 
     // TEST GET with no business account GET_ONE action //
-    describe("GET '/api/products/:productId' - NO 'BusinessAccont' - GET_ONE action", () => {
+    describe("GET '/api/stores/:storeId' - NO 'BusinessAccont' - GET_ONE action", () => {
 
-      it("Should NOT allow the GET_ONE action of 'ProductsController' and return correct response", (done) => {
+      it("Should NOT allow the GET_ONE action of 'StoresController' and return correct response", (done) => {
         chai.request(server)
-          .get("/api/products/" + (firstAdminsProduct._id as string))
+          .get("/api/stores/" + (firstAdminsStore._id as string))
           .set({ "Authorization": thirdAdminToken })
           .end((err, response) => {
             if (err) done(err);
             // assert correct response //
             expect(response.status).to.equal(401);
-            expect(response.body.product).to.be.undefined;
+            expect(response.body.store).to.be.undefined;
             expect(response.body.responseMsg).to.be.a("string");
             expect(response.body.error).to.be.an("object");
             expect(response.body.errorMessages).to.be.an("array");
@@ -135,20 +132,20 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
             done();
           });
       });
-      it("Should NOT edit the 'Product' in question in any way", (done) => {
-        Product.findOne({ _id: firstAdminsProduct._id })
-          .then((foundProduct) => {
-            expect(JSON.stringify(foundProduct)).to.equal(JSON.stringify(firstAdminsProduct));
+      it("Should NOT edit the 'Store' in question in any way", (done) => {
+        Store.findOne({ _id: firstAdminsStore._id })
+          .then((foundStore) => {
+            expect(JSON.stringify(foundStore)).to.equal(JSON.stringify(firstAdminsStore));
             done();
           })
           .catch((err) => {
             done(err);
           });
       });
-      it("Should NOT alter the number of 'Product' model in the database", (done) => {
-        Product.countDocuments().exec()
+      it("Should NOT alter the number of 'Store' model in the database", (done) => {
+        Store.countDocuments().exec()
           .then((number) => {
-            expect(number).to.equal(totalNumberOfProducts);
+            expect(number).to.equal(totalNumberOfStores);
             done();
           })
           .catch((err) => {
@@ -160,20 +157,20 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
     // END TEST GET with no business acount GET_ONE action //
     
     // TEST Admin with no business account CREATE action //
-    describe("POST '/api/products/create' - NO 'BusinessAccount' - CREATE action", () => {
+    describe("POST '/api/stores/create' - NO 'BusinessAccount' - CREATE action", () => {
 
-      it("Should NOT allow CREATE of a 'Product' if admin does not have a 'BusinessAccount' set up", (done) => {
+      it("Should NOT allow CREATE of a 'Store' if admin does not have a 'BusinessAccount' set up", (done) => {
         chai.request(server)
-          .post("/api/products/create")
+          .post("/api/stores/create")
           .set({ "Authorization": thirdAdminToken })
           .send({
-            ...newProductData
+            ...newStoreData
           })
           .end((err, response) => {
             if (err) done(err);
             // assert correct response //
             expect(response.status).to.equal(401);
-            expect(response.body.newProduct).to.be.undefined;
+            expect(response.body.newStore).to.be.undefined;
             expect(response.body.responseMsg).to.be.a("string");
             expect(response.body.error).to.be.an("object");
             expect(response.body.errorMessages).to.be.an("array");
@@ -181,10 +178,10 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
             done();
           });
       });
-      it("Should NOT add a new 'Product' model to the database", (done) => {
-        Product.countDocuments().exec()
+      it("Should NOT add a new 'Store' model to the database", (done) => {
+        Store.countDocuments().exec()
          .then((number) => {
-          expect(number).to.equal(totalNumberOfProducts);
+          expect(number).to.equal(totalNumberOfStores);
           done();
          })
          .catch((err) => {
@@ -194,22 +191,22 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
 
     });
     // END TEST Admin with no business account CREATE action //
-
+    
     // TEST Admin with no Business account EDIT action //
-    describe("PATCH '/api/products/edit/:productId' - NO 'BusinessAccount' - EDIT action", () => {
+    describe("PATCH '/api/stores/edit/:storeId' - NO 'BusinessAccount' - EDIT action", () => {
 
-      it("Should NOT allow EDIT of a 'Product' if admin does not have a 'BusinessAccount' set up", (done) => {
+      it("Should NOT allow EDIT of a 'Store' if admin does not have a 'BusinessAccount' set up", (done) => {
         chai.request(server)
-          .patch("/api/products/update/" + String(firstAdminsProduct._id))
+          .patch("/api/stores/update/" + (firstAdminsStore._id as string))
           .set({ "Authorization": thirdAdminToken })
           .send({
-            ...updateProductData
+            ...updateStoreData
           })
           .end((err, response) => {
             if (err) done(err);
             // assert correct response //
             expect(response.status).to.equal(401);
-            expect(response.body.newProduct).to.be.undefined;
+            expect(response.body.newStore).to.be.undefined;
             expect(response.body.responseMsg).to.be.a("string");
             expect(response.body.error).to.be.an("object");
             expect(response.body.errorMessages).to.be.an("array");
@@ -217,20 +214,20 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
             done();
           });
       });
-      it("Should NOT alter the 'Product' model in question in the database", (done) => {
-        Product.findOne({ _id: firstAdminsProduct._id }).exec()
-          .then((product) => {
-            expect(JSON.stringify(product)).to.equal(JSON.stringify(firstAdminsProduct));
+      it("Should NOT alter the 'Store' model in question in the database", (done) => {
+        Store.findOne({ _id: firstAdminsStore._id }).exec()
+          .then((store) => {
+            expect(JSON.stringify(store)).to.equal(JSON.stringify(firstAdminsStore));
             done();
           })
           .catch((err) => {
             done(err);
           });
       });
-      it("Should NOT alter the number of 'Product' models in the database", (done) => {
-        Product.countDocuments().exec()
+      it("Should NOT alter the number of 'Store' models in the database", (done) => {
+        Store.countDocuments().exec()
           .then((val) => {
-            expect(val).to.equal(totalNumberOfProducts);
+            expect(val).to.equal(totalNumberOfStores);
             done();
           })
           .catch((err) => {
@@ -240,22 +237,22 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
 
     });
     // END TEST Admin with no Busniess accoint EDIT action //
-
+    
     // TEST Admin with no Busniess account DELETE action //
-    describe("DELETE '/api/products/delete/:productId' - NO 'BusinessAccount' - DELETE action", () => {
+    describe("DELETE '/api/stores/delete/:storeId' - NO 'BusinessAccount' - DELETE action", () => {
 
-      it("Should NOT allow DELETE of a 'Product' if admin does not have a 'BusinessAccount' set up", (done) => {
+      it("Should NOT allow DELETE of a 'Store' if admin does not have a 'BusinessAccount' set up", (done) => {
         chai.request(server)
-          .delete("/api/products/delete/" + String(firstAdminsProduct._id))
+          .delete("/api/stores/delete/" + String(firstAdminsStore._id))
           .set({ "Authorization": thirdAdminToken })
           .send({
-            ...updateProductData
+            ...updateStoreData
           })
           .end((err, response) => {
             if (err) done(err);
             // assert correct response //
             expect(response.status).to.equal(401);
-            expect(response.body.newProduct).to.be.undefined;
+            expect(response.body.newStore).to.be.undefined;
             expect(response.body.responseMsg).to.be.a("string");
             expect(response.body.error).to.be.an("object");
             expect(response.body.errorMessages).to.be.an("array");
@@ -263,20 +260,20 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
             done();
           });
       });
-      it("Should NOT alter the 'Product' model in question in the database", (done) => {
-        Product.findOne({ _id: firstAdminsProduct._id }).exec()
-          .then((product) => {
-            expect(JSON.stringify(product)).to.equal(JSON.stringify(firstAdminsProduct));
+      it("Should NOT alter the 'Store' model in question in the database", (done) => {
+        Store.findOne({ _id: firstAdminsStore._id }).exec()
+          .then((store) => {
+            expect(JSON.stringify(store)).to.equal(JSON.stringify(firstAdminsStore));
             done();
           })
           .catch((err) => {
             done(err);
           });
       });
-      it("Should NOT alter the number of 'Product' models in the database", (done) => {
-        Product.countDocuments().exec()
+      it("Should NOT alter the number of 'Store' models in the database", (done) => {
+        Store.countDocuments().exec()
           .then((val) => {
-            expect(val).to.equal(totalNumberOfProducts);
+            expect(val).to.equal(totalNumberOfStores);
             done();
           })
           .catch((err) => {
@@ -288,22 +285,22 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
     // END TEST Admin with no Busniess account DELETE action //
     
   });
-  // END CONTEXT 'ProductsController' INDEX GET CREATE EDIT DELETE actions without 'BusinessAccount' set up //
-  
-  // CONTEXT 'ProductsController' GET_ONE GET EDIT DELETE actions with wrong 'BusinessAccount //
+  // END CONTEXT 'StoresController' INDEX GET CREATE EDIT DELETE actions without 'BusinessAccount' set up //
+  /*
+  // CONTEXT 'StoresController' GET_ONE GET EDIT DELETE actions with wrong 'BusinessAccount //
   context("Admin with a wrong 'BusinessAccount' set up GET_ONE, EDIT, DELETE actions", () => {
     // TEST GET GET_ONE controller action with wrong 'BusinesAccount' //
-    describe("GET '/api/products/:productId' - WRONG 'BusinessAccount' - GET_ONE action", () => {
+    describe("GET '/api/stores/:storeId' - WRONG 'BusinessAccount' - GET_ONE action", () => {
 
-      it("Should NOT return a 'Product' model which belongs to another account", (done) => {
+      it("Should NOT return a 'Store' model which belongs to another account", (done) => {
         chai.request(server)
-          .get("/api/products/" + String(firstAdminsProduct._id) )
+          .get("/api/stores/" + String(firstAdminsStore._id) )
           .set({ "Authorization": secondAdminToken })
           .end((err, response) => {
             if (err) done(err);
             // assert correct response //
             expect(response.status).to.equal(401);
-            expect(response.body.product).to.be.undefined;
+            expect(response.body.store).to.be.undefined;
             expect(response.body.responseMsg).to.be.a("string");
             expect(response.body.error).to.be.an("object");
             expect(response.body.errorMessages).to.be.an("array");
@@ -312,20 +309,20 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
             done();
           });
       });
-      it("Should NOT edit a 'Product' model in the database in any way", (done) => {
-        Product.findOne({ _id: firstAdminsProduct._id }).exec()
-          .then((product) => {
-            expect(JSON.stringify(product)).to.equal(JSON.stringify(firstAdminsProduct));
+      it("Should NOT edit a 'Store' model in the database in any way", (done) => {
+        Store.findOne({ _id: firstAdminsStore._id }).exec()
+          .then((store) => {
+            expect(JSON.stringify(store)).to.equal(JSON.stringify(firstAdminsStore));
             done();
           })
           .catch((err) => {
             done(err);
           });
       });
-      it("Should NOT alter the number of 'Product' models in the database", (done) => {
-        Product.countDocuments().exec()
+      it("Should NOT alter the number of 'Store' models in the database", (done) => {
+        Store.countDocuments().exec()
           .then((number) => {
-            expect(number).to.equal(totalNumberOfProducts);
+            expect(number).to.equal(totalNumberOfStores);
             done();
           })
           .catch((err) => {
@@ -337,19 +334,19 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
     // END TEST GET GET_ONE controller action with wrong 'BusinessAccount' //
     
     // TEST Admin with wrong business account EDIT action //
-    describe("PATCH '/api/products/update/:productId' - WRONG 'BusinessAccount' - EDIT action", () => {
-      it("Should NOT allow EDIT of a 'Product' if Admin's  'BusinessAccount' _id doesnt match 'Product'", (done) => {
+    describe("PATCH '/api/stores/update/:storeId' - WRONG 'BusinessAccount' - EDIT action", () => {
+      it("Should NOT allow EDIT of a 'Store' if Admin's  'BusinessAccount' _id doesnt match 'Store'", (done) => {
         chai.request(server)
-          .patch("/api/products/update/" + String(firstAdminsProduct._id))
+          .patch("/api/stores/update/" + String(firstAdminsStore._id))
           .set({ "Authorization": secondAdminToken })
           .send({
-            ...newProductData
+            ...newStoreData
           })
           .end((err, response) => {
             if (err) done(err);
             // assert correct response //
             expect(response.status).to.equal(401);
-            expect(response.body.newProduct).to.be.undefined;
+            expect(response.body.newStore).to.be.undefined;
             expect(response.body.responseMsg).to.be.a("string");
             expect(response.body.error).to.be.an("object");
             expect(response.body.errorMessages).to.be.an("array");
@@ -357,20 +354,20 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
             done();
           });
       });
-      it("Should NOT edit the 'Product' in question in ANY way", (done) => {
-        Product.findOne({ _id: firstAdminsProduct._id }).exec()
-          .then((foundProduct) => {
-            expect(JSON.stringify(foundProduct)).to.equal(JSON.stringify(firstAdminsProduct));
+      it("Should NOT edit the 'Store' in question in ANY way", (done) => {
+        Store.findOne({ _id: firstAdminsStore._id }).exec()
+          .then((foundStore) => {
+            expect(JSON.stringify(foundStore)).to.equal(JSON.stringify(firstAdminsStore));
             done();
           })
           .catch((err) => {
             done(err);
           });
       });
-      it("Should NOT alter the number of 'Product' models in the database", (done) => {
-        Product.countDocuments().exec()
+      it("Should NOT alter the number of 'Store' models in the database", (done) => {
+        Store.countDocuments().exec()
           .then((number) => {
-            expect(number).to.equal(totalNumberOfProducts);
+            expect(number).to.equal(totalNumberOfStores);
             done();
           })
           .catch((err) => {
@@ -382,16 +379,16 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
     // END TEST Admin with wrong business account EDIT action //
 
     // TEST Admin with wrong BusinessAccount DELETE action //
-    describe("DELETE '/api/products/delete/:productId' - WRONG 'BusinessAccount' - DELETE action", () => {
-      it("Should NOT allow DELETE of a 'Product' if Admin's  'BusinessAccount' _id doesnt match 'Product'", (done) => {
+    describe("DELETE '/api/stores/delete/:storeId' - WRONG 'BusinessAccount' - DELETE action", () => {
+      it("Should NOT allow DELETE of a 'Store' if Admin's  'BusinessAccount' _id doesnt match 'Store'", (done) => {
         chai.request(server)
-          .delete("/api/products/delete/" + String(firstAdminsProduct._id))
+          .delete("/api/stores/delete/" + String(firstAdminsStore._id))
           .set({ "Authorization": secondAdminToken })
           .end((err, response) => {
             if (err) done(err);
             // assert correct response //
             expect(response.status).to.equal(401);
-            expect(response.body.newProduct).to.be.undefined;
+            expect(response.body.newStore).to.be.undefined;
             expect(response.body.responseMsg).to.be.a("string");
             expect(response.body.error).to.be.an("object");
             expect(response.body.errorMessages).to.be.an("array");
@@ -399,8 +396,8 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
             done();
           });
       });
-      it("Should NOT delete the 'Product' from the database", (done) => {
-        Product.exists({ _id: firstAdminsProduct._id })
+      it("Should NOT delete the 'Store' from the database", (done) => {
+        Store.exists({ _id: firstAdminsStore._id })
           .then((exists) => {
             expect(exists).to.equal(true);
             done();
@@ -409,10 +406,10 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
             done(err);
           });
       });
-      it("Should NOT alter the number of 'Product' models in the database", (done) => {
-        Product.countDocuments().exec()
+      it("Should NOT alter the number of 'Store' models in the database", (done) => {
+        Store.countDocuments().exec()
           .then((number) => {
-            expect(number).to.equal(totalNumberOfProducts);
+            expect(number).to.equal(totalNumberOfStores);
             done();
           })
           .catch((err) => {
@@ -424,6 +421,6 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
     // END TEST Admin with wrong BusinessAccount DELETE action //
     
   });
-  // END CONTEXT 'ProductsController' EDIT DELETE actions with wrong 'BusinessAcccount //
-  
+  // END CONTEXT 'StoresController' EDIT DELETE actions with wrong 'BusinessAcccount //
+  */
 });
