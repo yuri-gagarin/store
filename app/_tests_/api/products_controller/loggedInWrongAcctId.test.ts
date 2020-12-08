@@ -11,10 +11,11 @@ import Product, { IProduct } from "../../../models/Product";
 // helpers //
 import { clearDB } from "../../helpers/dbHelpers";
 import { setupProdControllerTests, loginAdmins } from "./helpers/setupProdControllerTest";
+import { response } from "express";
 
 chai.use(chaiHTTP);
 
-describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount ID - API tests", () => {
+describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount ID - GET/POST/PATCH/DELETE - API tests", () => {
   let newProductData: ProductData;
   let updateProductData: ProductData;
   let productToUpdate: IProduct;
@@ -76,7 +77,85 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
   });
   
   // CONTEXT 'ProductsController' CREATE EDIT DELETE actions without 'BusinessAccount' set up //
-  context("User without a 'BusinessAccount' set up, CREATE, EDIT, DELETE actions", () => {
+  context("User without a 'BusinessAccount' set up, INDEX, GET, CREATE, EDIT, DELETE actions", () => {
+    // TEST GET with no business account INDEX action //
+    describe("GET '/api/products - NO 'NO BusinessAccount' - INDEX action", () => {
+
+      it("Should NOT allow the INDEX action of 'ProductsController' and return correct response", (done) => {
+        chai.request(server)
+          .get("/api/products")
+          .set({ "Authorization": thirdAdminToken })
+          .end((err, response) => {
+            if (err) done(err);
+            // assert correct response //
+            expect(response.status).to.equal(401);
+            expect(response.body.products).to.be.undefined;
+            expect(response.body.responseMsg).to.be.a("string");
+            expect(response.body.error).to.be.an("object");
+            expect(response.body.errorMessages).to.be.an("array");
+            expect(response.body.errorMessages.length).to.equal(1);
+            expect(response.body.errorMessages[0]).to.be.a("string");
+            done();
+          });
+      });
+      it("Should NOT modify anything in the 'Product' models in the database", (done) => {
+        Product.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(totalNumberOfProducts);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+
+    });
+    // END TEST GET with no business account INDEX ation //
+
+    // TEST GET with no business account GET action //
+    describe("GET '/api/products/:productId' - NO 'BusinessAccont' - GET action", () => {
+
+      it("Should NOT allow the GET action of 'ProductsController' and return correct response", (done) => {
+        chai.request(server)
+          .get("/api/products/" + (productToUpdate._id as string))
+          .set({ "Authorization": thirdAdminToken })
+          .end((err, response) => {
+            if (err) done(err);
+            // assert correct response //
+            expect(response.status).to.equal(401);
+            expect(response.body.product).to.be.undefined;
+            expect(response.body.responseMsg).to.be.a("string");
+            expect(response.body.error).to.be.an("object");
+            expect(response.body.errorMessages).to.be.an("array");
+            expect(response.body.errorMessages.length).to.equal(1);
+            expect(response.body.errorMessages[0]).to.be.a("string");
+            done();
+          });
+      });
+      it("Should NOT edit the 'Product' in question in any way", (done) => {
+        Product.findOne({ _id: productToUpdate._id })
+          .then((foundProduct) => {
+            expect(JSON.stringify(foundProduct)).to.equal(JSON.stringify(productToUpdate));
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+      it("Should NOT alter the number of 'Product' model in the database", (done) => {
+        Product.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(totalNumberOfProducts);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+      
+    });
+    // END TEST GET with no business acount GET action //
+    
     // TEST Admin with no business account CREATE action //
     describe("POST '/api/products/create' - NO 'BusinessAccount' - CREATE action", () => {
 
@@ -204,9 +283,10 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
 
     });
     // END TEST Admin with no Busniess account DELETE action //
+    
   });
-  // END CONTEXT 'ProductsController' CREATE EDIT DELETE actions without 'BusinessAccount' set up //
-  
+  // END CONTEXT 'ProductsController' INDEX GET CREATE EDIT DELETE actions without 'BusinessAccount' set up //
+  /*
   // CONTEXT 'ProductsController' EDIT DELETE actions with wrong 'BusinessAccount //
   context("User with a wrong 'BusinessAccount' set up EDIT, DELETE actions", () => {
     // TEST Admin with wrong business account EDIT action //
@@ -299,5 +379,5 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
     
   });
   // END CONTEXT 'ProductsController' EDIT DELETE actions with wrong 'BusinessAcccount //
-  
+  */
 });

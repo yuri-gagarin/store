@@ -14,7 +14,7 @@ import { setupProdControllerTests, loginAdmins } from "./helpers/setupProdContro
 
 chai.use(chaiHTTP);
 
-describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - INVALID DATA  - API tests", () => {
+describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - INVALID DATA - PATCH/POST - API tests", () => {
   let firstAdmin: IAdministrator;
   let productToUpdate: IProduct;
   let firstToken: string;
@@ -52,7 +52,7 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - INVAL
     clearDB().then(() => done()).catch((err) => done(err));
   });
 
-  context("Admin WITH a 'BusinessAccount' set up, CREATE, EDIT, DELETE actions", () => {
+  context("Admin WITH a 'BusinessAccount' set up, CREATE, EDIT actions", () => {
     // TEST POST CREATE action Correct BusinessAccount - Invalid Data //
     describe("POST '/api/producs/create' - CORRECT 'BusinessAccount' - INVALID DATA", () => {
       it("Should NOT create a new 'Product' model without a 'name' property", (done) => {

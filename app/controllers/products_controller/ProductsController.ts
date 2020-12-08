@@ -4,7 +4,7 @@ import Product, { IProduct } from "../../models/Product";
 import ProductImage, { IProductImage } from "../../models/ProductImage";
 import { IGenericController } from "./../helpers/controllerInterfaces";
 // helpers //
-import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError, resolveStoreItemImgDirectories, resolveDirectoryOfImg, removeDirectoryWithFiles } from "./../helpers/controllerHelpers";
+import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError, resolveStoreItemImgDirectories, resolveDirectoryOfImg, removeDirectoryWithFiles, respondWithNotAllowedErr } from "./../helpers/controllerHelpers";
 import { IAdministrator } from "../../models/Administrator";
 import { validateProductData } from "../products_controller/helpers/validationHelpers"; 
 import { NotFoundError, ValidationError, NotAllowedError, processErrorResponse, GeneralError } from "../helpers/errorHandlers";
@@ -36,6 +36,16 @@ class ProductsController implements IGenericController {
   index (req: Request, res: Response<IGenericProdRes>): Promise<Response> {
     const { name, price, date, limit }: ProducQueryPar = req.query;
     const queryLimit = limit ? parseInt(limit, 10) : 10;
+
+    const admin = req.user as IAdministrator;
+    if (admin) {
+      if (!admin.businessAccountId) {
+        return respondWithNotAllowedErr(res, "Action not allowed", 401, [ "Create a Business Acccount or request to be added to one to get all features"]);
+      }
+    } else {
+      return respondWithNotAllowedErr(res);
+    }
+    
     // optional queries //
     // sort by price //
     if (price) {
@@ -97,10 +107,22 @@ class ProductsController implements IGenericController {
   }
 
   get (req: Request, res: Response<IGenericProdRes>): Promise<Response>  {
-    const _id: string = req.params._id;
-    if (!_id) return respondWithInputError(res, "Can't find product");
-   
-    return Product.findOne({ _id: _id })
+    const productId: string = req.params._id;
+    const admin: IAdministrator = req.user as IAdministrator;
+    // assert that an admin sent a product id //
+    if (!productId) {
+      return respondWithInputError(res, "Input error", 404, [ "Can't resolve product"]);
+    }
+    // assert that an admin exists and has a Business Account set up //
+    if (admin) {
+      if (!admin.businessAccountId) {
+        return respondWithNotAllowedErr(res, "Action not allowed", 401, [ "Create a Business Acccount or request to be added to one to get all features"]);
+      }
+    } else {
+      return respondWithNotAllowedErr(res);
+    }
+    //
+    return Product.findOne({ _id: productId })
       .populate("images").exec()
       .then((product) => {
         if (product) {

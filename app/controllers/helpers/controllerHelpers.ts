@@ -6,13 +6,40 @@ import { IStore } from "../../models/Store";
 import { Document, Error, Model } from "mongoose";
 import { IAdministrator } from "../../models/Administrator";
 import { IUser } from "../../models/User";
-import { ValidationError } from "../helpers/errorHandlers"
-export const respondWithInputError = (res: Response, msg: string, status?: number, messages?: string[]): Promise<Response> => {
+import { ValidationError, NotAllowedError, NotFoundError } from "../helpers/errorHandlers"
+
+// Error Response methods //
+export const respondWithInputError = (res: Response, msg?: string, status?: number, messages?: string[]): Promise<Response> => {
   return new Promise((resolve) => {
+    msg = msg ? msg : "Input error";
     messages = messages ? messages : [ "Something went wrong "];
     const error  = new ValidationError(msg, messages, status);
     return resolve(res.status(error.statusCode).json({
       responseMsg: "Input error",
+      error: error,
+      errorMessages: error.errorMessages
+    }));
+  });
+};
+export const respondWithNotFoundError = (res: Response, msg?: string, status?: number, messages?: string[]): Promise<Response> => {
+  return new Promise((resolve) => {
+    msg = msg ? msg : "Not found",
+    messages = messages ? messages : ["Seems like what you were looking for was not found"];
+    const error = new NotFoundError(msg, messages, status);
+    return resolve(res.status(error.statusCode).json({
+      responseMsg: "Not Found Error",
+      error: error,
+      errorMessages: error.errorMessages
+    }));
+  });
+};
+export const respondWithNotAllowedErr = (res: Response, msg?: string, status?: number, messages?: string[]): Promise<Response> => {
+  return new Promise((resolve) => {
+    msg = msg ? msg : "Action not allowed";
+    messages = messages ? messages : [ "Seems like you lack proper authorization for this action" ];
+    const error = new NotAllowedError(msg, messages, status);
+    return resolve(res.status(error.statusCode).json({
+      responseMsg: "Not allowed",
       error: error,
       errorMessages: error.errorMessages
     }));

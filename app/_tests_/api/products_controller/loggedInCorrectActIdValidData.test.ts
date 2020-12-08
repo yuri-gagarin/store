@@ -15,7 +15,7 @@ import { doesNotMatch } from "assert";
 
 chai.use(chaiHTTP);
 
-describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID DATA  - API tests", () => {
+describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID DATA - POST/PATCH/DELETE  - API tests", () => {
   let firstAdmin: IAdministrator;
   let createdProduct: IProduct;
   let updatedProduct: IProduct;
