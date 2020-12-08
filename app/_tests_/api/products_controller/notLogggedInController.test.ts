@@ -35,8 +35,8 @@ describe("ProductsController - NOT LOGGED IN - API tests", () => {
   });
   // CONTEXT 'ProductsController' API tests Admin not logged in //
   context("'ProductsController' API tests - ADMIN NOT LOGGED IN (NO JWT token)", () => {
-    // TEST GET INDEX action admin not logged in //
-    describe("GET '/api/products - NO LOGIN - GET_MANY action", () => {
+    // TEST GET GET_MANY action admin not logged in //
+    describe("GET '/api/products' - NO LOGIN - GET_MANY action", () => {
 
       it("Should not return any 'Product' models and send the correct response", (done) => {
         chai.request(server)
@@ -62,13 +62,13 @@ describe("ProductsController - NOT LOGGED IN - API tests", () => {
       });
 
     });
-    // END TEST GET INDEX action admin not logged in //
+    // END TEST GET GET_MANY action admin not logged in //
 
-    // TEST GET GET action admin not logged in //
+    // TEST GET GET_ONE action admin not logged in //
     describe("GET '/api/products/:productId - NO LOGIN - GET_ONE action", () => {
       it("Should not return a 'Product' model and send the correct response", (done) => {
         chai.request(server)
-          .get("/api/products")
+          .get("/api/products/" + (firstAdminsProduct._id as string))
           .set({ "Authorization": "" })
           .end((err, res) => {
             if(err) done(err);
@@ -93,7 +93,7 @@ describe("ProductsController - NOT LOGGED IN - API tests", () => {
 
     // TEST POST CREATE action admin not logged in //
     describe("POST '/api/products/create - NO LOGIN - CREATE action", () => {
-      it("Should not return a 'Product' model and send the correct response", (done) => {
+      it("Should NOT return a 'Product' model and send the correct response", (done) => {
         chai.request(server)
           .post("/api/products/create")
           .set({ "Authorization": "" })
@@ -119,8 +119,8 @@ describe("ProductsController - NOT LOGGED IN - API tests", () => {
     // END TEST GET GET action admin not logged in //
 
     // TEST PATCH EDIT action admin not logged in //
-    describe("PATCH '/api/products/update/:producdId - NO LOGIN - EDIT action", () => {
-      it("Should not return a 'Product' model and send the correct response", (done) => {
+    describe("PATCH '/api/products/update/:productId - NO LOGIN - EDIT action", () => {
+      it("Should NOT return a 'Product' model and send the correct response", (done) => {
         chai.request(server)
           .patch("/api/products/update/" + String(firstAdminsProduct._id))
           .set({ "Authorization": "" })
@@ -157,12 +157,11 @@ describe("ProductsController - NOT LOGGED IN - API tests", () => {
     // END TEST PATCH EDIT action admin not logged in //
 
     // TEST DELETE DELETE action admin not logged in //
-    describe("DELETE'/api/products/delete/:producdId - NO LOGIN - DELETE action", () => {
+    describe("DELETE'/api/products/delete/:productId - NO LOGIN - DELETE action", () => {
       it("Should not return a 'Product' model and send the correct response", (done) => {
         chai.request(server)
           .delete("/api/products/delete/" + String(firstAdminsProduct._id))
           .set({ "Authorization": "" })
-          .send({ ...firstAdminsProduct, name: "newProductName" })
           .end((err, res) => {
             if(err) done(err);
             expect(res.status).to.equal(401);
