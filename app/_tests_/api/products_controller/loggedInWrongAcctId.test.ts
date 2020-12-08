@@ -17,7 +17,7 @@ chai.use(chaiHTTP);
 describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount ID - GET/POST/PATCH/DELETE - API tests", () => {
   let newProductData: ProductData;
   let updateProductData: ProductData;
-  let productToUpdate: IProduct;
+  let firstAdminsProduct: IProduct;
   let totalNumberOfProducts: number;
   // admin models first two have a 'BusinessAccount' set up, third does not //
   let firstAdmin: IAdministrator;
@@ -33,7 +33,7 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
       .then((response) => {
         const { admins, products } = response;
         ({ firstAdmin, secondAdmin, thirdAdmin } = admins);
-        ({ productToUpdate } = products);
+        ({ firstAdminsProduct } = products);
         return Product.countDocuments().exec();
       })
       .then((number) => {
@@ -74,7 +74,7 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
   after((done) => {
     clearDB().then(() => done()).catch((err) => done(err));
   });
-  
+  /*
   // CONTEXT 'ProductsController' CREATE EDIT DELETE actions without 'BusinessAccount' set up //
   context("User without a 'BusinessAccount' set up, GET_MANY, GET_ONE, CREATE, EDIT, DELETE actions", () => {
     // TEST GET with no business account INDEX action //
@@ -285,14 +285,14 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
     
   });
   // END CONTEXT 'ProductsController' INDEX GET CREATE EDIT DELETE actions without 'BusinessAccount' set up //
-  /*
+  */
   // CONTEXT 'ProductsController' INDEX GET EDIT DELETE actions with wrong 'BusinessAccount //
-  context("User with a wrong 'BusinessAccount' set up INDEX, GET, EDIT, DELETE actions", () => {
+  context("User with a wrong 'BusinessAccount' set up EDIT, DELETE actions", () => {
     // TEST Admin with wrong business account EDIT action //
     describe("PATCH '/api/products/update/:productId' - WRONG 'BusinessAccount' - EDIT action", () => {
       it("Should NOT allow EDIT of a 'Product' if Admin's  'BusinessAccount' _id doesnt match 'Product'", (done) => {
         chai.request(server)
-          .patch("/api/products/update/" + String(productToUpdate._id))
+          .patch("/api/products/update/" + String(firstAdminsProduct._id))
           .set({ "Authorization": secondAdminToken })
           .send({
             ...newProductData
@@ -310,9 +310,9 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
           });
       });
       it("Should NOT edit the 'Product' in question in ANY way", (done) => {
-        Product.findOne({ _id: productToUpdate._id }).exec()
+        Product.findOne({ _id: firstAdminsProduct._id }).exec()
           .then((foundProduct) => {
-            expect(JSON.stringify(foundProduct)).to.equal(JSON.stringify(productToUpdate));
+            expect(JSON.stringify(foundProduct)).to.equal(JSON.stringify(firstAdminsProduct));
             done();
           })
           .catch((err) => {
@@ -338,7 +338,7 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
     describe("DELETE '/api/products/delete/:productId' - WRONG 'BusinessAccount' - DELETE action", () => {
       it("Should NOT allow DELETE of a 'Product' if Admin's  'BusinessAccount' _id doesnt match 'Product'", (done) => {
         chai.request(server)
-          .delete("/api/products/delete/" + String(productToUpdate._id))
+          .delete("/api/products/delete/" + String(firstAdminsProduct._id))
           .set({ "Authorization": secondAdminToken })
           .end((err, response) => {
             if (err) done(err);
@@ -353,7 +353,7 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
           });
       });
       it("Should NOT delete the 'Product' from the database", (done) => {
-        Product.exists({ _id: productToUpdate._id })
+        Product.exists({ _id: firstAdminsProduct._id })
           .then((exists) => {
             expect(exists).to.equal(true);
             done();
@@ -378,5 +378,5 @@ describe("ProductsController - Logged In WITH WRONG or MISSING BusinessAccount I
     
   });
   // END CONTEXT 'ProductsController' EDIT DELETE actions with wrong 'BusinessAcccount //
-  */
+  
 });

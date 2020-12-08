@@ -13,13 +13,13 @@ import { clearDB } from "../../helpers/dbHelpers";
 chai.use(chaiHTTP);
 
 describe("ProductsController - NOT LOGGED IN - API tests", () => {
-  let productToUpdate: IProduct;
+  let firstAdminsProduct: IProduct;
   let numberOfProducts: number;
 
   before((done) => {
     setupProdControllerTests()
       .then((response) => {
-        ({ productToUpdate } = response.products);
+        ({ firstAdminsProduct } = response.products);
         return Product.countDocuments().exec();
       })
       .then((number) => {
@@ -122,9 +122,9 @@ describe("ProductsController - NOT LOGGED IN - API tests", () => {
     describe("PATCH '/api/products/update/:producdId - NO LOGIN - EDIT action", () => {
       it("Should not return a 'Product' model and send the correct response", (done) => {
         chai.request(server)
-          .patch("/api/products/update/" + String(productToUpdate._id))
+          .patch("/api/products/update/" + String(firstAdminsProduct._id))
           .set({ "Authorization": "" })
-          .send({ ...productToUpdate, name: "newProductName" })
+          .send({ ...firstAdminsProduct, name: "newProductName" })
           .end((err, res) => {
             if(err) done(err);
             expect(res.status).to.equal(401);
@@ -144,9 +144,9 @@ describe("ProductsController - NOT LOGGED IN - API tests", () => {
           });
       });
       it("Should NOT edit the 'Product' model in question", (done) => {
-        Product.findOne({ _id: productToUpdate._id }).exec()
+        Product.findOne({ _id: firstAdminsProduct._id }).exec()
           .then((product) => {
-            expect(JSON.stringify(product)).to.equal(JSON.stringify(productToUpdate));
+            expect(JSON.stringify(product)).to.equal(JSON.stringify(firstAdminsProduct));
             done();
           })
           .catch((err) => {
@@ -160,9 +160,9 @@ describe("ProductsController - NOT LOGGED IN - API tests", () => {
     describe("DELETE'/api/products/delete/:producdId - NO LOGIN - DELETE action", () => {
       it("Should not return a 'Product' model and send the correct response", (done) => {
         chai.request(server)
-          .delete("/api/products/delete/" + String(productToUpdate._id))
+          .delete("/api/products/delete/" + String(firstAdminsProduct._id))
           .set({ "Authorization": "" })
-          .send({ ...productToUpdate, name: "newProductName" })
+          .send({ ...firstAdminsProduct, name: "newProductName" })
           .end((err, res) => {
             if(err) done(err);
             expect(res.status).to.equal(401);
@@ -182,7 +182,7 @@ describe("ProductsController - NOT LOGGED IN - API tests", () => {
           });
       });
       it("Should NOT remove the 'Product' model in question", (done) => {
-        Product.exists({ _id: productToUpdate._id })
+        Product.exists({ _id: firstAdminsProduct._id })
           .then((exists) => {
             expect(exists).to.equal(true);
             done();

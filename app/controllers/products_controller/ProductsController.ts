@@ -93,7 +93,7 @@ class ProductsController implements IGenericController {
       });
     }
     // general response //
-    return Product.find({})
+    return Product.find({ businessAccountId: admin.businessAccountId })
       .limit(queryLimit).populate("images").exec()
       .then((products) => {
         return res.status(200).json({

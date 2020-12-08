@@ -17,14 +17,15 @@ type SetupProdContTestRes = {
     thirdAdminBusAcctId: string;
   }
   products: {
-    productToUpdate: IProduct
+    firstAdminsProduct: IProduct;
+    secondAdminsProduct: IProduct;
   }
 };
 
 export const setupProdControllerTests = (): Promise<SetupProdContTestRes> => {
   let firstAdmin: IAdministrator, secondAdmin: IAdministrator, thirdAdmin: IAdministrator;
   let firstAdminBusAcctId: string, secondAdminBusAcctId: string, thirdAdminBusAcctId: string;
-  let productToUpdate: IProduct;
+  let firstAdminsProduct: IProduct, secondAdminsProduct: IProduct;
 
   return setupDB()
     .then(() => {
@@ -45,7 +46,8 @@ export const setupProdControllerTests = (): Promise<SetupProdContTestRes> => {
       ]);
     })
     .then((products) => {
-      productToUpdate = products[0][0];
+      firstAdminsProduct = products[0][0];
+      secondAdminsProduct = products[1][0];
       return Promise.all([
         Administrator.findOneAndUpdate({ _id: firstAdmin._id }, { $set: { businessAccountId: firstAdminBusAcctId } }, { new: true }),
         Administrator.findOneAndUpdate({ _id: secondAdmin._id }, { $set: { businessAccountId: secondAdminBusAcctId } }, { new: true })
@@ -65,7 +67,8 @@ export const setupProdControllerTests = (): Promise<SetupProdContTestRes> => {
           thirdAdminBusAcctId
         },
         products: {
-          productToUpdate
+          firstAdminsProduct,
+          secondAdminsProduct
         }
       };
     })

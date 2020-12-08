@@ -11,16 +11,16 @@ import Product, { IProduct } from "../../../models/Product";
 import { clearDB } from "../../helpers/dbHelpers";
 import { generateMockProductData } from "../../helpers/dataGeneration"; 
 import { setupProdControllerTests, loginAdmins } from "./helpers/setupProdControllerTest";
-import { doesNotMatch } from "assert";
 
 chai.use(chaiHTTP);
 
-describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID DATA - POST/PATCH/DELETE  - API tests", () => {
+describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID DATA - GET/POST/PATCH/DELETE  - API tests", () => {
   let firstAdmin: IAdministrator;
+  let fetchedProducts: IProduct[];
   let createdProduct: IProduct;
   let updatedProduct: IProduct;
   let deletedProduct: IProduct;
-  let productToUpdate: IProduct;
+  let firstAdminsProduct: IProduct;
   let firstToken: string;
   let totalProducts: number;
   // mockData //
@@ -33,7 +33,7 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID
     setupProdControllerTests()
       .then((response) => {
         ({ firstAdmin } = response.admins);
-        ({ productToUpdate } = response.products);
+        ({ firstAdminsProduct } = response.products);
         return loginAdmins(chai, server, [ firstAdmin ]);
       })
       .then((tokensArr) => {
@@ -56,9 +56,93 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID
     clearDB().then(() => done()).catch((err) => done(err));
   });
 
-  context("Admin WITH a 'BusinessAccount' set up, CREATE, EDIT, DELETE actions", () => {
+  context("Admin WITH a 'BusinessAccount' set up, GET_MANY, GET_ONE, CREATE, EDIT, DELETE actions", () => {
+    // TEST GET GET_MANY action correct BusinessAccount //
+    describe("GET '/api/products' - CORRECT 'BusinessAccount'", () => {
+
+      it("Should fetch 'Product' models and return a correct response", (done) => {
+        chai.request(server)
+          .get("/api/products")
+          .set({ "Authorization": firstToken })
+          .end((err, res) => {
+            if (err) done(err);
+            fetchedProducts = res.body.products;
+            // assert correct response //
+            expect(res.status).of.equal(200);
+            expect(res.body.responseMsg).be.a("string");
+            expect(res.body.products).to.be.an("array");
+            expect(res.body.error).to.be.undefined;
+            expect(res.body.errorMessages).to.be.undefined;
+            done();
+          });
+      });
+      it("Should return only 'Product' models belonging to 'Admins' 'Business' account", () => {
+        for (const product of fetchedProducts) {
+          expect(String(product.businessAccountId)).to.equal(String(firstAdmin.businessAccountId));
+        }
+      });
+      it("Should NOT add nor subtract any 'Product' models to the database", (done) => {
+        Product.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(totalProducts);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+
+    });
+    // END TEST GET GET_MANY action correct BusinessAccount //
     
-    // TEST POST CREATE action Correct BusinessAccount - Invalid Data //
+    // TEST GET GET_ONE action correct BusinessAccount //
+    describe("GET '/api/products/:productId' - CORRECT 'BusinessAccount'", () => {
+      let product: IProduct;
+
+      it("Should fetch 'Product' models and return a correct response", (done) => {
+        chai.request(server)
+          .get("/api/products/" + String(firstAdminsProduct._id))
+          .set({ "Authorization": firstToken })
+          .end((err, res) => {
+            if (err) done(err);
+            product = res.body.product;
+            // assert correct response //
+            expect(res.status).of.equal(200);
+            expect(res.body.responseMsg).be.a("string");
+            expect(res.body.product).to.be.an("object");
+            expect(res.body.error).to.be.undefined;
+            expect(res.body.errorMessages).to.be.undefined;
+            done();
+          });
+      });
+      it("Should return the correct 'Product' model and corresponding data", () => {
+        expect(JSON.stringify(product)).to.equal(JSON.stringify(firstAdminsProduct));
+      });
+      it("Should NOT alter in any way the 'Product' model in the database", (done) => {
+        Product.findOne({ _id: firstAdminsProduct._id }).exec()
+          .then((foundProduct) => {
+            expect(JSON.stringify(foundProduct)).to.equal(JSON.stringify(firstAdminsProduct));
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+      it("Should NOT add nor subtract any 'Product' models to the database", (done) => {
+        Product.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(totalProducts);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+
+    });
+    // END TEST GET_ONE action correct BusinessAccount //
+
+    // TEST POST CREATE action Correct BusinessAccount - valid Data //
     describe("POST '/api/producs/create' - CORRECT 'BusinessAccount' - VALID DATA", () => {
       it("Should create a new 'Product' model, send back correct response", (done) => {
         chai.request(server)
@@ -117,7 +201,7 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID
     describe("PATCH '/api/producs/update/:productId' - CORRECT 'BusinessAccount' - VALID DATA", () => {
       it("Should correctly update a 'Product' model, send back correct response", (done) => {
         chai.request(server)
-          .patch("/api/products/update/" + (productToUpdate._id))
+          .patch("/api/products/update/" + (firstAdminsProduct._id))
           .set({ "Authorization": firstToken })
           .send({ ...updateProductData })
           .end((err, res) => {
@@ -183,7 +267,7 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID
     describe("DELETE '/api/producs/delete/:productId' - CORRECT 'BusinessAccount' - VALID DATA", () => {
       it("Should correctly delete a 'Product' model, send back correct response", (done) => {
         chai.request(server)
-          .delete("/api/products/delete/" + (productToUpdate._id))
+          .delete("/api/products/delete/" + (firstAdminsProduct._id))
           .set({ "Authorization": firstToken })
           .end((err, res) => {
             if (err) done(err);
@@ -219,7 +303,7 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID
       });
     });
     // END TEST DELETE DELETE action Correct BusinessAccount - Valid Data //
-
+    
   });
  
 });

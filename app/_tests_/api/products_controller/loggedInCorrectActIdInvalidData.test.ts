@@ -16,7 +16,7 @@ chai.use(chaiHTTP);
 
 describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - INVALID DATA - PATCH/POST - API tests", () => {
   let firstAdmin: IAdministrator;
-  let productToUpdate: IProduct;
+  let firstAdminsProduct: IProduct;
   let firstToken: string;
   let totalProducts: number;
   // mockData //
@@ -29,7 +29,7 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - INVAL
     setupProdControllerTests()
       .then((response) => {
         ({ firstAdmin } = response.admins);
-        ({ productToUpdate } = response.products);
+        ({ firstAdminsProduct } = response.products);
         return loginAdmins(chai, server, [ firstAdmin ]);
       })
       .then((tokensArr) => {
@@ -173,7 +173,7 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - INVAL
     describe("PATCH '/api/producs/update/:productId' - CORRECT 'BusinessAccount' - INVALID DATA", () => {
       it("Should NOT update an existing 'Product' model without a 'name' property", (done) => {
         chai.request(server)
-          .patch("/api/products/update/" + String(productToUpdate._id ))
+          .patch("/api/products/update/" + String(firstAdminsProduct._id ))
           .set({ "Authorization": firstToken })
           .send({
             ...newProductData,
@@ -193,7 +193,7 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - INVAL
       });
       it("Should NOT update an existing 'Product' model without a 'price' property", (done) => {
         chai.request(server)
-          .patch("/api/products/update/" + String(productToUpdate._id ))
+          .patch("/api/products/update/" + String(firstAdminsProduct._id ))
           .set({ "Authorization": firstToken })
           .send({
             ...newProductData,
@@ -213,7 +213,7 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - INVAL
       });
       it("Should NOT update an existing 'Product' model without a 'description' property", (done) => {
         chai.request(server)
-          .patch("/api/products/update/" + String(productToUpdate._id ))
+          .patch("/api/products/update/" + String(firstAdminsProduct._id ))
           .set({ "Authorization": firstToken })
           .send({
             ...newProductData,
@@ -233,7 +233,7 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - INVAL
       });
       it("Should NOT update an existing 'Product' model without a 'details' property", (done) => {
         chai.request(server)
-          .patch("/api/products/update/" + String(productToUpdate._id ))
+          .patch("/api/products/update/" + String(firstAdminsProduct._id ))
           .set({ "Authorization": firstToken })
           .send({
             ...newProductData,
@@ -253,7 +253,7 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - INVAL
       });
       it("Should NOT update an existing 'Product' model with all empty properties", (done) => {
         chai.request(server)
-          .patch("/api/products/update/" + String(productToUpdate._id ))
+          .patch("/api/products/update/" + String(firstAdminsProduct._id ))
           .set({ "Authorization": firstToken })
           .send({})
           .end((err, res) => {
@@ -272,9 +272,9 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - INVAL
           });
       });
       it("Should NOT alter the 'Product' model in question in any way", (done) => {
-        Product.findOne({ _id: productToUpdate._id }).exec()
+        Product.findOne({ _id: firstAdminsProduct._id }).exec()
           .then((product) => {
-            expect(JSON.stringify(product)).to.equal(JSON.stringify(productToUpdate));
+            expect(JSON.stringify(product)).to.equal(JSON.stringify(firstAdminsProduct));
             done();
           })
           .catch((err) => {
