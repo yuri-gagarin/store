@@ -9,7 +9,8 @@ import { IStoreItem } from "../../models/StoreItem";
 import StoreItemImage, { IStoreItemImage } from "../../models/StoreItemImage";
 // helpers //
 import {  setupDB, clearDB } from "../helpers/dbHelpers";
-import { createStoreItems, createStores } from "../helpers/dataGeneration";
+import { createStoreItems } from "../helpers/dataGeneration"; 
+import {  createStores } from "../helpers/data_generation/storesDataGeneration";
 
 chai.use(chaiHTTP);
 
@@ -20,7 +21,7 @@ describe("StoreItemImage API tests", () => {
 
   before((done) => {
     setupDB()
-      .then(() => createStores(1))
+      .then(() => createStores(1, {}))
       .then((stores) => {
         storeId = stores[0]._id;
         return createStoreItems(1, storeId);

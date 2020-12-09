@@ -286,9 +286,10 @@ describe("StoresController - Logged In WITH WRONG or MISSING BusinessAccount ID 
     
   });
   // END CONTEXT 'StoresController' INDEX GET CREATE EDIT DELETE actions without 'BusinessAccount' set up //
-  /*
+  
   // CONTEXT 'StoresController' GET_ONE GET EDIT DELETE actions with wrong 'BusinessAccount //
   context("Admin with a wrong 'BusinessAccount' set up GET_ONE, EDIT, DELETE actions", () => {
+    
     // TEST GET GET_ONE controller action with wrong 'BusinesAccount' //
     describe("GET '/api/stores/:storeId' - WRONG 'BusinessAccount' - GET_ONE action", () => {
 
@@ -377,7 +378,7 @@ describe("StoresController - Logged In WITH WRONG or MISSING BusinessAccount ID 
       
     });
     // END TEST Admin with wrong business account EDIT action //
-
+    
     // TEST Admin with wrong BusinessAccount DELETE action //
     describe("DELETE '/api/stores/delete/:storeId' - WRONG 'BusinessAccount' - DELETE action", () => {
       it("Should NOT allow DELETE of a 'Store' if Admin's  'BusinessAccount' _id doesnt match 'Store'", (done) => {
@@ -422,5 +423,5 @@ describe("StoresController - Logged In WITH WRONG or MISSING BusinessAccount ID 
     
   });
   // END CONTEXT 'StoresController' EDIT DELETE actions with wrong 'BusinessAcccount //
-  */
+  
 });

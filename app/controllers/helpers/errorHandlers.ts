@@ -37,7 +37,7 @@ export class NotAllowedError extends GeneralError {
   constructor({ errMessage, messages, statusCode } : ControllerErrParams) {
     errMessage = errMessage ? errMessage : "Not Allowed";
     messages = messages ? messages : [ "This operation is not allowed" ];
-    statusCode ? statusCode : 401;
+    statusCode = statusCode ? statusCode : 401;
     super(errMessage, statusCode);
     this.errorMessages = messages;
   }

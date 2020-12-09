@@ -124,7 +124,7 @@ class StoresController implements IGenericController {
       return respondWithNotAllowedErr(res);
     }
     // ensure a Store id was send //
-    if (storeId) return respondWithInputError(res, "Can't find store");
+    if (!storeId) return respondWithInputError(res, "Can't find store");
 
     return Store.findOne({ _id: storeId })
       .then((store) => {
@@ -238,7 +238,6 @@ class StoresController implements IGenericController {
         });
       })
       .catch((error) => {
-        console.error(error);
         return processErrorResponse(res, error);
       });
        
@@ -365,7 +364,6 @@ class StoresController implements IGenericController {
         });
       })
       .catch((error) => {
-        console.log(error)
         return processErrorResponse(res, error);
       })
     }
