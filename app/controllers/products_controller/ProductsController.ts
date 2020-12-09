@@ -1,42 +1,23 @@
-import e, { Request, Response } from "express";
+import { Request, Response } from "express";
 import { Types } from "mongoose";
-import Product, { IProduct } from "../../models/Product";
+// models and model interfaces //
+import Product from "../../models/Product";
 import ProductImage, { IProductImage } from "../../models/ProductImage";
 import { IGenericController } from "./../helpers/controllerInterfaces";
+// additional controller types and interfaces //
+import { ProductData, IGenericProdRes, ProducQueryPar } from "./type_declarations/productsControllerTypes";
 // helpers //
 import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError, resolveStoreItemImgDirectories, resolveDirectoryOfImg, removeDirectoryWithFiles, respondWithNotAllowedErr } from "./../helpers/controllerHelpers";
 import { IAdministrator } from "../../models/Administrator";
 import { validateProductData } from "../products_controller/helpers/validationHelpers"; 
 import { NotFoundError, ValidationError, NotAllowedError, processErrorResponse, GeneralError } from "../helpers/errorHandlers";
 
-interface IGenericProdRes {
-  responseMsg: string;
-  newProduct?: IProduct;
-  editedProduct?: IProduct;
-  deletedProduct?: IProduct;
-  product?: IProduct;
-  products?: IProduct[];
-}
-export type ProductParams = {
-  name: string;
-  description: string;
-  details: string;
-  price: string | number;
-  images: IProductImage[];
-}
-type ProducQueryPar = {
-  price?: string;
-  date?: string;
-  name?: string;
-  limit?: string;
-}
-
 class ProductsController implements IGenericController {
 
   getMany (req: Request, res: Response<IGenericProdRes>): Promise<Response> {
     const { name, price, date, limit }: ProducQueryPar = req.query;
     const queryLimit = limit ? parseInt(limit, 10) : 10;
-
+    // validate an admin present and a valid businessAccountId //
     const admin = req.user as IAdministrator;
     if (admin) {
       if (!admin.businessAccountId) {
@@ -45,7 +26,6 @@ class ProductsController implements IGenericController {
     } else {
       return respondWithNotAllowedErr(res);
     }
-    
     // optional queries //
     // sort by price //
     if (price) {
@@ -130,10 +110,10 @@ class ProductsController implements IGenericController {
               product.populate("images").execPopulate()
             );
           } else {
-            throw new NotAllowedError("Not Allowed", [ "Your account canot access other accounts Products" ]);
+            throw new NotAllowedError({ messages: [ "Your account canot access other accounts Products" ] });
           }
         } else {
-          throw new NotFoundError("Not Found", [ "Product was not found" ]);
+          throw new NotFoundError({ messages: [ "Product was not found" ] });
         }
       })
       .then((product) => {
@@ -148,9 +128,7 @@ class ProductsController implements IGenericController {
   }
 
   create (req: Request, res: Response<IGenericProdRes>): Promise<Response> {
-    const { name, description, details, price, images : productImages }: ProductParams = req.body;
-    const imgIds: Types.ObjectId[] = [];
-    
+    const { name, description, details, price }: ProductData = req.body;    
     const admin: IAdministrator = req.user as IAdministrator;
     // assert that a user is present //
     if(!admin) {
@@ -165,12 +143,6 @@ class ProductsController implements IGenericController {
     if(!valid) {
       return respondWithInputError(res, "Input eror", 422, errorMessages );
     }
-    
-    if (Array.isArray(productImages) && (productImages.length > 1)) {
-      for (const newImg of productImages) {
-        imgIds.push(Types.ObjectId(newImg.url));
-      }
-    }
 
     const newProduct = new Product({
       businessAccountId: admin.businessAccountId,
@@ -178,7 +150,7 @@ class ProductsController implements IGenericController {
       description: description,
       details: details,
       price: price as number,
-      images: [ ...imgIds ],
+      images: [],
       createdAt: new Date(Date.now()),
       editedAt: new Date(Date.now())
     });
@@ -197,11 +169,11 @@ class ProductsController implements IGenericController {
 
   edit (req: Request, res: Response<IGenericProdRes>): Promise<Response> {
     const { _id : productId } = req.params;
-    const { name, description, details, price, images : productImages = [] }: ProductParams = req.body;
+    const { name, description, details, price, images : productImages = [] }: ProductData = req.body;
     const updatedProductImgs: Types.ObjectId[] = [];
 
     const admin: IAdministrator = req.user as IAdministrator;
-
+    // ensure a productId was sent //
     if (!productId) {
       return respondWithInputError(res, "Can't resolve Product", 400);
     }
@@ -220,11 +192,6 @@ class ProductsController implements IGenericController {
       return respondWithInputError(res, "Input Error", 422, errorMessages);
     }
     //
-    if (Array.isArray(productImages) && (productImages.length > 0)) {
-      for (const img of productImages) {
-        updatedProductImgs.push(img._id);
-      }
-    }
 
     return Product.findOne({ _id: productId })
       .then((product) => {
@@ -239,17 +206,17 @@ class ProductsController implements IGenericController {
                   description: description, 
                   details: details, 
                   editedAt: new Date(Date.now()), 
-                  images: [ ...productImages ] 
+                  images: [ ...(productImages as Types.ObjectId[]) ] 
                 } 
               },
               { new: true }
             )
             .populate("images").exec();
           } else {
-            throw new NotAllowedError("Updated not allowed", [ "Cannot update a Product which doesnt belong to your account "], 401);
+            throw new NotAllowedError({ messages: [ "Cannot update a Product which doesnt belong to your account" ] });
           }
         } else {
-          throw new NotFoundError("Not found", [ "Cannot resolve Product to update" ], 404);
+          throw new NotFoundError({ messages: [ "Cannot resolve Product to update" ] });
         }
       })
       .then((editedProduct) => {
@@ -273,10 +240,15 @@ class ProductsController implements IGenericController {
     const { _id: productId } = req.params;
     
     const admin: IAdministrator = req.user as IAdministrator;
-    if (!admin) {
+    // ensure that an admin is present with a business account //
+    if (admin) {
+      if (!admin.businessAccountId) {
+        return respondWithNotAllowedErr(res, "Not Allowed", 401, [ "Not allowed to delete Products without a Business Account set up " ]);
+      }
+    } else {
       return respondWithGeneralError(res, "Cannot resolve Admin", 401);
     }
-   
+    // ensure that a product id was sent /
     if (!productId) {
       return respondWithInputError(res, "Can't resolve Product");
     }
@@ -289,7 +261,7 @@ class ProductsController implements IGenericController {
         if (product) {
           return Promise.resolve(product);
         } else {
-          throw new NotFoundError("Not found", [ "Can't resolve Product to delete" ], 404);
+          throw new NotFoundError({ messages: [ "Can't resolve Product to delete" ] });
         }
       })
       .then((product) => {
@@ -298,7 +270,7 @@ class ProductsController implements IGenericController {
           if (product.images.length > 0) productImage = (product.images[0] as IProductImage);
           return Promise.resolve();
         } else {
-          throw new NotAllowedError("Operation not allowed", [ "Not allowed to delete a Product which does not belong to your Account" ], 401);
+          throw new NotAllowedError({ messages: [ "Not allowed to delete a Product which does not belong to your Account" ] });
         }
       })
       .then((_) => {

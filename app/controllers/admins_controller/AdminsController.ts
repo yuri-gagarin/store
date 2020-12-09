@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import Administrator, { IAdministrator, EAdminLevel } from "../../models/Administrator";
 // helpers and validators //
 import { validateAdminModel } from "./helpers/validationHelpers";
-import { respondWithGeneralError, respondWithInputError } from "../helpers/controllerHelpers";
+import { respondWithInputError } from "../helpers/controllerHelpers";
 import { issueJWT } from "../helpers/authHelpers";
 import { checkDuplicateEmail } from "../helpers/controllerHelpers";
 // type declrations //
@@ -11,7 +11,7 @@ import { IGenericAuthController } from "../helpers/controllerInterfaces";
 import {
   AdminData, AdminParams, AdminLoginRequest, AdminControllerRes
 } from "./type_declarations/adminsControllerTypes";
-import { NotFoundError, processErrorResponse, ValidationError } from "../helpers/errorHandlers";
+import { NotFoundError, NotAllowedError, processErrorResponse, ValidationError } from "../helpers/errorHandlers";
 
 class AdminsController implements IGenericAuthController {
   register(req: Request<{}, {}, AdminData>, res: Response<AdminControllerRes>): Promise<Response> {
@@ -29,7 +29,7 @@ class AdminsController implements IGenericAuthController {
         if (valid) {
           return bcrypt.hash(password, saltRounds)
         } else {
-          throw new ValidationError("Registration error", errorMessages);
+          throw new ValidationError({ errMessage: "Registration error", messages: errorMessages, statusCode: 422 });
         }
       })
       .then((hashedPassword) => {
@@ -53,12 +53,7 @@ class AdminsController implements IGenericAuthController {
         });
       })
       .catch((err) => {
-        if (err instanceof ValidationError) {
-          const { message, errorMessages, statusCode = 400 } = err;
-          return respondWithInputError(res, message, statusCode, errorMessages);
-        } else {
-          return respondWithGeneralError(res, err.message, 500)
-        }
+        return processErrorResponse(res, err);
       });
   }
   editRegistration(req: Request<{}, {}, AdminData>, res: Response<AdminControllerRes>): Promise<Response> {
@@ -67,8 +62,8 @@ class AdminsController implements IGenericAuthController {
     const { adminId } = req.params as AdminParams;
     const currentAdmin = req.user as IAdministrator;
     let foundAdminData: IAdministrator;
-    // check for correct admin //
-    if (String(currentAdmin._id) !== adminId) {
+     // check for correct admin //
+     if (String(currentAdmin._id) !== adminId) {
       return respondWithInputError(res, "Can't process request", 401, ["Not allowed to edit another admin account"]);
     }
     // validate old password first //
@@ -87,7 +82,7 @@ class AdminsController implements IGenericAuthController {
           foundAdminData = foundAdmin;
           return bcrypt.compare(oldPassword, foundAdmin.password);
         } else {
-          throw new NotFoundError("Not Found", [ "Could not resolve admin profile" ], 404);
+          throw new NotFoundError({ messages: [ "Could not resolve admin profile" ] });
         }
       })
       .then((success) => {
@@ -98,12 +93,12 @@ class AdminsController implements IGenericAuthController {
             return Administrator.findOne({ email: email});
           }
         } else {
-          throw new ValidationError("User input error", [ "Incorrect password to apply changes" ], 401);
+          throw new NotAllowedError({ messages: [ "Incorrect password to apply changes" ] });
         }
       })
       .then((adminExistsWithEmail) => {
         if (adminExistsWithEmail) { 
-          throw new ValidationError("User input error", ["A user exists with that email"], 422);
+          throw new ValidationError({ messages: [ "A user exists with that email" ], statusCode: 422 });
         } else {
           return bcrypt.hash(password, saltRounds);
         }
@@ -122,7 +117,7 @@ class AdminsController implements IGenericAuthController {
             editedAdmin: updatedAdmin
           });
         } else {
-          throw new NotFoundError("Not Found", [ "Couldn't find admin profile to update" ], 404);
+          throw new NotFoundError({ messages: [ "Couldn't find admin profile to update" ] });
         }
       })
       .catch((err) => {
@@ -149,14 +144,14 @@ class AdminsController implements IGenericAuthController {
         if (foundAdmin) {
           return bcrypt.compare(password, foundAdmin.password);
         } else {
-          throw new NotFoundError("Not Found", [ "Admin to delete not found" ], 404);
+          throw new NotFoundError({ messages: [ "Admin to delete not found" ] });
         }
       })
       .then((match) => {
         if (match) {
           return Administrator.findOneAndDelete({ _id: adminId });
         } else {
-          throw new ValidationError("Wrong Input", [ "Incorrect password" ], 401);
+          throw new NotAllowedError({ messages: [ "Incorrect password" ] });
         }
       })
       .then((deletedAdmin) => {
@@ -166,7 +161,7 @@ class AdminsController implements IGenericAuthController {
             deletedAdmin: deletedAdmin
           });
         } else {
-          throw new NotFoundError("Not Found", [ "Admin to delete not found in database" ], 404);
+          throw new NotFoundError({ messages: [ "Admin to delete not found in database" ] });
         }
       })
       .catch((err) => {
@@ -188,7 +183,7 @@ class AdminsController implements IGenericAuthController {
           _foundAdmin = foundAdmin;
           return bcrypt.compare(password, foundAdmin.password);
         } else {
-          throw new NotFoundError("Not Found", [ "Did not find an account with this email" ], 404);
+          throw new NotFoundError({ messages: [ "Did not find an account with this email" ] });
         }
       })
       .then((match) => {
@@ -204,7 +199,7 @@ class AdminsController implements IGenericAuthController {
             }
           });
         } else {
-          throw new ValidationError("Login Error", [ "Incorrect password" ], 401);
+          throw new NotAllowedError({ errMessage: "Login Error", messages: [ "Incorrect password" ] });
         }
       })
       .catch((err) => {

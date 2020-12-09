@@ -13,7 +13,7 @@ export const respondWithInputError = (res: Response, msg?: string, status?: numb
   return new Promise((resolve) => {
     msg = msg ? msg : "Input error";
     messages = messages ? messages : [ "Something went wrong "];
-    const error  = new ValidationError(msg, messages, status);
+    const error  = new ValidationError({ errMessage: msg, messages: messages, statusCode: status });
     return resolve(res.status(error.statusCode).json({
       responseMsg: "Input error",
       error: error,
@@ -24,8 +24,8 @@ export const respondWithInputError = (res: Response, msg?: string, status?: numb
 export const respondWithNotFoundError = (res: Response, msg?: string, status?: number, messages?: string[]): Promise<Response> => {
   return new Promise((resolve) => {
     msg = msg ? msg : "Not found",
-    messages = messages ? messages : ["Seems like what you were looking for was not found"];
-    const error = new NotFoundError(msg, messages, status);
+    messages = messages ? messages : [ "Seems like what you were looking for was not found" ];
+    const error = new NotFoundError({ errMessage: msg, messages: messages, statusCode: status });
     return resolve(res.status(error.statusCode).json({
       responseMsg: "Not Found Error",
       error: error,
@@ -37,7 +37,7 @@ export const respondWithNotAllowedErr = (res: Response, msg?: string, status?: n
   return new Promise((resolve) => {
     msg = msg ? msg : "Action not allowed";
     messages = messages ? messages : [ "Seems like you lack proper authorization for this action" ];
-    const error = new NotAllowedError(msg, messages, status);
+    const error = new NotAllowedError({ errMessage: msg, messages: messages, statusCode: status });
     return resolve(res.status(error.statusCode).json({
       responseMsg: "Not allowed",
       error: error,

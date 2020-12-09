@@ -11,7 +11,7 @@ import {
   UserData, UserControllerRes, UserLoginReq, UserParams 
 } from "./type_declarations/usersControllerTypes";
 import { IUser } from "../../models/User";
-import { NotFoundError, processErrorResponse, ValidationError } from "../helpers/errorHandlers";
+import { NotFoundError, NotAllowedError, processErrorResponse, ValidationError } from "../helpers/errorHandlers";
 
 class UsersController implements IGenericAuthController {
   register(req: Request<{}, {}, UserData>, res: Response<UserControllerRes>): Promise<Response> {
@@ -31,7 +31,7 @@ class UsersController implements IGenericAuthController {
         if (valid) {
           return bcrypt.hash(password, saltRounds)
         } else {
-          throw new ValidationError("Registration Error", errorMessages, 422)
+          throw new ValidationError({ errMessage: "Registration Error", messages: errorMessages, statusCode: 422 });
         }
       })
       .then((passwordHash) => {
@@ -87,7 +87,7 @@ class UsersController implements IGenericAuthController {
           foundUser = user;
           return bcrypt.compare(oldPassword, user.password);
         } else {
-          throw new NotFoundError("Not Found", [ "Could not resolve user account" ], 404);
+          throw new NotFoundError({ messages:  [ "Could not resolve user account" ] });
         }
       })
       .then((match) => {
@@ -99,12 +99,12 @@ class UsersController implements IGenericAuthController {
             return User.findOne({ email: email })
           }
         } else {
-          throw new ValidationError("User input error", [ "Incorrect password"], 401);
+          throw new NotAllowedError({ messages: [ "Incorrect password" ] });
         }
       })
       .then((foundUserWithEmail) => {
         if (foundUserWithEmail) {
-          throw new ValidationError("User input error", [ "Another user account exists with this email"], 422);
+          throw new ValidationError({ messages: [ "Another user account exists with this email" ], statusCode: 422 });
         } else {
           return bcrypt.hash(password, saltRounds);
         }
@@ -123,7 +123,7 @@ class UsersController implements IGenericAuthController {
             editedUser: updatedUser
           });
         } else {
-          throw new NotFoundError("Not Found", ["Couldn't find the user profile to update"], 404);
+          throw new NotFoundError({ messages: [ "Couldn't find the user profile to update" ] });
         }
       })
       .catch((err) => {
@@ -152,14 +152,14 @@ class UsersController implements IGenericAuthController {
         if (foundUser) {
           return bcrypt.compare(password, foundUser.password);
         } else {
-          throw new NotFoundError("Not Found", [ "Not able to resolve user to delete" ], 404);
+          throw new NotFoundError({ messages: [ "Not able to resolve user to delete" ] });
         }
       })
       .then((match) => {
         if (match) {
           return User.findOneAndDelete({ _id: userId });
         } else {
-          throw new ValidationError("Unable to complete", [ "Your password is incorrect "], 401);
+          throw new NotAllowedError({ errMessage: "Unable to delete", messages: [ "Your password is incorrect" ] });
         }
       })
       .then((deletedUser) => {
@@ -169,7 +169,7 @@ class UsersController implements IGenericAuthController {
             deletedUser: deletedUser
           });
         } else {
-          throw new NotFoundError("Not Found", [ "User to delete was not found" ], 404);
+          throw new NotFoundError({ messages: [ "User to delete was not found" ] });
         }
       })
       .catch((err) => {
@@ -191,7 +191,7 @@ class UsersController implements IGenericAuthController {
           foundUser = user;
           return bcrypt.compare(password, user.password);
         } else {
-          throw new NotFoundError("Not Found", [ "Could not find a user with that email"], 404);
+          throw new NotFoundError({ messages: [ "Could not find a user with that email" ] });
         }
       })
       .then((match) => {
@@ -205,7 +205,7 @@ class UsersController implements IGenericAuthController {
             }
           });
         } else {
-          throw new ValidationError("Login error", [ "Incorrect password" ], 401);
+          throw new NotAllowedError({ errMessage: "Login error", messages: [ "Incorrect password" ] });
         }
       })
       .catch((err) => {
