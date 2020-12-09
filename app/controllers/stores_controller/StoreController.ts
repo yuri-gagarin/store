@@ -9,7 +9,8 @@ import StoreItemImage from "../../models/StoreItemImage";
 // additional generic interfaces //
 import { IGenericController } from "../helpers/controllerInterfaces";
 import { StoreData } from "./type_declarations/storesControllerTypes";
-// helpers //
+// helpers and validators //
+import { storeDataValidator } from "./helpers/validationHelpers"; 
 import { respondWithInputError, resolveDirectoryOfImg, removeDirectoryWithFiles } from "../helpers/controllerHelpers";
 import { RemoveResponse, resolveStoreItemImgDirectories, respondWithNotAllowedErr } from "../helpers/controllerHelpers"
 import { NotAllowedError, NotFoundError, processErrorResponse } from "../helpers/errorHandlers";
@@ -163,7 +164,11 @@ class StoresController implements IGenericController {
     }
     // store create arguments //
     const { title, description }: StoreData = req.body;
-    
+    // validate correct data input for a new store //
+    const { valid, errorMessages} = storeDataValidator(req.body);
+    if (!valid) {
+      return respondWithInputError(res, "Invalid Input", 422, errorMessages);
+    }
 
     const newStore = new Store({
       businessAccountId: businessAccountId,
@@ -208,6 +213,11 @@ class StoresController implements IGenericController {
     }
     // Store update data //
     const { title, description, images : storeImages = [] }: StoreData = req.body;
+    // validate correct data input for store edit //
+    const { valid, errorMessages } = storeDataValidator(req.body);
+    if (!valid) {
+      return respondWithInputError(res, "Invalid Input", 422, errorMessages);
+    }
     
     return Store.findOne({ _id: storeId }).exec()
       .then((store) => {

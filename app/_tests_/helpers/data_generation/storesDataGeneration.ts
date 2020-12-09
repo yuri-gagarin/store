@@ -1,6 +1,20 @@
 import faker from "faker"
 import { IBusinessAccount } from "../../../models/BusinessAccount";
 import Store, { IStore } from "../../../models/Store";
+import { StoreData } from "../../../controllers/stores_controller/type_declarations/storesControllerTypes";
+
+export const generateMockStoreData = (numberOfStores: number): StoreData[] => {
+  const storeDataArr: StoreData[] = [];
+  for (let i = 0; i < numberOfStores; i++) {
+    const mockStoreData: StoreData = {
+      title: faker.lorem.word(),
+      description: faker.lorem.paragraph(),
+      images: []
+    };
+    storeDataArr.push(mockStoreData);
+  } 
+  return storeDataArr;
+};
 
 /**
  * Creates a set number of mock {Store} objects.
