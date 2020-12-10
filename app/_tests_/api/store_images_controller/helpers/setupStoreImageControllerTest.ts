@@ -4,8 +4,10 @@ import { createAdmins } from "../../../helpers/dataGeneration";
 import { createStoreImages } from "../../../helpers/data_generation/storeImageDataGeneration";
 import { createBusinessAcccount } from "../../../helpers/data_generation/businessAccontsGeneration";
 import Administrator, { IAdministrator } from "../../../../models/Administrator";
-import { IStore } from "../../../../models/Store";
+import Store, { IStore } from "../../../../models/Store";
 import { IStoreImage } from "../../../../models/StoreImage";
+import fs from "fs";
+import path from "path";
 
 type SetupStoreImgContTestRes = {
   admins: {
@@ -69,6 +71,11 @@ export const setupStoreImgControllerTests = (): Promise<SetupStoreImgContTestRes
     })
     .then((storeImgs) => {
       [ firstAdminsStoreImgs, secondAdminsStoreImgs ] = storeImgs;
+      // have to return updated Stores with image count //
+      return Store.find({ _id: { $in: [ firstAdminsStore._id, secondAdminsStore._id ] } });
+    }) 
+    .then((stores) => {
+      [ firstAdminsStore, secondAdminsStore ] = stores;
       return {
         admins: {
           firstAdmin,
@@ -94,3 +101,30 @@ export const setupStoreImgControllerTests = (): Promise<SetupStoreImgContTestRes
       throw err;
     });
 };
+
+export const cleanUpStoreImgControllerTests = (...args: string[]) => {
+  const pathToImages = path.join(path.resolve(), "public", "uploads", "store_images");
+  return fs.promises.access(pathToImages)
+    .then((_) => {
+      return fs.promises.readdir(pathToImages)
+    })
+    .then((directories) => {
+      if (directories.length > 0) {
+        for (let i = 0; i < args.length; i++) {
+          const stats = fs.statSync(path.join(pathToImages, args[i]));
+          if (stats.isDirectory()) {
+            fs.rmdirSync(path.join(pathToImages, args[i]), { recursive: true });
+          }
+        }
+      }
+      return true;
+    })
+    .catch((err) => {
+      if (err.code === "ENOENT") {
+        console.log("No image to delete");
+        return true;
+      } else {
+        throw err;
+      }
+    })
+}
