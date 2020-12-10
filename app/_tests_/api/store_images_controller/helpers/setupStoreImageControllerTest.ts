@@ -1,0 +1,96 @@
+import { setupDB } from "../../../helpers/dbHelpers";
+import { createStores } from "../../../helpers/data_generation/storesDataGeneration";
+import { createAdmins } from "../../../helpers/dataGeneration";
+import { createStoreImages } from "../../../helpers/data_generation/storeImageDataGeneration";
+import { createBusinessAcccount } from "../../../helpers/data_generation/businessAccontsGeneration";
+import Administrator, { IAdministrator } from "../../../../models/Administrator";
+import { IStore } from "../../../../models/Store";
+import { IStoreImage } from "../../../../models/StoreImage";
+
+type SetupStoreImgContTestRes = {
+  admins: {
+    firstAdmin: IAdministrator,
+    secondAdmin: IAdministrator,
+    thirdAdmin: IAdministrator
+  },
+  busAccountIds: {
+    firstAdminBusAcctId: string;
+    secondAdminBusAcctId: string;
+    thirdAdminBusAcctId: string;
+  }
+  stores: {
+    firstAdminsStore: IStore;
+    secondAdminsStore: IStore;
+  },
+  storeImages: {
+    firstAdminsStoreImgs: IStoreImage[];
+    secondAdminsStoreImgs: IStoreImage[];
+  }
+};
+
+export const setupStoreImgControllerTests = (): Promise<SetupStoreImgContTestRes> => {
+  let firstAdmin: IAdministrator, secondAdmin: IAdministrator, thirdAdmin: IAdministrator;
+  let firstAdminBusAcctId: string, secondAdminBusAcctId: string, thirdAdminBusAcctId: string;
+  let firstAdminsStore: IStore, secondAdminsStore: IStore;
+  let firstAdminsStoreImgs: IStoreImage[], secondAdminsStoreImgs: IStoreImage[];
+
+  return setupDB()
+    .then(() => {
+      return createAdmins(3);
+    }) 
+    .then((adminsArr) => {
+      [ firstAdmin, secondAdmin, thirdAdmin ] = adminsArr;
+      return Promise.all([
+        createBusinessAcccount({ admins: [ firstAdmin ] }),
+        createBusinessAcccount({ admins: [ secondAdmin ] })
+      ]);
+    })
+    .then((busAccountArr) => {
+      [ firstAdminBusAcctId, secondAdminBusAcctId ] = busAccountArr.map((acc) => String(acc._id));
+      return Promise.all([
+        createStores(5, busAccountArr[0]),
+        createStores(5, busAccountArr[1])
+      ]);
+    })
+    .then((storesArr) => {
+      firstAdminsStore = storesArr[0][0];
+      secondAdminsStore = storesArr[1][0];
+      return Promise.all([
+        Administrator.findOneAndUpdate({ _id: firstAdmin._id }, { $set: { businessAccountId: firstAdminBusAcctId } }, { new: true }),
+        Administrator.findOneAndUpdate({ _id: secondAdmin._id }, { $set: { businessAccountId: secondAdminBusAcctId } }, { new: true })
+      ]);
+    })
+    .then((updatedAdminArr) => {
+      [ firstAdmin, secondAdmin ] = (updatedAdminArr as IAdministrator[]);
+      return Promise.all([
+        createStoreImages(1, firstAdminsStore),
+        createStoreImages(1, secondAdminsStore)
+      ]);
+    })
+    .then((storeImgs) => {
+      [ firstAdminsStoreImgs, secondAdminsStoreImgs ] = storeImgs;
+      return {
+        admins: {
+          firstAdmin,
+          secondAdmin,
+          thirdAdmin
+        },
+        busAccountIds: {
+          firstAdminBusAcctId,
+          secondAdminBusAcctId,
+          thirdAdminBusAcctId
+        },
+        stores: {
+          firstAdminsStore,
+          secondAdminsStore
+        },
+        storeImages: {
+          firstAdminsStoreImgs,
+          secondAdminsStoreImgs
+        }
+      };
+    })
+    .catch((err) => {
+      throw err;
+    });
+};

@@ -1,8 +1,10 @@
 import mongoose, { Schema, Document } from "mongoose";
+import { IBusinessAccount } from "./BusinessAccount";
 
 export interface IStoreImage extends Document {
   //_id: Schema.Types.ObjectId;
   description?: string;
+  businessAccountId: mongoose.Types.ObjectId;
   storeId: mongoose.Types.ObjectId;
   url: string;
   fileName: string;
@@ -16,6 +18,10 @@ const StoreImageSchema: Schema = new Schema({
   description: {
     type: String,
     required: false
+  },
+  businessAccountId: {
+    type: Schema.Types.ObjectId,
+    required: true
   },
   storeId: {
     type: Schema.Types.ObjectId,

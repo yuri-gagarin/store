@@ -1,8 +1,10 @@
 import mongoose, { Document, Schema } from "mongoose";
+import { IBusinessAccount } from "./BusinessAccount";
 import { IStoreItemImage } from "./StoreItemImage";
 type StoreItemImgRef = mongoose.Types.ObjectId;
 
 export interface IStoreItem extends Document {
+  businessAccountId: (mongoose.Types.ObjectId | IBusinessAccount);
   storeId: mongoose.Types.ObjectId;
   storeName: string;
   name: string;
@@ -16,6 +18,11 @@ export interface IStoreItem extends Document {
 }
 
 const StoreItemSchema: Schema = new Schema({
+  businessAccountId: {
+    type: Schema.Types.ObjectId,
+    ref: "BusinessAccount",
+    required: true
+  },
   storeId: {
     required: true,
     type: Schema.Types.ObjectId,
