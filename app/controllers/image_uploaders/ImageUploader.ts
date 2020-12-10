@@ -4,38 +4,39 @@ import fs from "fs";
 import { IImageUploadDetails } from "./types/types";
 import { Request, Response, NextFunction } from "express";
 import { camelToSnake } from "../helpers/controllerHelpers";
+import { IAdministrator } from "../../models/Administrator";
 
 
 class ImageUploader {
   private uploadDetails: IImageUploadDetails;
   private maxFileSize: number;
   private fileName = "";
-  private imagePath = "";
-  private subdir: string = "";
-  private path: string;
-  private name: string;
+  private imageSubDirectory = "";
+  private businessAccountId = "";
+  private modelId: string = "";
+  private imagePath: string;
   private modelName: string;
   private uploader: any;
   /**
    * 
-   * @param name - Name of file field, camel case
+   * @param fieldName - Name of file field, camel case
    * @param modelName - Name of database Model
    * @param maxFileSize - Max file size allowed in megabytes
    */
-  constructor(name: string, modelName: string, maxFileSize: number, path?: string) {
-    this.name = name;
+  constructor(fieldName: string, modelName: string, maxFileSize: number, path?: string) {
     this.modelName = modelName;
     this.maxFileSize = maxFileSize * 1024 * 1024;
     this.uploadDetails = { responseMsg: "", success: false, imagePath: "", fileName: "", absolutePath: "" };
-    this.imagePath = camelToSnake(this.name) + "s";
-    this.path = path ? this.setPath(path) : this.setPath("public", "uploads", this.imagePath);
+    this.imageSubDirectory = camelToSnake(fieldName) + "s";
+    this.imagePath = path ? this.setPath(path) : this.setPath("public", "uploads", this.imageSubDirectory);
+    console.log(this.imagePath)
     this.uploader = multer({
       limits: {
         fileSize: this.maxFileSize
       },
       storage: this.storage(),
       fileFilter: this.fileFilter
-    }).single(this.name);
+    }).single(fieldName);
 
     this.runUpload = this.runUpload.bind(this);
     // console.log("initialized");
@@ -60,12 +61,19 @@ class ImageUploader {
   }
   
   public runUpload (req: Request, res: Response, next: NextFunction): void {
-    this.subdir = req.params._store_id || req.params._product_id || req.params._store_item_id || req.params._service_id;
-    this.path = PATH.join(this.path, this.subdir);
-    fs.access(this.path, (err) => {
+    // these are subdirectories of each image //
+    // images for models should be stored in the following manner //
+    // /public/uploads/<
+    this.businessAccountId = String((req.user as IAdministrator).businessAccountId)
+    this.modelId = req.params.storeId || req.params.productId || req.params.storeItemId || req.params.serviceId;
+    if (!this.businessAccountId || !this.modelId) next(new Error("Cannot resolve a model to which upload image"));
+    this.imagePath = PATH.join(this.imagePath, this.businessAccountId, this.modelId);
+    console.log(71);
+    console.log(this.imagePath)
+    fs.access(this.imagePath, (err) => {
       if (err && err.code === "ENOENT") {
         console.log("\tMaking directory");
-        fs.mkdir(this.path, { recursive : true }, (err) => {
+        fs.mkdir(this.imagePath, { recursive : true }, (err) => {
           if (err) {
             console.error(err);
             next(err);
@@ -77,10 +85,11 @@ class ImageUploader {
       }
     });
   }
+
   private storage (): multer.StorageEngine {
     return multer.diskStorage({
       destination: (req, file, done) => {
-        done(null, this.path);
+        done(null, this.imagePath);
       },
       filename: (req, file, done) => {
         const extName = PATH.extname(file.originalname);
@@ -90,6 +99,9 @@ class ImageUploader {
     });
   }
   private handleMulter (req: Request, res: Response, next: NextFunction): void {
+    const user = req.user as IAdministrator;
+    const accountId: string = String(user.businessAccountId);
+
     return this.uploader(req, res, (err: any) => {
       if (err) {
         const error: MulterError = err;
@@ -129,9 +141,9 @@ class ImageUploader {
         this.uploadDetails = { 
           responseMsg: "Success", 
           success: true, 
-          imagePath: PATH.join("public", "uploads", this.imagePath, this.subdir),
+          imagePath: this.imagePath,
           fileName: this.fileName,
-          absolutePath: this.path + "/" + this.fileName
+          absolutePath: this.imagePath + "/" + this.fileName
          };
         res.locals.uploadDetails = this.uploadDetails;
         next();

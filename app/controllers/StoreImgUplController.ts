@@ -5,6 +5,7 @@ import StoreImage, { IStoreImage } from "../models/StoreImage";
 // helpers //
 import { respondWithInputError, respondWithDBError, normalizeImgUrl, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
 import Store, { IStore } from "../models/Store";
+import { IAdministrator } from "../models/Administrator";
 
 type ImageReqestObj = {
   _store_id: string;
@@ -17,21 +18,24 @@ type StoreImageResponse = {
 }
 class StoreImageUploadController implements IGenericImgUploadCtrl {
   createImage (req: Request, res: Response<StoreImageResponse>): Promise<Response> {
-    const { _store_id: storeId } = req.params;
+    const { storeId } = req.params;
+    const admin = req.user as IAdministrator;
+
     const uploadDetails: IImageUploadDetails = res.locals.uploadDetails as IImageUploadDetails;
     const { success, imagePath, absolutePath, fileName } = uploadDetails;
     let newImage: IStoreImage;
-
+    
     if (success && imagePath && fileName) {
       return normalizeImgUrl(imagePath, fileName)
         .then((imgUrl) => {
           return StoreImage.create({
+            businessAccountId: admin.businessAccountId,
             storeId: storeId,
             url: imgUrl,
             fileName: fileName,
             imagePath: imagePath,
             absolutePath: absolutePath
-          })
+        })
         .then((storeImage) => {
           newImage = storeImage;
           return Store.findOneAndUpdate(
@@ -48,6 +52,7 @@ class StoreImageUploadController implements IGenericImgUploadCtrl {
           });
         })
         .catch((err) => {
+          console.log(54)
           return respondWithDBError(res, err);
         });
       });

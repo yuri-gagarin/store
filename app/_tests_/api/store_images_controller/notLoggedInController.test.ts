@@ -32,7 +32,6 @@ describe("StoreImagesUplController - NOT LOGGED IN - POST/DELETE API tests", () 
         ({ firstAdminsStore } = stores);
         ({ firstAdminBusAcctId, secondAdminBusAcctId } = busAccountIds);
         [ firstAdminsStoreImage ] = storeImages.firstAdminsStoreImgs;
-
         return StoreImage.countDocuments().exec();
       })
       .then((number) => {
