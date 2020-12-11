@@ -6,6 +6,7 @@ import StoreImage, { IStoreImage } from "../models/StoreImage";
 import { respondWithInputError, respondWithDBError, normalizeImgUrl, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
 import Store, { IStore } from "../models/Store";
 import { IAdministrator } from "../models/Administrator";
+import { NotFoundError, processErrorResponse } from "./helpers/errorHandlers";
 
 type ImageReqestObj = {
   _store_id: string;
@@ -14,7 +15,7 @@ type StoreImageResponse = {
   responseMsg: string;
   newStoreImage?: IStoreImage;
   deletedStoreImage?: IStoreImage;
-  updatedStore: IStore;
+  updatedStore?: IStore;
 }
 class StoreImageUploadController implements IGenericImgUploadCtrl {
   createImage (req: Request, res: Response<StoreImageResponse>): Promise<Response> {
@@ -22,85 +23,85 @@ class StoreImageUploadController implements IGenericImgUploadCtrl {
     const admin = req.user as IAdministrator;
 
     const uploadDetails: IImageUploadDetails = res.locals.uploadDetails as IImageUploadDetails;
-    const { success, imagePath, absolutePath, fileName } = uploadDetails;
+    const { success, imagePath, absolutePath, fileName, url } = uploadDetails;
     let newImage: IStoreImage;
     
-    if (success && imagePath && fileName) {
-      return normalizeImgUrl(imagePath, fileName)
-        .then((imgUrl) => {
-          return StoreImage.create({
-            businessAccountId: admin.businessAccountId,
-            storeId: storeId,
-            url: imgUrl,
-            fileName: fileName,
-            imagePath: imagePath,
-            absolutePath: absolutePath
-        })
-        .then((storeImage) => {
-          newImage = storeImage;
-          return Store.findOneAndUpdate(
+    if (success) {
+      return StoreImage.create({
+        businessAccountId: admin.businessAccountId,
+        storeId: storeId,
+        url: url,
+        fileName: fileName,
+        imagePath: imagePath,
+        absolutePath: absolutePath
+      })
+      .then((storeImage) => {
+        newImage = storeImage;
+        return (
+          Store.findOneAndUpdate(
             { _id: storeId },
             { $push: { images: storeImage._id } },
             { upsert: true, new: true }
-          ).populate("images").exec();
-        })
-        .then((updatedStore) => {
-          return res.status(200).json({
-            responseMsg: "Store image uploaded",
-            newStoreImage: newImage,
-            updatedStore: updatedStore
-          });
-        })
-        .catch((err) => {
-          console.log(54)
-          return respondWithDBError(res, err);
+          ).populate("images").exec()
+        );
+      })
+      .then((updatedStore) => {
+        return res.status(200).json({
+          responseMsg: "Store image uploaded",
+          newStoreImage: newImage,
+          updatedStore: updatedStore
         });
+      })
+      .catch((err) => {
+        return respondWithDBError(res, err);
       });
     } else {
-      return respondWithInputError(res, "Image not uploaded", 400);
+      return respondWithInputError(res, "Image not uploaded", 500, [ "Something seems to have went wrong on our end" ]);
     }
   }
+
   deleteImage (req: Request, res: Response<StoreImageResponse>): Promise<Response> {
-    const { _id: imgId, _store_id: storeId } = req.params;
+    const { storeImgId, storeId } = req.params;
     let deletedImage: IStoreImage;
 
-    if (!imgId) {
+    if (!storeImgId) {
       return respondWithInputError(res, "Can't resolve image to delete", 400);
     }
     
-    return StoreImage.findById(imgId)
+    return StoreImage.findById(storeImgId)
       .then((storeImage) => {
         if (storeImage) {
-          return deleteFile(storeImage.absolutePath)
-            .then(() => {
-              return StoreImage.findOneAndDelete({ _id: imgId });
-            })
-            .then((image) => {
-              deletedImage = image!;
-              return Store.findOneAndUpdate(
-                { _id: storeId },
-                { $pull: { images: imgId }},
-                { new: true }
-              ).populate("images").exec();
-            })
-            .then((updatedStore) => {
-              return res.status(200).json({
-                responseMsg: "Image deleted",
-                deletedStoreImage: deletedImage,
-                updatedStore: updatedStore!
-              });
-            })
-            .catch((err) => {
-              console.error(err);
-              return respondWithDBError(res, err);
-            });
-          } else {
-            return respondWithGeneralError(res, "Message", 400);
-          }
-        })
-        .catch((err) => {
-          return respondWithDBError(res, err);
+          return deleteFile(storeImage.absolutePath);
+        } else {
+          throw new NotFoundError({ messages: [ "Cant't resolve StoreImage to delete" ] });
+        }
+      })
+      .then(() => {
+        return StoreImage.findOneAndDelete({ _id: storeImgId });
+      })
+      .then((image) => {
+        if (image ) {
+          deletedImage = image!;
+          return Store.findOneAndUpdate(
+            { _id: storeId },
+            { $pull: { images: storeImgId }},
+            { new: true }
+          )
+          .populate("images").exec();
+        } else {
+          throw new NotFoundError({ messages: [ "Cant't resolve StoreImage to delete" ] });
+        }
+      })
+      .then((updatedStore) => {
+        return res.status(200).json({
+          responseMsg: "Image deleted",
+          deletedStoreImage: deletedImage,
+          updatedStore: updatedStore!
         });
+      })
+      .catch((err) => {
+        return processErrorResponse(res, err);
+      });
   }
   /*
   private parallelQuery (): Promise<boolean> {

@@ -18,37 +18,37 @@ class StoreItemImageUploadController implements IGenericImgUploadCtrl {
   createImage (req: Request, res: Response<StoreItemImgRes>): Promise<Response> {
     const { _store_item_id: storeItemId } = req.params;
     const uploadDetails: IImageUploadDetails = res.locals.uploadDetails as IImageUploadDetails;
-    const { success, imagePath, fileName, absolutePath } = uploadDetails;
+    const { success, imagePath, fileName, absolutePath, url } = uploadDetails;
     let newImage: IStoreItemImage;
 
-    if (success && imagePath && absolutePath) {
-      return normalizeImgUrl(imagePath, fileName)
-        .then((imgUrl) => {
-          return StoreItemImage.create({
-            storeItemId: storeItemId,
-            url: imgUrl,
-            fileName: fileName,
-            imagePath: imagePath,
-            absolutePath: absolutePath
-          })
-        .then((storeItemImage) => {
-          newImage = storeItemImage;
-          return StoreItem.findOneAndUpdate(
+    if (success) {
+      return StoreItemImage.create({
+        storeItemId: storeItemId,
+        url: url,
+        fileName: fileName,
+        imagePath: imagePath,
+        absolutePath: absolutePath
+      })
+      .then((storeItemImage) => {
+        newImage = storeItemImage;
+        return (
+          StoreItem.findOneAndUpdate(
             { _id: storeItemId },
             { $push: { images: storeItemImage._id } },
             { upsert: true, new: true }
-          ).populate("images").exec();
-        })
-        .then((updatedStoreItem) => {
-          return res.status(200).json({
-            responseMsg: "Store Item image uploaded",
-            newStoreItemImage: newImage,
-            updatedStoreItem: updatedStoreItem
-          });
-        })
-        .catch((err) => {
-          return respondWithDBError(res, err);
+          )
+          .populate("images").exec()
+        );
+      })
+      .then((updatedStoreItem) => {
+        return res.status(200).json({
+          responseMsg: "Store Item image uploaded",
+          newStoreItemImage: newImage,
+          updatedStoreItem: updatedStoreItem
         });
+      })
+      .catch((err) => {
+        return respondWithDBError(res, err);
       });
     } else {
       return respondWithInputError(res, "Image not uploaded", 400);

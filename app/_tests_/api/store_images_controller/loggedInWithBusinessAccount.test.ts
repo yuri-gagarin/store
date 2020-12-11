@@ -16,6 +16,7 @@ import { loginAdmins } from "../../helpers/auth_helpers/authHelpers";
 import { isEmptyObj } from "../../../controllers/helpers/queryHelpers";
 import { clearDB } from "../../helpers/dbHelpers";
 import { IAdministrator } from "../../../models/Administrator";
+import { response } from "express";
 
 chai.use(chaiHTTP);
 /**
@@ -54,7 +55,10 @@ describe("StoreImagesUplController - LOGGED IN - BUSINESS ACCOUNT SET UP - POST/
   // admin StoreImage models //
   let firstAdminsStoreImage: IStoreImage;
   let secondAdminsStoreImage: IStoreImage;
-
+  // created and deleted images //
+  let createdImage: IStoreImage;
+  let deletedImage: IStoreImage;
+  // aditonal variables //
   let storeImageModelCount: number;
 
   before((done) => {
@@ -64,7 +68,6 @@ describe("StoreImagesUplController - LOGGED IN - BUSINESS ACCOUNT SET UP - POST/
         ({ firstAdminsStore, secondAdminsStore } = stores);
         ({ firstAdminBusAcctId, secondAdminBusAcctId } = busAccountIds);
         [ firstAdminsStoreImage, secondAdminsStoreImage ] = storeImages.firstAdminsStoreImgs;
-        console.log(firstAdminsStoreImage)
         return StoreImage.countDocuments().exec();
       })
       .then((number) => {
@@ -80,6 +83,7 @@ describe("StoreImagesUplController - LOGGED IN - BUSINESS ACCOUNT SET UP - POST/
       })
   })
   after((done) => {
+    
     cleanUpStoreImgControllerTests(firstAdminBusAcctId, secondAdminBusAcctId)
       .then(() => {
         return clearDB();
@@ -90,13 +94,17 @@ describe("StoreImagesUplController - LOGGED IN - BUSINESS ACCOUNT SET UP - POST/
       .catch((err) => {
         done(err);
       });
+      
+     done();
   });
-  
+
+  // CONTEXT POST/DELETE API tets with LOGIN and CORRECT business account //
   context("POST/DELETE  'StoreImgUplController' API tests - WITH LOGIN AND CORRECT BUSINESS ACCOUNT - CREATE_IMAGE, DELETE_IMAGE actions", () => {
-    // TEST POST 'StoreImagesController' login and bus account CREATE_IMAGE  action //
+
+    // TEST POST 'StoreImagesController' login and correct bus account CREATE_IMAGE  action //
     describe("POST '/api/store_images/upload' - WITH LOGIN - WITH BUSINESS ACCOUNT - Multer Upload and CREATE_IMAGE action", () => {
 
-      it("Should NOT upload and create StoreImage model", (done) => {
+      it("Should correctly upload and create 'StoreImage model' ", (done) => {
         const testImgPath = path.join(path.resolve(), "app", "_tests_", "api", "test_images", "test.jpg");
         
         chai.request(server)
@@ -105,84 +113,54 @@ describe("StoreImagesUplController - LOGGED IN - BUSINESS ACCOUNT SET UP - POST/
           .attach("storeImage", fs.readFileSync(testImgPath), "test.jpg")
           .end((err, response) => {
             if (err) done(err);
-            console.log(response.body.newStoreImage)
-            done();
-            /*
+            createdImage = response.body.newStoreImage;
+            // assert correct response //
             expect(response.body.responseMsg).to.be.a("string");
-            expect(response.body.error).to.be.an("object");
-            expect(response.body.errorMessages).to.be.an("array");
-            expect(response.body.errorMessages.length).to.equal(1);
-            expect(response.body.errorMessages[0]).to.be.a("string");
-            expect(response.body.newStoreImage).to.be.undefined;
-            expect(response.body.updatedStore).to.be.undefined;
+            expect(response.body.newStoreImage).to.be.an("object");
+            expect(response.body.updatedStore).to.be.an("object");
+            // 
+            expect(response.body.error).to.be.undefined;
+            expect(response.body.errorMessages).to.be.undefined;
             done();
-            */
           });
       });
-      /*
-      it("Should NOT place the image into the upload directory", (done) => {
+      it("Should correctly set all fields in new 'StoreImage' model", () => {
+        expect(createdImage.businessAccountId).to.be.a("string");
+        expect(createdImage.fileName).to.be.a("string");
+        expect(createdImage.url).to.be.a("string");
+        expect(createdImage.absolutePath).to.be.a("string");
+        expect(createdImage.imagePath).to.be.a("string");
+        expect(createdImage.createdAt).to.be.a("string");
+      });
+      it("Should correctly set the 'url' property on the 'StoreImage' model", (done) => {
+        chai.request(server)
+          .get(createdImage.url)
+          .end((err, response) => {
+            if (err) done(err);
+            expect(response.status).to.equal(200);
+            expect(response.type).to.equal("image/jpeg");
+            expect(response.header["content-type"]).to.equal("image/jpeg");
+            done();
+          });
+      });
+      it("Should correctly set the 'absolutePath' property on the 'StoreImage' model", (done) => {
+        fs.access(createdImage.absolutePath, fs.constants.F_OK | fs.constants.R_OK | fs.constants.W_OK, (err) => {
+          if (err) done (err);
+          expect(err).to.be.null;
+          done();
+        }) 
+      });
+      it("Should place the image into the upload directory", (done) => {
         let imageDirectory = path.join(path.resolve(), "public", "uploads", "store_images", firstAdminBusAcctId, firstAdminsStore._id.toString())
         fs.readdir(imageDirectory, (err, files) => {
           if(err) done(err);
           expect(err).to.equal(null);
-          expect(files.length).to.equal(1);
+          expect(files.length).to.equal(2);
           done();
         });
       });
-      it("Should NOT INCREASE the number of {StoreImage(s)} by 1", (done) => {
-        StoreImage.countDocuments().exec()
-          .then((number) => {
-            expect(number).to.equal(storeImageModelCount);
-            done();
-          })
-          .catch((err) => {
-            done(err); 
-          });
-      });
-      it("Should NOT INCREASE the number of images in the queried Store model", (done) => {
-        Store.findOne({ _id: firstAdminsStore._id }).exec()
-          .then((foundStore) => {
-            expect(foundStore!.images.length).to.equal(firstAdminsStore.images.length);
-            done();
-          })
-          .catch((err) => {
-            done(err);
-          });
-      });
-      */
-    });
-    // END TEST POST 'StoreImagesController' no login CREATE_IMAGE  action //
-    /*
-    // TEST DELETE 'StoreImagesController' DELETE_IMAGE action wihout login //
-    describe("DELETE '/api/store_images/upload' - NO LOGIN -  DELETE_IMAGE action", () => {
-
-      it("Should NOT allow successfully remove an image and destroy the StoreImage model", (done) => {
-        chai.request(server)
-          .delete("/api/uploads/store_images/" + (firstAdminsStoreImage._id as string) + "/" + (firstAdminsStore._id as string))
-          .set({ "Authorization": thirdAdminToken })
-          .end((err, response) => {
-            if (err) done(err);
-            // assert correct reponse //
-            expect(response.status).to.equal(401);
-            expect(response.body.responseMsg).to.be.a("string");
-            expect(response.body.error).to.be.an("object");
-            expect(response.body.errorMessages).to.be.an("array");
-            expect(response.body.errorMessages.length).to.equal(1);
-            expect(response.body.errorMessages[0]).to.be.a("string");
-            expect(response.body.newStoreImage).to.be.undefined;
-            expect(response.body.updatedStore).to.be.undefined;
-            done();
-          });
-      });
-      it("Should NOT delete the image from its directory", (done) => {
-        const imagePath = firstAdminsStoreImage.absolutePath
-        fs.access(imagePath, fs.constants.F_OK, (err) => {
-          expect(err).to.be.null;
-          done();
-        });
-      });
-      it("Should NOT remove the 'StoreImage' model from the database", (done) => {
-        StoreImage.exists({ _id: firstAdminsStoreImage._id })
+      it("Should create a new 'StoreImage' model in the database", (done) => {
+        StoreImage.exists({ _id: createdImage._id })
           .then((exists) => {
             expect(exists).to.equal(true);
             done();
@@ -191,20 +169,21 @@ describe("StoreImagesUplController - LOGGED IN - BUSINESS ACCOUNT SET UP - POST/
             done(err);
           });
       });
-      it("Should NOT DECREASE the number of 'StoreImage' model by 1", (done) => {
+      it("Should INCREASE the number of 'StoreImage' models by 1", (done) => {
         StoreImage.countDocuments().exec()
           .then((number) => {
-            expect(number).to.equal(storeImageModelCount);
+            expect(number).to.equal(storeImageModelCount + 1);
+            storeImageModelCount = number;
             done();
           })
-          .catch((err) => { 
+          .catch((err) => {
             done(err); 
           });
       });
-      it("Should NOT remove the StoreImage id from the queried 'Store' model", (done) => {
+      it("Should add the 'StoreImage' to the 'Store' model 'images' subarray ", (done) => {
         Store.findOne({ _id: firstAdminsStore._id }).exec()
-          .then((store) => {
-            const imgId = store!.images.filter((imgId) => String(imgId) === String(firstAdminsStoreImage._id));
+          .then((foundStore) => {
+            const imgId = foundStore!.images.filter((imgId) => String(imgId) === String(createdImage._id));
             expect(imgId.length).to.equal(1);
             done();
           })
@@ -212,10 +191,84 @@ describe("StoreImagesUplController - LOGGED IN - BUSINESS ACCOUNT SET UP - POST/
             done(err);
           });
       });
-      
+      it("Should INCREASE the number of images in the queried Store model by 1", (done) => {
+        Store.findOne({ _id: firstAdminsStore._id }).exec()
+          .then((foundStore) => {
+            expect(foundStore!.images.length).to.equal(firstAdminsStore.images.length + 1);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+    });
+    // END TEST POST 'StoreImagesController' no login CREATE_IMAGE  action //
+    
+    // TEST DELETE 'StoreImagesController' DELETE_IMAGE action wih login  and correct bus account //
+    describe("DELETE '/api/store_images/upload' - WITH LOGIN and BUSINESS_ACCOUNT -  DELETE_IMAGE action", () => {
+
+      it("Should successfully remove the 'StoreImage' and respond with correct response", (done) => {
+        chai.request(server)
+          .delete("/api/uploads/store_images/" + (createdImage._id as string) + "/" + (firstAdminsStore._id as string))
+          .set({ "Authorization": firstAdminToken })
+          .end((err, response) => {
+            if (err) done(err);
+            deletedImage = response.body.deletedStoreImage;
+            // assert correct reponse //
+            expect(response.status).to.equal(200);
+            expect(response.body.responseMsg).to.be.a("string");
+            expect(response.body.deletedStoreImage).to.be.an("object");
+            expect(response.body.updatedStore).to.be.an("object");
+            // 
+            expect(response.body.error).to.be.undefined;
+            expect(response.body.errorMessages).to.be.undefined;
+            done();
+          });
+      });
+      it("Should delete the image from its directory", (done) => {
+        const imagePath = deletedImage.absolutePath
+        fs.access(imagePath, fs.constants.F_OK, (err) => {
+          expect(err!.code === "ENOENT");
+          done();
+        });
+      });
+      it("Should remove the 'StoreImage' model from the database", (done) => {
+        StoreImage.exists({ _id: deletedImage._id })
+          .then((exists) => {
+            expect(exists).to.equal(false);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+      it("Should DECREASE the number of 'StoreImage' model by 1", (done) => {
+        StoreImage.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(storeImageModelCount - 1);
+            storeImageModelCount = number;
+            done();
+          })
+          .catch((err) => { 
+            done(err); 
+          });
+      });
+      it("Should remove the StoreImage id from the queried 'Store' model", (done) => {
+        Store.findOne({ _id: firstAdminsStore._id }).exec()
+          .then((store) => {
+            const imgId = store!.images.filter((imgId) => String(imgId) === String(deletedImage._id));
+            expect(imgId.length).to.equal(0);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+    
     });
     // END TEST DELETE 'StoreImagesController' DELETE_IMAGE action wihout login //
-    */
+    
   });
-  
+  // END CONTEXT POST/DELETE API tets with LOGIN and CORRECT business account //
+
 });

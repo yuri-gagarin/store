@@ -26,7 +26,7 @@ export const checkImgUploadCredentials = async (req: Request, res: Response, nex
   let modelToQuery: string;
   let modelId: string;
   let businessAccountId: Types.ObjectId;
-  console.log(req.params)
+  // check for a present administrator and valid businessAccountId //
   if (administrator) {
     if (!administrator.businessAccountId) {
       return respondWithNotAllowedErr(res, "Not Allowed", 401, [ "Can't upload any imgages without a Business Account set up" ]);

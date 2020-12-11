@@ -4,4 +4,5 @@ export type IImageUploadDetails = {
   imagePath: string;
   fileName: string;
   absolutePath: string;
+  url: string;
 }

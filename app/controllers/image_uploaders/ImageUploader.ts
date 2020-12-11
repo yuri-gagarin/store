@@ -5,6 +5,7 @@ import { IImageUploadDetails } from "./types/types";
 import { Request, Response, NextFunction } from "express";
 import { camelToSnake } from "../helpers/controllerHelpers";
 import { IAdministrator } from "../../models/Administrator";
+import { pathToFileURL } from "url";
 
 
 class ImageUploader {
@@ -26,10 +27,10 @@ class ImageUploader {
   constructor(fieldName: string, modelName: string, maxFileSize: number, path?: string) {
     this.modelName = modelName;
     this.maxFileSize = maxFileSize * 1024 * 1024;
-    this.uploadDetails = { responseMsg: "", success: false, imagePath: "", fileName: "", absolutePath: "" };
+    this.uploadDetails = { responseMsg: "", success: false, imagePath: "", fileName: "", absolutePath: "", url: "" };
     this.imageSubDirectory = camelToSnake(fieldName) + "s";
     this.imagePath = path ? this.setPath(path) : this.setPath("public", "uploads", this.imageSubDirectory);
-    console.log(this.imagePath)
+    // multer uploader setup //
     this.uploader = multer({
       limits: {
         fileSize: this.maxFileSize
@@ -63,13 +64,13 @@ class ImageUploader {
   public runUpload (req: Request, res: Response, next: NextFunction): void {
     // these are subdirectories of each image //
     // images for models should be stored in the following manner //
-    // /public/uploads/<
+    // /public/uploads/<this.imageSubdirectory>/<businessAccountId>/<modelId>/
     this.businessAccountId = String((req.user as IAdministrator).businessAccountId)
     this.modelId = req.params.storeId || req.params.productId || req.params.storeItemId || req.params.serviceId;
+    // throw error if cant resolve either business account id or model id .
     if (!this.businessAccountId || !this.modelId) next(new Error("Cannot resolve a model to which upload image"));
+    // final absolute path of image //
     this.imagePath = PATH.join(this.imagePath, this.businessAccountId, this.modelId);
-    console.log(71);
-    console.log(this.imagePath)
     fs.access(this.imagePath, (err) => {
       if (err && err.code === "ENOENT") {
         console.log("\tMaking directory");
@@ -99,8 +100,6 @@ class ImageUploader {
     });
   }
   private handleMulter (req: Request, res: Response, next: NextFunction): void {
-    const user = req.user as IAdministrator;
-    const accountId: string = String(user.businessAccountId);
 
     return this.uploader(req, res, (err: any) => {
       if (err) {
@@ -111,6 +110,7 @@ class ImageUploader {
             responseMsg: "Internal error", 
             success: false, 
             imagePath: "", 
+            url: "",
             fileName: this.fileName,
             absolutePath: ""
           };
@@ -121,6 +121,7 @@ class ImageUploader {
             responseMsg: "Unexpected file", 
             success: false, 
             imagePath: "",
+            url: "",
             fileName: this.fileName,
             absolutePath: ""
            };
@@ -131,6 +132,7 @@ class ImageUploader {
             responseMsg: "Error occured", 
             success: false, 
             imagePath: "",
+            url: "",
             fileName: this.fileName,
             absolutePath: ""
            };
@@ -143,6 +145,7 @@ class ImageUploader {
           success: true, 
           imagePath: this.imagePath,
           fileName: this.fileName,
+          url: PATH.join("/" + "uploads", this.imageSubDirectory, this.businessAccountId, this.modelId, this.fileName),
           absolutePath: this.imagePath + "/" + this.fileName
          };
         res.locals.uploadDetails = this.uploadDetails;
