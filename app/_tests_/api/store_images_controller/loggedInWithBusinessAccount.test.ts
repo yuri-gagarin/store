@@ -83,7 +83,6 @@ describe("StoreImagesUplController - LOGGED IN - BUSINESS ACCOUNT SET UP - POST/
       })
   })
   after((done) => {
-    
     cleanUpStoreImgControllerTests(firstAdminBusAcctId, secondAdminBusAcctId)
       .then(() => {
         return clearDB();
@@ -93,16 +92,14 @@ describe("StoreImagesUplController - LOGGED IN - BUSINESS ACCOUNT SET UP - POST/
       })
       .catch((err) => {
         done(err);
-      });
-      
-     done();
+      });      
   });
 
   // CONTEXT POST/DELETE API tests with LOGIN and CORRECT business account //
   context("POST/DELETE  'StoreImgUplController' API tests - LOGGED IN - CORRECT BUSINESS ACCOUNT - CREATE_IMAGE, DELETE_IMAGE actions", () => {
 
     // TEST POST 'StoreImagesController' login and correct bus account CREATE_IMAGE  action //
-    describe("POST '/api/store_images/upload/:storeId' - LOGGED IN and CORRECT BUSINESS ACCOUNT - Multer Upload and CREATE_IMAGE action", () => {
+    describe("POST '/api/uploads/store_images/:storeId' - LOGGED IN and CORRECT BUSINESS ACCOUNT - Multer Upload and CREATE_IMAGE action", () => {
 
       it("Should upload and create 'StoreImage model' send back apropriate response", (done) => {
         const testImgPath = path.join(path.resolve(), "app", "_tests_", "api", "test_images", "test.jpg");
@@ -276,9 +273,9 @@ describe("StoreImagesUplController - LOGGED IN - BUSINESS ACCOUNT SET UP - POST/
   context("POST/DELETE  'StoreImgUplController' API tests - LOGGED IN  - INCORRECT BUSINESS ACCOUNT - CREATE_IMAGE, DELETE_IMAGE actions", () => {
 
     // TEST POST 'StoreImagesController' login and incorrect bus account CREATE_IMAGE  action //
-    describe("POST '/api/store_images/upload' - LOGGED IN but INCORRECT BUSINESS ACCOUNT - Multer Upload and CREATE_IMAGE action", () => {
+    describe("POST '/api/uploads/store_images/:storeId' - LOGGED IN but INCORRECT BUSINESS ACCOUNT - Multer Upload and CREATE_IMAGE action", () => {
 
-      it("Should NOT upload and create 'StoreImage model' send back apropriate response", (done) => {
+      it("Should NOT upload and create 'StoreImage' model send back apropriate response", (done) => {
         const testImgPath = path.join(path.resolve(), "app", "_tests_", "api", "test_images", "test.jpg");
         
         chai.request(server)
