@@ -16,7 +16,7 @@ import StoreItemImgUploadController from "../controllers/StoreItemImgUplControll
 import ProductsController from "../controllers/products_controller/ProductsController";
 import ProductRoutes from "./ProductRoutes";
 import ProductImageRoutes from "./ProductImageRoutes";
-import ProductImageUploadController from "../controllers/ProductImgUplController";
+import ProductImageUploadController from "../controllers/product_img_uploads_controller/ProductImgUplController";
 // services //
 import ServicesController from "../controllers/ServicesController";
 import ServicesRoutes from "./ServicesRoutes";

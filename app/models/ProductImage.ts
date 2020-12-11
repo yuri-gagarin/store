@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IProductImage extends Document {
+  businessAccountId: mongoose.Types.ObjectId;
   productId: mongoose.Types.ObjectId;
   description?: string;
   url: string;
@@ -12,6 +13,10 @@ export interface IProductImage extends Document {
 }
 
 const ProductImageSchema: Schema = new Schema({
+  businessAccountId: {
+    type: Schema.Types.ObjectId,
+    required: true
+  },
   productId: {
     type: Schema.Types.ObjectId,
     required: true
