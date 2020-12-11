@@ -6,7 +6,7 @@ import ImageUploader from "../controllers/image_uploaders/ImageUploader";
 import StoreController from "../controllers/stores_controller/StoreController";
 import StoreRoutes from "./StoreRoutes";
 import StoreImageRoutes from "./StoreImageRoutes";
-import StoreImageUploadController from "../controllers/StoreImgUplController";
+import StoreImageUploadController from "../controllers/store_img_uploads_controller/StoreImgUplController";
 // store items //
 import StoreItemsController from "../controllers/StoreItemsController";
 import StoreItemRoutes from "../routes/StoreItemRoutes";

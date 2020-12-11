@@ -1,22 +1,18 @@
 import { Request, Response } from "express";
-import { IGenericImgUploadCtrl } from './helpers/controllerInterfaces';
-import { IImageUploadDetails } from "./image_uploaders/types/types";
-import StoreImage, { IStoreImage } from "../models/StoreImage";
+// models, model interfaces and controller interfaces //
+import { IAdministrator } from "../../models/Administrator";
+import Store from "../../models/Store";
+import StoreImage, { IStoreImage } from "../../models/StoreImage";
+import { IGenericImgUploadCtrl } from '../helpers/controllerInterfaces';
+import { StoreImageResponse } from "./helpers/storeImgUpldsControllerTypes";
+// additional types and interfaces //
+import { IImageUploadDetails } from "../image_uploaders/types/types";
 // helpers //
-import { respondWithInputError, respondWithDBError, normalizeImgUrl, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
-import Store, { IStore } from "../models/Store";
-import { IAdministrator } from "../models/Administrator";
-import { NotFoundError, processErrorResponse } from "./helpers/errorHandlers";
+import { respondWithInputError, respondWithDBError, deleteFile } from "../helpers/controllerHelpers";
+import { NotFoundError, processErrorResponse } from "../helpers/errorHandlers";
 
-type ImageReqestObj = {
-  _store_id: string;
-}
-type StoreImageResponse = {
-  responseMsg: string;
-  newStoreImage?: IStoreImage;
-  deletedStoreImage?: IStoreImage;
-  updatedStore?: IStore;
-}
+
+
 class StoreImageUploadController implements IGenericImgUploadCtrl {
   createImage (req: Request, res: Response<StoreImageResponse>): Promise<Response> {
     const { storeId } = req.params;
@@ -64,7 +60,7 @@ class StoreImageUploadController implements IGenericImgUploadCtrl {
     const { storeImgId, storeId } = req.params;
     let deletedImage: IStoreImage;
 
-    if (!storeImgId) {
+    if (!storeImgId && !storeId) {
       return respondWithInputError(res, "Can't resolve image to delete", 400);
     }
     

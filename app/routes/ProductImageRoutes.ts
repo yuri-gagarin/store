@@ -7,7 +7,7 @@ import ImageUploader from "../controllers/image_uploaders/ImageUploader";
 
 class ProductImageRoutes extends RouteConstructor<IGenericImgUploadCtrl, ImageUploader> {
   private uploadProductImg = "/api/uploads/product_images/:productId";
-  private deleteProducteImg = "/api/uploads/product_images/:imageId/:productId";
+  private deleteProducteImg = "/api/uploads/product_images/:productImgId/:productId";
 
   constructor(router: Router, controller: IGenericImgUploadCtrl, uploader: ImageUploader) {
     super(router, controller, uploader);
