@@ -1,6 +1,5 @@
 import path from "path";
 import fs from "fs";
-import { Types } from "mongoose";
 // models and model types and interfaces //
 import Store, { IStore } from "../../../models/Store";
 import StoreImage, { IStoreImage } from "../../../models/StoreImage";
@@ -33,9 +32,9 @@ export const createStoreImages = async (numOfImagesToCreate: number, store: ISto
   
   for (let i = 0; i < numOfImagesToCreate; i++) {
     // check if path exists first //
-    // images will go into {writeDir + service._id}
+    // images will go into '/writeDir/<businessAccountId>/<storeId>/'
     const storeId: string = store._id;
-    const businessAccountId: string = String(store.businessAccountId as Types.ObjectId);
+    const businessAccountId: string = String(store.businessAccountId);
     const subDir: string = path.join(String(businessAccountId), String(storeId));
     const finalDir = path.join(writeDir, subDir);
     try {
@@ -57,7 +56,7 @@ export const createStoreImages = async (numOfImagesToCreate: number, store: ISto
           imagePath: path.join(path.resolve(), "public", "uploads", "store_images", subDir),
           absolutePath: absolutePath,
           fileName: imageName,
-          url: path.join("uploads", "store_images", subDir, imageName)
+          url: path.join("/" + "uploads", "store_images", subDir, imageName)
         });
         imagePromises.push(createStoreImage(newImage));
   

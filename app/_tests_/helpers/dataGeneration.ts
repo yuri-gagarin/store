@@ -141,62 +141,10 @@ export const createServices = (numOfServices: number): Promise<IService[]> => {
   return Promise.all(createdServices);
 };
 
-//
-export const generateMockProductData = (numOfProds: number): ProductData[] => {
-  const prodData: ProductData[] = [];
-  for (let i = 0; i < numOfProds; i++) {
-    prodData.push({
-      name: faker.commerce.product(),
-      price: faker.commerce.price(10, 100),
-      description: faker.lorem.paragraph(),
-      details: faker.lorem.paragraph()
-    });
-  }
-  return prodData;
-}
-/**
- * Creates a set number of mock {Product} objects.
- * @param numOfProducts - Number of products to create.
- * @param busAccount - BusinessAccount model to tie the product to.
- * @returns Promise<IProduct[]>
- */
-export const createProducts = (numOfProducts: number, busAccount: IBusinessAccount): Promise<IProduct[]> => {
-  const createdProducts: Promise<IProduct>[] = [];
-
-  for (let i = 0; i < numOfProducts; i++) {
-    createdProducts.push(Product.create({
-      businessAccountId: busAccount._id,
-      name: faker.lorem.word(),
-      description: faker.lorem.paragraph(),
-      details: faker.lorem.paragraphs(3),
-      price: faker.commerce.price(1, 100),
-      images: [],
-      createdAt: new Date(Date.now()),
-      editedAt: new Date(Date.now())
-    }));
-  }
-  return Promise.all(createdProducts);
-};
 
 
-export const createProductImage = (imgData: IProductImage): Promise<IProductImage> => {
-  let image: IProductImage;
-  return ProductImage.create(imgData)
-    .then((img) => {
-      image = img;
-      return Product.findOneAndUpdate(
-        { _id: img.productId },
-        { $push: { images: img._id } }
-      );
-    })
-    .then(() => {
-      return image;
-    })
-    .catch((err) => {
-      console.error(err);
-      throw err;
-    })
-};
+
+
 export const createServiceImage = (imgData: IServiceImage): Promise<IServiceImage> => {
   let image: IServiceImage;
   return ServiceImage.create(imgData)
@@ -235,43 +183,7 @@ export const createStoreItemImage = (imgData: IStoreItemImage): Promise<IStoreIt
     })
 };
 
-export const createProductImages = (products: IProduct[], numberOfImages?: number): Promise<IProductImage[]> => {
-  const imagePromises: Promise<IProductImage>[] = [];
-  const imagesToCreate = numberOfImages ? numberOfImages : Math.ceil(Math.random() * 10);
-  // write path //
-  const writeDir = path.join(path.resolve(), "public", "uploads", "product_images");
-  // samle test image to upload //
-  const sampleImagePath = path.join(path.resolve(), "public", "images", "services", "service1.jpeg");
 
-  for (let i = 0; i < products.length; i++) {
-    // check if path exists first //
-    // images will go into {writeDir + service._id}
-    const subDir = products[i]._id.toString();
-    const finalDir = path.join(writeDir, subDir);
-    if (!fs.existsSync(finalDir)) {
-      fs.mkdirSync(finalDir, { recursive: true });
-    }
-    for (let j = 0; j < imagesToCreate; j++) {
-      const imageName = `${i}_${j}_${products[i].name}_test.jpeg`;
-      const absolutePath = path.join(finalDir, imageName);
-      try {
-        fs.writeFileSync(absolutePath, fs.readFileSync(sampleImagePath));
-        const newImage = new ProductImage({
-          productId: products[i]._id,
-          imagePath: "/uploads/product_images/" + subDir + "/",
-          absolutePath: absolutePath,
-          fileName: imageName,
-          url: "/uploads/product_images/" + subDir + "/" + imageName
-        });
-        imagePromises.push(createProductImage(newImage));
-  
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }
-  return Promise.all(imagePromises);
-};
 
 /**
  * 
