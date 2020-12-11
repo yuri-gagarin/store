@@ -34,7 +34,7 @@ export const createProductImages = async (numberOfImagesToCreate: number, produc
   for (let i = 0; i < numberOfImagesToCreate; i++) {
     // check if PATH exists first //
     // images will go into '/writeDir/<businessAccountId>/<productId>/'
-    const productId: string = product._id;
+    const productId: string = String(product._id);
     const businessAccountId: string = String(product.businessAccountId);
     const subDir: string = PATH.join(businessAccountId, productId);
     const finalDir = PATH.join(writeDir, subDir);

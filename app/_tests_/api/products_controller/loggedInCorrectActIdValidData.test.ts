@@ -9,7 +9,7 @@ import { IAdministrator } from "../../../models/Administrator";
 import Product, { IProduct } from "../../../models/Product";
 // helpers //
 import { clearDB } from "../../helpers/dbHelpers";
-import { generateMockProductData } from "../../helpers/dataGeneration"; 
+import { generateMockProductData } from "../../helpers/data_generation/productsDataGeneration"; 
 import { setupProdControllerTests, loginAdmins } from "./helpers/setupProdControllerTest";
 
 chai.use(chaiHTTP);

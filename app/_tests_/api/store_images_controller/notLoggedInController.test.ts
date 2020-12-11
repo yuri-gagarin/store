@@ -112,7 +112,7 @@ describe("StoreImagesUplController - NOT LOGGED IN - POST/DELETE API tests", () 
     // TEST DELETE 'StoreImagesController' DELETE_IMAGE action wihout login //
     describe("DELETE '/api/store_images/upload' - NO LOGIN -  DELETE_IMAGE action", () => {
 
-      it("Should NOT allow successfully remove an image and destroy the StoreImage model", (done) => {
+      it("Should NOT remove an image or its database model, send back correct response", (done) => {
         chai.request(server)
           .delete("/api/uploads/store_images/" + (firstAdminsStoreImage._id) + "/" + firstAdminsStore._id)
           .end((err, response) => {

@@ -1,6 +1,5 @@
 import chai, { expect } from "chai";
 import chaiHTTP from "chai-http";
-import { Types } from "mongoose";
 // node dependencies //
 import fs from "fs";
 import path from "path";
@@ -17,6 +16,11 @@ import { clearDB } from "../../helpers/dbHelpers";
 import { IAdministrator } from "../../../models/Administrator";
 
 chai.use(chaiHTTP);
+
+/**
+ * 
+ */
+
 
 describe("ProductImagesUplController - NOT LOGGED IN - POST/DELETE API tests", () => {
   let firstAdmin: IAdministrator;
@@ -112,7 +116,7 @@ describe("ProductImagesUplController - NOT LOGGED IN - POST/DELETE API tests", (
     // TEST DELETE 'ProductImagesController' DELETE_IMAGE action wihout login //
     describe("DELETE '/api/product_images/upload' - NO LOGIN -  DELETE_IMAGE action", () => {
 
-      it("Should NOT allow successfully remove an image and destroy the ProductImage model", (done) => {
+      it("Should NOT remove an image and destroy the ProductImage model, send back correct response", (done) => {
         chai.request(server)
           .delete("/api/uploads/product_images/" + (firstAdminsProductImage._id) + "/" + firstAdminsProduct._id)
           .end((err, response) => {
