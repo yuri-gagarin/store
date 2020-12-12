@@ -7,7 +7,7 @@ import server from "../../../server";
 import { ServiceData } from "../../../controllers/services_controller/type_declartions/servicesControllerTypes";
 import { IAdministrator } from "../../../models/Administrator";
 import Service, { IService } from "../../../models/Service";
-// helpers //
+// helpers and validators//
 import { clearDB } from "../../helpers/dbHelpers";
 import { generateMockServiceData } from "../../helpers/data_generation/serviceDataGeneration"; 
 import { setupServiceControllerTests } from "./helpers/setupServiceControllerTests";
@@ -53,7 +53,9 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - INVAL
     clearDB().then(() => done()).catch((err) => done(err));
   });
 
+  // CONTEXT  POST CREATE action Correct BusinessAccount - Invalid Data CREATE, EDIT ACTIONS //
   context("Admin WITH a 'BusinessAccount' set up, CREATE, EDIT actions", () => {
+    
     // TEST POST CREATE action Correct BusinessAccount - Invalid Data //
     describe("POST '/api/producs/create' - CORRECT 'BusinessAccount' - INVALID DATA", () => {
       it("Should NOT create a new 'Service' model without a 'name' property", (done) => {
@@ -66,6 +68,7 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - INVAL
           })
           .end((err, res) => {
             if (err) done(err);
+            // assert correct response //
             expect(res.status).to.equal(422);
             expect(res.body.responseMsg).be.a("string");
             expect(res.body.error).to.be.an("object");
@@ -86,6 +89,7 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - INVAL
           })
           .end((err, res) => {
             if (err) done(err);
+            // assert correct response //
             expect(res.status).to.equal(422);
             expect(res.body.responseMsg).be.a("string");
             expect(res.body.error).to.be.an("object");
@@ -106,26 +110,7 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - INVAL
           })
           .end((err, res) => {
             if (err) done(err);
-            expect(res.status).to.equal(422);
-            expect(res.body.responseMsg).be.a("string");
-            expect(res.body.error).to.be.an("object");
-            expect(res.body.errorMessages).to.be.an("array");
-            expect(res.body.errorMessages.length).to.equal(1);
-            expect(res.body.errorMessages[0]).to.be.a("string");
-            expect(res.body.newService).to.be.undefined;
-            done();
-          });
-      });
-      it("Should NOT create a new 'Service' model without a 'details' property", (done) => {
-        chai.request(server)
-          .post("/api/services/create")
-          .set({ "Authorization": firstToken })
-          .send({
-            ...newServiceData,
-            details: ""
-          })
-          .end((err, res) => {
-            if (err) done(err);
+            // assert correct response //
             expect(res.status).to.equal(422);
             expect(res.body.responseMsg).be.a("string");
             expect(res.body.error).to.be.an("object");
@@ -144,11 +129,12 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - INVAL
           .end((err, res) => {
             if (err) done(err);
             const errorsArr: string[] = res.body.errorMessages;
+            // assert correct response //
             expect(res.status).to.equal(422);
             expect(res.body.responseMsg).be.a("string");
             expect(res.body.error).to.be.an("object");
             expect(res.body.errorMessages).to.be.an("array");
-            expect(res.body.errorMessages.length).to.equal(4);
+            expect(res.body.errorMessages.length).to.equal(3);
             expect(res.body.newService).to.be.undefined;
             for (const errorMsg of errorsArr) {
               expect(errorMsg).to.be.a("string");
@@ -169,7 +155,7 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - INVAL
 
     });
     // END TEST POST CREATE action Correct BusinessAccount - Invalid Data //
-
+    
     // TEST PATCH EDIT action Correct BusinessAccount - Invalid Data //
     describe("PATCH '/api/producs/update/:serviceId' - CORRECT 'BusinessAccount' - INVALID DATA", () => {
       it("Should NOT update an existing 'Service' model without a 'name' property", (done) => {
@@ -232,26 +218,6 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - INVAL
             done();
           });
       });
-      it("Should NOT update an existing 'Service' model without a 'details' property", (done) => {
-        chai.request(server)
-          .patch("/api/services/update/" + String(firstAdminsService._id ))
-          .set({ "Authorization": firstToken })
-          .send({
-            ...newServiceData,
-            details: ""
-          })
-          .end((err, res) => {
-            if (err) done(err);
-            expect(res.status).to.equal(422);
-            expect(res.body.responseMsg).be.a("string");
-            expect(res.body.error).to.be.an("object");
-            expect(res.body.errorMessages).to.be.an("array");
-            expect(res.body.errorMessages.length).to.equal(1);
-            expect(res.body.errorMessages[0]).to.be.a("string");
-            expect(res.body.editedService).to.be.undefined;
-            done();
-          });
-      });
       it("Should NOT update an existing 'Service' model with all empty properties", (done) => {
         chai.request(server)
           .patch("/api/services/update/" + String(firstAdminsService._id ))
@@ -264,7 +230,7 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - INVAL
             expect(res.body.responseMsg).be.a("string");
             expect(res.body.error).to.be.an("object");
             expect(res.body.errorMessages).to.be.an("array");
-            expect(res.body.errorMessages.length).to.equal(4);
+            expect(res.body.errorMessages.length).to.equal(3);
             expect(res.body.editedService).to.be.undefined;
             for (const errorMsg of errorsArr) {
               expect(errorMsg).to.be.a("string");
@@ -295,7 +261,8 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - INVAL
 
     });
     // END TEST PATCH EDIT action Correct BusinessAccount - Invalid Data //
-
+  
   });
- 
+  // END CONTEXT POST CREATE action Correct BusinessAccount - Invalid Data CREATE, EDIT ACTIONS //
+
 });

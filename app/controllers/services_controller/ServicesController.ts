@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Types } from "mongoose";
 // models and model and interfaces //
+import { IAdministrator } from "../../models/Administrator";
 import Service, { IService } from "../../models/Service";
 import ServiceImage, { IServiceImage } from "../../models/ServiceImage";
 import { IGenericController } from "../helpers/controllerInterfaces";
@@ -8,14 +9,28 @@ import { IGenericController } from "../helpers/controllerInterfaces";
 import { ServiceData, ServiceQueryPar, GenericServiceResponse } from "./type_declartions/servicesControllerTypes";
 // helpers //
 import { respondWithDBError, respondWithInputError, 
-  deleteFile, respondWithGeneralError, resolveDirectoryOfImg, removeDirectoryWithFiles
+  respondWithGeneralError, resolveDirectoryOfImg, removeDirectoryWithFiles
 } from "../helpers/controllerHelpers";
+import { validateServiceData } from "./helpers/validationHelpers";
+import { NotFoundError, processErrorResponse } from "../helpers/errorHandlers";
 
+/**
+ * // NOTES //
+ * // By the time any 'ServicesController' actions are called, <Router> should go through //
+ * // some custom middleware <verifyAdminAndBusinessAccountId> OR <verifyDataModelAccess> OR BOTH! //
+ * // Hence by the time any 'ServiceController' actions are called, it has been established that: //
+ * // 1: <req.user> is defined //
+ * // 2: <req.user.businessAccountId> is defined for GET_MANY and CREATE actions //
+ * // 3: <req.user.businessAccountId> === <service.businessAccountId> for GET_ONE, EDIT, DELETE actions //
+ */
 
 class ServicesController implements IGenericController {
 
   getMany (req: Request, res: Response<GenericServiceResponse>): Promise<Response> {
     const { price, name, popularity, date, limit } = req.query as ServiceQueryPar;
+    const businessAccountId = (req.user as IAdministrator).businessAccountId!;
+    console.log(30);
+    console.log(typeof businessAccountId)
     const queryLimit = limit ? parseInt(limit, 10) : 10;
     // optional queries //
     // sort by price //
@@ -82,6 +97,8 @@ class ServicesController implements IGenericController {
   }
 
   getOne (req: Request, res: Response<GenericServiceResponse>): Promise<Response>  {
+    const businessAccountId = (req.user as IAdministrator).businessAccountId!;
+    console.log(99)
     const _id: string = req.params._id;
     if (!_id) return respondWithInputError(res, "Can't find specific service");
 
@@ -103,16 +120,17 @@ class ServicesController implements IGenericController {
   }
 
   create (req: Request, res: Response<GenericServiceResponse>): Promise<Response> {
-    const { name, description, price, images : serviceImages }: ServiceData = req.body;
+    const { name, description, price, images : serviceImages = []}: ServiceData = req.body;
     const imgIds: Types.ObjectId[] = [];
-    
-    if ((Array.isArray(serviceImages)) && (serviceImages.length > 1)) {
-      for (const newImg of serviceImages) {
-        imgIds.push(Types.ObjectId(newImg));
-      }
+    const businessAccountId: Types.ObjectId = (req.user as IAdministrator).businessAccountId!;
+
+    const { valid, errorMessages } = validateServiceData(req.body);
+    if (!valid) {
+      return respondWithInputError(res, "Invalid Data Input", 422, errorMessages);
     }
 
     const newService= new Service({
+      businessAccountId: businessAccountId,
       name: name,
       description: description,
       price: price,
@@ -126,23 +144,27 @@ class ServicesController implements IGenericController {
           newService: newService
         });
       })
-      .catch((err) => {
-        return respondWithDBError(res, err);
+      .catch((error) => {
+        return processErrorResponse(res, error);
       });
   }
 
   edit (req: Request, res: Response<GenericServiceResponse>): Promise<Response> {
-    const { _id } = req.params;
+    const { serviceId } = req.params;
     
-    if (!_id) {
+    if (!serviceId) {
       return respondWithInputError(res, "Can't resolve service", 400);
     }
-
+    // validate correct input //
+    const { valid, errorMessages } = validateServiceData(req.body);
+    if (!valid) {
+      return respondWithInputError(res, "Invalid Data Input", 422, errorMessages);
+    }
     const { name, description, price, images : serviceImages = [] }: ServiceData = req.body;
     const updatedServiceImgs = serviceImages.map((img) => Types.ObjectId(img));
     
     return Service.findOneAndUpdate(
-      { _id: _id },
+      { _id: serviceId },
       { 
         $set: {
           name: name,
@@ -155,14 +177,20 @@ class ServicesController implements IGenericController {
       { new: true }
      ).populate("images").exec()
       .then((service) => {
-        return res.status(200).json({
-          responseMsg: "Service Updated",
-          editedService: service!
-        });
+        if (service) {
+          return res.status(200).json({
+            responseMsg: "Service Updated",
+            editedService: service!
+          });
+        } else {
+          throw new NotFoundError({ 
+            errMessage: "Service update error", 
+            messages: ["Could not resolve a Service to update" ] 
+          });
+        }
       })
-      .catch((error: Error) => {
-        console.error(error);
-        return respondWithDBError(res, error);
+      .catch((error) => {
+        return processErrorResponse(res, error);
       });
        
   }

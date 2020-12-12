@@ -64,7 +64,7 @@ export const checkImgUploadCredentials = async (req: Request, res: Response, nex
     });
 };
 
-export const verifyAdminAndBusinessAccountId = (req: Request, res: Response, next: NextFunction) => {
+export const verifyAdminAndBusinessAccountId =  (req: Request, res: Response, next: NextFunction) => {
   const administrator: IAdministrator = req.user as IAdministrator;
   if (administrator) {
     if (!administrator.businessAccountId) {
@@ -79,11 +79,11 @@ export const verifyAdminAndBusinessAccountId = (req: Request, res: Response, nex
 
 
 type DataModel = IStore | IStoreItem | IService | IProduct;
-export const verifyDataModelAccess = (req: Request, res: Response, next: NextFunction) => {
+export const verifyDataModelAccess = async (req: Request, res: Response, next: NextFunction) => {
   const { storeId, storeItemId, serviceId, productId } = req.params;
   const admin: IAdministrator = req.user as IAdministrator;
   let dataModel: string, modelId: string;
-
+  
   if (storeId) {
     dataModel = "Store";
     modelId = storeId;
