@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import mongoose, { Types } from "mongoose";
-import { respondWithInputError, respondWithNotAllowedErr } from "../controllers/helpers/controllerHelpers";
+import { respondWithInputError, respondWithNotAllowedErr, respondWithNotFoundError } from "../controllers/helpers/controllerHelpers";
 import { IAdministrator } from "../models/Administrator";
 import { IProduct } from "../models/Product";
 import { IService } from "../models/Service";
@@ -64,8 +64,7 @@ export const checkImgUploadCredentials = async (req: Request, res: Response, nex
     });
 };
 
-export const verifyPresentAdminAndBusinessAccountId = (req: Request, res: Response, next: NextFunction) => {
-  console.log("running verify")
+export const verifyAdminAndBusinessAccountId = (req: Request, res: Response, next: NextFunction) => {
   const administrator: IAdministrator = req.user as IAdministrator;
   if (administrator) {
     if (!administrator.businessAccountId) {
@@ -77,3 +76,41 @@ export const verifyPresentAdminAndBusinessAccountId = (req: Request, res: Respon
     return respondWithNotAllowedErr(res, "Not Alowed", 401, [ "Cannot resolve an Administrator account" ]);
   }
 };
+
+
+type DataModel = IStore | IStoreItem | IService | IProduct;
+export const verifyDataModelAccess = (req: Request, res: Response, next: NextFunction) => {
+  const { storeId, storeItemId, serviceId, productId } = req.params;
+  const admin: IAdministrator = req.user as IAdministrator;
+  let dataModel: string, modelId: string;
+
+  if (storeId) {
+    dataModel = "Store";
+    modelId = storeId;
+  } else if (storeItemId) {
+    dataModel = "StoreItem";
+    modelId = storeItemId;
+  } else if (serviceId) {
+    dataModel = "Service";
+    modelId = serviceId;
+  } else if (productId) {
+    dataModel = "Product";
+    modelId = productId;
+  } else {
+    return respondWithInputError(res, "Input error", 400, [ "Could not resolve data model to query" ]);
+  }
+
+  mongoose.models[dataModel].findOne({ _id: modelId }).exec()
+    .then((model: DataModel) => {
+      if (model) {
+        if ((model.businessAccountId as Types.ObjectId).equals(admin.businessAccountId!)) {
+          next();
+        } else {
+          return respondWithNotAllowedErr(res, "Action not allowed", 401, [ "Cannot query data not belongint to your Business Account" ]);
+        }
+      } else {
+        return respondWithNotFoundError(res, "Not Found", 404, [ "Could not find queried data model" ]);
+      }
+    })
+    
+}

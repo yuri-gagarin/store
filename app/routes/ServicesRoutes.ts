@@ -3,14 +3,14 @@ import { Router} from "express";
 import { RouteConstructor } from "./helpers/routeInterfaces";
 import { IGenericController } from "../controllers/helpers/controllerInterfaces";
 // custom middleware //
-import { verifyPresentAdminAndBusinessAccountId } from "../custom_middleware/customMiddlewares";
+import { verifyAdminAndBusinessAccountId, verifyDataModelAccess } from "../custom_middleware/customMiddlewares";
 
 class ServicesRoutes extends RouteConstructor<IGenericController> {
   private viewAllServicesRoute = "/api/services";
-  private viewServiceRoute = "/api/services/:_id";
+  private viewServiceRoute = "/api/services/:serviceId";
   private createServiceRoute = "/api/services/create";
-  private editServiceRoute = "/api/services/update/:_id";
-  private deleteServiceRoute = "/api/services/delete/:_id";
+  private editServiceRoute = "/api/services/update/:serviceId";
+  private deleteServiceRoute = "/api/services/delete/:serviceId";
   
   constructor (router: Router, controller: IGenericController) {
     super(router, controller);
@@ -29,7 +29,7 @@ class ServicesRoutes extends RouteConstructor<IGenericController> {
       .get(
         [
           passport.authenticate("adminJWT", { session: false }),   // passport middleware jwt token authentication //
-          verifyPresentAdminAndBusinessAccountId                   // custom middleware to verify the presinse of <req.user> and <req.user.businessAccountId> //
+          verifyAdminAndBusinessAccountId                          // custom middleware to verify the presence of <req.user> and <req.user.businessAccountId> //
         ],
         this.controller.getMany
       );
@@ -40,7 +40,8 @@ class ServicesRoutes extends RouteConstructor<IGenericController> {
       .get(
         [
           passport.authenticate("adminJWT", { session: false }),   // passport middleware jwt token authentication //
-          verifyPresentAdminAndBusinessAccountId                   // custom middleware to verify the presinse of <req.user> and <req.user.businessAccountId> //
+          verifyAdminAndBusinessAccountId ,                        // custom middleware to verify the presence of <req.user> and <req.user.businessAccountId> //
+          verifyDataModelAccess                                    // custom middleware to ensure that <req.user.businessAccountId> === <service.businessAccountId> //
         ],
         this.controller.getOne
       );
@@ -51,7 +52,7 @@ class ServicesRoutes extends RouteConstructor<IGenericController> {
       .post(
         [
           passport.authenticate("adminJWT", { session: false }),   // passport middleware jwt token authentication //
-          verifyPresentAdminAndBusinessAccountId                   // custom middleware to verify the presinse of <req.user> and <req.user.businessAccountId> //
+          verifyAdminAndBusinessAccountId                          // custom middleware to verify the presence of <req.user> and <req.user.businessAccountId> //
         ],
         this.controller.create
       );
@@ -62,7 +63,8 @@ class ServicesRoutes extends RouteConstructor<IGenericController> {
       .patch(
         [
           passport.authenticate("adminJWT", { session: false }),   // passport middleware jwt token authentication //
-          verifyPresentAdminAndBusinessAccountId                   // custom middleware to verify the presinse of <req.user> and <req.user.businessAccountId> //
+          verifyAdminAndBusinessAccountId,                         // custom middleware to verify the presinse of <req.user> and <req.user.businessAccountId> //
+          verifyDataModelAccess                                    // custom middleware to ensure that <req.user.businessAccountId> === <service.businessAccountId> //
         ],
         this.controller.edit
       );
@@ -73,7 +75,8 @@ class ServicesRoutes extends RouteConstructor<IGenericController> {
       .delete(
         [
           passport.authenticate("adminJWT", { session: false }),   // passport middleware jwt token authentication //
-          verifyPresentAdminAndBusinessAccountId                   // custom middleware to verify the presinse of <req.user> and <req.user.businessAccountId> //
+          verifyAdminAndBusinessAccountId,                         // custom middleware to verify the presinse of <req.user> and <req.user.businessAccountId> //
+          verifyDataModelAccess                                    // custom middleware to ensure that <req.user.businessAccountId> === <service.businessAccountId> //
         ],
         this.controller.delete
       );

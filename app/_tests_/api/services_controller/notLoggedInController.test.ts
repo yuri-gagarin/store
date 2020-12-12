@@ -6,7 +6,7 @@ import server from "../../../server";
 // models and model interfaces //
 import Service, { IService } from "../../../models/Service";
 // helpers and data generators //
-import { setupServiceControllerTests } from "./helpers/setupServiceControllet.test";
+import { setupServiceControllerTests } from "./helpers/setupServiceControllerTests";
 import { isEmptyObj } from "../../../controllers/helpers/queryHelpers";
 import { clearDB } from "../../helpers/dbHelpers";
 
