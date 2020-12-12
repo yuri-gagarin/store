@@ -19,7 +19,7 @@ import { NotFoundError, processErrorResponse } from "../helpers/errorHandlers";
  * // By the time any 'ServicesController' actions are called, <Router> should go through //
  * // some custom middleware <verifyAdminAndBusinessAccountId> OR <verifyDataModelAccess> OR BOTH! //
  * // Hence by the time any 'ServiceController' actions are called, it has been established that: //
- * // 1: <req.user> is defined //
+ * // 1: <req.user> is defined as IAdministrator model //
  * // 2: <req.user.businessAccountId> is defined for GET_MANY and CREATE actions //
  * // 3: <req.user.businessAccountId> === <service.businessAccountId> for GET_ONE, EDIT, DELETE actions //
  */
@@ -28,9 +28,7 @@ class ServicesController implements IGenericController {
 
   getMany (req: Request, res: Response<GenericServiceResponse>): Promise<Response> {
     const { price, name, popularity, date, limit } = req.query as ServiceQueryPar;
-    const businessAccountId = (req.user as IAdministrator).businessAccountId!;
-    console.log(30);
-    console.log(typeof businessAccountId)
+    const { businessAccountId } = req.user as IAdministrator;
     const queryLimit = limit ? parseInt(limit, 10) : 10;
     // optional queries //
     // sort by price //
@@ -82,7 +80,7 @@ class ServicesController implements IGenericController {
       })
     }
     // general query //
-    return Service.find({})
+    return Service.find({ businessAccountId: businessAccountId })
       .limit(queryLimit)
       .populate("images").exec()
       .then((services) => {
@@ -92,17 +90,18 @@ class ServicesController implements IGenericController {
         });
       })
       .catch((error) => {
-        return respondWithDBError(res, error);
+        return processErrorResponse(res, error);
       });
   }
 
   getOne (req: Request, res: Response<GenericServiceResponse>): Promise<Response>  {
     const businessAccountId = (req.user as IAdministrator).businessAccountId!;
-    console.log(99)
-    const _id: string = req.params._id;
-    if (!_id) return respondWithInputError(res, "Can't find specific service");
+    const serviceId: string = req.params._id;
 
-    return Service.findOne({ _id: _id })
+    if (!serviceId) return respondWithInputError(res, "Can't find specific service");
+
+    return Service.findOne({ businessAccountId: businessAccountId })
+      .where({ _id: serviceId })
       .populate("images").exec()
       .then((service) => {
         if (service) {
@@ -115,7 +114,7 @@ class ServicesController implements IGenericController {
         }
       })
       .catch((error) => {
-        return respondWithDBError(res, error);
+        return processErrorResponse(res, error);
       });
   }
 
@@ -151,7 +150,7 @@ class ServicesController implements IGenericController {
 
   edit (req: Request, res: Response<GenericServiceResponse>): Promise<Response> {
     const { serviceId } = req.params;
-    
+    const { businessAccountId } = req.user as IAdministrator;
     if (!serviceId) {
       return respondWithInputError(res, "Can't resolve service", 400);
     }
@@ -164,7 +163,9 @@ class ServicesController implements IGenericController {
     const updatedServiceImgs = serviceImages.map((img) => Types.ObjectId(img));
     
     return Service.findOneAndUpdate(
-      { _id: serviceId },
+      { businessAccountId: businessAccountId, 
+        _id: serviceId 
+      },
       { 
         $set: {
           name: name,
@@ -175,28 +176,30 @@ class ServicesController implements IGenericController {
         },
       },
       { new: true }
-     ).populate("images").exec()
-      .then((service) => {
-        if (service) {
-          return res.status(200).json({
-            responseMsg: "Service Updated",
-            editedService: service!
-          });
-        } else {
-          throw new NotFoundError({ 
-            errMessage: "Service update error", 
-            messages: ["Could not resolve a Service to update" ] 
-          });
-        }
-      })
-      .catch((error) => {
-        return processErrorResponse(res, error);
-      });
+    )
+    .populate("images").exec()
+    .then((service) => {
+      if (service) {
+        return res.status(200).json({
+          responseMsg: "Service Updated",
+          editedService: service!
+        });
+      } else {
+        throw new NotFoundError({ 
+          errMessage: "Service update error", 
+          messages: ["Could not resolve a Service to update" ] 
+        });
+      }
+    })
+    .catch((error) => {
+      return processErrorResponse(res, error);
+    });
        
   }
 
   delete (req: Request, res: Response<GenericServiceResponse>): Promise<Response> {
-   const { _id : serviceId } = req.params;
+   const { serviceId } = req.params;
+   const { businessAccountId } = (req.user as IAdministrator)
    let serviceToDelete: IService;
    let deletedImages: number;
 
@@ -204,58 +207,57 @@ class ServicesController implements IGenericController {
      return respondWithInputError(res, "Can't find service");
    }
 
-   return Service.findOne({ _id: serviceId })
-    .populate("images").exec()
+   return (
+    Service
+      .findOne({ businessAccountId: businessAccountId })
+      .where({ _id: serviceId })
+      .populate("images")
+      .exec()
+    )
     .then((service) => {
       if (service) {
-        serviceToDelete = service;
-        // first delete all service images //
-        if (service.images[0]) {
-          const imgData = service.images[0] as IServiceImage;
-          const imagesDirectory = resolveDirectoryOfImg(imgData.absolutePath);
-          // method looks into directory removes all files within and then directory //
-          // for now assumption is there are no subdirectories //
-          return removeDirectoryWithFiles(imagesDirectory)
-            .then(({ numberRemoved, message }) => {
-              return ServiceImage.deleteMany({ serviceId: serviceId})
-            })
-            .then(( { n }) => {
-              n ? deletedImages = n : 0
-              return Service.findOneAndDelete({ _id: serviceId })
-            })
-            .then((deletedService) => {
-              if (deletedService) {
-                return res.status(200).json({
-                  responseMsg: `Deleted Service ${deletedService.name} and ${deletedImages} Service Images`,
-                  deletedService: deletedService
-                });
-              } else {
-                return respondWithDBError(res, new Error("Can't resolve DELETE"));
-              }
-            })
-            .catch((error: Error) => {
-              return respondWithGeneralError(res, error.message, 500);
-            })
-        } else {
-          // no images present - uploaded with service //
-          return Service.findOneAndDelete({ _id: serviceId })
-            .then((deletedService) => {
-              if (deletedService) {
-                return res.status(200).json({
-                  responseMsg: `Deleted Service ${deletedService.name}`,
-                  deletedService: deletedService
-                })
-              } else {
-                return respondWithGeneralError(res, "Couldn't resolve Service", 500);
-              }
-            })
-            .catch((error) => {
-              return respondWithDBError(res, error);
-            })
-        } 
+        return Promise.resolve(service);
       } else {
-        return respondWithInputError(res, "Can't find service to delete");
+        throw new NotFoundError({ messages: [ "Requested Service to delete was not found in the database" ] });
       }
+    })
+    .then((service) => {
+      // first delete all service images if any //
+      if (service.images[0]) {
+        const imgData = service.images[0] as IServiceImage;
+        // method looks into directory removes all files within and then directory //
+        // for now assumption is there are no subdirectories //
+        return removeDirectoryWithFiles(imgData.imagePath)
+      } else {
+        return Promise.resolve({ numberRemoved: 0, message: "No Images to delete" });
+      } 
+    })
+    .then(({ numberRemoved, message }) => {
+      if (numberRemoved > 0) {
+        return ServiceImage.deleteMany({ serviceId: serviceId }).exec();
+      } else {
+        return Promise.resolve({ response: { n: 0, ok: true }, deletedCount: 0 });
+      }
+    })
+    .then(({ n }) => {
+      (n && n > 0) ? deletedImages = n : 0;
+      return Service.findOneAndDelete({ _id: serviceId }).exec();
+    })
+    .then((deletedService) => {
+      if (deletedService) {
+        return res.status(200).json({
+          responseMsg: `Deleted Service ${deletedService.name} and ${deletedImages} Service Images`,
+          deletedService: deletedService
+        });
+      } else {
+        throw new NotFoundError({ 
+          errMessage: "Error deleting Service",  
+          messages: [ "Could not find Service to delete in database" ] 
+        });
+      }
+    })
+    .catch((error) => {
+      return processErrorResponse(res, error);
     });
   }
 }

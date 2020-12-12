@@ -17,6 +17,7 @@ const ServiceSchema: Schema = new Schema({
   businessAccountId: {
     type: Schema.Types.ObjectId,
     ref: "BusinessAccount",
+    index: true,
     required: true
   },
   name: {

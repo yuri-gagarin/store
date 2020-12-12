@@ -83,7 +83,7 @@ export const verifyDataModelAccess = async (req: Request, res: Response, next: N
   const { storeId, storeItemId, serviceId, productId } = req.params;
   const admin: IAdministrator = req.user as IAdministrator;
   let dataModel: string, modelId: string;
-  
+
   if (storeId) {
     dataModel = "Store";
     modelId = storeId;
