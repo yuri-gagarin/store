@@ -10,7 +10,8 @@ import { IAdministrator } from "../../../models/Administrator";
 import Service, { IService } from "../../../models/Service";
 // helpers //
 import { clearDB } from "../../helpers/dbHelpers";
-import { setupServiceControllerTests, loginAdmins } from "./helpers/setupServiceControllerTests";
+import { setupServiceControllerTests } from "./helpers/setupServiceControllerTests";
+import { loginAdmins } from "../../helpers/auth_helpers/authHelpers";
 
 chai.use(chaiHTTP);
 
