@@ -63,3 +63,16 @@ export const checkImgUploadCredentials = async (req: Request, res: Response, nex
       }
     });
 };
+
+export const verifyPresentAdminAndBusinessAccountId = (req: Request, res: Response, next: NextFunction) => {
+  const administrator: IAdministrator = req.user as IAdministrator;
+  if (administrator) {
+    if (!administrator.businessAccountId) {
+      return respondWithNotAllowedErr(res, "Not Allowed", 401, [ "Please create or be added to a business account to get all features" ]);
+    } else {
+      next();
+    }
+  } else {
+    return respondWithNotAllowedErr(res, "Not Alowed", 401, [ "Cannot resolve an Administrator account" ]);
+  }
+};

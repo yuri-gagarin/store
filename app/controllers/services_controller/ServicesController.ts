@@ -1,39 +1,16 @@
 import { Request, Response } from "express";
 import { Types } from "mongoose";
-// models, types, interfaces //
-import Service, { IService } from "../models/Service";
-import ServiceImage, { IServiceImage } from "../models/ServiceImage";
-import { IGenericController } from "./helpers/controllerInterfaces";
+// models and model and interfaces //
+import Service, { IService } from "../../models/Service";
+import ServiceImage, { IServiceImage } from "../../models/ServiceImage";
+import { IGenericController } from "../helpers/controllerInterfaces";
+// additional controller types and interfaces //
+import { ServiceData, ServiceQueryPar, GenericServiceResponse } from "./type_declartions/servicesControllerTypes";
 // helpers //
 import { respondWithDBError, respondWithInputError, 
   deleteFile, respondWithGeneralError, resolveDirectoryOfImg, removeDirectoryWithFiles
-} from "./helpers/controllerHelpers";
+} from "../helpers/controllerHelpers";
 
-export type ServiceParams = {
-  name: string;
-  description: string;
-  price: string | number;
-  images: ServiceImg[];
-}
-type ServiceImg = {
-  _id: string;
-  url: string;
-}
-type GenericServiceResponse = {
-  responseMsg: string;
-  newService?: IService;
-  editedService?: IService;
-  deletedService?: IService;
-  service?: IService;
-  services?: IService[];
-}
-type ServiceQueryPar = {
-  price?: string;
-  name?: string;
-  popularity?: string;
-  date?: string;
-  limit?: string;
-}
 
 class ServicesController implements IGenericController {
 
@@ -126,12 +103,12 @@ class ServicesController implements IGenericController {
   }
 
   create (req: Request, res: Response<GenericServiceResponse>): Promise<Response> {
-    const { name, description, price, images : serviceImages }: ServiceParams = req.body;
+    const { name, description, price, images : serviceImages }: ServiceData = req.body;
     const imgIds: Types.ObjectId[] = [];
     
-    if ((serviceImages.length) > 1 && (Array.isArray(serviceImages))) {
+    if ((Array.isArray(serviceImages)) && (serviceImages.length > 1)) {
       for (const newImg of serviceImages) {
-        imgIds.push(Types.ObjectId(newImg.url));
+        imgIds.push(Types.ObjectId(newImg));
       }
     }
 
@@ -161,8 +138,8 @@ class ServicesController implements IGenericController {
       return respondWithInputError(res, "Can't resolve service", 400);
     }
 
-    const { name, description, price, images : serviceImages }: ServiceParams = req.body;
-    const updatedServiceImgs = serviceImages.map((img) => Types.ObjectId(img._id));
+    const { name, description, price, images : serviceImages = [] }: ServiceData = req.body;
+    const updatedServiceImgs = serviceImages.map((img) => Types.ObjectId(img));
     
     return Service.findOneAndUpdate(
       { _id: _id },
