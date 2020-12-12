@@ -65,6 +65,7 @@ export const checkImgUploadCredentials = async (req: Request, res: Response, nex
 };
 
 export const verifyPresentAdminAndBusinessAccountId = (req: Request, res: Response, next: NextFunction) => {
+  console.log("running verify")
   const administrator: IAdministrator = req.user as IAdministrator;
   if (administrator) {
     if (!administrator.businessAccountId) {

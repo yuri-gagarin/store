@@ -6,7 +6,7 @@ import { createBusinessAcccount } from "../../../helpers/data_generation/busines
 import Administrator, { IAdministrator } from "../../../../models/Administrator";
 import Service, { IService } from "../../../../models/Service";
 
-type SetupProdContTestRes = {
+type SetupServiceContTestRes = {
   admins: {
     firstAdmin: IAdministrator,
     secondAdmin: IAdministrator,
@@ -17,13 +17,13 @@ type SetupProdContTestRes = {
     secondAdminBusAcctId: string;
     thirdAdminBusAcctId: string;
   }
-  products: {
+  services: {
     firstAdminsService: IService;
     secondAdminsService: IService;
   }
 };
 
-export const setupProdControllerTests = (): Promise<SetupProdContTestRes> => {
+export const setupServiceControllerTests = (): Promise<SetupServiceContTestRes> => {
   let firstAdmin: IAdministrator, secondAdmin: IAdministrator, thirdAdmin: IAdministrator;
   let firstAdminBusAcctId: string, secondAdminBusAcctId: string, thirdAdminBusAcctId: string;
   let firstAdminsService: IService, secondAdminsService: IService;
@@ -46,9 +46,9 @@ export const setupProdControllerTests = (): Promise<SetupProdContTestRes> => {
         createServices(5, busAccountArr[1])
       ]);
     })
-    .then((products) => {
-      firstAdminsService = products[0][0];
-      secondAdminsService = products[1][0];
+    .then((services) => {
+      firstAdminsService = services[0][0];
+      secondAdminsService = services[1][0];
       return Promise.all([
         Administrator.findOneAndUpdate({ _id: firstAdmin._id }, { $set: { businessAccountId: firstAdminBusAcctId } }, { new: true }),
         Administrator.findOneAndUpdate({ _id: secondAdmin._id }, { $set: { businessAccountId: secondAdminBusAcctId } }, { new: true })
@@ -67,7 +67,7 @@ export const setupProdControllerTests = (): Promise<SetupProdContTestRes> => {
           secondAdminBusAcctId,
           thirdAdminBusAcctId
         },
-        products: {
+        services: {
           firstAdminsService,
           secondAdminsService
         }
