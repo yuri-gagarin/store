@@ -98,7 +98,7 @@ class ServiceImgUploadsController implements IGenericImgUploadCtrl {
     
     return (
       ServiceImage.findOne(
-        { businessAccountId: businessAccountId, id: serviceImgId }
+        { businessAccountId: businessAccountId, _id: serviceImgId }
       ).exec()
     )
     .then((serviceImg) => {

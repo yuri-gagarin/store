@@ -48,7 +48,6 @@ export const createServiceImages = async (numberOfImagesToCreate: number, servic
       await fs.promises.access(finalDir, fs.constants.O_DIRECTORY);
     } catch (err) {
       if (err.code === "ENOENT") {
-        console.log("Creating directory: " + finalDir);
         try {
           await fs.promises.mkdir(finalDir, { recursive: true });
         } catch (err) {
