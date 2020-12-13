@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import { Types, isValidObjectId } from "mongoose";
-import Store, { IStore } from "../models/Store";
-import StoreItem, { IStoreItem } from "../models/StoreItem";
-import StoreItemImage, { IStoreItemImage } from "../models/StoreItemImage";
-import { IGenericController } from "./_helpers/controllerInterfaces";
+import { Types } from "mongoose";
+import Store, { IStore } from "../../models/Store";
+import StoreItem, { IStoreItem } from "../../models/StoreItem";
+import StoreItemImage, { IStoreItemImage } from "../../models/StoreItemImage";
+import { IGenericController } from "../_helpers/controllerInterfaces";
 // helpers //
-import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "./_helpers/controllerHelpers";
-import { validateStoreItems } from "./validators/formValidators";
+import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "../_helpers/controllerHelpers";
+import { validateStoreItems } from "../validators/formValidators";
 
 interface IGenericStoreImgRes {
   responseMsg: string;

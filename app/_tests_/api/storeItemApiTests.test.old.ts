@@ -5,7 +5,7 @@ import faker from "faker";
 import server from "../../server";
 import StoreItem, { IStoreItem} from "../../models/StoreItem";
 import Store, { IStore } from "../../models/Store";
-import { StoreItemParams } from "../../controllers/StoreItemsController";
+import { StoreItemParams } from "../../controllers/store_items_controller/StoreItemsController";
 // helpers //
 import { setupDB, clearDB } from "../helpers/dbHelpers";
 import { createStoreItems } from "../helpers/dataGeneration";

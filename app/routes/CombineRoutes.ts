@@ -8,7 +8,7 @@ import StoreRoutes from "./StoreRoutes";
 import StoreImageRoutes from "./StoreImageRoutes";
 import StoreImageUploadController from "../controllers/store_img_uploads_controller/StoreImgUplController";
 // store items //
-import StoreItemsController from "../controllers/StoreItemsController";
+import StoreItemsController from "../controllers/store_items_controller/StoreItemsController";
 import StoreItemRoutes from "../routes/StoreItemRoutes";
 import StoreItemImageRoutes from "./StoreItemImageRoutes";
 import StoreItemImgUploadController from "../controllers/StoreItemImgUplController";

@@ -1,4 +1,4 @@
-import { StoreItemParams } from "../StoreItemsController";
+import { StoreItemParams } from "../store_items_controller/StoreItemsController";
 type ValidationResponse = {
   isValid: boolean;
   errors: string[];
