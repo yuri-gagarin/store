@@ -6,7 +6,7 @@ import server from "../../../server";
 // models and model interfaces //
 import Store, { IStore } from "../../../models/Store";
 // helpers and data generators //
-import { isEmptyObj } from "../../../controllers/helpers/queryHelpers";
+import { isEmptyObj } from "../../../controllers/_helpers/queryHelpers";
 import { setupStoreControllerTests } from "./_helpers/storeContTestHelpers";
 import { clearDB } from "../../helpers/dbHelpers";
 

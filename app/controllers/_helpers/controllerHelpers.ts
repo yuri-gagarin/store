@@ -6,7 +6,7 @@ import { IStore } from "../../models/Store";
 import { Document, Error, Model } from "mongoose";
 import { IAdministrator } from "../../models/Administrator";
 import { IUser } from "../../models/User";
-import { ValidationError, NotAllowedError, NotFoundError } from "../helpers/errorHandlers"
+import { ValidationError, NotAllowedError, NotFoundError } from "./errorHandlers"
 
 // Error Response methods //
 export const respondWithInputError = (res: Response, msg?: string, status?: number, messages?: string[]): Promise<Response> => {

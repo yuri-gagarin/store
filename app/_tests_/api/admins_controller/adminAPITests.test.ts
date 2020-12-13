@@ -1,14 +1,19 @@
 import chaiHTTP from "chai-http";
 import chai, { expect } from "chai";
 // server, models //
-import server from "../../server";
-import Administrator, { IAdministrator, EAdminLevel } from "../../models/Administrator";
-import { setupDB, clearDB } from "../helpers/dbHelpers";
-import { createAdmins, generateMockAdminData } from "../helpers/dataGeneration";
-import { AdminData } from "../../controllers/admins_controller/type_declarations/adminsControllerTypes";
+import server from "../../../server";
+import Administrator, { IAdministrator, EAdminLevel } from "../../../models/Administrator";
+import { setupDB, clearDB } from "../../helpers/dbHelpers";
+import { createAdmins, generateMockAdminData } from "../../helpers/dataGeneration";
+import { AdminData } from "../../../controllers/admins_controller/type_declarations/adminsControllerTypes";
 // import { UserData } from "../../controllers/users_controller/type_declarations/usersControllerTypes";
 
 chai.use(chaiHTTP);
+
+/**
+ * TODO ?
+ * Split tests in different scenarions ?
+ */
 
 describe("Administrator API tests", () => {
   let createdAdmins: IAdministrator[];
@@ -34,7 +39,7 @@ describe("Administrator API tests", () => {
   after(function(done) {
     clearDB().then(() => done()).catch(err => done(err));
   });
-
+  
   // CONTEXT Administrator API tests without login/authorization //
   context("Administrator API tests NOT logged in (no JWT token)", () => {
     // TEST new Administrator CREATE API Action valid data //
@@ -177,7 +182,7 @@ describe("Administrator API tests", () => {
               })
               .end((err, res) => {
                 if (err) done(err);
-                expect(res.status).to.equal(400);
+                expect(res.status).to.equal(422);
                 expect(res.body.jwtToken).to.be.undefined;
                 expect(res.body.newAdmin).to.be.undefined;
                 expect(res.body.responseMsg).to.be.a("string");
@@ -388,6 +393,7 @@ describe("Administrator API tests", () => {
   
   context("Administrator API tests LOGIN/LOGOUT functionality", () => {
     // TEST POST Administrator LOGIN functionallity with valid credentials //
+    
     describe("POST '/api/admins/login' - LOGIN with VALID credentials", () => {
       let admin: IAdministrator;
       let adminResponse: IAdministrator;
@@ -436,6 +442,7 @@ describe("Administrator API tests", () => {
       });
     });
     // END TEST POST Administrator LOGIN functionallity with valid credentials //
+    
     // TEST POST Administrator LOGIN functionallity with invalid credentials //
     describe("POST '/api/admins/login - LOGIN with INVALID credentials", () => {
 
@@ -456,6 +463,7 @@ describe("Administrator API tests", () => {
             done(err);
           });
       });
+      
       // TEST login without an email sent //
       describe("Attempted LOGIN without an email", () => {
 
@@ -487,9 +495,10 @@ describe("Administrator API tests", () => {
 
       });
       // END TEST login without an email sent //
+    
       // TEST login without a password sent //
       describe("Attempted LOGIN without a password", () => {
-
+      
         it("Should properly respond to a LOGIN request WITHOUT a password", (done) => {
           chai.request(server)
             .post("/api/admins/login")
@@ -518,6 +527,7 @@ describe("Administrator API tests", () => {
 
       });
       // END TEST login without a password sent //
+      
       // TEST login with an incorrect email sent //
       describe("Attempted LOGIN with an INCORRECT email", () => {
 
@@ -549,6 +559,7 @@ describe("Administrator API tests", () => {
 
       });
       // END TEST login with an incorrect email sent //
+      
       // TEST login with an incorrect password sent //
       describe("Attempted LOGIN with an INCORRECT password", () => {
 
@@ -580,6 +591,7 @@ describe("Administrator API tests", () => {
 
       });
       // END TEST login with an incorrect password sent //
+      
     });
     // END TEST POST Administrator LOGIN functionality with invalid credentials //
   });
@@ -648,6 +660,7 @@ describe("Administrator API tests", () => {
         });
       });
       // END TEST PATCH request on a Administrator model they dont own //
+
       // TEST DELETE request on a Administrator model they dont own //
       describe("DELETE '/api/admins/delete/:adminId' action on another 'Admins' acccount", () => {
         it("Should NOT delete the account and send back the correct response", (done) => {
@@ -951,6 +964,6 @@ describe("Administrator API tests", () => {
     // END TEST Admin EDIT and DELETE on an account they own //
     
 
-  })
+  });
   
 })

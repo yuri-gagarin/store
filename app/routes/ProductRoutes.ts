@@ -1,7 +1,7 @@
 import { Router} from "express";
 import passport from "passport";
 import { RouteConstructor } from "./helpers/routeInterfaces";
-import { IGenericController } from "../controllers/helpers/controllerInterfaces";
+import { IGenericController } from "../controllers/_helpers/controllerInterfaces";
 
 class ProductRoutes extends RouteConstructor<IGenericController> {
   private viewAllProductsRoute = "/api/products";

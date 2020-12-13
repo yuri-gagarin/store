@@ -7,7 +7,7 @@ import server from "../../../server";
 import Product, { IProduct } from "../../../models/Product";
 // helpers and data generators //
 import { setupProdControllerTests } from "./helpers/setupProdControllerTest";
-import { isEmptyObj } from "../../../controllers/helpers/queryHelpers";
+import { isEmptyObj } from "../../../controllers/_helpers/queryHelpers";
 import { clearDB } from "../../helpers/dbHelpers";
 
 chai.use(chaiHTTP);

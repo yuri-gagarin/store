@@ -1,6 +1,5 @@
 import chai, { expect } from "chai";
 import chaiHTTP from "chai-http";
-import { Types } from "mongoose";
 // node dependencies //
 import fs from "fs";
 import path from "path";
@@ -12,7 +11,7 @@ import StoreImage, { IStoreImage } from "../../../models/StoreImage";
 // setup helpers //
 import { setupStoreImgControllerTests,cleanUpStoreImgControllerTests } from "./helpers/setupStoreImageControllerTest";
 // helpers //
-import { isEmptyObj } from "../../../controllers/helpers/queryHelpers";
+import { isEmptyObj } from "../../../controllers/_helpers/queryHelpers";
 import { clearDB } from "../../helpers/dbHelpers";
 import { IAdministrator } from "../../../models/Administrator";
 

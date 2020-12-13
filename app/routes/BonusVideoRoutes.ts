@@ -1,6 +1,6 @@
 import { Router} from "express";
 import { RouteConstructor } from "./helpers/routeInterfaces";
-import { IGenericController } from "../controllers/helpers/controllerInterfaces";
+import { IGenericController } from "../controllers/_helpers/controllerInterfaces";
 
 class BonusVideoRoutes extends RouteConstructor<IGenericController> {
   private viewAllBonusVideosRoute = "/api/bonus_videos";

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { RouteConstructor } from "./helpers/routeInterfaces";
-import { IGenericController } from "../controllers/helpers/controllerInterfaces";
+import { IGenericController } from "../controllers/_helpers/controllerInterfaces";
 
 class StoreItemRoutes extends RouteConstructor<IGenericController> {
   private viewAllStoreItemsRoute = "/api/store_items";

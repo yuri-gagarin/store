@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import BonusVideo, { IBonusVideo } from "../models/BonusVideo";
-import { IGenericController } from "./helpers/controllerInterfaces";
+import { IGenericController } from "./_helpers/controllerInterfaces";
 // helpers //
-import { respondWithDBError, respondWithInputError,  respondWithGeneralError } from "./helpers/controllerHelpers";
+import { respondWithDBError, respondWithInputError,  respondWithGeneralError } from "./_helpers/controllerHelpers";
 
 interface IGenericVideoRes {
   responseMsg: string;

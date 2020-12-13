@@ -7,7 +7,7 @@ import server from "../../../server";
 import Service, { IService } from "../../../models/Service";
 // helpers and data generators //
 import { setupServiceControllerTests } from "./helpers/setupServiceControllerTests";
-import { isEmptyObj } from "../../../controllers/helpers/queryHelpers";
+import { isEmptyObj } from "../../../controllers/_helpers/queryHelpers";
 import { clearDB } from "../../helpers/dbHelpers";
 
 chai.use(chaiHTTP);

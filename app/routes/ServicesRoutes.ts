@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Router} from "express";
 import { RouteConstructor } from "./helpers/routeInterfaces";
-import { IGenericController } from "../controllers/helpers/controllerInterfaces";
+import { IGenericController } from "../controllers/_helpers/controllerInterfaces";
 // custom middleware //
 import { verifyAdminAndBusinessAccountId, verifyDataModelAccess } from "../custom_middleware/customMiddlewares";
 

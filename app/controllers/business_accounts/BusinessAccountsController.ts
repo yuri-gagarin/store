@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Types } from "mongoose";
 // models and model interfaces //
 import { IAdministrator } from "../../models/Administrator";
-import { IGenericController } from "../helpers/controllerInterfaces"
+import { IGenericController } from "../_helpers/controllerInterfaces"
 import BusinessAccount,  { EAccountLevel, IBusinessAccount } from "../../models/BusinessAccount";
 import Store from "../../models/Store";
 import StoreImage, { IStoreImage } from "../../models/StoreImage";
@@ -18,7 +18,7 @@ import {
   BusinessAccountsIndexSortQuery, CreateBusAccountBodyReq, EditAccountBodyReq
 } from "./type_declarations/businessAccoountsContTypes";
 // helpers //
-import { removeDirectoryWithFiles, RemoveResponse, resolveDirectoryOfImg, respondWithDBError, respondWithGeneralError, respondWithInputError, rejectWithGenError } from "../helpers/controllerHelpers";
+import { removeDirectoryWithFiles, RemoveResponse, resolveDirectoryOfImg, respondWithDBError, respondWithGeneralError, respondWithInputError, rejectWithGenError } from "../_helpers/controllerHelpers";
 
 
 class BusinessAccountsController implements IGenericController {

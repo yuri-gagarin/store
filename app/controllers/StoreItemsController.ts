@@ -3,9 +3,9 @@ import { Types, isValidObjectId } from "mongoose";
 import Store, { IStore } from "../models/Store";
 import StoreItem, { IStoreItem } from "../models/StoreItem";
 import StoreItemImage, { IStoreItemImage } from "../models/StoreItemImage";
-import { IGenericController } from "./helpers/controllerInterfaces";
+import { IGenericController } from "./_helpers/controllerInterfaces";
 // helpers //
-import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
+import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError } from "./_helpers/controllerHelpers";
 import { validateStoreItems } from "./validators/formValidators";
 
 interface IGenericStoreImgRes {

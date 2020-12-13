@@ -1,4 +1,4 @@
-import { ValidationResponse } from "../../types/generalControllerTypes";
+import { ValidationResponse } from "../../_types/generalControllerTypes";
 import { ServiceData } from "../type_declarations/servicesControllerTypes";
 
 export const validateServiceData = (data : ServiceData): ValidationResponse => {

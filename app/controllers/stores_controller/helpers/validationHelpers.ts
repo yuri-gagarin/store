@@ -1,5 +1,5 @@
 import { StoreData } from "../type_declarations/storesControllerTypes";
-import { ValidationResponse } from "../../types/generalControllerTypes";
+import { ValidationResponse } from "../../_types/generalControllerTypes";
 
 export const storeDataValidator = ({ title, description }: StoreData): ValidationResponse => {
   let response: ValidationResponse = {

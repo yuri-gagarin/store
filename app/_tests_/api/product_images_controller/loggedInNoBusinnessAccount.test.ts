@@ -12,7 +12,6 @@ import ProductImage, { IProductImage } from "../../../models/ProductImage";
 import { setupProductImgControllerTests, cleanUpProductImgControllerTests } from "./helpers/setupProdImgControllerTest";
 import { loginAdmins } from "../../helpers/auth_helpers/authHelpers";
 // helpers //
-import { isEmptyObj } from "../../../controllers/helpers/queryHelpers";
 import { clearDB } from "../../helpers/dbHelpers";
 import { IAdministrator } from "../../../models/Administrator";
 

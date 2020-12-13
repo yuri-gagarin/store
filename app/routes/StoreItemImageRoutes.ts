@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { RouteConstructor } from "./helpers/routeInterfaces"; 
-import { IGenericImgUploadCtrl } from "../controllers/helpers/controllerInterfaces";
+import { IGenericImgUploadCtrl } from "../controllers/_helpers/controllerInterfaces";
 import ImageUploader from "../controllers/image_uploaders/ImageUploader";
 
 class StoreItemImageRoutes extends RouteConstructor<IGenericImgUploadCtrl, ImageUploader> {

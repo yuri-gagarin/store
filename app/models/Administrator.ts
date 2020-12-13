@@ -1,6 +1,4 @@
-import e from "express";
-import mongoose, { Document, Schema, Model } from "mongoose";
-import { rejectWithGenError } from "../controllers/helpers/controllerHelpers";
+import mongoose, { Document, Schema } from "mongoose";
 import { IStore } from "./Store";
 
 export enum EAdminLevel {

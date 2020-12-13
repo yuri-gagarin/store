@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { IGenericController } from "./helpers/controllerInterfaces";
+import { IGenericController } from "./_helpers/controllerInterfaces";
 
 class TestController implements IGenericController {
   getMany (req: Request, res: Response): Promise<Response> {

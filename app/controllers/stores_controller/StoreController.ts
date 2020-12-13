@@ -7,13 +7,13 @@ import StoreItem from "../../models/StoreItem";
 import StoreImage, { IStoreImage } from "../../models/StoreImage";
 import StoreItemImage from "../../models/StoreItemImage";
 // additional generic interfaces //
-import { IGenericController } from "../helpers/controllerInterfaces";
+import { IGenericController } from "../_helpers/controllerInterfaces";
 import { StoreData } from "./type_declarations/storesControllerTypes";
 // helpers and validators //
 import { storeDataValidator } from "./helpers/validationHelpers"; 
-import { respondWithInputError, resolveDirectoryOfImg, removeDirectoryWithFiles } from "../helpers/controllerHelpers";
-import { RemoveResponse, resolveStoreItemImgDirectories, respondWithNotAllowedErr } from "../helpers/controllerHelpers"
-import { NotAllowedError, NotFoundError, processErrorResponse } from "../helpers/errorHandlers";
+import { respondWithInputError, resolveDirectoryOfImg, removeDirectoryWithFiles } from "../_helpers/controllerHelpers";
+import { RemoveResponse, resolveStoreItemImgDirectories, respondWithNotAllowedErr } from "../_helpers/controllerHelpers"
+import { NotAllowedError, NotFoundError, processErrorResponse } from "../_helpers/errorHandlers";
 
 interface IGenericStoreResponse {
   responseMsg: string;
@@ -218,7 +218,7 @@ class StoresController implements IGenericController {
     if (!valid) {
       return respondWithInputError(res, "Invalid Input", 422, errorMessages);
     }
-    
+
     return Store.findOne({ _id: storeId }).exec()
       .then((store) => {
         if (!store) {

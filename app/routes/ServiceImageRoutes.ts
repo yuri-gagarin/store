@@ -2,7 +2,7 @@ import passport from "passport";
 import { Router } from "express";
 // model, controller, types and interfaces //
 import { RouteConstructor } from "./helpers/routeInterfaces"; 
-import { IGenericImgUploadCtrl } from "../controllers/helpers/controllerInterfaces";
+import { IGenericImgUploadCtrl } from "../controllers/_helpers/controllerInterfaces";
 // image uploader //
 import ImageUploader from "../controllers/image_uploaders/ImageUploader";
 // additional custom middleware //

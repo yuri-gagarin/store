@@ -17,8 +17,8 @@ export class ValidationError extends GeneralError {
   constructor({ errMessage, messages, statusCode }: ControllerErrParams) {
     errMessage = errMessage ? errMessage : "Invalid Input";
     messages = messages ? messages : [ "Seems like you entered something wrond" ];
-    statusCode ? statusCode : 400;
-    super (errMessage, (statusCode ? statusCode : 400));
+    statusCode = statusCode ? statusCode : 400;
+    super (errMessage, statusCode);
     this.errorMessages = messages;
   } 
 };
@@ -27,7 +27,7 @@ export class NotFoundError extends GeneralError {
   constructor({ errMessage, messages, statusCode } : ControllerErrParams) {
     errMessage = errMessage ? errMessage : "Not Found";
     messages = messages ? messages : [ "The requested resource was not found" ];
-    statusCode ? statusCode : 404;
+    statusCode = statusCode ? statusCode : 404;
     super(errMessage, statusCode);
     this.errorMessages = messages;
   }

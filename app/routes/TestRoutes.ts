@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { RouteConstructor } from "./helpers/routeInterfaces";
-import { IGenericController } from "../controllers/helpers/controllerInterfaces";
+import { IGenericController } from "../controllers/_helpers/controllerInterfaces";
 import passport from "passport";
 const logger = (req: Request, res: Response, next: NextFunction) => {
   console.log(req.headers);

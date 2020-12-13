@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { IGenericImgUploadCtrl } from './helpers/controllerInterfaces';
+import { IGenericImgUploadCtrl } from './_helpers/controllerInterfaces';
 import { IImageUploadDetails } from "./image_uploaders/types/types";
 import StoreItemImage, { IStoreItemImage } from "../models/StoreItemImage";
 // helpers //
-import { respondWithInputError, respondWithDBError, normalizeImgUrl, deleteFile, respondWithGeneralError } from "./helpers/controllerHelpers";
+import { respondWithInputError, respondWithDBError, deleteFile, respondWithGeneralError } from "./_helpers/controllerHelpers";
 import StoreItem, { IStoreItem } from "../models/StoreItem";
 
 type StoreItemImgRes = {

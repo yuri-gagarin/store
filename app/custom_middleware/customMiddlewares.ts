@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import mongoose, { Types } from "mongoose";
-import { respondWithInputError, respondWithNotAllowedErr, respondWithNotFoundError } from "../controllers/helpers/controllerHelpers";
+import { respondWithInputError, respondWithNotAllowedErr, respondWithNotFoundError } from "../controllers/_helpers/controllerHelpers";
 import { IAdministrator } from "../models/Administrator";
 import { IProduct } from "../models/Product";
 import { IService } from "../models/Service";

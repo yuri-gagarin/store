@@ -3,14 +3,14 @@ import { Types } from "mongoose";
 // models and model interfaces //
 import Product from "../../models/Product";
 import ProductImage, { IProductImage } from "../../models/ProductImage";
-import { IGenericController } from "./../helpers/controllerInterfaces";
+import { IGenericController } from "../_helpers/controllerInterfaces";
 // additional controller types and interfaces //
 import { ProductData, IGenericProdRes, ProducQueryPar } from "./type_declarations/productsControllerTypes";
 // helpers //
-import { respondWithDBError, respondWithInputError, deleteFile, respondWithGeneralError, resolveStoreItemImgDirectories, resolveDirectoryOfImg, removeDirectoryWithFiles, respondWithNotAllowedErr } from "./../helpers/controllerHelpers";
+import { respondWithDBError, respondWithInputError, respondWithGeneralError, resolveDirectoryOfImg, removeDirectoryWithFiles, respondWithNotAllowedErr } from "../_helpers/controllerHelpers";
 import { IAdministrator } from "../../models/Administrator";
 import { validateProductData } from "../products_controller/helpers/validationHelpers"; 
-import { NotFoundError, ValidationError, NotAllowedError, processErrorResponse, GeneralError } from "../helpers/errorHandlers";
+import { NotFoundError, NotAllowedError, processErrorResponse, GeneralError } from "../_helpers/errorHandlers";
 
 class ProductsController implements IGenericController {
 

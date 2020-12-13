@@ -1,11 +1,10 @@
 import chaiHTTP from "chai-http";
 import chai, { expect } from "chai";
-import User, { IUser, EMemberLevel } from "../../models/User";
-import { clearDB, setupDB } from "../helpers/dbHelpers";
-import { createUsers, generateMockUserData } from "../helpers/dataGeneration";
-import { UserData } from "../../controllers/users_controller/type_declarations/usersControllerTypes";
-import server from "../../server";
-import { response } from "express";
+import User, { IUser, EMemberLevel } from "../../../models/User";
+import { clearDB, setupDB } from "../../helpers/dbHelpers";
+import { createUsers, generateMockUserData } from "../../helpers/dataGeneration";
+import { UserData } from "../../../controllers/users_controller/type_declarations/usersControllerTypes";
+import server from "../../../server";
 
 chai.use(chaiHTTP);
 

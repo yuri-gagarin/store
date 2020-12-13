@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
-import { IAdministrator } from "../../models/Administrator";
 // models, model interfaces and type //
+import { IAdministrator } from "../../models/Administrator";
 import Service from "../../models/Service";
 import ServiceImage, { IServiceImage } from "../../models/ServiceImage";
-import { IGenericImgUploadCtrl } from '../helpers/controllerInterfaces';
-import { NotFoundError, processErrorResponse } from "../helpers/errorHandlers";
+import { IGenericImgUploadCtrl } from '../_helpers/controllerInterfaces';
 // additional types and interfaces //
 import { IImageUploadDetails } from "../image_uploaders/types/types";
 import { ServiceImgResponse } from "./type_declarations/serviceImgUploadsControllerTypes";
 // helpers //
-import { respondWithInputError, deleteFile } from "../helpers/controllerHelpers";
+import { respondWithInputError, deleteFile } from "../_helpers/controllerHelpers";
+import { NotFoundError, processErrorResponse } from "../_helpers/errorHandlers";
 
 /**
  * NOTES 
@@ -142,7 +142,7 @@ class ServiceImgUploadsController implements IGenericImgUploadCtrl {
       } else {
         throw new NotFoundError({
           errMessage: "Queried Service not found",
-          messages: [ "Could not find queried Image in the database to update" ]
+          messages: [ "Could not find queried Service in the database to update" ]
         });
       }
       

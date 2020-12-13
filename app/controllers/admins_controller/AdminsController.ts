@@ -3,15 +3,15 @@ import { Request, Response } from "express";
 import Administrator, { IAdministrator, EAdminLevel } from "../../models/Administrator";
 // helpers and validators //
 import { validateAdminModel } from "./helpers/validationHelpers";
-import { respondWithInputError } from "../helpers/controllerHelpers";
-import { issueJWT } from "../helpers/authHelpers";
-import { checkDuplicateEmail } from "../helpers/controllerHelpers";
+import { respondWithInputError } from "../_helpers/controllerHelpers";
+import { issueJWT } from "../_helpers/authHelpers";
+import { checkDuplicateEmail } from "../_helpers/controllerHelpers";
 // type declrations //
-import { IGenericAuthController } from "../helpers/controllerInterfaces";
+import { IGenericAuthController } from "../_helpers/controllerInterfaces";
 import {
   AdminData, AdminParams, AdminLoginRequest, AdminControllerRes
 } from "./type_declarations/adminsControllerTypes";
-import { NotFoundError, NotAllowedError, processErrorResponse, ValidationError } from "../helpers/errorHandlers";
+import { NotFoundError, NotAllowedError, processErrorResponse, ValidationError } from "../_helpers/errorHandlers";
 
 class AdminsController implements IGenericAuthController {
   register(req: Request<{}, {}, AdminData>, res: Response<AdminControllerRes>): Promise<Response> {

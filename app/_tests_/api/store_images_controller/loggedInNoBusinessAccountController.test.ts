@@ -13,7 +13,7 @@ import StoreImage, { IStoreImage } from "../../../models/StoreImage";
 import { setupStoreImgControllerTests,cleanUpStoreImgControllerTests } from "./helpers/setupStoreImageControllerTest";
 import { loginAdmins } from "../../helpers/auth_helpers/authHelpers";
 // helpers //
-import { isEmptyObj } from "../../../controllers/helpers/queryHelpers";
+import { isEmptyObj } from "../../../controllers/_helpers/queryHelpers";
 import { clearDB } from "../../helpers/dbHelpers";
 import { IAdministrator } from "../../../models/Administrator";
 

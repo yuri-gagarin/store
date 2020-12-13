@@ -3,9 +3,8 @@ import PATH from "path";
 import fs from "fs";
 import { IImageUploadDetails } from "./types/types";
 import { Request, Response, NextFunction } from "express";
-import { camelToSnake } from "../helpers/controllerHelpers";
+import { camelToSnake } from "../_helpers/controllerHelpers";
 import { IAdministrator } from "../../models/Administrator";
-import { pathToFileURL } from "url";
 
 
 class ImageUploader {

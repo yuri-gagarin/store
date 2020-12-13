@@ -1,5 +1,5 @@
 import { ProductData } from "../type_declarations/productsControllerTypes";
-import { ValidationResponse } from "../../types/generalControllerTypes";
+import { ValidationResponse } from "../../_types/generalControllerTypes";
 
 export const validateProductData = ({ name, price, description, details } : ProductData): ValidationResponse => {
   let response: ValidationResponse = {

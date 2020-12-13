@@ -11,7 +11,7 @@ import ServiceImage, { IServiceImage } from "../../../models/ServiceImage";
 // setup helpers //
 import { setupServiceImgControllerTests, cleanUpServiceImgControllerTests } from "./helpers/setupServiceImgControllerTests";
 // helpers //
-import { isEmptyObj } from "../../../controllers/helpers/queryHelpers";
+import { isEmptyObj } from "../../../controllers/_helpers/queryHelpers";
 import { clearDB } from "../../helpers/dbHelpers";
 
 chai.use(chaiHTTP);

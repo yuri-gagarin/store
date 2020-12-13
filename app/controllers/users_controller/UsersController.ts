@@ -3,15 +3,15 @@ import bcrypt from "bcrypt";
 import User, { EMemberLevel } from "../../models/User";
 // helpers //
 import { checkDuplicateEmail, validateNewUser } from "./helpers/validationHelpers";
-import { issueJWT } from "../helpers/authHelpers";
-import { respondWithInputError } from "../helpers/controllerHelpers";
+import { issueJWT } from "../_helpers/authHelpers";
+import { respondWithInputError } from "../_helpers/controllerHelpers";
 // additional types //
-import { IGenericAuthController } from "../helpers/controllerInterfaces";
+import { IGenericAuthController } from "../_helpers/controllerInterfaces";
 import { 
   UserData, UserControllerRes, UserLoginReq, UserParams 
 } from "./type_declarations/usersControllerTypes";
 import { IUser } from "../../models/User";
-import { NotFoundError, NotAllowedError, processErrorResponse, ValidationError } from "../helpers/errorHandlers";
+import { NotFoundError, NotAllowedError, processErrorResponse, ValidationError } from "../_helpers/errorHandlers";
 
 class UsersController implements IGenericAuthController {
   register(req: Request<{}, {}, UserData>, res: Response<UserControllerRes>): Promise<Response> {

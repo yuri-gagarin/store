@@ -8,7 +8,8 @@ import Store, { IStore } from "../../models/Store";
 import { StoreItemParams } from "../../controllers/StoreItemsController";
 // helpers //
 import { setupDB, clearDB } from "../helpers/dbHelpers";
-import { createStoreItems, createStores } from "../helpers/dataGeneration";
+import { createStoreItems } from "../helpers/dataGeneration";
+import { createStores } from "../helpers/data_generation/storesDataGeneration";
 
 chai.use(chaiHttp);
 
@@ -17,7 +18,7 @@ describe ("StoreItem API tests", () => {
 
   before((done) => {
     setupDB()
-      .then(() => createStores(3))
+      .then(() => createStores(3, null))
       .then((createdStores) => {
         store = createdStores[0];
         const promises: Promise<IStoreItem[]>[] = []

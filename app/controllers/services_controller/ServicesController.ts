@@ -4,13 +4,13 @@ import { Types } from "mongoose";
 import { IAdministrator } from "../../models/Administrator";
 import Service, { IService } from "../../models/Service";
 import ServiceImage, { IServiceImage } from "../../models/ServiceImage";
-import { IGenericController } from "../helpers/controllerInterfaces";
+import { IGenericController } from "../_helpers/controllerInterfaces";
 // additional controller types and interfaces //
 import { ServiceData, ServiceQueryPar, GenericServiceResponse } from "./type_declarations/servicesControllerTypes";
 // helpers //
-import { respondWithDBError, respondWithInputError, removeDirectoryWithFiles } from "../helpers/controllerHelpers";
+import { respondWithDBError, respondWithInputError, removeDirectoryWithFiles } from "../_helpers/controllerHelpers";
 import { validateServiceData } from "./helpers/validationHelpers";
-import { NotFoundError, processErrorResponse } from "../helpers/errorHandlers";
+import { NotFoundError, processErrorResponse } from "../_helpers/errorHandlers";
 
 /**
  * // NOTES //
