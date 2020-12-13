@@ -10,23 +10,27 @@ import Service, { IService } from "../../../models/Service";
 import ServiceImage, { IServiceImage } from "../../../models/ServiceImage";
 // setup helpers //
 import { setupServiceImgControllerTests, cleanUpServiceImgControllerTests } from "./helpers/setupServiceImgControllerTests";
+import { loginAdmins } from "../../helpers/auth_helpers/authHelpers";
 // helpers //
-import { isEmptyObj } from "../../../controllers/helpers/queryHelpers";
 import { clearDB } from "../../helpers/dbHelpers";
+import { IAdministrator } from "../../../models/Administrator";
 
 chai.use(chaiHTTP);
-
 /**
- * Scenario when an Admin is not logged.
- * In this scenarion 'passport' middleware does not allow further access.
+ * Scenario when an Admin is registered and logged in but has no BusinessAccount set up.
+ * In this scenarion 'passport' middleware allows further access but the Admin should be further restricted until they set up a BusinessAccount.
+ * {checkImgUploudCredentials} custom middleware should intercept this request and return 401 Not Allowed
  * response should return:
  * {
- *   status: 401;
+ *   responseMsg: string;
  *   error: Error;
+ *   errorMessages: string[];
  * }
  */
 
-describe("ServiceImagesUplController - NOT LOGGED IN - POST/DELETE API tests", () => {
+describe("ServiceImagesUplController - LOGGED IN - NO BUSINESS ACCOUNT SET UP - POST/DELETE API tests", () => {
+  let thirdAdmin: IAdministrator;
+  let thirdAdminToken: string;
   let firstAdminsService: IService;
   let firstAdminsServiceImage: IServiceImage;
   let serviceImageModelCount: number;
@@ -35,20 +39,25 @@ describe("ServiceImagesUplController - NOT LOGGED IN - POST/DELETE API tests", (
   before((done) => {
     setupServiceImgControllerTests()
       .then(({ admins, busAccountIds, services, serviceImages }) => {
+        ({ thirdAdmin } = admins);
         ({ firstAdminsService } = services);
         ({ firstAdminBusAcctId, secondAdminBusAcctId } = busAccountIds);
         [ firstAdminsServiceImage ] = serviceImages.firstAdminsServiceImgs;
+
         return ServiceImage.countDocuments().exec();
       })
       .then((number) => {
         serviceImageModelCount = number;
+        return loginAdmins(chai, server, [ thirdAdmin ]);
+      })
+      .then((adminTokensArr) => {
+        [ thirdAdminToken ] = adminTokensArr;
         done();
       })
       .catch((err) => {
         done(err);
       })
-  });
-
+  })
   after((done) => {
     cleanUpServiceImgControllerTests(firstAdminBusAcctId, secondAdminBusAcctId)
       .then(() => {
@@ -62,27 +71,32 @@ describe("ServiceImagesUplController - NOT LOGGED IN - POST/DELETE API tests", (
       });
   });
   
-  context("POST/DELETE  'ServiceImgUplController' API tests - NOT LOGGED IN - CREATE_IMAGE, DELETE_IMAGE actions", () => {
-    // TEST POST 'ServiceImagesController' no login CREATE_IMAGE  action //
-    describe("POST '/api/uploads/service_images/:serviceId' - NO LOGIN - Multer Upload and CREATE_IMAGE action", () => {
+  context("POST/DELETE  'ServiceImgUplController' API tests - LOGGED IN - NO BUSINESS ACCOUNT - CREATE_IMAGE, DELETE_IMAGE actions", () => {
+    // TEST POST 'ServiceImagesController' with login no business acount CREATE_IMAGE  action //
+    describe("POST '/api/uploads/service_images/:serviceId' - WITH LOGIN - NO BUSINESS ACCOUNT - Multer Upload and CREATE_IMAGE action", () => {
 
-      it("Should NOT upload and create a 'ServiceImage' model", (done) => {
+      it("Should NOT upload and create a 'ServiceImage' model, send back correct response", (done) => {
         const testImgPath = path.join(path.resolve(), "app", "_tests_", "api", "test_images", "test.jpg");
         
         chai.request(server)
-          .post("/api/uploads/service_images/" + firstAdminsService._id)
-          .set({ "Authorization": "" })
+          .post("/api/uploads/service_images/" + (firstAdminsService._id as string)) 
+          .set({ "Authorization": thirdAdminToken })
           .attach("serviceImage", fs.readFileSync(testImgPath), "test.jpg")
           .end((err, response) => {
-            if (err) { console.error(err); done(err); }
+            if (err) done(err);
+            // assert correct response //
             expect(response.status).to.equal(401);
-            expect(response.error.text).to.equal("Unauthorized");
-            expect(isEmptyObj(response.body)).to.equal(true);
+            expect(response.body.responseMsg).to.be.a("string");
+            expect(response.body.error).to.be.an("object");
+            expect(response.body.errorMessages).to.be.an("array");
+            expect(response.body.errorMessages.length).to.equal(1);
+            expect(response.body.errorMessages[0]).to.be.a("string");
+            expect(response.body.newServiceImage).to.be.undefined;
+            expect(response.body.updatedService).to.be.undefined;
             done();
           });
       });
-      
-      it("Should NOT place the image into the upload directory", (done) => {
+      it("Should NOT place the queried image into the upload directory", (done) => {
         let imageDirectory = path.join(path.resolve(), "public", "uploads", "service_images", firstAdminBusAcctId, firstAdminsService._id.toString())
         fs.readdir(imageDirectory, (err, files) => {
           if(err) done(err);
@@ -91,7 +105,7 @@ describe("ServiceImagesUplController - NOT LOGGED IN - POST/DELETE API tests", (
           done();
         });
       });
-      it("Should NOT INCREASE the number of 'ServiceImage' models by 1", (done) => {
+      it("Should NOT INCREASE the number of 'ServiceImage' models in the database", (done) => {
         ServiceImage.countDocuments().exec()
           .then((number) => {
             expect(number).to.equal(serviceImageModelCount);
@@ -101,7 +115,7 @@ describe("ServiceImagesUplController - NOT LOGGED IN - POST/DELETE API tests", (
             done(err); 
           });
       });
-      it("Should NOT INCREASE the number of images in the queried Service model", (done) => {
+      it("Should NOT INCREASE the number of images in the queried 'Service' model", (done) => {
         Service.findOne({ _id: firstAdminsService._id }).exec()
           .then((foundService) => {
             expect(foundService!.images.length).to.equal(firstAdminsService.images.length);
@@ -113,19 +127,26 @@ describe("ServiceImagesUplController - NOT LOGGED IN - POST/DELETE API tests", (
       });
       
     });
-    // END TEST POST 'ServiceImagesController' no login CREATE_IMAGE  action //
+    // END TEST POST 'ServiceImagesController' with login no bus account CREATE_IMAGE  action //
+    
+    // TEST DELETE 'ServiceImagesController' DELETE_IMAGE action with login no bus account //
+    describe("DELETE '/api/uploads/service_images/:serviceImgId/:serviceId' - WITH LOGIN - NO BUSINESS ACCOUNT -  DELETE_IMAGE action", () => {
 
-    // TEST DELETE 'ServiceImagesController' DELETE_IMAGE action wihout login //
-    describe("DELETE '/api/uploads/service_images/:serviceId/:serviceImgId' - NO LOGIN -  DELETE_IMAGE action", () => {
-
-      it("Should NOT remove an image and destroy the ServiceImage model, send back correct response", (done) => {
+      it("Should NOT delete an image from files and send back a correct response", (done) => {
         chai.request(server)
-          .delete("/api/uploads/service_images/" + (firstAdminsServiceImage._id) + "/" + firstAdminsService._id)
+          .delete("/api/uploads/service_images/" + (firstAdminsServiceImage._id as string) + "/" + (firstAdminsService._id as string))
+          .set({ "Authorization": thirdAdminToken })
           .end((err, response) => {
             if (err) done(err);
             // assert correct reponse //
             expect(response.status).to.equal(401);
-            expect(isEmptyObj(response.body)).to.equal(true);
+            expect(response.body.responseMsg).to.be.a("string");
+            expect(response.body.error).to.be.an("object");
+            expect(response.body.errorMessages).to.be.an("array");
+            expect(response.body.errorMessages.length).to.equal(1);
+            expect(response.body.errorMessages[0]).to.be.a("string");
+            expect(response.body.newServiceImage).to.be.undefined;
+            expect(response.body.updatedService).to.be.undefined;
             done();
           });
       });
@@ -156,7 +177,7 @@ describe("ServiceImagesUplController - NOT LOGGED IN - POST/DELETE API tests", (
             done(err); 
           });
       });
-      it("Should NOT remove the ServiceImage id from the queried 'Service' model", (done) => {
+      it("Should NOT remove the 'ServiceImage' id from the queried 'Service' model", (done) => {
         Service.findOne({ _id: firstAdminsService._id }).exec()
           .then((service) => {
             const imgId = service!.images.filter((imgId) => String(imgId) === String(firstAdminsServiceImage._id));
@@ -167,10 +188,9 @@ describe("ServiceImagesUplController - NOT LOGGED IN - POST/DELETE API tests", (
             done(err);
           });
       });
-
+      
     });
-    // END TEST DELETE 'ServiceImagesController' DELETE_IMAGE action wihout login //
+    // END TEST DELETE 'ServiceImagesController' DELETE_IMAGE action with login and no business account //
   });
   // END CONTEXT //
-
 });
