@@ -129,24 +129,7 @@ export const createStoreItems = (numOfStoreItems: CreateStoreItemArg, storeId?: 
 
 
 
-export const createServiceImage = (imgData: IServiceImage): Promise<IServiceImage> => {
-  let image: IServiceImage;
-  return ServiceImage.create(imgData)
-    .then((img) => {
-      image = img;
-      return Service.findOneAndUpdate(
-        { _id: img.serviceId },
-        { $push: { images: img._id } }
-      );
-    })
-    .then(() => {
-      return image;
-    })
-    .catch((err) => {
-      console.error(err);
-      throw err;
-    })
-};
+
 
 export const createStoreItemImage = (imgData: IStoreItemImage): Promise<IStoreItemImage> => {
   let image: IStoreItemImage;
@@ -169,48 +152,7 @@ export const createStoreItemImage = (imgData: IStoreItemImage): Promise<IStoreIt
 
 
 
-/**
- * 
- * @param services - Array of Service objects.
- * @param numberOfImages - Number of images per Services to create (optional)
- */
-export const createServiceImages = (services: IService[], numberOfImages?: number): Promise<IServiceImage[]> => {
-  const imagePromises: Promise<IServiceImage>[] = [];
-  const imagesToCreate = numberOfImages ? numberOfImages : Math.ceil(Math.random() * 10);
-  // write path //
-  const writeDir = path.join(path.resolve(), "public", "uploads", "service_images");
-  // samle test image to upload //
-  const sampleImagePath = path.join(path.resolve(), "public", "images", "services", "service1.jpeg");
 
-  for (let i = 0; i < services.length; i++) {
-    // check if path exists first //
-    // images will go into {writeDir + service._id}
-    const subDir = services[i]._id.toString();
-    const finalDir = path.join(writeDir, subDir);
-    if (!fs.existsSync(finalDir)) {
-      fs.mkdirSync(finalDir, { recursive: true });
-    }
-    for (let j = 0; j < imagesToCreate; j++) {
-      const imageName = `${i}_${j}_${services[i].name}_test.jpeg`;
-      const absolutePath = path.join(finalDir, imageName);
-      try {
-        fs.writeFileSync(absolutePath, fs.readFileSync(sampleImagePath));
-        const newImage = new ServiceImage({
-          serviceId: services[i]._id,
-          imagePath: "/uploads/service_images/" + subDir + "/",
-          absolutePath: absolutePath,
-          fileName: imageName,
-          url: "/uploads/service_images/" + subDir + "/" + imageName
-        });
-        imagePromises.push(createServiceImage(newImage));
-  
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }
-  return Promise.all(imagePromises);
-};
 
 
 

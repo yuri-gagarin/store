@@ -38,6 +38,7 @@ export const createProductImages = async (numberOfImagesToCreate: number, produc
     const businessAccountId: string = String(product.businessAccountId);
     const subDir: string = PATH.join(businessAccountId, productId);
     const finalDir = PATH.join(writeDir, subDir);
+    
     try {
       await fs.promises.access(finalDir, fs.constants.F_OK);
     } catch (err) {
