@@ -4,7 +4,7 @@ import chaiHTTP from "chai-http";
 // server import /
 import server from "../../../server";
 // models and model interfaces //
-import { ServiceData } from "../../../controllers/services_controller/type_declartions/servicesControllerTypes";
+import { ServiceData } from "../../../controllers/services_controller/type_declarations/servicesControllerTypes";
 import { IAdministrator } from "../../../models/Administrator";
 import Service, { IService } from "../../../models/Service";
 // helpers and validators//

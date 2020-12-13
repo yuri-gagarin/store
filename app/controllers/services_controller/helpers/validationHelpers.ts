@@ -1,5 +1,5 @@
 import { ValidationResponse } from "../../types/generalControllerTypes";
-import { ServiceData } from "../type_declartions/servicesControllerTypes";
+import { ServiceData } from "../type_declarations/servicesControllerTypes";
 
 export const validateServiceData = (data : ServiceData): ValidationResponse => {
   const { name, price, description } = data;

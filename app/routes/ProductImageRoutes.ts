@@ -1,9 +1,18 @@
 import passport from "passport";
-import { checkImgUploadCredentials } from "../custom_middleware/customMiddlewares";
 import { Router } from "express";
+// model, controller, types and interfaces //
 import { RouteConstructor } from "./helpers/routeInterfaces"; 
 import { IGenericImgUploadCtrl } from "../controllers/helpers/controllerInterfaces";
+// image uploader //
 import ImageUploader from "../controllers/image_uploaders/ImageUploader";
+// custom middleware //
+import { checkImgUploadCredentials } from "../custom_middleware/customMiddlewares";
+
+/**
+ * NOTES
+ * Custom middleware <checkImgUploadCredentials> is required to validate <req.user> and
+ * to validate <req.user.businessId> === <product.businessId>.
+*/
 
 class ProductImageRoutes extends RouteConstructor<IGenericImgUploadCtrl, ImageUploader> {
   private uploadProductImg = "/api/uploads/product_images/:productId";
@@ -22,9 +31,9 @@ class ProductImageRoutes extends RouteConstructor<IGenericImgUploadCtrl, ImageUp
       .route(this.uploadProductImg)
       .post(
         [
-          passport.authenticate("adminJWT", { session: false }), // user login authentication //
-          checkImgUploadCredentials,                             // custom middleware to ensure correct admin is editing their data //
-          this.uploader!.runUpload                               // image uploader ran through multer //
+          passport.authenticate("adminJWT", { session: false }),  // user login authentication //
+          checkImgUploadCredentials,                              // custom middleware to ensure correct admin is editing their data //
+          this.uploader!.runUpload                                // image uploader ran through multer //
         ],  
         this.controller.createImage
       );
@@ -34,8 +43,8 @@ class ProductImageRoutes extends RouteConstructor<IGenericImgUploadCtrl, ImageUp
       .route(this.deleteProducteImg)
       .delete(
         [
-          passport.authenticate("adminJWT", { session: false }),
-          checkImgUploadCredentials,
+          passport.authenticate("adminJWT", { session: false }),  // user login authentication //
+          checkImgUploadCredentials,                              // custom middleware to ensure correct admin is editing their data //
         ],
         this.controller.deleteImage
       );

@@ -34,7 +34,7 @@ export const checkImgUploadCredentials = async (req: Request, res: Response, nex
       businessAccountId = administrator.businessAccountId;
     }
   } else {
-    return respondWithNotAllowedErr(res, "Not Allowed", 401, [ "Cant resolve a logged in Admin" ]);
+    return respondWithNotAllowedErr(res, "Not Allowed", 401, [ "Cant resolve a logged in Administrator" ]);
   }
   const { storeId, storeItemId, productId, serviceId } = req.params;
   // set model which to query // 

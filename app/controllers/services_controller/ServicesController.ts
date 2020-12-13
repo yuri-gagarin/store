@@ -6,11 +6,9 @@ import Service, { IService } from "../../models/Service";
 import ServiceImage, { IServiceImage } from "../../models/ServiceImage";
 import { IGenericController } from "../helpers/controllerInterfaces";
 // additional controller types and interfaces //
-import { ServiceData, ServiceQueryPar, GenericServiceResponse } from "./type_declartions/servicesControllerTypes";
+import { ServiceData, ServiceQueryPar, GenericServiceResponse } from "./type_declarations/servicesControllerTypes";
 // helpers //
-import { respondWithDBError, respondWithInputError, 
-  respondWithGeneralError, resolveDirectoryOfImg, removeDirectoryWithFiles
-} from "../helpers/controllerHelpers";
+import { respondWithDBError, respondWithInputError, removeDirectoryWithFiles } from "../helpers/controllerHelpers";
 import { validateServiceData } from "./helpers/validationHelpers";
 import { NotFoundError, processErrorResponse } from "../helpers/errorHandlers";
 
@@ -95,8 +93,8 @@ class ServicesController implements IGenericController {
   }
 
   getOne (req: Request, res: Response<GenericServiceResponse>): Promise<Response>  {
-    const businessAccountId = (req.user as IAdministrator).businessAccountId!;
-    const serviceId: string = req.params._id;
+    const { businessAccountId } = (req.user as IAdministrator);
+    const { serviceId } = req.params;
 
     if (!serviceId) return respondWithInputError(res, "Can't find specific service");
 
@@ -133,7 +131,9 @@ class ServicesController implements IGenericController {
       name: name,
       description: description,
       price: price,
-      images: imgIds
+      images: imgIds,
+      createdAt: new Date(Date.now()),
+      editedAt: new Date(Date.now())
     });
 
     return newService.save()
@@ -172,7 +172,7 @@ class ServicesController implements IGenericController {
           description: description,
           price: price as number,
           images: [ ...updatedServiceImgs ],
-          editedAt: new Date()
+          editedAt: new Date(Date.now())
         },
       },
       { new: true }

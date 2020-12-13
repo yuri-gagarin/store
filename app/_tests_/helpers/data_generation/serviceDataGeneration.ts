@@ -3,7 +3,7 @@ import faker from "faker";
 import { IBusinessAccount } from "../../../models/BusinessAccount";
 import Service, { IService } from "../../../models/Service";
 // additional types and interfaces //
-import { ServiceData } from "../../../controllers/services_controller/type_declartions/servicesControllerTypes";
+import { ServiceData } from "../../../controllers/services_controller/type_declarations/servicesControllerTypes";
 
 
 export const generateMockServiceData = (numberToGenerate: number): ServiceData[] => {

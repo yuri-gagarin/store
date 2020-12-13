@@ -21,7 +21,7 @@ import ProductImageUploadController from "../controllers/product_img_uploads_con
 import ServicesController from "../controllers/services_controller/ServicesController";
 import ServicesRoutes from "./ServicesRoutes";
 import ServiceImagesRoutes from "./ServiceImageRoutes";
-import ServiceImgUploadController from "../controllers/ServiceImgUplController";
+import ServiceImgUploadController from "../controllers/service_img_uploads_controller/ServiceImgUplController";
 // videos //
 import BonusVideosController from "../controllers/BonusVideosController";
 import BonnusVideosRoutes from "../routes/BonusVideoRoutes";

@@ -16,15 +16,13 @@ import { NotFoundError, processErrorResponse } from "../helpers/errorHandlers";
 class StoreImageUploadController implements IGenericImgUploadCtrl {
   createImage (req: Request, res: Response<StoreImageResponse>): Promise<Response> {
     const { storeId } = req.params;
-    const admin = req.user as IAdministrator;
-
-    const uploadDetails: IImageUploadDetails = res.locals.uploadDetails as IImageUploadDetails;
-    const { success, imagePath, absolutePath, fileName, url } = uploadDetails;
+    const { businessAccountId } = req.user as IAdministrator;
+    const{ success, imagePath, absolutePath, fileName, url } = res.locals.uploadDetails as IImageUploadDetails;
     let newImage: IStoreImage;
     
     if (success) {
       return StoreImage.create({
-        businessAccountId: admin.businessAccountId,
+        businessAccountId: businessAccountId,
         storeId: storeId,
         url: url,
         fileName: fileName,
@@ -35,10 +33,11 @@ class StoreImageUploadController implements IGenericImgUploadCtrl {
         newImage = storeImage;
         return (
           Store.findOneAndUpdate(
-            { _id: storeId },
+            { businessAccountId: businessAccountId, _id: storeId },
             { $push: { images: storeImage._id } },
             { upsert: true, new: true }
-          ).populate("images").exec()
+          )
+          .populate("images").exec()
         );
       })
       .then((updatedStore) => {
@@ -49,7 +48,7 @@ class StoreImageUploadController implements IGenericImgUploadCtrl {
         });
       })
       .catch((err) => {
-        return respondWithDBError(res, err);
+        return processErrorResponse(res, err);
       });
     } else {
       return respondWithInputError(res, "Image not uploaded", 500, [ "Something seems to have went wrong on our end" ]);
