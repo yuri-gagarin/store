@@ -8,7 +8,7 @@ import { IStoreItem } from "../../../../models/StoreItem";
 import { createStores } from "../../../helpers/data_generation/storesDataGeneration";
 import { IStore } from "../../../../models/Store";
 
-type SetupProdContTestRes = {
+type SetupStoreItemContTestRes = {
   admins: {
     firstAdmin: IAdministrator,
     secondAdmin: IAdministrator,
@@ -29,7 +29,7 @@ type SetupProdContTestRes = {
   }
 };
 
-export const setupProdControllerTests = (): Promise<SetupProdContTestRes> => {
+export const setupStoreItemControllerTests = (): Promise<SetupStoreItemContTestRes> => {
   let firstAdmin: IAdministrator, secondAdmin: IAdministrator, thirdAdmin: IAdministrator;
   let firstAdminBusAcctId: string, secondAdminBusAcctId: string, thirdAdminBusAcctId: string;
   let firstAdminsStore: IStore, secondAdminsStore: IStore;
@@ -54,7 +54,8 @@ export const setupProdControllerTests = (): Promise<SetupProdContTestRes> => {
       ]);
     })
     .then((stores) => {
-      [ firstAdminsStore, secondAdminsStore ] = stores[0], stores[1];
+       [ firstAdminsStore ] = stores[0];
+       [ secondAdminsStore ] = stores[1];
       return Promise.all([
         Administrator.findOneAndUpdate({ _id: firstAdmin._id }, { $set: { businessAccountId: firstAdminBusAcctId } }, { new: true }),
         Administrator.findOneAndUpdate({ _id: secondAdmin._id }, { $set: { businessAccountId: secondAdminBusAcctId } }, { new: true })
@@ -63,8 +64,8 @@ export const setupProdControllerTests = (): Promise<SetupProdContTestRes> => {
     .then((updatedAdminArr) => {
       [ firstAdmin, secondAdmin ] = (updatedAdminArr as IAdministrator[]);
       return Promise.all([
-        createStoreItems(5, firstAdminsStore._id, firstAdminBusAcctId),
-        createStoreItems(5, secondAdminsStore._id, secondAdminBusAcctId)
+        createStoreItems(5, firstAdminsStore, firstAdminBusAcctId),
+        createStoreItems(5, secondAdminsStore, secondAdminBusAcctId)
       ]);
     })
     .then((storeItemsArr) => {

@@ -1,4 +1,4 @@
-import faker from "faker";
+import faker, { lorem } from "faker";
 // models and model interfaces //
 import Store, { IStore } from "../../../models/Store";
 import StoreItem, { IStoreItem } from "../../../models/StoreItem";
@@ -38,15 +38,16 @@ const returnRandomStoreItemCategories = (storeItemCategories: string[]): string[
 /**
  * Generates mock data for <StoreItem> models.
  * @param numtoGenerate - Number of StoreItemData objects to generate.
- * @param storeId - <Store> model _id to tie the <StoreItem> model to.
+ * @param store - <Store> model to tie the <StoreItem> model to.
  * @returns <StoreItemData[]> - An array of <StoreItem> data objects.
  */
-const generateMockStoreItemsData = (numtoGenerate: number, storeId: string): StoreItemData[] => {
+const generateMockStoreItemsData = (numtoGenerate: number, store: IStore): StoreItemData[] => {
   const mockStoreItems: StoreItemData[] = [];
   for (let i = 0; i < numtoGenerate; i++) {
     // pick random catagories //
     const mockStoreItemData: StoreItemData = {
-      storeId: storeId,
+      storeId: store._id,
+      storeName: store.title,
       name: faker.commerce.product(),
       price: faker.commerce.price(10, 100),
       description: faker.lorem.paragraph(),
@@ -60,25 +61,24 @@ const generateMockStoreItemsData = (numtoGenerate: number, storeId: string): Sto
 
 /**
  * Creates a <StoreItem> model and updates its correspondind <Store> model.
- * @param store - <IStore> object _id.
+ * @param store - <IStore> object to tie the <StoreItem> model to.
  * @param businessAccount - <IBusinessAccount> object )id.
  * @returns A <Promise<IStoreItem>> resolving to a <IStoreItem> object.
  */
-const createStoreItem = (storeId: string, businessAccountId: string): Promise<IStoreItem> => {
+const createStoreItem = (store: IStore, businessAccountId: string): Promise<IStoreItem> => {
   let createdItem: IStoreItem;
-  const newItem: StoreItemData = generateMockStoreItemsData(1, storeId)[0];
-
+  const newItem: StoreItemData = generateMockStoreItemsData(1, store)[0];
   return ( 
     StoreItem.create(
       { 
-      ...newItem,
-      businessAccountId: businessAccountId
+        businessAccountId: businessAccountId,
+        ...newItem
       }
     )
   )
   .then((storeItem) => {
     createdItem  = storeItem;
-    return Store.findByIdAndUpdate({ _id: storeId }, { $inc: { numOfItems: 1} })
+    return Store.findByIdAndUpdate({ _id: store._id }, { $inc: { numOfItems: 1} })
   })
   .then((_) => {
     return createdItem;
@@ -92,13 +92,12 @@ type CreateStoreItemArg = number | "random"
 /**
  * Creates a specific number of <StoreItem> models in the database.
  * @param numOfStoreItems - Number of <StoreItem> models to create.
- * @param storeId - <IStore> object _id.
+ * @param store - <IStore> model to tie the <StoreItem> model to.
  * @param businessAccountId - <IBusinessAccount> object _id.
  * @returns <Promise<IStoreItem[]>> resolving to a <IStoreItem[]>.
  */
-export const createStoreItems = (numOfStoreItems: CreateStoreItemArg, storeId: string, businessAccountId: string): Promise<IStoreItem[]> => {
+export const createStoreItems = async (numOfStoreItems: CreateStoreItemArg, store: IStore, businessAccountId: string): Promise<IStoreItem[]> => {
   const createdStoreItems: Promise<IStoreItem>[] = [];
-
   let numOfItems: number;
 
   if (numOfStoreItems === "random") {
@@ -108,7 +107,7 @@ export const createStoreItems = (numOfStoreItems: CreateStoreItemArg, storeId: s
   }
 
   for (let i = 0; i < numOfStoreItems; i++) {
-    createdStoreItems.push(createStoreItem(storeId, businessAccountId));
+    createdStoreItems.push(createStoreItem(store, businessAccountId));
   }
 
   return Promise.all(createdStoreItems);

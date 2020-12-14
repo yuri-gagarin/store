@@ -50,8 +50,8 @@ export const setupStoreImgControllerTests = (): Promise<SetupStoreImgContTestRes
     .then((busAccountArr) => {
       [ firstAdminBusAcctId, secondAdminBusAcctId ] = busAccountArr.map((acc) => String(acc._id));
       return Promise.all([
-        createStores(5, busAccountArr[0]),
-        createStores(5, busAccountArr[1])
+        createStores(5, firstAdminBusAcctId),
+        createStores(5, secondAdminBusAcctId)
       ]);
     })
     .then((storesArr) => {

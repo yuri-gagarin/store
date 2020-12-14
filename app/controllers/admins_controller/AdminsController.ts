@@ -108,7 +108,7 @@ class AdminsController implements IGenericAuthController {
           { _id: adminId },
           { ...adminData, password: hashedPassword, editedAt: new Date(Date.now()) },
           { new: true }
-        );
+        ).exec();
       })
       .then((updatedAdmin) => {
         if (updatedAdmin) {
@@ -208,6 +208,16 @@ class AdminsController implements IGenericAuthController {
   }
   logout(req: Request, res: Response): Promise<Response> {
     return Promise.resolve(res);
+  }
+
+  private allowedParams(params: string[]): boolean {
+    
+    for (const key in params) {
+      if (String(key) === "adminLevel") {
+        return false;
+      }
+    }
+    return true;
   }
 };
 
