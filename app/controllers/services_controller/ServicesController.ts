@@ -13,13 +13,13 @@ import { validateServiceData } from "./helpers/validationHelpers";
 import { NotFoundError, processErrorResponse } from "../_helpers/errorHandlers";
 
 /**
- * // NOTES //
- * // By the time any 'ServicesController' actions are called, <Router> should go through //
- * // some custom middleware <verifyAdminAndBusinessAccountId> OR <verifyDataModelAccess> OR BOTH! //
- * // Hence by the time any 'ServiceController' actions are called, it has been established that: //
- * // 1: <req.user> is defined as IAdministrator model //
- * // 2: <req.user.businessAccountId> is defined for GET_MANY and CREATE actions //
- * // 3: <req.user.businessAccountId> === <service.businessAccountId> for GET_ONE, EDIT, DELETE actions //
+ * NOTES //
+ * By the time any 'ServicesController' actions are called, <Router> should go through
+ * some custom middleware <verifyAdminAndBusinessAccountId> OR <verifyDataModelAccess> OR BOTH!
+ * Hence by the time any 'ServiceController' actions are called, it has been established that:
+ * 1: <req.user> is defined as IAdministrator model
+ * 2: <req.user.businessAccountId> is defined for GET_MANY and CREATE actions
+ * 3: <req.user.businessAccountId> === <service.businessAccountId> for GET_ONE, EDIT, DELETE actions //
  */
 
 class ServicesController implements IGenericController {

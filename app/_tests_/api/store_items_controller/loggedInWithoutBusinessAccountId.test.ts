@@ -12,12 +12,15 @@ import StoreItem, { IStoreItem } from "../../../models/StoreItem";
 import { clearDB } from "../../helpers/dbHelpers";
 import { setupStoreItemControllerTests } from "./helpers/testSetupAndCleanup";
 import { loginAdmins } from "../../helpers/auth_helpers/authHelpers";
+import { IStore } from "../../../models/Store";
 
 chai.use(chaiHTTP);
 
 describe("StoreItemsController - LOGGED IN - MISSING or WRONG BusinessAccount ID - GET/POST/PATCH/DELETE - API tests", () => {
   let newStoreItemData: StoreItemData;
   let updateStoreItemData: StoreItemData;
+  // store models //
+  let firstAdminsStore: IStore;
   // storeItem models //
   let firstAdminsStoreItem: IStoreItem;
   // admin models first two have a 'BusinessAccount' set up, third does not //
@@ -34,8 +37,9 @@ describe("StoreItemsController - LOGGED IN - MISSING or WRONG BusinessAccount ID
   before((done) => {
     setupStoreItemControllerTests()
       .then((response) => {
-        const { admins, storeItems } = response;
+        const { admins, storeItems, stores } = response;
         ({ firstAdmin, secondAdmin, thirdAdmin } = admins);
+        ({ firstAdminsStore } = stores);
         [ firstAdminsStoreItem ] = storeItems.firstAdminsStoreItems;
         return StoreItem.countDocuments().exec();
       })
@@ -158,11 +162,12 @@ describe("StoreItemsController - LOGGED IN - MISSING or WRONG BusinessAccount ID
     // END TEST GET with no business acount GET_ONE action //
     
     // TEST Admin with no business account CREATE action //
-    describe("POST '/api/store_items/create' - NO 'BusinessAccount' - CREATE action", () => {
+    describe("POST '/api/store_items/create/:storeId' - NO 'BusinessAccount' - CREATE action", () => {
 
       it("Should NOT allow CREATE of a 'StoreItem' if admin does not have a 'BusinessAccount' set up", (done) => {
+        const storeId = firstAdminsStoreItem._id;
         chai.request(server)
-          .post("/api/store_items/create")
+          .post("/api/store_items/create/" + storeId)
           .set({ "Authorization": thirdAdminToken })
           .send({
             ...newStoreItemData
@@ -194,11 +199,13 @@ describe("StoreItemsController - LOGGED IN - MISSING or WRONG BusinessAccount ID
     // END TEST Admin with no business account CREATE action //
 
     // TEST Admin with no Business account EDIT action //
-    describe("PATCH '/api/store_items/edit/:storeItemId' - NO 'BusinessAccount' - EDIT action", () => {
+    describe("PATCH '/api/store_items/edit/:storeId/:storeItemId' - NO 'BusinessAccount' - EDIT action", () => {
 
       it("Should NOT allow EDIT of a 'StoreItem' if admin does not have a 'BusinessAccount' set up", (done) => {
+        const storeId = firstAdminsStore._id as string;
+        const storeItemId = firstAdminsStoreItem._id as string;
         chai.request(server)
-          .patch("/api/store_items/update/" + String(firstAdminsStoreItem._id))
+          .patch(`/api/store_items/update/${storeId}/${storeItemId}`)
           .set({ "Authorization": thirdAdminToken })
           .send({
             ...updateStoreItemData
@@ -240,11 +247,13 @@ describe("StoreItemsController - LOGGED IN - MISSING or WRONG BusinessAccount ID
     // END TEST Admin with no Busniess accoint EDIT action //
 
     // TEST Admin with no Busniess account DELETE action //
-    describe("DELETE '/api/store_items/delete/:storeItemId' - NO 'BusinessAccount' - DELETE action", () => {
+    describe("DELETE '/api/store_items/delete/:storeId/:storeItemId' - NO 'BusinessAccount' - DELETE action", () => {
 
       it("Should NOT allow DELETE of a 'StoreItem' if admin does not have a 'BusinessAccount' set up", (done) => {
+        const storeId = firstAdminsStore._id as string;
+        const storeItemId = firstAdminsStoreItem._id as string;
         chai.request(server)
-          .delete("/api/store_items/delete/" + String(firstAdminsStoreItem._id))
+          .delete(`/api/store_items/delete/${storeId}/${storeItemId}`)
           .set({ "Authorization": thirdAdminToken })
           .send({
             ...updateStoreItemData
@@ -295,7 +304,7 @@ describe("StoreItemsController - LOGGED IN - MISSING or WRONG BusinessAccount ID
 
       it("Should NOT return a 'StoreItem' model which belongs to another account", (done) => {
         chai.request(server)
-          .get("/api/store_items/" + String(firstAdminsStoreItem._id) )
+          .get("/api/store_items/" + (firstAdminsStoreItem._id as string))
           .set({ "Authorization": secondAdminToken })
           .end((err, response) => {
             if (err) done(err);
@@ -336,10 +345,13 @@ describe("StoreItemsController - LOGGED IN - MISSING or WRONG BusinessAccount ID
     // END TEST GET GET_ONE controller action with wrong 'BusinessAccount' //
     
     // TEST Admin with wrong business account EDIT action //
-    describe("PATCH '/api/store_items/update/:storeItemId' - WRONG 'BusinessAccount' - EDIT action", () => {
+    describe("PATCH '/api/store_items/update/:storeId/:storeItemId' - WRONG 'BusinessAccount' - EDIT action", () => {
       it("Should NOT allow EDIT of a 'StoreItem' if Admin's  'BusinessAccount' _id doesnt match 'StoreItem'", (done) => {
+        const storeId = firstAdminsStore._id as string;
+        const storeItemId = firstAdminsStoreItem._id as string;
+
         chai.request(server)
-          .patch("/api/store_items/update/" + String(firstAdminsStoreItem._id))
+          .patch(`/api/store_items/update/${storeId}/${storeItemId}`)
           .set({ "Authorization": secondAdminToken })
           .send({
             ...newStoreItemData
@@ -381,10 +393,12 @@ describe("StoreItemsController - LOGGED IN - MISSING or WRONG BusinessAccount ID
     // END TEST Admin with wrong business account EDIT action //
     
     // TEST Admin with wrong BusinessAccount DELETE action //
-    describe("DELETE '/api/store_items/delete/:storeItemId' - WRONG 'BusinessAccount' - DELETE action", () => {
+    describe("DELETE '/api/store_items/delete/:storeId/:storeItemId' - WRONG 'BusinessAccount' - DELETE action", () => {
       it("Should NOT allow DELETE of a 'StoreItem' if Admin's  'BusinessAccount' _id doesnt match 'StoreItem'", (done) => {
+        const storeId = firstAdminsStore._id as string;
+        const storeItemId = firstAdminsStore._id as string;
         chai.request(server)
-          .delete("/api/store_items/delete/" + String(firstAdminsStoreItem._id))
+          .delete(`/api/store_items/delete/${storeId}/${storeItemId}`)
           .set({ "Authorization": secondAdminToken })
           .end((err, response) => {
             if (err) done(err);

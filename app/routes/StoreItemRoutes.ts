@@ -3,14 +3,14 @@ import { Router } from "express";
 import { RouteConstructor } from "./helpers/routeInterfaces";
 import { IGenericController } from "../controllers/_helpers/controllerInterfaces";
 // custom middleware //
-import { verifyAdminAndBusinessAccountId, verifyDataModelAccess } from "../custom_middleware/customMiddlewares";
+import { verifyAdminAndBusinessAccountId, verifyStoreItemModelAccess } from "../custom_middleware/customMiddlewares";
 
 class StoreItemRoutes extends RouteConstructor<IGenericController> {
   private viewAllStoreItemsRoute = "/api/store_items";
   private viewStoreItemRoute = "/api/store_items/:storeItemId";
-  private createStoreItemRoute = "/api/store_items/create";
-  private editStoreItemRoute = "/api/store_items/update/:storeItemId";
-  private deleteStoreItemRoute = "/api/store_items/delete/:storeItemId";
+  private createStoreItemRoute = "/api/store_items/create/:storeId";
+  private editStoreItemRoute = "/api/store_items/update/:storeId/:storeItemId";
+  private deleteStoreItemRoute = "/api/store_items/delete/:storeId/:storeItemId";
   
   constructor (router: Router, controller: IGenericController) {
     super(router, controller);
@@ -41,7 +41,7 @@ class StoreItemRoutes extends RouteConstructor<IGenericController> {
         [
           passport.authenticate("adminJWT", { session: false }),   // passport middleware jwt token authentication //
           verifyAdminAndBusinessAccountId ,                        // custom middleware to verify the presence of <req.user> and <req.user.businessAccountId> //
-          verifyDataModelAccess                                    // custom middleware to ensure that <req.user.businessAccountId> === <storeItem.businessAccountId> //
+          verifyStoreItemModelAccess                               // custom middleware to ensure that <req.user.businessAccountId> === <storeItem.businessAccountId> //
         ],
         this.controller.getOne
 
@@ -53,7 +53,8 @@ class StoreItemRoutes extends RouteConstructor<IGenericController> {
       .post(
         [
           passport.authenticate("adminJWT", { session: false }),   // passport middleware jwt token authentication //
-          verifyAdminAndBusinessAccountId                          // custom middleware to verify the presence of <req.user> and <req.user.businessAccountId> //
+          verifyAdminAndBusinessAccountId,                         // custom middleware to verify the presence of <req.user> and <req.user.businessAccountId> //
+          verifyStoreItemModelAccess                               // custom middleware to verify that Admin creating the <StoreItem> is authorized to add it to the queried <Store> model //
         ],
         this.controller.create
       );
@@ -65,8 +66,9 @@ class StoreItemRoutes extends RouteConstructor<IGenericController> {
         [
           passport.authenticate("adminJWT", { session: false }),   // passport middleware jwt token authentication //
           verifyAdminAndBusinessAccountId ,                        // custom middleware to verify the presence of <req.user> and <req.user.businessAccountId> //
-          verifyDataModelAccess                                    // custom middleware to ensure that <req.user.businessAccountId> === <storeItem.businessAccountId> //
+          verifyStoreItemModelAccess                               // custom middleware to verify that Admin creating the <StoreItem> is authorized to add it to the queried <Store> model //
         ],
+
         this.controller.edit
       );
   }
@@ -77,7 +79,7 @@ class StoreItemRoutes extends RouteConstructor<IGenericController> {
         [
           passport.authenticate("adminJWT", { session: false }),   // passport middleware jwt token authentication //
           verifyAdminAndBusinessAccountId ,                        // custom middleware to verify the presence of <req.user> and <req.user.businessAccountId> //
-          verifyDataModelAccess                                    // custom middleware to ensure that <req.user.businessAccountId> === <storeItem.businessAccountId> //
+          verifyStoreItemModelAccess                               // custom middleware to verify that Admin creating the <StoreItem> is authorized to add it to the queried <Store> model //
         ],
         this.controller.delete
       );

@@ -41,17 +41,17 @@ const returnRandomStoreItemCategories = (storeItemCategories: string[]): string[
  * @param store - <Store> model to tie the <StoreItem> model to.
  * @returns <StoreItemData[]> - An array of <StoreItem> data objects.
  */
-const generateMockStoreItemsData = (numtoGenerate: number, store: IStore): StoreItemData[] => {
+export const generateMockStoreItemsData = (numtoGenerate: number, store: IStore): StoreItemData[] => {
   const mockStoreItems: StoreItemData[] = [];
   for (let i = 0; i < numtoGenerate; i++) {
     // pick random catagories //
     const mockStoreItemData: StoreItemData = {
       storeId: store._id,
       storeName: store.title,
-      name: faker.commerce.product(),
+      name: faker.lorem.word(),
       price: faker.commerce.price(10, 100),
-      description: faker.lorem.paragraph(),
-      details: faker.lorem.paragraph(),
+      description: faker.lorem.paragraph(2),
+      details: faker.lorem.paragraph(2),
       categories: returnRandomStoreItemCategories(storeItemCategories)
     };
     mockStoreItems.push(mockStoreItemData);

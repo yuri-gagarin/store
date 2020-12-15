@@ -1,11 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import mongoose, { Types } from "mongoose";
 import { respondWithInputError, respondWithNotAllowedErr, respondWithNotFoundError } from "../controllers/_helpers/controllerHelpers";
+import { NotAllowedError, NotFoundError, processErrorResponse } from "../controllers/_helpers/errorHandlers";
 import { IAdministrator } from "../models/Administrator";
 import { IProduct } from "../models/Product";
 import { IService } from "../models/Service";
-import { IStore } from "../models/Store";
-import { IStoreItem } from "../models/StoreItem";
+import Store, { IStore } from "../models/Store";
+import StoreItem, { IStoreItem } from "../models/StoreItem";
 
 export const POSTRequestTrimmer = (req: Request, res: Response, next: NextFunction) => {
   if (req.method === "POST") {
@@ -77,6 +78,65 @@ export const verifyAdminAndBusinessAccountId =  (req: Request, res: Response, ne
   }
 };
 
+export const verifyStoreItemModelAccess = (req: Request, res: Response, next: NextFunction) => {
+
+  const admin = req.user as IAdministrator;
+   
+  if ((req.method === "GET") && (req.params.storeItemId)) {
+    StoreItem.findOne({ _id: req.params.storeItemId }).exec()
+      .then((storeItem) => {
+        if (storeItem) {
+          return Promise.resolve(storeItem);
+        } else {
+          throw new NotFoundError({
+            messages: [ "Could not find the queried Store Item model" ]
+          });
+        } 
+      })
+      .then((storeItem) => {
+        if ((storeItem.businessAccountId as Types.ObjectId).equals(admin.businessAccountId!)) {
+          next();
+        } else {
+          throw new NotAllowedError({
+            errMessage: "Action not allowed",
+            messages: [ "Not allowed to query a Store Item not belonging to your account" ]
+          });
+        }
+      })
+      .catch((error) => {
+        return processErrorResponse(res, error);
+      });
+  }
+
+  if ((req.method === "POST") || (req.method === "PATCH") || (req.method === "DELETE")) {
+    const { storeId } = req.params;
+    Store.findOne({ _id: storeId })
+      .then((store) => {
+        if (!store) {
+          const errMessages = [ "Could not resolve the Store model to link Store Item to" ];
+          throw new NotFoundError({
+            errMessage: "Not Found",
+            messages:  errMessages
+          });
+        } else {
+          return Promise.resolve(store);
+        }
+      })
+      .then((store) => {
+        if ((store.businessAccountId as Types.ObjectId).equals(admin.businessAccountId!)) {
+          next();
+        } else {
+          throw new NotAllowedError({
+            errMessage: "Action not allowed",
+            messages: [ "Not allowed to manage Store Items on a Store which does not belong to your account" ]
+          });
+        }
+      })
+      .catch((err) => {
+        return processErrorResponse(res, err);
+      });
+  }
+};
 
 type DataModel = IStore | IStoreItem | IService | IProduct;
 export const verifyDataModelAccess = async (req: Request, res: Response, next: NextFunction) => {
