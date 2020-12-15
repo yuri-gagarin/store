@@ -72,7 +72,6 @@ describe("StoreItemsController - Logged In WITH CORRECT BusinessAccount ID - INV
           .end((err, res) => {
             if (err) done(err);
             // assert correct response //
-            // console.log(res.body)
             expect(res.status).to.equal(422);
             expect(res.body.responseMsg).be.a("string");
             expect(res.body.error).to.be.an("object");

@@ -298,7 +298,7 @@ describe("StoreItemsController - LOGGED IN - MISSING or WRONG BusinessAccount ID
   // END CONTEXT 'StoreItemsController' INDEX GET CREATE EDIT DELETE actions without 'BusinessAccount' set up //
 
   // CONTEXT 'StoreItemsController' GET_ONE GET EDIT DELETE actions with wrong 'BusinessAccount //
-  context("Admin with a wrong 'BusinessAccount' set up GET_ONE, EDIT, DELETE actions", () => {
+  context("Admin with a wrong 'BusinessAccount' set up GET_ONE, CREATE, EDIT, DELETE actions", () => {
     // TEST GET GET_ONE controller action with wrong 'BusinesAccount' //
     describe("GET '/api/store_items/:storeItemId' - WRONG 'BusinessAccount' - GET_ONE action", () => {
 
@@ -344,12 +344,57 @@ describe("StoreItemsController - LOGGED IN - MISSING or WRONG BusinessAccount ID
     });
     // END TEST GET GET_ONE controller action with wrong 'BusinessAccount' //
     
+    // TEST Admin with wrong business account CREATE action //
+    describe("POST '/api/store_items/create/:storeId' - WRONG 'BusinessId - CREATE action", () => {
+
+      it("Should NOT return a 'StoreItem' model which belongs to another account", (done) => {
+        const storeId = firstAdminsStore._id as string;
+        chai.request(server)
+          .post(`/api/store_items/create/${storeId}`)
+          .set({ "Authorization": secondAdminToken })
+          .end((err, response) => {
+            if (err) done(err);
+            // assert correct response //
+            // console.log(response)
+            expect(response.status).to.equal(401);
+            expect(response.body.storeItem).to.be.undefined;
+            expect(response.body.responseMsg).to.be.a("string");
+            expect(response.body.error).to.be.an("object");
+            expect(response.body.errorMessages).to.be.an("array");
+            expect(response.body.errorMessages.length).to.equal(1);
+            expect(response.body.errorMessages[0]).to.be.a("string");
+            done();
+          });
+      });
+      it("Should NOT edit a 'StoreItem' model in the database in any way", (done) => {
+        StoreItem.findOne({ _id: firstAdminsStoreItem._id }).exec()
+          .then((storeItem) => {
+            expect(JSON.stringify(storeItem)).to.equal(JSON.stringify(firstAdminsStoreItem));
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+      it("Should NOT alter the number of 'StoreItem' models in the database", (done) => {
+        StoreItem.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(totalNumberOfStoreItems);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+    });
+    // END TEST Admin with wrong business account CREATE action //
+
     // TEST Admin with wrong business account EDIT action //
     describe("PATCH '/api/store_items/update/:storeId/:storeItemId' - WRONG 'BusinessAccount' - EDIT action", () => {
+
       it("Should NOT allow EDIT of a 'StoreItem' if Admin's  'BusinessAccount' _id doesnt match 'StoreItem'", (done) => {
         const storeId = firstAdminsStore._id as string;
         const storeItemId = firstAdminsStoreItem._id as string;
-
         chai.request(server)
           .patch(`/api/store_items/update/${storeId}/${storeItemId}`)
           .set({ "Authorization": secondAdminToken })

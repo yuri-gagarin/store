@@ -32,7 +32,7 @@ const returnRandomStoreItemCategories = (storeItemCategories: string[]): string[
     const index = Math.floor(Math.random() * arrToPickFrom.length);
     arrOfPicks.push(...arrToPickFrom.splice(index, 1));
   }
-  return arrOfPicks;
+  return arrOfPicks.length > 0 ? arrOfPicks : (arrToPickFrom.splice(1, 1));
 }
 
 /**

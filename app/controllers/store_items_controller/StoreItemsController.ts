@@ -165,12 +165,11 @@ class StoreItemsController implements IGenericController {
   }
 
   getOne (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response>  {
-    const { businessAcccountId } = req.user as IAdministrator;
+    const { businessAccountId } = req.user as IAdministrator;
     const { storeItemId } = req.params;
 
-
     return (
-      StoreItem.findOne({ businessAccountId: businessAcccountId, _id: storeItemId })
+      StoreItem.findOne({ businessAccountId: businessAccountId, _id: storeItemId })
       .populate("images").exec()
     )
     .then((storeItem) => {
@@ -242,11 +241,11 @@ class StoreItemsController implements IGenericController {
   }
 
   edit (req: Request, res: Response<IGenericStoreImgRes>): Promise<Response> {
-    const { businessAcccountId } = req.user as IAdministrator;
+    const { businessAccountId } = req.user as IAdministrator;
     const { storeId, storeItemId } = req.params;
     const { name, description, details, price, images : storeItemImages = [], categories = [] }: StoreItemData = req.body;
     const updatedStoreItemImgs: Types.ObjectId[] = [];
-
+    
     // validate correct input first //
     const { valid, errorMessages } = validateStoreItems(req.body);
     if (!valid) {
@@ -260,7 +259,7 @@ class StoreItemsController implements IGenericController {
 
     return (
       StoreItem.findOneAndUpdate(
-      { businessAccountId: businessAcccountId, storeId: storeId, _id: storeId },
+      { businessAccountId: businessAccountId, storeId: storeId, _id: storeItemId },
       { 
         $set: {
           name: name,
