@@ -60,6 +60,7 @@ export const checkImgUploadCredentials = async (req: Request, res: Response, nex
       if ((model.businessAccountId as Types.ObjectId).equals(businessAccountId)) {
         next();
       } else {
+        console.log("wrong account")
         return respondWithNotAllowedErr(res, "Not Allowed", 401, [ "Not allowed to upload images to resources not belonging to your account" ]);
       }
     });
