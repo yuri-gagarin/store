@@ -1,21 +1,26 @@
 import mongoose, { Schema, Document } from "mongoose";
+import { IBusinessAccount } from "./BusinessAccount";
+import { IStore } from "./Store";
+import { IStoreItem } from "./StoreItem";
 
 export interface IStoreItemImage extends Document {
-  description?: string;
-  storeItemId: mongoose.Types.ObjectId;
-  parentStoreId?: mongoose.Types.ObjectId;
+  businessAcccount: (mongoose.Types.ObjectId | IBusinessAccount);
+  storeItemId: (mongoose.Types.ObjectId | IStoreItem);
+  parentStoreId?: (mongoose.Types.ObjectId | IStore);
   url: string;
   fileName: string;
   imagePath: string;
   absolutePath: string;
+  description?: string;
   createdAt: Date;
   editedAt?: Date;
 }
 
 const StoreItemImageSchema: Schema = new Schema({
-  description: {
-    type: String,
-    required: false
+  businessAccountId: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: "BusinessAccount"
   },
   storeItemId: {
     type: Schema.Types.ObjectId,
@@ -24,6 +29,7 @@ const StoreItemImageSchema: Schema = new Schema({
   },
   parentStoreId: {
     type: Schema.Types.ObjectId,
+    required: true,
     ref: "Store"
   },
   url: {
@@ -41,6 +47,10 @@ const StoreItemImageSchema: Schema = new Schema({
   absolutePath: {
     type: String,
     required: true
+  },
+  description: {
+    type: String,
+    required: false
   },
   createdAt: {
     type: Date,

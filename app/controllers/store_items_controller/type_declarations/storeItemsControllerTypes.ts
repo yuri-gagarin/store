@@ -1,6 +1,7 @@
 import { IStoreItem } from "../../../models/StoreItem";
 // expected StoreItemData from a form //
 export type StoreItemData = {
+  businessAccountId?: string;
   storeId?: string;
   storeName?: string;
   name?: string;

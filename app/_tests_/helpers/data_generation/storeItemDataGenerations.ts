@@ -46,7 +46,8 @@ export const generateMockStoreItemsData = (numtoGenerate: number, store: IStore)
   for (let i = 0; i < numtoGenerate; i++) {
     // pick random catagories //
     const mockStoreItemData: StoreItemData = {
-      storeId: store._id,
+      businessAccountId: String(store.businessAccountId),
+      storeId: String(store._id),
       storeName: store.title,
       name: faker.lorem.word(),
       price: faker.commerce.price(10, 100),
@@ -62,16 +63,14 @@ export const generateMockStoreItemsData = (numtoGenerate: number, store: IStore)
 /**
  * Creates a <StoreItem> model and updates its correspondind <Store> model.
  * @param store - <IStore> object to tie the <StoreItem> model to.
- * @param businessAccount - <IBusinessAccount> object )id.
  * @returns A <Promise<IStoreItem>> resolving to a <IStoreItem> object.
  */
-const createStoreItem = (store: IStore, businessAccountId: string): Promise<IStoreItem> => {
+const createStoreItem = (store: IStore,): Promise<IStoreItem> => {
   let createdItem: IStoreItem;
   const newItem: StoreItemData = generateMockStoreItemsData(1, store)[0];
   return ( 
     StoreItem.create(
       { 
-        businessAccountId: businessAccountId,
         ...newItem
       }
     )
@@ -93,10 +92,9 @@ type CreateStoreItemArg = number | "random"
  * Creates a specific number of <StoreItem> models in the database.
  * @param numOfStoreItems - Number of <StoreItem> models to create.
  * @param store - <IStore> model to tie the <StoreItem> model to.
- * @param businessAccountId - <IBusinessAccount> object _id.
  * @returns <Promise<IStoreItem[]>> resolving to a <IStoreItem[]>.
  */
-export const createStoreItems = async (numOfStoreItems: CreateStoreItemArg, store: IStore, businessAccountId: string): Promise<IStoreItem[]> => {
+export const createStoreItems = async (numOfStoreItems: CreateStoreItemArg, store: IStore): Promise<IStoreItem[]> => {
   const createdStoreItems: Promise<IStoreItem>[] = [];
   let numOfItems: number;
 
@@ -107,7 +105,7 @@ export const createStoreItems = async (numOfStoreItems: CreateStoreItemArg, stor
   }
 
   for (let i = 0; i < numOfStoreItems; i++) {
-    createdStoreItems.push(createStoreItem(store, businessAccountId));
+    createdStoreItems.push(createStoreItem(store));
   }
 
   return Promise.all(createdStoreItems);

@@ -64,8 +64,8 @@ export const setupStoreItemControllerTests = (): Promise<SetupStoreItemContTestR
     .then((updatedAdminArr) => {
       [ firstAdmin, secondAdmin ] = (updatedAdminArr as IAdministrator[]);
       return Promise.all([
-        createStoreItems(5, firstAdminsStore, firstAdminBusAcctId),
-        createStoreItems(5, secondAdminsStore, secondAdminBusAcctId)
+        createStoreItems(5, firstAdminsStore),
+        createStoreItems(5, secondAdminsStore)
       ]);
     })
     .then((storeItemsArr) => {

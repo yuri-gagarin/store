@@ -1,11 +1,21 @@
 import { Router } from "express";
+import passport from "passport";
+// models and model interfaces //
 import { RouteConstructor } from "./helpers/routeInterfaces"; 
 import { IGenericImgUploadCtrl } from "../controllers/_helpers/controllerInterfaces";
 import ImageUploader from "../controllers/image_uploaders/ImageUploader";
+// custom middleware //
+import { checkImgUploadCredentials } from "../custom_middleware/customMiddlewares";
+
+/**
+ * NOTES
+ * Custom middleware <checkImgUploadCredentials> is required to validate <req.user> and
+ * to validate <req.user.businessId> === <storeItem.businessId>.
+*/
 
 class StoreItemImageRoutes extends RouteConstructor<IGenericImgUploadCtrl, ImageUploader> {
-  private uploadStoreItemImg = "/api/uploads/store_item_images/:_store_item_id";
-  private deleteStoreItemImg = "/api/uploads/store_item_images/:_id/:_store_item_id";
+  private uploadStoreItemImg = "/api/uploads/store_item_images/:storeItemId";
+  private deleteStoreItemImg = "/api/uploads/store_item_images/:storeItemId/:storeItemImgId";
 
   constructor(router: Router, controller: IGenericImgUploadCtrl, uploader: ImageUploader) {
     super(router, controller, uploader);
@@ -16,10 +26,27 @@ class StoreItemImageRoutes extends RouteConstructor<IGenericImgUploadCtrl, Image
     this.deleteStoreItemImgRoute();
   }
   private uploadStoreItemImgRoute (): void {
-    this.Router.route(this.uploadStoreItemImg).post(this.uploader!.runUpload, this.controller.createImage);
+    this.Router
+      .route(this.uploadStoreItemImg)
+      .post(
+        [ 
+          passport.authenticate("adminJWT", { session: false }),
+          checkImgUploadCredentials
+        ],
+        this.uploader!.runUpload, 
+        this.controller.createImage
+      );
   }
   private deleteStoreItemImgRoute (): void {
-    this.Router.route(this.deleteStoreItemImg).delete(this.controller.deleteImage);
+    this.Router
+      .route(this.deleteStoreItemImg)
+      .delete(
+        [
+          passport.authenticate("adminJWT", { session: false }),
+          checkImgUploadCredentials
+        ],
+        this.controller.deleteImage
+      );
   }
 }
 

@@ -5,6 +5,12 @@ import { IGenericImgUploadCtrl } from "../controllers/_helpers/controllerInterfa
 import ImageUploader from "../controllers/image_uploaders/ImageUploader";
 import { checkImgUploadCredentials } from "../custom_middleware/customMiddlewares";
 
+/**
+ * NOTES
+ * Custom middleware <checkImgUploadCredentials> is required to validate <req.user> and
+ * to validate <req.user.businessId> === <store.businessId>.
+*/
+
 class StoreImageRoutes extends RouteConstructor<IGenericImgUploadCtrl, ImageUploader> {
   private uploadStoreImg = "/api/uploads/store_images/:storeId";
   private deleteStoreImg = "/api/uploads/store_images/:storeImgId/:storeId";

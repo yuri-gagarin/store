@@ -26,11 +26,17 @@ export const createStores = (numberOfStores: number, busAccountId: string): Prom
   const createdStores: Promise<IStore>[] = [];
 
   for (let i = 0; i < numberOfStores; i++) {
+    let title: string;
+
+    do {
+      title = faker.lorem.word();
+    } while (title.length < 3);
+
     createdStores.push(
       Store.create({
         businessAccountId: busAccountId,
-        title: faker.lorem.word(),
-        description: faker.lorem.paragraphs(3),
+        title: title,
+        description: faker.lorem.paragraph(),
         images: [],
         createdAt: new Date(Date.now()),
         editedAt: new Date(Date.now())

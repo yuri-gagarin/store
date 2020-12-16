@@ -68,68 +68,7 @@ export const createBonusVideos = (numOfVideos: number): Promise<IBonusVideo[]> =
 
 
 
-export const createStoreItemImage = (imgData: IStoreItemImage): Promise<IStoreItemImage> => {
-  let image: IStoreItemImage;
-  return StoreItemImage.create(imgData)
-    .then((img) => {
-      image = img;
-      return StoreItem.findOneAndUpdate(
-        { _id: img.storeItemId },
-        { $push: { images: img._id} }
-      );
-    })
-    .then(() => {
-      return image;
-    })
-    .catch((err) => {
-      console.error(err);
-      throw err;
-    })
-};
 
-
-
-
-
-
-
-export const createStoreItemImages = (storeItems: IStoreItem[], numberofImages?: number): Promise<IStoreItemImage[]> => {
-  const imagePromises: Promise<IStoreItemImage>[] = [];
-  const imagesToCreate = numberofImages ? numberofImages : Math.ceil(Math.random() * 10);
-  // write path //
-  const writeDir = path.join(path.resolve(), "public", "uploads", "store_item_images");
-  // samle test image to upload //
-  const sampleImagePath = path.join(path.resolve(), "public", "images", "services", "service1.jpeg");
-
-  for (let i = 0; i < storeItems.length; i++) {
-    // check if path exists first //
-    // images will go into {writeDir + service._id}
-    const subDir = storeItems[i]._id.toString();
-    const finalDir = path.join(writeDir, subDir);
-    if (!fs.existsSync(finalDir)) {
-      fs.mkdirSync(finalDir, { recursive: true });
-    }
-    for (let j = 0; j < imagesToCreate; j++) {
-      const imageName = `${i}_${j}_${storeItems[i].name}_test.jpeg`;
-      const absolutePath = path.join(finalDir, imageName);
-      try {
-        fs.writeFileSync(absolutePath, fs.readFileSync(sampleImagePath));
-        const newImage = new StoreItemImage({
-          storeItemId: storeItems[i]._id,
-          imagePath: "/uploads/store_item_images/" + subDir + "/",
-          absolutePath: absolutePath,
-          fileName: imageName,
-          url: "/uploads/store_item_images/" + subDir + "/" + imageName
-        });
-        imagePromises.push(createStoreItemImage(newImage));
-  
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }
-  return Promise.all(imagePromises);
-};
 
 
 export const generateMockAdminData = (): AdminData => {
