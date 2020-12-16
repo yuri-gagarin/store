@@ -4,7 +4,7 @@ import { IStore } from "./Store";
 import { IStoreItem } from "./StoreItem";
 
 export interface IStoreItemImage extends Document {
-  businessAcccount: (mongoose.Types.ObjectId | IBusinessAccount);
+  businessAccountId: (mongoose.Types.ObjectId | IBusinessAccount);
   storeItemId: (mongoose.Types.ObjectId | IStoreItem);
   parentStoreId?: (mongoose.Types.ObjectId | IStore);
   url: string;
@@ -20,16 +20,18 @@ const StoreItemImageSchema: Schema = new Schema({
   businessAccountId: {
     type: Schema.Types.ObjectId,
     required: true,
+    index: true,
     ref: "BusinessAccount"
   },
   storeItemId: {
     type: Schema.Types.ObjectId,
     required: true,
+    index: true,
     ref: "StoreItem"
   },
   parentStoreId: {
     type: Schema.Types.ObjectId,
-    required: true,
+    required: false,
     ref: "Store"
   },
   url: {

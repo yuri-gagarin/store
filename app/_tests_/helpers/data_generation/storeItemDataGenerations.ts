@@ -45,14 +45,19 @@ export const generateMockStoreItemsData = (numtoGenerate: number, store: IStore)
   const mockStoreItems: StoreItemData[] = [];
   for (let i = 0; i < numtoGenerate; i++) {
     // pick random catagories //
+    let name: string;
+    do {
+      name = faker.lorem.word();
+    } while (name.length < 3);
+
     const mockStoreItemData: StoreItemData = {
       businessAccountId: String(store.businessAccountId),
       storeId: String(store._id),
       storeName: store.title,
-      name: faker.lorem.word(),
+      name: name,
       price: faker.commerce.price(10, 100),
-      description: faker.lorem.paragraph(2),
-      details: faker.lorem.paragraph(2),
+      description: faker.lorem.paragraph(1),
+      details: faker.lorem.paragraph(1),
       categories: returnRandomStoreItemCategories(storeItemCategories)
     };
     mockStoreItems.push(mockStoreItemData);

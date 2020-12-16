@@ -251,6 +251,7 @@ class StoreItemsController implements IGenericController {
     if (!valid) {
       return respondWithInputError(res, "Validation Error", 422, errorMessages);
     }
+
     if (Array.isArray(storeItemImages) && (storeItemImages.length > 0)) {
       for (const imgId  of storeItemImages) {
         updatedStoreItemImgs.push(Types.ObjectId(imgId));
