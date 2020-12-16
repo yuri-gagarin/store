@@ -30,13 +30,13 @@ export const createStores = (numberOfStores: number, busAccountId: string): Prom
 
     do {
       title = faker.lorem.word();
-    } while (title.length < 3);
+    } while (title.length < 4);
 
     createdStores.push(
       Store.create({
         businessAccountId: busAccountId,
         title: title,
-        description: faker.lorem.paragraph(),
+        description: faker.lorem.paragraph(2),
         images: [],
         createdAt: new Date(Date.now()),
         editedAt: new Date(Date.now())

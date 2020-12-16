@@ -103,7 +103,7 @@ describe("ServiceImagesUplController - LOGGED IN - BUSINESS ACCOUNT SET UP - POS
         const testImgPath = path.join(path.resolve(), "app", "_tests_", "api", "test_images", "test.jpg");
         
         chai.request(server)
-          .post("/api/uploads/service_images/" + firstAdminsService._id)
+          .post("/api/uploads/service_images/" + (firstAdminsService._id as string)) 
           .set({ "Authorization": firstAdminToken })
           .attach("serviceImage", fs.readFileSync(testImgPath), "test.jpg")
           .end((err, response) => {
@@ -202,11 +202,13 @@ describe("ServiceImagesUplController - LOGGED IN - BUSINESS ACCOUNT SET UP - POS
     // END TEST POST 'ServiceImagesController' no login CREATE_IMAGE  action //
 
     // TEST DELETE 'ServiceImagesController' DELETE_IMAGE action wih login  and correct bus account //
-    describe("DELETE '/api/uploads/service_images/:serviceImgId/:serviceId' - WITH LOGIN and BUSINESS_ACCOUNT -  DELETE_IMAGE action", () => {
+    describe("DELETE '/api/uploads/service_images/:serviceId/:serviceImgId' - WITH LOGIN and BUSINESS_ACCOUNT -  DELETE_IMAGE action", () => {
 
       it("Should successfully remove the 'ServiceImage' and respond with correct response", (done) => {
+        const serviceId = firstAdminsService._id as string;
+        const serviceImgId = createdImage._id as string;
         chai.request(server)
-          .delete("/api/uploads/service_images/" + (createdImage._id as string) + "/" + (firstAdminsService._id as string))
+          .delete(`/api/uploads/service_images/${serviceId}/${serviceImgId}`)
           .set({ "Authorization": firstAdminToken })
           .end((err, response) => {
             if (err) done(err);
@@ -278,7 +280,7 @@ describe("ServiceImagesUplController - LOGGED IN - BUSINESS ACCOUNT SET UP - POS
         const testImgPath = path.join(path.resolve(), "app", "_tests_", "api", "test_images", "test.jpg");
         
         chai.request(server)
-          .post("/api/uploads/service_images/" + firstAdminsService._id)
+          .post("/api/uploads/service_images/" + (firstAdminsService._id as string)) 
           .set({ "Authorization": secondAdminToken })
           .attach("serviceImage", fs.readFileSync(testImgPath), "test.jpg")
           .end((err, response) => {
@@ -333,8 +335,10 @@ describe("ServiceImagesUplController - LOGGED IN - BUSINESS ACCOUNT SET UP - POS
     describe("DELETE '/api/uploads/service_images/:createdImgId/:serviceId/' - WITH LOGIN and BUSINESS_ACCOUNT -  DELETE_IMAGE action", () => {
 
       it("Should NOT remove the 'ServiceImage' and respond with correct error response", (done) => {
+        const serviceId = firstAdminsService._id as string;
+        const serviceImgId = firstAdminsServiceImage._id as string;
         chai.request(server)
-          .delete("/api/uploads/service_images/" + (firstAdminsServiceImage._id as string) + "/" + (firstAdminsService._id as string))
+          .delete(`/api/uploads/service_images/${serviceId}/${serviceImgId}`)
           .set({ "Authorization": secondAdminToken })
           .end((err, response) => {
             if (err) done(err);

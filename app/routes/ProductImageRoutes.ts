@@ -16,7 +16,7 @@ import { checkImgUploadCredentials } from "../custom_middleware/customMiddleware
 
 class ProductImageRoutes extends RouteConstructor<IGenericImgUploadCtrl, ImageUploader> {
   private uploadProductImg = "/api/uploads/product_images/:productId";
-  private deleteProducteImg = "/api/uploads/product_images/:productImgId/:productId";
+  private deleteProducteImg = "/api/uploads/product_images/:productId/:productImgId";
 
   constructor(router: Router, controller: IGenericImgUploadCtrl, uploader: ImageUploader) {
     super(router, controller, uploader);

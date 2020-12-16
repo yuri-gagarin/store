@@ -144,7 +144,7 @@ describe("StoresController - Logged In WITH CORRECT BusinessAccount ID - VALID D
     // END TEST GET_ONE action correct BusinessAccount //
 
     // TEST POST CREATE action Correct BusinessAccount - valid Data //
-    describe("POST '/api/producs/create' - CORRECT 'BusinessAccount' - VALID DATA - CREATE action", () => {
+    describe("POST '/api/stores/create' - CORRECT 'BusinessAccount' - VALID DATA - CREATE action", () => {
       it("Should create a new 'Store' model, send back correct response", (done) => {
         chai.request(server)
           .post("/api/stores/create")
@@ -198,7 +198,7 @@ describe("StoresController - Logged In WITH CORRECT BusinessAccount ID - VALID D
     // END TEST POST CREATE action Correct BusinessAccount - VALID Data //
     
     // TEST PATCH EDIT action Correct BusinessAccount - VALID Data //
-    describe("PATCH '/api/producs/update/:storeId' - CORRECT 'BusinessAccount' - VALID DATA - EDIT action", () => {
+    describe("PATCH '/api/stores/update/:storeId' - CORRECT 'BusinessAccount' - VALID DATA - EDIT action", () => {
       it("Should correctly update a 'Store' model, send back correct response", (done) => {
         chai.request(server)
           .patch("/api/stores/update/" + (firstAdminsStore._id))
@@ -263,7 +263,7 @@ describe("StoresController - Logged In WITH CORRECT BusinessAccount ID - VALID D
     // END TEST PATCH EDIT action Correct BusinessAccount - VALID Data //
 
     // TEST DELETE DELETE action Correct BusinessAccount - Valid Data //
-    describe("DELETE '/api/producs/delete/:storeId' - CORRECT 'BusinessAccount' - VALID DATA - DELETE action", () => {
+    describe("DELETE '/api/stores/delete/:storeId' - CORRECT 'BusinessAccount' - VALID DATA - DELETE action", () => {
       it("Should correctly delete a 'Store' model, send back correct response", (done) => {
         chai.request(server)
           .delete("/api/stores/delete/" + (firstAdminsStore._id))

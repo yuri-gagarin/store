@@ -117,8 +117,10 @@ describe("ProductImagesUplController - NOT LOGGED IN - POST/DELETE API tests", (
     describe("DELETE '/api/uploads/product_images/:productId/:productImgId' - NO LOGIN -  DELETE_IMAGE action", () => {
 
       it("Should NOT remove an image and destroy the ProductImage model, send back correct response", (done) => {
+        const productId = firstAdminsProduct._id as string;
+        const productImgId = firstAdminsProductImage._id as string;
         chai.request(server)
-          .delete("/api/uploads/product_images/" + (firstAdminsProductImage._id) + "/" + firstAdminsProduct._id)
+          .delete(`/api/uploads/product_images/${productId}/${productImgId}`)
           .end((err, response) => {
             if (err) done(err);
             // assert correct reponse //

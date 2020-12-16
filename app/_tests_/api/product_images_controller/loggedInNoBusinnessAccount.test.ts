@@ -134,7 +134,7 @@ describe("ProductImagesUplController - LOGGED IN - NO BUSINESS ACCOUNT SET UP - 
 
       it("Should NOT delete an image from files and send back a correct response", (done) => {
         chai.request(server)
-          .delete("/api/uploads/product_images/" + (firstAdminsProductImage._id as string) + "/" + (firstAdminsProduct._id as string))
+          .delete("/api/uploads/product_images/" + (firstAdminsProduct._id as string) + "/" + (firstAdminsProductImage._id as string))
           .set({ "Authorization": thirdAdminToken })
           .end((err, response) => {
             if (err) done(err);

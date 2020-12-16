@@ -119,8 +119,10 @@ describe("ServiceImagesUplController - NOT LOGGED IN - POST/DELETE API tests", (
     describe("DELETE '/api/uploads/service_images/:serviceId/:serviceImgId' - NO LOGIN -  DELETE_IMAGE action", () => {
 
       it("Should NOT remove an image and destroy the ServiceImage model, send back correct response", (done) => {
+        const serviceId = firstAdminsService._id as string;
+        const serviceImgId = firstAdminsServiceImage._id as string;
         chai.request(server)
-          .delete("/api/uploads/service_images/" + (firstAdminsServiceImage._id) + "/" + firstAdminsService._id)
+          .delete(`/api/uploads/service_images/${serviceId}/${serviceImgId}`)
           .end((err, response) => {
             if (err) done(err);
             // assert correct reponse //

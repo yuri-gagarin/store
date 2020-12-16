@@ -200,11 +200,13 @@ describe("StoreImagesUplController - LOGGED IN - BUSINESS ACCOUNT SET UP - POST/
     // END TEST POST 'StoreImagesController' no login CREATE_IMAGE  action //
     
     // TEST DELETE 'StoreImagesController' DELETE_IMAGE action wih login  and correct bus account //
-    describe("DELETE '/api/uploads/store_images/:storeImgId/:storeId' - WITH LOGIN and BUSINESS_ACCOUNT -  DELETE_IMAGE action", () => {
+    describe("DELETE '/api/uploads/store_images/:storeId/:storeImgId' - WITH LOGIN and BUSINESS_ACCOUNT -  DELETE_IMAGE action", () => {
 
       it("Should successfully remove the 'StoreImage' and respond with correct response", (done) => {
+        const storeId = firstAdminsStore._id as string;
+        const storeImgId = createdImage._id as string;
         chai.request(server)
-          .delete("/api/uploads/store_images/" + (createdImage._id as string) + "/" + (firstAdminsStore._id as string))
+          .delete(`/api/uploads/store_images/${storeId}/${storeImgId}`)
           .set({ "Authorization": firstAdminToken })
           .end((err, response) => {
             if (err) done(err);
@@ -328,11 +330,13 @@ describe("StoreImagesUplController - LOGGED IN - BUSINESS ACCOUNT SET UP - POST/
     // END TEST POST 'StoreImagesController' login and incorrect bus account CREATE_IMAGE  action //
 
     // TEST DELETE 'StoreImagesController' logged in and inccorrect bus account DELETE_IMAGE action //
-    describe("DELETE '/api/uploads/store_images/:createdImgId/:storeId/' - WITH LOGIN and BUSINESS_ACCOUNT -  DELETE_IMAGE action", () => {
+    describe("DELETE '/api/uploads/store_images/:storeId/:createdImgId' - WITH LOGIN and BUSINESS_ACCOUNT -  DELETE_IMAGE action", () => {
 
       it("Should NOT remove the 'StoreImage' and respond with correct error response", (done) => {
+        const storeId = firstAdminsStore._id as string;
+        const storeImgId = firstAdminsStoreImage._id as string;
         chai.request(server)
-          .delete("/api/uploads/store_images/" + (firstAdminsStoreImage._id as string) + "/" + (firstAdminsStore._id as string))
+          .delete(`/api/uploads/store_images/${storeId}/${storeImgId}`)
           .set({ "Authorization": secondAdminToken })
           .end((err, response) => {
             if (err) done(err);

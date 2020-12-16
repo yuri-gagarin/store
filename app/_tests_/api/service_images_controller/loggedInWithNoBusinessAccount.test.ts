@@ -130,11 +130,13 @@ describe("ServiceImagesUplController - LOGGED IN - NO BUSINESS ACCOUNT SET UP - 
     // END TEST POST 'ServiceImagesController' with login no bus account CREATE_IMAGE  action //
     
     // TEST DELETE 'ServiceImagesController' DELETE_IMAGE action with login no bus account //
-    describe("DELETE '/api/uploads/service_images/:serviceImgId/:serviceId' - WITH LOGIN - NO BUSINESS ACCOUNT -  DELETE_IMAGE action", () => {
+    describe("DELETE '/api/uploads/service_images/:serviceId/:serviceImgId' - WITH LOGIN - NO BUSINESS ACCOUNT -  DELETE_IMAGE action", () => {
 
       it("Should NOT delete an image from files and send back a correct response", (done) => {
+        const serviceId = firstAdminsService._id as string;
+        const serviceImgId = firstAdminsServiceImage._id as string;
         chai.request(server)
-          .delete("/api/uploads/service_images/" + (firstAdminsServiceImage._id as string) + "/" + (firstAdminsService._id as string))
+          .delete(`/api/uploads/service_images/${serviceId}/${serviceImgId}`)
           .set({ "Authorization": thirdAdminToken })
           .end((err, response) => {
             if (err) done(err);

@@ -57,13 +57,13 @@ describe("StoreImagesUplController - NOT LOGGED IN - POST/DELETE API tests", () 
   
   context("POST/DELETE  'StoreImgUplController' API tests - NOT LOGGED IN - CREATE_IMAGE, DELETE_IMAGE actions", () => {
     // TEST POST 'StoreImagesController' no login CREATE_IMAGE  action //
-    describe("POST '/api/store_images/upload' - NO LOGIN - Multer Upload and CREATE_IMAGE action", () => {
+    describe("POST '/api/uploads/store_images/:storeId' - NO LOGIN - Multer Upload and CREATE_IMAGE action", () => {
 
       it("Should NOT  upload and create StoreImage model", (done) => {
         const testImgPath = path.join(path.resolve(), "app", "_tests_", "api", "test_images", "test.jpg");
         
         chai.request(server)
-          .post("/api/uploads/store_images/" + firstAdminsStore._id)
+          .post("/api/uploads/store_images/" + (firstAdminsStore._id as string))
           .set({ "Authorization": "" })
           .attach("storeImage", fs.readFileSync(testImgPath), "test.jpg")
           .end((err, response) => {
@@ -109,11 +109,13 @@ describe("StoreImagesUplController - NOT LOGGED IN - POST/DELETE API tests", () 
     // END TEST POST 'StoreImagesController' no login CREATE_IMAGE  action //
 
     // TEST DELETE 'StoreImagesController' DELETE_IMAGE action wihout login //
-    describe("DELETE '/api/store_images/upload' - NO LOGIN -  DELETE_IMAGE action", () => {
+    describe("DELETE '/api/uploads/store_images/:storeId/:storeImgId' - NO LOGIN -  DELETE_IMAGE action", () => {
 
       it("Should NOT remove an image or its database model, send back correct response", (done) => {
+        const storeId = firstAdminsStore._id as string;
+        const storeImgId = firstAdminsStoreImage._id as string;
         chai.request(server)
-          .delete("/api/uploads/store_images/" + (firstAdminsStoreImage._id) + "/" + firstAdminsStore._id)
+          .delete(`/api/uploads/store_images/${storeId}/${storeImgId}`)
           .end((err, response) => {
             if (err) done(err);
             // assert correct reponse //

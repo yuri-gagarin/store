@@ -135,8 +135,10 @@ describe("StoreImagesUplController - LOGGED IN - NO BUSINESS ACCOUNT SET UP - PO
     describe("DELETE '/api/uploads/store_images/:storeImgId/:storeId' - WITH LOGIN - NO BUSINESS ACCOUNT -  DELETE_IMAGE action", () => {
 
       it("Should NOT delete an image from files and send back a correct response", (done) => {
+        const storeId = firstAdminsStore._id as string;
+        const storeImageId = firstAdminsStoreImage._id as string;;
         chai.request(server)
-          .delete("/api/uploads/store_images/" + (firstAdminsStoreImage._id as string) + "/" + (firstAdminsStore._id as string))
+          .delete(`/api/uploads/store_images/${storeId}/${storeImageId}`)
           .set({ "Authorization": thirdAdminToken })
           .end((err, response) => {
             if (err) done(err);

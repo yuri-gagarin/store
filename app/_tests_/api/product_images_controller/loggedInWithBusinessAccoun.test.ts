@@ -203,11 +203,13 @@ describe("ProductImagesUplController - LOGGED IN - BUSINESS ACCOUNT SET UP - POS
     // END TEST POST 'ProductImagesController' no login CREATE_IMAGE  action //
 
     // TEST DELETE 'ProductImagesController' DELETE_IMAGE action wih login  and correct bus account //
-    describe("DELETE '/api/uploads/product_images/:productImgId/:productId' - WITH LOGIN and BUSINESS_ACCOUNT -  DELETE_IMAGE action", () => {
+    describe("DELETE '/api/uploads/product_images/:productId/:productImgId' - WITH LOGIN and BUSINESS_ACCOUNT -  DELETE_IMAGE action", () => {
 
       it("Should successfully remove the 'ProductImage' and respond with correct response", (done) => {
+        const productId = firstAdminsProduct._id as string;
+        const productImageId = createdImage._id as string;
         chai.request(server)
-          .delete("/api/uploads/product_images/" + (createdImage._id as string) + "/" + (firstAdminsProduct._id as string))
+          .delete(`/api/uploads/product_images/${productId}/${productImageId}`)
           .set({ "Authorization": firstAdminToken })
           .end((err, response) => {
             if (err) done(err);
@@ -279,7 +281,7 @@ describe("ProductImagesUplController - LOGGED IN - BUSINESS ACCOUNT SET UP - POS
         const testImgPath = path.join(path.resolve(), "app", "_tests_", "api", "test_images", "test.jpg");
         
         chai.request(server)
-          .post("/api/uploads/product_images/" + firstAdminsProduct._id)
+          .post("/api/uploads/product_images/" + (firstAdminsProduct._id as string))
           .set({ "Authorization": secondAdminToken })
           .attach("productImage", fs.readFileSync(testImgPath), "test.jpg")
           .end((err, response) => {
@@ -331,11 +333,13 @@ describe("ProductImagesUplController - LOGGED IN - BUSINESS ACCOUNT SET UP - POS
     // END TEST POST 'ProductImagesController' login and incorrect bus account CREATE_IMAGE  action //
 
     // TEST DELETE 'ProductImagesController' logged in and inccorrect bus account DELETE_IMAGE action //
-    describe("DELETE '/api/uploads/product_images/:createdImgId/:productId/' - WITH LOGIN and BUSINESS_ACCOUNT -  DELETE_IMAGE action", () => {
+    describe("DELETE '/api/uploads/product_images/:productId/:createdImgId' - WITH LOGIN and BUSINESS_ACCOUNT -  DELETE_IMAGE action", () => {
 
       it("Should NOT remove the 'ProductImage' and respond with correct error response", (done) => {
+        const productId = firstAdminsProduct._id as string;
+        const productImgId = firstAdminsProductImage._id as string;
         chai.request(server)
-          .delete("/api/uploads/product_images/" + (firstAdminsProductImage._id as string) + "/" + (firstAdminsProduct._id as string))
+          .delete(`/api/uploads/product_images/${productId}/${productImgId}`)
           .set({ "Authorization": secondAdminToken })
           .end((err, response) => {
             if (err) done(err);
