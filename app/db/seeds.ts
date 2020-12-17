@@ -13,37 +13,49 @@ import { IServiceImage } from "../models/ServiceImage";
 import { IStoreItemImage } from "../models/StoreItemImage";
 
 // helpers for seeding //
-import { 
-  createStores, createStoreItems, createProducts, createServices,
-   createStoreImages, createProductImages, createServiceImages, createStoreItemImages 
-} from "../_tests_/helpers/dataGeneration";
+// admin generation //
+import { createAdmins } from "../_tests_/helpers/data_generation/adminsDataGeneration";
+// business accounts generation //
+import { createBusinessAcccount } from "../_tests_/helpers/data_generation/businessAccontsGeneration";
+// user generation //
+// store data generation //
+import { createStores } from "../_tests_/helpers/data_generation/storesDataGeneration";
+import { createStoreImages } from "../_tests_/helpers/data_generation/storeImageDataGeneration"
+// store item data generation //
+import { createStoreItems } from "../_tests_/helpers/data_generation/storeItemDataGenerations";
+import { createStoreItemImages } from "../_tests_/helpers/data_generation/storeItemImageDataGeneration";
+// product data generation //
+import { createProducts } from "../_tests_/helpers/data_generation/productsDataGeneration";
+import { createProductImages } from "../_tests_/helpers/data_generation/productImageDataGeneration";
+// service data generation //
+import { createServices } from "../_tests_/helpers/data_generation/serviceDataGeneration";
+import { createServiceImages } from "../_tests_/helpers/data_generation/serviceImageDataGeneration";
+import { IAdministrator } from "../models/Administrator";
+import { IBusinessAccount } from "../models/BusinessAccount";
 
 
-type ModelArr = IStore[] | IProduct[] | IService[] | IStoreItem[];
+
+type ModelArr = (IAdministrator[] | IStore[] | IProduct[] | IService[] | IStoreItem[]);
 type ImageModelArr = IStoreImage[] | IStoreItemImage[] | IProductImage[] | IServiceImage[];
 
 const { dbSettings } = config;
-const dbOptions: ConnectionOptions = {
-  user: dbSettings.username,
-  pass: dbSettings.password,
-  useNewUrlParser: dbSettings.useNewUrlParser,
-  useFindAndModify: dbSettings.useFindAndModify,
-  useUnifiedTopology: dbSettings.useUnifiedTopology
-};
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
 
-mongoose.connect(dbSettings.mongoURI, dbOptions, (err) => {
+mongoose.connect(dbSettings.mongoURI, dbSettings.connectionOptions, (err) => {
   if (err) { 
     console.log(err); 
     process.exit(1);
   }
 });
 
-const askForModelCreation = (modelName: string) => {
-  const models = ["store", "product", "service"];
+const createBusinessAccountsCreation = (aministrators: IAdministrator[])
+
+const askForModelCreation = (modelName: string, businessAccountIds?: string[]) => {
+  const models = ["administrator", "store", "product", "service"];
 
   return new Promise<ModelArr>((resolve, reject) => {
     const question = chalk.bgWhiteBright(chalk.black.bold(
@@ -60,18 +72,38 @@ const askForModelCreation = (modelName: string) => {
       if (isNaN(number)) throw new Error("Not a number");
       
       switch (modelName) {
-        case "Store": 
-          resolve(createStores(number));
+        case "Store": {
+          const storeModelPromises: Promise<IStore[]>[] = [];
+          for (let i = 0; i < businessAccountIds!.length; i++) {
+            storeModelPromises.push(createStores(number, businessAccountIds![i]))
+          }
+          resolve(Promise.all(storeModelPromises));
           break;
-        case "Product": 
-          resolve(createProducts(number));
+        }
+        case "Product": {
+          const productModelPromises: Promise<IProduct[]>[] = [];
+          for (let i = 0; i < businessAccountIds!.length; i++) {
+            productModelPromises.push(createProducts(number, businessAccountIds![i]));
+          }
+          resolve(Promise.all(productModelPromises));
           break;
-        case "StoreItem": 
-          resolve(createStoreItems(number));
+        }
+        case "StoreItem": {
+          const storeItemModelPromises: Promise<IStoreItem[]>[] = [];
+          for (let i = 0; i < businessAccountIds!.length; i++) {
+            storeItemModelPromises.push(createStoreItems(number, businessAccountIds![i]));
+          }
+          resolve(Promise.all(storeItemModelPromises));
           break;
-        case "Service": 
-          resolve(createServices(number));
+        }
+        case "Service": {
+          const serviceModelPromises: Promise<IService[]>[] = [];
+          for (let i = 0; i < businessAccountIds!.length; i++) {
+            serviceModelPromises.push(createServices(number, businessAccountIds![i]));
+          }
+          resolve(Promise.all(servicesModelPromises));
           break;
+        }
         default: reject(new Error("Can't tesolve model"));
       }
     });
@@ -86,7 +118,7 @@ const askForImageCreation = (modelName: string, models: ModelArr) => {
       
       switch (modelName) {
         case "StoreImage": {
-          resolve(createStoreImages(models as IStore[], number));
+          resolve(createStoreImages(number));
           break;
         }
         case "StoreItemImage": {
@@ -109,6 +141,9 @@ const askForImageCreation = (modelName: string, models: ModelArr) => {
 
 
 mongoose.connection.once("open", () => {
+  let createdAdmins: IAdministrator[];
+  let createdAdminsWithoutBusAcccount: IAdministrator[];
+  let createdBusAcccounts: IBusinessAccount[];
   let createdStores: IStore[]; let storeImages: IStoreImage[];
   let createdProducts: IProduct[]; let productImages: IProductImage[];
   let createdServices: IService[]; let serviceImages: IServiceImage[];
@@ -117,9 +152,29 @@ mongoose.connection.once("open", () => {
     .then(() => {
       const dbName = mongoose.connection.db.databaseName;
       console.log(chalk.bgGreen.bold.yellow(`Seeding Database: ${chalk.bgYellow.bold.blue(dbName)}.`));
-      return askForModelCreation("Store");
+      return askForModelCreation("Administrator");
     })
-    .then((stores) => {
+    .then((_createdAdmins) => {
+      createdAdmins = _createdAdmins as IAdministrator[];
+      const createPromises: Promise<IBusinessAccount>[] = [];
+      for ( const admin of createdAdmins as IAdministrator[]) {
+        createPromises.push(createBusinessAcccount({ admins: [ admin] })); 
+      }
+      return Promise.all(createPromises);
+    })
+    .then((_createdBusAcccounts) => {
+      const storePromises: Promise<IBusinessAccount>[] = [];
+      const busAccountsLength = createdBusAcccounts.length;
+      createdBusAcccounts = _createdBusAcccounts;
+      console.log(chalk.bgGreen.bold.yellow(`Created: ${chalk.bgYellow.bold.blue(createdAdmins.length)} Administrators`));
+      console.log(chalk.bgGreen.bold.yellow(`Created: ${chalk.bgYellow.bold.blue(createdBusAcccounts.length)} BusinessAccounts`));
+      console.log(chalk.bgGreen.bold.yellow(`Would you like to create any Administrator models not linked to a BusinessAccount?`));
+      return askForModelCreation("Administrator");
+    })
+    .then((_createdAdminsWithoutBusAcccount) => {
+      createdAdminsWithoutBusAcccount = _createdAdminsWithoutBusAcccount as IAdministrator[] | []
+      return askForModelCreation("Stores")
+    })
       console.log(chalk.bold.blue(`Created ${chalk.whiteBright(stores.length)} Stores`));
       createdStores = stores as IStore[];
       // return askForModelCreation("Product");

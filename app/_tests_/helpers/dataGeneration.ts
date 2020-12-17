@@ -58,58 +58,6 @@ export const createBonusVideos = (numOfVideos: number): Promise<IBonusVideo[]> =
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-export const generateMockAdminData = (): AdminData => {
-  const newAdmin: AdminData = {
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
-    handle: faker.internet.userName(),
-    email: faker.internet.email(),
-    password: "password",
-    passwordConfirm: "password",
-  };
-  return newAdmin;
-};
-
-
-export const createAdmins = async (number: number): Promise<IAdministrator[]> => {
-  const createdAdminPromises: Promise<IAdministrator>[] = [];
-  for (let i = 0; i < number; i++) {
-    const adminData: AdminData = {
-      firstName: faker.name.firstName(),
-      lastName: faker.name.lastName(),
-      handle: faker.internet.userName(),
-      email: faker.internet.email(),
-      password: "password",
-      passwordConfirm: "password"
-    }
-    const passwordHash = await new Promise<string>((res, rej) => {
-      bcrypt.hash(adminData.password, 10, (err, passHash) => {
-        res(passHash)
-      })
-    })
-    createdAdminPromises.push(
-      Administrator.create({
-        ...adminData,
-        password: passwordHash
-      })
-    );
-  }
-  return Promise.all(createdAdminPromises);
-};
-
 // User model generation //
 export const generateMockUserData = (): UserData => {
   const newAdmin: UserData = {
