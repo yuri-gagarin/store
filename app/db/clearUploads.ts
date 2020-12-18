@@ -78,7 +78,7 @@ const recursiveQuestion = (question: string) => {
               console.log(chalk.bgRed.bold.white("An ERROR occured"));
               console.log(chalk.bgRed.bold.white(err.message));
             }
-            console.log(chalk.bgGreen.bold.red(`Delted Directory ${path.join(startDirectory, file)}`));
+            console.log(chalk.bgGreen.bold.red(`Deleted Directory ${path.join(startDirectory, file)}`));
           });
         }
       }
@@ -130,12 +130,9 @@ const recursiveQuestion = (question: string) => {
         console.log(chalk.bgWhiteBright.bold.blue("Deleting uploaded StoreItemImages"));
         return deleteImages(4); 
       }
-      case 4: {
+      case 5: {
         console.log(chalk.bgWhiteBright.bold.blue("Deleting all uploaded Images"));
         //rl.close();
-        return(deleteImages(5));
-      }
-      case 5: {
         return deleteImages(5);
       }
       case 0: {

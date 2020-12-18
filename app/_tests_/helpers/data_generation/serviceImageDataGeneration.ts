@@ -35,48 +35,45 @@ export const createServiceImages = async (numberOfImagesToCreate: number, servic
   const writeDir = path.join(path.resolve(), "public", "uploads", "service_images");
   // samle test image to upload //
   const sampleImagePath = path.join(path.resolve(), "public", "images", "services", "service1.jpeg");
-
-  for (let i = 0; i < numberOfImagesToCreate; i++) {
-    // check if path exists first //
-    // images will go into {writeDir + service._id}
-    const serviceId: string = String(service._id);
-    const businessAccountId: string = String(service.businessAccountId);
-    const subDir: string = path.join(businessAccountId, serviceId);
-    const finalDir = path.join(writeDir, subDir);
-
-    try {
-      await fs.promises.access(finalDir, fs.constants.O_DIRECTORY);
-    } catch (err) {
-      if (err.code === "ENOENT") {
-        try {
-          await fs.promises.mkdir(finalDir, { recursive: true });
-        } catch (err) {
-          throw err;
-        }
-      } else {
+  // resolve the image subdirectory //
+  const serviceId: string = String(service._id);
+  const businessAccountId: string = String(service.businessAccountId);
+  const subDir: string = path.join(businessAccountId, serviceId);
+  const finalDir = path.join(writeDir, subDir);
+  // check if path exists first //
+  // images will go into {writeDir + service._id}
+  try {
+    await fs.promises.access(finalDir, fs.constants.O_DIRECTORY);
+  } catch (err) {
+    if (err.code === "ENOENT") {
+      try {
+        await fs.promises.mkdir(finalDir, { recursive: true });
+      } catch (err) {
         throw err;
       }
+    } else {
+      throw err;
     }
+  }
 
-    for (let j = 0; j < numberOfImagesToCreate; j++) {
-      const imageName = `${i}_${j}_${service.name}_test.jpeg`;
-      const absolutePath = path.join(finalDir, imageName);
-      try {
-        await fs.promises.writeFile(absolutePath,  await fs.promises.readFile(sampleImagePath));
-        const newImage = new ServiceImage({
-          businessAccountId: businessAccountId,
-          serviceId: service._id,
-          imagePath: path.join(path.resolve(), "public", "uploads", "service_images", subDir),
-          absolutePath: absolutePath,
-          fileName: imageName,
-          url: path.join("/", "uploads", "service_images", subDir, imageName)
-        });
-        imagePromises.push(createServiceImage(newImage));
-  
-      } catch (error) {
-        console.error(error);
-        throw error;
-      }
+  for (let i = 0; i < numberOfImagesToCreate; i++) {
+    const imageName = `${i}_${service.name}_test.jpeg`;
+    const absolutePath = path.join(finalDir, imageName);
+    try {
+      await fs.promises.writeFile(absolutePath,  await fs.promises.readFile(sampleImagePath));
+      const newImage = new ServiceImage({
+        businessAccountId: businessAccountId,
+        serviceId: service._id,
+        imagePath: path.join(path.resolve(), "public", "uploads", "service_images", subDir),
+        absolutePath: absolutePath,
+        fileName: imageName,
+        url: path.join("/", "uploads", "service_images", subDir, imageName)
+      });
+      imagePromises.push(createServiceImage(newImage));
+
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
   }
   return Promise.all(imagePromises);

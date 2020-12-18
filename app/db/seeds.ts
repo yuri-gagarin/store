@@ -122,7 +122,7 @@ const askForModelCreation = async (modelName: string, businessAccounts?: IBusine
 
 const askForImageCreation = async (modelName: string, models: DataModel[]): Promise<ImageModel[]> => {
   const modelNameArr = modelName.split((/(?=[A-Z])/));
-  const imgModelName = modelNameArr.slice(0, (modelNameArr.length - 1)).join();
+  const imgModelName = modelNameArr.slice(0, (modelNameArr.length - 1)).join(" ");
   let dataModels: ImageModel[] = [];
   return new Promise((resolve, reject) => {
     rl.question(chalk.bold.yellowBright(`How many ${modelName} PER ${imgModelName} would you like to create: `), async (val) => {
@@ -202,9 +202,9 @@ mongoose.connection.once("open", () => {
       const storePromises: Promise<IBusinessAccount>[] = [];
       const busAccountsLength = _createdBusAcccounts.length;
       createdBusAcccounts = _createdBusAcccounts;
-      console.log(chalk.bgGreen.bold.yellow(`Created: ${chalk.bgYellow.bold.blue(createdAdmins.length)} Administrators`));
-      console.log(chalk.bgGreen.bold.yellow(`Created: ${chalk.bgYellow.bold.blue(createdBusAcccounts.length)} BusinessAccounts`));
-      console.log(chalk.bgGreen.bold.yellow(`Would you like to create any Administrator models not linked to a BusinessAccount?`));
+      console.log(chalk.bgWhite.bold.black(`Created: ${chalk.bgYellow.bold.blue(createdAdmins.length)} Administrators`));
+      console.log(chalk.bgWhite.bold.black(`Created: ${chalk.bgYellow.bold.blue(createdBusAcccounts.length)} BusinessAccounts`));
+      console.log(chalk.bgWhite.bold.black(`Would you like to create any ${chalk.bgBlue.bold.white('Administrator')} models not linked to a BusinessAccount?`));
       return askForModelCreation("Administrator");
     })
     .then((_createdAdminsWithoutBusAcccount) => {

@@ -9,20 +9,14 @@ const rl = readLine.createInterface({
 });
 
 const { dbSettings } = config;
-const mongoOptions = {
-  useNewUrlParser: dbSettings.useNewUrlParser,
-  useUnifiedTopology: dbSettings.useUnifiedTopology,
-  useFindAndModify: dbSettings.useFindAndModify,
-  user: dbSettings.username,
-  pass: dbSettings.password
-};
+
 
 const dropDB = () => {
   const greeting = chalk.bgRed.bold.white("Drop the whoe dvelopment database? Y/N: ")
   rl.question(greeting, (input) => {
     const reply = input.toLowerCase();
     if (reply === "y") {
-      mongoose.connect(dbSettings.mongoURI, mongoOptions, (err) => {
+      mongoose.connect(dbSettings.mongoURI, dbSettings.connectionOptions, (err) => {
         if (err) throw(err);
       });
       mongoose.connection.once("open", () => {
