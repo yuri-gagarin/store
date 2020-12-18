@@ -35,8 +35,8 @@ import { IBusinessAccount } from "../models/BusinessAccount";
 
 
 
-type ModelArr = (IAdministrator[] | IStore[] | IProduct[] | IService[] | IStoreItem[]);
-type ImageModelArr = IStoreImage[] | IStoreItemImage[] | IProductImage[] | IServiceImage[];
+type DataModel = IAdministrator | IStore | IProduct | IService | IStoreItem;
+type ImageModel = IStoreImage | IStoreItemImage | IProductImage| IServiceImage;
 
 const { dbSettings } = config;
 
@@ -52,18 +52,17 @@ mongoose.connect(dbSettings.mongoURI, dbSettings.connectionOptions, (err) => {
   }
 });
 
-const createBusinessAccountsCreation = (aministrators: IAdministrator[])
 
-const askForModelCreation = (modelName: string, businessAccountIds?: string[]) => {
+const askForModelCreation = async (modelName: string, businessAccounts?: IBusinessAccount[], stores?: IStore[]): Promise<DataModel[]> => {
   const models = ["administrator", "store", "product", "service"];
+  let dataModels: DataModel[] = [];
+  const question = chalk.bgWhiteBright(chalk.black.bold(
+    "Seeding database, type: " + chalk.bgRed.bold.white("exit") + " anytime to exit\n" +
+    "How many " + chalk.bgBlue(chalk.bold.white(modelName)) + " would you like to create?:"
+  ));
 
-  return new Promise<ModelArr>((resolve, reject) => {
-    const question = chalk.bgWhiteBright(chalk.black.bold(
-      "Seeding database, type: " + chalk.bgRed.bold.white("exit") + " anytime to exit\n" +
-      "How many " + chalk.bgBlue(chalk.bold.white(modelName)) + " would you like to create?:"
-    ));
-
-    rl.question(question, (val) => {
+  return new Promise((resolve, reject) => {
+    rl.question(question, async (val) => {
       if (val.toLowerCase() === "exit") {
         console.log(chalk.bgYellow(chalk.black("Exiting, Good Bye!")));
         process.exit(0);
@@ -71,71 +70,108 @@ const askForModelCreation = (modelName: string, businessAccountIds?: string[]) =
       const number = parseInt(val, 10);
       if (isNaN(number)) throw new Error("Not a number");
       
-      switch (modelName) {
-        case "Store": {
-          const storeModelPromises: Promise<IStore[]>[] = [];
-          for (let i = 0; i < businessAccountIds!.length; i++) {
-            storeModelPromises.push(createStores(number, businessAccountIds![i]))
-          }
-          resolve(Promise.all(storeModelPromises));
+      switch  (modelName) {
+        case "Administrator": {
+          const administratorModels: IAdministrator[] = await createAdmins(number);
+          resolve(administratorModels);
           break;
         }
-        case "Product": {
-          const productModelPromises: Promise<IProduct[]>[] = [];
-          for (let i = 0; i < businessAccountIds!.length; i++) {
-            productModelPromises.push(createProducts(number, businessAccountIds![i]));
+        case "Store": {
+          let storeModels: IStore[] = [];
+          for (let i = 0; i < businessAccounts!.length; i++) {
+            const stores = await createStores(number, businessAccounts![i]._id);
+            storeModels = [ ...storeModels, ...stores ];
           }
-          resolve(Promise.all(productModelPromises));
+          resolve(storeModels);
           break;
         }
         case "StoreItem": {
-          const storeItemModelPromises: Promise<IStoreItem[]>[] = [];
-          for (let i = 0; i < businessAccountIds!.length; i++) {
-            storeItemModelPromises.push(createStoreItems(number, businessAccountIds![i]));
+          let storeItemModels: IStoreItem[] = [];
+          for (let i = 0; i < stores!.length; i++) {
+            let storeItems = await createStoreItems(number, stores![i]);
+            storeItemModels = [ ...storeItemModels, ...storeItems ];
           }
-          resolve(Promise.all(storeItemModelPromises));
+          resolve(storeItemModels);
+          break;
+        }
+        case "Product": {
+          let productModels: IProduct[] = [];
+          for (let i = 0; i < businessAccounts!.length; i++) {
+            let products = await createProducts(number, businessAccounts![i]);
+            productModels = [ ...productModels, ...products ];
+          }
+          resolve(productModels);
           break;
         }
         case "Service": {
-          const serviceModelPromises: Promise<IService[]>[] = [];
-          for (let i = 0; i < businessAccountIds!.length; i++) {
-            serviceModelPromises.push(createServices(number, businessAccountIds![i]));
+          let serviceModels: IService[] = [];
+          for (let i = 0; i < businessAccounts!.length; i++) {
+            let services = await createServices(number, businessAccounts![i]);
+            serviceModels = [ ...serviceModels, ...services ];
           }
-          resolve(Promise.all(servicesModelPromises));
+          resolve(serviceModels);
           break;
         }
-        default: reject(new Error("Can't tesolve model"));
+        default: {
+          throw new Error("Can't resolve data model");
+        }
       }
     });
   });
 };
 
-const askForImageCreation = (modelName: string, models: ModelArr) => {
-  return new Promise<ImageModelArr>((resolve, reject) => {
-    rl.question(chalk.bold.yellowBright(`How many ${modelName} PER Store would you like to create: `), (val) => {
+const askForImageCreation = async (modelName: string, models: DataModel[]): Promise<ImageModel[]> => {
+  const modelNameArr = modelName.split((/(?=[A-Z])/));
+  const imgModelName = modelNameArr.slice(0, (modelNameArr.length - 1)).join();
+  let dataModels: ImageModel[] = [];
+  return new Promise((resolve, reject) => {
+    rl.question(chalk.bold.yellowBright(`How many ${modelName} PER ${imgModelName} would you like to create: `), async (val) => {
       const number = parseInt(val, 10);
       if (isNaN(number)) return [];
-      
+  
       switch (modelName) {
         case "StoreImage": {
-          resolve(createStoreImages(number));
+          let storeImagesArr: IStoreImage[] = [];
+          for (const model of models) {
+            const storeImages = await createStoreImages(number, model as IStore);
+            storeImagesArr = [ ...storeImagesArr, ...storeImages ];
+          }
+          resolve(storeImagesArr);
           break;
         }
         case "StoreItemImage": {
-          resolve(createStoreItemImages(models as IStoreItem[], number));
+          let storeItemImagesArr: IStoreItemImage[] = [];
+          for (const model of models) {
+            const storeItemImages = await createStoreItemImages(number, model as IStoreItem);
+            storeItemImagesArr = [ ...storeItemImagesArr, ...storeItemImages ];
+          }
+          resolve(storeItemImagesArr);
           break;
         }
         case "ProductImage": {
-          resolve(createProductImages(models as IProduct[], number));
+          let productImagesArr: IProductImage[] = [];
+          for (const model of models) {
+            const productImages = await createProductImages(number, model as IProduct);
+            productImagesArr = [ ...productImagesArr, ...productImages ];
+          }
+          resolve(productImagesArr);
           break;
         }
         case "ServiceImage": {
-          resolve(createServiceImages(models as IService[], number));
+          let serviceImagesArr: IServiceImage[] = [];
+          for (const model of models) {
+            const serviceImages = await createServiceImages(number, model as IService);
+            serviceImagesArr = [ ...serviceImagesArr, ...serviceImages ];
+          }
+          resolve(serviceImagesArr);
           break;
         }
-        default: reject(new Error("Can't resolve Image model"));
-      }
+        default: {
+          throw new Error()
+        }
+      } 
     });
+  
   });
 };
 
@@ -164,7 +200,7 @@ mongoose.connection.once("open", () => {
     })
     .then((_createdBusAcccounts) => {
       const storePromises: Promise<IBusinessAccount>[] = [];
-      const busAccountsLength = createdBusAcccounts.length;
+      const busAccountsLength = _createdBusAcccounts.length;
       createdBusAcccounts = _createdBusAcccounts;
       console.log(chalk.bgGreen.bold.yellow(`Created: ${chalk.bgYellow.bold.blue(createdAdmins.length)} Administrators`));
       console.log(chalk.bgGreen.bold.yellow(`Created: ${chalk.bgYellow.bold.blue(createdBusAcccounts.length)} BusinessAccounts`));
@@ -173,16 +209,15 @@ mongoose.connection.once("open", () => {
     })
     .then((_createdAdminsWithoutBusAcccount) => {
       createdAdminsWithoutBusAcccount = _createdAdminsWithoutBusAcccount as IAdministrator[] | []
-      return askForModelCreation("Stores")
+      return askForModelCreation("Store", createdBusAcccounts)
     })
-      console.log(chalk.bold.blue(`Created ${chalk.whiteBright(stores.length)} Stores`));
-      createdStores = stores as IStore[];
-      // return askForModelCreation("Product");
+    .then((_createdStores) => {
+      createdStores = _createdStores as IStore[];
       return askForImageCreation("StoreImage", createdStores);
     })
-    .then((createdImages) => {
-      console.log(chalk.bold.blue(`Created ${chalk.whiteBright(createdImages.length)} StoreImages`));
-      return askForModelCreation("StoreItem");
+    .then((_createdImages) => {
+      console.log(chalk.bold.blue(`Created ${chalk.whiteBright(_createdImages.length)} StoreImages`));
+      return askForModelCreation("StoreItem", undefined, createdStores);
     })
     .then((createdStoreItems) => {
       console.log(chalk.bold.blue(`Created ${chalk.whiteBright(createdStoreItems.length)} Store Items`));
@@ -190,7 +225,7 @@ mongoose.connection.once("open", () => {
     })
     .then((createdImages) => {
       console.log(chalk.bold.blue(`Created ${chalk.whiteBright(createdImages.length)} StoreItemImages`));
-      return askForModelCreation("Service");
+      return askForModelCreation("Service", createdBusAcccounts);
     })
     .then((services) => {
       console.log(chalk.bold.blue(`Created ${chalk.whiteBright(services.length)} Services`));
@@ -198,7 +233,7 @@ mongoose.connection.once("open", () => {
     })
     .then((createdImages) => {
       console.log(chalk.bold.blue(`Created ${chalk.whiteBright(createdImages.length)} ServiceImages`));
-      return askForModelCreation("Product");
+      return askForModelCreation("Product", createdBusAcccounts);
     })
     .then((products) => {
       console.log(chalk.bold.blue(`Created ${chalk.whiteBright(products.length)} Products`));
