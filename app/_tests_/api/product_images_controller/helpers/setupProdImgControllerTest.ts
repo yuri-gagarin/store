@@ -7,7 +7,7 @@ import { IProductImage } from "../../../../models/ProductImage";
 // helpers and data generation //
 import { setupDB } from "../../../helpers/dbHelpers";
 import { createProducts } from "../../../helpers/data_generation/productsDataGeneration";
-import { createAdmins } from "../../../helpers/dataGeneration";
+import { createAdmins } from "../../../helpers/data_generation/adminsDataGeneration";
 import { createProductImages } from "../../../helpers/data_generation/productImageDataGeneration";
 import { createBusinessAcccount } from "../../../helpers/data_generation/businessAccontsGeneration";
 

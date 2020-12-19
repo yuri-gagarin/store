@@ -7,7 +7,7 @@ import { IServiceImage } from "../../../../models/ServiceImage";
 // helpers and data generation //
 import { setupDB } from "../../../helpers/dbHelpers";
 import { createServices } from "../../../helpers/data_generation/serviceDataGeneration";
-import { createAdmins } from "../../../helpers/dataGeneration";
+import { createAdmins } from "../../../helpers/data_generation/adminsDataGeneration";
 import { createServiceImages } from "../../../helpers/data_generation/serviceImageDataGeneration"
 import { createBusinessAcccount } from "../../../helpers/data_generation/businessAccontsGeneration";
 

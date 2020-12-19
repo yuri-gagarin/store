@@ -8,7 +8,7 @@ import { IStoreItemImage } from "../../../../models/StoreItemImage";
 import { setupDB } from "../../../helpers/dbHelpers";
 import { createStores } from "../../../helpers/data_generation/storesDataGeneration"; 
 import { createStoreItems } from "../../../helpers/data_generation/storeItemDataGenerations"
-import { createAdmins } from "../../../helpers/dataGeneration";
+import { createAdmins } from "../../../helpers/data_generation/adminsDataGeneration";
 import { createStoreItemImages } from "../../../helpers/data_generation/storeItemImageDataGeneration"
 import { createBusinessAcccount } from "../../../helpers/data_generation/businessAccontsGeneration";
 import Store, { IStore } from "../../../../models/Store";

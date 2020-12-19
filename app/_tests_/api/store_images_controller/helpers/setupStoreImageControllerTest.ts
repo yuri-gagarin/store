@@ -1,6 +1,6 @@
 import { setupDB } from "../../../helpers/dbHelpers";
 import { createStores } from "../../../helpers/data_generation/storesDataGeneration";
-import { createAdmins } from "../../../helpers/dataGeneration";
+import { createAdmins } from "../../../helpers/data_generation/adminsDataGeneration";
 import { createStoreImages } from "../../../helpers/data_generation/storeImageDataGeneration";
 import { createBusinessAcccount } from "../../../helpers/data_generation/businessAccontsGeneration";
 import Administrator, { IAdministrator } from "../../../../models/Administrator";

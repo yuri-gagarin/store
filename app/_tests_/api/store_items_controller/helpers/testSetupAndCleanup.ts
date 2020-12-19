@@ -1,6 +1,6 @@
 import chaiHTTP from "chai-http";
 import { setupDB } from "../../../helpers/dbHelpers";
-import { createAdmins } from "../../../helpers/dataGeneration";
+import { createAdmins } from "../../../helpers/data_generation/adminsDataGeneration";
 import { createStoreItems } from "../../../helpers/data_generation/storeItemDataGenerations";
 import { createBusinessAcccount } from "../../../helpers/data_generation/businessAccontsGeneration";
 import Administrator, { IAdministrator } from "../../../../models/Administrator";

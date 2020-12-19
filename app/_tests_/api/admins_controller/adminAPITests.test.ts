@@ -4,7 +4,7 @@ import chai, { expect } from "chai";
 import server from "../../../server";
 import Administrator, { IAdministrator, EAdminLevel } from "../../../models/Administrator";
 import { setupDB, clearDB } from "../../helpers/dbHelpers";
-import { createAdmins, generateMockAdminData } from "../../helpers/dataGeneration";
+import { createAdmins, generateMockAdminData } from "../../helpers/data_generation/adminsDataGeneration";
 import { AdminData } from "../../../controllers/admins_controller/type_declarations/adminsControllerTypes";
 // import { UserData } from "../../controllers/users_controller/type_declarations/usersControllerTypes";
 
