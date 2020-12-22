@@ -5,7 +5,7 @@ import { IBusinessAccount } from "../../../models/BusinessAccount";
 export type BusinessAccountsContRes = {
   responseMsg: string;
   businessAccounts?: IBusinessAccount[];
-  newBusinessAcccount?: IBusinessAccount;
+  newBusinessAccount?: IBusinessAccount;
   businessAccount?: IBusinessAccount;
   editedBusinessAccount?: IBusinessAccount;
   deletedBusinessAccount?: IBusinessAccount;
@@ -19,6 +19,7 @@ export type BusinessAccountsContRes = {
     deletedProducts: number;
     deletedProductImages: number;
   }
+  errorMessages?: string[];
   error?: Error;
 }
 // create Business account req body type //

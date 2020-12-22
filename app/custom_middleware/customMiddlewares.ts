@@ -3,6 +3,7 @@ import mongoose, { Types } from "mongoose";
 import { respondWithInputError, respondWithNotAllowedErr, respondWithNotFoundError } from "../controllers/_helpers/controllerHelpers";
 import { NotAllowedError, NotFoundError, processErrorResponse } from "../controllers/_helpers/errorHandlers";
 import { IAdministrator } from "../models/Administrator";
+import BusinessAccount from "../models/BusinessAccount";
 import { IProduct } from "../models/Product";
 import { IService } from "../models/Service";
 import Store, { IStore } from "../models/Store";
@@ -173,4 +174,31 @@ export const verifyDataModelAccess = async (req: Request, res: Response, next: N
       }
     })
     
-}
+};
+
+export const verifyBusinessAccountAccess = (req: Request, res: Response, next: NextFunction) => {
+  const admin = req.user as IAdministrator;
+  const { businessAcctId } = req.params;
+  // check if user/admin exists first //
+  if (!businessAcctId) {
+    return respondWithNotFoundError(res, "Invalid Input", 422, [ "Cannot resolve your 'BusinessAccount' model id" ]);
+  }
+  if (admin) {
+    if (!admin.businessAccountId) {
+      // admin exists and can get or edit this account //
+      const errorMessages = [
+        "Cannot resolve your administrator account",
+        "Please create a BusinessAccount first"
+      ]
+      return respondWithNotAllowedErr(res, "Not Allowed", 401, errorMessages);
+    } else {
+      if ((admin.businessAccountId as Types.ObjectId).equals(businessAcctId)) {
+        next();
+      } else {
+        return respondWithNotAllowedErr(res, "Not Allowed", 401, [ "Cannot access a Business Account which does not belong to you" ]);
+      }
+    } 
+  } else {
+    return respondWithNotAllowedErr(res, "Not Allowed", 401, [ "Seems like we can't resolve your admin credentials" ]);
+  }
+};

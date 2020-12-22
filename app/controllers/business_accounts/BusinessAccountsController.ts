@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Types } from "mongoose";
 // models and model interfaces //
-import { IAdministrator } from "../../models/Administrator";
+import Administrator, { IAdministrator } from "../../models/Administrator";
 import { IGenericController } from "../_helpers/controllerInterfaces"
 import BusinessAccount,  { EAccountLevel, IBusinessAccount } from "../../models/BusinessAccount";
 import Store from "../../models/Store";
@@ -19,7 +19,16 @@ import {
 } from "./type_declarations/businessAccoountsContTypes";
 // helpers //
 import { removeDirectoryWithFiles, RemoveResponse, resolveDirectoryOfImg, respondWithDBError, respondWithGeneralError, respondWithInputError, rejectWithGenError } from "../_helpers/controllerHelpers";
+import { processErrorResponse } from "../_helpers/errorHandlers";
 
+/**
+ * NOTES
+ * When 'BusinessAccountsController' methods run, it is assumed that 
+ * 1. User is logged in and <passport> middleware has run.
+ * 2. For CREATE action, <req.user> object is set and defined.
+ * 3. For GET_MANY, GET_ONE, EDIT, DELETE actions, <req.user> is defined and <req.user.businessAccountId> === <req.params.businessAcctId> 
+ * 4. OR the logged in <user> has special permissions to edit other accounts/
+ */
 
 class BusinessAccountsController implements IGenericController {
 
@@ -106,22 +115,42 @@ class BusinessAccountsController implements IGenericController {
   create(req: Request, res: Response): Promise<Response> {
     const admin = req.user as IAdministrator;
     const { _id: adminId } = admin;
+    let newBusinessAccount: IBusinessAccount;
+
     if (admin.adminAccountId) {
       return respondWithGeneralError(res, "You already have an account set up", 422);
     }
     return BusinessAccount.create({ 
-      adminAccounts: [ adminId ],
+      linkedAdmins: [ adminId ],
       linkedStores: [],
       linkedServices: [],
-      accountLevel: EAccountLevel.Standard
+      linkedProducts: [],
+      accountLevel: EAccountLevel.Standard,
+      createdAt: new Date(Date.now()),
+      editedAt: new Date(Date.now())
     })
     .then((adminAccount) => {
+      return adminAccount
+        .populate({ path: 'linkedAdmins', model: "Administrator" })
+        .execPopulate();
+    })
+    .then((createdBusAcccount) => {
+      newBusinessAccount = createdBusAcccount;
+      return Administrator.findOneAndUpdate(
+        { _id: adminId },
+        { $set: { businessAccountId: createdBusAcccount._id } },
+        { new: true }
+      );
+    })
+    .then((_) => {
       return res.status(200).json({
         responseMsg: "Created a new admin account",
-        newBusinessAcccount: adminAccount
+        newBusinessAccount: newBusinessAccount
       });
     })
-    .catch((err) => respondWithDBError(res, err));
+    .catch((err) => {
+      return processErrorResponse(res, err);
+    });
   } 
 
   edit(req: Request<{}, {},EditAccountBodyReq>, res: Response<BusinessAccountsContRes>): Promise<Response> {

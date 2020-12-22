@@ -1,7 +1,10 @@
 import { Router } from "express";
 import passport from "passport";
+// controller and interfaces //
 import BusinessAccountsController from "../controllers/business_accounts/BusinessAccountsController";
 import { RouteConstructor } from "./helpers/routeInterfaces";
+// additional custom middleware //
+import { verifyBusinessAccountAccess } from "../custom_middleware/customMiddlewares";
 
 class BusinessAccountRoutes extends RouteConstructor<BusinessAccountsController> {
   private getAllBusAccountsRoute = "/api/business_accounts";
@@ -28,7 +31,8 @@ class BusinessAccountRoutes extends RouteConstructor<BusinessAccountsController>
       .route(this.getAllBusAccountsRoute)
       .get(
         [
-          passport.authenticate("adminJWT", { session: false })
+          passport.authenticate("adminJWT", { session: false }),
+          verifyBusinessAccountAccess
         ],
         this.controller.getMany
       );
@@ -38,7 +42,8 @@ class BusinessAccountRoutes extends RouteConstructor<BusinessAccountsController>
       .route(this.getOneBusAccountRoute)
       .get(
         [
-          passport.authenticate("adminJWT", { session: false })
+          passport.authenticate("adminJWT", { session: false }),
+          verifyBusinessAccountAccess
         ],
         this.controller.getOne
       );
@@ -58,7 +63,8 @@ class BusinessAccountRoutes extends RouteConstructor<BusinessAccountsController>
       .route(this.editBusAccountRoute)
       .patch(
         [
-          passport.authenticate("adminJWT", { session: false })
+          passport.authenticate("adminJWT", { session: false }),
+          verifyBusinessAccountAccess
         ],
         this.controller.edit
       );
@@ -68,7 +74,8 @@ class BusinessAccountRoutes extends RouteConstructor<BusinessAccountsController>
       .route(this.deleteBusAccountRoute)
       .delete(
         [
-          passport.authenticate("adminJWT", { session: false })
+          passport.authenticate("adminJWT", { session: false }),
+          verifyBusinessAccountAccess
         ],
         this.controller.delete
       );
