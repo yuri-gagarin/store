@@ -35,7 +35,7 @@ export type EditAccountBodyReq = {
 }
 // general business account request params //
 export type BusinessAccountsContReqParams = {
-  busAccountId: string;
+  businessAccountId: string;
 }
 // sort query type //
 export type BusinessAccountsIndexSortQuery = {

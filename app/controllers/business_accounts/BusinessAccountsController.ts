@@ -23,7 +23,7 @@ import { removeDirectoryWithFiles, RemoveResponse, resolveDirectoryOfImg, respon
 
 class BusinessAccountsController implements IGenericController {
 
-  getOne(req: Request<{}, {}, {}, BusinessAccountsIndexSortQuery>, res: Response<BusinessAccountsContRes>): Promise<Response> {
+  getMany(req: Request<{}, {}, {}, BusinessAccountsIndexSortQuery>, res: Response<BusinessAccountsContRes>): Promise<Response> {
     const user = req.user as IAdministrator;
     const { createdAt, editedAt, accountLevel, limit } = req.query;
     if (!user) {
@@ -49,7 +49,7 @@ class BusinessAccountsController implements IGenericController {
       return BusinessAccount.find({})
         .sort(sortOption)
         .limit(limit ? parseInt(limit, 10) : 10)
-        .populate("linkedBusinesss")
+        .populate({ path: "linkedAdmins", model: "administrator" })
         .populate({ path: "linkedStores", model: "store", select: "-images" })
         .populate({ path: "linkedServices", model: "service", select: "-images" })
         .populate({ path: "linkedProducts", model: "product", select: "-images" })
@@ -65,7 +65,7 @@ class BusinessAccountsController implements IGenericController {
     return BusinessAccount.find({})
       .sort({ createdAt: "desc "})
       .limit(10)
-      .populate("linkedBusinesss")
+      .populate({ path: "linkedAdmins", model: "administrator" })
       .populate({ path: "linkedStores", model: "store", select: "-images" })
       .populate({ path: "linkedServices", model: "service", select: "-images" })
       .populate({ path: "linkedProducts", model: "product", select: "-images" })
@@ -78,13 +78,14 @@ class BusinessAccountsController implements IGenericController {
       })   
       .catch((err) => respondWithDBError(res, err)); 
   }
-  getMany(req: Request, res: Response<BusinessAccountsContRes>): Promise<Response> {
-    const { busAccountId } = req.params as BusinessAccountsContReqParams ;
-    if (!busAccountId) {
+
+  getOne(req: Request, res: Response<BusinessAccountsContRes>): Promise<Response> {
+    const { businessAccountId } = req.params as BusinessAccountsContReqParams ;
+    if (!businessAccountId) {
       return respondWithInputError(res, "Cant resolve an account to look for", 422);
     }
-    return BusinessAccount.findOne({ _id: busAccountId })
-      .populate({ path: "linkedBusinesss", model: "administrator" })
+    return BusinessAccount.findOne({ _id: businessAccountId })
+      .populate({ path: "linkedAdmins", model: "administrator" })
       .populate({ path: "linkedStores", model: "store", select: "-images" })
       .populate({ path: "linkedServices", model: "service", select: "-images" })
       .populate({ path: "linkedProducts", model: "product", select: "-images" })
@@ -92,7 +93,7 @@ class BusinessAccountsController implements IGenericController {
       .then((businessAccount) => {
         if (businessAccount) {
           return res.status(200).json({
-            responseMsg: `Account with id of ${busAccountId}`,
+            responseMsg: `Account with id of ${businessAccountId}`,
             businessAccount: businessAccount
           })
         } else {
@@ -101,6 +102,7 @@ class BusinessAccountsController implements IGenericController {
       })
       .catch((err) => respondWithDBError(res, err));
   }
+
   create(req: Request, res: Response): Promise<Response> {
     const admin = req.user as IAdministrator;
     const { _id: adminId } = admin;
@@ -121,15 +123,16 @@ class BusinessAccountsController implements IGenericController {
     })
     .catch((err) => respondWithDBError(res, err));
   } 
+
   edit(req: Request<{}, {},EditAccountBodyReq>, res: Response<BusinessAccountsContRes>): Promise<Response> {
-    const { busAccountId } = req.params as BusinessAccountsContReqParams;
+    const { businessAccountId } = req.params as BusinessAccountsContReqParams;
     const { linkedBusinesss, linkedStores, linkedServices, accountLevel } = req.body;
-    if (busAccountId) {
+    if (businessAccountId) {
       return respondWithInputError(res, "Cannot resolve account to edit", 422);
     }
 
     return BusinessAccount.findOneAndUpdate(
-      { _id: busAccountId },
+      { _id: businessAccountId },
       { 
         linkedBusinesss: [ ...linkedBusinesss ],
         linkedStores: [ ...linkedStores ],
@@ -156,7 +159,7 @@ class BusinessAccountsController implements IGenericController {
 
   delete(req: Request, res: Response<BusinessAccountsContRes>): Promise<Response> {
     console.log("called")
-    const { busAccountId } = req.params as BusinessAccountsContReqParams;
+    const { businessAccountId } = req.params as BusinessAccountsContReqParams;
     const storeImgDirectories: string[] = [];
     const storeItemImgDirectories: string[] = []
     const serviceImgDirectories: string[] = [];
@@ -178,10 +181,10 @@ class BusinessAccountsController implements IGenericController {
     let numOfProductsDeleted: number = 0;
     let numOfProductImagesDeleted: number = 0;
 
-    if (!busAccountId) {
+    if (!businessAccountId) {
       return respondWithInputError(res, "Cannot resolve account to delete", 422);
     }
-    return BusinessAccount.findOneAndDelete({ _id: busAccountId })
+    return BusinessAccount.findOneAndDelete({ _id: businessAccountId })
       .then((adminAccount) => {
         if(adminAccount) { 
           deletedAccount = adminAccount;
