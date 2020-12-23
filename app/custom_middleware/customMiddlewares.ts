@@ -1,13 +1,20 @@
 import { NextFunction, Request, Response } from "express";
 import mongoose, { Types } from "mongoose";
 import { respondWithInputError, respondWithNotAllowedErr, respondWithNotFoundError } from "../controllers/_helpers/controllerHelpers";
-import { NotAllowedError, NotFoundError, processErrorResponse } from "../controllers/_helpers/errorHandlers";
-import { IAdministrator } from "../models/Administrator";
+import { NotAllowedError, NotFoundError, processErrorResponse, ValidationError } from "../controllers/_helpers/errorHandlers";
+import Administrator, { IAdministrator } from "../models/Administrator";
 import BusinessAccount from "../models/BusinessAccount";
 import { IProduct } from "../models/Product";
 import { IService } from "../models/Service";
 import Store, { IStore } from "../models/Store";
 import StoreItem, { IStoreItem } from "../models/StoreItem";
+
+/*
+ * Notes: getting crowded and disorganized.
+ * Todo: separate some methods into respective files 
+
+ */
+
 
 export const POSTRequestTrimmer = (req: Request, res: Response, next: NextFunction) => {
   if (req.method === "POST") {
@@ -202,3 +209,46 @@ export const verifyBusinessAccountAccess = (req: Request, res: Response, next: N
     return respondWithNotAllowedErr(res, "Not Allowed", 401, [ "Seems like we can't resolve your admin credentials" ]);
   }
 };
+
+export const checkNewAdminsForBusinessAccUpdate = (req: Request, res: Response, next: NextFunction) => {
+  if (req.body.newAdmins && Array.isArray(req.body.newAdmins) && req.body.newAdmins.length > 0) {
+    Administrator.find({ _id: { $in: req.body.newAdmins } }).exec() 
+      .then((administrators) => {
+        if (!administrators) {
+          throw new NotFoundError({
+            errMessage: "Resources not Found",
+            messages: [ "Could not resolve new Administrators to add" ]
+          });
+        } else if (administrators.length < req.body.newAdmins.length) {
+          const adminIds: string[] = administrators.map((admin) => admin._id.toString());
+          const incorrectIds: string[] = req.body.newAdmins.filter((adminId: string) => adminIds.indexOf(adminId) < 0);
+          throw new NotFoundError({
+            errMessage: "All admins not Found",
+            messages: [ "Could not resolve some of the new 'Administrators' to add", "Incorrect Ids:", ...incorrectIds ]
+          });
+        } else {
+          return Promise.resolve(administrators);
+        }
+      })
+      .then((administrators) => {
+        const adminsWithBusAccount = administrators.filter((admin) => admin.businessAccountId).map((admin) => admin.email);
+        if (adminsWithBusAccount.length > 0) {
+          throw new ValidationError({
+            errMessage: "Cant assign admins with an existing Business account",
+            statusCode: 422,
+            messages: [
+              "The following Administrators have existing business accounts",
+              ...adminsWithBusAccount
+            ]
+          })
+        } else {
+          next();
+        }
+      }) 
+      .catch((err) => {
+        return processErrorResponse(res, err);
+      }) 
+  } else {
+    next();
+  }
+}

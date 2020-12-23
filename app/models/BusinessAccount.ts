@@ -10,7 +10,7 @@ export enum EAccountLevel {
   Elite
 }
 export interface IBusinessAccount extends Document {
-  linkedAdmins: (mongoose.Types.ObjectId | IAdministrator)[];
+  linkedAdmins: (mongoose.Types.ObjectId | IAdministrator | string)[];
   linkedStores: (mongoose.Types.ObjectId | IStore)[];
   linkedServices: (mongoose.Types.ObjectId | IService)[];
   linkedProducts: (mongoose.Types.ObjectId | IProduct)[];

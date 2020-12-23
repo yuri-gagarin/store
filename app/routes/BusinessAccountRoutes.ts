@@ -4,7 +4,7 @@ import passport from "passport";
 import BusinessAccountsController from "../controllers/business_accounts/BusinessAccountsController";
 import { RouteConstructor } from "./helpers/routeInterfaces";
 // additional custom middleware //
-import { verifyBusinessAccountAccess } from "../custom_middleware/customMiddlewares";
+import { checkNewAdminsForBusinessAccUpdate, verifyBusinessAccountAccess } from "../custom_middleware/customMiddlewares";
 
 class BusinessAccountRoutes extends RouteConstructor<BusinessAccountsController> {
   private getAllBusAccountsRoute = "/api/business_accounts";
@@ -64,7 +64,8 @@ class BusinessAccountRoutes extends RouteConstructor<BusinessAccountsController>
       .patch(
         [
           passport.authenticate("adminJWT", { session: false }),
-          verifyBusinessAccountAccess
+          verifyBusinessAccountAccess,
+          checkNewAdminsForBusinessAccUpdate
         ],
         this.controller.edit
       );

@@ -54,7 +54,7 @@ export const processErrorResponse = (res: Response<ErrorResponse>, err: GenContr
     if ((err instanceof ValidationError) || (err instanceof NotFoundError) || (err instanceof NotAllowedError)) {
       const { statusCode, errorMessages } = err; 
       return res.status(statusCode).json({
-        responseMsg: "Validation error",
+        responseMsg: err.message,
         errorMessages: errorMessages,
         error: err
       });

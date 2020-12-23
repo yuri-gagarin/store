@@ -18,8 +18,8 @@ import {
   BusinessAccountsIndexSortQuery, CreateBusAccountBodyReq, EditAccountBodyReq
 } from "./type_declarations/businessAccoountsContTypes";
 // helpers //
-import { removeDirectoryWithFiles, RemoveResponse, resolveDirectoryOfImg, respondWithDBError, respondWithGeneralError, respondWithInputError, rejectWithGenError } from "../_helpers/controllerHelpers";
-import { processErrorResponse } from "../_helpers/errorHandlers";
+import { removeDirectoryWithFiles, RemoveResponse, resolveDirectoryOfImg, respondWithDBError, respondWithGeneralError, respondWithInputError, rejectWithGenError, respondWithNotAllowedErr } from "../_helpers/controllerHelpers";
+import { NotFoundError, processErrorResponse } from "../_helpers/errorHandlers";
 
 /**
  * NOTES
@@ -31,6 +31,10 @@ import { processErrorResponse } from "../_helpers/errorHandlers";
  */
 
 class BusinessAccountsController implements IGenericController {
+
+  constructor () {
+    this.edit = this.edit.bind(this);
+  }
 
   getMany(req: Request<{}, {}, {}, BusinessAccountsIndexSortQuery>, res: Response<BusinessAccountsContRes>): Promise<Response> {
     const user = req.user as IAdministrator;
@@ -89,27 +93,30 @@ class BusinessAccountsController implements IGenericController {
   }
 
   getOne(req: Request, res: Response<BusinessAccountsContRes>): Promise<Response> {
-    const { businessAccountId } = req.params as BusinessAccountsContReqParams ;
-    if (!businessAccountId) {
+    const { businessAcctId } = req.params as BusinessAccountsContReqParams;
+    if (!businessAcctId) {
       return respondWithInputError(res, "Cant resolve an account to look for", 422);
     }
-    return BusinessAccount.findOne({ _id: businessAccountId })
-      .populate({ path: "linkedAdmins", model: "administrator" })
-      .populate({ path: "linkedStores", model: "store", select: "-images" })
-      .populate({ path: "linkedServices", model: "service", select: "-images" })
-      .populate({ path: "linkedProducts", model: "product", select: "-images" })
+    return BusinessAccount.findOne({ _id: businessAcctId })
+      .populate({ path: "linkedAdmins", model: "Administrator" })
+      .populate({ path: "linkedStores", model: "Store", select: "-images" })
+      .populate({ path: "linkedServices", model: "Service", select: "-images" })
+      .populate({ path: "linkedProducts", model: "Product", select: "-images" })
       .exec()
       .then((businessAccount) => {
         if (businessAccount) {
           return res.status(200).json({
-            responseMsg: `Account with id of ${businessAccountId}`,
+            responseMsg: `Account with id of ${businessAcctId}`,
             businessAccount: businessAccount
           })
         } else {
           return respondWithGeneralError(res, "Could not find an account", 404);
         }
       })
-      .catch((err) => respondWithDBError(res, err));
+      .catch((err) => {
+        console.log(err)
+        return processErrorResponse(res, err);
+      });
   }
 
   create(req: Request, res: Response): Promise<Response> {
@@ -117,8 +124,8 @@ class BusinessAccountsController implements IGenericController {
     const { _id: adminId } = admin;
     let newBusinessAccount: IBusinessAccount;
 
-    if (admin.adminAccountId) {
-      return respondWithGeneralError(res, "You already have an account set up", 422);
+    if (admin.businessAccountId) {
+      return respondWithNotAllowedErr(res, "Action not allowed", 401, [ "You already have a BusinessAccount set up" ]);
     }
     return BusinessAccount.create({ 
       linkedAdmins: [ adminId ],
@@ -154,41 +161,60 @@ class BusinessAccountsController implements IGenericController {
   } 
 
   edit(req: Request<{}, {},EditAccountBodyReq>, res: Response<BusinessAccountsContRes>): Promise<Response> {
-    const { businessAccountId } = req.params as BusinessAccountsContReqParams;
+    const { businessAcctId } = req.params as BusinessAccountsContReqParams;
     const { linkedBusinesss, linkedStores, linkedServices, accountLevel } = req.body;
-    if (businessAccountId) {
+    const newAdmins: string[] = req.body.newAdmins || [];
+    //
+    let updatedAccount: IBusinessAccount;
+    if (!businessAcctId) {
       return respondWithInputError(res, "Cannot resolve account to edit", 422);
     }
-
     return BusinessAccount.findOneAndUpdate(
-      { _id: businessAccountId },
+      { _id: businessAcctId },
       { 
-        linkedBusinesss: [ ...linkedBusinesss ],
-        linkedStores: [ ...linkedStores ],
-        linkedServices: [ ...linkedServices ],
-        accountLevel: accountLevel ? parseInt(accountLevel, 10) : 0,
+        $push: {
+          linkedAdmins: { $each: newAdmins }
+        },
         editedAt: new Date(Date.now())
       },
       {
         new: true
       }
     )
-    .then((updatedAccount) => {
-      if (updatedAccount) {
-        return res.status(200).json({
-          responseMsg: `Updated account ${updatedAccount._id}`,
-          editedBusinessAccount: updatedAccount
-        })
+    .then((_updatedAccount) => {
+      if (_updatedAccount) {
+        updatedAccount = _updatedAccount;
+        if (newAdmins.length > 0) {
+          return this.updateAdmins(String(updatedAccount._id), newAdmins);
+        } else {
+          return Promise.resolve();
+        }
       } else {
-        return respondWithGeneralError(res, "Could not find the account to update", 404);
+        throw new NotFoundError({
+          messages: [ "Could not resolve an Account to update" ]
+        });
       }
     })
-    .catch((err) => respondWithDBError(res, err));
+    .then((_) => {
+      return (
+        updatedAccount
+          .populate({ path: "linkedAdmins", model: "Administrator" })
+          .execPopulate()
+       );
+    })
+    .then((populatedAccount) => {
+      return res.status(200).json({
+        responseMsg: "Updated Business Account",
+        editedBusinessAccount: populatedAccount
+      });
+    })
+    .catch((err) => {
+      return processErrorResponse(res, err);
+    });
   }
 
   delete(req: Request, res: Response<BusinessAccountsContRes>): Promise<Response> {
-    console.log("called")
-    const { businessAccountId } = req.params as BusinessAccountsContReqParams;
+    const { businessAcctId } = req.params as BusinessAccountsContReqParams;
     const storeImgDirectories: string[] = [];
     const storeItemImgDirectories: string[] = []
     const serviceImgDirectories: string[] = [];
@@ -210,16 +236,17 @@ class BusinessAccountsController implements IGenericController {
     let numOfProductsDeleted: number = 0;
     let numOfProductImagesDeleted: number = 0;
 
-    if (!businessAccountId) {
+    if (!businessAcctId) {
       return respondWithInputError(res, "Cannot resolve account to delete", 422);
     }
-    return BusinessAccount.findOneAndDelete({ _id: businessAccountId })
+    return BusinessAccount.findOneAndDelete({ _id: businessAcctId })
       .then((adminAccount) => {
         if(adminAccount) { 
           deletedAccount = adminAccount;
           // delete the admin acccount check for stores and services //
           linkedStores = adminAccount.linkedStores as Types.ObjectId[];
           linkedServices = adminAccount.linkedServices as Types.ObjectId[];
+          linkedProducts = adminAccount.linkedProducts as Types.ObjectId[];
           if(linkedStores.length > 0) {
             return Store.find({ _id: { $in: linkedStores } })
               .populate("images").exec();
@@ -423,13 +450,27 @@ class BusinessAccountsController implements IGenericController {
         });
       })
       .catch((err) => {
-        return res.json({
-          responseMsg: "An error occured",
-          error: err
-        })
+       return processErrorResponse(res, err);
       })
           
   }
+
+  private updateAdmins(businessAccountId: string, adminIDs: string[]): Promise<void> {
+    return (
+      Administrator.updateMany(
+        { _id: { $in: adminIDs } }, 
+        { $set: { businessAccountId: businessAccountId } },
+        { new: true }
+      ).exec()
+    )
+    .then((_) => {
+      return Promise.resolve();
+    })
+    .catch((err) => {
+      throw err;
+    });
+  }
+
 };
 
 export default BusinessAccountsController;

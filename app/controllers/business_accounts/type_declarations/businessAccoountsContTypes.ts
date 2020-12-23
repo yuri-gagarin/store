@@ -28,6 +28,7 @@ export type CreateBusAccountBodyReq = {
 }
 // edit Business account req body type //
 export type EditAccountBodyReq = {
+  newAdmins: string[];
   linkedBusinesss: Types.ObjectId[];
   linkedStores: Types.ObjectId[];
   linkedServices: Types.ObjectId[];
@@ -36,7 +37,7 @@ export type EditAccountBodyReq = {
 }
 // general business account request params //
 export type BusinessAccountsContReqParams = {
-  businessAccountId: string;
+  businessAcctId: string;
 }
 // sort query type //
 export type BusinessAccountsIndexSortQuery = {
