@@ -1,3 +1,5 @@
+import path from "path";
+import fs from "fs";
 import { Types } from "mongoose";
 import { setupDB } from "../../../helpers/dbHelpers";
 // models and model interfaces //
@@ -101,7 +103,8 @@ type PopulateBusinessAccountResponse = {
   createdServiceImgs: IServiceImage[];
   createdProducts: IProduct[];
   createdProductImgs: IProductImage[];
-}
+};
+
 export const populateBusinessAccount = async (options: PopulateBusinessAccountArgs): Promise<PopulateBusinessAccountResponse> => {
   const {
     businessAccountId,
@@ -146,8 +149,7 @@ export const populateBusinessAccount = async (options: PopulateBusinessAccountAr
     }
     const linkedStoresObjIds = createdStores.map((store) => store._id as Types.ObjectId);
     const linkedServicesObjIds = createdServices.map((service) => service._id as Types.ObjectId);
-    const linkedPRoductsObjIds = createdStores.map((product) => product._id as Types.ObjectId);
-
+    const linkedProductsObjIds = createdProducts.map((product) => product._id as Types.ObjectId);
     // update the business account model with new generated data //
     const updatedPopulatedAcccount  = await BusinessAccount.findOneAndUpdate(
       { _id: businessAccountId },
@@ -155,14 +157,14 @@ export const populateBusinessAccount = async (options: PopulateBusinessAccountAr
         $push: { 
           linkedStores: { $each: linkedStoresObjIds },
           linkedServices: { $each: linkedServicesObjIds },
-          linkedProducts: { $each: linkedPRoductsObjIds }
+          linkedProducts: { $each: linkedProductsObjIds }
         },
       },
       { new: true }
     )
-    .populate("linkedStores")
-    .populate("linkedServices")
-    .populate("linkedProducts")
+    .populate({ path: "linkedStores", model: "Store" })
+    .populate({ path: "linkedServices", model: "Service" })
+    .populate({ path: "linkedProducts", model: "Product" })
     .exec();
 
     return {
@@ -180,3 +182,38 @@ export const populateBusinessAccount = async (options: PopulateBusinessAccountAr
     throw error;
   }
 };
+
+export const cleanupBusinessAccountTestImages = async (...args: string[]): Promise<boolean> => {
+  const prodImgPath = path.join(path.resolve(), "public", "uploads", "product_images");
+  const serviceImgPath = path.join(path.resolve(), "public", "uploads", "service_images");
+  const storeImgPath = path.join(path.resolve(), "public", "uploads", "store_images");
+  const storeItemImgPath = path.join(path.resolve(), "public", "uploads", "store_item_images");
+  const pathsToCleanup = [ prodImgPath, serviceImgPath, storeImgPath, storeItemImgPath ];
+
+  for await (const imgPath of pathsToCleanup) {
+    try {
+      await fs.promises.access(imgPath);
+    } catch (error) {
+      if (error.code === "ENOENT") {
+        console.log(`No images to delete in directory: ${imgPath}`);
+        continue;
+      } else {
+        throw error;
+      }
+    }
+    try { 
+      const directories = await fs.promises.readdir(imgPath);
+      if (directories.length > 0) {
+        for (let i = 0; i < args.length; i++) {
+          const stats = await fs.promises.stat(path.join(imgPath, args[i]));
+          if (stats.isDirectory()) {
+            await fs.promises.rmdir(path.join(imgPath, args[i]), { recursive: true });
+          }
+        }
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+  return true;
+}
