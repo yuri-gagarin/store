@@ -16,7 +16,7 @@ import { clearDB } from "../../helpers/dbHelpers";
 
 chai.use(chaiHTTP);
 
-describe("BusinessAccountsController' API tets - ADMIN LOGGED IN - WITH ACCOUNT SET UP - Attempting GET/PATCH/DELETE on account they dont own", () => {
+describe("BusinessAccountsController API tets - ADMIN LOGGED IN - WITH ACCOUNT SET UP - Attempting GET/PATCH/DELETE on account they dont own", () => {
   // firstAdmin and secondAdmin have mock acccounts, thirdAdmin and fourthAdmin do not //
   let firstAdmin: IAdministrator, secondAdmin: IAdministrator, thirdAdmin: IAdministrator;
   let firstAdminsBusinessAccount: IBusinessAccount, secondAdminsBusinessAccount: IBusinessAccount;

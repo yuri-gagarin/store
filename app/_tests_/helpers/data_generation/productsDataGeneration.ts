@@ -19,15 +19,15 @@ export const generateMockProductData = (numOfProds: number): ProductData[] => {
 /**
  * Creates a set number of mock {Product} objects.
  * @param numOfProducts - Number of products to create.
- * @param busAccount - BusinessAccount model to tie the product to.
+ * @param busAccountId - BusinessAccount model id to tie the product to.
  * @returns Promise<IProduct[]>
  */
-export const createProducts = (numOfProducts: number, busAccount: IBusinessAccount): Promise<IProduct[]> => {
+export const createProducts = (numOfProducts: number, busAccountId: string): Promise<IProduct[]> => {
   const createdProducts: Promise<IProduct>[] = [];
 
   for (let i = 0; i < numOfProducts; i++) {
     createdProducts.push(Product.create({
-      businessAccountId: busAccount._id,
+      businessAccountId: busAccountId,
       name: faker.lorem.word(),
       description: faker.lorem.paragraph(),
       details: faker.lorem.paragraphs(3),
