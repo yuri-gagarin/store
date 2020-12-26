@@ -199,6 +199,9 @@ class BusinessAccountsController implements IGenericController {
       return (
         updatedAccount
           .populate({ path: "linkedAdmins", model: "Administrator" })
+          .populate({ path: "linkedStores", model: "Store" })
+          .populate({ path: "linkedServices", model: "Service" })
+          .populate({ path: "linkedProducts", model: "Product" })
           .execPopulate()
        );
     })

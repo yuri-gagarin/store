@@ -131,6 +131,62 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
             done(err);
           });
       });
+      it("Should update the queried 'Administrator' model in the database", (done) => {
+        Administrator.findOne({ _id: thirdAdmin._id }).exec()
+        done();
+      })
+      it("Should NOT change the number 'BusinessAccount' models in the database", (done) => {
+        BusinessAccount.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(numberOfBusinessAccounts);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+    });
+    // END TEST PATCH EDIT ACTION admin logged in and no business account //
+
+    // TEST PATCH EDIT ACTION admin logged in with business account //
+    describe("PATCH '/api/business_accounts/edit/:businessAcctId' - EDIT action on own account - Adding A single 'Admin' to account who DOES have an account", () => {
+      
+      it("Should update and return a 'BusinessAccount' model and send the correct response", (done) => {
+        chai.request(server)
+          .patch("/api/business_accounts/edit/" + (firstAdminsBusinessAccount._id as string))
+          .set({ "Authorization": firstAdminsToken })
+          .send({
+            newAdmins: [ secondAdmin._id ]
+          })
+          .end((err, res) => {
+            if(err) done(err);
+            // assert correct rendering //
+            expect(res.status).to.equal(422);
+            expect(res.body.responseMsg).to.be.a("string");
+            expect(res.body.error).to.be.an("object");
+            expect(res.body.errorMessages).to.be.an("array");
+            expect(res.body.errorMessages.length).to.equal(2);
+            expect(res.body.editedBusinessAccount).to.be.undefined;
+            done();
+          });
+      });
+      it("Should NOT update the 'BusinessAccount' model in the database", (done) => {
+        BusinessAccount.findOne({ _id: firstAdminsBusinessAccount._id }).exec()
+          .then((businessAccount) => {
+            expect(businessAccount!.linkedAdmins.length).to.equal(2);
+            expect(businessAccount!.linkedAdmins.includes(firstAdmin._id)).to.equal(true);
+            expect(businessAccount!.linkedAdmins.includes(thirdAdmin._id)).to.equal(true);
+            expect(businessAccount!.linkedAdmins.includes(secondAdmin._id)).to.equal(false);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+      it("Should update the queried 'Administrator' model in the database", (done) => {
+        Administrator.findOne({ _id: thirdAdmin._id }).exec()
+        done()
+      })
       it("Should NOT change the number 'BusinessAccount' models in the database", (done) => {
         BusinessAccount.countDocuments().exec()
           .then((number) => {
