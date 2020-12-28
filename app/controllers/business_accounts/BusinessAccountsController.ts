@@ -164,38 +164,21 @@ class BusinessAccountsController implements IGenericController {
     const { businessAcctId } = req.params as BusinessAccountsContReqParams;
     const { linkedBusinesss, linkedStores, linkedServices, accountLevel } = req.body;
     const newAdmins: string[] = req.body.newAdmins || [];
+    const adminsToRemove: string[] = req.body.adminsToRemove || [];
     //
     let updatedAccount: IBusinessAccount;
     if (!businessAcctId) {
       return respondWithInputError(res, "Cannot resolve account to edit", 422);
     }
-    return BusinessAccount.findOneAndUpdate(
-      { _id: businessAcctId },
-      { 
-        $push: {
-          linkedAdmins: { $each: newAdmins }
-        },
-        editedAt: new Date(Date.now())
-      },
-      {
-        new: true
-      }
-    )
-    .then((_updatedAccount) => {
-      if (_updatedAccount) {
-        updatedAccount = _updatedAccount;
-        if (newAdmins.length > 0) {
-          return this.updateAdmins(String(updatedAccount._id), newAdmins);
-        } else {
-          return Promise.resolve();
-        }
+
+    return (() => {
+      if (newAdmins.length > 0) {
+        return this.addAdmins(businessAcctId, newAdmins);
       } else {
-        throw new NotFoundError({
-          messages: [ "Could not resolve an Account to update" ]
-        });
+        return this.removeAdmins(businessAcctId, adminsToRemove);
       }
-    })
-    .then((_) => {
+    })()
+    .then((updatedAccount) => {
       return (
         updatedAccount
           .populate({ path: "linkedAdmins", model: "Administrator" })
@@ -458,19 +441,65 @@ class BusinessAccountsController implements IGenericController {
           
   }
 
-  private updateAdmins(businessAccountId: string, adminIDs: string[]): Promise<void> {
-    return (
-      Administrator.updateMany(
-        { _id: { $in: adminIDs } }, 
-        { $set: { businessAccountId: businessAccountId } },
-        { new: true }
-      ).exec()
+  private addAdmins(businessAccountId: string, adminIDs: string[]): Promise<IBusinessAccount> {
+    let updatedAccount: IBusinessAccount; 
+    return BusinessAccount.findOneAndUpdate(
+      { _id: businessAccountId },
+      { 
+        $push: { linkedAdmins: { $each: adminIDs } } 
+      },
+      { new: true }
     )
-    .then((_) => {
-      return Promise.resolve();
+    .exec()
+    .then((updatedAcct) => {
+      if (updatedAcct) {
+        updatedAccount = updatedAcct;
+        return Administrator.updateMany(
+            { _id: { $in: adminIDs } }, 
+            { $set: { businessAccountId: businessAccountId } },
+            { new: true }
+        ).exec();
+      } else {
+        throw new NotFoundError({
+          messages: [ "Cannot resolve a 'BusinessAccount' model to update" ]
+        });
+      }
     })
-    .catch((err) => {
-      throw err;
+    .then((_) => {
+      return Promise.resolve(updatedAccount);
+    })
+    .catch((error) => {
+      throw error;
+    });
+  }
+
+  private removeAdmins(businessAccountId: string, adminIDs: string[]): Promise<IBusinessAccount> {
+    let updatedAccount: IBusinessAccount;
+    // first //
+    return BusinessAccount.findOneAndUpdate(
+      { _id: businessAccountId },
+      { $pull: { linkedAdmins: { $in: adminIDs } }},
+      { new: true }
+    )
+    .exec()
+    .then((updatedAcct) => {
+      if (updatedAcct) {
+        updatedAccount = updatedAcct;
+        return Administrator.updateMany(
+          { _id: { $in: adminIDs } },
+          { $set: { businessAccountId: null } }
+        ).exec();
+      } else {
+        throw new NotFoundError({
+          messages: [ "Cannot resolve a 'BusinessAccount' model to update" ]
+        });
+      }
+    })
+    .then((_) => {
+      return Promise.resolve(updatedAccount);
+    })
+    .catch((error) => {
+      throw error;
     });
   }
 

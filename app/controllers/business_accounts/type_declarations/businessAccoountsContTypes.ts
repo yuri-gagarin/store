@@ -29,6 +29,7 @@ export type CreateBusAccountBodyReq = {
 // edit Business account req body type //
 export type EditAccountBodyReq = {
   newAdmins: string[];
+  adminsToRemove: string[];
   linkedBusinesss: Types.ObjectId[];
   linkedStores: Types.ObjectId[];
   linkedServices: Types.ObjectId[];
