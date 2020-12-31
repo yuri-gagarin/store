@@ -162,6 +162,7 @@ export const populateBusinessAccount = async (options: PopulateBusinessAccountAr
       },
       { new: true }
     )
+    .populate({ path: "linkedAdmins", model: "Administrator" })
     .populate({ path: "linkedStores", model: "Store" })
     .populate({ path: "linkedServices", model: "Service" })
     .populate({ path: "linkedProducts", model: "Product" })

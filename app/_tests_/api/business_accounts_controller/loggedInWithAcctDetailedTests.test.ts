@@ -7,12 +7,18 @@ import server from "../../../server";
 // models and model interfaces //
 import Administrator, { IAdministrator } from "../../../models/Administrator";
 import BusinessAccount, { IBusinessAccount } from "../../../models/BusinessAccount";
-import { IStore } from "../../../models/Store";
+import Store, { IStore } from "../../../models/Store";
+import Service, { IService } from "../../../models/Service";
+import Product, { IProduct } from "../../../models/Product";
 // helpers and test setup methods //
 import { loginAdmins } from "../../helpers/auth_helpers/authHelpers";
 import { setupBusinessAccountControllerTests, populateBusinessAccount, cleanupBusinessAccountTestImages } from "./helpers/testSetupAndBreakdown";
 import { isEmptyObj } from "../../../controllers/_helpers/queryHelpers";
 import { clearDB } from "../../helpers/dbHelpers";
+import StoreImage, { IStoreImage } from "../../../models/StoreImage";
+import StoreItemImage, { IStoreItemImage } from "../../../models/StoreItemImage";
+import ServiceImage, { IServiceImage } from "../../../models/ServiceImage";
+import ProductImage, { IProductImage } from "../../../models/ProductImage";
 
 
 chai.use(chaiHTTP);
@@ -44,7 +50,7 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
       })
       .then((number) => {
         numberOfBusinessAccounts = number;
-        return loginAdmins(chai, server, [ firstAdmin ]);
+        return loginAdmins(chai, server, [ firstAdmin, secondAdmin ]);
       })
       .then((adminsArr) => {
         [ firstAdminsToken, secondAdminsToken, thirdAdminsToken, fourthAdminsToken ] = adminsArr;
@@ -415,5 +421,184 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
 
   });
   // END CONTEXT 'BusinessAccountsController' API tests admin not logged in //
+
+  // CONTEXT 'BusinessAccountsController' detailed API tests for DELETE action  admin is logged in //
+  context("'BusinessAccountsController' API tets - ADMIN LOGGED IN - WITH BUSINESS ACCOUNT - Accessing other admins account - detailed DELETE tests", () => {
+    let storeImages: IStoreImage[];
+    let storeItemImages: IStoreItemImage[];
+    let serviceImages: IServiceImage[];
+    let productImages: IProductImage[];
+
+    before((done) => {
+      StoreImage.find({ businessAccountId: { $in: populatedBusinessAccount._id } }).exec()
+        .then((foundStoreImages) => {
+          storeImages = foundStoreImages;
+          return StoreItemImage.find({ businessAccountId: { $in: populatedBusinessAccount._id } }).exec();
+        })
+        .then((foundStoreItemImages) => {
+          storeItemImages = foundStoreItemImages;
+          return ServiceImage.find({ businessAccountId: { $in: populatedBusinessAccount._id } }).exec();
+        })
+        .then((foundServiceImages) => {
+          serviceImages = foundServiceImages;
+          return ProductImage.find({ businessAccountId: { $in: populatedBusinessAccount._id } }).exec();
+        })
+        .then((foundProductImages) => {
+          productImages = foundProductImages;
+          done();
+        })
+        .catch((err) => {
+          done(err);
+        })
+    })
+    describe("DELETE '/api/business_accounts/edit/:businessAcctId' - DELETE action on NOT own account", () => {
+
+      it("Should NOT delete the account, should NOT update anything and send back the correct response", (done) => {
+        chai.request(server)
+          .delete("/api/business_accounts/delete/" + (firstAdminsBusinessAccount._id as string))
+          .set({
+            "Authorization": secondAdminsToken
+          })
+          .end((err, res) => {
+            if (err) done(err);
+            expect(res.status).to.equal(401);
+            expect(res.body.responseMsg).to.be.a("string");
+            expect(res.body.error).to.be.an("object");
+            expect(res.body.errorMessages).to.be.an("array");
+            expect(res.body.errorMessages.length).to.equal(1);
+            expect(res.body.deletedBusinessAccount).to.be.undefined;
+            done();
+          });
+      });
+      it("Should NOT alter the 'BusinessAccount' model in the database any way", (done) => {
+        BusinessAccount.findOne({ _id: firstAdminsBusinessAccount. _id })
+          .populate({ path: "linkedAdmins", model: "Administrator" })
+          .populate({ path: "linkedStores", model: "Store" })
+          .populate({ path: "linkedServices", model: "Service" })
+          .populate({ path: "linkedProducts", model: "Product" })
+          .exec()
+          .then((foundAccount) => {
+            const { linkedAdmins, linkedStores, linkedServices, linkedProducts } = populatedBusinessAccount;
+            expect(foundAccount!.linkedAdmins.length).to.equal(linkedAdmins.length);
+            expect(foundAccount!.linkedStores.length).to.equal(linkedStores.length);
+            expect(foundAccount!.linkedServices.length).to.equal(linkedServices.length);
+            expect(foundAccount!.linkedProducts.length).to.equal(linkedProducts.length);
+            // ensure that populated data is the same //
+            for (let i = 0; i < linkedAdmins.length; i++) {
+              expect(JSON.stringify(linkedAdmins[i])).to.equal(JSON.stringify(foundAccount!.linkedAdmins[i]));
+            }
+            for (let i = 0; i < linkedStores.length; i++) {
+              expect(JSON.stringify(linkedStores[i])).to.equal(JSON.stringify(foundAccount!.linkedStores[i]));
+            }
+            for (let i = 0; i < linkedServices.length; i++) {
+              expect(JSON.stringify(linkedServices[i])).to.equal(JSON.stringify(foundAccount!.linkedServices[i]));
+            }
+            for (let i = 0; i < linkedProducts.length; i++) {
+              expect(JSON.stringify(linkedProducts[i])).to.equal(JSON.stringify(foundAccount!.linkedProducts[i]));
+            }
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should NOT remove any 'Administrator' models linked to the queried 'BusinessAccount' model", (done) => {
+        const admins: IAdministrator[] = populatedBusinessAccount.linkedAdmins as IAdministrator[];
+        const adminIDs: Types.ObjectId[] = admins.map((admin) => admin._id as Types.ObjectId);
+        
+        Administrator.find({ _id: { $in: adminIDs } }).exec()
+          .then((foundAdmins) => {
+            expect(foundAdmins!.length).to.equal(admins.length);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should NOT remove any 'Store' models linked to the queried 'BusinessAccount' model", (done) => {
+        const stores: IStore[] = populatedBusinessAccount.linkedStores as IStore[];
+        const storeIDs: Types.ObjectId[] = stores.map((store) => store._id as Types.ObjectId);
+
+        Store.find({ _id: { $in: storeIDs } }).exec()
+          .then((foundStores) => {
+            expect(foundStores!.length).to.equal(stores.length);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should NOT remove any 'Service' models linked to the queried 'BusinessAccount' model", (done) => {
+        const services: IService[] = populatedBusinessAccount.linkedServices as IService[];
+        const serviceIDs: Types.ObjectId[] = services.map((service) => service._id as Types.ObjectId);
+
+        Service.find({ _id: { $in: serviceIDs } }).exec()
+          .then((foundServices) => {
+            expect(foundServices!.length).to.equal(services.length);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should NOT remove any 'Product' models linked to the queried 'BusinessAccount' model", (done) => {
+        const products: IProduct[] = populatedBusinessAccount.linkedProducts as IProduct[];
+        const productIDs: Types.ObjectId[] = products.map((product) => product._id as Types.ObjectId);
+
+        Product.find({ _id: { $in: productIDs } }).exec()
+          .then((foundProducts) => {
+            expect(foundProducts!.length).to.equal(products.length);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should NOT remove any of 'StoreImage' models belonging to the queried 'BusinessAccount'", (done) => {
+        StoreImage.find({ businessAccountId: populatedBusinessAccount._id }).exec()
+          .then((foundStoreImages) => {
+            expect(foundStoreImages.length).to.equal(storeImages.length);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should NOT remove any of 'StoreItemImage' models belonging to the queried 'BusinessAccount'", (done) => {
+        StoreItemImage.find({ businessAccountId: populatedBusinessAccount._id }).exec()
+          .then((foundStoreItemImages) => {
+            expect(foundStoreItemImages.length).to.equal(storeItemImages.length);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should NOT remove any of 'ServiceImage' models belonging to the queried 'BusinessAccount'", (done) => {
+        ServiceImage.find({ businessAccountId: populatedBusinessAccount._id }).exec()
+          .then((foundServiceImages) => {
+            expect(foundServiceImages.length).to.equal(serviceImages.length);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should NOT remove any of 'ProductImage' models belonging to the queried 'BusinessAccount'", (done) => {
+        ProductImage.find({ businessAccountId: populatedBusinessAccount._id }).exec()
+          .then((foundProductImages) => {
+            expect(foundProductImages.length).to.equal(productImages.length);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      })
+
+    });
+    // END //
+  })
+  // END  CONTEXT 'BusinessAccountsController' detailed API tests for DELETE action  admin is logged in //
+
 
 })
