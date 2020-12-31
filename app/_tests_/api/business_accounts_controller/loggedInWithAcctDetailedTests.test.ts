@@ -85,10 +85,10 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
   // CONTEXT 'BusinessAccountsController' API tests admin is logged in with a business account accessing their own account //
   context("'BusinessAccountsController' API tets - ADMIN LOGGED IN - WITH BUSINESS ACCOUNT - Accessing own account - detailed PATCH tests", () => {
   
-    // TEST PATCH EDIT ACTION admin logged in with business account //
+    // TEST PATCH EDIT ACTION admin logged in with business account add a single admin //
     describe("PATCH '/api/business_accounts/edit/:businessAcctId' - EDIT action on own account - Adding A single 'Admin' to account who doesnt have an account", () => {
       
-      it("Should update and return a 'BusinessAccount' model and send the correct response", (done) => {
+      it("Should correctly update, return a 'BusinessAccount' model and send the correct response", (done) => {
         chai.request(server)
           .patch("/api/business_accounts/edit/" + (firstAdminsBusinessAccount._id as string))
           .set({ "Authorization": firstAdminsToken })
@@ -108,7 +108,8 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
           });
       });
       it("Should return correctly linked 'editedBusinessAccount' in response", () => {
-        const { linkedStores, linkedProducts, linkedServices } = editedAccount;
+        const { linkedAdmins, linkedStores, linkedProducts, linkedServices } = editedAccount;
+        expect(linkedAdmins.length).to.equal(2);
         expect(linkedStores.length).to.equal(populatedBusinessAccount.linkedStores.length);
         expect(linkedServices.length).to.equal(populatedBusinessAccount.linkedServices.length);
         expect(linkedProducts.length).to.equal(populatedBusinessAccount.linkedProducts.length);
@@ -137,9 +138,16 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
             done(err);
           });
       });
-      it("Should update the queried 'Administrator' model in the database", (done) => {
+      it("Should correctly update the queried 'Administrator' model in the database", (done) => {
         Administrator.findOne({ _id: thirdAdmin._id }).exec()
-        done();
+          .then((foundAdmin) => {
+            expect(foundAdmin!.businessAccountId).to.be.an("object");
+            expect(foundAdmin!.businessAccountId).to.eql(firstAdminsBusinessAccount._id);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
       })
       it("Should NOT change the number 'BusinessAccount' models in the database", (done) => {
         BusinessAccount.countDocuments().exec()
@@ -152,12 +160,12 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
           });
       });
     });
-    // END TEST PATCH EDIT ACTION admin logged in and no business account //
+    // END TEST EDIT ACTION admin logged in with business account add a single admin //
 
     // TEST PATCH EDIT ACTION admin logged in with business account own account adding an admin with account //
     describe("PATCH '/api/business_accounts/edit/:businessAcctId' - EDIT action on own account - Adding A single 'Admin' to account who DOES have an account", () => {
       
-      it("Should update and return a 'BusinessAccount' model and send the correct response", (done) => {
+      it("Should NOT update, NOT return a 'BusinessAccount' model and send the correct response", (done) => {
         chai.request(server)
           .patch("/api/business_accounts/edit/" + (firstAdminsBusinessAccount._id as string))
           .set({ "Authorization": firstAdminsToken })
@@ -189,9 +197,16 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
             done(err);
           });
       });
-      it("Should update the queried 'Administrator' model in the database", (done) => {
-        Administrator.findOne({ _id: thirdAdmin._id }).exec()
-        done()
+      it("Should NOT update the queried 'Administrator' model in the database", (done) => {
+        Administrator.findOne({ _id: secondAdmin._id }).exec()
+          .then((foundAdmin) => {
+            expect(foundAdmin!.businessAccountId).to.be.an("object");
+            expect(foundAdmin!.businessAccountId).to.eql(secondAdminsBusinessAccount._id);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
       })
       it("Should NOT change the number 'BusinessAccount' models in the database", (done) => {
         BusinessAccount.countDocuments().exec()
@@ -204,12 +219,12 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
           });
       });
     });
-    // END TEST PATCH EDIT ACTION admin logged in and no business account //
+    // END PATCH EDIT ACTION admin logged in with business account own account adding an admin with account //
 
-    // TEST PATCH EDIT ACTION admin logged in 
+    // TEST PATCH EDIT ACTION admin logged in and removing an admin from business account //
     describe("PATCH '/api/business_accounts/edit/:businessAcctId' - EDIT action on own account - Removing an 'Admin' from 'BusinessAccount'", () => {
       
-      it("Should update and return a 'BusinessAccount' model and send the correct response", (done) => {
+      it("Should correctly update, return a 'BusinessAccount' model and send the correct response", (done) => {
         chai.request(server)
           .patch("/api/business_accounts/edit/" + (firstAdminsBusinessAccount._id as string))
           .set({ "Authorization": firstAdminsToken })
@@ -229,13 +244,17 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
           });
       });
       it("Should return correctly linked 'editedBusinessAccount' in response", () => {
-        const { linkedStores, linkedProducts, linkedServices } = editedAccount;
+        const { linkedAdmins, linkedStores, linkedProducts, linkedServices } = editedAccount;
+        expect(linkedAdmins.length).to.equal(1);
         expect(linkedStores.length).to.equal(populatedBusinessAccount.linkedStores.length);
         expect(linkedServices.length).to.equal(populatedBusinessAccount.linkedServices.length);
         expect(linkedProducts.length).to.equal(populatedBusinessAccount.linkedProducts.length);
       });
       it("Should return correct data in linked 'editedBusinessAccount' in response", () => {
-        const { linkedStores, linkedProducts, linkedServices } = editedAccount;
+        const { linkedAdmins, linkedStores, linkedProducts, linkedServices } = editedAccount;
+        for (const admin of linkedAdmins as IAdministrator[]) {
+          expect(admin._id).to.not.equal((thirdAdmin._id as Types.ObjectId).toHexString());
+        }
         for (const store of linkedStores as IStore[]) {
           expect(store).to.be.an("object");
         }
@@ -258,9 +277,15 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
             done(err);
           });
       });
-      it("Should update the queried 'Administrator' model in the database", (done) => {
+      it("Should correctly update the queried 'Administrator' model in the database", (done) => {
         Administrator.findOne({ _id: thirdAdmin._id }).exec()
-        done();
+          .then((foundAdmin) => {
+            expect(foundAdmin!.businessAccountId).to.be.null;
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          })
       })
       it("Should NOT change the number 'BusinessAccount' models in the database", (done) => {
         BusinessAccount.countDocuments().exec()
@@ -273,11 +298,12 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
           });
       });
     });
+    // END TEST PATCH EDIT ACTION admin logged in and removing an admin from business account //
 
     // TEST PATCH EDIT ACTION admin logged in with business account own account adding an admin with account //
     describe("PATCH '/api/business_accounts/edit/:businessAcctId' - EDIT action on own account - Adding A single 'Admin' to account who has already been added", () => {
       
-      it("Should update and return a 'BusinessAccount' model and send the correct response", (done) => {
+      it("Should NOT update, NOT return a 'BusinessAccount' model and send the correct response", (done) => {
         chai.request(server)
           .patch("/api/business_accounts/edit/" + (firstAdminsBusinessAccount._id as string))
           .set({ "Authorization": firstAdminsToken })
@@ -299,18 +325,23 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
       it("Should NOT update the 'BusinessAccount' model in the database", (done) => {
         BusinessAccount.findOne({ _id: firstAdminsBusinessAccount._id }).exec()
           .then((businessAccount) => {
-            expect(businessAccount!.linkedAdmins.length).to.equal(2);
+            expect(businessAccount!.linkedAdmins.length).to.equal(1);
             expect(businessAccount!.linkedAdmins.includes(firstAdmin._id)).to.equal(true);
-            expect(businessAccount!.linkedAdmins.includes(thirdAdmin._id)).to.equal(true);
             done();
           })
           .catch((err) => {
             done(err);
           });
       });
-      it("Should update the queried 'Administrator' model in the database", (done) => {
-        Administrator.findOne({ _id: thirdAdmin._id }).exec()
-        done()
+      it("Should NOT update or alter the queried 'Administrator' model in the database", (done) => {
+        Administrator.findOne({ _id: firstAdmin._id }).exec()
+          .then((foundAdmin) => {
+            expect(foundAdmin!.businessAccountId).to.eql(firstAdmin.businessAccountId);
+            done();
+          })
+          .catch((err) => {
+            done(err);
+          })
       })
       it("Should NOT change the number 'BusinessAccount' models in the database", (done) => {
         BusinessAccount.countDocuments().exec()
@@ -323,11 +354,12 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
           });
       });
     });
-    // END TEST PATCH EDIT ACTION admin logged in and no business account //
+    // END TEST PATCH EDIT ACTION admin logged in with business account own account adding an admin with account //
 
+    // TEST PATCH EDIT ACTIOn admin logged in own account and removing last admin //
     describe("PATCH '/api/business_accounts/edit/:businessAcctId' - EDIT action on own account - removing the last admin", () => {
       
-      it("Should NOT remove and return a 'BusinessAccount' model and send the correct response", (done) => {
+      it("Should NOT remove an 'Administrator', NOT return updated 'BusinessAccount' model and send the correct response", (done) => {
         chai.request(server)
           .patch("/api/business_accounts/edit/" + (firstAdminsBusinessAccount._id as string))
           .set({ "Authorization": firstAdminsToken })
@@ -360,8 +392,9 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
       it("Should NOT update the queried 'Administrator' model in the database", (done) => {
         Administrator.findOne({ _id: firstAdmin._id }).exec()
           .then((foundAdmin) => {
-            expect(foundAdmin.businessAccountId).to.be.an("object");
-            expect((foundAdmin.businessAccountId as Types.ObjectId).equals(firstAdminsBusinessAccount._id)).to.equal(true);
+            expect(foundAdmin!.businessAccountId).to.be.an("object");
+            expect((foundAdmin!.businessAccountId as Types.ObjectId).equals(firstAdminsBusinessAccount._id)).to.equal(true);
+            done();
           })
           .catch((error) => {
             done(error);
@@ -378,8 +411,8 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
           });
       });
     });
-    // END TEST PATCH EDIT ACTION admin logged in and no business account //
-   
+    // END TEST PATCH EDIT ACTIOn admin logged in own account and removing last admin //
+
   });
   // END CONTEXT 'BusinessAccountsController' API tests admin not logged in //
 

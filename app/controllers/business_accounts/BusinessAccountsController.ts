@@ -19,7 +19,7 @@ import {
 } from "./type_declarations/businessAccoountsContTypes";
 // helpers //
 import { removeDirectoryWithFiles, RemoveResponse, resolveDirectoryOfImg, respondWithDBError, respondWithGeneralError, respondWithInputError, rejectWithGenError, respondWithNotAllowedErr } from "../_helpers/controllerHelpers";
-import { NotFoundError, processErrorResponse } from "../_helpers/errorHandlers";
+import { NotAllowedError, NotFoundError, processErrorResponse, ValidationError } from "../_helpers/errorHandlers";
 
 /**
  * NOTES
@@ -475,32 +475,64 @@ class BusinessAccountsController implements IGenericController {
 
   private removeAdmins(businessAccountId: string, adminIDs: string[]): Promise<IBusinessAccount> {
     let updatedAccount: IBusinessAccount;
-    // first //
-    return BusinessAccount.findOneAndUpdate(
-      { _id: businessAccountId },
-      { $pull: { linkedAdmins: { $in: adminIDs } }},
-      { new: true }
-    )
-    .exec()
-    .then((updatedAcct) => {
-      if (updatedAcct) {
-        updatedAccount = updatedAcct;
-        return Administrator.updateMany(
-          { _id: { $in: adminIDs } },
-          { $set: { businessAccountId: null } }
-        ).exec();
-      } else {
-        throw new NotFoundError({
-          messages: [ "Cannot resolve a 'BusinessAccount' model to update" ]
-        });
-      }
-    })
-    .then((_) => {
-      return Promise.resolve(updatedAccount);
-    })
-    .catch((error) => {
-      throw error;
-    });
+    // first check if the removal process would remove all admins leaving a //
+    // BusinessAcccount model without any admins at all //
+    return BusinessAccount.findOne({ _id: businessAccountId }).exec()
+      .then((foundAccount) => {
+        if (foundAccount) {
+          return this.checkIfLastAdmin(foundAccount, adminIDs);
+        } else {
+          throw new NotFoundError({
+            messages: [ "Queried Business Account to edit was not found" ]
+          });
+        }
+      })
+      .then((businessAccount) => {
+        return BusinessAccount.findOneAndUpdate(
+          { _id: businessAccount._id },
+          { $pull: { linkedAdmins: { $in: adminIDs } }},
+          { new: true }
+        )
+        .exec()
+      })
+      .then((updatedAcct) => {
+        if (updatedAcct) {
+          updatedAccount = updatedAcct;
+          return Administrator.updateMany(
+            { _id: { $in: adminIDs } },
+            { $set: { businessAccountId: null } }
+          ).exec();
+        } else {
+          throw new NotFoundError({
+            messages: [ "Cannot resolve a 'BusinessAccount' model to update" ]
+          });
+        }
+      })
+      .then((_) => {
+        return Promise.resolve(updatedAccount);
+      })
+      .catch((error) => {
+        throw error;
+      });
+  }
+
+  private checkIfLastAdmin(businessAccount: IBusinessAccount, adminsToRemove: string[]): Promise<IBusinessAccount> {
+    if (businessAccount.linkedAdmins.length === 0) {
+      throw new NotAllowedError({
+        statusCode: 422,
+        messages: [ "Seems like there are no Administrators to remove from an account" ]
+      })
+    } else if (businessAccount.linkedAdmins.length <= adminsToRemove.length) {
+      throw new NotAllowedError({
+        statusCode: 422,
+        messages: [ 
+          "Cannot remove all Administrators from the account",
+          "There must be at least one Administrator tied to a created account"
+        ]
+      })
+    } else {
+      return Promise.resolve(businessAccount);
+    }
   }
 
 };
