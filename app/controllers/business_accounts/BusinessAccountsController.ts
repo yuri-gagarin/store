@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, response, Response } from "express";
 import { Types } from "mongoose";
 // models and model interfaces //
 import Administrator, { IAdministrator } from "../../models/Administrator";
@@ -204,10 +204,6 @@ class BusinessAccountsController implements IGenericController {
 
   delete(req: Request, res: Response<BusinessAccountsContRes>) {
     const { businessAcctId } = req.params as BusinessAccountsContReqParams;
-    const storeImgDirectories: string[] = [];
-    const storeItemImgDirectories: string[] = []
-    const serviceImgDirectories: string[] = [];
-    const productImgDirectories: string[] = [];
     // 
     let businessAccountToDelete: IBusinessAccount;
     //
@@ -305,9 +301,21 @@ class BusinessAccountsController implements IGenericController {
       .then(({ deletedProducts, deletedProductImages }) => {
         numOfProductsDeleted = deletedProducts;
         numOfProductImagesDeleted = deletedProductImages;
+        return (
+          Administrator.updateMany(
+            { _id: { $in : linkedAdmins } },
+            { $set: { businessAccountId: null } }
+          )
+          .exec()
+        );
+      })
+      .then((_) => {
+        return BusinessAccount.findOneAndDelete({ _id: businessAcctId }).exec();
+      })
+      .then((deletedAccount) => { 
         return res.status(200).json({
           responseMsg: "You have sucessfully removed your business account",
-          deletedBusinessAccount: businessAccountToDelete,
+          deletedBusinessAccount: deletedAccount!,
           deletedBusinessAccountInfo: {
             deletedStores: numOfStoresDeleted,
             deletedStoreImages: numOfStoreImagesDeleted,
@@ -357,7 +365,7 @@ class BusinessAccountsController implements IGenericController {
     });
   }
 
-  private removeAdmins(businessAccountId: string, adminIDs: string[]): Promise<IBusinessAccount> {
+  private removeAdmins(businessAccountId: string, adminIDs: (string[] | Types.ObjectId[])): Promise<IBusinessAccount> {
     let updatedAccount: IBusinessAccount;
     // first check if the removal process would remove all admins leaving a //
     // BusinessAcccount model without any admins at all //
@@ -400,7 +408,7 @@ class BusinessAccountsController implements IGenericController {
       });
   }
 
-  private checkIfLastAdmin(businessAccount: IBusinessAccount, adminsToRemove: string[]): Promise<IBusinessAccount> {
+  private checkIfLastAdmin(businessAccount: IBusinessAccount, adminsToRemove: (string[] | Types.ObjectId[])): Promise<IBusinessAccount> {
     if (businessAccount.linkedAdmins.length === 0) {
       throw new NotAllowedError({
         statusCode: 422,

@@ -499,13 +499,11 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
             done(error);
           });
       });
-      it("Should NOT remove any of 'Administrator' models linked to the queried 'BusinessAccount' model", (done) => {
-        const admins: IAdministrator[] = populatedBusinessAccount.linkedAdmins as IAdministrator[];
-        const adminIDs: Types.ObjectId[] = admins.map((admin) => admin._id as Types.ObjectId);
-        
-        Administrator.find({ _id: { $in: adminIDs } }).exec()
+      // ensure no data models belonging to queried 'BusinessAccount' are removed //
+      it("Should NOT remove any of 'Administrator' models linked to the queried 'BusinessAccount' model", (done) => {        
+        Administrator.find({ businessAccountId: populatedBusinessAccount._id }).exec()
           .then((foundAdmins) => {
-            expect(foundAdmins!.length).to.equal(admins.length);
+            expect(foundAdmins!.length).to.equal(populatedBusinessAccount.linkedAdmins.length);
             done();
           })
           .catch((error) => {
@@ -513,38 +511,69 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
           });
       });
       it("Should NOT remove any of 'Store' models linked to the queried 'BusinessAccount' model", (done) => {
-        const stores: IStore[] = populatedBusinessAccount.linkedStores as IStore[];
-        const storeIDs: Types.ObjectId[] = stores.map((store) => store._id as Types.ObjectId);
-
-        Store.find({ _id: { $in: storeIDs } }).exec()
+        Store.find({ businessAccountId: populatedBusinessAccount._id }).exec()
           .then((foundStores) => {
-            expect(foundStores!.length).to.equal(stores.length);
+            expect(foundStores!.length).to.equal(populatedBusinessAccount.linkedStores.length);
             done();
           })
           .catch((error) => {
             done(error);
           });
+      });
+      it("Should NOT alter the number of 'Store' models in the database", (done) => {
+        Store.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(totalStoresCount);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should NOT alter the number of 'StoreItem' models in the database", (done) => {
+        StoreItem.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(totalStoreItemsCount);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          })
       });
       it("Should NOT remove any of 'Service' models linked to the queried 'BusinessAccount' model", (done) => {
-        const services: IService[] = populatedBusinessAccount.linkedServices as IService[];
-        const serviceIDs: Types.ObjectId[] = services.map((service) => service._id as Types.ObjectId);
-
-        Service.find({ _id: { $in: serviceIDs } }).exec()
+        Service.find({ businessAccountId: populatedBusinessAccount._id }).exec()
           .then((foundServices) => {
-            expect(foundServices!.length).to.equal(services.length);
+            expect(foundServices!.length).to.equal(populatedBusinessAccount.linkedServices.length);
             done();
           })
           .catch((error) => {
             done(error);
           });
       });
+      it("Should NOT alter the number of 'Service' models in the database", (done) => {
+        Service.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(totalServicesCount);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      })
       it("Should NOT remove any of 'Product' models linked to the queried 'BusinessAccount' model", (done) => {
-        const products: IProduct[] = populatedBusinessAccount.linkedProducts as IProduct[];
-        const productIDs: Types.ObjectId[] = products.map((product) => product._id as Types.ObjectId);
-
-        Product.find({ _id: { $in: productIDs } }).exec()
+        Product.find({ businessAccountId: populatedBusinessAccount._id }).exec()
           .then((foundProducts) => {
-            expect(foundProducts!.length).to.equal(products.length);
+            expect(foundProducts!.length).to.equal(populatedBusinessAccount.linkedProducts.length);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should NOT alter the number of 'Product' models in the database", (done) => {
+        Store.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(totalStoresCount);
             done();
           })
           .catch((error) => {
@@ -591,6 +620,7 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
             done(error);
           });
       });
+      // ensure no uploads belonging to data models belonging to BusinessAcccount are removed //
       it("Should NOT delete any of 'StoreImage' uploads from the image directories", () => {
         for (const image of accountsStoreImages) {
           const stats = fs.statSync(image.absolutePath);
@@ -615,6 +645,19 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
           expect(stats.isFile()).to.equal(true);
         }
       });
+      it("Should NOT set the <businessAccount> property to <null> on any linked 'Administrator' models", (done) => {
+        const linkedAdmins = populatedBusinessAccount.linkedAdmins.map((admin) => (admin as IAdministrator)._id as Types.ObjectId);
+        Administrator.find({ _id: { $in: linkedAdmins } }).exec()
+          .then((administrators) => {
+            for (const admin of administrators!) {
+              expect(admin.businessAccountId).to.not.be.null;
+            }
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
 
     });
     // END TEST DELETE action on a populated business account, not own account //
@@ -622,7 +665,7 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
     // TEST DELETE action on a populated business account on own account //
     describe("DELETE '/api/business_accounts/edit/:businessAcctId' - DELETE action on own account populated account", () => {
 
-      it("Should NOT delete the account, should NOT update anything and send back the correct response", (done) => {
+      it("Should correctly delete the account, update database and send back the correct response", (done) => {
         chai.request(server)
           .delete("/api/business_accounts/delete/" + (populatedBusinessAccount._id as string))
           .set({
@@ -630,13 +673,155 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
           })
           .end((err, res) => {
             if (err) done(err);
-            console.log(res.body);
+            deletedBusinessAccount = res.body.deltedBusinessAccount;
             expect(res.status).to.equal(200);
             expect(res.body.responseMsg).to.be.a("string");
             expect(res.body.deletedBusinessAccount).to.be.an("object");
             expect(res.body.error).to.be.undefined;
             expect(res.body.errorMessages).to.be.undefined;
             done();
+          });
+      });
+      
+      it("Should remove the 'BusinessAccount' model from the database", (done) => {
+        BusinessAccount.findOne({ _id: populatedBusinessAccount._id }).exec()
+          .then((foundAccount) => {
+            expect(foundAccount).to.be.null;
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      // Ensure all linked data models to the 'BusinessAccount' model are removed //
+      it("Should remove the 'Store' models linked to the queried 'BusinessAccount' model", (done) => {
+        Store.find({ businessAccountId: populatedBusinessAccount._id }).exec()
+          .then((foundStores) => {
+            expect(foundStores.length).to.equal(0);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should remove the 'StoreItem' models linked to the queried 'BusinessAccount' model",  (done) => {
+        StoreItem.find({ businessAccountId: populatedBusinessAccount }).exec()
+          .then((foundStoreItems) => {
+            expect(foundStoreItems.length).to.equal(0);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should remove the 'Service' models linked to the queried 'BusinessAccount' model", (done) => {
+        Service.find({ businessAccountId: populatedBusinessAccount._id }).exec()
+          .then((foundServices) => {
+            expect(foundServices!.length).to.equal(0);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should remove the'Product' models linked to the queried 'BusinessAccount' model", (done) => {
+        Product.find({ businessAccountId: populatedBusinessAccount._id }).exec()
+          .then((foundProducts) => {
+            expect(foundProducts!.length).to.equal(0);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should remove the 'StoreImage' models belonging to the queried 'BusinessAccount'", (done) => {
+        StoreImage.find({ businessAccountId: populatedBusinessAccount._id }).exec()
+          .then((foundStoreImages) => {
+            expect(foundStoreImages.length).to.equal(0);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should remove the 'StoreItemImage' models belonging to the queried 'BusinessAccount'", (done) => {
+        StoreItemImage.find({ businessAccountId: populatedBusinessAccount._id }).exec()
+          .then((foundStoreItemImages) => {
+            expect(foundStoreItemImages.length).to.equal(0);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should remove the'ServiceImage' models belonging to the queried 'BusinessAccount'", (done) => {
+        ServiceImage.find({ businessAccountId: populatedBusinessAccount._id }).exec()
+          .then((foundServiceImages) => {
+            expect(foundServiceImages.length).to.equal(0);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should remove the 'ProductImage' models belonging to the queried 'BusinessAccount'", (done) => {
+        ProductImage.find({ businessAccountId: populatedBusinessAccount._id }).exec()
+          .then((foundProductImages) => {
+            expect(foundProductImages.length).to.equal(0);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      // ensure all linked uploads to the stores, storeitems, services and products are removed //
+      it("Should delete all of 'StoreImage' uploads from the image directories", () => {
+        for (const image of accountsStoreImages) {
+          try {
+            fs.statSync(image.absolutePath);
+          } catch (error) {
+            expect(error.code).to.equal("ENOENT");
+          }
+        }
+      });
+      it("Should delete all of 'StoreItemImage' uploads from the image directories", () => {
+        for (const image of accountsStoreItemImages) {
+          try {
+            fs.statSync(image.absolutePath);
+          } catch (error) {
+            expect(error.code).to.equal("ENOENT");
+          }
+        }
+      });
+      it("Should delete all of 'ServiceImage' uploads from the image directories", () => {
+        for (const image of accountsServiceImages) {
+          try {
+            fs.statSync(image.absolutePath);
+          } catch (error) {
+            expect(error.code).to.equal("ENOENT");
+          }
+        }
+      });
+      it("Should delete all of 'ProductImage' uploads from the image directories", () => {
+        for (const image of accountsProductImages) {
+          try {
+            fs.statSync(image.absolutePath);
+          } catch (error) {
+            expect(error.code).to.equal("ENOENT");
+          }
+        }
+      });
+      it("Should set the <businessAccount> property to <null> on all linked 'Administrator' models", (done) => {
+        const linkedAdmins = populatedBusinessAccount.linkedAdmins.map((admin) => (admin as IAdministrator)._id as Types.ObjectId);
+        Administrator.find({ _id: { $in: linkedAdmins } }).exec()
+          .then((administrators) => {
+            for (const admin of administrators!) {
+              expect(admin.businessAccountId).to.be.null;
+            }
+            done();
+          })
+          .catch((error) => {
+            done(error);
           });
       });
       

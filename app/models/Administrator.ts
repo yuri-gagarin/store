@@ -63,7 +63,7 @@ function adminEmailValidator(email: string): Promise<boolean> {
 };
 
 
-const AdministratorSchema: Schema = new Schema<IAdministrator>({
+const AdministratorSchema: Schema = new Schema({
   firstName: {
     type: String,
     required: true
