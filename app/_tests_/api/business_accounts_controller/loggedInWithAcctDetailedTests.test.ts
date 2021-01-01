@@ -9,17 +9,18 @@ import server from "../../../server";
 import Administrator, { IAdministrator } from "../../../models/Administrator";
 import BusinessAccount, { IBusinessAccount } from "../../../models/BusinessAccount";
 import Store, { IStore } from "../../../models/Store";
+import StoreImage, { IStoreImage } from "../../../models/StoreImage";
+import StoreItem from "../../../models/StoreItem";
+import StoreItemImage, { IStoreItemImage } from "../../../models/StoreItemImage";
 import Service, { IService } from "../../../models/Service";
+import ServiceImage, { IServiceImage } from "../../../models/ServiceImage";
 import Product, { IProduct } from "../../../models/Product";
+import ProductImage, { IProductImage } from "../../../models/ProductImage";
 // helpers and test setup methods //
 import { loginAdmins } from "../../helpers/auth_helpers/authHelpers";
-import { setupBusinessAccountControllerTests, populateBusinessAccount, cleanupBusinessAccountTestImages } from "./helpers/testSetupAndBreakdown";
+import { setupBusinessAccountControllerTests, populateBusinessAccount, setupPopulatedBusinessActDeleteTest, cleanupBusinessAccountTestImages } from "./helpers/testSetupAndBreakdown";
 import { isEmptyObj } from "../../../controllers/_helpers/queryHelpers";
 import { clearDB } from "../../helpers/dbHelpers";
-import StoreImage, { IStoreImage } from "../../../models/StoreImage";
-import StoreItemImage, { IStoreItemImage } from "../../../models/StoreItemImage";
-import ServiceImage, { IServiceImage } from "../../../models/ServiceImage";
-import ProductImage, { IProductImage } from "../../../models/ProductImage";
 
 
 chai.use(chaiHTTP);
@@ -40,6 +41,16 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
   let deletedBusinessAccount: IBusinessAccount;
   //
   let firstAdminsToken: string, secondAdminsToken: string, thirdAdminsToken: string, fourthAdminsToken: string;
+  // data for DELETE action tests //
+  let totalStoresCount: number, totalStoreImagesCount: number;
+  let totalStoreItemsCount: number, totalStoreItemImagesCount: number;
+  let totalServicesCount: number, totalServiceImagesCount: number;
+  let totalProductsCount: number, totalProductImagesCount: number;
+  let accountsStoreImages: IStoreImage[];
+  let accountsStoreItemImages: IStoreItemImage[];
+  let accountsServiceImages: IServiceImage[];
+  let accountsProductImages: IProductImage[];
+
   before(function(done) {
     // neeed a longer timeout to 
     this.timeout(30000);
@@ -69,6 +80,16 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
       })
       .then(({ populatedBusinessAcct }) => {
         populatedBusinessAccount =  populatedBusinessAcct;
+        return setupPopulatedBusinessActDeleteTest(populatedBusinessAccount);
+      })
+      .then((response) => {
+        const { accountData, databaseCounts } = response;
+        (
+          { totalStoresCount, totalStoreImagesCount, totalStoreItemsCount, totalStoreItemImagesCount,
+            totalServicesCount, totalServiceImagesCount, totalProductsCount, totalProductImagesCount
+          } = databaseCounts 
+        );
+        ({ accountsStoreImages, accountsStoreItemImages, accountsServiceImages, accountsProductImages } = accountData);
         done();
       })
       .catch((err) => {
@@ -425,33 +446,6 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
 
   // CONTEXT 'BusinessAccountsController' detailed API tests for DELETE action  admin is logged in //
   context("'BusinessAccountsController' API tets - ADMIN LOGGED IN - WITH BUSINESS ACCOUNT - Accessing other admins account - detailed DELETE tests", () => {
-    let storeImages: IStoreImage[];
-    let storeItemImages: IStoreItemImage[];
-    let serviceImages: IServiceImage[];
-    let productImages: IProductImage[];
-
-    before((done) => {
-      StoreImage.find({ businessAccountId: { $in: populatedBusinessAccount._id } }).exec()
-        .then((foundStoreImages) => {
-          storeImages = foundStoreImages;
-          return StoreItemImage.find({ businessAccountId: { $in: populatedBusinessAccount._id } }).exec();
-        })
-        .then((foundStoreItemImages) => {
-          storeItemImages = foundStoreItemImages;
-          return ServiceImage.find({ businessAccountId: { $in: populatedBusinessAccount._id } }).exec();
-        })
-        .then((foundServiceImages) => {
-          serviceImages = foundServiceImages;
-          return ProductImage.find({ businessAccountId: { $in: populatedBusinessAccount._id } }).exec();
-        })
-        .then((foundProductImages) => {
-          productImages = foundProductImages;
-          done();
-        })
-        .catch((err) => {
-          done(err);
-        })
-    });
 
     // TEST DELETE action on a populated business account, not own account //
     describe("DELETE '/api/business_accounts/edit/:businessAcctId' - DELETE action on NOT own account", () => {
@@ -560,7 +554,7 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
       it("Should NOT remove any of 'StoreImage' models belonging to the queried 'BusinessAccount'", (done) => {
         StoreImage.find({ businessAccountId: populatedBusinessAccount._id }).exec()
           .then((foundStoreImages) => {
-            expect(foundStoreImages.length).to.equal(storeImages.length);
+            expect(foundStoreImages.length).to.equal(accountsStoreImages.length);
             done();
           })
           .catch((error) => {
@@ -570,7 +564,7 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
       it("Should NOT remove any of 'StoreItemImage' models belonging to the queried 'BusinessAccount'", (done) => {
         StoreItemImage.find({ businessAccountId: populatedBusinessAccount._id }).exec()
           .then((foundStoreItemImages) => {
-            expect(foundStoreItemImages.length).to.equal(storeItemImages.length);
+            expect(foundStoreItemImages.length).to.equal(accountsStoreItemImages.length);
             done();
           })
           .catch((error) => {
@@ -580,7 +574,7 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
       it("Should NOT remove any of 'ServiceImage' models belonging to the queried 'BusinessAccount'", (done) => {
         ServiceImage.find({ businessAccountId: populatedBusinessAccount._id }).exec()
           .then((foundServiceImages) => {
-            expect(foundServiceImages.length).to.equal(serviceImages.length);
+            expect(foundServiceImages.length).to.equal(accountsServiceImages.length);
             done();
           })
           .catch((error) => {
@@ -590,7 +584,7 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
       it("Should NOT remove any of 'ProductImage' models belonging to the queried 'BusinessAccount'", (done) => {
         ProductImage.find({ businessAccountId: populatedBusinessAccount._id }).exec()
           .then((foundProductImages) => {
-            expect(foundProductImages.length).to.equal(productImages.length);
+            expect(foundProductImages.length).to.equal(accountsProductImages.length);
             done();
           })
           .catch((error) => {
@@ -598,25 +592,25 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
           });
       });
       it("Should NOT delete any of 'StoreImage' uploads from the image directories", () => {
-        for (const image of storeImages) {
+        for (const image of accountsStoreImages) {
           const stats = fs.statSync(image.absolutePath);
           expect(stats.isFile()).to.equal(true);
         }
       });
       it("Should NOT delete any of 'StoreItemImage' uploads from the image directories", () => {
-        for (const image of storeItemImages) {
+        for (const image of accountsStoreItemImages) {
           const stats = fs.statSync(image.absolutePath);
           expect(stats.isFile()).to.equal(true);
         }
       })
       it("Should NOT delete any of 'ServiceImage' uploads from the image directories", () => {
-        for (const image of serviceImages) {
+        for (const image of accountsServiceImages) {
           const stats = fs.statSync(image.absolutePath);
           expect(stats.isFile()).to.equal(true);
         }
       });
       it("Should NOT delete any of 'ProductImage' uploads from the image directories", () => {
-        for (const image of productImages) {
+        for (const image of accountsProductImages) {
           const stats = fs.statSync(image.absolutePath);
           expect(stats.isFile()).to.equal(true);
         }
@@ -626,9 +620,28 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
     // END TEST DELETE action on a populated business account, not own account //
 
     // TEST DELETE action on a populated business account on own account //
-    describe("DELETE '/api/business_accounts/edit/:businessAcctId' - DELETE action on NOT own account", () => {
+    describe("DELETE '/api/business_accounts/edit/:businessAcctId' - DELETE action on own account populated account", () => {
 
+      it("Should NOT delete the account, should NOT update anything and send back the correct response", (done) => {
+        chai.request(server)
+          .delete("/api/business_accounts/delete/" + (populatedBusinessAccount._id as string))
+          .set({
+            "Authorization": firstAdminsToken
+          })
+          .end((err, res) => {
+            if (err) done(err);
+            console.log(res.body);
+            expect(res.status).to.equal(200);
+            expect(res.body.responseMsg).to.be.a("string");
+            expect(res.body.deletedBusinessAccount).to.be.an("object");
+            expect(res.body.error).to.be.undefined;
+            expect(res.body.errorMessages).to.be.undefined;
+            done();
+          });
+      });
+      
     });
+    // END TEST DELETE action on a populated business account on own account //
 
 
   });

@@ -209,7 +209,7 @@ class BusinessAccountsController implements IGenericController {
     const serviceImgDirectories: string[] = [];
     const productImgDirectories: string[] = [];
     // 
-    let deletedAccount: IBusinessAccount;
+    let businessAccountToDelete: IBusinessAccount;
     //
     let linkedAdmins: Types.ObjectId[];
     let linkedStores: Types.ObjectId[];
@@ -232,6 +232,7 @@ class BusinessAccountsController implements IGenericController {
     return BusinessAccount.findOne({ _id: businessAcctId }).exec()
       .then((businessAccount) => {
         if (businessAccount) {
+          businessAccountToDelete = businessAccount;
           linkedAdmins = businessAccount.linkedAdmins as Types.ObjectId[];
           linkedStores = businessAccount.linkedStores as Types.ObjectId[];
           linkedServices = businessAccount.linkedServices as Types.ObjectId[];
@@ -306,7 +307,7 @@ class BusinessAccountsController implements IGenericController {
         numOfProductImagesDeleted = deletedProductImages;
         return res.status(200).json({
           responseMsg: "You have sucessfully removed your business account",
-          deletedBusinessAccount: deletedAccount,
+          deletedBusinessAccount: businessAccountToDelete,
           deletedBusinessAccountInfo: {
             deletedStores: numOfStoresDeleted,
             deletedStoreImages: numOfStoreImagesDeleted,

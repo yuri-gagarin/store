@@ -5,25 +5,26 @@ import { setupDB } from "../../../helpers/dbHelpers";
 // models and model interfaces //
 import Administrator, { IAdministrator } from "../../../../models/Administrator";
 import BusinessAccount, { IBusinessAccount } from "../../../../models/BusinessAccount";
-import { IStoreItem } from "../../../../models/StoreItem";
+import Store, { IStore } from "../../../../models/Store";
+import StoreImage, { IStoreImage } from "../../../../models/StoreImage";
+import StoreItem, { IStoreItem } from "../../../../models/StoreItem";
+import StoreItemImage, { IStoreItemImage } from "../../../../models/StoreItemImage";
+import Service, { IService } from "../../../../models/Service";
+import ServiceImage, { IServiceImage } from "../../../../models/ServiceImage";
+import Product, { IProduct } from "../../../../models/Product";
+import ProductImage, { IProductImage } from "../../../../models/ProductImage";
 // helpers and data generating methods //
 import { createAdmins } from "../../../helpers/data_generation/adminsDataGeneration";
 import { createBusinessAcccount } from "../../../helpers/data_generation/businessAccontsGeneration";
 import { createStores } from "../../../helpers/data_generation/storesDataGeneration";
 import { createStoreImages } from "../../../helpers/data_generation/storeImageDataGeneration";
-import { IStoreImage } from "../../../../models/StoreImage";
 import { createStoreItems } from "../../../helpers/data_generation/storeItemDataGenerations";
 import { createStoreItemImages } from "../../../helpers/data_generation/storeItemImageDataGeneration";
-import { IStoreItemImage } from "../../../../models/StoreItemImage";
 import { createProducts } from "../../../helpers/data_generation/productsDataGeneration";
 import { createProductImages } from "../../../helpers/data_generation/productImageDataGeneration";
-import { IProductImage } from "../../../../models/ProductImage";
 import { createServices } from "../../../helpers/data_generation/serviceDataGeneration";
-import { IServiceImage } from "../../../../models/ServiceImage";
 import { createServiceImages } from "../../../helpers/data_generation/serviceImageDataGeneration";
-import { IStore } from "../../../../models/Store";
-import { IService } from "../../../../models/Service";
-import { IProduct } from "../../../../models/Product";
+
 
 type SetupBusinessAcctContTestRes = {
   admins: {
@@ -182,6 +183,70 @@ export const populateBusinessAccount = async (options: PopulateBusinessAccountAr
   } catch (error) {
     throw error;
   }
+};
+
+export const setupPopulatedBusinessActDeleteTest = async (populatedBusinessAccount: IBusinessAccount) => {
+  let storeImages: IStoreImage[];
+  let storeItemImages: IStoreItemImage[];
+  let serviceImages: IServiceImage[];
+  let productImages: IProductImage[];
+  // model counts //
+  let initialStoreCount: number, initialStoreImageCount: number;
+  let initialStoreItemCount: number, initialStoreItemImageCount: number;
+  let initialServiceCount: number, initialServiceImageCount: number;
+  let initialProductCount: number, initialProductImageCount: number;
+
+  try {
+    storeImages = await StoreImage.find({ businessAccountId: { $in: populatedBusinessAccount._id } }).exec()
+    storeItemImages = await StoreItemImage.find({ businessAccountId: { $in: populatedBusinessAccount._id } }).exec();
+    serviceImages = await ServiceImage.find({ businessAccountId: { $in: populatedBusinessAccount._id } }).exec();
+    productImages = await ProductImage.find({ businessAccountId: { $in: populatedBusinessAccount._id } }).exec();
+    // model counts //
+    [ initialStoreCount, initialStoreImageCount ] = await Promise.all(
+      [
+        Store.countDocuments().exec(),
+        StoreImage.countDocuments().exec()
+      ]
+    );
+    [ initialStoreItemCount, initialStoreItemImageCount ] = await Promise.all(
+      [
+        StoreItem.countDocuments().exec(),
+        StoreItemImage.countDocuments().exec()
+      ]
+    );
+    [ initialServiceCount, initialServiceImageCount ] = await Promise.all(
+      [
+        Service.countDocuments().exec(),
+        ServiceImage.countDocuments().exec()
+      ]
+    );
+    [ initialProductCount, initialProductImageCount ] = await Promise.all(
+      [
+        Product.countDocuments().exec(),
+        ProductImage.countDocuments().exec()
+      ]
+    );
+  } catch (error) {
+    throw error;
+  }
+  return {
+    accountData: {
+      accountsStoreImages: storeImages,
+      accountsStoreItemImages: storeItemImages,
+      accountsServiceImages: serviceImages,
+      accountsProductImages: productImages
+    },
+    databaseCounts: {
+      totalStoresCount: initialStoreCount,
+      totalStoreImagesCount: initialStoreImageCount,
+      totalStoreItemsCount: initialStoreItemCount,
+      totalStoreItemImagesCount: initialStoreItemImageCount,
+      totalServicesCount: initialServiceCount,
+      totalServiceImagesCount: initialServiceImageCount,
+      totalProductsCount: initialProductCount,
+      totalProductImagesCount: initialProductImageCount
+    }
+  };
 };
 
 export const cleanupBusinessAccountTestImages = async (...args: string[]): Promise<boolean> => {
