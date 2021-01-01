@@ -21,7 +21,8 @@ const StoreImageSchema: Schema = new Schema({
   },
   businessAccountId: {
     type: Schema.Types.ObjectId,
-    required: true
+    required: true,
+    indexe: true
   },
   storeId: {
     type: Schema.Types.ObjectId,

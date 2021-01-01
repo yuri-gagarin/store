@@ -2,6 +2,7 @@
 import chai, { expect } from "chai";
 import chaiHTTP from "chai-http";
 import { Types } from "mongoose";
+import fs from "fs";
 // server import //
 import server from "../../../server";
 // models and model interfaces //
@@ -450,12 +451,14 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
         .catch((err) => {
           done(err);
         })
-    })
+    });
+
+    // TEST DELETE action on a populated business account, not own account //
     describe("DELETE '/api/business_accounts/edit/:businessAcctId' - DELETE action on NOT own account", () => {
 
       it("Should NOT delete the account, should NOT update anything and send back the correct response", (done) => {
         chai.request(server)
-          .delete("/api/business_accounts/delete/" + (firstAdminsBusinessAccount._id as string))
+          .delete("/api/business_accounts/delete/" + (populatedBusinessAccount._id as string))
           .set({
             "Authorization": secondAdminsToken
           })
@@ -471,7 +474,7 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
           });
       });
       it("Should NOT alter the 'BusinessAccount' model in the database any way", (done) => {
-        BusinessAccount.findOne({ _id: firstAdminsBusinessAccount. _id })
+        BusinessAccount.findOne({ _id: populatedBusinessAccount._id })
           .populate({ path: "linkedAdmins", model: "Administrator" })
           .populate({ path: "linkedStores", model: "Store" })
           .populate({ path: "linkedServices", model: "Service" })
@@ -502,7 +505,7 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
             done(error);
           });
       });
-      it("Should NOT remove any 'Administrator' models linked to the queried 'BusinessAccount' model", (done) => {
+      it("Should NOT remove any of 'Administrator' models linked to the queried 'BusinessAccount' model", (done) => {
         const admins: IAdministrator[] = populatedBusinessAccount.linkedAdmins as IAdministrator[];
         const adminIDs: Types.ObjectId[] = admins.map((admin) => admin._id as Types.ObjectId);
         
@@ -515,7 +518,7 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
             done(error);
           });
       });
-      it("Should NOT remove any 'Store' models linked to the queried 'BusinessAccount' model", (done) => {
+      it("Should NOT remove any of 'Store' models linked to the queried 'BusinessAccount' model", (done) => {
         const stores: IStore[] = populatedBusinessAccount.linkedStores as IStore[];
         const storeIDs: Types.ObjectId[] = stores.map((store) => store._id as Types.ObjectId);
 
@@ -528,7 +531,7 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
             done(error);
           });
       });
-      it("Should NOT remove any 'Service' models linked to the queried 'BusinessAccount' model", (done) => {
+      it("Should NOT remove any of 'Service' models linked to the queried 'BusinessAccount' model", (done) => {
         const services: IService[] = populatedBusinessAccount.linkedServices as IService[];
         const serviceIDs: Types.ObjectId[] = services.map((service) => service._id as Types.ObjectId);
 
@@ -541,7 +544,7 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
             done(error);
           });
       });
-      it("Should NOT remove any 'Product' models linked to the queried 'BusinessAccount' model", (done) => {
+      it("Should NOT remove any of 'Product' models linked to the queried 'BusinessAccount' model", (done) => {
         const products: IProduct[] = populatedBusinessAccount.linkedProducts as IProduct[];
         const productIDs: Types.ObjectId[] = products.map((product) => product._id as Types.ObjectId);
 
@@ -593,12 +596,43 @@ describe("BusinessAccountsController - LOGGED IN - WITH ACCOUNT - ACCESSING OWN 
           .catch((error) => {
             done(error);
           });
+      });
+      it("Should NOT delete any of 'StoreImage' uploads from the image directories", () => {
+        for (const image of storeImages) {
+          const stats = fs.statSync(image.absolutePath);
+          expect(stats.isFile()).to.equal(true);
+        }
+      });
+      it("Should NOT delete any of 'StoreItemImage' uploads from the image directories", () => {
+        for (const image of storeItemImages) {
+          const stats = fs.statSync(image.absolutePath);
+          expect(stats.isFile()).to.equal(true);
+        }
       })
+      it("Should NOT delete any of 'ServiceImage' uploads from the image directories", () => {
+        for (const image of serviceImages) {
+          const stats = fs.statSync(image.absolutePath);
+          expect(stats.isFile()).to.equal(true);
+        }
+      });
+      it("Should NOT delete any of 'ProductImage' uploads from the image directories", () => {
+        for (const image of productImages) {
+          const stats = fs.statSync(image.absolutePath);
+          expect(stats.isFile()).to.equal(true);
+        }
+      });
 
     });
-    // END //
-  })
+    // END TEST DELETE action on a populated business account, not own account //
+
+    // TEST DELETE action on a populated business account on own account //
+    describe("DELETE '/api/business_accounts/edit/:businessAcctId' - DELETE action on NOT own account", () => {
+
+    });
+
+
+  });
   // END  CONTEXT 'BusinessAccountsController' detailed API tests for DELETE action  admin is logged in //
 
 
-})
+});

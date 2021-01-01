@@ -48,3 +48,21 @@ export type BusinessAccountsIndexSortQuery = {
   accountLevel?: "desc" | "asc";
   limit?: string;
 }
+
+// private controller method types and arguments //
+export type RemoveStoresAndImgsArgs = {
+  businessAccountId: string | Types.ObjectId;
+  storeIDs: string[] | Types.ObjectId[];
+};
+export type RemoveStoreItemsAndImgsArgs = {
+  businessAccountId: string | Types.ObjectId;
+  storeIDs: string[] | Types.ObjectId[];
+};
+export type RemoveServicesAndImgsArgs = {
+  businessAccountId: string | Types.ObjectId;
+  serviceIDs: string[] | Types.ObjectId[];
+};
+export type RemoveProductsAndImgsArgs = {
+  businessAccountId: string | Types.ObjectId;
+  productIDs: string[] | Types.ObjectId[];
+};

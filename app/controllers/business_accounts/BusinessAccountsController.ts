@@ -6,7 +6,7 @@ import { IGenericController } from "../_helpers/controllerInterfaces"
 import BusinessAccount,  { EAccountLevel, IBusinessAccount } from "../../models/BusinessAccount";
 import Store from "../../models/Store";
 import StoreImage, { IStoreImage } from "../../models/StoreImage";
-import StoreItem from "../../models/StoreItem";
+import StoreItem, { IStoreItem } from "../../models/StoreItem";
 import StoreItemImage, { IStoreItemImage } from "../../models/StoreItemImage";
 import Product from "../../models/Product";
 import ProductImage, { IProductImage } from "../../models/ProductImage";
@@ -15,7 +15,9 @@ import ServiceImage, { IServiceImage } from "../../models/ServiceImage";
 // controller types and interfaces //
 import {
   BusinessAccountsContReqParams, BusinessAccountsContRes, 
-  BusinessAccountsIndexSortQuery, CreateBusAccountBodyReq, EditAccountBodyReq
+  BusinessAccountsIndexSortQuery, CreateBusAccountBodyReq, EditAccountBodyReq,
+  RemoveStoresAndImgsArgs, RemoveStoreItemsAndImgsArgs,
+  RemoveServicesAndImgsArgs, RemoveProductsAndImgsArgs
 } from "./type_declarations/businessAccoountsContTypes";
 // helpers //
 import { removeDirectoryWithFiles, RemoveResponse, resolveDirectoryOfImg, respondWithDBError, respondWithGeneralError, respondWithInputError, rejectWithGenError, respondWithNotAllowedErr } from "../_helpers/controllerHelpers";
@@ -34,6 +36,7 @@ class BusinessAccountsController implements IGenericController {
 
   constructor () {
     this.edit = this.edit.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   getMany(req: Request<{}, {}, {}, BusinessAccountsIndexSortQuery>, res: Response<BusinessAccountsContRes>): Promise<Response> {
@@ -199,7 +202,7 @@ class BusinessAccountsController implements IGenericController {
     });
   }
 
-  delete(req: Request, res: Response<BusinessAccountsContRes>): Promise<Response> {
+  delete(req: Request, res: Response<BusinessAccountsContRes>) {
     const { businessAcctId } = req.params as BusinessAccountsContReqParams;
     const storeImgDirectories: string[] = [];
     const storeItemImgDirectories: string[] = []
@@ -208,6 +211,7 @@ class BusinessAccountsController implements IGenericController {
     // 
     let deletedAccount: IBusinessAccount;
     //
+    let linkedAdmins: Types.ObjectId[];
     let linkedStores: Types.ObjectId[];
     let storeItemIds: Types.ObjectId[];
     let linkedServices: Types.ObjectId[];
@@ -225,201 +229,81 @@ class BusinessAccountsController implements IGenericController {
     if (!businessAcctId) {
       return respondWithInputError(res, "Cannot resolve account to delete", 422);
     }
-    return BusinessAccount.findOneAndDelete({ _id: businessAcctId })
-      .then((adminAccount) => {
-        if(adminAccount) { 
-          deletedAccount = adminAccount;
-          // delete the admin acccount check for stores and services //
-          linkedStores = adminAccount.linkedStores as Types.ObjectId[];
-          linkedServices = adminAccount.linkedServices as Types.ObjectId[];
-          linkedProducts = adminAccount.linkedProducts as Types.ObjectId[];
-          if(linkedStores.length > 0) {
-            return Store.find({ _id: { $in: linkedStores } })
-              .populate("images").exec();
-          } else {
-            return Promise.resolve(null);
-          }
+    return BusinessAccount.findOne({ _id: businessAcctId }).exec()
+      .then((businessAccount) => {
+        if (businessAccount) {
+          linkedAdmins = businessAccount.linkedAdmins as Types.ObjectId[];
+          linkedStores = businessAccount.linkedStores as Types.ObjectId[];
+          linkedServices = businessAccount.linkedServices as Types.ObjectId[];
+          linkedProducts = businessAccount.linkedProducts as Types.ObjectId[];
+          return Promise.resolve();
         } else {
-          return rejectWithGenError(res, "Unable to resolve account", 404);
-        }
-      })
-      .then((foundStores) => {
-        if (foundStores && (foundStores.length > 0)) {
-          // stores found // 
-          // set the image directories to delete then remove stores from database //
-          for (const store of foundStores) {
-            if (store.images.length > 0) {
-              const imgDirectory = (store.images[0] as IStoreImage).absolutePath;
-              storeImgDirectories.push(resolveDirectoryOfImg(imgDirectory));
-            }
-          }
-          return Store.deleteMany({ _id: { $in: linkedStores } }).exec();
-        } else {
-          return Promise.resolve({ result: { ok: true, n: 0 }, deletedCount: 0 });
-        }
-      })
-      .then(({ ok, n }) => {
-        // delete store images if any //
-        // check if actual store images to delete //
-        if (ok && n && (n > 0) && (storeImgDirectories.length > 0)) {
-          numOfStoresDeleted = n;
-          return StoreImage.deleteMany({ storeId: { $in: linkedStores } });
-        } else {
-          numOfStoresDeleted = n!;
-          return Promise.resolve({ result: { ok: true, n: 0 }, deletedCount: 0 });
-        }
-      })
-      .then(({ ok, n }) => {
-        const storeImgDeletePromises: Promise<RemoveResponse>[] = [];
-        // remove store images from files if any were deleted from db //
-        if (ok && n && (n > 0) && (storeImgDirectories.length > 0)) {
-          numOfStoreImagesDeleted = n;
-          for (const storeImgDirectory of storeImgDirectories) {
-            storeImgDeletePromises.push(removeDirectoryWithFiles(storeImgDirectory));
-          }
-          return Promise.all(storeImgDeletePromises);
-        } else {
-          numOfStoresDeleted = n ? n : 0;
-          return Promise.resolve([]);
+          throw new NotFoundError({
+            messages: [ "Queried Business Account model to delete was not found" ]
+          });
         }
       })
       .then((_) => {
-        // check for storeItems to delete //
         if (linkedStores.length > 0) {
-          return StoreItem.find({ storeId: { $in: linkedStores } })
-            .populate("images").exec();
+          return this.removeBusinessAccountStoresAndImages({
+            businessAccountId: businessAcctId,
+            storeIDs: linkedStores
+          }); 
         } else {
-          return Promise.resolve(null);
+          return Promise.resolve({
+            deletedStores: 0,
+            deletedStoreImages: 0
+          });
         }
       })
-      .then((storeItems) => {
-        if (storeItems && (storeItems.length > 0)) {
-          for (const storeItem of storeItems) {
-            storeItemIds.push(storeItem._id);
-            if (storeItem.images.length > 0) {
-              const absolutePath = (storeItem.images[0] as IStoreItemImage).absolutePath;
-              storeItemImgDirectories.push(resolveDirectoryOfImg(absolutePath));
-            }
-          }
-          return StoreItem.deleteMany({ storeId: { $in: linkedStores } });
+      .then(({ deletedStores, deletedStoreImages }) => {
+        numOfStoresDeleted = deletedStores;
+        numOfStoreImagesDeleted = deletedStoreImages;
+        if (numOfStoresDeleted > 0) {
+          return this.removeBusAccountStoreItemsAndImgs({
+            businessAccountId: businessAcctId,
+            storeIDs: linkedStores
+          });
         } else {
-          return Promise.resolve({ result: { ok: true, n: 0 }, deletedCount: 0 });
+          return Promise.resolve({
+            deletedStoreItems: 0,
+            deletedStoreItemImgs: 0
+          });
         }
       })
-      .then(({ ok, n }) => {
-        if (ok && n && (n > 0) && (storeItemImgDirectories.length > 0)) {
-          numOfStoresDeleted = n;
-          return StoreItemImage.deleteMany({ storeItemId: { $in: storeItemIds } });
-        } else {
-          numOfStoreItemsDeleted = n ? n : 0;
-          return Promise.resolve({ result: { ok: true, n: 0 }, deletedCount: 0});
-        }
-      })
-      .then(({ ok, n }) => {
-        // delete store item images from directories if any //
-        const storeItemImgDelPromises: Promise<RemoveResponse>[] = []
-        if (ok && n && (n > 0) && (storeItemImgDirectories.length > 0)) {
-          numOfStoreImagesDeleted = 0;
-          for (const storeItemImgDir of storeItemImgDirectories) {
-            storeItemImgDelPromises.push(removeDirectoryWithFiles(storeItemImgDir));
-          }
-          return Promise.all(storeItemImgDelPromises);
-        } else {
-          numOfStoreItemImagesDeleted = n ? n : 0;
-          return Promise.all([]);
-        }
-      })
-      .then((_) => {
-        // deal with account's services if any //
+      .then(({ deletedStoreItems, deletedStoreItemImgs }) => {
+        numOfStoreItemsDeleted = deletedStoreItems;
+        numOfStoreItemImagesDeleted = deletedStoreItemImgs;
         if (linkedServices.length > 0) {
-          return Service.find({_id: { $in: { linkedServices } } })
-            .populate("images").exec();
+          return this.removeBusAccountServicesAndImgs({
+            businessAccountId: businessAcctId,
+            serviceIDs: linkedServices
+          });
         } else {
-          return Promise.resolve(null)
+          return Promise.resolve({
+            deletedServices: 0,
+            deletedServiceImages: 0
+          });
         }
       })
-      .then((services) => {
-        if (services && (services.length > 0)) {
-          for (const service of services) {
-            if (service.images.length > 0) {
-              const absolutePath = (service.images[0] as IServiceImage).absolutePath;
-              serviceImgDirectories.push(resolveDirectoryOfImg(absolutePath));
-            }
-          }
-          return Service.deleteMany({ _id: { $in: { linkedServices } }});
-        } else {
-          return Promise.resolve({ result: { ok: true, n: 0 }, deletedCount: 0 });
-        }
-      })
-      .then(({ ok, n }) => {
-        if (ok && n && (n > 0) && (serviceImgDirectories.length > 0)) {
-          numOfServicesDeleted = n;
-          return ServiceImage.deleteMany({ serviceId: { $in: linkedServices } });
-        } else {
-          numOfStoreImagesDeleted = n ? n : 0;
-          return Promise.resolve({ result: { ok: true, n: 0 }, deletedCount: 0 });
-        }
-      })
-      .then(({ ok, n }) => {
-        const serviceImgDeletePromises: Promise<RemoveResponse>[] = [];
-        if (ok && n && (n > 0)) {
-          numOfServiceImagesDeleted = n;
-          for (const imgDirectory of serviceImgDirectories) {
-            serviceImgDeletePromises.push(removeDirectoryWithFiles(imgDirectory));
-          }
-          return(serviceImgDeletePromises);
-        } else {
-          numOfServiceImagesDeleted = n ? n : 0;
-          return Promise.resolve([]);
-        }
-      })
-      .then((_) => {
-        // handle products if any //
+      .then(({ deletedServices, deletedServiceImages }) => {
+        numOfServicesDeleted = deletedServices;
+        numOfServiceImagesDeleted = deletedServiceImages;
         if (linkedProducts.length > 0) {
-          return Product.find({ _id: { $in: { linkedProducts } } })
-            .populate("images").exec();
+          return this.removeBusAccountProductsAndImgs({ 
+            businessAccountId: businessAcctId, 
+            productIDs: linkedProducts
+          });
         } else {
-          return Promise.resolve(null);
+          return Promise.resolve({
+            deletedProducts: 0,
+            deletedProductImages: 0
+          });
         }
       })
-      .then((products) => {
-        if (products && (products.length > 0)) {
-          for (const product of products) {
-            if (product.images.length > 0) {
-              const absolutePath = (product.images[0] as IProductImage).absolutePath;
-              productImgDirectories.push(resolveDirectoryOfImg(absolutePath));
-            }
-          }
-          return Product.deleteMany({ _id: { $in: linkedProducts } });
-        } else {
-          return Promise.resolve({ result: { ok: true, n: 0 }, deletedCount: 0 });
-        }
-      })
-      .then(({ ok, n }) => {
-        if (ok && n && (n > 0) && (productImgDirectories.length > 0)) {
-          numOfProductsDeleted = n;
-          return ProductImage.deleteMany({ productId: { $in: linkedProducts } });
-        } else {
-          numOfProductsDeleted = n ? n : 0;
-          return Promise.resolve({ result: { ok: true, n: 0 }, deletedCount: 0 });
-        }
-      })
-      .then(({ ok, n }) => {
-        const prodImgRemovePromises: Promise<RemoveResponse>[] = [];
-
-        if (ok && n && (n > 0) && (productImgDirectories.length > 0)) {
-          numOfProductImagesDeleted = n;
-          // remove service images from their directories //
-          for (const imgDirectory of productImgDirectories) {
-            prodImgRemovePromises.push(removeDirectoryWithFiles(imgDirectory));
-          }
-          return Promise.all(prodImgRemovePromises);
-        } else {
-          numOfProductImagesDeleted = n ? n : 0;
-          return Promise.resolve([]);
-        } 
-      })
-      .then((_) => {
+      .then(({ deletedProducts, deletedProductImages }) => {
+        numOfProductsDeleted = deletedProducts;
+        numOfProductImagesDeleted = deletedProductImages;
         return res.status(200).json({
           responseMsg: "You have sucessfully removed your business account",
           deletedBusinessAccount: deletedAccount,
@@ -435,10 +319,9 @@ class BusinessAccountsController implements IGenericController {
           }
         });
       })
-      .catch((err) => {
-       return processErrorResponse(res, err);
+      .catch((error) => {
+        return processErrorResponse(res, error);
       })
-          
   }
 
   private addAdmins(businessAccountId: string, adminIDs: string[]): Promise<IBusinessAccount> {
@@ -533,6 +416,224 @@ class BusinessAccountsController implements IGenericController {
     } else {
       return Promise.resolve(businessAccount);
     }
+  }
+
+  private removeBusinessAccountStoresAndImages({ businessAccountId, storeIDs } : RemoveStoresAndImgsArgs) {
+    const res = {
+      deletedStores: 0,
+      deletedStoreImages: 0
+    };
+    const storeImages: IStoreImage[] = [];
+
+    return (
+      Store.find({ businessAccountId: businessAccountId, _id: { $in: storeIDs } })
+        .populate({ path: "images", options: { limit: 1 } })
+        .exec()
+    )
+    .then((stores) => {
+      if (stores) {
+        for (const store of stores) {
+          if (store.images.length > 0) {
+            storeImages.push(store.images[0] as IStoreImage);
+          }
+        }
+        return Store.deleteMany({ businessAccountId: businessAccountId, _id: { $in: storeIDs } }).exec();
+      } else {
+        throw new NotFoundError({
+          messages: [ "Could not resolve Stores to delete for queried 'BusinessAccount' model" ]
+        });
+      }
+    })
+    .then(({ ok, deletedCount }) => {
+      if (ok && deletedCount && (deletedCount > 0)) res.deletedStores = deletedCount;
+      const removePromises: Promise<RemoveResponse>[] = []
+      if (storeImages.length > 0) {
+        for (const storeImage of storeImages) {
+          if (storeImage) {
+            removePromises.push(removeDirectoryWithFiles(storeImage.imagePath));
+          }
+        }
+        return Promise.all(removePromises);
+      } else {
+        return Promise.all(removePromises);
+      }
+    })
+    .then((removeResArr) => {
+      if (removeResArr.length > 0) {
+        return StoreImage.deleteMany({ businessAccountId: businessAccountId });
+      } else {
+        return Promise.resolve({ response: { ok: true, n: 0}, deletedCount: 0 })
+      }
+    })
+    .then(({ ok, deletedCount }) => {
+      if (ok && deletedCount && (deletedCount > 0)) res.deletedStoreImages = deletedCount;
+      return res;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  }
+  
+  private removeBusAccountStoreItemsAndImgs({ businessAccountId, storeIDs } : RemoveStoreItemsAndImgsArgs) {
+    const res = {
+      deletedStoreItems: 0,
+      deletedStoreItemImgs: 0
+    };
+    const storeItemImgs : IStoreItemImage[] = [];
+
+    return (
+      StoreItem.find({ businessAccountId: businessAccountId, storeId: { $in : storeIDs } })
+        .populate({ path: "images", options: { limit: 1 } })
+        .exec()
+    )
+    .then((storeItems) => {
+      if (storeItems) {
+        for (const storeItem of storeItems) {
+          if (storeItem.images.length > 0) {
+            storeItemImgs.push(storeItem.images[0] as IStoreItemImage);
+          }
+        }
+        return StoreItem.deleteMany({ businessAccountId: businessAccountId, storeId: { $in: storeIDs } }).exec();
+      } else {
+        throw new NotFoundError({
+          messages: [ "Could not resolve Store Items to delete for queried 'BusinessAccount' model" ]
+        });
+      }
+    })
+    .then(({ ok, deletedCount }) => {
+      const deletePromises: Promise<RemoveResponse>[] = []
+      if (ok && deletedCount && (deletedCount > 0)) res.deletedStoreItems = deletedCount;
+      if (storeItemImgs.length > 0) {
+        for (const storeItemImg of storeItemImgs) {
+          deletePromises.push(removeDirectoryWithFiles(storeItemImg.imagePath));
+        }
+        return Promise.all(deletePromises);
+      } else {
+        return Promise.all(deletePromises);
+      }
+    })
+    .then((removeResArr) => {
+      if (removeResArr.length > 0) {
+        return StoreItemImage.deleteMany({ businessAccountId: businessAccountId }).exec();
+      } else {
+        return Promise.resolve({ response: { ok: true, n: 0 }, deletedCount: 0 });
+      }
+    })
+    .then(({ ok, deletedCount }) => {
+      if (ok && deletedCount && (deletedCount > 0)) res.deletedStoreItemImgs = deletedCount;
+      return res;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  }
+
+  private removeBusAccountServicesAndImgs({ businessAccountId, serviceIDs } : RemoveServicesAndImgsArgs) {
+    const res = {
+      deletedServices: 0,
+      deletedServiceImages: 0
+    };
+    const serviceImages: IServiceImage[] = [];
+
+    return (
+      Service.find({ businessAccountId: businessAccountId, _id: { $in: serviceIDs } })
+        .populate({ path: "images", options: { limit: 1 } })
+        .exec()
+    )
+    .then((services) => {
+      if (services) {
+        for (const service of services) {
+          if (service.images.length > 0) {
+            serviceImages.push(service.images[0] as IServiceImage);
+          }
+        }
+        return Service.deleteMany({ businessAccountId: businessAccountId, _id: { $in: serviceIDs } }).exec();
+      } else {
+        throw new NotFoundError({
+          messages: [ "Could not resolve Services to delete for queried 'BusinessAccount' model" ]
+        });
+      }
+    })
+    .then(({ ok, deletedCount }) => {
+      if (ok && deletedCount && (deletedCount > 0)) res.deletedServices = deletedCount;
+      const removePromises: Promise<RemoveResponse>[] = []
+      if (serviceImages.length > 0) {
+        for (const serviceImage of serviceImages) {
+          removePromises.push(removeDirectoryWithFiles(serviceImage.imagePath));
+        }
+        return Promise.all(removePromises);
+      } else {
+        return Promise.all(removePromises);
+      }
+    })
+    .then((removeResArr) => {
+      if (removeResArr.length > 0) {
+        return ServiceImage.deleteMany({ businessAccountId: businessAccountId, serviceId: { $in: serviceIDs } });
+      } else {
+        return Promise.resolve({ response: { ok: true, n: 0}, deletedCount: 0 })
+      }
+    })
+    .then(({ ok, deletedCount }) => {
+      if (ok && deletedCount && (deletedCount > 0)) res.deletedServiceImages = deletedCount;
+      return res;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  }
+
+  private removeBusAccountProductsAndImgs({ businessAccountId, productIDs } : RemoveProductsAndImgsArgs) {
+    const res = {
+      deletedProducts: 0,
+      deletedProductImages: 0
+    };
+    const productImages: IProductImage[] = [];
+
+    return (
+      Product.find({ businessAccountId: businessAccountId, _id: { $in: productIDs } })
+        .populate({ path: "images", options: { limit: 1 } })
+        .exec()
+    )
+    .then((products) => {
+      if (products) {
+        for (const product of products) {
+          if (product.images.length > 0) {
+            productImages.push(product.images[0] as IProductImage);
+          }
+        }
+        return Product.deleteMany({ businessAccountId: businessAccountId, _id: { $in: productIDs } }).exec();
+      } else {
+        throw new NotFoundError({
+          messages: [ "Could not resolve Products to delete for queried 'BusinessAccount' model" ]
+        });
+      }
+    })
+    .then(({ ok, deletedCount }) => {
+      if (ok && deletedCount && (deletedCount > 0)) res.deletedProducts = deletedCount;
+      const removePromises: Promise<RemoveResponse>[] = []
+      if (productImages.length > 0) {
+        for (const productImage of productImages) {
+          removePromises.push(removeDirectoryWithFiles(productImage.imagePath));
+        }
+        return Promise.all(removePromises);
+      } else {
+        return Promise.all(removePromises);
+      }
+    })
+    .then((removeResArr) => {
+      if (removeResArr.length > 0) {
+        return ProductImage.deleteMany({ businessAccountId: businessAccountId, productId: { $in: productIDs } });
+      } else {
+        return Promise.resolve({ response: { ok: true, n: 0}, deletedCount: 0 })
+      }
+    })
+    .then(({ ok, deletedCount }) => {
+      if (ok && deletedCount && (deletedCount > 0)) res.deletedProductImages = deletedCount;
+      return res;
+    })
+    .catch((error) => {
+      throw error;
+    });
   }
 
 };
