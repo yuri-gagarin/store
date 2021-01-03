@@ -6,8 +6,13 @@ import { StoreData } from "../../../controllers/stores_controller/type_declarati
 export const generateMockStoreData = (numberOfStores: number): StoreData[] => {
   const storeDataArr: StoreData[] = [];
   for (let i = 0; i < numberOfStores; i++) {
+    let title: string = "";
+    do {
+      title = faker.lorem.word();
+    } while (title.length < 3);
+
     const mockStoreData: StoreData = {
-      title: faker.lorem.word(),
+      title: title,
       description: faker.lorem.paragraph(),
       images: []
     };
@@ -26,7 +31,7 @@ export const createStores = (numberOfStores: number, busAccountId: string): Prom
   const createdStores: Promise<IStore>[] = [];
 
   for (let i = 0; i < numberOfStores; i++) {
-    let title: string;
+    let title: string = "";
 
     do {
       title = faker.lorem.word();

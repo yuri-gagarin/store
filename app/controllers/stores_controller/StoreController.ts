@@ -122,7 +122,7 @@ class StoresController implements IGenericController {
 
   getOne (req: Request, res: Response<IGenericStoreResponse>): Promise<Response>  {
     const { businessAccountId } = req.user as IAdministrator;
-    const { _id : storeId } = req.params;
+    const {  storeId } = req.params;
     // validate user and a business account set up //
 
     return (
@@ -230,8 +230,7 @@ class StoresController implements IGenericController {
 
   delete (req: Request, res: Response<IGenericStoreResponse>) {
     const { storeId } = req.params; 
-    const { businessAccountId } = req.params
-    let deletedStore: IStore;
+    const { businessAccountId } = req.user as IAdministrator;
     let storeImagesPath: string;
     let numOfDeletedStoreImages: number = 0; 
     let storeItemsToDelete: boolean = false;
@@ -249,6 +248,7 @@ class StoresController implements IGenericController {
     )
     .then((store) => {
       if (store) {
+        storeToDelete = store;
         return Promise.resolve(store);
       } else {
         throw new NotFoundError({ messages: [ "Store to delete was not found" ] });
@@ -328,9 +328,13 @@ class StoresController implements IGenericController {
     })
     .then(({ ok, deletedCount }) => {
       if (ok && deletedCount && (deletedCount > 0)) numOfDeletedStoreItems = deletedCount;
-      return Store.findOneAndDelete({ businessAccountId: businessAccountId, _id: storeId }).exec();
+      return Promise.all([
+        Store.findOneAndDelete({ businessAccountId: businessAccountId, _id: storeId }).exec(),
+        BusinessAccount.findOneAndUpdate({ _id: storeToDelete.businessAccountId }, { $pull: { linkedStores: storeId } })
+      ])
     })
-    .then((deletedStore) => {
+    .then((deletePromises) => {
+      const [ deletedStore ] = deletePromises;
       if (deletedStore) {
         const responseMsg = 
           `Deleted Store: ${deletedStore.title}.
@@ -349,6 +353,7 @@ class StoresController implements IGenericController {
       }
     })
     .catch((error) => {
+      console.error(error);
       return processErrorResponse(res, error);
     })
   }

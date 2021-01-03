@@ -279,6 +279,19 @@ describe("StoresController - Logged In WITH CORRECT BusinessAccount ID - VALID D
             done(err);
           });
       });
+      it("Should NOT alter the linked 'BusinessAccount' model and its <linkedStores> subarray", (done) => {
+        BusinessAccount.findOne({ _id: firstAdmin.businessAccountId }).exec()
+          .then((foundAccount) => {
+            const linkedStoreIds: string[] = foundAccount!.linkedStores.map((storeId) => (storeId as Types.ObjectId).toHexString());
+            const updatedStoreId: string = updatedStore._id;
+            expect(linkedStoreIds.includes(updatedStoreId)).to.equal(true);
+            expect(foundAccount!.linkedStores.length).to.equal(totalLinkedStoresToFirstAdminsAcc);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
 
     });
     
@@ -320,6 +333,20 @@ describe("StoresController - Logged In WITH CORRECT BusinessAccount ID - VALID D
           })
           .catch((err) => {
             done(err);
+          });
+      });
+      it("Should update the linked 'BusinessAccount' model and removed the deleted 'Store' model from its <linkedStores> subarray", (done) => {
+        BusinessAccount.findOne({ _id: firstAdmin.businessAccountId }).exec()
+          .then((foundAccount) => {
+            const linkedStoreIds: string[] = foundAccount!.linkedStores.map((storeId) => (storeId as Types.ObjectId).toHexString());
+            const createdStoreId: string = deletedStore._id;
+            expect(linkedStoreIds.includes(createdStoreId)).to.equal(false);
+            expect(foundAccount!.linkedStores.length).to.equal(totalLinkedStoresToFirstAdminsAcc - 1);
+            totalLinkedStoresToFirstAdminsAcc = foundAccount!.linkedStores.length;
+            done();
+          })
+          .catch((error) => {
+            done(error);
           });
       });
     });
