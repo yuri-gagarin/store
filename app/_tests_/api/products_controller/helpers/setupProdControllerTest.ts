@@ -1,10 +1,12 @@
 import chaiHTTP from "chai-http";
+import { Types } from "mongoose";
 import { setupDB, clearDB } from "../../../helpers/dbHelpers";
 import { createAdmins } from "../../../helpers/data_generation/adminsDataGeneration";
 import { createProducts } from "../../../helpers/data_generation/productsDataGeneration"
 import { createBusinessAcccount } from "../../../helpers/data_generation/businessAccontsGeneration";
 import Administrator, { IAdministrator } from "../../../../models/Administrator";
 import Product, { IProduct } from "../../../../models/Product";
+import BusinessAccount, { IBusinessAccount } from "../../../../models/BusinessAccount";
 
 type SetupProdContTestRes = {
   admins: {
@@ -26,6 +28,7 @@ type SetupProdContTestRes = {
 export const setupProdControllerTests = (): Promise<SetupProdContTestRes> => {
   let firstAdmin: IAdministrator, secondAdmin: IAdministrator, thirdAdmin: IAdministrator;
   let firstAdminBusAcctId: string, secondAdminBusAcctId: string, thirdAdminBusAcctId: string;
+  let firstAdminsProducts: IProduct[], secondAdminsProducts: IProduct[];
   let firstAdminsProduct: IProduct, secondAdminsProduct: IProduct;
 
   return setupDB()
@@ -47,8 +50,13 @@ export const setupProdControllerTests = (): Promise<SetupProdContTestRes> => {
       ]);
     })
     .then((products) => {
+
       firstAdminsProduct = products[0][0];
       secondAdminsProduct = products[1][0];
+      // products //
+      firstAdminsProducts = products[0];
+      secondAdminsProducts = products[1];
+
       return Promise.all([
         Administrator.findOneAndUpdate({ _id: firstAdmin._id }, { $set: { businessAccountId: firstAdminBusAcctId } }, { new: true }),
         Administrator.findOneAndUpdate({ _id: secondAdmin._id }, { $set: { businessAccountId: secondAdminBusAcctId } }, { new: true })
@@ -56,6 +64,14 @@ export const setupProdControllerTests = (): Promise<SetupProdContTestRes> => {
     })
     .then((updatedAdminArr) => {
       [ firstAdmin, secondAdmin ] = (updatedAdminArr as IAdministrator[]);
+      const firstAdminsProductIds = firstAdminsProducts.map((product) => (product._id as Types.ObjectId ));
+      const secondAdminsProductIds = secondAdminsProducts.map((product) => (product._id as Types.ObjectId ))
+      return Promise.all([
+        BusinessAccount.findOneAndUpdate({ _id: firstAdmin.businessAccountId }, { $push: { linkedProducts: { $each: firstAdminsProductIds } } }),
+        BusinessAccount.findOneAndUpdate({ _id: secondAdmin.businessAccountId }, { $push: { linkedProducts: { $each: secondAdminsProductIds } } })
+      ]);
+    })
+    .then(() => {
       return {
         admins: {
           firstAdmin,

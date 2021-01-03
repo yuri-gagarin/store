@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Types } from "mongoose";
 // models and model interfaces //
-import Product from "../../models/Product";
+import Product, { IProduct } from "../../models/Product";
 import ProductImage, { IProductImage } from "../../models/ProductImage";
 import { IGenericController } from "../_helpers/controllerInterfaces";
 // additional controller types and interfaces //
@@ -11,6 +11,7 @@ import { respondWithDBError, respondWithInputError, respondWithGeneralError, res
 import { IAdministrator } from "../../models/Administrator";
 import { validateProductData } from "../products_controller/helpers/validationHelpers"; 
 import { NotFoundError, NotAllowedError, processErrorResponse, GeneralError } from "../_helpers/errorHandlers";
+import BusinessAccount from "../../models/BusinessAccount";
 
 /**
  *  NOTES
@@ -122,6 +123,7 @@ class ProductsController implements IGenericController {
   create (req: Request, res: Response<IGenericProdRes>): Promise<Response> {
     const { name, description, details, price }: ProductData = req.body;    
     const { businessAccountId }: IAdministrator = req.user as IAdministrator;
+    let createdProduct: IProduct;
     // assert that a user is present //
     
     // validate form input //
@@ -143,6 +145,13 @@ class ProductsController implements IGenericController {
 
     return newProduct.save()
       .then((newProduct) => {
+        const productId  = newProduct._id as Types.ObjectId;
+        return BusinessAccount.findOneAndUpdate(
+          { _id:  businessAccountId },
+          { $push: { linkedProducts: productId } }
+        );
+      })
+      .then((updatedaccount) => {
         return res.status(200).json({
           responseMsg: "New Product created",
           newProduct: newProduct
@@ -206,6 +215,7 @@ class ProductsController implements IGenericController {
   delete (req: Request, res: Response<IGenericProdRes>): Promise<Response> {
     const { businessAccountId } = req.user as IAdministrator;
     const { productId } = req.params;
+    let deletedProduct: IProduct;
     let productImage: IProductImage;
     let numOfImagesDeleted: number = 0;
     // ensure that an admin is present with a business account //
@@ -257,13 +267,20 @@ class ProductsController implements IGenericController {
     })  
     .then((product) => {
       if (product) {
-        return res.status(200).json({
-          responseMsg: "Deleted the Product and " + numOfImagesDeleted,
-          deletedProduct: product
-        });
+        deletedProduct = product;
+        return BusinessAccount.findOneAndUpdate(
+          { _id: businessAccountId },
+          { $pull: { linkedProducts: product._id } }
+        ).exec()
       } else {
         throw new GeneralError("Something went very wrong", 500);
       }
+    })
+    .then((_) => {
+      return res.status(200).json({
+        responseMsg: `Removed Product`,
+        deletedProduct: deletedProduct
+      })
     })
     .catch((err) => {
       return processErrorResponse(res, err);

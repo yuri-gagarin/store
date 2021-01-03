@@ -1,6 +1,7 @@
 // testing dependecies //
 import chai, { expect } from "chai";
 import chaiHTTP from "chai-http";
+import { Types } from "mongoose";
 // server import /
 import server from "../../../server";
 // models and model interfaces //
@@ -11,11 +12,12 @@ import Product, { IProduct } from "../../../models/Product";
 import { clearDB } from "../../helpers/dbHelpers";
 import { generateMockProductData } from "../../helpers/data_generation/productsDataGeneration"; 
 import { setupProdControllerTests, loginAdmins } from "./helpers/setupProdControllerTest";
+import BusinessAccount, { IBusinessAccount } from "../../../models/BusinessAccount";
 
 chai.use(chaiHTTP);
 
 describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID DATA - GET/POST/PATCH/DELETE  - API tests", () => {
-  let firstAdmin: IAdministrator;
+  let firstAdmin: IAdministrator; let firstAdminsBusinessAccount: IBusinessAccount;
   let fetchedProducts: IProduct[];
   let createdProduct: IProduct;
   let updatedProduct: IProduct;
@@ -26,6 +28,8 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID
   // mockData //
   let newProductData: ProductData;
   let updateProductData: ProductData;
+  // 
+  let linkedProductsTotal: number;
 
   // database and model data setup //
   // logins and jwtTokens //
@@ -42,6 +46,11 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID
       })
       .then((number) => {
         totalProducts = number;
+        return BusinessAccount.findOne({ _id: firstAdmin.businessAccountId }).exec();
+      })
+      .then((foundAccount) => {
+        firstAdminsBusinessAccount = foundAccount!;
+        linkedProductsTotal = firstAdminsBusinessAccount.linkedProducts.length;
         done();
       })
       .catch((err) => {
@@ -193,6 +202,20 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID
             done(err);
           });
       });
+      it("Should update the 'BusinessAccount' model and add the newly created 'Product' model to it", (done) => {
+        BusinessAccount.findOne({ _id: firstAdmin.businessAccountId }).exec()
+          .then((foundAccount) => {
+            const productsIds: string[] = foundAccount!.linkedProducts.map((prodId) => (prodId as Types.ObjectId).toHexString());
+            const createdProductId: string = createdProduct._id;
+            expect(productsIds.includes(createdProductId)).to.equal(true);
+            expect(productsIds.length).to.equal(linkedProductsTotal + 1);
+            linkedProductsTotal = productsIds.length;
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          })
+      })
 
     });
     // END TEST POST CREATE action Correct BusinessAccount - VALID Data //
@@ -258,6 +281,19 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID
             done(err);
           });
       });
+      it("Should NOT remove <productId> NOR alter the <linkedProducts> subarray in the 'BusinessAccount' model", (done) => {
+        BusinessAccount.findOne({ _id: firstAdmin.businessAccountId }).exec()
+          .then((foundAccount) => {
+            const productIds: string[] = foundAccount!.linkedProducts.map((productId) => (productId as Types.ObjectId).toHexString());
+            const queriedProductId = (firstAdminsProduct._id as Types.ObjectId).toHexString();
+            expect(productIds.includes(queriedProductId)).to.equal(true);
+            expect(foundAccount!.linkedProducts.length).to.equal(linkedProductsTotal);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          })
+      })
 
     });
     
@@ -301,6 +337,20 @@ describe("ProductsController - Logged In WITH CORRECT BusinessAccount ID - VALID
             done(err);
           });
       });
+      it("Should remove the deleted 'Product' model <_id> property from linked 'BusinessAccount' model <linkedProducts> subarray", (done) => {
+        BusinessAccount.findOne({ _id: firstAdmin.businessAccountId }).exec()
+          .then((foundAccount) => {
+            const linkedProductIds: string [] = foundAccount!.linkedProducts.map((productId) => (productId as Types.ObjectId).toHexString());
+            const deletedProductId: string = deletedProduct._id as string;
+            expect(linkedProductIds.includes(deletedProductId)).to.equal(false);
+            expect(foundAccount!.linkedProducts.length).to.equal(linkedProductsTotal - 1);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+
     });
     // END TEST DELETE DELETE action Correct BusinessAccount - Valid Data //
     
