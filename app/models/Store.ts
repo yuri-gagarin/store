@@ -21,6 +21,7 @@ const StoreSchema: Schema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "BusinessAccount",
     required: true,
+    index: true,
     validate: {
       validator: validateBusinessAccount,
       message: "A 'BusinessAccount' is required to create a new 'Store'"

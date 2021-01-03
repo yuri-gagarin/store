@@ -144,8 +144,9 @@ class ProductsController implements IGenericController {
     });
 
     return newProduct.save()
-      .then((newProduct) => {
-        const productId  = newProduct._id as Types.ObjectId;
+      .then((product) => {
+        createdProduct = product;
+        const productId  = createdProduct._id as Types.ObjectId;
         return BusinessAccount.findOneAndUpdate(
           { _id:  businessAccountId },
           { $push: { linkedProducts: productId } }
@@ -154,7 +155,7 @@ class ProductsController implements IGenericController {
       .then((updatedaccount) => {
         return res.status(200).json({
           responseMsg: "New Product created",
-          newProduct: newProduct
+          newProduct: createdProduct
         });
       })
       .catch((err) => {
@@ -167,8 +168,6 @@ class ProductsController implements IGenericController {
     const { businessAccountId } = req.user as IAdministrator;
     const { name, description, details, price, images : productImages = [] }: ProductData = req.body;
     const updatedProductImgs: string[] = [];
-
-    const admin: IAdministrator = req.user as IAdministrator;
     
     // validate correct data //
     const { valid, errorMessages } = validateProductData({ name, price, description, details });
@@ -239,14 +238,6 @@ class ProductsController implements IGenericController {
         return removeDirectoryWithFiles(productImage.imagePath);
       } else {
         return Promise.resolve({ success: true, numberRemoved: 0 });
-      }
-    })
-    .then((_) => {
-      if (productImage && productImage.absolutePath) {
-        const imagesDirectory = resolveDirectoryOfImg(productImage.absolutePath);
-        return removeDirectoryWithFiles(imagesDirectory);
-      } else {
-        return Promise.resolve({ success: true, numberRemoved: 0, message: "No images" });
       }
     })
     .then(({ numberRemoved }) => {

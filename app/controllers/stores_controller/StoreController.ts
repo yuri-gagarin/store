@@ -3,9 +3,9 @@ import { Types } from "mongoose";
 // models and model interfaces //
 import { IAdministrator } from "../../models/Administrator";
 import Store, { IStore } from "../../models/Store";
-import StoreItem from "../../models/StoreItem";
+import StoreItem, { IStoreItem } from "../../models/StoreItem";
 import StoreImage, { IStoreImage } from "../../models/StoreImage";
-import StoreItemImage from "../../models/StoreItemImage";
+import StoreItemImage, { IStoreItemImage } from "../../models/StoreItemImage";
 // additional generic interfaces //
 import { IGenericController } from "../_helpers/controllerInterfaces";
 import { StoreData } from "./type_declarations/storesControllerTypes";
@@ -14,6 +14,7 @@ import { storeDataValidator } from "./helpers/validationHelpers";
 import { respondWithInputError, resolveDirectoryOfImg, removeDirectoryWithFiles } from "../_helpers/controllerHelpers";
 import { RemoveResponse, resolveStoreItemImgDirectories, respondWithNotAllowedErr } from "../_helpers/controllerHelpers"
 import { NotAllowedError, NotFoundError, processErrorResponse } from "../_helpers/errorHandlers";
+import BusinessAccount from "../../models/BusinessAccount";
 
 interface IGenericStoreResponse {
   responseMsg: string;
@@ -30,25 +31,30 @@ type StoreQueryPar = {
   date?: string;
   limit?: string;
 }
+/**
+ * NOTES 
+ * By the time any of the 'StoresController' methods are called some of the 
+ * following is assumed. <Router> should process some custom middleware
+ * including <verifyAdminAndBusinessAccountId> OR <verifyDataModelAccess> OR BOTH!
+ * By the time any 'StoresController' methods are called, it is assumed that:
+ * 1: <req.user> is defined as 'IAdministrator' model instance
+ * 2: <req.user.businessAccountId> is defined for GET_MANY and CREATE methods
+ * 3: <req.user.businessAccountId> === <store.businessAcccountID> for GET_ONE, EDIT and DELETE methods
+ */
+
 class StoresController implements IGenericController {
+
   getMany (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
-    const admin: IAdministrator = req.user as IAdministrator;
-    // validate user and a business account set up //
-    if (admin) {
-      if (!admin.businessAccountId) {
-        return respondWithNotAllowedErr(res, "Action not allowed", 401, [ "Create a Business Acccount or request to be added to one to get all features"]);
-      }
-    } else {
-      return respondWithNotAllowedErr(res);
-    }
-    // query option //
     const { title, items, date, limit } : StoreQueryPar = req.query;
+    const { businessAccountId } = req.user as IAdministrator;   
+    // query option //
     const queryLimit = limit ? parseInt(limit, 10) : 5;
     // custom queries //
+
     // sort by title alphabetically //
     if (title) {
       return (
-        Store.find({})
+        Store.find({ businessAccountId: businessAccountId })
           .sort({ title: title })
           .limit(queryLimit)
           .populate("images").exec()
@@ -66,7 +72,7 @@ class StoresController implements IGenericController {
     // sort by number of items //
     if (items) {
       return (
-        Store.find({})
+        Store.find({ businessAccountId: businessAccountId })
           .sort({ numOfItems: items })
           .limit(queryLimit)
           .populate("images").exec()
@@ -84,7 +90,7 @@ class StoresController implements IGenericController {
     // sort by date created //
     if (date) {
       return (
-        Store.find({})
+        Store.find({ businessAccountId: businessAccountId })
           .sort({ createdAt: date })
           .limit(queryLimit)
           .populate("images").exec()
@@ -100,7 +106,7 @@ class StoresController implements IGenericController {
       });
     }
     // generic response //
-    return Store.find({ businessAccountId: admin.adminAccountId })
+    return Store.find({ businessAccountId: businessAccountId })
       .limit(queryLimit)
       .populate("images").exec()
       .then((stores) => {
@@ -113,57 +119,36 @@ class StoresController implements IGenericController {
         return processErrorResponse(res, error);
       });
   }
+
   getOne (req: Request, res: Response<IGenericStoreResponse>): Promise<Response>  {
-    const admin: IAdministrator = req.user as IAdministrator;
+    const { businessAccountId } = req.user as IAdministrator;
     const { _id : storeId } = req.params;
     // validate user and a business account set up //
-    if (admin) {
-      if (!admin.businessAccountId) {
-        return respondWithNotAllowedErr(res, "Action not allowed", 401, [ "Create a Business Acccount or request to be added to one to get all features"]);
-      }
-    } else {
-      return respondWithNotAllowedErr(res);
-    }
-    // ensure a Store id was send //
-    if (!storeId) return respondWithInputError(res, "Can't find store");
 
-    return Store.findOne({ _id: storeId })
-      .then((store) => {
-        if (store) {
-          if ((store.businessAccountId as Types.ObjectId).equals(admin.businessAccountId!)) {
-            return store.populate("images").execPopulate();
-          } else {
-            throw new NotAllowedError({ messages: [ "Not allowed to view Stores belonging to another account" ] });
-          }
-        } else {
-          throw new NotFoundError({ messages: [ "Requested Store was not found" ] });
-        }
-      })
-      .then((store) => {
+    return (
+      Store.findOne({ businessAccountId: businessAccountId, _id: storeId })
+        .populate("images")
+        .exec()
+    )
+    .then((store) => {
+      if (store) {
         return res.status(200).json({
           responseMsg: "Store found",
           store: store
         });
-      })
-      .catch((error) => {
-        return processErrorResponse(res, error);
-      });
-  }
-  create (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
-    let businessAccountId: Types.ObjectId;
-    // first ensure admin and businessAccountId exist //
-    const admin: IAdministrator = req.user as IAdministrator;
-    if (admin) {
-      if (!admin.businessAccountId) {
-        return respondWithNotAllowedErr(res, "Action not allowed", 401, [ "Create a Business Acccount or be added to one to create Stores" ]);
       } else {
-        businessAccountId = admin.businessAccountId;
+        throw new NotFoundError({ messages: [ "Requested Store was not found" ] });
       }
-    } else {
-      return respondWithNotAllowedErr(res);
-    }
-    // store create arguments //
+    })
+    .catch((error) => {
+      return processErrorResponse(res, error);
+    });
+  }
+  
+  create (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
+    const { businessAccountId } = req.user as IAdministrator;
     const { title, description }: StoreData = req.body;
+    let createdStore: IStore;
     // validate correct data input for a new store //
     const { valid, errorMessages} = storeDataValidator(req.body);
     if (!valid) {
@@ -181,7 +166,15 @@ class StoresController implements IGenericController {
     });
 
     return newStore.save()
-      .then((newStore) => {
+      .then((store) => {
+        createdStore = store;
+        const storeId = createdStore._id as Types.ObjectId;
+        return BusinessAccount.findOneAndUpdate(
+          { _id: businessAccountId },
+          { $push: { linkedStores: storeId } }
+        );
+      })
+      .then((_) => {
         return res.status(200).json({
           responseMsg: "New store created",
           newStore: newStore
@@ -193,192 +186,172 @@ class StoresController implements IGenericController {
   }
 
   edit (req: Request, res: Response<IGenericStoreResponse>): Promise<Response> {
-    const { _id : storeId } = req.params;
-    let businessAccountId: Types.ObjectId;
-    // first ensure admin and businessAccountId exist //
-    const admin: IAdministrator = req.user as IAdministrator;
-    // validate user and a business account set up //
-    if (admin) {
-      if (!admin.businessAccountId) {
-        return respondWithNotAllowedErr(res, "Action not allowed", 401, [ "Create a Business Acccount or be added to one to edit Stores" ]);
-      } else {
-        businessAccountId = admin.businessAccountId;
-      }
-    } else {
-      return respondWithNotAllowedErr(res);
-    }
-    // ensure Store _id was sent //
-    if (!storeId) {
-      return respondWithInputError(res, "Can't resolve store", 400);
-    }
-    // Store update data //
+    const { storeId } = req.params;
+    const { businessAccountId } = req.user as IAdministrator;
     const { title, description, images : storeImages = [] }: StoreData = req.body;
+
     // validate correct data input for store edit //
     const { valid, errorMessages } = storeDataValidator(req.body);
     if (!valid) {
       return respondWithInputError(res, "Invalid Input", 422, errorMessages);
     }
 
-    return Store.findOne({ _id: storeId }).exec()
-      .then((store) => {
-        if (!store) {
-          throw new NotFoundError({ messages: [ "Store to update not found" ] });
-        } else {
-          if ((store.businessAccountId as Types.ObjectId).equals(businessAccountId)) {
-            return Promise.resolve(store);
-          } else {
-            throw new NotAllowedError({ messages: [ "NOt allowed to edit a Store which does not belong to your account"] });
-          }
-        }
-      })
-      .then((store) => {
-        store.title = title;
-        store.description = description;
-        store.images = storeImages as Types.ObjectId[];
-        store.editedAt = new Date(Date.now());
-        return store.save();
-      })
-      .then((store) => {
-        return Store.populate(store, { path: "images" });
-      })
-      .then((store) => {
+    return (
+      Store.findOneAndUpdate(
+        { businessAccountId: businessAccountId, _id: storeId },
+        { $set: {
+            title: title,
+            description: description,
+            editedAt: new Date(Date.now())
+          }  
+        },
+        { new: true }
+      )
+      .populate("images")
+      .exec()
+    )
+    .then((updatedStore) => {
+      if (updatedStore) {
         return res.status(200).json({
-          responseMsg: "Store Updates",
-          editedStore: store as IStore
+          responseMsg: "Store succesfully updated",
+          editedStore: updatedStore
         });
-      })
-      .catch((error) => {
-        return processErrorResponse(res, error);
-      });
-       
+      } else {
+        throw new NotFoundError({
+          errMessage: "Product update error",
+          messages: [ "Could not resolved the queried Product to update" ]
+        });
+      }
+    })
+    .catch((error) => {
+      return processErrorResponse(res, error);
+    });  
   }
 
   delete (req: Request, res: Response<IGenericStoreResponse>) {
-    let numOfDeletedStoreImages: number; 
-    let numOfDeletedStoreItems: number;
-    let numOfDeletedStoreItemImages: number;
-    let storeItemIds: string[];
-    let businessAccountId: Types.ObjectId | string;
+    const { storeId } = req.params; 
+    const { businessAccountId } = req.params
+    let deletedStore: IStore;
+    let storeImagesPath: string;
+    let numOfDeletedStoreImages: number = 0; 
+    let storeItemsToDelete: boolean = false;
+    let numOfDeletedStoreItems: number = 0;
+    let numOfDeletedStoreItemImages: number = 0;
+    let storeItemIdsWithImages: Types.ObjectId[];
+    let storeItemsImgDirectories: string[];
     let storeToDelete: IStore;
     // 
-    const { _id : storeId } = req.params;
-    const admin: IAdministrator = req.user as IAdministrator;
-    // validate user and a business account set up //
-    if (admin) {
-      if (!admin.businessAccountId) {
-        return respondWithNotAllowedErr(res, "Action not allowed", 401, [ "Create a Business Acccount or be added to one to delete and manage Stores" ]);
-      } else {
-        businessAccountId = admin.businessAccountId;
-      }
-    } else {
-      return respondWithNotAllowedErr(res);
-    }
-    // ensure Store model id was sent //
-    if (!storeId) {
-      return respondWithInputError(res, "Can't resolve Store");
-    }
 
-    return Store.findOne({ _id: storeId }).exec()
-      .then((store) => {
-        if (store) {
-          if ((store.businessAccountId as Types.ObjectId).equals(businessAccountId)) {
-            return store.populate("images").execPopulate();
-          } else {
-            throw new NotAllowedError({ messages: [ "Not allowed to delete Store which doesn't belong to your account" ] });
-          }
-        } else {
-          throw new NotFoundError({ messages: [ "Store to delete was not found" ] });
-        }
-      })
-      .then((store) => {
-        storeToDelete = store;
-        if (store.images.length > 0) {
-          return StoreImage.find({ storeId: storeId });
-        } else {
-          return Promise.resolve([]);
-        }
-      })
-      .then((storeImages) => {
-        if (storeImages.length > 0) {
-          const imagesDirectory = resolveDirectoryOfImg(storeImages[0].absolutePath)
-          return removeDirectoryWithFiles(imagesDirectory);
-        } else {
-          return Promise.resolve({ success: true, numberRemoved: 0, message: "No Images to remove" });
-        }
-      }) 
-      .then(({ success, numberRemoved, message }: RemoveResponse) => {
-        // delete StoreImage models from DB //
-        if (numberRemoved > 0) {
-          return StoreImage.deleteMany({ storeId: storeId });
-        } else {
-          return Promise.resolve({ n: 0 });
-        }
-      })
-      .then(({ n }) => {
-        numOfDeletedStoreImages = n ? n : 0;
-        // find and delete StoreItems if they are present //
-        if (storeToDelete.numOfItems > 0) {
-          return StoreItem.find({ storeId: storeId })
-        } else {
-          return Promise.resolve([]);
-        }
-      })
-      .then((storeItems) => {
-        if (storeItems.length > 0) {
-          storeItemIds = storeItems.map((storeItem) => storeItem._id);
-          return StoreItem.deleteMany({ storeId: storeId });
-        } else {
-          return Promise.resolve({ n: 0 })
-        }
-      })
-      .then(({ n }) => {
-        numOfDeletedStoreItems = n ? n : 0;
-        // deal with potential store item images //
-        return StoreItemImage.find({ storeItemId: { $in: storeItemIds } });
-      })
-      .then((storeItemImages) => {
-        if (storeItemImages.length > 0) {
-          // proceed with removing images and data //
-          // resolve directories first //
-          const directoriesToDelete: string[] = resolveStoreItemImgDirectories(storeItemImages);
-          const removeResponses: Promise<RemoveResponse>[] = []; 
-          for (const directory of directoriesToDelete) {
-            removeResponses.push(removeDirectoryWithFiles(directory));
-          }
-          return Promise.all(removeResponses);
-        } else {
-          Promise.resolve<[RemoveResponse]>([{ success: true, numberRemoved: 0, message: "No Store Item Images to remove" }]);
-        }
-      })  
-      .then((response) => {
-        if (response && response.length > 0) {
-          const totalStoreItemImgsDeleted: RemoveResponse = response.reduce((prev, next) => { 
-            return {
-              numberRemoved: prev.numberRemoved + next.numberRemoved,
-              success: true,
-              message: `Total removed`
-            }
+    return (
+      Store.findOne({ businessAccountId: businessAccountId, _id: storeId })
+      .populate({ path: "images", options: { limit: 1} })
+      .exec()
+    )
+    .then((store) => {
+      if (store) {
+        return Promise.resolve(store);
+      } else {
+        throw new NotFoundError({ messages: [ "Store to delete was not found" ] });
+      }
+    })
+    .then((store) => {
+      if (store.images.length > 0) {
+        storeImagesPath = (store.images[0] as IStoreImage).imagePath;
+        return removeDirectoryWithFiles(storeImagesPath);
+      } else {
+        return Promise.resolve({ success: true, numberRemoved: 0, message: "No Images to remove" });
+      }
+    }) 
+    .then(({ numberRemoved }: RemoveResponse) => {
+      // delete StoreImage models from DB //
+      if (numberRemoved > 0) {
+        return StoreImage.deleteMany({ storeId: storeId }).exec();
+      } else {
+        return Promise.resolve({ response: { ok: true, n: 0 }, deletedCount: 0 });
+      }
+    })
+    .then(({ ok, deletedCount }) => {
+      if (ok && deletedCount && (deletedCount > 0)) numOfDeletedStoreImages = deletedCount;
+      // find and delete StoreItems if they are present //
+      if (storeToDelete.numOfItems > 0) {
+        storeItemsToDelete = true;
+        return (
+          StoreItem
+            .find({ businessAccountId: businessAccountId, storeId: storeId })
+            .populate({ path: "images", options: { limit: 1} })
+            .exec()
+        );
+      } else {
+        return Promise.resolve([]);
+      }
+    })
+    .then((storeItems) => {
+      const imgDeletePromises: Promise<RemoveResponse>[] = [];
+      if (storeItems.length > 0) {
+        // filter store items with images //
+        // then get image directories and storeItemId(s) for image delete query //
+        storeItemsImgDirectories = storeItems
+          .filter((storeItem) => {
+            return storeItem.images.length > 0;
+          })
+          .map((storeItem) => {
+            storeItemIdsWithImages.push(storeItem._id as Types.ObjectId);
+            return (storeItem.images[0] as IStoreItemImage).imagePath;
           });
-          return StoreItemImage.deleteMany({ storeItemId: { $in: storeItemIds }})
+
+        if (storeItemsImgDirectories.length > 0) {
+          for (const directory of storeItemsImgDirectories) {
+            imgDeletePromises.push(removeDirectoryWithFiles(directory));
+          }
+          return Promise.all(imgDeletePromises);
         } else {
-          return Promise.resolve({ n: 0 });
+          return Promise.resolve([]);
         }
-      })
-      .then(({ n }) => {
-        return Store.findOneAndDelete({ _id: storeId })
-      })
-      .then((deletedStore) => {
+      } else {
+        return Promise.resolve([]);
+      }
+    })
+    .then((removeResArr) => {
+      if (removeResArr.length > 0) {
+        return StoreItemImage.deleteMany({ businessAccountId: businessAccountId, storeItemId: { $in: storeItemIdsWithImages } }).exec();
+      } else {
+        return Promise.resolve({ response: { ok: true, n: 0 }, deletedCount: 0 })
+      }
+    })
+    .then(({ ok, deletedCount }) => {
+      if (ok && deletedCount && (deletedCount > 0)) numOfDeletedStoreItemImages = deletedCount;
+      if (storeItemsToDelete && numOfDeletedStoreItemImages > 0) {
+        return StoreItem.deleteMany({ businessAccountId: businessAccountId, storeId: storeId }).exec();
+      } else {
+        return Promise.resolve({ response: { ok: true, n: 0 }, deletedCount: 0 });
+      }
+    })
+    .then(({ ok, deletedCount }) => {
+      if (ok && deletedCount && (deletedCount > 0)) numOfDeletedStoreItems = deletedCount;
+      return Store.findOneAndDelete({ businessAccountId: businessAccountId, _id: storeId }).exec();
+    })
+    .then((deletedStore) => {
+      if (deletedStore) {
+        const responseMsg = 
+          `Deleted Store: ${deletedStore.title}.
+           Deleted ${numOfDeletedStoreImages} Store Images.
+           Deleted ${numOfDeletedStoreItems} Store Items.
+           Deleted ${numOfDeletedStoreItemImages} Store Item Images.
+          `
         return res.status(200).json({
-          responseMsg: `Removed Store`,
-          deletedStore: deletedStore!
+          responseMsg: responseMsg,
+          deletedStore: deletedStore
         });
-      })
-      .catch((error) => {
-        return processErrorResponse(res, error);
-      })
-    }
-    
-  
+      } else {
+        throw new NotFoundError({
+          messages: [ "Seems like we could not resolve the Store to delete" ]
+        });
+      }
+    })
+    .catch((error) => {
+      return processErrorResponse(res, error);
+    })
+  }
 }
 
 export default StoresController;

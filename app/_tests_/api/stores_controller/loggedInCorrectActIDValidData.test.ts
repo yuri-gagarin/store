@@ -1,6 +1,7 @@
 // testing dependecies //
 import chai, { expect } from "chai";
 import chaiHTTP from "chai-http";
+import { Types } from "mongoose";
 // server import /
 import server from "../../../server";
 // models and model interfaces //
@@ -12,6 +13,7 @@ import { clearDB } from "../../helpers/dbHelpers";
 import { generateMockStoreData } from "../../helpers//data_generation/storesDataGeneration"; 
 import { setupStoreControllerTests } from "./_helpers/storeContTestHelpers";
 import { loginAdmins } from "../../helpers/auth_helpers/authHelpers";
+import BusinessAccount from "../../../models/BusinessAccount";
 
 chai.use(chaiHTTP);
 
@@ -27,6 +29,8 @@ describe("StoresController - Logged In WITH CORRECT BusinessAccount ID - VALID D
   // mockData //
   let newStoreData: StoreData;
   let updateStoreData: StoreData;
+  // 
+  let totalLinkedStoresToFirstAdminsAcc: number;
 
   // database and model data setup //
   // logins and jwtTokens //
@@ -43,6 +47,10 @@ describe("StoresController - Logged In WITH CORRECT BusinessAccount ID - VALID D
       })
       .then((number) => {
         totalStores = number;
+        return BusinessAccount.findOne({ _id: firstAdmin.businessAccountId }).exec();
+      })
+      .then((foundAccount) => {
+        totalLinkedStoresToFirstAdminsAcc = foundAccount!.linkedStores.length;
         done();
       })
       .catch((err) => {
@@ -191,6 +199,20 @@ describe("StoresController - Logged In WITH CORRECT BusinessAccount ID - VALID D
           })
           .catch((err) => {
             done(err);
+          });
+      });
+      it("Should update the linked 'BusinessAccount' model and add the newly created 'Store' model to it", (done) => {
+        BusinessAccount.findOne({ _id: firstAdmin.businessAccountId }).exec()
+          .then((foundAccount) => {
+            const linkedStoreIds: string[] = foundAccount!.linkedStores.map((storeId) => (storeId as Types.ObjectId).toHexString());
+            const createdStoreId: string = createdStore._id;
+            expect(linkedStoreIds.includes(createdStoreId)).to.equal(true);
+            expect(foundAccount!.linkedStores.length).to.equal(totalLinkedStoresToFirstAdminsAcc + 1);
+            totalLinkedStoresToFirstAdminsAcc = foundAccount!.linkedStores.length;
+            done();
+          })
+          .catch((error) => {
+            done(error);
           });
       });
 

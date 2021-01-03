@@ -1,9 +1,11 @@
+import { Types } from "mongoose";
 import { setupDB } from "../../../helpers/dbHelpers";
 import { createStores } from "../../../helpers/data_generation/storesDataGeneration";
 import { createAdmins } from "../../../helpers/data_generation/adminsDataGeneration";
 import { createBusinessAcccount } from "../../../helpers/data_generation/businessAccontsGeneration";
 import Administrator, { IAdministrator } from "../../../../models/Administrator";
 import { IStore } from "../../../../models/Store";
+import BusinessAccount from "../../../../models/BusinessAccount";
 
 type SetupStoresContTestRes = {
   admins: {
@@ -25,6 +27,7 @@ type SetupStoresContTestRes = {
 export const setupStoreControllerTests = (): Promise<SetupStoresContTestRes> => {
   let firstAdmin: IAdministrator, secondAdmin: IAdministrator, thirdAdmin: IAdministrator;
   let firstAdminBusAcctId: string, secondAdminBusAcctId: string, thirdAdminBusAcctId: string;
+  let firstAdminsStores: IStore[], secondAdminsStores: IStore[];
   let firstAdminsStore: IStore, secondAdminsStore: IStore;
 
   return setupDB()
@@ -46,6 +49,7 @@ export const setupStoreControllerTests = (): Promise<SetupStoresContTestRes> => 
       ]);
     })
     .then((storesArr) => {
+      [ firstAdminsStores, secondAdminsStores ]= storesArr;
       firstAdminsStore = storesArr[0][0];
       secondAdminsStore = storesArr[1][0];
       return Promise.all([
@@ -55,6 +59,15 @@ export const setupStoreControllerTests = (): Promise<SetupStoresContTestRes> => 
     })
     .then((updatedAdminArr) => {
       [ firstAdmin, secondAdmin ] = (updatedAdminArr as IAdministrator[]);
+      const firstAdminsStoreIds = firstAdminsStores.map((store) => store._id as Types.ObjectId);
+      const secondAdminsStoreIds = secondAdminsStores.map((store) => store._id as Types.ObjectId);
+
+      return Promise.all([
+        BusinessAccount.findOneAndUpdate({ _id: firstAdmin.businessAccountId }, { $push: { linkedStores: { $each: firstAdminsStoreIds } } }),
+        BusinessAccount.findOneAndUpdate({ _id: secondAdmin.businessAccountId }, { $push: { linkedStores: { $each: secondAdminsStoreIds } } }),
+      ]);
+    })
+    .then((_) => {
       return {
         admins: {
           firstAdmin,
