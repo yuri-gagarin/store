@@ -5,6 +5,7 @@ import { Types } from "mongoose";
 // server import /
 import server from "../../../server";
 // models and model interfaces //
+import BusinessAccount, { IBusinessAccount } from "../../../models/BusinessAccount";
 import { ProductData } from "../../../controllers/products_controller/type_declarations/productsControllerTypes";
 import { IAdministrator } from "../../../models/Administrator";
 import Product, { IProduct } from "../../../models/Product";
@@ -12,7 +13,6 @@ import Product, { IProduct } from "../../../models/Product";
 import { clearDB } from "../../helpers/dbHelpers";
 import { generateMockProductData } from "../../helpers/data_generation/productsDataGeneration"; 
 import { setupProdControllerTests, loginAdmins } from "./helpers/setupProdControllerTest";
-import BusinessAccount, { IBusinessAccount } from "../../../models/BusinessAccount";
 
 chai.use(chaiHTTP);
 

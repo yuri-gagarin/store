@@ -1,9 +1,11 @@
 // testing dependecies //
 import chai, { expect } from "chai";
 import chaiHTTP from "chai-http";
+import { Types } from "mongoose";
 // server import /
 import server from "../../../server";
 // models and model interfaces //
+import BusinessAccount from "../../../models/BusinessAccount";
 import { ServiceData } from "../../../controllers/services_controller/type_declarations/servicesControllerTypes";
 import { IAdministrator } from "../../../models/Administrator";
 import Service, { IService } from "../../../models/Service";
@@ -27,7 +29,11 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - VALID
   // mockData //
   let newServiceData: ServiceData;
   let updateServiceData: ServiceData;
-
+  //
+  let totalLinkedAdminsToFirstAdminsAcc: number;
+  let totalLinkedStoresToFirstAdminsAcc: number;
+  let totalLinkedServicesToFirstAdminsAcc: number;
+  let totalLinkedProductsToFirstAdminsAcc: number;
   // database and model data setup //
   // logins and jwtTokens //
   before((done) => {
@@ -43,7 +49,14 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - VALID
       })
       .then((number) => {
         totalServices = number;
-        done();
+        return BusinessAccount.findOne({ _id: firstAdmin.businessAccountId }).exec();
+      })
+      .then((foundAccount) => {
+        totalLinkedAdminsToFirstAdminsAcc = foundAccount!.linkedAdmins.length;
+        totalLinkedStoresToFirstAdminsAcc = foundAccount!.linkedStores.length;
+        totalLinkedServicesToFirstAdminsAcc = foundAccount!.linkedServices.length;
+        totalLinkedProductsToFirstAdminsAcc = foundAccount!.linkedProducts.length;
+        done()
       })
       .catch((err) => {
         done(err);
@@ -193,6 +206,33 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - VALID
             done(err);
           });
       });
+      it("Should update the linked 'BusinessAccount' model and add the newly created 'Service' mdel to it", (done) => {
+        BusinessAccount.findOne({ _id: firstAdmin.businessAccountId }).exec()
+          .then((foundAccount) => {
+            const linkedServiceIds: string[] = foundAccount!.linkedServices.map((service) => (service as Types.ObjectId).toHexString());
+            const createdServiceId: string = createdService._id;
+            // assert //
+            expect(linkedServiceIds.includes(createdServiceId)).to.equal(true);
+            expect(foundAccount!.linkedServices.length).to.equal(totalLinkedServicesToFirstAdminsAcc + 1);
+            totalLinkedServicesToFirstAdminsAcc = foundAccount!.linkedServices.length;
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should NOT alter the linked 'BusinessAccount' model's any other subarrays", (done) => {
+        BusinessAccount.findOne({ _id: firstAdmin.businessAccountId }).exec()
+          .then((foundAccount) => {
+            expect(foundAccount!.linkedAdmins.length).to.equal(totalLinkedAdminsToFirstAdminsAcc);
+            expect(foundAccount!.linkedStores.length).to.equal(totalLinkedStoresToFirstAdminsAcc);
+            expect(foundAccount!.linkedProducts.length).to.equal(totalLinkedProductsToFirstAdminsAcc);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
 
     });
     // END TEST POST CREATE action Correct BusinessAccount - VALID Data //
@@ -257,6 +297,31 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - VALID
             done(err);
           });
       });
+      it("Should NOT alter the linked 'BusinessAccount' model and its <linkedServices> subarray", (done) => {
+        BusinessAccount.findOne({ _id: firstAdmin.businessAccountId }).exec()
+          .then((foundAccount) => {
+            const linkedServiceIds: string[] = foundAccount!.linkedServices.map((serviceId) => (serviceId as Types.ObjectId).toHexString());
+            const updatedServiceId: string = updatedService._id;
+            expect(linkedServiceIds.includes(updatedServiceId)).to.equal(true);
+            expect(foundAccount!.linkedServices.length).to.equal(totalLinkedServicesToFirstAdminsAcc);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should NOT alter the linked 'BusinessAccount' model's any other subarrays", (done) => {
+        BusinessAccount.findOne({ _id: firstAdmin.businessAccountId }).exec()
+          .then((foundAccount) => {
+            expect(foundAccount!.linkedAdmins.length).to.equal(totalLinkedAdminsToFirstAdminsAcc);
+            expect(foundAccount!.linkedStores.length).to.equal(totalLinkedStoresToFirstAdminsAcc);
+            expect(foundAccount!.linkedProducts.length).to.equal(totalLinkedProductsToFirstAdminsAcc);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
 
     });
     
@@ -300,6 +365,33 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - VALID
             done(err);
           });
       });
+      it("Should update the linked 'BusinessAccount' model and removed the deleted 'Service' model from its <linkedServices> subarray", (done) => {
+        BusinessAccount.findOne({ _id: firstAdmin.businessAccountId }).exec()
+          .then((foundAccount) => {
+            const linkedServiceIds: string[] = foundAccount!.linkedServices.map((serviceId) => (serviceId as Types.ObjectId).toHexString());
+            const createdServiceId: string = deletedService._id;
+            expect(linkedServiceIds.includes(createdServiceId)).to.equal(false);
+            expect(foundAccount!.linkedServices.length).to.equal(totalLinkedServicesToFirstAdminsAcc - 1);
+            totalLinkedServicesToFirstAdminsAcc = foundAccount!.linkedServices.length;
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should NOT alter linked 'BusinessAccount' model's any other subarrays", (done) => {
+        BusinessAccount.findOne({ _id: firstAdmin.businessAccountId }).exec()
+          .then((foundAccount) => {
+            expect(foundAccount!.linkedAdmins.length).to.equal(totalLinkedAdminsToFirstAdminsAcc);
+            expect(foundAccount!.linkedStores.length).to.equal(totalLinkedStoresToFirstAdminsAcc);
+            expect(foundAccount!.linkedProducts.length).to.equal(totalLinkedProductsToFirstAdminsAcc);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+
     });
     // END TEST DELETE DELETE action Correct BusinessAccount - Valid Data //
     

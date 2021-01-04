@@ -11,6 +11,7 @@ import { ServiceData, ServiceQueryPar, GenericServiceResponse } from "./type_dec
 import { respondWithDBError, respondWithInputError, removeDirectoryWithFiles } from "../_helpers/controllerHelpers";
 import { validateServiceData } from "./helpers/validationHelpers";
 import { NotFoundError, processErrorResponse } from "../_helpers/errorHandlers";
+import BusinessAccount from "../../models/BusinessAccount";
 
 /**
  * NOTES //
@@ -32,7 +33,7 @@ class ServicesController implements IGenericController {
     // sort by price //
     if (price) {
       return (
-        Service.find({})
+        Service.find({ businessAccountId: businessAccountId })
           .sort({ price: price }).limit(queryLimit)
           .populate("images").exec()
       )
@@ -49,7 +50,7 @@ class ServicesController implements IGenericController {
     // sort by name alphabetically //
     if (name) {
       return (
-        Service.find({})
+        Service.find({ businessAccountId: businessAccountId })
           .sort({ name: name }).limit(queryLimit)
           .populate("images").exec()
       )
@@ -66,7 +67,7 @@ class ServicesController implements IGenericController {
     // sort by date created //
     if (date) {
       return (
-        Service.find({})
+        Service.find({ businessAccountId: businessAccountId })
           .sort({ createdAt: date }).limit(queryLimit)
           .populate("images").exec()
       )
@@ -98,8 +99,7 @@ class ServicesController implements IGenericController {
 
     if (!serviceId) return respondWithInputError(res, "Can't find specific service");
 
-    return Service.findOne({ businessAccountId: businessAccountId })
-      .where({ _id: serviceId })
+    return Service.findOne({ businessAccountId: businessAccountId, _id: serviceId })
       .populate("images").exec()
       .then((service) => {
         if (service) {
@@ -117,10 +117,11 @@ class ServicesController implements IGenericController {
   }
 
   create (req: Request, res: Response<GenericServiceResponse>): Promise<Response> {
-    const { name, description, price, images : serviceImages = []}: ServiceData = req.body;
-    const imgIds: Types.ObjectId[] = [];
-    const businessAccountId: Types.ObjectId = (req.user as IAdministrator).businessAccountId!;
+    const { name, description, price }: ServiceData = req.body;
+    const { businessAccountId } = (req.user as IAdministrator);
+    let createdService: IService;
 
+    // validate input //
     const { valid, errorMessages } = validateServiceData(req.body);
     if (!valid) {
       return respondWithInputError(res, "Invalid Data Input", 422, errorMessages);
@@ -131,16 +132,23 @@ class ServicesController implements IGenericController {
       name: name,
       description: description,
       price: price,
-      images: imgIds,
+      images: [],
       createdAt: new Date(Date.now()),
       editedAt: new Date(Date.now())
     });
 
     return newService.save()
       .then((newService) => {
+        createdService = newService;
+        return BusinessAccount.findOneAndUpdate(
+          { _id: businessAccountId },
+          { $push: { linkedServices: createdService._id } }
+        ) 
+      })
+      .then((_) => {
         return res.status(200).json({
           responseMsg: "New service created",
-          newService: newService
+          newService: createdService
         });
       })
       .catch((error) => {
@@ -209,9 +217,8 @@ class ServicesController implements IGenericController {
 
    return (
     Service
-      .findOne({ businessAccountId: businessAccountId })
-      .where({ _id: serviceId })
-      .populate("images")
+      .findOne({ businessAccountId: businessAccountId, _id: serviceId })
+      .populate({ path: "images", options: { limit: 1 } })
       .exec()
     )
     .then((service) => {
@@ -223,16 +230,16 @@ class ServicesController implements IGenericController {
     })
     .then((service) => {
       // first delete all service images if any //
-      if (service.images[0]) {
-        const imgData = service.images[0] as IServiceImage;
+      if (service.images.length > 0) {
+        const imgPath = (service.images[0] as IServiceImage).imagePath;
         // method looks into directory removes all files within and then directory //
         // for now assumption is there are no subdirectories //
-        return removeDirectoryWithFiles(imgData.imagePath)
+        return removeDirectoryWithFiles(imgPath)
       } else {
         return Promise.resolve({ numberRemoved: 0, message: "No Images to delete" });
       } 
     })
-    .then(({ numberRemoved, message }) => {
+    .then(({ numberRemoved  }) => {
       if (numberRemoved > 0) {
         return ServiceImage.deleteMany({ serviceId: serviceId }).exec();
       } else {
@@ -241,9 +248,13 @@ class ServicesController implements IGenericController {
     })
     .then(({ n }) => {
       (n && n > 0) ? deletedImages = n : 0;
-      return Service.findOneAndDelete({ _id: serviceId }).exec();
+      return Promise.all([
+        Service.findOneAndDelete({ businessAccountId: businessAccountId, _id: serviceId }).exec(),
+        BusinessAccount.findOneAndUpdate({ _id: businessAccountId }, { $pull: { linkedServices: serviceId } })
+      ]);
     })
-    .then((deletedService) => {
+    .then((deletePromises) => {
+      let deletedService: IService | null = deletePromises[0];
       if (deletedService) {
         return res.status(200).json({
           responseMsg: `Deleted Service ${deletedService.name} and ${deletedImages} Service Images`,

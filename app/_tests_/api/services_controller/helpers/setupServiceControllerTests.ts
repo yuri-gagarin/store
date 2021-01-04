@@ -1,10 +1,12 @@
 import chaiHTTP from "chai-http";
+import { Types } from "mongoose";
 import { setupDB, clearDB } from "../../../helpers/dbHelpers";
 import { createAdmins } from "../../../helpers/data_generation/adminsDataGeneration";
 import { createServices } from "../../../helpers/data_generation/serviceDataGeneration";
 import { createBusinessAcccount } from "../../../helpers/data_generation/businessAccontsGeneration";
 import Administrator, { IAdministrator } from "../../../../models/Administrator";
 import Service, { IService } from "../../../../models/Service";
+import BusinessAccount from "../../../../models/BusinessAccount";
 
 type SetupServiceContTestRes = {
   admins: {
@@ -47,11 +49,15 @@ export const setupServiceControllerTests = (): Promise<SetupServiceContTestRes> 
       ]);
     })
     .then((services) => {
+      const firstAdminsServiceIds = services[0].map((service) => service._id as Types.ObjectId);
+      const secondAdminsServiceIds = services[1].map((service) => service._id as Types.ObjectId);
       firstAdminsService = services[0][0];
       secondAdminsService = services[1][0];
       return Promise.all([
         Administrator.findOneAndUpdate({ _id: firstAdmin._id }, { $set: { businessAccountId: firstAdminBusAcctId } }, { new: true }),
-        Administrator.findOneAndUpdate({ _id: secondAdmin._id }, { $set: { businessAccountId: secondAdminBusAcctId } }, { new: true })
+        Administrator.findOneAndUpdate({ _id: secondAdmin._id }, { $set: { businessAccountId: secondAdminBusAcctId } }, { new: true }),
+        BusinessAccount.findOneAndUpdate({ _id: firstAdminBusAcctId }, { $push: { linkedServices: { $each: firstAdminsServiceIds } } }),
+        BusinessAccount.findOneAndUpdate({ _id: secondAdminBusAcctId }, { $push: { linkedServices: { $each: secondAdminsServiceIds } } })
       ]);
     })
     .then((updatedAdminArr) => {
