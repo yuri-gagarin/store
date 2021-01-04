@@ -67,7 +67,9 @@ export const createServiceImages = async (numberOfImagesToCreate: number, servic
         imagePath: path.join(path.resolve(), "public", "uploads", "service_images", subDir),
         absolutePath: absolutePath,
         fileName: imageName,
-        url: path.join("/", "uploads", "service_images", subDir, imageName)
+        url: path.join("/", "uploads", "service_images", subDir, imageName),
+        createdAt: new Date(Date.now()),
+        editedAt: new Date(Date.now())
       });
       imagePromises.push(createServiceImage(newImage));
 
