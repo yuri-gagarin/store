@@ -19,9 +19,57 @@ import { setupServiceControllerTests } from "./helpers/setupServiceControllerTes
 import { cleanUpServiceImgControllerTests } from "../service_images_controller/helpers/setupServiceImgControllerTests";
 import { createServiceImages } from "../../helpers/data_generation/serviceImageDataGeneration";
 import { loginAdmins } from "../../helpers/auth_helpers/authHelpers";
-import { image } from "faker";
 
 chai.use(chaiHTTP);
+
+type ImageDirectoryDetails = {
+  imageModel: string;
+  imageDirectories: string[];
+  imageSubDirectories: string[];
+  imageFiles: string[];
+  totalImageDirectories: number;
+  totalImageSubdirectories: number;
+  totalImageFiles: number;
+}
+const getImageUploadData = (...paths: string []): ImageDirectoryDetails => {
+  const firstString = paths[0].split("_")[0]; 
+  const modelName = firstString[0].toUpperCase() + firstString.substr(1) + "Image";
+  //
+  const imageUplPath = path.join(path.resolve(), "public", "uploads", ...paths);
+  const imageUplSubdirectories: string[] = [];
+  const imageFiles: string[] = [];
+
+  try {
+    const imageUplDirectories = fs.readdirSync(imageUplPath).map((dir) => {
+      return path.join(imageUplPath, dir);
+    });
+
+    for (const imgUplDirectory of imageUplDirectories) {
+      const subdirectories = fs.readdirSync(imgUplDirectory).map((subdir) => {
+        return path.join(imgUplDirectory, subdir);
+      })
+      imageUplSubdirectories.push(...subdirectories);
+    }
+
+    for (const imgUplSubdirectory of imageUplSubdirectories) {
+      const files = readdirSync(imgUplSubdirectory);
+      imageFiles.push(...files);
+    }
+
+    return {
+      imageModel: modelName,
+      imageDirectories: imageUplDirectories,
+      imageSubDirectories: imageUplSubdirectories,
+      imageFiles: imageFiles,
+      totalImageDirectories: imageUplDirectories.length,
+      totalImageSubdirectories: imageUplSubdirectories.length,
+      totalImageFiles: imageFiles.length
+    };
+  } catch (error) {
+    throw error;
+  }
+  
+};
 /**
  * This test suite tests mostly the effect of 'ServiceController' methods on linked 'ServiceImage' models,
  * making sure actions are correctly populating and removing images when appropriate
@@ -80,22 +128,10 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - tests
       .then((countsArray) => {
         [ totalServices, totalServiceImages, firstAdminsServiceImgTotal ] = countsArray;
         try {
-          const directories = fs.readdirSync(path.join(path.resolve(), "public", "uploads", "service_images"));
-          const subDirectories: string[] = [];
-          const createdImageFiles: string[] = [];
-          for (const directory of directories) {
-            const subdirs: string[] = fs.readdirSync(path.join(path.resolve(), 'public', 'uploads', 'service_images', directory));
-            for (const subdir of subdirs) {
-              subDirectories.push(path.join(path.resolve(), "public", "uploads", "service_images", directory, subdir));
-            }
-          }
-          for (const subDir of subDirectories) {
-            const files = fs.readdirSync(subDir);
-            createdImageFiles.push(...files);
-          }
-          numberOfServiceImageDirectories = directories.length;
-          numberOfServiceImageSubDirectories = subDirectories.length;
-          numberOfServiceImageFiles = createdImageFiles.length;
+          const data = getImageUploadData("service_images");
+          numberOfServiceImageDirectories = data.totalImageDirectories;
+          numberOfServiceImageSubDirectories = data.totalImageSubdirectories;
+          numberOfServiceImageFiles = data.totalImageFiles;
           done();
         } catch (error) {
           done(error);
@@ -170,7 +206,16 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - tests
             done(error);
           });
       });
-
+      it("Should NOT alter any 'ServiceImage' upload files nor its upload directories", () => {
+        try {
+          const { totalImageDirectories, totalImageSubdirectories, totalImageFiles } = getImageUploadData("service_images");
+          expect(totalImageDirectories).to.equal(numberOfServiceImageDirectories);
+          expect(totalImageSubdirectories).to.equal(numberOfServiceImageSubDirectories);
+          expect(totalImageFiles).to.equal(numberOfServiceImageFiles);
+        } catch (error) {
+          throw error;
+        }
+      });
     });
     // END TEST GET GET_MANY action correct BusinessAccount //
 
@@ -215,11 +260,12 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - tests
             done(error);
           });
       });
-      it("Should NOT remove any 'ServiceImage' files belonging to queried 'Service' model", () => {
-        const imgDirectory = firstAdminsServiceImages[0].imagePath;
+      it("Should NOT alter any 'ServiceImage' upload files nor its upload directories", () => {
         try {
-          const imageFiles = fs.readdirSync(imgDirectory);
-          expect(imageFiles.length).to.equal(firstAdminsServiceImgTotal);
+          const { totalImageDirectories, totalImageSubdirectories, totalImageFiles } = getImageUploadData("service_images");
+          expect(totalImageDirectories).to.equal(numberOfServiceImageDirectories);
+          expect(totalImageSubdirectories).to.equal(numberOfServiceImageSubDirectories);
+          expect(totalImageFiles).to.equal(numberOfServiceImageFiles);
         } catch (error) {
           throw error;
         }
@@ -259,32 +305,64 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - tests
             done(error);
           });
       });
-      it("Should NOT create any new 'ServiceImage; directories nor alter eny existing directories", () => {
+      it("Should NOT alter any 'ServiceImage' upload files nor its upload directories", () => {
         try {
-          const imgDirectories = fs.readdirSync(path.join(path.resolve(), "public", "uploads", "service_images"));
-          const absoluteImgDirectories: string[] = [];
-          const imageFiles: string[] = [];
-          for (const directory of imgDirectories) {
-            const subdirs = fs.readdirSync(path.join(path.resolve(), "public", "uploads", "service_images", directory));
-            for (const subdir of subdirs) {
-              absoluteImgDirectories.push(path.join(path.resolve(), "public", "uploads", "service_images", directory, subdir));
-            }
-          }
-          for (const absDirectory of absoluteImgDirectories) {
-            const files = fs.readdirSync(absDirectory);
-            imageFiles.push(...files);
-          }
-          expect(imgDirectories.length).to.equal(numberOfServiceImageDirectories);
-          expect(absoluteImgDirectories.length).to.equal(numberOfServiceImageSubDirectories);
-          expect(imageFiles.length).to.equal(numberOfServiceImageFiles);
+          const { totalImageDirectories, totalImageSubdirectories, totalImageFiles } = getImageUploadData("service_images");
+          expect(totalImageDirectories).to.equal(numberOfServiceImageDirectories);
+          expect(totalImageSubdirectories).to.equal(numberOfServiceImageSubDirectories);
+          expect(totalImageFiles).to.equal(numberOfServiceImageFiles);
         } catch (error) {
           throw error;
         }
       });
 
     });
-
     // END TEST POST CREATE action with a corect BusinessAccount //
+
+    // TEST PATCH EDIT  action with a correct BusinessAccount //
+    describe("POST '/api/services/update/:serviceId' - CORRECT 'BusinessAccount' tests with 'ServiceImages' - CREATE action", () => {
+
+      it("Should update 'Service' model and return a correct response", (done) => {
+        const mockService = generateMockServiceData(1);
+        chai.request(server)
+          .patch("/api/services/update/" + (firstAdminsService._id as Types.ObjectId))
+          .set({ "Authorization": firstToken })
+          .send(...mockService)
+          .end((err, res) => {
+            if (err) done(err);
+            updatedService = res.body.editedService;
+            // assert correct response //
+            expect(res.status).of.equal(200);
+            expect(res.body.responseMsg).be.a("string");
+            expect(res.body.editedService).to.be.an("object");
+            expect(res.body.error).to.be.undefined;
+            expect(res.body.errorMessages).to.be.undefined;
+            done();
+          });
+      });
+      it("Should NOT alter anything within 'ServiceImage' models in the database", (done) => {
+        ServiceImage.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(totalServiceImages);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should NOT alter any 'ServiceImage' upload files nor its upload directories", () => {
+        try {
+          const { totalImageDirectories, totalImageSubdirectories, totalImageFiles } = getImageUploadData("service_images");
+          expect(totalImageDirectories).to.equal(numberOfServiceImageDirectories);
+          expect(totalImageSubdirectories).to.equal(numberOfServiceImageSubDirectories);
+          expect(totalImageFiles).to.equal(numberOfServiceImageFiles);
+        } catch (error) {
+          throw error;
+        }
+      });
+
+    });
+    // END TEST PATCH EDIT action with a corect BusinessAccount //
 
     // TEST DELETE DELETE action correct BusinessAccount //
     describe("DELETE '/api/services/delete/:serviceId' - CORRECT 'BusinessAccount' tests with 'ServiceImages' - DELETE action", () => {
@@ -338,25 +416,11 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - tests
         // service images are uploaded to <path>/public/uploads/service_images/<businessAccounId>/<serviceId> //
         // a removed service should remove its linked uploaded images in <path>/public/uploads/service_images/<businessAccounId>/<serviceId> directory //
         // it should also remove the <serviceId> directory but leave all other directories untouched //
-        const imgDirectories = fs.readdirSync(path.join(path.resolve(), "public", "uploads", "service_images"));
-        const absoluteImgSubdirectories: string[] = [];
-        const imageFiles: string[] = [];
         try {
-          for (const directory of imgDirectories) {
-            const subdirs = fs.readdirSync(path.join(path.resolve(), "public", "uploads", "service_images", directory));
-            for (const subdir of subdirs) {
-              absoluteImgSubdirectories.push(path.join(path.resolve(), "public", "uploads", "service_images", directory, subdir));
-            }
-          }
-          for (const absoluteImgSubDirectory of absoluteImgSubdirectories) {
-            const imgFiles = readdirSync(absoluteImgSubDirectory);
-            imageFiles.push(...imgFiles);
-          }
-          // assert correct reponse //
-          // image directory should not be deleted, only the subdirectory belonging to queried account model //
-          expect(imgDirectories.length).to.equal(numberOfServiceImageDirectories);
-          expect(absoluteImgSubdirectories.length).to.equal(numberOfServiceImageSubDirectories - 1);
-          expect(imageFiles.length).to.equal(numberOfServiceImageFiles - firstAdminsServiceImgTotal);
+          const { totalImageDirectories, totalImageSubdirectories, totalImageFiles } = getImageUploadData("service_images");
+          expect(totalImageDirectories).to.equal(numberOfServiceImageDirectories);
+          expect(totalImageSubdirectories).to.equal(numberOfServiceImageSubDirectories - 1);
+          expect(totalImageFiles).to.equal(numberOfServiceImageFiles - firstAdminsServiceImages.length);
         } catch (error) {
           throw error;
         }

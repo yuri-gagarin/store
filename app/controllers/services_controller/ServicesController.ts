@@ -168,7 +168,7 @@ class ServicesController implements IGenericController {
       return respondWithInputError(res, "Invalid Data Input", 422, errorMessages);
     }
     const { name, description, price, images : serviceImages = [] }: ServiceData = req.body;
-    const updatedServiceImgs = serviceImages.map((img) => Types.ObjectId(img));
+    // const updatedServiceImgs = serviceImages.map((img) => Types.ObjectId(img));
     
     return Service.findOneAndUpdate(
       { businessAccountId: businessAccountId, 
@@ -179,7 +179,6 @@ class ServicesController implements IGenericController {
           name: name,
           description: description,
           price: price as number,
-          images: [ ...updatedServiceImgs ],
           editedAt: new Date(Date.now())
         },
       },
