@@ -167,7 +167,6 @@ class ProductsController implements IGenericController {
     const { productId } = req.params;
     const { businessAccountId } = req.user as IAdministrator;
     const { name, description, details, price, images : productImages = [] }: ProductData = req.body;
-    const updatedProductImgs: string[] = [];
     
     // validate correct data //
     const { valid, errorMessages } = validateProductData({ name, price, description, details });
@@ -185,7 +184,6 @@ class ProductsController implements IGenericController {
             description: description, 
             details: details, 
             editedAt: new Date(Date.now()), 
-            images: [ ...(productImages as Types.ObjectId[]) ] 
           }
         },
         { new: true }
@@ -221,7 +219,7 @@ class ProductsController implements IGenericController {
   
     return (
       Product.findOne({ businessAccountId: businessAccountId, _id: productId })
-        .populate({ path: "images", options: { limit: 1 } })
+        .populate({ path: "images", model: "ProductImage", options: { limit: 1 } })
         .exec()
     )
     .then((product) => {

@@ -62,12 +62,13 @@ export const createProductImages = async (numberOfImagesToCreate: number, produc
         imagePath: PATH.join(PATH.resolve(), "public", "uploads", "product_images", subDir),
         absolutePath: absolutePath,
         fileName: imageName,
-        url: PATH.join("/" + "uploads", "product_images", subDir, imageName)
+        url: PATH.join("/" + "uploads", "product_images", subDir, imageName),
+        createdAt: new Date(Date.now()),
+        editedAt: new Date(Date.now())
       });
       imagePromises.push(createProductImage(newImage));
 
     } catch (error) {
-      console.error(error);
       throw error;
     }
   }

@@ -73,7 +73,7 @@ const getImageUploadData = (...paths: string []): ImageDirectoryDetails => {
 /**
  * This test suite tests mostly the effect of 'ServiceController' methods on linked 'ServiceImage' models,
  * making sure actions are correctly populating and removing images when appropriate
- * For detailed 'ServiceController' action tests, another test suite handles other detailed test cases
+ * For detailed 'ServiceController' action tests, another test suite handles other detailed test cases regarding the 'Service' model.
  */
 
 describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - tests with 'ServiceImage' models present - GET/POST/PATCH/DELETE  - API tests", () => {

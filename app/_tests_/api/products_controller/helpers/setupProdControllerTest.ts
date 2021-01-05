@@ -13,16 +13,18 @@ type SetupProdContTestRes = {
     firstAdmin: IAdministrator,
     secondAdmin: IAdministrator,
     thirdAdmin: IAdministrator
-  },
+  };
   busAccountIds: {
     firstAdminBusAcctId: string;
     secondAdminBusAcctId: string;
     thirdAdminBusAcctId: string;
-  }
+  };
   products: {
     firstAdminsProduct: IProduct;
     secondAdminsProduct: IProduct;
-  }
+    firstAdminsProductsArr: IProduct[];
+    secondAdminsProductsArr: IProduct[];
+  };
 };
 
 export const setupProdControllerTests = (): Promise<SetupProdContTestRes> => {
@@ -85,7 +87,9 @@ export const setupProdControllerTests = (): Promise<SetupProdContTestRes> => {
         },
         products: {
           firstAdminsProduct,
-          secondAdminsProduct
+          secondAdminsProduct,
+          firstAdminsProductsArr: firstAdminsProducts,
+          secondAdminsProductsArr: secondAdminsProducts
         }
       };
     })
