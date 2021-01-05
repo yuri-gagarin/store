@@ -421,6 +421,9 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - tests
           expect(totalImageDirectories).to.equal(numberOfServiceImageDirectories);
           expect(totalImageSubdirectories).to.equal(numberOfServiceImageSubDirectories - 1);
           expect(totalImageFiles).to.equal(numberOfServiceImageFiles - firstAdminsServiceImages.length);
+          numberOfServiceImageDirectories = totalImageDirectories;
+          numberOfServiceImageSubDirectories = totalImageSubdirectories;
+          numberOfServiceImageFiles = totalImageFiles;
         } catch (error) {
           throw error;
         }
@@ -431,5 +434,137 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - tests
    
     
   });
- 
+  // END CONTEXT tests with a correct business accound id //
+
+  // CONTEXT tests with incorrect business account id //
+  context("Admin WITH a 'BusinessAccount' set up, accessing NOT OWN models GET_ONE, EDIT, DELETE actions", () => {
+    // TEST GET_ONE action with wrong BusinessAccount //
+    describe("GET '/api/services/:serviceId' - WRON 'BusinessAccount' tests with 'ServiceImages' - GET_ONE action", () => {
+
+      it("Should NOT fetch 'Service' models and return a correct error response", (done) => {
+        chai.request(server)
+          .get("/api/services/" + (createdService._id as Types.ObjectId))
+          .set({ "Authorization": secondToken })
+          .end((err, res) => {
+            if (err) done(err);
+            // assert correct response //
+            expect(res.status).of.equal(401);
+            expect(res.body.responseMsg).be.a("string");
+            expect(res.body.error).to.be.an("object")
+            expect(res.body.errorMessages).to.be.an("array");
+            expect(res.body.service).to.be.undefined;
+            done();
+          });
+      });
+      it("Should NOT alter anything within 'ServiceImage' models in the database", (done) => {
+        ServiceImage.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(totalServiceImages);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should NOT alter any 'ServiceImage' upload files nor its upload directories", () => {
+        try {
+          const { totalImageDirectories, totalImageSubdirectories, totalImageFiles } = getImageUploadData("service_images");
+          expect(totalImageDirectories).to.equal(numberOfServiceImageDirectories);
+          expect(totalImageSubdirectories).to.equal(numberOfServiceImageSubDirectories);
+          expect(totalImageFiles).to.equal(numberOfServiceImageFiles);
+        } catch (error) {
+          throw error;
+        }
+      });
+
+    });
+    // END TEST GET_ONE action with a correct BusinessAccount //
+
+    // TEST PATCH EDIT  action with a correct BusinessAccount //
+    describe("PATCH '/api/services/update/:serviceId' - WRONG 'BusinessAccount' tests with 'ServiceImages' - EDIT action", () => {
+
+      it("Should NOT update 'Service' model and return a correct error response", (done) => {
+        const mockService = generateMockServiceData(1);
+        chai.request(server)
+          .patch("/api/services/update/" + (createdService._id as Types.ObjectId))
+          .set({ "Authorization": secondToken })
+          .send(...mockService)
+          .end((err, res) => {
+            if (err) done(err);
+            updatedService = res.body.editedService;
+            // assert correct response //
+            expect(res.status).of.equal(401);
+            expect(res.body.responseMsg).be.a("string");
+            expect(res.body.error).to.be.an("object");
+            expect(res.body.errorMessages).to.be.an("array");
+            expect(res.body.editedService).to.be.undefined;
+            done();
+          });
+      });
+      it("Should NOT alter anything within 'ServiceImage' models in the database", (done) => {
+        ServiceImage.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(totalServiceImages);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should NOT alter any 'ServiceImage' upload files nor its upload directories", () => {
+        try {
+          const { totalImageDirectories, totalImageSubdirectories, totalImageFiles } = getImageUploadData("service_images");
+          expect(totalImageDirectories).to.equal(numberOfServiceImageDirectories);
+          expect(totalImageSubdirectories).to.equal(numberOfServiceImageSubDirectories);
+          expect(totalImageFiles).to.equal(numberOfServiceImageFiles);
+        } catch (error) {
+          throw error;
+        }
+      });
+
+    });
+    // END TEST PATCH EDIT action with an incorect BusinessAccount //
+
+    // TEST DELETE DELETE action with an incorrect BusinessAccount //
+    describe("DELETE '/api/services/delete/:serviceId' - WRONG 'BusinessAccount' tests with 'ServiceImages' - DELETE action", () => {
+
+      it("Should NOT delete the 'Service' model and return a correct error response", (done) => {
+        chai.request(server)
+          .delete("/api/services/delete/" + String(createdService._id))
+          .set({ "Authorization": secondToken })
+          .end((err, res) => {
+            if (err) done(err);
+            // assert correct response //
+            expect(res.status).to.equal(401);
+            expect(res.body.responseMsg).be.a("string");
+            expect(res.body.error).to.be.an("object");
+            expect(res.body.errorMessages).to.be.an("array");
+            expect(res.body.deletedService).to.be.undefined;
+            done();
+          });
+      });
+      it("Should NOT alter anything within 'ServiceImage' models in the database", (done) => {
+        ServiceImage.countDocuments().exec()
+          .then((number) => {
+            expect(number).to.equal(totalServiceImages);
+            done();
+          })
+          .catch((error) => {
+            done(error);
+          });
+      });
+      it("Should NOT alter any 'ServiceImage' upload files nor its upload directories", () => {
+        try {
+          const { totalImageDirectories, totalImageSubdirectories, totalImageFiles } = getImageUploadData("service_images");
+          expect(totalImageDirectories).to.equal(numberOfServiceImageDirectories);
+          expect(totalImageSubdirectories).to.equal(numberOfServiceImageSubDirectories);
+          expect(totalImageFiles).to.equal(numberOfServiceImageFiles);
+        } catch (error) {
+          throw error;
+        }
+      });
+    });
+    // END TEST DELETE DELETE action correct BusinessAccount //
+  });
+  // END CONTEXT //
 });
