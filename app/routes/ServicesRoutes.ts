@@ -1,9 +1,9 @@
-import passport from "passport";
 import { Router} from "express";
 import { RouteConstructor } from "./helpers/routeInterfaces";
 import { IGenericController } from "../controllers/_helpers/controllerInterfaces";
 // custom middleware //
 import { verifyAdminAndBusinessAccountId, verifyDataModelAccess } from "../custom_middleware/customMiddlewares";
+import { verifyLoggedInAdministrator } from "../custom_middleware/authMiddleware";
 
 class ServicesRoutes extends RouteConstructor<IGenericController> {
   private viewAllServicesRoute = "/api/services";
@@ -28,8 +28,8 @@ class ServicesRoutes extends RouteConstructor<IGenericController> {
       .route(this.viewAllServicesRoute)
       .get(
         [
-          passport.authenticate("adminJWT", { session: false }),   // passport middleware jwt token authentication //
-          verifyAdminAndBusinessAccountId                          // custom middleware to verify the presence of <req.user> and <req.user.businessAccountId> //
+          verifyLoggedInAdministrator,      // passport middleware jwt token authentication //
+          verifyAdminAndBusinessAccountId   // custom middleware to verify the presence of <req.user> and <req.user.businessAccountId> //
         ],
         this.controller.getMany
       );
@@ -39,9 +39,9 @@ class ServicesRoutes extends RouteConstructor<IGenericController> {
       .route(this.viewServiceRoute)
       .get(
         [
-          passport.authenticate("adminJWT", { session: false }),   // passport middleware jwt token authentication //
-          verifyAdminAndBusinessAccountId ,                        // custom middleware to verify the presence of <req.user> and <req.user.businessAccountId> //
-          verifyDataModelAccess                                    // custom middleware to ensure that <req.user.businessAccountId> === <service.businessAccountId> //
+          verifyLoggedInAdministrator,        // passport middleware jwt token authentication //
+          verifyAdminAndBusinessAccountId,    // custom middleware to verify the presence of <req.user> and <req.user.businessAccountId> //
+          verifyDataModelAccess               // custom middleware to ensure that <req.user.businessAccountId> === <service.businessAccountId> //
         ],
         this.controller.getOne
       );
@@ -51,8 +51,8 @@ class ServicesRoutes extends RouteConstructor<IGenericController> {
       .route(this.createServiceRoute)
       .post(
         [
-          passport.authenticate("adminJWT", { session: false }),   // passport middleware jwt token authentication //
-          verifyAdminAndBusinessAccountId                          // custom middleware to verify the presence of <req.user> and <req.user.businessAccountId> //
+          verifyLoggedInAdministrator,        // passport middleware jwt token authentication //
+          verifyAdminAndBusinessAccountId     // custom middleware to verify the presence of <req.user> and <req.user.businessAccountId> //
         ],
         this.controller.create
       );
@@ -62,9 +62,9 @@ class ServicesRoutes extends RouteConstructor<IGenericController> {
       .route(this.editServiceRoute)
       .patch(
         [
-          passport.authenticate("adminJWT", { session: false }),   // passport middleware jwt token authentication //
-          verifyAdminAndBusinessAccountId,                         // custom middleware to verify the presinse of <req.user> and <req.user.businessAccountId> //
-          verifyDataModelAccess                                    // custom middleware to ensure that <req.user.businessAccountId> === <service.businessAccountId> //
+          verifyLoggedInAdministrator,        // passport middleware jwt token authentication //
+          verifyAdminAndBusinessAccountId,    // custom middleware to verify the presinse of <req.user> and <req.user.businessAccountId> //
+          verifyDataModelAccess               // custom middleware to ensure that <req.user.businessAccountId> === <service.businessAccountId> //
         ],
         this.controller.edit
       );
@@ -74,9 +74,9 @@ class ServicesRoutes extends RouteConstructor<IGenericController> {
       .route(this.deleteServiceRoute)
       .delete(
         [
-          passport.authenticate("adminJWT", { session: false }),   // passport middleware jwt token authentication //
-          verifyAdminAndBusinessAccountId,                         // custom middleware to verify the presinse of <req.user> and <req.user.businessAccountId> //
-          verifyDataModelAccess                                    // custom middleware to ensure that <req.user.businessAccountId> === <service.businessAccountId> //
+          verifyLoggedInAdministrator,        // passport middleware jwt token authentication //
+          verifyAdminAndBusinessAccountId,    // custom middleware to verify the presinse of <req.user> and <req.user.businessAccountId> //
+          verifyDataModelAccess               // custom middleware to ensure that <req.user.businessAccountId> === <service.businessAccountId> //
         ],
         this.controller.delete
       );

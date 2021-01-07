@@ -22,6 +22,8 @@ type SetupServiceContTestRes = {
   services: {
     firstAdminsService: IService;
     secondAdminsService: IService;
+    firstAdminsServicesArr: IService[];
+    secondAdminsServicesArr: IService[];
   }
 };
 
@@ -29,6 +31,7 @@ export const setupServiceControllerTests = (): Promise<SetupServiceContTestRes> 
   let firstAdmin: IAdministrator, secondAdmin: IAdministrator, thirdAdmin: IAdministrator;
   let firstAdminBusAcctId: string, secondAdminBusAcctId: string, thirdAdminBusAcctId: string;
   let firstAdminsService: IService, secondAdminsService: IService;
+  let firstAdminsServicesArr: IService[], secondAdminsServicesArr: IService[];
 
   return setupDB()
     .then(() => {
@@ -51,6 +54,7 @@ export const setupServiceControllerTests = (): Promise<SetupServiceContTestRes> 
     .then((services) => {
       const firstAdminsServiceIds = services[0].map((service) => service._id as Types.ObjectId);
       const secondAdminsServiceIds = services[1].map((service) => service._id as Types.ObjectId);
+      [ firstAdminsServicesArr, secondAdminsServicesArr ] = services;
       firstAdminsService = services[0][0];
       secondAdminsService = services[1][0];
       return Promise.all([
@@ -75,7 +79,9 @@ export const setupServiceControllerTests = (): Promise<SetupServiceContTestRes> 
         },
         services: {
           firstAdminsService,
-          secondAdminsService
+          secondAdminsService,
+          firstAdminsServicesArr,
+          secondAdminsServicesArr
         }
       };
     })
