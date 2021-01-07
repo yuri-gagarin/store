@@ -83,8 +83,6 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - tests
   let service: IService;
   let fetchedServices: IService[];
   let createdService: IService;
-  let updatedService: IService;
-  let deletedService: IService;
   let firstAdminsService: IService, secondAdminsService: IService;
   let firstAdminsServiceImages: IServiceImage[];
   //
@@ -178,6 +176,7 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - tests
             done();
           });
       });
+      
       it("Should correctly populate the 'Service' models if linked 'ServiceImage' models are present", () =>{
         for (const service of fetchedServices) {
           if (service.images.length > 0) {
@@ -218,7 +217,7 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - tests
       });
     });
     // END TEST GET GET_MANY action correct BusinessAccount //
-
+    
     // TEST GET_ONE action with correct BusinessAccount //
     describe("GET '/api/services/:serviceId' - CORRECT 'BusinessAccount' tests with 'ServiceImages' - GET_MANY action", () => {
 
@@ -330,7 +329,6 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - tests
           .send(...mockService)
           .end((err, res) => {
             if (err) done(err);
-            updatedService = res.body.editedService;
             // assert correct response //
             expect(res.status).of.equal(200);
             expect(res.body.responseMsg).be.a("string");
@@ -427,15 +425,13 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - tests
         } catch (error) {
           throw error;
         }
-      })
+      });
     });
     // END TEST DELETE DELETE action correct BusinessAccount //
-
-   
     
   });
   // END CONTEXT tests with a correct business accound id //
-
+  
   // CONTEXT tests with incorrect business account id //
   context("Admin WITH a 'BusinessAccount' set up, accessing NOT OWN models GET_ONE, EDIT, DELETE actions", () => {
     // TEST GET_ONE action with wrong BusinessAccount //
@@ -491,7 +487,6 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - tests
           .send(...mockService)
           .end((err, res) => {
             if (err) done(err);
-            updatedService = res.body.editedService;
             // assert correct response //
             expect(res.status).of.equal(401);
             expect(res.body.responseMsg).be.a("string");
@@ -567,4 +562,5 @@ describe("ServicesController - Logged In WITH CORRECT BusinessAccount ID - tests
     // END TEST DELETE DELETE action correct BusinessAccount //
   });
   // END CONTEXT //
+  
 });

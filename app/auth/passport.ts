@@ -42,5 +42,8 @@ const userJWTStrategy = new JWTStrategy(options, (payload, done) => {
 export default function (passport: PassportStatic) {
   passport.use("adminJWT", adminJWTStrategy);
   passport.use("userJWT", userJWTStrategy);
+  passport.serializeUser((user, done) => {
+    done(null, user);
+  })
 }
 

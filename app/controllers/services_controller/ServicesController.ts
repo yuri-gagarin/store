@@ -28,6 +28,7 @@ class ServicesController implements IGenericController {
   getMany (req: Request, res: Response<GenericServiceResponse>): Promise<Response> {
     const { price, name, popularity, date, limit } = req.query as ServiceQueryPar;
     const { businessAccountId } = req.user as IAdministrator;
+   
     const queryLimit = limit ? parseInt(limit, 10) : 10;
     // optional queries //
     // sort by price //

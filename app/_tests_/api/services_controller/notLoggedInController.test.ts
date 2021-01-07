@@ -45,8 +45,10 @@ describe("ServicesController - NOT LOGGED IN - API tests", () => {
           .end((err, res) => {
             if(err) done(err);
             expect(res.status).to.equal(401);
-            expect(res.error.text).to.equal("Unauthorized");
-            expect(isEmptyObj(res.body)).to.equal(true);
+            expect(res.body.responseMsg).to.be.a("string");
+            expect(res.body.error).to.be.an("object");
+            expect(res.body.errorMessages).to.be.an("array");
+            expect(res.body.services).to.be.undefined;
             done();
           });
       });
@@ -73,8 +75,10 @@ describe("ServicesController - NOT LOGGED IN - API tests", () => {
           .end((err, res) => {
             if(err) done(err);
             expect(res.status).to.equal(401);
-            expect(res.error.text).to.equal("Unauthorized");
-            expect(isEmptyObj(res.body)).to.equal(true);
+            expect(res.body.responseMsg).to.be.a("string");
+            expect(res.body.error).to.be.an("object");
+            expect(res.body.errorMessages).to.be.an("array");
+            expect(res.body.service).to.be.undefined;
             done();
           });
       });
@@ -100,8 +104,10 @@ describe("ServicesController - NOT LOGGED IN - API tests", () => {
           .end((err, res) => {
             if(err) done(err);
             expect(res.status).to.equal(401);
-            expect(res.error.text).to.equal("Unauthorized");
-            expect(isEmptyObj(res.body)).to.equal(true);
+            expect(res.body.responseMsg).to.be.a("string");
+            expect(res.body.error).to.be.an("object");
+            expect(res.body.errorMessages).to.be.an("array");
+            expect(res.body.newService).to.be.undefined;
             done();
           });
       });
@@ -128,8 +134,10 @@ describe("ServicesController - NOT LOGGED IN - API tests", () => {
           .end((err, res) => {
             if(err) done(err);
             expect(res.status).to.equal(401);
-            expect(res.error.text).to.equal("Unauthorized");
-            expect(isEmptyObj(res.body)).to.equal(true);
+            expect(res.body.responseMsg).to.be.a("string");
+            expect(res.body.error).to.be.an("object");
+            expect(res.body.errorMessages).to.be.an("array");
+            expect(res.body.editedService).to.be.undefined;
             done();
           });
       });
@@ -165,8 +173,10 @@ describe("ServicesController - NOT LOGGED IN - API tests", () => {
           .end((err, res) => {
             if(err) done(err);
             expect(res.status).to.equal(401);
-            expect(res.error.text).to.equal("Unauthorized");
-            expect(isEmptyObj(res.body)).to.equal(true);
+            expect(res.body.responseMsg).to.be.a("string");
+            expect(res.body.error).to.be.an("object");
+            expect(res.body.errorMessages).to.be.an("array");
+            expect(res.body.deletedService).to.be.undefined;
             done();
           });
       });
