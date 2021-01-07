@@ -36,7 +36,7 @@ export const createStoreItemImages = async (numberofImages: number, storeItem: I
   const finalDir = path.join(writeDir, subDir);
 
   try {
-    await fs.promises.access(finalDir, fs.constants.O_DIRECTORY) 
+    await fs.promises.access(finalDir); 
   } catch (err) {
     if (err && err.code === "ENOENT") {
       try {

@@ -1,8 +1,9 @@
+
 # node modules
 /node_modules
 
 # config files 
-/app/config/*
+/app/config/
 
 #images 
 /public/uploads/*

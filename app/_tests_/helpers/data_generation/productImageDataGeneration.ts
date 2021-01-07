@@ -39,15 +39,19 @@ export const createProductImages = async (numberOfImagesToCreate: number, produc
   // images will go into '/writeDir/<businessAccountId>/<productId>/'
    
   try {
-    await fs.promises.access(finalDir, fs.constants.O_DIRECTORY);
+    await fs.promises.access(finalDir);
   } catch (err) {
     if (err.code === "ENOENT") {
       try {
         await fs.promises.mkdir(finalDir, { recursive: true });
       } catch (err) {
+        console.log(48);
+        console.log(err)
         throw err;
       }
     } else {
+      console.log(53)
+      console.log(err)
       throw err;
     }
   }

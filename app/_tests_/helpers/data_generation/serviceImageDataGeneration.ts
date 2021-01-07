@@ -43,7 +43,7 @@ export const createServiceImages = async (numberOfImagesToCreate: number, servic
   // check if path exists first //
   // images will go into {writeDir + service._id}
   try {
-    await fs.promises.access(finalDir, fs.constants.O_DIRECTORY);
+    await fs.promises.access(finalDir);
   } catch (err) {
     if (err.code === "ENOENT") {
       try {

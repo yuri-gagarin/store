@@ -37,7 +37,7 @@ export const createStoreImages = async (numOfImagesToCreate: number, store: ISto
   // check if path exists first //
   // images will go into '/writeDir/<businessAccountId>/<storeId>/'
   try {
-    await fs.promises.access(finalDir, fs.constants.O_DIRECTORY);
+    await fs.promises.access(finalDir);
   } catch (err) {
     if (err.code === "ENOENT") {
       try {
