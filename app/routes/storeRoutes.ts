@@ -4,6 +4,7 @@ import { RouteConstructor } from "./helpers/routeInterfaces";
 import { IGenericController } from "../controllers/_helpers/controllerInterfaces";
 //
 import { verifyAdminAndBusinessAccountId, verifyDataModelAccess} from "../custom_middleware/customMiddlewares";
+import { verifyLoggedInAdministrator } from "../custom_middleware/authMiddleware";
 
 class StoreRoutes extends RouteConstructor<IGenericController> {
   private viewAllStoreRoute = "/api/stores";
@@ -28,7 +29,7 @@ class StoreRoutes extends RouteConstructor<IGenericController> {
       .route(this.viewAllStoreRoute)
       .get(
         [
-          passport.authenticate("adminJWT", { session: false }),
+          verifyLoggedInAdministrator,
           verifyAdminAndBusinessAccountId
         ], 
         this.controller.getMany
@@ -39,7 +40,7 @@ class StoreRoutes extends RouteConstructor<IGenericController> {
       .route(this.viewStoreRoute)
       .get(
         [ 
-          passport.authenticate("adminJWT", { session: false }) ,
+          verifyLoggedInAdministrator,
           verifyAdminAndBusinessAccountId,
           verifyDataModelAccess
         ], 
@@ -51,7 +52,7 @@ class StoreRoutes extends RouteConstructor<IGenericController> {
       .route(this.createStoreRoute)
       .post(
         [ 
-          passport.authenticate("adminJWT", { session: false }),
+          verifyLoggedInAdministrator,
           verifyAdminAndBusinessAccountId
         ],
         this.controller.create
@@ -62,7 +63,7 @@ class StoreRoutes extends RouteConstructor<IGenericController> {
       .route(this.editStoreRoute)
       .patch(
         [ 
-          passport.authenticate("adminJWT", { session: false }),
+          verifyLoggedInAdministrator,
           verifyAdminAndBusinessAccountId,
           verifyDataModelAccess
         ], 
@@ -74,7 +75,7 @@ class StoreRoutes extends RouteConstructor<IGenericController> {
       .route(this.deleteStoreRoute)
       .delete(
         [ 
-          passport.authenticate("adminJWT", { session: false }),
+          verifyLoggedInAdministrator,
           verifyAdminAndBusinessAccountId,
           verifyDataModelAccess
         ], 

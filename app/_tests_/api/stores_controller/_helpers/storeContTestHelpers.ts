@@ -21,13 +21,15 @@ type SetupStoresContTestRes = {
   stores: {
     firstAdminsStore: IStore;
     secondAdminsStore: IStore;
+    firstAdminsStoresArr: IStore[];
+    secondAdminsStoresArr: IStore[];
   }
 };
 
 export const setupStoreControllerTests = (): Promise<SetupStoresContTestRes> => {
   let firstAdmin: IAdministrator, secondAdmin: IAdministrator, thirdAdmin: IAdministrator;
   let firstAdminBusAcctId: string, secondAdminBusAcctId: string, thirdAdminBusAcctId: string;
-  let firstAdminsStores: IStore[], secondAdminsStores: IStore[];
+  let firstAdminsStoresArr: IStore[], secondAdminsStoresArr: IStore[];
   let firstAdminsStore: IStore, secondAdminsStore: IStore;
 
   return setupDB()
@@ -49,7 +51,7 @@ export const setupStoreControllerTests = (): Promise<SetupStoresContTestRes> => 
       ]);
     })
     .then((storesArr) => {
-      [ firstAdminsStores, secondAdminsStores ]= storesArr;
+      [ firstAdminsStoresArr,  secondAdminsStoresArr ]= storesArr;
       firstAdminsStore = storesArr[0][0];
       secondAdminsStore = storesArr[1][0];
       return Promise.all([
@@ -59,8 +61,8 @@ export const setupStoreControllerTests = (): Promise<SetupStoresContTestRes> => 
     })
     .then((updatedAdminArr) => {
       [ firstAdmin, secondAdmin ] = (updatedAdminArr as IAdministrator[]);
-      const firstAdminsStoreIds = firstAdminsStores.map((store) => store._id as Types.ObjectId);
-      const secondAdminsStoreIds = secondAdminsStores.map((store) => store._id as Types.ObjectId);
+      const firstAdminsStoreIds = firstAdminsStoresArr.map((store) => store._id as Types.ObjectId);
+      const secondAdminsStoreIds = secondAdminsStoresArr.map((store) => store._id as Types.ObjectId);
 
       return Promise.all([
         BusinessAccount.findOneAndUpdate({ _id: firstAdmin.businessAccountId }, { $push: { linkedStores: { $each: firstAdminsStoreIds } } }),
@@ -81,7 +83,9 @@ export const setupStoreControllerTests = (): Promise<SetupStoresContTestRes> => 
         },
         stores: {
           firstAdminsStore,
-          secondAdminsStore
+          secondAdminsStore,
+          firstAdminsStoresArr,
+          secondAdminsStoresArr
         }
       };
     })
