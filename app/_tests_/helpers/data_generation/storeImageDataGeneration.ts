@@ -61,7 +61,9 @@ export const createStoreImages = async (numOfImagesToCreate: number, store: ISto
         imagePath: path.join(path.resolve(), "public", "uploads", "store_images", subDir),
         absolutePath: absolutePath,
         fileName: imageName,
-        url: path.join("/" + "uploads", "store_images", subDir, imageName)
+        url: path.join("/" + "uploads", "store_images", subDir, imageName),
+        reatedAt: new Date(Date.now()),
+        editedAt: new Date(Date.now())
       });
       imagePromises.push(createStoreImage(newImage));
 
